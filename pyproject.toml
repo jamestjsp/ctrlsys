@@ -1,6 +1,6 @@
 [build-system]
-requires = ["scikit-build-core>=0.10", "numpy>=2.0"]
-build-backend = "scikit_build_core.build"
+requires = ["meson-python>=0.16.0", "meson>=1.1.0", "numpy>=2.0"]
+build-backend = "mesonpy"
 
 [project]
 name = "slicot"
@@ -37,23 +37,6 @@ Documentation = "https://slicot.github.io/"
 Repository = "https://github.com/jamestjsp/slicot"
 Issues = "https://github.com/jamestjsp/slicot/issues"
 
-[tool.scikit-build]
-cmake.version = ">=3.20"
-cmake.build-type = "Release"
-sdist.include = [
-    "cmake/*",
-    "include/**/*",
-    "src/**/*.c",
-    "python/**/*.c",
-    "python/**/*.h",
-    "python/slicot/*.py",
-    "python/data/*.json",
-    "tools/generate_docstrings.py",
-]
-sdist.exclude = [
-    "build/*",
-    "tests/*",
-]
 
 [tool.cibuildwheel]
 build = "cp311-* cp312-* cp313-*"
@@ -67,15 +50,16 @@ manylinux-x86_64-image = "manylinux2014"
 manylinux-aarch64-image = "manylinux2014"
 musllinux-x86_64-image = "musllinux_1_2"
 musllinux-aarch64-image = "musllinux_1_2"
-before-all = "yum install -y cmake ninja-build || apk add cmake ninja"
+before-all = "yum install -y meson ninja-build openblas-devel || apk add meson ninja openblas-dev"
 
 [tool.cibuildwheel.macos]
 archs = ["arm64"]
-environment = { MACOSX_DEPLOYMENT_TARGET = "11.0" }
+before-build = "pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c \"import scipy_openblas32 as sc; open('/tmp/openblas/scipy-openblas.pc','w').write(sc.get_pkg_config())\""
+environment = { MACOSX_DEPLOYMENT_TARGET = "11.0", PKG_CONFIG_PATH = "/tmp/openblas" }
 
 [tool.cibuildwheel.windows]
 archs = ["AMD64", "ARM64"]
-before-build = "pip install delvewheel"
+before-build = "pip install delvewheel scipy-openblas32"
 repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
 
 [tool.pytest.ini_options]

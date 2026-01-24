@@ -1,0 +1,45 @@
+np_dep = dependency('numpy')
+
+wrapper_sources = files(
+  'slicot_module.c',
+  'wrappers/py_ab.c',
+  'wrappers/py_ag.c',
+  'wrappers/py_bb.c',
+  'wrappers/py_bd.c',
+  'wrappers/py_de.c',
+  'wrappers/py_df.c',
+  'wrappers/py_dg.c',
+  'wrappers/py_dk.c',
+  'wrappers/py_fb.c',
+  'wrappers/py_fd.c',
+  'wrappers/py_ib.c',
+  'wrappers/py_lapack_aux.c',
+  'wrappers/py_ma.c',
+  'wrappers/py_mb01.c',
+  'wrappers/py_mb02.c',
+  'wrappers/py_mb03.c',
+  'wrappers/py_mb04.c',
+  'wrappers/py_mb05.c',
+  'wrappers/py_mc.c',
+  'wrappers/py_md.c',
+  'wrappers/py_nf.c',
+  'wrappers/py_sb.c',
+  'wrappers/py_sg.c',
+  'wrappers/py_tb.c',
+  'wrappers/py_tc.c',
+  'wrappers/py_td.c',
+  'wrappers/py_tf.c',
+  'wrappers/py_tg.c',
+  'wrappers/py_ud.c',
+  'wrappers/py_ue.c',
+)
+
+py.extension_module('_slicot',
+  wrapper_sources,
+  include_directories: [inc, include_directories('.')],
+  dependencies: [py_dep, np_dep, slicot_dep],
+  install: true,
+  subdir: 'slicot',
+)
+
+install_subdir('slicot', install_dir: py.get_install_dir())

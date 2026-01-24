@@ -1,0 +1,2 @@
+option('blas', type: 'string', value: 'auto', description: 'BLAS library')
+option('lapack', type: 'string', value: 'auto', description: 'LAPACK library')
