@@ -26,21 +26,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
 
-      - name: Build with CMake
-        run: |
-          cmake -B build -G Ninja -DBUILD_SHARED_LIBS=ON
-          cmake --build build
-          ls -la build/src/
-
       - name: Install Python package
-        run: |
-          pip install numpy setuptools
-          python setup.py develop
+        run: pip install .[test]
 
       - name: Run quick test
-        run: |
-          pip install pytest scipy
-          pytest tests/python/test_ab01md.py -v
+        run: pytest tests/python/test_ab01md.py -v
 
   full-test:
     name: Full Test Suite
@@ -60,18 +50,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
 
-      - name: Build with CMake
-        run: |
-          cmake -B build -G Ninja -DBUILD_SHARED_LIBS=ON
-          cmake --build build
-          ls -la build/src/
-
       - name: Install Python package
-        run: |
-          pip install numpy setuptools
-          python setup.py develop
+        run: pip install .[test]
 
       - name: Run full tests
-        run: |
-          pip install pytest pytest-xdist pytest-rerunfailures scipy
-          pytest tests/python/ -v -n auto --reruns 2 --only-rerun "worker .* crashed"
+        run: pytest tests/python/ -v -n auto --reruns 2 --only-rerun "worker .* crashed"
