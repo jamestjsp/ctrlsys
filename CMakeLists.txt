@@ -4,6 +4,7 @@ project(slicot VERSION 1.0.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(BUILD_TESTING "Build tests" OFF)
 option(SLICOT_VENDOR_OPENBLAS "Vendor OpenBLAS for wheel distribution" OFF)
 
