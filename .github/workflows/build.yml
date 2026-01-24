@@ -71,7 +71,7 @@ jobs:
           CIBW_TEST_REQUIRES: pytest pytest-timeout scipy
           CIBW_TEST_COMMAND: pytest {project}/tests/python/test_ab01md.py -v --timeout=60
           CIBW_TEST_SKIP: "*-manylinux* *-musllinux*"
-          CIBW_TEST_COMMAND_WINDOWS: pytest {project}/tests/python/test_ab01md.py -v --timeout=60 || true
+          CIBW_TEST_COMMAND_WINDOWS: pytest {project}/tests/python/test_ab01md.py {project}/tests/python/test_ma01bz.py -v --timeout=60
 
       - uses: actions/upload-artifact@v4
         with:
