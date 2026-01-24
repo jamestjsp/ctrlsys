@@ -44,7 +44,10 @@ include_directories(${PROJECT_BINARY_DIR}/include)
 add_subdirectory(src)
 
 # scikit-build-core integration
+message(STATUS "SKBUILD variable: ${SKBUILD}")
+message(STATUS "SKBUILD defined: ${DEFINED SKBUILD}")
 if(DEFINED SKBUILD)
+    message(STATUS "Building Python extension (SKBUILD mode)")
     find_package(Python REQUIRED COMPONENTS Interpreter Development.Module NumPy)
 
     execute_process(

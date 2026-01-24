@@ -27,7 +27,7 @@ jobs:
           sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
 
       - name: Install Python package
-        run: pip install .[test]
+        run: pip install .[test] -v
 
       - name: Run quick test
         run: pytest tests/python/test_ab01md.py -v
@@ -51,7 +51,7 @@ jobs:
           sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
 
       - name: Install Python package
-        run: pip install .[test]
+        run: pip install .[test] -v
 
       - name: Run full tests
         run: pytest tests/python/ -v -n auto --reruns 2 --only-rerun "worker .* crashed"
