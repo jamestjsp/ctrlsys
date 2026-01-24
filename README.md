@@ -1,6 +1,6 @@
 # SLICOT
 
-[![PyPI version](https://badge.fury.io/py/slicot.svg)](https://badge.fury.io/py/slicot)
+[![PyPI version](https://img.shields.io/pypi/v/slicot)](https://pypi.org/project/slicot/)
 [![Build Status](https://github.com/jamestjsp/slicot/actions/workflows/test.yml/badge.svg)](https://github.com/jamestjsp/slicot/actions)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE)
 

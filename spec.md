@@ -9,7 +9,7 @@ Pure C11 implementation of SLICOT (Subroutine Library In Control Theory). No For
 | **PyPI name** | `slicot` |
 | **Import** | `import slicot` |
 | **License** | BSD-3-Clause |
-| **Version** | 1.0.1 |
+| **Version** | 1.0.2 |
 | **Status** | Released |
 
 ## Platform Support
