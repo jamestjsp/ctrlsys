@@ -12,10 +12,12 @@ import sys
 
 import numpy as np
 import pytest
+
+pytestmark = pytest.mark.skipif(sys.platform == 'linux', reason='OpenBLAS memory corruption')
+
 from slicot import mb04rd
 
 
-@pytest.mark.skipif(sys.platform == 'linux', reason='OpenBLAS memory corruption')
 def test_mb04rd_basic_2x2_diagonal():
     """
     Test 2x2 diagonal system - simplest case with distinct eigenvalues.
