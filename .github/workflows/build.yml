@@ -41,9 +41,11 @@ jobs:
           CIBW_MANYLINUX_AARCH64_IMAGE: manylinux2014
           CIBW_MUSLLINUX_X86_64_IMAGE: musllinux_1_2
           CIBW_MUSLLINUX_AARCH64_IMAGE: musllinux_1_2
-          CIBW_ENVIRONMENT: PKG_CONFIG_PATH=/tmp/openblas
+          CIBW_BEFORE_ALL_LINUX: yum install -y openblas-devel || apk add openblas-dev
+          CIBW_ENVIRONMENT_LINUX: PKG_CONFIG_PATH=/tmp/openblas
           CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0 PKG_CONFIG_PATH=/tmp/openblas
-          CIBW_BEFORE_BUILD: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
+          CIBW_BEFORE_BUILD_LINUX: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())" || true
+          CIBW_BEFORE_BUILD_MACOS: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
           CIBW_TEST_REQUIRES: pytest scipy
           CIBW_TEST_COMMAND: pytest {project}/tests/python/test_ab01md.py -v
 
