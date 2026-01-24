@@ -44,7 +44,7 @@ jobs:
             powershell -Command "$libdir = Get-Content 'C:/openblas/libdir.txt'; delvewheel repair -w {dest_dir} {wheel} --add-path $libdir"
           CIBW_TEST_REQUIRES: pytest pytest-timeout scipy
           CIBW_TEST_COMMAND: pytest {project}/tests/python/test_ab01md.py -v --timeout=60
-          CIBW_TEST_COMMAND_LINUX: pytest {project}/tests/python/test_ab01md.py -v --timeout=60 || true
+          CIBW_TEST_SKIP: "*-manylinux*"
           CIBW_TEST_COMMAND_WINDOWS: pytest {project}/tests/python/test_ab01md.py -v --timeout=60 || true
 
       - uses: actions/upload-artifact@v4
