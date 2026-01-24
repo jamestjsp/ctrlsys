@@ -27,6 +27,7 @@ jobs:
   publish-testpypi:
     name: Publish to TestPyPI
     needs: [build]
+    if: always() && needs.build.result == 'success'
     runs-on: ubuntu-latest
     environment:
       name: testpypi
