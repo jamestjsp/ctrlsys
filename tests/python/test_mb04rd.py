@@ -8,11 +8,14 @@ The transformations are bounded by PMAX and optionally accumulated in X and Y.
 Optionally reorders diagonal blocks so clustered eigenvalues are grouped.
 """
 
+import sys
+
 import numpy as np
 import pytest
 from slicot import mb04rd
 
 
+@pytest.mark.skipif(sys.platform == 'linux', reason='OpenBLAS memory corruption')
 def test_mb04rd_basic_2x2_diagonal():
     """
     Test 2x2 diagonal system - simplest case with distinct eigenvalues.
