@@ -61,6 +61,7 @@ ext_modules = [
         sources=['python/slicot_module.c'] + wrapper_sources,
         include_dirs=[
             'include',
+            'build/include',
             'python',
             get_numpy_include()
         ],
