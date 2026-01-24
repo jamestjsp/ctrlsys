@@ -27,13 +27,7 @@ jobs:
           sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
 
       - name: Install Python package
-        run: pip install .[test] -v
-
-      - name: Debug installed package
-        run: |
-          python -c "import slicot; print(slicot.__file__)"
-          python -c "import slicot; import os; print(os.listdir(os.path.dirname(slicot.__file__)))"
-          python -c "from slicot import _slicot; print('_slicot imported')" || true
+        run: pip install .[test]
 
       - name: Run quick test
         run: pytest tests/python/test_ab01md.py -v
@@ -57,7 +51,7 @@ jobs:
           sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
 
       - name: Install Python package
-        run: pip install .[test] -v
+        run: pip install .[test]
 
       - name: Run full tests
         run: pytest tests/python/ -v -n auto --reruns 2 --only-rerun "worker .* crashed"

@@ -4,9 +4,15 @@ project(slicot VERSION 1.0.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(BUILD_TESTING "Build tests" OFF)
 option(SLICOT_VENDOR_OPENBLAS "Vendor OpenBLAS for wheel distribution" OFF)
+
+# For wheel builds, use static linking
+if(DEFINED SKBUILD)
+    set(BUILD_SHARED_LIBS OFF)
+else()
+    option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+endif()
 
 # BLAS/LAPACK
 if(SLICOT_VENDOR_OPENBLAS)
@@ -68,7 +74,7 @@ if(DEFINED SKBUILD)
         ${Python_NumPy_INCLUDE_DIRS}
     )
 
-    target_link_libraries(_slicot PRIVATE slicot)
+    target_link_libraries(_slicot PRIVATE slicot ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES})
 
     install(TARGETS _slicot LIBRARY DESTINATION slicot)
     install(FILES
