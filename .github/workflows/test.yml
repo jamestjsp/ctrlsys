@@ -55,3 +55,25 @@ jobs:
 
       - name: Run full tests
         run: pytest tests/python/ -v -n auto --reruns 2 --only-rerun "worker .* crashed"
+
+  test-macos:
+    name: Test (macOS)
+    runs-on: macos-14
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps and package
+        run: |
+          pip install scipy-openblas32 meson ninja
+          mkdir -p /tmp/openblas
+          python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
+          PKG_CONFIG_PATH=/tmp/openblas pip install .[test]
+
+      - name: Run quick test
+        run: pytest tests/python/test_ab01md.py -v

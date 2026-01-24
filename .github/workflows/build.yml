@@ -49,8 +49,9 @@ jobs:
           CIBW_MUSLLINUX_AARCH64_IMAGE: musllinux_1_2
           CIBW_BEFORE_ALL_LINUX: yum install -y meson ninja-build openblas-devel || apk add meson ninja openblas-dev
           CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0 PKG_CONFIG_PATH=/tmp/openblas
-          CIBW_BEFORE_BUILD_MACOS: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/scipy-openblas.pc','w').write(sc.get_pkg_config())"
-          CIBW_BEFORE_BUILD_WINDOWS: pip install delvewheel scipy-openblas32
+          CIBW_BEFORE_BUILD_MACOS: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
+          CIBW_ENVIRONMENT_WINDOWS: PKG_CONFIG_PATH=C:/openblas
+          CIBW_BEFORE_BUILD_WINDOWS: pip install delvewheel scipy-openblas32 && mkdir C:\openblas & python -c "import scipy_openblas32 as sc; open('C:/openblas/openblas.pc','w').write(sc.get_pkg_config())"
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: delvewheel repair -w {dest_dir} {wheel}
           CIBW_TEST_REQUIRES: pytest scipy
           CIBW_TEST_COMMAND: pytest {project}/tests/python/test_ab01md.py -v

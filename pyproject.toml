@@ -54,12 +54,13 @@ before-all = "yum install -y meson ninja-build openblas-devel || apk add meson n
 
 [tool.cibuildwheel.macos]
 archs = ["arm64"]
-before-build = "pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c \"import scipy_openblas32 as sc; open('/tmp/openblas/scipy-openblas.pc','w').write(sc.get_pkg_config())\""
+before-build = "pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c \"import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())\""
 environment = { MACOSX_DEPLOYMENT_TARGET = "11.0", PKG_CONFIG_PATH = "/tmp/openblas" }
 
 [tool.cibuildwheel.windows]
 archs = ["AMD64", "ARM64"]
-before-build = "pip install delvewheel scipy-openblas32"
+before-build = "pip install delvewheel scipy-openblas32 && mkdir C:\\openblas & python -c \"import scipy_openblas32 as sc; open('C:/openblas/openblas.pc','w').write(sc.get_pkg_config())\""
+environment = { PKG_CONFIG_PATH = "C:/openblas" }
 repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
 
 [tool.pytest.ini_options]
