@@ -41,11 +41,6 @@ Issues = "https://github.com/jamestjsp/slicot/issues"
 [tool.scikit-build]
 cmake.minimum-version = "3.20"
 cmake.build-type = "Release"
-cmake.args = [
-    "-DBUILD_TESTING=OFF",
-    "-DBUILD_EXAMPLES=OFF",
-    "-DSLICOT_VENDOR_OPENBLAS=ON",
-]
 wheel.packages = ["python/slicot"]
 wheel.install-dir = "slicot"
 sdist.include = [
@@ -62,9 +57,6 @@ sdist.exclude = [
     "build/*",
     "tests/*",
 ]
-
-[tool.scikit-build.cmake.define]
-SLICOT_VENDOR_OPENBLAS = "ON"
 
 [tool.cibuildwheel]
 build = "cp311-* cp312-* cp313-*"
