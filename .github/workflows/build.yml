@@ -21,6 +21,9 @@ jobs:
           - os: macos-14
             arch: arm64
             cibw_archs: arm64
+          - os: windows-latest
+            arch: x86_64
+            cibw_archs: AMD64
 
     steps:
       - uses: actions/checkout@v4
@@ -42,10 +45,14 @@ jobs:
           CIBW_MUSLLINUX_X86_64_IMAGE: musllinux_1_2
           CIBW_MUSLLINUX_AARCH64_IMAGE: musllinux_1_2
           CIBW_BEFORE_ALL_LINUX: yum install -y openblas-devel || apk add openblas-dev
+          CIBW_BEFORE_ALL_WINDOWS: choco install -y pkgconfiglite
           CIBW_ENVIRONMENT_LINUX: PKG_CONFIG_PATH=/tmp/openblas
           CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0 PKG_CONFIG_PATH=/tmp/openblas
           CIBW_BEFORE_BUILD_LINUX: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())" || true
           CIBW_BEFORE_BUILD_MACOS: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
+          CIBW_BEFORE_BUILD_WINDOWS: pip install scipy-openblas32 delvewheel && mkdir C:\openblas && python -c "import scipy_openblas32 as sc; open('C:/openblas/openblas.pc','w').write(sc.get_pkg_config())"
+          CIBW_ENVIRONMENT_WINDOWS: PKG_CONFIG_PATH=C:/openblas
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: python -c "import subprocess, scipy_openblas32; subprocess.run(['delvewheel', 'repair', '-w', '{dest_dir}', '{wheel}', '--add-path', scipy_openblas32.get_lib_dir()])"
           CIBW_TEST_REQUIRES: pytest scipy
           CIBW_TEST_COMMAND: pytest {project}/tests/python/test_ab01md.py -v
 
