@@ -24,7 +24,7 @@ jobs:
       - name: Install system deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
+          sudo apt-get install -y libopenblas-dev meson ninja-build
 
       - name: Install Python package
         run: pip install .[test]
@@ -48,7 +48,7 @@ jobs:
       - name: Install system deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y libblas-dev liblapack-dev cmake ninja-build
+          sudo apt-get install -y libopenblas-dev meson ninja-build
 
       - name: Install Python package
         run: pip install .[test]
