@@ -8,3 +8,4 @@ __pycache__/
 *.dll
 .venv*/
 wheelhouse/
+.DS_Store
