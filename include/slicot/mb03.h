@@ -2478,7 +2478,7 @@ void mb03lp(const char *compq, const char *orth, i32 n,
             i32 *neig, f64 *q, i32 ldq,
             f64 *alphar, f64 *alphai, f64 *beta,
             i32 *iwork, i32 liwork, f64 *dwork, i32 ldwork,
-            bool *bwork, i32 *info);
+            i32 *bwork, i32 *info);
 
 /**
  * @brief Eigenvalues and real skew-Hamiltonian Schur form of a skew-Hamiltonian matrix.
