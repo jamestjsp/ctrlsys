@@ -38,10 +38,10 @@ jobs:
           CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0 PKG_CONFIG_PATH=/tmp/openblas
           CIBW_BEFORE_BUILD_LINUX: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())" || true
           CIBW_BEFORE_BUILD_MACOS: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
-          CIBW_BEFORE_BUILD_WINDOWS: pip install scipy-openblas32 delvewheel && mkdir C:\openblas && python -c "import scipy_openblas32 as sc; open('C:/openblas/openblas.pc','w').write(sc.get_pkg_config())"
+          CIBW_BEFORE_BUILD_WINDOWS: pip install scipy-openblas32 delvewheel && mkdir C:\openblas && python -c "import scipy_openblas32 as sc; open('C:/openblas/openblas.pc','w').write(sc.get_pkg_config()); open('C:/openblas/libdir.txt','w').write(sc.get_lib_dir())"
           CIBW_ENVIRONMENT_WINDOWS: PKG_CONFIG_PATH=C:/openblas
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >-
-            bash -c "delvewheel repair -w {dest_dir} {wheel} --add-path $(python -c 'import scipy_openblas32; print(scipy_openblas32.get_lib_dir())')"
+            powershell -Command "$libdir = Get-Content 'C:/openblas/libdir.txt'; delvewheel repair -w {dest_dir} {wheel} --add-path $libdir"
           CIBW_TEST_REQUIRES: pytest pytest-timeout scipy
           CIBW_TEST_COMMAND: pytest {project}/tests/python/test_ab01md.py -v --timeout=60
           CIBW_TEST_COMMAND_LINUX: pytest {project}/tests/python/test_ab01md.py -v --timeout=60 || true
