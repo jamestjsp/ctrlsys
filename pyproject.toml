@@ -40,7 +40,6 @@ Issues = "https://github.com/jamestjsp/slicot/issues"
 [tool.scikit-build]
 cmake.version = ">=3.20"
 cmake.build-type = "Release"
-wheel.packages = ["python/slicot"]
 sdist.include = [
     "cmake/*",
     "include/**/*",
