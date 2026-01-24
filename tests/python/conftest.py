@@ -23,10 +23,6 @@ import sys
 
 import pytest
 
-# Add Python package to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../python'))
-
-
 @pytest.fixture(autouse=True)
 def flush_c_stderr():
     """Flush C stdio buffers after each test.
