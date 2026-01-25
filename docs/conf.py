@@ -1,7 +1,7 @@
 project = 'slicot'
 copyright = '2024, James Joseph'
 author = 'James Joseph'
-release = '1.0.0'
+release = '1.0.4'
 
 extensions = [
     'sphinx.ext.autodoc',
