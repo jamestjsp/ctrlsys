@@ -183,6 +183,55 @@ Test the tuned controller in automatic mode with a small setpoint change. Verify
 - Require mechanical repair or adaptive control
 - See [Nonlinearities](references/06_nonlinearities.md)
 
+## PID Controller Forms
+
+**Critical:** DCS/PLC vendors implement PID differently. Using tuning parameters in the wrong form causes factor-of-Ti errors.
+
+### ISA (Standard/Ideal) Form
+```
+u(t) = Kc × [e(t) + (1/Ti)∫e(t)dt + Td×de/dt]
+```
+- Kc multiplies all terms
+- Used by: Honeywell, Emerson DeltaV, Siemens
+
+### Parallel (Independent) Form
+```
+u(t) = Kp×e(t) + Ki∫e(t)dt + Kd×de/dt
+```
+- Each term has independent gain
+- Used by: Allen-Bradley, some Yokogawa
+
+### Conversion Table
+
+| From | To | Kc/Kp | Ti/Ki | Td/Kd |
+|------|----|-------|-------|-------|
+| ISA → Parallel | | Kp = Kc | Ki = Kc/Ti | Kd = Kc×Td |
+| Parallel → ISA | | Kc = Kp | Ti = Kp/Ki | Td = Kd/Kp |
+
+```python
+def isa_to_parallel(Kc, Ti, Td=0):
+    """Convert ISA form to Parallel form."""
+    Kp = Kc
+    Ki = Kc / Ti if Ti > 0 else 0
+    Kd = Kc * Td
+    return Kp, Ki, Kd
+
+def parallel_to_isa(Kp, Ki, Kd=0):
+    """Convert Parallel form to ISA form."""
+    Kc = Kp
+    Ti = Kp / Ki if Ki > 0 else float('inf')
+    Td = Kd / Kp if Kp > 0 else 0
+    return Kc, Ti, Td
+
+# Example: Lambda tuning gives ISA parameters
+Kc, Ti = 0.938, 45.0  # ISA form from lambda tuning
+Kp, Ki, Kd = isa_to_parallel(Kc, Ti)
+print(f"Parallel: Kp={Kp:.3f}, Ki={Ki:.4f}, Kd={Kd}")
+# Output: Parallel: Kp=0.938, Ki=0.0208, Kd=0
+```
+
+**Warning:** Entering ISA parameters into a Parallel controller (or vice versa) results in grossly incorrect integral action.
+
 ## Additional Resources
 
 ### Interactive Tools
