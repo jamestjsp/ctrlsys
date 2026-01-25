@@ -4,7 +4,7 @@
 [![Build Status](https://github.com/jamestjsp/slicot/actions/workflows/test.yml/badge.svg)](https://github.com/jamestjsp/slicot/actions)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE)
 
-Python bindings for **SLICOT** (Subroutine Library In COntrol Theory) - numerical routines for control systems analysis and design.
+Python bindings for **SLICOT** (Subroutine Library In COntrol Theory) - numerical routines for control systems analysis and design. This is a low-level API primarily targeting AI agents and higher-level libraries.
 
 ## Installation
 
@@ -19,6 +19,14 @@ pip install slicot
 - **Model reduction**: Balance & Truncate, Hankel-norm
 - **System identification**: MOESP, N4SID
 - **NumPy integration**: Column-major arrays
+
+## Usage
+
+While you can use this library directly, it's recommended to access it through AI coding agents that understand control theory conventions and SLICOT's API patterns.
+
+**Compatible agents:** Claude Code, Codex, GitHub Copilot, Cursor, and other [Agent Skills](https://agentskills.io)-compatible tools.
+
+This package includes agent skills for common control theory tasks like PID loop tuning and system analysis.
 
 ## Quick Start
 
@@ -41,6 +49,10 @@ SLICOT uses Fortran conventions:
 ```python
 A = np.array([[1, 2], [3, 4]], order='F')  # Required!
 ```
+
+## Contributions
+
+I don't accept direct contributions. Issues and PRs are welcome for illustration, but won't be merged directly. An AI agent reviews submissions and independently decides whether/how to address them. Bug reports appreciated.
 
 ## License
 
