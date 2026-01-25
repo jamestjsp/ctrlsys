@@ -32,25 +32,46 @@ Understand process dynamics before tuning. Execute a bump test (step test) in ma
 
 **Self-Regulating Processes** (flow, pressure, temperature):
 - Extract process gain (Kp), time constant (τp), and dead time (Td)
-- Use settled response to calculate parameters
+- Use FOPDT (First Order Plus Dead Time) model—sufficient for most PID tuning
 
 **Integrating Processes** (tank levels):
 - Calculate gain from slope change or fill time
 - Process never settles—requires different approach
 
-```python
-import numpy as np
+#### CSV-Based Identification (Recommended)
 
-def calculate_process_gain(delta_pv, delta_output):
-    """Calculate process gain from bump test data."""
-    return delta_pv / delta_output
+For practical plant data, use `step_test_identify.py` with CSV files:
 
-# Example: Temperature loop
-Kp = calculate_process_gain(delta_pv=10.0, delta_output=5.0)
-print(f"Process Gain: {Kp:.2f}")  # Output: 2.00
+```bash
+# Identify FOPDT from CSV step test data
+uv run scripts/step_test_identify.py data.csv \
+    --step-time 100 \
+    --pv-range 0 200 \
+    --op-range 0 100 \
+    --plot
 ```
 
-See [Process Identification](references/01_process_identification.md) for detailed bump test procedures and analysis.
+**CSV Format Requirements:**
+- Required columns: `timestamp`, `PV`, `OP`
+- Optional columns: `SP`, `dist_*` (disturbance variables)
+- Sampling time inferred automatically from timestamp
+
+**Scaling for Meaningful Gain:**
+```
+Gain (Kp) = %PV change / %OP change
+
+Where:
+  %PV = 100 × (PV - PV_min) / (PV_max - PV_min)
+  %OP = 100 × (OP - OP_min) / (OP_max - OP_min)
+```
+
+This produces a dimensionless gain suitable for direct use in lambda tuning formulas.
+
+**Identification Methods:**
+- `--method=regression` (DEFAULT): Nonlinear least squares FOPDT fit with R² and RMSE metrics
+- `--method=slicot`: SLICOT subspace ID (`ib01ad`/`ib01bd`) for higher-order systems
+
+See [Process Identification](references/01_process_identification.md) for detailed procedures and CSV format documentation.
 
 ### 2. Understand the Controller
 
@@ -242,8 +263,8 @@ print(f"Parallel: Kp={Kp:.3f}, Ki={Ki:.4f}, Kd={Kd}")
   - Use for: Visual validation, frequency domain analysis, documenting tuning sessions, discretization for embedded deployment
 
 - **[Scripts](scripts/)** - Command-line calculation tools
+  - **step_test_identify.py** - CSV-based FOPDT identification with proper scaling and regression fitting
   - **lambda_tuning_calculator.py** - Quick PI parameter calculation from process models
-  - **bump_test_analysis.py** - Automated bump test data analysis with visualization
 
 ### Reference Documentation
 

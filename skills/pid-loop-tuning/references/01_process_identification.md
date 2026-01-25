@@ -2,6 +2,75 @@
 
 Process identification is the foundational step in systematic PID tuning. Understand the process dynamics before attempting to tune the controller.
 
+## CSV Data Format for Step Test Analysis
+
+For practical plant data analysis, export historian data to CSV format for use with `step_test_identify.py`.
+
+### Required Columns
+
+| Column | Description | Example Values |
+|--------|-------------|----------------|
+| `timestamp` or `time` | Time in seconds or datetime | 0, 1, 2, ... or ISO8601 |
+| `PV` | Process variable in engineering units | 150.5, 151.2, ... (°C) |
+| `OP` or `output` | Controller output in engineering units | 45.0, 50.0, ... (%) |
+
+### Optional Columns
+
+| Column | Description |
+|--------|-------------|
+| `SP` | Setpoint (for reference) |
+| `dist_*` | Disturbance variables (e.g., `dist_ambient`, `dist_feed_temp`) |
+
+### Example CSV
+
+```csv
+timestamp,PV,OP,dist_ambient
+0,150.2,45.0,25.1
+1,150.3,45.0,25.0
+2,150.1,45.0,25.2
+...
+100,150.2,50.0,25.1
+101,151.5,50.0,25.0
+102,153.2,50.0,25.1
+...
+```
+
+### Scaling for Proper Gain Calculation
+
+Process gain must be dimensionless (%PV / %OP) for lambda tuning formulas to work correctly.
+
+```python
+# Engineering unit to percent scaling
+pv_pct = 100 * (pv - pv_min) / (pv_max - pv_min)
+op_pct = 100 * (op - op_min) / (op_max - op_min)
+
+# Example: Temperature 100-200°C, Output 0-100%
+pv_range = (100, 200)  # °C
+op_range = (0, 100)    # %
+
+# If PV moves from 150°C to 160°C when OP moves from 45% to 50%
+# %PV change = 100 * (160-150) / (200-100) = 10%
+# %OP change = 100 * (50-45) / (100-0) = 5%
+# Kp = 10% / 5% = 2.0 (dimensionless)
+```
+
+### Sampling Time Considerations
+
+- Sampling time (Ts) is inferred from timestamp differences
+- For accurate identification: Ts ≤ tau_p / 10
+- Typical DCS historian: 1-10 second intervals sufficient for most processes
+- Fast processes (flow): May need 0.1-1 second sampling
+
+### Disturbance Handling
+
+If disturbance variables are present in CSV (columns starting with `dist_`), the script can regress out their effects before fitting the OP→PV relationship:
+
+```bash
+# Automatically uses dist_* columns for correction
+uv run scripts/step_test_identify.py data.csv --step-time 100 \
+    --pv-range 100 200 --op-range 0 100
+```
+
 ## The Bump Test Method
 
 A bump test (step test) reveals process characteristics by injecting a controlled change in manual mode and observing the response.
@@ -72,6 +141,29 @@ if __name__ == "__main__":
     plt.tight_layout()
     plt.show()
 ```
+
+## FOPDT Model
+
+The First Order Plus Dead Time (FOPDT) model is sufficient for most PID tuning applications:
+
+```
+G(s) = Kp × exp(-Td×s) / (τp×s + 1)
+```
+
+**Step Response:**
+```
+y(t) = Kp × Δu × (1 - exp(-(t-Td)/τp))  for t ≥ Td
+y(t) = 0                                 for t < Td
+```
+
+**Why FOPDT is Sufficient:**
+- Captures the three essential dynamics: gain, lag, delay
+- Lambda tuning formulas are derived for FOPDT
+- Higher-order processes approximate well when τ_dominant >> other τ's
+- Model mismatch compensated by conservative λ choice
+
+**For Higher-Order Systems:**
+Use `--method=slicot` with `step_test_identify.py` for subspace identification. However, FOPDT with conservative λ typically works well even for complex processes.
 
 ## Self-Regulating Process Modeling
 
