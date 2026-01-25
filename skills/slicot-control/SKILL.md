@@ -109,6 +109,17 @@ import numpy as np
 A = np.array([[1, 2], [3, 4]], dtype=float, order='F')
 ```
 
+### In-Place Array Modification Warning
+**IMPORTANT:** SLICOT functions may modify input arrays in-place. Always pass copies if you need to preserve originals:
+```python
+# BAD - A, B, C, D may be corrupted after call
+A_d, B_d, C_d, D_d, info = ab04md('C', A, B, C, D, alpha=1.0, beta=2.0/dt)
+
+# GOOD - originals preserved
+A_d, B_d, C_d, D_d, info = ab04md('C', A.copy(), B.copy(), C.copy(), D.copy(), alpha=1.0, beta=2.0/dt)
+```
+This applies to most SLICOT routines including `ab04md`, `sb02md`, `tb05ad`, etc.
+
 ### Info Codes
 - `info = 0` → Success
 - `info < 0` → Parameter `-info` is invalid
