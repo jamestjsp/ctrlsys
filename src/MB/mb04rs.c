@@ -335,7 +335,7 @@ void mb04rs(
                 if (j < q) {
                     i32 len = n - je - 1;
                     SLC_DGER(&mb, &len, &dbl1, &rhs[2], &int1, &b[js + jep1 * ldb], &ldb, &c[is + jep1 * ldc], &ldc);
-                    SLC_DGER(&mb, &len, &dbl1, &rhs[2], &int1, &e[js + jep1 * lde], &ldb, &f[is + jep1 * ldf], &ldc);
+                    SLC_DGER(&mb, &len, &dbl1, &rhs[2], &int1, &e[js + jep1 * lde], &lde, &f[is + jep1 * ldf], &ldf);
                 }
 
             } else if ((mb == 2) && (nb == 2)) {
