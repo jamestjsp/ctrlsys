@@ -44,6 +44,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Get version from git
+        id: version
+        run: |
+          pip install setuptools-scm
+          echo "version=$(python -m setuptools_scm)" >> $GITHUB_OUTPUT
+        shell: bash
+
       - name: Set up QEMU
         if: matrix.qemu
         uses: docker/setup-qemu-action@v3
@@ -62,12 +69,12 @@ jobs:
           CIBW_MUSLLINUX_AARCH64_IMAGE: musllinux_1_2
           CIBW_BEFORE_ALL_LINUX: (dnf install -y openblas-devel 2>/dev/null || yum install -y openblas-devel 2>/dev/null || apk add openblas-dev 2>/dev/null) || true
           CIBW_BEFORE_ALL_WINDOWS: choco install -y pkgconfiglite
-          CIBW_ENVIRONMENT_LINUX: PKG_CONFIG_PATH=/tmp/openblas
-          CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0 PKG_CONFIG_PATH=/tmp/openblas
+          CIBW_ENVIRONMENT_LINUX: PKG_CONFIG_PATH=/tmp/openblas SETUPTOOLS_SCM_PRETEND_VERSION=${{ steps.version.outputs.version }}
+          CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0 PKG_CONFIG_PATH=/tmp/openblas SETUPTOOLS_SCM_PRETEND_VERSION=${{ steps.version.outputs.version }}
           CIBW_BEFORE_BUILD_LINUX: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())" || true
           CIBW_BEFORE_BUILD_MACOS: pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
           CIBW_BEFORE_BUILD_WINDOWS: pip install scipy-openblas32 delvewheel && (if not exist C:\openblas mkdir C:\openblas) && python -c "import scipy_openblas32 as sc; open('C:/openblas/openblas.pc','w').write(sc.get_pkg_config()); open('C:/openblas/libdir.txt','w').write(sc.get_lib_dir())"
-          CIBW_ENVIRONMENT_WINDOWS: PKG_CONFIG_PATH=C:/openblas
+          CIBW_ENVIRONMENT_WINDOWS: PKG_CONFIG_PATH=C:/openblas SETUPTOOLS_SCM_PRETEND_VERSION=${{ steps.version.outputs.version }}
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >-
             powershell -Command "$libdir = Get-Content 'C:/openblas/libdir.txt'; delvewheel repair -w {dest_dir} {wheel} --add-path $libdir"
           CIBW_TEST_REQUIRES: pytest pytest-timeout scipy
