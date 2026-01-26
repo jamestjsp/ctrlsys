@@ -125,8 +125,8 @@ jobs:
 
   merge-artifacts:
     name: Merge Artifacts
-    needs: [build-wheels, build-sdist, rerun-on-failure]
-    if: ${{ !cancelled() && needs.build-wheels.result == 'success' && needs.build-sdist.result == 'success' }}
+    needs: [build-wheels, build-sdist]
+    if: always() && needs.build-wheels.result == 'success' && needs.build-sdist.result == 'success'
     runs-on: ubuntu-latest
 
     steps:
