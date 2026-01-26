@@ -49,7 +49,14 @@ jobs:
           platforms: arm64
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.22
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 60
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: |
+            pip install cibuildwheel==2.22.0
+            cibuildwheel --output-dir wheelhouse
         env:
           CIBW_ARCHS: ${{ matrix.cibw_archs }}
           CIBW_BUILD: ${{ matrix.cibw_build }}
@@ -98,9 +105,24 @@ jobs:
           name: sdist
           path: dist/*.tar.gz
 
+  rerun-on-failure:
+    name: Rerun Failed Jobs
+    needs: [build-wheels, build-sdist]
+    if: failure() && github.run_attempt < 3
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Rerun failed jobs
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh run rerun ${{ github.run_id }} --failed
+
   merge-artifacts:
     name: Merge Artifacts
-    needs: [build-wheels, build-sdist]
+    needs: [build-wheels, build-sdist, rerun-on-failure]
+    if: ${{ !cancelled() && needs.build-wheels.result == 'success' && needs.build-sdist.result == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
