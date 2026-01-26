@@ -16,7 +16,19 @@
 #include "slicot.h"
 #include "slicot_blas.h"
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
+
+/**
+ * Overlap-safe matrix copy using memmove.
+ * Required because optimized BLAS DLACPY may use memcpy internally,
+ * which has undefined behavior for overlapping regions.
+ */
+static void dlacpy_safe(i32 m, i32 n, const f64 *a, i32 lda, f64 *b, i32 ldb) {
+    for (i32 j = 0; j < n; j++) {
+        memmove(&b[j * ldb], &a[j * lda], (size_t)m * sizeof(f64));
+    }
+}
 
 void sb10pd(
     const i32 n,
@@ -222,7 +234,8 @@ void sb10pd(
 
     if (nd1 > 0) {
         SLC_DLACPY("Full", &np1, &m2, &dwork[iq], &np1, &d[m1 * ldd], &ldd);
-        SLC_DLACPY("Full", &np1, &nd1, &dwork[iq + np1 * m2], &np1, &dwork[iq], &np1);
+        // Use memmove-based copy for potentially overlapping regions within dwork
+        dlacpy_safe(np1, nd1, &dwork[iq + np1 * m2], np1, &dwork[iq], np1);
         SLC_DLACPY("Full", &np1, &m2, &d[m1 * ldd], &ldd, &dwork[iq + np1 * nd1], &np1);
     }
 
@@ -270,7 +283,8 @@ void sb10pd(
 
     if (nd2 > 0) {
         SLC_DLACPY("Full", &np2, &m1, &dwork[iq], &m1, &d[np1], &ldd);
-        SLC_DLACPY("Full", &nd2, &m1, &dwork[iq + np2], &m1, &dwork[iq], &m1);
+        // Use memmove-based copy for potentially overlapping regions within dwork
+        dlacpy_safe(nd2, m1, &dwork[iq + np2], m1, &dwork[iq], m1);
         SLC_DLACPY("Full", &np2, &m1, &d[np1], &ldd, &dwork[iq + nd2], &m1);
     }
 

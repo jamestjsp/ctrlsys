@@ -14,29 +14,36 @@ class TestSB10RDBasic:
         n, m, np_, ncon, nmeas = 2, 3, 3, 1, 1
         gamma = 10.0
 
+        # a: (n, n) = (2, 2)
         a = np.array([[0.5, 0.1], [0.0, 0.4]], dtype=np.float64, order='F')
+        # b: (n, m) = (2, 3)
         b = np.array([
             [0.3, 0.2, 1.0],
             [0.1, 0.5, 0.0]
         ], dtype=np.float64, order='F')
+        # c: (np, n) = (3, 2)
         c = np.array([
-            [1.0, 0.0, 0.0],
-            [0.0, 0.5, 1.0],
-            [0.5, 0.5, 0.5]
+            [1.0, 0.0],
+            [0.0, 0.5],
+            [0.5, 0.5]
         ], dtype=np.float64, order='F')
+        # d: (np, m) = (3, 3)
         d = np.array([
             [0.0, 0.0, 0.1],
             [0.0, 0.0, 0.1],
             [0.1, 0.1, 0.0]
         ], dtype=np.float64, order='F')
 
+        # f: (m, n) = (3, 2)
         f = np.array([
-            [-0.1, 0.0, 0.0],
-            [0.0, -0.1, -0.2]
-        ], dtype=np.float64, order='F')
-        h = np.array([
             [-0.1, 0.0],
-            [0.0, -0.1]
+            [0.0, -0.1],
+            [0.0, -0.2]
+        ], dtype=np.float64, order='F')
+        # h: (n, np) = (2, 3)
+        h = np.array([
+            [-0.1, 0.0, -0.05],
+            [0.0, -0.1, -0.05]
         ], dtype=np.float64, order='F')
 
         tu = np.array([[1.0]], dtype=np.float64, order='F')

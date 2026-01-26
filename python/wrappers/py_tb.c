@@ -206,7 +206,7 @@ PyObject* py_tb01vy(PyObject* self, PyObject* args, PyObject* kwargs) {
         return NULL;
     }
     f64 *a_data = (f64*)PyArray_DATA((PyArrayObject*)a_array);
-    memset(a_data, 0, lda * n * sizeof(f64));
+    if (lda > 0 && n > 0) { memset(a_data, 0, lda * n * sizeof(f64)); }
 
     npy_intp b_dims[2] = {n, m};
     npy_intp b_strides[2] = {sizeof(f64), ldb * sizeof(f64)};
@@ -219,7 +219,7 @@ PyObject* py_tb01vy(PyObject* self, PyObject* args, PyObject* kwargs) {
         return NULL;
     }
     f64 *b_data = (f64*)PyArray_DATA((PyArrayObject*)b_array);
-    memset(b_data, 0, ldb * m * sizeof(f64));
+    if (n > 0 && m > 0) { memset(b_data, 0, ldb * m * sizeof(f64)); }
 
     npy_intp c_dims[2] = {l, n};
     npy_intp c_strides[2] = {sizeof(f64), ldc * sizeof(f64)};
@@ -233,7 +233,7 @@ PyObject* py_tb01vy(PyObject* self, PyObject* args, PyObject* kwargs) {
         return NULL;
     }
     f64 *c_data = (f64*)PyArray_DATA((PyArrayObject*)c_array);
-    memset(c_data, 0, ldc * n * sizeof(f64));
+    if (l > 0 && n > 0) { memset(c_data, 0, ldc * n * sizeof(f64)); }
 
     npy_intp d_dims[2] = {l, m};
     npy_intp d_strides[2] = {sizeof(f64), ldd * sizeof(f64)};
@@ -248,7 +248,7 @@ PyObject* py_tb01vy(PyObject* self, PyObject* args, PyObject* kwargs) {
         return NULL;
     }
     f64 *d_data = (f64*)PyArray_DATA((PyArrayObject*)d_array);
-    memset(d_data, 0, ldd * m * sizeof(f64));
+    if (l > 0 && m > 0) { memset(d_data, 0, ldd * m * sizeof(f64)); }
 
     f64 *dwork = (f64*)malloc(ldwork > 0 ? ldwork * sizeof(f64) : sizeof(f64));
     if (dwork == NULL) {
@@ -2966,7 +2966,7 @@ PyObject* py_tb01uy(PyObject* self, PyObject* args, PyObject* kwargs) {
     f64 *z_data = (f64*)PyArray_DATA((PyArrayObject*)z_array);
     memset(z_data, 0, ldz * n_alloc * sizeof(f64));
 
-    i32 tau_len = n_alloc < m_alloc ? n_alloc : m_alloc;
+    i32 tau_len = n_alloc;
     if (tau_len < 1) tau_len = 1;
     npy_intp tau_dims[1] = {tau_len};
     PyObject *tau_array = PyArray_SimpleNew(1, tau_dims, NPY_DOUBLE);

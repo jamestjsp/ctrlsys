@@ -63,7 +63,7 @@ void tb03ay(i32 nr, const f64* a, i32 lda, i32 indblk, const i32* nblk,
                           &int1);
             }
 
-            nrow = nblk[k - 1];
+            if (k < inplus) { nrow = nblk[k - 1]; }
         }
 
         for (i32 j = 1; j <= ncol; j++) {
@@ -94,7 +94,7 @@ void tb03ay(i32 nr, const f64* a, i32 lda, i32 indblk, const i32* nblk,
                           &lda,
                           &vcoeff[ioff * ldvco1 + (k - 1) * ldvco1 * ldvco2],
                           &ldvco1);
-                nrow = nblk[k - 1];
+                if (k < inplus) { nrow = nblk[k - 1]; }
             }
         }
     }

@@ -2120,12 +2120,12 @@ PyObject* py_tg01jd(PyObject* self, PyObject* args) {
     memcpy(a_data, PyArray_DATA(a_in), n * n * sizeof(f64));
     memcpy(e_data, PyArray_DATA(e_in), n * n * sizeof(f64));
 
-    memset(b_data, 0, ldb * b_cols * sizeof(f64));
+    if (n > 0 && b_cols > 0) { memset(b_data, 0, ldb * b_cols * sizeof(f64)); }
     for (i32 j = 0; j < m; j++) {
         memcpy(&b_data[j * ldb], &((f64*)PyArray_DATA(b_in))[j * n], n * sizeof(f64));
     }
 
-    memset(c_data, 0, ldc * n * sizeof(f64));
+    if (ldc > 0 && n > 0) { memset(c_data, 0, ldc * n * sizeof(f64)); }
     for (i32 j = 0; j < n; j++) {
         memcpy(&c_data[j * ldc], &((f64*)PyArray_DATA(c_in))[j * p], p * sizeof(f64));
     }
@@ -2869,17 +2869,19 @@ PyObject* py_tg01jy(PyObject* self, PyObject* args, PyObject* kwargs) {
     f64 *b_data = (f64*)PyArray_DATA((PyArrayObject*)b_array);
     f64 *c_data = (f64*)PyArray_DATA((PyArrayObject*)c_array);
 
-    memcpy(a_data, PyArray_DATA(a_in), n * n * sizeof(f64));
-    memcpy(e_data, PyArray_DATA(e_in), n * n * sizeof(f64));
+    if (n > 0) {
+        memcpy(a_data, PyArray_DATA(a_in), n * n * sizeof(f64));
+        memcpy(e_data, PyArray_DATA(e_in), n * n * sizeof(f64));
 
-    memset(b_data, 0, ldb * b_cols * sizeof(f64));
-    for (i32 j = 0; j < m; j++) {
-        memcpy(&b_data[j * ldb], &((f64*)PyArray_DATA(b_in))[j * n], n * sizeof(f64));
-    }
+        if (n > 0 && b_cols > 0) { memset(b_data, 0, ldb * b_cols * sizeof(f64)); }
+        for (i32 j = 0; j < m; j++) {
+            memcpy(&b_data[j * ldb], &((f64*)PyArray_DATA(b_in))[j * n], n * sizeof(f64));
+        }
 
-    memset(c_data, 0, ldc * n * sizeof(f64));
-    for (i32 j = 0; j < n; j++) {
-        memcpy(&c_data[j * ldc], &((f64*)PyArray_DATA(c_in))[j * p], p * sizeof(f64));
+        if (ldc > 0 && n > 0) { memset(c_data, 0, ldc * n * sizeof(f64)); }
+        for (i32 j = 0; j < n; j++) {
+            memcpy(&c_data[j * ldc], &((f64*)PyArray_DATA(c_in))[j * p], p * sizeof(f64));
+        }
     }
 
     Py_DECREF(a_in);

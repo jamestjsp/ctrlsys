@@ -192,7 +192,7 @@ move_results:
         if (descr) {
             jf = 0;
 
-            for (j = i + 1; j <= n; j++) {
+            for (j = i + 1; j < n; j++) {
                 SLC_DCOPY(nz, &e[(i + 1) + j * lde], &int1,
                           &e[0 + jf * lde], &int1);
                 jf++;
