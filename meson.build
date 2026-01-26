@@ -1,5 +1,5 @@
 project('slicot', 'c',
-  version: '1.0.0',
+  version: '1.0.5',
   license: 'BSD-3-Clause',
   meson_version: '>=1.1.0',
   default_options: ['c_std=c11', 'buildtype=release']

@@ -1,7 +1,9 @@
+from importlib.metadata import version as get_version
+
 project = 'slicot'
 copyright = '2024, James Joseph'
 author = 'James Joseph'
-release = '1.0.4'
+release = get_version('slicot')
 
 extensions = [
     'sphinx.ext.autodoc',
