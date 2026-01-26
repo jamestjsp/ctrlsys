@@ -8,12 +8,8 @@ The transformations are bounded by PMAX and optionally accumulated in X and Y.
 Optionally reorders diagonal blocks so clustered eigenvalues are grouped.
 """
 
-import sys
-
 import numpy as np
 import pytest
-
-pytestmark = pytest.mark.skipif(sys.platform == 'linux', reason='OpenBLAS memory corruption')
 
 from slicot import mb04rd
 
