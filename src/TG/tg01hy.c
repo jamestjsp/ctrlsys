@@ -247,7 +247,7 @@ void tg01hy(
 
     ismin = 0;
     ismax = ismin + m;
-    irot = 2 * (m + n1) - 3;
+    irot = 2 * (m + n1) - 4;
     tauim1 = m;
     ic = -m;
     nf = n1;

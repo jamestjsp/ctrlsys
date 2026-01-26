@@ -4279,7 +4279,7 @@ PyObject* py_sb03md(PyObject* self, PyObject* args) {
             return PyErr_NoMemory();
         }
         u_data = (f64*)PyArray_DATA(u_out_array);
-        memset(u_data, 0, ((n > 0) ? n * n : 1) * sizeof(f64));
+        if (n > 0) { memset(u_data, 0, n * n * sizeof(f64)); }
     }
 
     f64 *a_data = (f64*)PyArray_DATA(a_array);
@@ -4304,8 +4304,8 @@ PyObject* py_sb03md(PyObject* self, PyObject* args) {
     }
     f64 *wr = (f64*)PyArray_DATA(wr_array);
     f64 *wi = (f64*)PyArray_DATA(wi_array);
-    memset(wr, 0, ((n > 0) ? n : 1) * sizeof(f64));
-    memset(wi, 0, ((n > 0) ? n : 1) * sizeof(f64));
+    if (n > 0) { memset(wr, 0, n * sizeof(f64)); }
+    if (n > 0) { memset(wi, 0, n * sizeof(f64)); }
     i32 *iwork = (i32*)calloc((n > 0) ? n * n : 1, sizeof(i32));
 
     /* Compute workspace size */
@@ -9417,6 +9417,7 @@ PyObject* py_sb03td(PyObject* self, PyObject* args, PyObject* kwargs) {
 
 
 /* Python wrapper for sb08ed - Left coprime factorization with prescribed stability degree */
+/* Python wrapper for sb08ed - Left coprime factorization with prescribed stability degree */
 PyObject* py_sb08ed(PyObject* self, PyObject* args, PyObject* kwargs) {
     (void)self;
 
@@ -9456,43 +9457,39 @@ PyObject* py_sb08ed(PyObject* self, PyObject* args, PyObject* kwargs) {
         }
     }
 
-    PyArrayObject* a_array = (PyArrayObject*)PyArray_FROM_OTF(a_obj, NPY_DOUBLE,
-                                                              NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
-    if (a_array == NULL) {
+    PyArrayObject* a_array_in = (PyArrayObject*)PyArray_FROM_OTF(a_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (a_array_in == NULL) {
         Py_DECREF(alpha_array);
         return NULL;
     }
 
-    PyArrayObject* b_array = (PyArrayObject*)PyArray_FROM_OTF(b_obj, NPY_DOUBLE,
-                                                              NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
-    if (b_array == NULL) {
+    PyArrayObject* b_array_in = (PyArrayObject*)PyArray_FROM_OTF(b_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (b_array_in == NULL) {
         Py_DECREF(alpha_array);
-        Py_DECREF(a_array);
+        Py_DECREF(a_array_in);
         return NULL;
     }
 
-    PyArrayObject* c_array = (PyArrayObject*)PyArray_FROM_OTF(c_obj, NPY_DOUBLE,
-                                                              NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
-    if (c_array == NULL) {
+    PyArrayObject* c_array_in = (PyArrayObject*)PyArray_FROM_OTF(c_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (c_array_in == NULL) {
         Py_DECREF(alpha_array);
-        Py_DECREF(a_array);
-        Py_DECREF(b_array);
+        Py_DECREF(a_array_in);
+        Py_DECREF(b_array_in);
         return NULL;
     }
 
-    PyArrayObject* d_array = (PyArrayObject*)PyArray_FROM_OTF(d_obj, NPY_DOUBLE,
-                                                              NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
-    if (d_array == NULL) {
+    PyArrayObject* d_array_in = (PyArrayObject*)PyArray_FROM_OTF(d_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (d_array_in == NULL) {
         Py_DECREF(alpha_array);
-        Py_DECREF(a_array);
-        Py_DECREF(b_array);
-        Py_DECREF(c_array);
+        Py_DECREF(a_array_in);
+        Py_DECREF(b_array_in);
+        Py_DECREF(c_array_in);
         return NULL;
     }
 
-    i32 n = (i32)PyArray_DIM(a_array, 0);
-    i32 m = (i32)PyArray_DIM(d_array, 1);
-    i32 p = (i32)PyArray_DIM(d_array, 0);
+    i32 n = (i32)PyArray_DIM(a_array_in, 0);
+    i32 m = (i32)PyArray_DIM(d_array_in, 1);
+    i32 p = (i32)PyArray_DIM(d_array_in, 0);
 
     i32 lda = n > 1 ? n : 1;
     i32 ldb = n > 1 ? n : 1;
@@ -9502,13 +9499,85 @@ PyObject* py_sb08ed(PyObject* self, PyObject* args, PyObject* kwargs) {
     i32 ldbr = n > 1 ? n : 1;
     i32 lddr = p > 1 ? p : 1;
 
+    /* For output arrays, ensure at least 1 for dimensions to avoid zero-size arrays */
+    i32 p_out = p > 0 ? p : 1;
+    i32 n_out = n > 0 ? n : 1;
+
+    /* SLICOT requires B to be LDB x MAX(M,P), C to be LDC x N where LDC >= MAX(M,P),
+       and D to be LDD x MAX(M,P) where LDD >= MAX(M,P) for workspace during dual computation.
+       Create work arrays with proper dimensions and copy input data. */
+    npy_intp a_dims[2] = {lda, n > 0 ? n : 1};
+    npy_intp b_dims[2] = {ldb, maxmp > 0 ? maxmp : 1};
+    npy_intp c_dims[2] = {ldc, n > 0 ? n : 1};
+    npy_intp d_dims[2] = {ldd, maxmp > 0 ? maxmp : 1};
+
+    PyArrayObject* a_array = (PyArrayObject*)PyArray_New(&PyArray_Type, 2, a_dims, NPY_DOUBLE,
+                                                          NULL, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    PyArrayObject* b_array = (PyArrayObject*)PyArray_New(&PyArray_Type, 2, b_dims, NPY_DOUBLE,
+                                                          NULL, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    PyArrayObject* c_array = (PyArrayObject*)PyArray_New(&PyArray_Type, 2, c_dims, NPY_DOUBLE,
+                                                          NULL, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    PyArrayObject* d_array = (PyArrayObject*)PyArray_New(&PyArray_Type, 2, d_dims, NPY_DOUBLE,
+                                                          NULL, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+
+    if (!a_array || !b_array || !c_array || !d_array) {
+        Py_XDECREF(a_array);
+        Py_XDECREF(b_array);
+        Py_XDECREF(c_array);
+        Py_XDECREF(d_array);
+        Py_DECREF(alpha_array);
+        Py_DECREF(a_array_in);
+        Py_DECREF(b_array_in);
+        Py_DECREF(c_array_in);
+        Py_DECREF(d_array_in);
+        return PyErr_NoMemory();
+    }
+
     f64* a_data = (f64*)PyArray_DATA(a_array);
     f64* b_data = (f64*)PyArray_DATA(b_array);
     f64* c_data = (f64*)PyArray_DATA(c_array);
     f64* d_data = (f64*)PyArray_DATA(d_array);
+    f64* a_in = (f64*)PyArray_DATA(a_array_in);
+    f64* b_in = (f64*)PyArray_DATA(b_array_in);
+    f64* c_in = (f64*)PyArray_DATA(c_array_in);
+    f64* d_in = (f64*)PyArray_DATA(d_array_in);
 
-    npy_intp br_dims[2] = {n, p};
-    npy_intp dr_dims[2] = {p, p};
+    /* Zero-initialize work arrays */
+    memset(a_data, 0, (size_t)a_dims[0] * a_dims[1] * sizeof(f64));
+    memset(b_data, 0, (size_t)b_dims[0] * b_dims[1] * sizeof(f64));
+    memset(c_data, 0, (size_t)c_dims[0] * c_dims[1] * sizeof(f64));
+    memset(d_data, 0, (size_t)d_dims[0] * d_dims[1] * sizeof(f64));
+
+    /* Copy input A (n x n) */
+    for (i32 j = 0; j < n; j++) {
+        for (i32 i = 0; i < n; i++) {
+            a_data[i + j * lda] = a_in[i + j * n];
+        }
+    }
+
+    /* Copy input B (n x m) into work array (ldb x maxmp) */
+    for (i32 j = 0; j < m; j++) {
+        for (i32 i = 0; i < n; i++) {
+            b_data[i + j * ldb] = b_in[i + j * n];
+        }
+    }
+
+    /* Copy input C (p x n) into work array (ldc x n) */
+    for (i32 j = 0; j < n; j++) {
+        for (i32 i = 0; i < p; i++) {
+            c_data[i + j * ldc] = c_in[i + j * p];
+        }
+    }
+
+    /* Copy input D (p x m) into work array (ldd x maxmp) */
+    for (i32 j = 0; j < m; j++) {
+        for (i32 i = 0; i < p; i++) {
+            d_data[i + j * ldd] = d_in[i + j * p];
+        }
+    }
+
+    npy_intp br_dims[2] = {n_out, p_out};
+    npy_intp dr_dims[2] = {p_out, p_out};
 
     PyArrayObject* br_array = (PyArrayObject*)PyArray_New(&PyArray_Type, 2, br_dims, NPY_DOUBLE,
                                                            NULL, NULL, 0, NPY_ARRAY_FARRAY, NULL);
@@ -9517,23 +9586,21 @@ PyObject* py_sb08ed(PyObject* self, PyObject* args, PyObject* kwargs) {
     if (!br_array || !dr_array) {
         Py_XDECREF(br_array);
         Py_XDECREF(dr_array);
-        PyArray_DiscardWritebackIfCopy(a_array);
-        PyArray_DiscardWritebackIfCopy(b_array);
-        PyArray_DiscardWritebackIfCopy(c_array);
-        PyArray_DiscardWritebackIfCopy(d_array);
-        Py_DECREF(alpha_array);
         Py_DECREF(a_array);
         Py_DECREF(b_array);
         Py_DECREF(c_array);
         Py_DECREF(d_array);
+        Py_DECREF(alpha_array);
+        Py_DECREF(a_array_in);
+        Py_DECREF(b_array_in);
+        Py_DECREF(c_array_in);
+        Py_DECREF(d_array_in);
         return NULL;
     }
     f64* br_data = (f64*)PyArray_DATA(br_array);
     f64* dr_data = (f64*)PyArray_DATA(dr_array);
-    size_t br_size = (size_t)n * (p > 1 ? p : 1);
-    size_t dr_size = (size_t)p * (p > 1 ? p : 1);
-    if (br_size > 0) memset(br_data, 0, br_size * sizeof(f64));
-    if (dr_size > 0) memset(dr_data, 0, dr_size * sizeof(f64));
+    memset(br_data, 0, (size_t)n_out * p_out * sizeof(f64));
+    memset(dr_data, 0, (size_t)p_out * p_out * sizeof(f64));
 
     i32 min1 = n * (n + 5);
     i32 min2 = 5 * p;
@@ -9543,21 +9610,20 @@ PyObject* py_sb08ed(PyObject* self, PyObject* args, PyObject* kwargs) {
     minwrk = minwrk > 1 ? minwrk : 1;
     i32 ldwork = n * p + minwrk;
 
-    f64* dwork = (f64*)calloc(ldwork, sizeof(f64));
+    f64* dwork = (f64*)calloc(ldwork > 1 ? ldwork : 1, sizeof(f64));
 
     if (!dwork) {
-        free(dwork);
         Py_DECREF(br_array);
         Py_DECREF(dr_array);
-        PyArray_DiscardWritebackIfCopy(a_array);
-        PyArray_DiscardWritebackIfCopy(b_array);
-        PyArray_DiscardWritebackIfCopy(c_array);
-        PyArray_DiscardWritebackIfCopy(d_array);
-        Py_DECREF(alpha_array);
         Py_DECREF(a_array);
         Py_DECREF(b_array);
         Py_DECREF(c_array);
         Py_DECREF(d_array);
+        Py_DECREF(alpha_array);
+        Py_DECREF(a_array_in);
+        Py_DECREF(b_array_in);
+        Py_DECREF(c_array_in);
+        Py_DECREF(d_array_in);
         return PyErr_NoMemory();
     }
 
@@ -9569,19 +9635,74 @@ PyObject* py_sb08ed(PyObject* self, PyObject* args, PyObject* kwargs) {
 
     free(dwork);
 
-    PyArray_ResolveWritebackIfCopy(a_array);
-    PyArray_ResolveWritebackIfCopy(b_array);
-    PyArray_ResolveWritebackIfCopy(c_array);
-    PyArray_ResolveWritebackIfCopy(d_array);
+    /* Copy results back to output arrays with original dimensions */
+    PyArrayObject* a_out = (PyArrayObject*)PyArray_FROM_OTF(a_obj, NPY_DOUBLE,
+                                                             NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    PyArrayObject* b_out = (PyArrayObject*)PyArray_FROM_OTF(b_obj, NPY_DOUBLE,
+                                                             NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    PyArrayObject* c_out = (PyArrayObject*)PyArray_FROM_OTF(c_obj, NPY_DOUBLE,
+                                                             NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    PyArrayObject* d_out = (PyArrayObject*)PyArray_FROM_OTF(d_obj, NPY_DOUBLE,
+                                                             NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+
+    if (a_out && b_out && c_out && d_out) {
+        f64* a_out_data = (f64*)PyArray_DATA(a_out);
+        f64* b_out_data = (f64*)PyArray_DATA(b_out);
+        f64* c_out_data = (f64*)PyArray_DATA(c_out);
+        f64* d_out_data = (f64*)PyArray_DATA(d_out);
+
+        /* Copy back A (n x n) */
+        for (i32 j = 0; j < n; j++) {
+            for (i32 i = 0; i < n; i++) {
+                a_out_data[i + j * n] = a_data[i + j * lda];
+            }
+        }
+
+        /* Copy back B (n x m) */
+        for (i32 j = 0; j < m; j++) {
+            for (i32 i = 0; i < n; i++) {
+                b_out_data[i + j * n] = b_data[i + j * ldb];
+            }
+        }
+
+        /* Copy back C (p x n) */
+        for (i32 j = 0; j < n; j++) {
+            for (i32 i = 0; i < p; i++) {
+                c_out_data[i + j * p] = c_data[i + j * ldc];
+            }
+        }
+
+        /* Copy back D (p x m) */
+        for (i32 j = 0; j < m; j++) {
+            for (i32 i = 0; i < p; i++) {
+                d_out_data[i + j * p] = d_data[i + j * ldd];
+            }
+        }
+
+        PyArray_ResolveWritebackIfCopy(a_out);
+        PyArray_ResolveWritebackIfCopy(b_out);
+        PyArray_ResolveWritebackIfCopy(c_out);
+        PyArray_ResolveWritebackIfCopy(d_out);
+    }
+
+    Py_XDECREF(a_out);
+    Py_XDECREF(b_out);
+    Py_XDECREF(c_out);
+    Py_XDECREF(d_out);
+
+    Py_DECREF(a_array);
+    Py_DECREF(b_array);
+    Py_DECREF(c_array);
+    Py_DECREF(d_array);
 
     if (info < 0) {
         Py_DECREF(br_array);
         Py_DECREF(dr_array);
         Py_DECREF(alpha_array);
-        Py_DECREF(a_array);
-        Py_DECREF(b_array);
-        Py_DECREF(c_array);
-        Py_DECREF(d_array);
+        Py_DECREF(a_array_in);
+        Py_DECREF(b_array_in);
+        Py_DECREF(c_array_in);
+        Py_DECREF(d_array_in);
         PyErr_Format(PyExc_ValueError, "sb08ed: illegal value for argument %d", -info);
         return NULL;
     }
@@ -9589,22 +9710,16 @@ PyObject* py_sb08ed(PyObject* self, PyObject* args, PyObject* kwargs) {
     PyObject* result = Py_BuildValue("iiOOii", nq, nr, br_array, dr_array, iwarn, info);
 
     Py_DECREF(alpha_array);
-    Py_DECREF(a_array);
-    Py_DECREF(b_array);
-    Py_DECREF(c_array);
-    Py_DECREF(d_array);
+    Py_DECREF(a_array_in);
+    Py_DECREF(b_array_in);
+    Py_DECREF(c_array_in);
+    Py_DECREF(d_array_in);
     Py_DECREF(br_array);
     Py_DECREF(dr_array);
 
     return result;
 }
 
-/*
- * SB08HD - State-space representation from right coprime factorization.
- *
- * Constructs G = (A,B,C,D) from factors Q = (AQR,BQR,CQ,DQ) and
- * R = (AQR,BQR,CR,DR) of the right coprime factorization G = Q * R^{-1}.
- */
 PyObject* py_sb08hd(PyObject* self, PyObject* args) {
     (void)self;
     PyObject *a_obj, *b_obj, *c_obj, *d_obj, *cr_obj, *dr_obj;
