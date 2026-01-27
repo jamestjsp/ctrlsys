@@ -6870,7 +6870,7 @@ PyObject* py_mb04rt(PyObject* self, PyObject* args) {
     const f64 *e_data = (const f64*)PyArray_DATA(e_array);
     f64 *f_data = (f64*)PyArray_DATA(f_array);
 
-    i32 liwork = m + n + 6;
+    i32 liwork = 2 * (m + n) + 6;
     i32 *iwork = (i32*)calloc(liwork > 0 ? liwork : 1, sizeof(i32));
     if (iwork == NULL) {
         Py_DECREF(a_array);
