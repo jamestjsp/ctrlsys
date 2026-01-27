@@ -21,6 +21,18 @@ if blas_opt == 'auto'
     blas = dependency('blas', required: false)
   endif
   if not blas.found()
+    _openblas_info = run_command(py, '-c',
+      'import scipy_openblas32 as sc; print(sc.get_include_dir()); print(sc.get_lib_dir())',
+      check: false)
+    if _openblas_info.returncode() == 0
+      _lines = _openblas_info.stdout().strip().split('\n')
+      blas = declare_dependency(
+        include_directories: include_directories(_lines[0]),
+        dependencies: cc.find_library('scipy_openblas', dirs: [_lines[1]])
+      )
+    endif
+  endif
+  if not blas.found()
     blas = dependency('Accelerate', required: true)
   endif
 else

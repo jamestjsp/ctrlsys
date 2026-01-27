@@ -15,29 +15,29 @@ jobs:
           - os: ubuntu-latest
             arch: x86_64
             cibw_archs: x86_64
-            cibw_build: "cp311-manylinux* cp312-manylinux* cp313-manylinux*"
+            cibw_build: "cp311-manylinux* cp312-manylinux* cp313-manylinux* cp314-manylinux*"
           - os: ubuntu-latest
             arch: aarch64
             cibw_archs: aarch64
-            cibw_build: "cp311-manylinux* cp312-manylinux* cp313-manylinux*"
+            cibw_build: "cp311-manylinux* cp312-manylinux* cp313-manylinux* cp314-manylinux*"
             qemu: true
           - os: ubuntu-latest
             arch: musllinux_x86_64
             cibw_archs: x86_64
-            cibw_build: "cp311-musllinux* cp312-musllinux* cp313-musllinux*"
+            cibw_build: "cp311-musllinux* cp312-musllinux* cp313-musllinux* cp314-musllinux*"
           - os: ubuntu-latest
             arch: musllinux_aarch64
             cibw_archs: aarch64
-            cibw_build: "cp311-musllinux* cp312-musllinux* cp313-musllinux*"
+            cibw_build: "cp311-musllinux* cp312-musllinux* cp313-musllinux* cp314-musllinux*"
             qemu: true
           - os: macos-14
             arch: arm64
             cibw_archs: arm64
-            cibw_build: "cp311-* cp312-* cp313-*"
+            cibw_build: "cp311-* cp312-* cp313-* cp314-*"
           - os: windows-latest
             arch: x86_64
             cibw_archs: AMD64
-            cibw_build: "cp311-* cp312-* cp313-*"
+            cibw_build: "cp311-* cp312-* cp313-* cp314-*"
 
     steps:
       - uses: actions/checkout@v4
