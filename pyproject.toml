@@ -32,6 +32,7 @@ dependencies = ["numpy>=2.0"]
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-xdist", "pytest-rerunfailures", "scipy"]
+benchmark = ["pytest-benchmark>=4.0"]
 
 [project.urls]
 Homepage = "https://github.com/jamestjsp/slicot"
