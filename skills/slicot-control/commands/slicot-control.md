@@ -1,10 +1,5 @@
 ---
-name: slicot-control
 description: Navigate and use the SLICOT control theory library (578 functions, 27 categories)
-license: BSD-3-Clause
-metadata:
-  author: slicot
-  version: "1.0"
 ---
 
 # SLICOT Control Theory Library

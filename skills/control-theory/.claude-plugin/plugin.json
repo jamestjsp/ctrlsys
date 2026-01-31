@@ -1,0 +1,8 @@
+{
+  "name": "control-theory",
+  "description": "Control theory fundamentals - stability, controllability, observability analysis",
+  "author": {
+    "name": "James Joseph",
+    "email": "jamestjsp@gmail.com"
+  }
+}

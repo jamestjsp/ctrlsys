@@ -1,7 +1,5 @@
 ---
-name: control-theory
-description: This skill should be used when working with control theory problems, implementing linear time-invariant (LTI) systems, designing controllers, analyzing system dynamics, or learning about computer-controlled systems using slicot.
-license: MIT
+description: Work with control theory problems, LTI systems, controller design, and system dynamics using slicot
 ---
 
 # Control Theory with SLICOT

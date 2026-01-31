@@ -1,11 +1,5 @@
 ---
-name: pid-loop-tuning
-description: A comprehensive guide for process engineers on the systematic methodology for tuning Proportional-Integral-Derivative (PID) feedback control loops, covering process identification, model-based tuning rules, and validation for both self-regulating and integrating processes.
-license: "Creative Commons Attribution 4.0 International"
-metadata:
-  skill-version: "2.0"
-  author: "James Joseph"
-  keywords: "PID, process control, control loop, tuning, direct synthesis, lambda tuning, process identification, self-regulating, integrating, tank level"
+description: Systematic PID loop tuning methodology - process identification, lambda tuning, and validation
 ---
 
 # Systematic PID Loop Tuning
