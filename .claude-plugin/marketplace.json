@@ -1,12 +1,17 @@
 {
-  "name": "slicot",
-  "version": "1.0.0",
-  "description": "SLICOT control theory library skills - 578 functions for control systems analysis, design, and identification",
-  "license": "BSD-3-Clause",
-  "repository": "https://github.com/jamestjsp/slicot",
-  "skills": [
-    "skills/slicot-control",
-    "skills/control-theory",
-    "skills/pid-loop-tuning"
+  "owner": "jamestjsp",
+  "plugins": [
+    {
+      "name": "slicot",
+      "version": "1.0.0",
+      "description": "SLICOT control theory library skills - 578 functions for control systems analysis, design, and identification",
+      "license": "BSD-3-Clause",
+      "repository": "https://github.com/jamestjsp/slicot",
+      "skills": [
+        "skills/slicot-control",
+        "skills/control-theory",
+        "skills/pid-loop-tuning"
+      ]
+    }
   ]
 }
