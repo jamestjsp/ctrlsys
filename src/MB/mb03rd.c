@@ -251,12 +251,12 @@ void mb03rd(
                 sc = SLC_DNRM2(&len, &x[j * ldx], &inc);
                 if (sc > safemn) {
                     for (i32 ii = 0; ii < da11; ii++) {
-                        a[(l11 + ii) + j * lda] *= sc;
+                        a[j + (l11 + ii) * lda] *= sc;
                     }
                     f64 invsc = ONE / sc;
                     SLC_DSCAL(&len, &invsc, &x[j * ldx], &inc);
                     for (i32 ii = 0; ii < da11; ii++) {
-                        a[j + (l11 + ii) * lda] *= invsc;
+                        a[(l11 + ii) + j * lda] *= invsc;
                     }
                 }
             }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.10] - 2025-01-30
+
+### Fixed
+
+- mb03rd: transformation matrix X now correctly satisfies X⁻¹AX = A_out
+
 ## [1.0.0] - 2025-01-23
 
 ### Added
