@@ -845,12 +845,15 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
             }
 
             i32 iwrk2 = iwrk + n * nqg + 2 * nn;
+            f64 *t_work = &dwork[iwrk2];
+            i32 ldt_work = (n > 1) ? n : 1;
+            iwrk2 += nn;
             f64 *wr = &dwork[ir];
             f64 *wi = &dwork[ii_local];
 
             f64 scale_val1 = zero;
             mb03xd("N", "E", "N", "N", n, &dwork[ia], n, qg, ldqg,
-                   NULL, 1, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
+                   t_work, ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
                    wr, wi, &ilo, &scale_val1,
                    &dwork[iwrk2], ldwork - iwrk2, &ierr);
 
@@ -938,12 +941,15 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 }
             }
 
+            f64 *t_work = &dwork[iwrk2];
+            i32 ldt_work = (n2 > 1) ? n2 : 1;
+            iwrk2 += n2 * n2;
             f64 *wr = &dwork[ir];
             f64 *wi = &dwork[ii_local];
 
             f64 scale_val = zero;
             mb03xd("N", "E", "N", "N", n2, h11, ldh, qg, ldqg,
-                   NULL, 1, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
+                   t_work, ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
                    wr, wi, &ilo, &scale_val,
                    &dwork[iwrk2], ldwork - iwrk2, &ierr);
 
