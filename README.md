@@ -26,7 +26,19 @@ While you can use this library directly, it's recommended to access it through A
 
 **Compatible agents:** Claude Code, Codex, GitHub Copilot, Cursor, and other [Agent Skills](https://agentskills.io)-compatible tools.
 
-This package includes agent skills for common control theory tasks like PID loop tuning and system analysis.
+### Claude Code Plugin
+
+Install the SLICOT skills plugin:
+
+```bash
+/plugin marketplace add jamestjsp/slicot
+/plugin install slicot@jamestjsp-slicot
+```
+
+Included skills:
+- **slicot-control** - Navigate 578 SLICOT functions across 27 categories
+- **control-theory** - General control theory concepts and workflows
+- **pid-loop-tuning** - PID controller design and tuning
 
 ## Quick Start
 
