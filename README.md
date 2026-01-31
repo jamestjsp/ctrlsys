@@ -28,17 +28,24 @@ While you can use this library directly, it's recommended to access it through A
 
 ### Claude Code Plugin
 
-Install the SLICOT skills plugin:
+Add the marketplace and install plugins:
 
 ```bash
 /plugin marketplace add jamestjsp/slicot
-/plugin install slicot@jamestjsp-slicot
+/plugin install slicot-control@jamestjsp-slicot
 ```
 
-Included skills:
+Available plugins:
 - **slicot-control** - Navigate 578 SLICOT functions across 27 categories
 - **control-theory** - General control theory concepts and workflows
 - **pid-loop-tuning** - PID controller design and tuning
+
+Install all three:
+```bash
+/plugin install slicot-control@jamestjsp-slicot
+/plugin install control-theory@jamestjsp-slicot
+/plugin install pid-loop-tuning@jamestjsp-slicot
+```
 
 ## Quick Start
 
