@@ -1,6 +1,6 @@
 BSD 3-Clause License
 
-Copyright (c) 2025, slicot contributors (C11 translation and Python bindings)
+Copyright (c) 1996-2025, The SLICOT Team
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -27,13 +27,3 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
----
-
-This project is a derivative work based on SLICOT (Subroutine Library In
-COntrol Theory), which is licensed separately. See LICENSE-SLICOT for the
-original SLICOT license terms.
-
-The original SLICOT library is copyright (c) 1996-2025 The SLICOT Team and
-is maintained by NICONET e.V. For more information, see:
-https://www.slicot.org/

@@ -8,7 +8,7 @@ version = "1.0.11"
 description = "Python bindings for SLICOT - Subroutine Library in Control Theory"
 readme = "README.md"
 license = "BSD-3-Clause"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "LICENSE-SLICOT"]
 requires-python = ">=3.11"
 authors = [
     { name = "SLICOT Contributors" }
