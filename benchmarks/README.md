@@ -72,7 +72,7 @@ Generates `benchmark_report.md` with:
 
 ### Requirements
 
-- Python 3.8+
+- Python 3.11+
 - gfortran (for Fortran benchmarks)
 - meson, ninja (for C build)
 - BLAS/LAPACK (Accelerate on macOS, OpenBLAS on Linux)
