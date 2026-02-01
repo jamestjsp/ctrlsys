@@ -61,3 +61,4 @@ endif
 inc = include_directories('include')
 subdir('src')
 subdir('python')
+subdir('benchmarks')

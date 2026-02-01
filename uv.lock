@@ -358,7 +358,7 @@ wheels = [
 
 [[package]]
 name = "slicot"
-version = "1.0.10"
+version = "1.0.12"
 source = { editable = "." }
 dependencies = [
     { name = "numpy" },
@@ -377,6 +377,7 @@ dev = [
 ]
 test = [
     { name = "pytest" },
+    { name = "pytest-benchmark" },
     { name = "pytest-rerunfailures" },
     { name = "pytest-xdist" },
     { name = "scipy" },
@@ -391,6 +392,7 @@ requires-dist = [
     { name = "numpy", marker = "extra == 'dev'", specifier = ">=2.0" },
     { name = "pytest", marker = "extra == 'test'" },
     { name = "pytest-benchmark", marker = "extra == 'benchmark'", specifier = ">=4.0" },
+    { name = "pytest-benchmark", marker = "extra == 'test'", specifier = ">=5.2.3" },
     { name = "pytest-rerunfailures", marker = "extra == 'test'" },
     { name = "pytest-xdist", marker = "extra == 'test'" },
     { name = "scipy", marker = "extra == 'test'" },

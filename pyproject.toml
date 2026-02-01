@@ -31,7 +31,13 @@ classifiers = [
 dependencies = ["numpy>=2.0"]
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-xdist", "pytest-rerunfailures", "scipy"]
+test = [
+    "pytest",
+    "pytest-xdist",
+    "pytest-rerunfailures",
+    "scipy",
+    "pytest-benchmark>=5.2.3",
+]
 benchmark = ["pytest-benchmark>=4.0"]
 dev = ["meson-python>=0.16.0", "meson>=1.1.0", "ninja", "numpy>=2.0", "scipy-openblas32"]
 
