@@ -383,8 +383,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 dwork[ir + i] = log(tm);
             }
             dwork[im + i] = hypot(dwork[ir + i], dwork[ii_local + i]);
-            f64 dist = fabs(one - (fulle ? tm : hypot(dwork[ir + i], dwork[ii_local + i]) / (fulle ? 1.0 : 1.0)));
-            dist = fabs(one - tm);
+            f64 dist = fabs(one - tm);
             if (dist < wrmin) {
                 imin = ii_local + i;
                 wrmin = dist;
@@ -590,7 +589,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
     f64 rtol = discr ? 0.0 : hundrd * toler;
     i32 iter = 0;
 
-    while (iter < MAXIT) {
+    while (iter <= MAXIT) {
         iter++;
         gamma = (one + tol) * gammal;
         usepen = fulle || discr;
@@ -615,7 +614,6 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
             im = ih12;
 
             i32 ih = ih12;
-            f64 temp_zero = zero;
 
             if (discr) {
                 for (i32 j = 0; j < m; j++) {
@@ -764,56 +762,142 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
             }
             maxwrk = max_i32((i32)dwork[iwrk] + iwrk, maxwrk);
 
-            f64 gammas = zero;
-            f64 omegas = zero;
-            bool found = false;
+            wmax = zero;
+            for (i32 i = 0; i < n2; i++) {
+                f64 tm = hypot(dwork[ir + i], dwork[ii_local + i]);
+                f64 bt_i = dwork[ibt + i];
+                if (bt_i >= one || (bt_i < one && tm < safmax * bt_i)) {
+                    tm = tm / bt_i;
+                } else {
+                    tm = safmax;
+                }
+                wmax = max_f64(wmax, tm);
+                if (discr) {
+                    dwork[im + i] = tm;
+                }
+            }
+
+            i32 nei = 0;
+            f64 tol_thresh = toler * sqrt(hundrd + wmax);
 
             for (i32 i = 0; i < n2; i++) {
-                f64 wr_i = dwork[ir + i];
-                f64 wi_i = dwork[ii_local + i];
-                f64 bt_i = dwork[ibt + i];
-
-                if (bt_i != zero) {
-                    f64 ev_real = wr_i / bt_i;
-                    f64 ev_imag = wi_i / bt_i;
-
-                    bool on_axis = false;
-                    f64 freq = 0.0;
-                    if (discr) {
-                        f64 mod = hypot(ev_real, ev_imag);
-                        if (fabs(mod - one) < toler) {
-                            on_axis = true;
-                            freq = atan2(ev_imag, ev_real);
-                            if (freq < 0) freq += 2.0 * atan(1.0) * 4.0;
-                        }
+                f64 tm;
+                if (discr) {
+                    tm = fabs(one - dwork[im + i]);
+                } else {
+                    tm = fabs(dwork[ir + i]);
+                    f64 bt_i = dwork[ibt + i];
+                    if (bt_i >= one || (bt_i < one && tm < safmax * bt_i)) {
+                        tm = tm / bt_i;
                     } else {
-                        if (fabs(ev_real) < toler * (fabs(ev_imag) + one)) {
-                            on_axis = true;
-                            freq = fabs(ev_imag);
-                        }
+                        tm = safmax;
                     }
+                }
+                if (tm <= tol_thresh) {
+                    dwork[ir + nei] = dwork[ir + i] / dwork[ibt + i];
+                    dwork[ii_local + nei] = dwork[ii_local + i] / dwork[ibt + i];
+                    nei++;
+                }
+            }
 
-                    if (on_axis) {
-                        f64 test_gamma = ab13dx(dico, jobe, jobd, n, m, p, freq,
-                                                &dwork[ia], n, &dwork[ie], n,
-                                                &dwork[ib_local], n, &dwork[ic_local], p,
-                                                &dwork[id], p, iwork, &dwork[iwrk],
-                                                ldwork - iwrk, cwork, lcwork, &ierr);
-                        if (ierr == 0 && test_gamma > gammas) {
-                            gammas = test_gamma;
-                            omegas = freq;
-                            found = true;
+            if (nei == 0) {
+                gpeak[0] = gammal;
+                gpeak[1] = one;
+                goto done;
+            }
+
+            i32 nws = 0;
+            if (discr) {
+                for (i32 i = 0; i < nei; i++) {
+                    f64 tm = atan2(dwork[ii_local + i], dwork[ir + i]);
+                    dwork[ir + i] = max_f64(eps, tm);
+                    nws++;
+                }
+            } else {
+                i32 j_cnt = 0;
+                for (i32 i = 0; i < nei; i++) {
+                    if (dwork[ii_local + i] > eps) {
+                        dwork[ir + nws] = dwork[ii_local + i];
+                        nws++;
+                    } else if (dwork[ii_local + i] == eps) {
+                        j_cnt++;
+                        if (j_cnt == 1) {
+                            dwork[ir + nws] = eps;
+                            nws++;
                         }
                     }
                 }
             }
 
-            if (found && gammas > gammal) {
-                gammal = gammas;
-                fpeak[0] = discr ? fabs(atan2(sin(omegas), cos(omegas))) : omegas;
-                fpeak[1] = one;
-            } else {
-                break;
+            for (i32 i = 0; i < nws - 1; i++) {
+                for (i32 j = i + 1; j < nws; j++) {
+                    if (dwork[ir + j] < dwork[ir + i]) {
+                        f64 tmp = dwork[ir + i];
+                        dwork[ir + i] = dwork[ir + j];
+                        dwork[ir + j] = tmp;
+                    }
+                }
+            }
+
+            i32 lw = 1;
+            for (i32 i = 1; i < nws; i++) {
+                if (dwork[ir + lw - 1] != dwork[ir + i]) {
+                    dwork[ir + lw] = dwork[ir + i];
+                    lw++;
+                }
+            }
+
+            if (lw == 1) {
+                if (iter == 1 && nws >= 1) {
+                    dwork[ir + 1] = dwork[ir];
+                    lw++;
+                } else {
+                    gpeak[0] = gammal;
+                    gpeak[1] = one;
+                    goto done;
+                }
+            }
+
+            i32 iwrk2 = ir + lw;
+            f64 gammas = gammal;
+
+            for (i32 i = 0; i < lw - 1; i++) {
+                f64 omega;
+                if (discr) {
+                    omega = (dwork[ir + i] + dwork[ir + i + 1]) / two;
+                } else {
+                    omega = sqrt(dwork[ir + i] * dwork[ir + i + 1]);
+                }
+
+                f64 test_gamma = ab13dx(dico, jobe, jobd, n, m, p, omega,
+                                        &dwork[ia], n, &dwork[ie], n,
+                                        &dwork[ib_local], n, &dwork[ic_local], p,
+                                        &dwork[id], p, iwork, &dwork[iwrk2],
+                                        ldwork - iwrk2, cwork, lcwork, &ierr);
+                maxcwk = max_i32((i32)creal(cwork[0]), maxcwk);
+                maxwrk = max_i32((i32)dwork[iwrk2] + iwrk2, maxwrk);
+                f64 tm = discr ? fabs(atan2(sin(omega), cos(omega))) : omega;
+                if (ierr >= 1 && ierr <= n) {
+                    gpeak[0] = one;
+                    fpeak[0] = tm;
+                    gpeak[1] = zero;
+                    fpeak[1] = one;
+                    goto done;
+                } else if (ierr == n + 1) {
+                    *info = 3;
+                    return;
+                }
+                if (gammal < test_gamma) {
+                    gammal = test_gamma;
+                    fpeak[0] = tm;
+                    fpeak[1] = one;
+                }
+            }
+
+            if (gammal < gammas * (one + tol / ten)) {
+                gpeak[0] = gammal;
+                gpeak[1] = one;
+                goto done;
             }
         } else if (!withd) {
             f64 *qg = &dwork[iwrk];
@@ -836,11 +920,10 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
             SLC_DSYRK("L", "N", &n, &m, &one_d, b, &ldb, &zero_d, bbt, &n);
             SLC_DSYRK("L", "T", &n, &p, &one_d, c, &ldc, &zero_d, cct, &n);
 
-            f64 g2 = gamma * gamma;
             for (i32 j = 0; j < n; j++) {
                 for (i32 i = j; i < n; i++) {
-                    qg[i + j * ldqg] = -cct[i + j * n] / g2;
-                    qg[j + (n + i) * ldqg] = bbt[i + j * n] / g2;
+                    qg[i + j * ldqg] = -cct[i + j * n] / gamma;
+                    qg[j + (n + i) * ldqg] = bbt[i + j * n] / gamma;
                 }
             }
 
@@ -852,7 +935,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
             f64 *wi = &dwork[ii_local];
 
             f64 scale_val1 = zero;
-            mb03xd("N", "E", "N", "N", n, &dwork[ia], n, qg, ldqg,
+            mb03xd("B", "E", "N", "N", n, &dwork[ia], n, qg, ldqg,
                    t_work, ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
                    wr, wi, &ilo, &scale_val1,
                    &dwork[iwrk2], ldwork - iwrk2, &ierr);
@@ -862,36 +945,110 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 continue;
             }
 
-            f64 gammas = zero;
-            f64 omegas = zero;
-            bool found = false;
+            wmax = zero;
+            for (i32 i = 0; i < n; i++) {
+                f64 tm = hypot(wr[i], wi[i]);
+                wmax = max_f64(wmax, tm);
+            }
+
+            i32 nei = 0;
+            f64 tol_thresh = toler * sqrt(hundrd + wmax);
 
             for (i32 i = 0; i < n; i++) {
-                if (fabs(wr[i]) < toler * (fabs(wi[i]) + one)) {
-                    f64 omega = fabs(wi[i]);
-                    f64 test_gamma = ab13dx(dico, jobe, jobd, n, m, p, omega,
-                                            &dwork[ia], n, &dwork[ie], n,
-                                            &dwork[ib_local], n, &dwork[ic_local], p,
-                                            &dwork[id], p, iwork, &dwork[iwrk],
-                                            ldwork - iwrk, cwork, lcwork, &ierr);
-                    if (ierr == 0 && test_gamma > gammas) {
-                        gammas = test_gamma;
-                        omegas = omega;
-                        found = true;
+                f64 tm = fabs(wr[i]);
+                if (tm <= tol_thresh) {
+                    wr[nei] = wr[i];
+                    wi[nei] = wi[i];
+                    nei++;
+                }
+            }
+
+            if (nei == 0) {
+                gpeak[0] = gammal;
+                gpeak[1] = one;
+                goto done;
+            }
+
+            i32 nws = 0;
+            i32 j_cnt = 0;
+            for (i32 i = 0; i < nei; i++) {
+                if (wi[i] > eps) {
+                    wr[nws] = wi[i];
+                    nws++;
+                } else if (wi[i] == eps) {
+                    j_cnt++;
+                    if (j_cnt == 1) {
+                        wr[nws] = eps;
+                        nws++;
                     }
                 }
             }
 
-            if (found && gammas > gammal) {
-                gammal = gammas;
-                fpeak[0] = omegas;
-                fpeak[1] = one;
-            } else {
-                break;
+            for (i32 i = 0; i < nws - 1; i++) {
+                for (i32 j = i + 1; j < nws; j++) {
+                    if (wr[j] < wr[i]) {
+                        f64 tmp = wr[i];
+                        wr[i] = wr[j];
+                        wr[j] = tmp;
+                    }
+                }
+            }
+
+            i32 lw = 1;
+            for (i32 i = 1; i < nws; i++) {
+                if (wr[lw - 1] != wr[i]) {
+                    wr[lw] = wr[i];
+                    lw++;
+                }
+            }
+
+            if (lw == 1) {
+                if (iter == 1 && nws >= 1) {
+                    wr[1] = wr[0];
+                    lw++;
+                } else {
+                    gpeak[0] = gammal;
+                    gpeak[1] = one;
+                    goto done;
+                }
+            }
+
+            i32 iwrk3 = iwrk + lw;
+            f64 gammas = gammal;
+
+            for (i32 i = 0; i < lw - 1; i++) {
+                f64 omega = sqrt(wr[i] * wr[i + 1]);
+
+                f64 test_gamma = ab13dx(dico, jobe, jobd, n, m, p, omega,
+                                        &dwork[ia], n, &dwork[ie], n,
+                                        &dwork[ib_local], n, &dwork[ic_local], p,
+                                        &dwork[id], p, iwork, &dwork[iwrk3],
+                                        ldwork - iwrk3, cwork, lcwork, &ierr);
+                maxcwk = max_i32((i32)creal(cwork[0]), maxcwk);
+                maxwrk = max_i32((i32)dwork[iwrk3] + iwrk3, maxwrk);
+                if (ierr >= 1 && ierr <= n) {
+                    gpeak[0] = one;
+                    fpeak[0] = omega;
+                    gpeak[1] = zero;
+                    fpeak[1] = one;
+                    goto done;
+                } else if (ierr == n + 1) {
+                    *info = 3;
+                    return;
+                }
+                if (gammal < test_gamma) {
+                    gammal = test_gamma;
+                    fpeak[0] = omega;
+                    fpeak[1] = one;
+                }
+            }
+
+            if (gammal < gammas * (one + tol / ten)) {
+                gpeak[0] = gammal;
+                gpeak[1] = one;
+                goto done;
             }
         } else {
-            f64 *u = &dwork[iu];
-            f64 *v = &dwork[iv];
             f64 *bv = &dwork[ibv];
             f64 *cu = &dwork[icu];
 
@@ -948,7 +1105,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
             f64 *wi = &dwork[ii_local];
 
             f64 scale_val = zero;
-            mb03xd("N", "E", "N", "N", n2, h11, ldh, qg, ldqg,
+            mb03xd("B", "E", "N", "N", n2, h11, ldh, qg, ldqg,
                    t_work, ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
                    wr, wi, &ilo, &scale_val,
                    &dwork[iwrk2], ldwork - iwrk2, &ierr);
@@ -958,37 +1115,113 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 continue;
             }
 
-            f64 gammas = zero;
-            f64 omegas = zero;
-            bool found = false;
+            wmax = zero;
+            for (i32 i = 0; i < n2; i++) {
+                f64 tm = hypot(wr[i], wi[i]);
+                wmax = max_f64(wmax, tm);
+            }
+
+            i32 nei = 0;
+            f64 tol_thresh = toler * sqrt(hundrd + wmax);
 
             for (i32 i = 0; i < n2; i++) {
-                if (fabs(wr[i]) < toler * (fabs(wi[i]) + one)) {
-                    f64 omega = fabs(wi[i]);
-                    f64 test_gamma = ab13dx(dico, jobe, jobd, n, m, p, omega,
-                                            &dwork[ia], n, &dwork[ie], n,
-                                            &dwork[ib_local], n, &dwork[ic_local], p,
-                                            &dwork[id], p, iwork, &dwork[iwrk],
-                                            ldwork - iwrk, cwork, lcwork, &ierr);
-                    if (ierr == 0 && test_gamma > gammas) {
-                        gammas = test_gamma;
-                        omegas = omega;
-                        found = true;
+                f64 tm = fabs(wr[i]);
+                if (tm <= tol_thresh) {
+                    wr[nei] = wr[i];
+                    wi[nei] = wi[i];
+                    nei++;
+                }
+            }
+
+            if (nei == 0) {
+                gpeak[0] = gammal;
+                gpeak[1] = one;
+                goto done;
+            }
+
+            i32 nws = 0;
+            i32 j_cnt = 0;
+            for (i32 i = 0; i < nei; i++) {
+                if (wi[i] > eps) {
+                    wr[nws] = wi[i];
+                    nws++;
+                } else if (wi[i] == eps) {
+                    j_cnt++;
+                    if (j_cnt == 1) {
+                        wr[nws] = eps;
+                        nws++;
                     }
                 }
             }
 
-            if (found && gammas > gammal) {
-                gammal = gammas;
-                fpeak[0] = omegas;
-                fpeak[1] = one;
-            } else {
-                break;
+            for (i32 i = 0; i < nws - 1; i++) {
+                for (i32 j = i + 1; j < nws; j++) {
+                    if (wr[j] < wr[i]) {
+                        f64 tmp = wr[i];
+                        wr[i] = wr[j];
+                        wr[j] = tmp;
+                    }
+                }
+            }
+
+            i32 lw = 1;
+            for (i32 i = 1; i < nws; i++) {
+                if (wr[lw - 1] != wr[i]) {
+                    wr[lw] = wr[i];
+                    lw++;
+                }
+            }
+
+            if (lw == 1) {
+                if (iter == 1 && nws >= 1) {
+                    wr[1] = wr[0];
+                    lw++;
+                } else {
+                    gpeak[0] = gammal;
+                    gpeak[1] = one;
+                    goto done;
+                }
+            }
+
+            i32 iwrk3 = iwrk + lw;
+            f64 gammas = gammal;
+
+            for (i32 i = 0; i < lw - 1; i++) {
+                f64 omega = sqrt(wr[i] * wr[i + 1]);
+
+                f64 test_gamma = ab13dx(dico, jobe, jobd, n, m, p, omega,
+                                        &dwork[ia], n, &dwork[ie], n,
+                                        &dwork[ib_local], n, &dwork[ic_local], p,
+                                        &dwork[id], p, iwork, &dwork[iwrk3],
+                                        ldwork - iwrk3, cwork, lcwork, &ierr);
+                maxcwk = max_i32((i32)creal(cwork[0]), maxcwk);
+                maxwrk = max_i32((i32)dwork[iwrk3] + iwrk3, maxwrk);
+                if (ierr >= 1 && ierr <= n) {
+                    gpeak[0] = one;
+                    fpeak[0] = omega;
+                    gpeak[1] = zero;
+                    fpeak[1] = one;
+                    goto done;
+                } else if (ierr == n + 1) {
+                    *info = 3;
+                    return;
+                }
+                if (gammal < test_gamma) {
+                    gammal = test_gamma;
+                    fpeak[0] = omega;
+                    fpeak[1] = one;
+                }
+            }
+
+            if (gammal < gammas * (one + tol / ten)) {
+                gpeak[0] = gammal;
+                gpeak[1] = one;
+                goto done;
             }
         }
     }
 
-    if (iter >= MAXIT) {
+    if (iter > MAXIT) {
         *info = 4;
         gpeak[0] = gammal;
         gpeak[1] = one;

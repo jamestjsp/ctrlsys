@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.12] - 2025-02-01
+
+### Fixed
+
+- ab13dd: L-infinity norm algorithm bugs causing 8.8% error for MIMO systems
+  - Tolerance formula for imaginary-axis eigenvalue detection
+  - Iteration loop count (off-by-one)
+  - Algorithm structure: frequency collection, sorting, midpoint computation
+  - MB03XD BALANC parameter ('B' not 'N')
+  - Hamiltonian scaling (divide by gamma not gamma²)
+
 ## [1.0.11] - 2025-01-31
 
 ### Fixed

@@ -217,3 +217,52 @@ def test_ab13dd_invalid_dico():
     )
 
     assert info == -1
+
+
+def test_ab13dd_mimo_matlab_reference():
+    """
+    Test AB13DD with MIMO system against MATLAB hinfnorm reference.
+
+    This test exercises the iterative bisection algorithm which requires:
+    - Multiple iterations to converge
+    - Correct tolerance formula for imaginary-axis eigenvalue detection
+    - Proper frequency midpoint computation
+
+    MATLAB reference (R2023b):
+        [ninf, fpeak] = hinfnorm(ss(A, B, C, D))
+        ninf = 4.2768, fpeak = 1.1592
+    """
+    from slicot import ab13dd
+
+    n, m, p = 3, 2, 2
+
+    a = np.array([
+        [-1.017041847539126, -0.224182952826418,  0.042538079249249],
+        [-0.310374015319095, -0.516461581407780, -0.119195790221750],
+        [-1.452723568727942,  1.799586083710209, -1.491935830615152]
+    ], order='F', dtype=float)
+
+    e = np.eye(n, order='F', dtype=float)
+
+    b = np.array([
+        [ 0.312858596637428, -0.164879019209038],
+        [-0.864879917324456,  0.627707287528727],
+        [-0.030051296196269,  1.093265669039484]
+    ], order='F', dtype=float)
+
+    c = np.array([
+        [ 1.109273297614398,  0.077359091130425, -1.113500741486764],
+        [-0.863652821988714, -1.214117043615409, -0.006849328103348]
+    ], order='F', dtype=float)
+
+    d = np.zeros((p, m), order='F', dtype=float)
+
+    fpeak = np.array([0.0, 1.0], order='F', dtype=float)
+    tol = 1e-10
+
+    gpeak, fpeak_out, info = ab13dd(
+        'C', 'I', 'S', 'Z', n, m, p, fpeak, a, e, b, c, d, tol
+    )
+
+    assert info == 0
+    np.testing.assert_allclose(gpeak[0], 4.2768, rtol=0.001)
