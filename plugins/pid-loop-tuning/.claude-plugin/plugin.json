@@ -1,8 +1,0 @@
-{
-  "name": "pid-loop-tuning",
-  "description": "PID controller tuning and loop optimization tools",
-  "author": {
-    "name": "James Joseph",
-    "email": "jamestjsp@gmail.com"
-  }
-}
