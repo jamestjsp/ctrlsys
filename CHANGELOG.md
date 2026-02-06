@@ -20,6 +20,7 @@
 - Standalone `meson setup build` broken by `include_directories()` rejecting absolute numpy paths
 - CI gaps after build system migration to uv
 - test_mb03rd: replaced `scipy.linalg.solve` with numpy
+- Publish CI failures: LAPACK detection conflicting with scipy-openblas32, PEP 668 sdist build, missing pytest-xdist
 
 ## [1.0.12] - 2025-02-01
 
