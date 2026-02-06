@@ -279,7 +279,7 @@ def test_mb03rd_transformation_correctness():
     which exercises the transformation accumulation code path.
     """
     from slicot import mb03rd
-    from scipy.linalg import solve
+    from numpy.linalg import solve
 
     n = 5
     aschur = np.array([
