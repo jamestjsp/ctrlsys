@@ -9,6 +9,7 @@ A C11 translation of the SLICOT library with Python bindings.
 
    installation
    quickstart
+   guide
    api/index
 
 Installation

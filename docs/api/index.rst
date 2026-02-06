@@ -11,6 +11,10 @@ This library provides **578 functions** across 27 categories.
 AB - Analysis - Controllability, Observability, Minimal Realization
 -------------------------------------------------------------------
 
+System analysis: controllability/observability staircase forms, transmission zeros,
+system interconnections (series/parallel/feedback), model reduction (balanced truncation,
+Hankel-norm, frequency-weighted), and system norms (H2, H-infinity, Hankel).
+
 .. autofunction:: slicot.ab01md
 .. autofunction:: slicot.ab01nd
 .. autofunction:: slicot.ab01od
@@ -70,6 +74,9 @@ AB - Analysis - Controllability, Observability, Minimal Realization
 AG - Analysis - Generalized/Descriptor Systems
 ----------------------------------------------
 
+Analysis routines for descriptor (generalized) state-space systems E*dx/dt = A*x + B*u,
+including system inversion and transmission zeros.
+
 .. autofunction:: slicot.ag07bd
 .. autofunction:: slicot.ag08bd
 .. autofunction:: slicot.ag08by
@@ -78,6 +85,8 @@ AG - Analysis - Generalized/Descriptor Systems
 
 BB - Benchmark - Continuous-time Systems
 ----------------------------------------
+
+Generate standard benchmark state-space models for testing control algorithms.
 
 .. autofunction:: slicot.bb01ad
 .. autofunction:: slicot.bb02ad
@@ -122,6 +131,9 @@ DL - Data Analysis - Linear
 FB - Factorization - Block
 --------------------------
 
+Kalman filtering: square-root and conventional Kalman filter implementations
+for state estimation in linear dynamical systems.
+
 .. autofunction:: slicot.fb01qd
 .. autofunction:: slicot.fb01rd
 .. autofunction:: slicot.fb01sd
@@ -135,6 +147,9 @@ FD - Factorization - Descriptor
 
 IB - Identification - Block
 ---------------------------
+
+Subspace-based system identification: estimate state-space models (A, B, C, D)
+from measured input/output data. Includes MOESP, N4SID, and nonlinear (Wiener) methods.
 
 .. autofunction:: slicot.ib01ad
 .. autofunction:: slicot.ib01bd
@@ -187,6 +202,9 @@ MA - Matrix Operations - General
 
 MB - Matrix Operations - Block/Band
 -----------------------------------
+
+Matrix computations: symmetric/triangular updates, Cholesky factorizations, Toeplitz solvers,
+eigenvalue reordering, periodic Schur decompositions, and matrix exponentials.
 
 .. autofunction:: slicot.mb01kd
 .. autofunction:: slicot.mb01ld
@@ -415,6 +433,8 @@ MB - Matrix Operations - Block/Band
 MC - Matrix Operations - Complex
 --------------------------------
 
+Polynomial operations: evaluation, GCD, root finding, and polynomial matrix operations.
+
 .. autofunction:: slicot.mc01md
 .. autofunction:: slicot.mc01nd
 .. autofunction:: slicot.mc01od
@@ -454,6 +474,9 @@ NF - Numerical Functions
 
 SB - Synthesis - Basic
 ----------------------
+
+Controller design: Riccati/Lyapunov/Sylvester equation solvers, pole assignment,
+H-infinity control, spectral factorization, and coprime factorization.
 
 .. autofunction:: slicot.sb01bd
 .. autofunction:: slicot.sb01bx
@@ -559,6 +582,8 @@ SB - Synthesis - Basic
 SG - Synthesis - Generalized/Descriptor
 ---------------------------------------
 
+Generalized Riccati and Lyapunov equation solvers for descriptor systems.
+
 .. autofunction:: slicot.sg02ad
 .. autofunction:: slicot.sg02cv
 .. autofunction:: slicot.sg02cw
@@ -580,6 +605,9 @@ SG - Synthesis - Generalized/Descriptor
 
 TB - Transformation - Basic
 ---------------------------
+
+State-space transformations: minimal realization, balancing, similarity transforms,
+and conversion between state-space and transfer function representations.
 
 .. autofunction:: slicot.tb01id
 .. autofunction:: slicot.tb01iz
@@ -630,6 +658,9 @@ TD - Transformation - Descriptor
 TF - Transfer Function
 ----------------------
 
+Transfer function evaluation: compute frequency response and time-domain output
+of state-space systems.
+
 .. autofunction:: slicot.tf01md
 .. autofunction:: slicot.tf01mx
 .. autofunction:: slicot.tf01my
@@ -641,6 +672,9 @@ TF - Transfer Function
 
 TG - Transformation - Generalized
 ---------------------------------
+
+Transformations for descriptor systems: reduction to SVD-like, Hessenberg-triangular,
+and block diagonal forms.
 
 .. autofunction:: slicot.tg01ad
 .. autofunction:: slicot.tg01az
