@@ -202,6 +202,44 @@ void mb03xd(const char *balanc, const char *job, const char *jobu,
                &dwork[ptaul], &dwork[ptaur], &dwork[pdw], ldwork_rem, &ierr);
     }
 
+    if (wantu && !wantv && !wantg) {
+        if (n > 1) {
+            i32 nm1 = n - 1;
+            SLC_DLACPY("L", &nm1, &nm1, &t[1], &ldt, &qg[1], &ldqg);
+        }
+    } else if (!wantu && wantv && !wantg) {
+        if (n > 1) {
+            i32 nm1 = n - 1;
+            SLC_DLACPY("L", &nm1, &nm1, &a[1], &lda, &qg[1], &ldqg);
+            SLC_DLACPY("U", &nm1, &nm1, &v2[ldv2], &ldv2, &qg[ldqg], &ldqg);
+        }
+    } else if (wantu && wantv && !wantg) {
+        if (n > 1) {
+            i32 nm1 = n - 1;
+            SLC_DLACPY("L", &nm1, &nm1, &t[1], &ldt, &v2[1], &ldv2);
+            SLC_DLACPY("L", &nm1, &nm1, &a[1], &lda, &qg[1], &ldqg);
+        }
+    } else if (wantu && !wantv && wantg) {
+        if (n > 1) {
+            i32 nm1 = n - 1;
+            SLC_DLACPY("L", &nm1, &nm1, &t[1], &ldt, &dwork[pdw + n * n + n], &nm1);
+        }
+    } else if (!wantu && wantv && wantg) {
+        if (n > 2) {
+            i32 nm2 = n - 2;
+            SLC_DLACPY("L", &nm2, &nm2, &a[2], &lda, &dwork[pdw + n * n + n], &nm2);
+        }
+    } else if (wantu && wantv && wantg) {
+        if (n > 1) {
+            i32 nm1 = n - 1;
+            SLC_DLACPY("L", &nm1, &nm1, &t[1], &ldt, &dwork[pdw + n], &nm1);
+        }
+        if (n > 2) {
+            i32 nm2 = n - 2;
+            SLC_DLACPY("L", &nm2, &nm2, &a[2], &lda, &v2[2], &ldv2);
+        }
+    }
+
     i32 pbeta;
     if (!wantu && !wantv) {
         pbeta = 0;
@@ -391,7 +429,7 @@ label_90:
         if (nilo > 0) {
             mb04qb("N", "N", "N", "C", "R", nilo, n, nilo,
                    &qg[(ilo1 - 1) + (*ilo - 1) * ldqg], ldqg,
-                   &qg[(*ilo - 1) + ilo1 * ldqg], ldqg,
+                   &qg[(*ilo - 1) + (ilo1 - 1) * ldqg], ldqg,
                    &v1[(ilo1 - 1)], ldv1, &v2[(ilo1 - 1)], ldv2,
                    &dwork[pcsr + 2 * (*ilo - 1)], &dwork[ptaur + *ilo - 1],
                    &dwork[pdw], ldwork - pdw, &ierr);
@@ -408,7 +446,7 @@ label_90:
         if (nilo > 0) {
             mb04qb("N", "N", "N", "C", "R", nilo, n, nilo,
                    &qg[(ilo1 - 1) + (*ilo - 1) * ldqg], ldqg,
-                   &u2[(*ilo - 1) + ilo1 * ldu2], ldu2,
+                   &u2[(*ilo - 1) + (ilo1 - 1) * ldu2], ldu2,
                    &v1[(ilo1 - 1)], ldv1, &v2[(ilo1 - 1)], ldv2,
                    &dwork[pcsr + 2 * (*ilo - 1)], &dwork[ptaur + *ilo - 1],
                    &dwork[pdw + n], ldwork - pdw - n, &ierr);
@@ -476,7 +514,7 @@ label_90:
         if (nilo > 0) {
             mb04qb("N", "N", "N", "C", "R", nilo, n, nilo,
                    &a[(ilo1 - 1) + (*ilo - 1) * lda], lda,
-                   &u2[(*ilo - 1) + ilo1 * ldu2], ldu2,
+                   &u2[(*ilo - 1) + (ilo1 - 1) * ldu2], ldu2,
                    &v1[(ilo1 - 1)], ldv1, &v2[(ilo1 - 1)], ldv2,
                    &dwork[pcsr + 2 * (*ilo - 1)], &dwork[ptaur + *ilo - 1],
                    &dwork[pdw], ldwork - pdw, &ierr);

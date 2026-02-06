@@ -248,7 +248,7 @@ void mb3lzp(const char *compq, const char *orth, i32 n,
             a[i + j * lda] = dwork[iw] + 0.0 * I;
             iw++;
         }
-        if (j >= m && j < n - 1) {
+        if (j >= m - 1 && j < n - 1) {
             a[j + 1 + j * lda] = czero;
         }
         iw += n - j - 1;
@@ -261,7 +261,7 @@ void mb3lzp(const char *compq, const char *orth, i32 n,
             iw++;
         }
         de[j + j * ldde] = czero;
-        if (j >= m && j < n - 1) {
+        if (j >= m - 1 && j < n - 1) {
             de[j + 1 + j * ldde] = czero;
         }
         iw += n - j;
@@ -284,7 +284,7 @@ void mb3lzp(const char *compq, const char *orth, i32 n,
             iw++;
         }
         fg[j + j * ldfg] = czero;
-        if (j >= m && j < n - 1) {
+        if (j >= m - 1 && j < n - 1) {
             fg[j + 1 + j * ldfg] = czero;
         }
         iw += n - j;
@@ -348,14 +348,14 @@ void mb3lzp(const char *compq, const char *orth, i32 n,
             // Update DE
             tmp = de[jj + 1 + jj * ldde];
             de[jj + 1 + jj * ldde] = -de[jj + (jj + 1) * ldde];
-            i32 jp1 = jj + 1;
+            i32 jp1 = jj + 2;
             if (jp1 > 0) {
                 SLC_ZGEMM("N", "N", &jp1, &two, &two, &cone, &de[jj * ldde], &ldde,
                           &zwork[iqz], &two, &czero, &zwork[izwrk], &jp1);
                 SLC_ZLACPY("F", &jp1, &two, &zwork[izwrk], &jp1, &de[jj * ldde], &ldde);
             }
 
-            i32 nc_de = j2 - jj + 1;
+            i32 nc_de = j2 - jj;
             SLC_ZGEMM("C", "N", &two, &nc_de, &two, &cone, &zwork[iqz], &two,
                       &de[jj + jj * ldde], &ldde, &czero, &zwork[izwrk], &two);
             SLC_ZLACPY("F", &two, &nc_de, &zwork[izwrk], &two, &de[jj + jj * ldde], &ldde);

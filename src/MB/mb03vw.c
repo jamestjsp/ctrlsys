@@ -429,7 +429,8 @@ void mb03vw(
 
                     if (s[aind - 1] == smult) {
                         for (i32 ii = ihi - 1; ii > upidx; ii--) {
-                            SLC_DROT(&ii, &a_aind[0 + (ii - 1) * lda1], &int1,
+                            i32 ip1 = ii + 1;
+                            SLC_DROT(&ip1, &a_aind[0 + (ii - 1) * lda1], &int1,
                                      &a_aind[0 + ii * lda1], &int1,
                                      &dwork[pos], &dwork[pos + 1]);
 
@@ -439,7 +440,7 @@ void mb03vw(
                                        &a_aind[ii - 1 + (ii - 1) * lda1]);
                             a_aind[ii + (ii - 1) * lda1] = ZERO;
 
-                            i32 nmip1 = n - ii + 1;
+                            i32 nmip1 = n - ii;
                             SLC_DROT(&nmip1, &a_aind[ii - 1 + ii * lda1], &lda1,
                                      &a_aind[ii + ii * lda1], &lda1,
                                      &dwork[pos], &dwork[pos + 1]);
@@ -447,7 +448,7 @@ void mb03vw(
                         }
                     } else {
                         for (i32 ii = ihi - 1; ii > upidx; ii--) {
-                            i32 nmip2 = n - ii + 2;
+                            i32 nmip2 = n - ii + 1;
                             SLC_DROT(&nmip2, &a_aind[ii - 1 + (ii - 1) * lda1], &lda1,
                                      &a_aind[ii + (ii - 1) * lda1], &lda1,
                                      &dwork[pos], &dwork[pos + 1]);
@@ -459,7 +460,7 @@ void mb03vw(
                                        &a_aind[ii + ii * lda1]);
                             a_aind[ii + (ii - 1) * lda1] = ZERO;
 
-                            i32 im1 = ii - 1;
+                            i32 im1 = ii;
                             SLC_DROT(&im1, &a_aind[0 + (ii - 1) * lda1], &int1,
                                      &a_aind[0 + ii * lda1], &int1,
                                      &dwork[pos], &dwork[pos + 1]);

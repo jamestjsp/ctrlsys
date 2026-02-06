@@ -1905,7 +1905,7 @@ PyObject* py_mb02dd(PyObject* self, PyObject* args) {
 
     bool isrow = (typet_u == 'R');
     bool compl_flag = (job_u == 'A');
-    (void)(job_u == 'R' || compl_flag);
+    bool compg = (job_u == 'R') || compl_flag;
 
     if (k < 0 || m < 0 || n < 0) {
         PyErr_SetString(PyExc_ValueError, "k, m, and n must be non-negative");
@@ -2065,35 +2065,41 @@ PyObject* py_mb02dd(PyObject* self, PyObject* args) {
         }
     }
 
-    npy_intp g_dims[2];
-    if (isrow) {
-        g_dims[0] = twok;
-        g_dims[1] = s;
-    } else {
-        g_dims[0] = s;
-        g_dims[1] = twok;
-    }
-    npy_intp g_strides[2] = {sizeof(f64), ldg * sizeof(f64)};
-    PyObject *g_out = PyArray_New(&PyArray_Type, 2, g_dims, NPY_DOUBLE,
-                                  g_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
-    if (!g_out) {
-        Py_DECREF(l_out);
-        Py_DECREF(r_out);
-        Py_DECREF(ta_array);
-        Py_DECREF(t_array);
-        Py_DECREF(g_array);
-        Py_DECREF(r_array);
-        Py_DECREF(cs_array);
-        return NULL;
-    }
-
-    f64 *g_out_data = (f64*)PyArray_DATA((PyArrayObject*)g_out);
-    i32 g_rows = isrow ? twok : s;
-    i32 g_cols = isrow ? s : twok;
-    for (i32 j = 0; j < g_cols; j++) {
-        for (i32 i = 0; i < g_rows; i++) {
-            g_out_data[i + j * g_rows] = g_data[i + j * ldg];
+    PyObject *g_out;
+    if (compg) {
+        npy_intp g_dims[2];
+        if (isrow) {
+            g_dims[0] = twok;
+            g_dims[1] = s;
+        } else {
+            g_dims[0] = s;
+            g_dims[1] = twok;
         }
+        npy_intp g_strides[2] = {sizeof(f64), ldg * sizeof(f64)};
+        g_out = PyArray_New(&PyArray_Type, 2, g_dims, NPY_DOUBLE,
+                            g_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+        if (!g_out) {
+            Py_DECREF(l_out);
+            Py_DECREF(r_out);
+            Py_DECREF(ta_array);
+            Py_DECREF(t_array);
+            Py_DECREF(g_array);
+            Py_DECREF(r_array);
+            Py_DECREF(cs_array);
+            return NULL;
+        }
+
+        f64 *g_out_data = (f64*)PyArray_DATA((PyArrayObject*)g_out);
+        i32 g_rows = isrow ? twok : s;
+        i32 g_cols = isrow ? s : twok;
+        for (i32 j = 0; j < g_cols; j++) {
+            for (i32 i = 0; i < g_rows; i++) {
+                g_out_data[i + j * g_rows] = g_data[i + j * ldg];
+            }
+        }
+    } else {
+        Py_INCREF(Py_None);
+        g_out = Py_None;
     }
 
     Py_DECREF(ta_array);

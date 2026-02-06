@@ -1273,9 +1273,11 @@ PyObject* py_mb03xd(PyObject* self, PyObject* args, PyObject* kwargs) {
         return NULL;
     }
 
+    // Allocate n+1 for wr/wi: mb03xd may write wr[n]/wi[n] for complex eigenvalue pairs
     npy_intp dims[1] = {n_alloc};
-    PyObject *wr_array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
-    PyObject *wi_array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
+    npy_intp dims_alloc[1] = {n_alloc + 1};
+    PyObject *wr_array = PyArray_SimpleNew(1, dims_alloc, NPY_DOUBLE);
+    PyObject *wi_array = PyArray_SimpleNew(1, dims_alloc, NPY_DOUBLE);
 
     if (wr_array == NULL || wi_array == NULL) {
         free(dwork); free(t); free(u1); free(u2); free(v1); free(v2); free(scale);
@@ -1394,6 +1396,11 @@ PyObject* py_mb03xd(PyObject* self, PyObject* args, PyObject* kwargs) {
     }
     memcpy(PyArray_DATA((PyArrayObject*)scale_array), scale, n_alloc * sizeof(f64));
     free(scale);
+
+    // Trim wr/wi from n+1 back to n (extra element was safety margin for complex pairs)
+    PyArray_Dims new_dims = {dims, 1};
+    PyArray_Resize((PyArrayObject*)wr_array, &new_dims, 1, NPY_ANYORDER);
+    PyArray_Resize((PyArrayObject*)wi_array, &new_dims, 1, NPY_ANYORDER);
 
     PyObject *result = Py_BuildValue("OOOOOOOOOiOi",
                                      a_array, t_array, qg_array,

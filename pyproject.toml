@@ -27,7 +27,6 @@ Homepage = "https://github.com/slicot/slicot.c"
 test = [
     "pytest>=7.0.0",
     "pytest-xdist>=3.0.0",
-    "pytest-rerunfailures>=14.0",
 ]
 dev = [
     "scipy>=1.7.0",
@@ -44,4 +43,4 @@ install = ['--skip-subprojects']
 testpaths = ["tests/python"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
-addopts = "-v -n 4"
+addopts = "-v -n auto"

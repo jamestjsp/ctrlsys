@@ -19,7 +19,6 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
         return;
     }
 
-    i32 nb1 = nb + 1;
     i32 nb2 = nb + nb;
     i32 nb3 = nb2 + nb;
     i32 pdw = nb3 + nb;  // 0-based: dwork offset
@@ -55,7 +54,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
 
             SLC_DGEMV("N", &im1, &nmi1, &ONE, &a[(k + i) * lda], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &dwork[nb], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &dwork[nb], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
 
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i], &ldyq,
@@ -63,7 +62,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xq[i * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
 
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb1 * ldyq], &ldyq,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb * ldyq], &ldyq,
                       &q[i + i * ldq], &int1, &ZERO, &xq[(i + nb) * ldxq], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &xq[(i + nb) * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
@@ -75,19 +74,19 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             i32 ip1 = i + 1;
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xq[i + 1], &ldxq,
                       &q[i], &ldq, &ONE, &q[i + (i + 1) * ldq], &ldq);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &a[(k + i) * lda], &int1, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &yq[i], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
-                      &yq[i + nb1 * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
+                      &yq[i + nb * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
 
             // Update XA with first Householder reflection
             SLC_DGEMV("N", &nmi, &nmi1, &ONE, &a[(i + 1) + (k + i) * lda], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &xa[(i + 1) + i * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[i + 1], &ldxa,
                       dwork, &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &dwork[nb], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
 
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i)], &ldya,
@@ -95,7 +94,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
 
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb1 * ldya], &ldya,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb * ldya], &ldya,
                       &q[i + i * ldq], &int1, &ZERO, &xa[i * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
@@ -104,12 +103,12 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update A(i+1:n,k+i)
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xa[i + 1], &ldxa,
                       &q[i], &ldq, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &a[(k + i) * lda], &int1, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &ya[(k + i)], &ldya, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
-                      &ya[(k + i) + nb1 * ldya], &ldya, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
+                      &ya[(k + i) + nb * ldya], &ldya, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
 
             // Apply rotation to [A(i+1:n,k+i)'; Q(i,i+1:n)]
             SLC_DROT(&nmi, &a[(i + 1) + (k + i) * lda], &int1, &q[i + (i + 1) * ldq], &ldq, &c, &s);
@@ -125,7 +124,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
 
             SLC_DGEMV("N", &im1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                       &a[i + (k + i + 1) * lda], &lda, &ZERO, &dwork[nb3], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &dwork[nb3], &int1, &ONE, &xq[(i + 1) + (i + nb) * ldxq], &int1);
 
             SLC_DGEMV("T", &nmi, &im1, &ONE, &yq[i + 1], &ldyq,
@@ -133,7 +132,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xq[(i + nb) * ldxq], &int1, &ONE, &xq[(i + 1) + (i + nb) * ldxq], &int1);
 
-            SLC_DGEMV("T", &nmi, &im1, &ONE, &yq[(i + 1) + nb1 * ldyq], &ldyq,
+            SLC_DGEMV("T", &nmi, &im1, &ONE, &yq[(i + 1) + nb * ldyq], &ldyq,
                       &a[i + (k + i + 1) * lda], &lda, &ZERO, &xq[(i + nb) * ldxq], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &xq[(i + nb) * ldxq], &int1, &ONE, &xq[(i + 1) + (i + nb) * ldxq], &int1);
@@ -149,7 +148,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                       &a[i + (k + i) * lda], &lda, &ZERO, &xa[(i + 1) + (i + nb) * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xa[i + 1], &ldxa,
                       &dwork[nb2], &int1, &ONE, &xa[(i + 1) + (i + nb) * ldxa], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &dwork[nb3], &int1, &ONE, &xa[(i + 1) + (i + nb) * ldxa], &int1);
 
             SLC_DGEMV("T", &nmi, &im1, &ONE, &ya[(k + i + 1)], &ldya,
@@ -157,7 +156,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xa[(i + nb) * ldxa], &int1, &ONE, &xa[(i + 1) + (i + nb) * ldxa], &int1);
 
-            SLC_DGEMV("T", &nmi, &im1, &ONE, &ya[(k + i + 1) + nb1 * ldya], &ldya,
+            SLC_DGEMV("T", &nmi, &im1, &ONE, &ya[(k + i + 1) + nb * ldya], &ldya,
                       &a[i + (k + i + 1) * lda], &lda, &ZERO, &xa[(i + nb) * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &xa[(i + nb) * ldxa], &int1, &ONE, &xa[(i + 1) + (i + nb) * ldxa], &int1);
@@ -172,7 +171,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                       &q[i + i * ldq], &int1, &ZERO, &xg[i * ldxg], &int1);
             SLC_DGEMV("N", &kn, &im1, &ONE, xg, &ldxg,
                       dwork, &int1, &ONE, &xg[i * ldxg], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &xg[nb1 * ldxg], &ldxg,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &xg[nb * ldxg], &ldxg,
                       &dwork[nb], &int1, &ONE, &xg[i * ldxg], &int1);
 
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &yg[(k + i)], &ldyg,
@@ -180,7 +179,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &dwork[pdw], &int1, &ONE, &xg[(k + i + 1) + i * ldxg], &int1);
 
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yg[(k + i) + nb1 * ldyg], &ldyg,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yg[(k + i) + nb * ldyg], &ldyg,
                       &q[i + i * ldq], &int1, &ZERO, &dwork[pdw], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &dwork[pdw], &int1, &ONE, &xg[(k + i + 1) + i * ldxg], &int1);
@@ -189,19 +188,19 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update G(k+i,:)
             SLC_DGEMV("N", &kn, &ip1, &ONE, xg, &ldxg,
                       &q[i], &ldq, &ONE, &g[(k + i)], &ldg);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &xg[nb1 * ldxg], &ldxg,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &xg[nb * ldxg], &ldxg,
                       &a[(k + i) * lda], &int1, &ONE, &g[(k + i)], &ldg);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &yg[(k + i)], &ldyg, &ONE, &g[(k + i) + (k + i + 1) * ldg], &ldg);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
-                      &yg[(k + i) + nb1 * ldyg], &ldyg, &ONE, &g[(k + i) + (k + i + 1) * ldg], &ldg);
+                      &yg[(k + i) + nb * ldyg], &ldyg, &ONE, &g[(k + i) + (k + i + 1) * ldg], &ldg);
 
             // Update XB with first Householder reflection
             SLC_DGEMV("N", &kn, &nmi1, &ONE, &b[i * ldb], &ldb,
                       &q[i + i * ldq], &int1, &ZERO, &xb[i * ldxb], &int1);
             SLC_DGEMV("N", &kn, &im1, &ONE, xb, &ldxb,
                       dwork, &int1, &ONE, &xb[i * ldxb], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &xb[nb1 * ldxb], &ldxb,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &xb[nb * ldxb], &ldxb,
                       &dwork[nb], &int1, &ONE, &xb[i * ldxb], &int1);
 
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &yb[i], &ldyb,
@@ -209,7 +208,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &dwork[pdw], &int1, &ONE, &xb[(k + i + 1) + i * ldxb], &int1);
 
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yb[i + nb1 * ldyb], &ldyb,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yb[i + nb * ldyb], &ldyb,
                       &q[i + i * ldq], &int1, &ZERO, &dwork[pdw], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &dwork[pdw], &int1, &ONE, &xb[(k + i + 1) + i * ldxb], &int1);
@@ -218,12 +217,12 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update B(:,i)
             SLC_DGEMV("N", &kn, &ip1, &ONE, xb, &ldxb,
                       &q[i], &ldq, &ONE, &b[i * ldb], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &xb[nb1 * ldxb], &ldxb,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &xb[nb * ldxb], &ldxb,
                       &a[(k + i) * lda], &int1, &ONE, &b[i * ldb], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &yb[i], &ldyb, &ONE, &b[(k + i + 1) + i * ldb], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
-                      &yb[i + nb1 * ldyb], &ldyb, &ONE, &b[(k + i + 1) + i * ldb], &int1);
+                      &yb[i + nb * ldyb], &ldyb, &ONE, &b[(k + i + 1) + i * ldb], &int1);
 
             // Apply rotation to [G(k+i,:); B(:,i)']
             SLC_DROT(&kn, &g[(k + i)], &ldg, &b[i * ldb], &int1, &c, &s);
@@ -241,7 +240,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                       &a[i + (k + i) * lda], &lda, &ZERO, &xg[(i + nb) * ldxg], &int1);
             SLC_DGEMV("N", &kn, &ip1, &ONE, xg, &ldxg,
                       &dwork[nb2], &int1, &ONE, &xg[(i + nb) * ldxg], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &xg[nb1 * ldxg], &ldxg,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &xg[nb * ldxg], &ldxg,
                       &dwork[nb3], &int1, &ONE, &xg[(i + nb) * ldxg], &int1);
 
             SLC_DGEMV("T", &nmi, &im1, &ONE, &yg[(k + i + 1)], &ldyg,
@@ -249,7 +248,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &dwork[pdw], &int1, &ONE, &xg[(k + i + 1) + (i + nb) * ldxg], &int1);
 
-            SLC_DGEMV("T", &nmi, &im1, &ONE, &yg[(k + i + 1) + nb1 * ldyg], &ldyg,
+            SLC_DGEMV("T", &nmi, &im1, &ONE, &yg[(k + i + 1) + nb * ldyg], &ldyg,
                       &a[i + (k + i + 1) * lda], &lda, &ZERO, &dwork[pdw], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &dwork[pdw], &int1, &ONE, &xg[(k + i + 1) + (i + nb) * ldxg], &int1);
@@ -263,7 +262,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                       &a[i + (k + i) * lda], &lda, &ZERO, &xb[(i + nb) * ldxb], &int1);
             SLC_DGEMV("N", &kn, &ip1, &ONE, xb, &ldxb,
                       &dwork[nb2], &int1, &ONE, &xb[(i + nb) * ldxb], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &xb[nb1 * ldxb], &ldxb,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &xb[nb * ldxb], &ldxb,
                       &dwork[nb3], &int1, &ONE, &xb[(i + nb) * ldxb], &int1);
 
             SLC_DGEMV("T", &nmi, &im1, &ONE, &yb[i + 1], &ldyb,
@@ -271,7 +270,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &dwork[pdw], &int1, &ONE, &xb[(k + i + 1) + (i + nb) * ldxb], &int1);
 
-            SLC_DGEMV("T", &nmi, &im1, &ONE, &yb[(i + 1) + nb1 * ldyb], &ldyb,
+            SLC_DGEMV("T", &nmi, &im1, &ONE, &yb[(i + 1) + nb * ldyb], &ldyb,
                       &a[i + (k + i + 1) * lda], &lda, &ZERO, &dwork[pdw], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &dwork[pdw], &int1, &ONE, &xb[(k + i + 1) + (i + nb) * ldxb], &int1);
@@ -309,7 +308,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &yb[i * ldyb], &int1, &ONE, &yb[(i + 1) + i * ldyb], &int1);
 
-            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xb[(k + i + 1) + nb1 * ldxb], &ldxb,
+            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xb[(k + i + 1) + nb * ldxb], &ldxb,
                       &q[i + (i + 1) * ldq], &ldq, &ZERO, &yb[i * ldyb], &int1);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                       &yb[i * ldyb], &int1, &ONE, &yb[(i + 1) + i * ldyb], &int1);
@@ -321,7 +320,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
 
             SLC_DGEMV("T", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &q[i + (i + 1) * ldq], &ldq, &ZERO, &dwork[nb], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &yb[(i + 1) + nb1 * ldyb], &ldyb,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &yb[(i + 1) + nb * ldyb], &ldyb,
                       &dwork[nb], &int1, &ONE, &yb[(i + 1) + i * ldyb], &int1);
             SLC_DSCAL(&nmi, &negtauq, &yb[(i + 1) + i * ldyb], &int1);
 
@@ -329,10 +328,10 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &xb[(k + i + 1)], &ldxb, &ONE, &b[(k + i + 1) + (i + 1) * ldb], &ldb);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
-                      &xb[(k + i + 1) + nb1 * ldxb], &ldxb, &ONE, &b[(k + i + 1) + (i + 1) * ldb], &ldb);
+                      &xb[(k + i + 1) + nb * ldxb], &ldxb, &ONE, &b[(k + i + 1) + (i + 1) * ldb], &ldb);
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &yb[i + 1], &ldyb,
                       &q[(i + 1) * ldq], &int1, &ONE, &b[(k + i + 1) + (i + 1) * ldb], &ldb);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &yb[(i + 1) + nb1 * ldyb], &ldyb,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &yb[(i + 1) + nb * ldyb], &ldyb,
                       &b[(k + i + 1)], &ldb, &ONE, &b[(k + i + 1) + (i + 1) * ldb], &ldb);
 
             // Update YQ with first Householder reflection
@@ -344,14 +343,14 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &yq[i * ldyq], &int1, &ONE, &yq[(i + 1) + i * ldyq], &int1);
 
-            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &q[i + (i + 1) * ldq], &ldq, &ZERO, &yq[i * ldyq], &int1);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                       &yq[i * ldyq], &int1, &ONE, &yq[(i + 1) + i * ldyq], &int1);
 
             SLC_DGEMV("N", &nmi, &im1, &ONE, &yq[i + 1], &ldyq,
                       dwork, &int1, &ONE, &yq[(i + 1) + i * ldyq], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &yq[(i + 1) + nb1 * ldyq], &ldyq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &yq[(i + 1) + nb * ldyq], &ldyq,
                       &dwork[nb], &int1, &ONE, &yq[(i + 1) + i * ldyq], &int1);
             SLC_DSCAL(&nmi, &negtauq, &yq[(i + 1) + i * ldyq], &int1);
 
@@ -359,10 +358,10 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &xq[i + 1], &ldxq, &ONE, &q[(i + 1) + (i + 1) * ldq], &int1);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
-                      &xq[(i + 1) + nb1 * ldxq], &ldxq, &ONE, &q[(i + 1) + (i + 1) * ldq], &int1);
+                      &xq[(i + 1) + nb * ldxq], &ldxq, &ONE, &q[(i + 1) + (i + 1) * ldq], &int1);
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &yq[i + 1], &ldyq,
                       &q[(i + 1) * ldq], &int1, &ONE, &q[(i + 1) + (i + 1) * ldq], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &yq[(i + 1) + nb1 * ldyq], &ldyq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &yq[(i + 1) + nb * ldyq], &ldyq,
                       &b[(k + i + 1)], &ldb, &ONE, &q[(i + 1) + (i + 1) * ldq], &int1);
 
             // Apply rotation to [Q(i+1:n,i+1), B(k+i+1,i+1:n)']
@@ -385,7 +384,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                 SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                           &yb[(i + nb) * ldyb], &int1, &ONE, &yb[(i + 1) + (i + nb) * ldyb], &int1);
 
-                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xb[(k + i + 2) + nb1 * ldxb], &ldxb,
+                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xb[(k + i + 2) + nb * ldxb], &ldxb,
                           &b[(k + i + 2) + i * ldb], &int1, &ZERO, &yb[(i + nb) * ldyb], &int1);
                 SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                           &yb[(i + nb) * ldyb], &int1, &ONE, &yb[(i + 1) + (i + nb) * ldyb], &int1);
@@ -395,9 +394,9 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                 SLC_DGEMV("N", &nmi, &ip1, &ONE, &yb[i + 1], &ldyb,
                           &dwork[nb2], &int1, &ONE, &yb[(i + 1) + (i + nb) * ldyb], &int1);
 
-                SLC_DGEMV("T", &nmi2, &im1, &ONE, &b[(k + i + 2)], &ldq,
+                SLC_DGEMV("T", &nmi2, &im1, &ONE, &b[(k + i + 2)], &ldb,
                           &b[(k + i + 2) + i * ldb], &int1, &ZERO, &dwork[nb3], &int1);
-                SLC_DGEMV("N", &nmi, &im1, &ONE, &yb[(i + 1) + nb1 * ldyb], &ldyb,
+                SLC_DGEMV("N", &nmi, &im1, &ONE, &yb[(i + 1) + nb * ldyb], &ldyb,
                           &dwork[nb3], &int1, &ONE, &yb[(i + 1) + (i + nb) * ldyb], &int1);
             }
             f64 negtauri = -taur[i];
@@ -416,14 +415,14 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                 SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                           &yq[(i + nb) * ldyq], &int1, &ONE, &yq[(i + 1) + (i + nb) * ldyq], &int1);
 
-                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xq[(i + 2) + nb1 * ldxq], &ldxq,
+                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xq[(i + 2) + nb * ldxq], &ldxq,
                           &b[(k + i + 2) + i * ldb], &int1, &ZERO, &yq[(i + nb) * ldyq], &int1);
                 SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                           &yq[(i + nb) * ldyq], &int1, &ONE, &yq[(i + 1) + (i + nb) * ldyq], &int1);
 
                 SLC_DGEMV("N", &nmi, &ip1, &ONE, &yq[i + 1], &ldyq,
                           &dwork[nb2], &int1, &ONE, &yq[(i + 1) + (i + nb) * ldyq], &int1);
-                SLC_DGEMV("N", &nmi, &im1, &ONE, &yq[(i + 1) + nb1 * ldyq], &ldyq,
+                SLC_DGEMV("N", &nmi, &im1, &ONE, &yq[(i + 1) + nb * ldyq], &ldyq,
                           &dwork[nb3], &int1, &ONE, &yq[(i + 1) + (i + nb) * ldyq], &int1);
             }
             SLC_DSCAL(&nmi, &negtauri, &yq[(i + 1) + (i + nb) * ldyq], &int1);
@@ -440,14 +439,14 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &dwork[pdw], &int1, &ONE, &ya[(k + i + 1) + i * ldya], &int1);
 
-            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &q[i + (i + 1) * ldq], &ldq, &ZERO, &dwork[pdw], &int1);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                       &dwork[pdw], &int1, &ONE, &ya[(k + i + 1) + i * ldya], &int1);
 
             SLC_DGEMV("N", &kn, &im1, &ONE, ya, &ldya,
                       dwork, &int1, &ONE, &ya[i * ldya], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &ya[nb1 * ldya], &ldya,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &ya[nb * ldya], &ldya,
                       &dwork[nb], &int1, &ONE, &ya[i * ldya], &int1);
             SLC_DSCAL(&kn, &negtauq, &ya[i * ldya], &int1);
 
@@ -455,10 +454,10 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &xa[i + 1], &ldxa, &ONE, &a[(i + 1) + (k + i + 1) * lda], &lda);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
-                      &xa[(i + 1) + nb1 * ldxa], &ldxa, &ONE, &a[(i + 1) + (k + i + 1) * lda], &lda);
+                      &xa[(i + 1) + nb * ldxa], &ldxa, &ONE, &a[(i + 1) + (k + i + 1) * lda], &lda);
             SLC_DGEMV("N", &kn, &ip1, &ONE, ya, &ldya,
                       &q[(i + 1) * ldq], &int1, &ONE, &a[i + 1], &lda);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &ya[nb1 * ldya], &ldya,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &ya[nb * ldya], &ldya,
                       &b[(k + i + 1)], &ldb, &ONE, &a[i + 1], &lda);
 
             // Update YG with first Householder reflection
@@ -470,14 +469,14 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &dwork[pdw], &int1, &ONE, &yg[(k + i + 1) + i * ldyg], &int1);
 
-            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xg[(k + i + 1) + nb1 * ldxg], &ldxg,
+            SLC_DGEMV("T", &nmi, &ip1, &ONE, &xg[(k + i + 1) + nb * ldxg], &ldxg,
                       &q[i + (i + 1) * ldq], &ldq, &ZERO, &dwork[pdw], &int1);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                       &dwork[pdw], &int1, &ONE, &yg[(k + i + 1) + i * ldyg], &int1);
 
             SLC_DGEMV("N", &kn, &im1, &ONE, yg, &ldyg,
                       dwork, &int1, &ONE, &yg[i * ldyg], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &yg[nb1 * ldyg], &ldyg,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &yg[nb * ldyg], &ldyg,
                       &dwork[nb], &int1, &ONE, &yg[i * ldyg], &int1);
             SLC_DSCAL(&kn, &negtauq, &yg[i * ldyg], &int1);
 
@@ -485,10 +484,10 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                       &xg[(k + i + 1)], &ldxg, &ONE, &g[(k + i + 1) + (k + i + 1) * ldg], &int1);
             SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
-                      &xg[(k + i + 1) + nb1 * ldxg], &ldxg, &ONE, &g[(k + i + 1) + (k + i + 1) * ldg], &int1);
+                      &xg[(k + i + 1) + nb * ldxg], &ldxg, &ONE, &g[(k + i + 1) + (k + i + 1) * ldg], &int1);
             SLC_DGEMV("N", &kn, &ip1, &ONE, yg, &ldyg,
                       &q[(i + 1) * ldq], &int1, &ONE, &g[(k + i + 1) * ldg], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &yg[nb1 * ldyg], &ldyg,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &yg[nb * ldyg], &ldyg,
                       &b[(k + i + 1)], &ldb, &ONE, &g[(k + i + 1) * ldg], &int1);
 
             // Zero out parts of XG
@@ -510,7 +509,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                 SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                           &dwork[pdw], &int1, &ONE, &ya[(k + i + 1) + (i + nb) * ldya], &int1);
 
-                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xa[(i + 2) + nb1 * ldxa], &ldxa,
+                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xa[(i + 2) + nb * ldxa], &ldxa,
                           &b[(k + i + 2) + i * ldb], &int1, &ZERO, &dwork[pdw], &int1);
                 SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                           &dwork[pdw], &int1, &ONE, &ya[(k + i + 1) + (i + nb) * ldya], &int1);
@@ -518,7 +517,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
 
             SLC_DGEMV("N", &kn, &ip1, &ONE, ya, &ldya,
                       &dwork[nb2], &int1, &ONE, &ya[(i + nb) * ldya], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &ya[nb1 * ldya], &ldya,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &ya[nb * ldya], &ldya,
                       &dwork[nb3], &int1, &ONE, &ya[(i + nb) * ldya], &int1);
             SLC_DSCAL(&kn, &negtauri, &ya[(i + nb) * ldya], &int1);
 
@@ -535,7 +534,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                 SLC_DGEMV("N", &nmi, &ip1, &ONE, &q[i + 1], &ldq,
                           &dwork[pdw], &int1, &ONE, &yg[(k + i + 1) + (i + nb) * ldyg], &int1);
 
-                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xg[(k + i + 2) + nb1 * ldxg], &ldxg,
+                SLC_DGEMV("T", &nmi2, &ip1, &ONE, &xg[(k + i + 2) + nb * ldxg], &ldxg,
                           &b[(k + i + 2) + i * ldb], &int1, &ZERO, &dwork[pdw], &int1);
                 SLC_DGEMV("T", &ip1, &nmi, &ONE, &a[(k + i + 1) * lda], &lda,
                           &dwork[pdw], &int1, &ONE, &yg[(k + i + 1) + (i + nb) * ldyg], &int1);
@@ -543,7 +542,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
 
             SLC_DGEMV("N", &kn, &ip1, &ONE, yg, &ldyg,
                       &dwork[nb2], &int1, &ONE, &yg[(i + nb) * ldyg], &int1);
-            SLC_DGEMV("N", &kn, &im1, &ONE, &yg[nb1 * ldyg], &ldyg,
+            SLC_DGEMV("N", &kn, &im1, &ONE, &yg[nb * ldyg], &ldyg,
                       &dwork[nb3], &int1, &ONE, &yg[(i + nb) * ldyg], &int1);
             SLC_DSCAL(&kn, &negtauri, &yg[(i + nb) * ldyg], &int1);
 
@@ -590,13 +589,13 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                       dwork, &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
             SLC_DGEMV("N", &im1, &nmi1, &ONE, &a[(k + i) * lda], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &dwork[nb], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &dwork[nb], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i], &ldyq,
                       &q[i + i * ldq], &int1, &ZERO, &xq[i * ldxq], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xq[i * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb1 * ldyq], &ldyq,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb * ldyq], &ldyq,
                       &q[i + i * ldq], &int1, &ZERO, &xq[(i + nb) * ldxq], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
                       &xq[(i + nb) * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
@@ -605,25 +604,25 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update Q
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xq[i + 1], &ldxq,
                       &q[i], &ldq, &ONE, &q[i + (i + 1) * ldq], &ldq);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &a[(k + i) * lda], &int1, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &yq[i], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
-                      &yq[i + nb1 * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
+                      &yq[i + nb * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
 
             // Update XA
             SLC_DGEMV("N", &nmi, &nmi1, &ONE, &a[(i + 1) + (k + i) * lda], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &xa[(i + 1) + i * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[i + 1], &ldxa,
                       dwork, &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &dwork[nb], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i)], &ldya,
                       &q[i + i * ldq], &int1, &ZERO, &xa[i * ldxa], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb1 * ldya], &ldya,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb * ldya], &ldya,
                       &q[i + i * ldq], &int1, &ZERO, &xa[i * ldxa], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
@@ -632,12 +631,12 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update A
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xa[i + 1], &ldxa,
                       &q[i], &ldq, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &a[(k + i) * lda], &int1, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &ya[(k + i)], &ldya, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
-                      &ya[(k + i) + nb1 * ldya], &ldya, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
+                      &ya[(k + i) + nb * ldya], &ldya, &ONE, &a[(i + 1) + (k + i) * lda], &int1);
 
             // Apply rotation
             SLC_DROT(&nmi, &a[(i + 1) + (k + i) * lda], &int1, &q[i + (i + 1) * ldq], &ldq, &c, &s);
@@ -702,13 +701,13 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                       dwork, &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &a[(k + i)], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &dwork[nb], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &dwork[nb], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i], &ldyq,
                       &q[i + i * ldq], &int1, &ZERO, &xq[i * ldxq], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xq[i * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb1 * ldyq], &ldyq,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb * ldyq], &ldyq,
                       &q[i + i * ldq], &int1, &ZERO, &xq[(i + nb) * ldxq], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &xq[(i + nb) * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
@@ -717,25 +716,25 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update Q
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xq[i + 1], &ldxq,
                       &q[i], &ldq, &ONE, &q[i + (i + 1) * ldq], &ldq);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &a[(k + i)], &lda, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &yq[i], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
-                      &yq[i + nb1 * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
+                      &yq[i + nb * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
 
             // Update XA
             SLC_DGEMV("T", &nmi1, &nmi, &ONE, &a[(k + i) + (i + 1) * lda], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &xa[(i + 1) + i * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[i + 1], &ldxa,
                       dwork, &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &dwork[nb], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i)], &ldya,
                       &q[i + i * ldq], &int1, &ZERO, &xa[i * ldxa], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb1 * ldya], &ldya,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb * ldya], &ldya,
                       &q[i + i * ldq], &int1, &ZERO, &xa[i * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
@@ -744,12 +743,12 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update A
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xa[i + 1], &ldxa,
                       &q[i], &ldq, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &a[(k + i)], &lda, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &ya[(k + i)], &ldya, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &b[(k + i + 1)], &ldb,
-                      &ya[(k + i) + nb1 * ldya], &ldya, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
+                      &ya[(k + i) + nb * ldya], &ldya, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
 
             // Apply rotation
             SLC_DROT(&nmi, &a[(k + i) + (i + 1) * lda], &lda, &q[i + (i + 1) * ldq], &ldq, &c, &s);
@@ -813,13 +812,13 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
                       dwork, &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &a[(k + i)], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &dwork[nb], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &dwork[nb], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i], &ldyq,
                       &q[i + i * ldq], &int1, &ZERO, &xq[i * ldxq], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xq[i * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb1 * ldyq], &ldyq,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &yq[i + nb * ldyq], &ldyq,
                       &q[i + i * ldq], &int1, &ZERO, &xq[(i + nb) * ldxq], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
                       &xq[(i + nb) * ldxq], &int1, &ONE, &xq[(i + 1) + i * ldxq], &int1);
@@ -828,25 +827,25 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update Q
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xq[i + 1], &ldxq,
                       &q[i], &ldq, &ONE, &q[i + (i + 1) * ldq], &ldq);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb1 * ldxq], &ldxq,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xq[(i + 1) + nb * ldxq], &ldxq,
                       &a[(k + i)], &lda, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &yq[i], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
-                      &yq[i + nb1 * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
+                      &yq[i + nb * ldyq], &ldyq, &ONE, &q[i + (i + 1) * ldq], &ldq);
 
             // Update XA
             SLC_DGEMV("T", &nmi1, &nmi, &ONE, &a[(k + i) + (i + 1) * lda], &lda,
                       &q[i + i * ldq], &int1, &ZERO, &xa[(i + 1) + i * ldxa], &int1);
             SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[i + 1], &ldxa,
                       dwork, &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &dwork[nb], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
             SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i)], &ldya,
                       &q[i + i * ldq], &int1, &ZERO, &xa[i * ldxa], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
-            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb1 * ldya], &ldya,
+            SLC_DGEMV("T", &nmi1, &im1, &ONE, &ya[(k + i) + nb * ldya], &ldya,
                       &q[i + i * ldq], &int1, &ZERO, &xa[i * ldxa], &int1);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
                       &xa[i * ldxa], &int1, &ONE, &xa[(i + 1) + i * ldxa], &int1);
@@ -855,12 +854,12 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             // Update A
             SLC_DGEMV("N", &nmi, &ip1, &ONE, &xa[i + 1], &ldxa,
                       &q[i], &ldq, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
-            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb1 * ldxa], &ldxa,
+            SLC_DGEMV("N", &nmi, &im1, &ONE, &xa[(i + 1) + nb * ldxa], &ldxa,
                       &a[(k + i)], &lda, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &q[(i + 1) * ldq], &ldq,
                       &ya[(k + i)], &ldya, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
             SLC_DGEMV("T", &im1, &nmi, &ONE, &b[(k + i + 1) * ldb], &ldb,
-                      &ya[(k + i) + nb1 * ldya], &ldya, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
+                      &ya[(k + i) + nb * ldya], &ldya, &ONE, &a[(k + i) + (i + 1) * lda], &lda);
 
             // Apply rotation
             SLC_DROT(&nmi, &a[(k + i) + (i + 1) * lda], &lda, &q[i + (i + 1) * ldq], &ldq, &c, &s);

@@ -16,7 +16,7 @@ uv venv && uv pip install ".[test]"
 uv pip install . && .venv/bin/pytest tests/python/test_ROUTINE.py -v
 
 # Full test suite
-uv pip install . && .venv/bin/pytest tests/python/ -n auto --reruns 2 --only-rerun "worker .* crashed"
+uv pip install . && .venv/bin/pytest tests/python/ -n auto
 
 # Debug build (standalone, without Python)
 meson setup build --buildtype=debug && meson compile -C build

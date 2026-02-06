@@ -208,6 +208,8 @@ PyObject* py_tc04ad(PyObject* self, PyObject* args) {
         f64 *c_out = (f64*)PyArray_DATA((PyArrayObject*)c_array);
         for (i32 j = 0; j < n; j++) {
             for (i32 i = 0; i < n; i++) a_out[i + j*n] = a[i + j*lda];
+        }
+        for (i32 j = 0; j < m; j++) {
             for (i32 i = 0; i < n; i++) b_out[i + j*n] = b[i + j*ldb];
         }
         for (i32 j = 0; j < n; j++) {
@@ -335,11 +337,9 @@ PyObject* py_tc05ad(PyObject* self, PyObject* args) {
 
     i32 out_rows = (leri == 'L') ? p : m;
     i32 out_cols = (leri == 'L') ? m : p;
-    npy_intp cfreqr_dims[2] = {out_rows, out_cols};
-    npy_intp cfreqr_strides[2] = {sizeof(c128), ldcfre * (npy_intp)sizeof(c128)};
-    PyObject *cfreqr_array = PyArray_New(&PyArray_Type, 2, cfreqr_dims, NPY_COMPLEX128,
-                                         cfreqr_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
-    if (cfreqr_array == NULL) {
+
+    c128 *cfreqr_data = (c128*)PyMem_Calloc(ldcfre * mplim > 0 ? ldcfre * mplim : 1, sizeof(c128));
+    if (cfreqr_data == NULL) {
         PyMem_Free(iwork);
         PyMem_Free(dwork);
         PyMem_Free(zwork);
@@ -349,7 +349,6 @@ PyObject* py_tc05ad(PyObject* self, PyObject* args) {
         PyErr_NoMemory();
         return NULL;
     }
-    c128 *cfreqr_data = (c128*)PyArray_DATA((PyArrayObject*)cfreqr_array);
 
     f64 *pcoeff_data = (f64*)PyArray_DATA(pcoeff_array);
     f64 *qcoeff_data = (f64*)PyArray_DATA(qcoeff_array);
@@ -369,10 +368,27 @@ PyObject* py_tc05ad(PyObject* self, PyObject* args) {
     Py_DECREF(qcoeff_array);
 
     if (info < 0) {
-        Py_DECREF(cfreqr_array);
+        PyMem_Free(cfreqr_data);
         PyErr_Format(PyExc_ValueError, "tc05ad: illegal value for argument %d", -info);
         return NULL;
     }
+
+    npy_intp cfreqr_dims[2] = {out_rows, out_cols};
+    npy_intp cfreqr_strides[2] = {sizeof(c128), out_rows * (npy_intp)sizeof(c128)};
+    PyObject *cfreqr_array = PyArray_New(&PyArray_Type, 2, cfreqr_dims, NPY_COMPLEX128,
+                                         cfreqr_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (cfreqr_array == NULL) {
+        PyMem_Free(cfreqr_data);
+        PyErr_NoMemory();
+        return NULL;
+    }
+    c128 *cfreqr_out = (c128*)PyArray_DATA((PyArrayObject*)cfreqr_array);
+    for (i32 j = 0; j < out_cols; j++) {
+        for (i32 i = 0; i < out_rows; i++) {
+            cfreqr_out[i + j * out_rows] = cfreqr_data[i + j * ldcfre];
+        }
+    }
+    PyMem_Free(cfreqr_data);
 
     PyObject *result = Py_BuildValue("dOi", rcond, cfreqr_array, info);
     Py_DECREF(cfreqr_array);
