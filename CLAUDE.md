@@ -23,6 +23,9 @@ meson setup build --buildtype=debug && meson compile -C build
 
 # Release build
 meson setup build-release --buildtype=release && meson compile -C build-release
+
+# Bump version (updates pyproject.toml + meson.build atomically)
+python scripts/bump_version.py X.Y.Z
 ```
 
 **Note:** Uses Meson build system via meson-python (PEP 517). Use `.venv/bin/pytest` directly (not `uv run`) to avoid meson editable rebuild issues.

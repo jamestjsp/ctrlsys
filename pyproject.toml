@@ -4,7 +4,7 @@ build-backend = "mesonpy"
 
 [project]
 name = "slicot"
-version = "0.1.0"
+version = "1.0.12"
 description = "Python bindings for SLICOT C library (control theory)"
 readme = "README.md"
 license = "BSD-3-Clause"

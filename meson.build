@@ -1,5 +1,5 @@
 project('slicot_c', 'c',
-  version: '0.1.0',
+  version: '1.0.12',
   license: 'BSD-3-Clause',
   meson_version: '>=1.1.0',
   default_options: [
@@ -76,15 +76,28 @@ if get_option('ilp64')
   message('Using 64-bit integers (ILP64)')
 endif
 
-# Version defines
+# Version defines - derived from project version
+version_parts = meson.project_version().split('.')
 fc_defines += [
-  '-DSLICOT_VERSION_MAJOR=0',
-  '-DSLICOT_VERSION_MINOR=1',
-  '-DSLICOT_VERSION_PATCH=0',
+  '-DSLICOT_VERSION_MAJOR=' + version_parts[0],
+  '-DSLICOT_VERSION_MINOR=' + version_parts[1],
+  '-DSLICOT_VERSION_PATCH=' + version_parts[2],
 ]
 
-# Include directories
-inc = include_directories('include')
+# Generate slicot_config.h from template
+conf_data = configuration_data()
+conf_data.set('SLICOT_VERSION_MAJOR', version_parts[0])
+conf_data.set('SLICOT_VERSION_MINOR', version_parts[1])
+conf_data.set('SLICOT_VERSION_PATCH', version_parts[2])
+configure_file(
+  input: 'include/slicot_config.h.in',
+  output: 'slicot_config.h',
+  configuration: conf_data,
+  install_dir: get_option('includedir') / 'slicot',
+)
+
+# Include directories (build root for generated slicot_config.h, include/ for rest)
+inc = include_directories('include', '.')
 
 # Build the library
 subdir('src')
