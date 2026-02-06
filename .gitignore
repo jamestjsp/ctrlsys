@@ -1,11 +1,67 @@
 build/
-dist/
-*.egg-info/
-__pycache__/
-*.pyc
+build-*/
+*.o
+*.a
 *.so
 *.dylib
 *.dll
-.venv*/
-wheelhouse/
-.DS_Store
+*.exe
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+Testing/
+_deps/
+compile_commands.json
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.DS_Store
+
+# Python virtual environments
+venv/
+.venv/
+.venv-*/
+env/
+ENV/
+.env
+copilot-venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python build artifacts
+*.egg-info/
+dist/
+*.egg
+.eggs/
+python/slicot/_slicot*.so
+.mesonpy-*
+
+# pytest
+.pytest_cache/
+.tox/
+
+# Coverage
+.coverage
+htmlcov/
+/trees/
+
+# Valgrind
+valgrind-*.log
+vgcore.*
+*.memcheck
+
+# CodeQL
+_codeql_build_dir/
+_codeql_detected_source_root
+/trees/
+.claude/settings.local.json
+.agent/rules/beads-workflow-context.md
+*.txt
+.cache/

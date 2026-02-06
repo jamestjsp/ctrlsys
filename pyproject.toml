@@ -1,83 +1,47 @@
 [build-system]
-requires = ["meson-python>=0.16.0", "meson>=1.1.0", "numpy>=2.0", "scipy-openblas32"]
+requires = ["meson-python>=0.16.0", "meson>=1.1.0", "numpy>=2.0"]
 build-backend = "mesonpy"
 
 [project]
 name = "slicot"
-version = "1.0.12"
-description = "Python bindings for SLICOT - Subroutine Library in Control Theory"
+version = "0.1.0"
+description = "Python bindings for SLICOT C library (control theory)"
 readme = "README.md"
 license = "BSD-3-Clause"
-license-files = ["LICENSE", "LICENSE-SLICOT"]
 requires-python = ">=3.11"
-authors = [
-    { name = "SLICOT Contributors" }
-]
-keywords = ["control", "systems", "linear", "lapack", "blas", "riccati", "lyapunov"]
+dependencies = ["numpy>=2.0"]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "Intended Audience :: Developers",
-    "Operating System :: OS Independent",
     "Programming Language :: C",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Mathematics",
 ]
-dependencies = ["numpy>=2.0"]
+
+[project.urls]
+Homepage = "https://github.com/slicot/slicot.c"
 
 [project.optional-dependencies]
 test = [
-    "pytest",
-    "pytest-xdist",
-    "pytest-rerunfailures",
-    "scipy",
-    "pytest-benchmark>=5.2.3",
+    "pytest>=7.0.0",
+    "pytest-xdist>=3.0.0",
+    "pytest-rerunfailures>=14.0",
 ]
-benchmark = ["pytest-benchmark>=4.0"]
-dev = ["meson-python>=0.16.0", "meson>=1.1.0", "ninja", "numpy>=2.0", "scipy-openblas32"]
+dev = [
+    "scipy>=1.7.0",
+    "slycot>=0.6.0",
+    "control>=0.10.2",
+]
 
-[project.urls]
-Homepage = "https://github.com/jamestjsp/slicot"
-Documentation = "https://slicot.readthedocs.io/"
-Repository = "https://github.com/jamestjsp/slicot"
-Issues = "https://github.com/jamestjsp/slicot/issues"
-
-
-[tool.cibuildwheel]
-build = "cp311-* cp312-* cp313-* cp314-*"
-skip = "pp* *-win32 *-manylinux_i686 *-musllinux_i686 *_universal2 *t-*"
-test-requires = ["pytest", "scipy"]
-test-command = "pytest {project}/tests/python/test_ab01md.py -v"
-
-[tool.cibuildwheel.linux]
-archs = ["x86_64", "aarch64"]
-manylinux-x86_64-image = "manylinux_2_28"
-manylinux-aarch64-image = "manylinux_2_28"
-musllinux-x86_64-image = "musllinux_1_2"
-musllinux-aarch64-image = "musllinux_1_2"
-before-all = "(dnf install -y openblas-devel 2>/dev/null || yum install -y openblas-devel 2>/dev/null || apk add openblas-dev 2>/dev/null) || true"
-
-[tool.cibuildwheel.macos]
-archs = ["arm64"]
-before-build = "pip install scipy-openblas32 && mkdir -p /tmp/openblas && python -c \"import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())\""
-environment = { MACOSX_DEPLOYMENT_TARGET = "11.0", PKG_CONFIG_PATH = "/tmp/openblas" }
-
-[tool.cibuildwheel.windows]
-archs = ["AMD64"]
-before-build = "pip install delvewheel scipy-openblas32 && mkdir C:\\openblas & python -c \"import scipy_openblas32 as sc; open('C:/openblas/openblas.pc','w').write(sc.get_pkg_config())\""
-environment = { PKG_CONFIG_PATH = "C:/openblas" }
-repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
-
-[tool.uv]
-no-build-isolation-package = ["slicot"]
+[tool.meson-python.args]
+setup = []
+compile = []
+install = ['--skip-subprojects']
 
 [tool.pytest.ini_options]
 testpaths = ["tests/python"]
 python_files = ["test_*.py"]
-addopts = "-v"
-
+python_functions = ["test_*"]
+addopts = "-v -n 4"

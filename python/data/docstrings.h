@@ -24,23 +24,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, ncont, z, tau, info): Transformed matrices, controllable order,\n" \
-    "                               transformation matrix, reflectors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab01md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 0.0],\n" \
-    "...     [4.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([1.0, 0.0, 1.0], dtype=float, order='F')\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a_out, b_out, ncont, z, tau, info = ab01md('I', a, b, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "                               transformation matrix, reflectors, exit code"
 
 #define DOC_AB01ND "Controllable realization for multi-input systems.\n" \
     "\n" \
@@ -63,27 +47,7 @@
     "    - nblk: Block sizes (first indcon elements)\n" \
     "    - z: Transformation matrix\n" \
     "    - tau: Elementary reflector factors\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab01nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 3, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0],\n" \
-    "...     [-2.0, -2.0, -2.0],\n" \
-    "...     [-1.0,  0.0, -3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 2.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a_out, b_out, ncont, indcon, nblk, z, tau, info = ab01nd('I', a, b, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AB01OD "Staircase form for multi-input systems.\n" \
     "\n" \
@@ -107,35 +71,7 @@
     "    - ncont: Order of controllable part\n" \
     "    - indcon: Controllability index\n" \
     "    - kstair: Block sizes (first indcon elements)\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab01od\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 5, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [17.0, 24.0,  1.0,  8.0, 15.0],\n" \
-    "...     [23.0,  5.0,  7.0, 14.0, 16.0],\n" \
-    "...     [ 4.0,  6.0, 13.0, 20.0, 22.0],\n" \
-    "...     [10.0, 12.0, 19.0, 21.0,  3.0],\n" \
-    "...     [11.0, 18.0, 25.0,  2.0,  9.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [ -1.0,  -4.0],\n" \
-    "...     [  4.0,   9.0],\n" \
-    "...     [ -9.0, -16.0],\n" \
-    "...     [ 16.0,  25.0],\n" \
-    "...     [-25.0, -36.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a_out, b_out, u, v, ncont, indcon, kstair, info = ab01od(\n" \
-    "...     'F', 'I', 'N', a, b, tol\n" \
-    "...     )\n" \
-    ">>> b_zeros = b_out[kstair[0]:, :]\n" \
-    ">>> utu = u.T @ u\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AB04MD "Bilinear transformation of state-space system.\n" \
     "\n" \
@@ -152,23 +88,7 @@
     "  beta (float, optional): Transformation parameter (default 1.0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, d, info): Transformed matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab04md\n" \
-    ">>> a = np.array([[1.0, 0.5],\n" \
-    "...     [0.5, 1.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[0.0, 1.0],\n" \
-    "...     [-1.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[-1.0, 0.0],\n" \
-    "...     [0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, -1.0]], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, c_out, d_out, info = ab04md('C', a, b, c, d, alpha=1.0, beta=1.0)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, d, info): Transformed matrices and exit code"
 
 #define DOC_AB05MD "Cascade (series) inter-connection of two state-space systems.\n" \
     "\n" \
@@ -189,51 +109,7 @@
     "  d2 (ndarray): Feedthrough matrix of G2 (p2 x p1, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, d, n, info): Cascaded system matrices, state order, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab05md\n" \
-    ">>> import numpy as np\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.0, 0.0, -1.0],\n" \
-    "...     [0.0, -1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b1 = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c1 = np.array([\n" \
-    "...     [3.0, -2.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d1 = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [-3.0, 0.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [0.0, -1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b2 = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c2 = np.array([\n" \
-    "...     [1.0, 1.0, 0.0],\n" \
-    "...     [1.0, 1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d2 = np.array([\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a, b, c, d, n, info = ab05md('L', 'N', a1, b1, c1, d1, a2, b2, c2, d2)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, d, n, info): Cascaded system matrices, state order, exit code"
 
 #define DOC_AB05ND "Feedback inter-connection of two state-space systems.\n" \
     "\n" \
@@ -256,52 +132,7 @@
     "  d2 (ndarray): Feedthrough matrix of G2 (m1 x p1, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, d, n, info): Feedback system matrices, state order, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab05nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.0, 0.0, -1.0],\n" \
-    "...     [0.0, -1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b1 = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c1 = np.array([\n" \
-    "...     [3.0, -2.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d1 = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [-3.0, 0.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [0.0, -1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b2 = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c2 = np.array([\n" \
-    "...     [1.0, 1.0, 0.0],\n" \
-    "...     [1.0, 1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d2 = np.array([\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> alpha = 1.0  # Positive feedback\n" \
-    ">>> a, b, c, d, n, info = ab05nd('N', alpha, a1, b1, c1, d1, a2, b2, c2, d2)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, d, n, info): Feedback system matrices, state order, exit code"
 
 #define DOC_AB05OD "Rowwise concatenation of two state-space systems.\n" \
     "\n" \
@@ -328,52 +159,7 @@
     "  alpha (float): Coefficient multiplying second system\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, d, n, m, info): Combined system matrices, state order, input count, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab05od\n" \
-    ">>> import numpy as np\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.0, 0.0, -1.0],\n" \
-    "...     [0.0, -1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b1 = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c1 = np.array([\n" \
-    "...     [3.0, -2.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d1 = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [-3.0, 0.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [0.0, -1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b2 = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c2 = np.array([\n" \
-    "...     [1.0, 1.0, 0.0],\n" \
-    "...     [1.0, 1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d2 = np.array([\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> a, b, c, d, n, m, info = ab05od('N', a1, b1, c1, d1, a2, b2, c2, d2, alpha)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, d, n, m, info): Combined system matrices, state order, input count, exit code"
 
 #define DOC_AB05PD "Parallel inter-connection of two state-space systems (same inputs).\n" \
     "\n" \
@@ -403,53 +189,7 @@
     "  d2 (ndarray): Feedthrough matrix of G2 (p x m, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (n, a, b, c, d, info): State order, combined system matrices, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab05pd\n" \
-    ">>> n1, m, p, n2 = 3, 2, 2, 3\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.0, 0.0, -1.0],\n" \
-    "...     [0.0, -1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b1 = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c1 = np.array([\n" \
-    "...     [3.0, -2.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d1 = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [-3.0, 0.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [0.0, -1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b2 = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c2 = np.array([\n" \
-    "...     [1.0, 1.0, 0.0],\n" \
-    "...     [1.0, 1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d2 = np.array([\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> n, a, b, c, d, info = ab05pd(n1, m, p, n2, alpha, a1, b1, c1, d1, a2, b2, c2, d2)\n" \
-    ">>> info\n" \
-    "0"
+    "  (n, a, b, c, d, info): State order, combined system matrices, exit code"
 
 #define DOC_AB05QD "Append two systems in state-space form (block diagonal).\n" \
     "\n" \
@@ -472,51 +212,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, c, d, n, m, p, info): Combined system matrices,\n" \
-    "    state order, input count, output count, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab05qd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.0, 0.0, -1.0],\n" \
-    "...     [0.0, -1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b1 = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c1 = np.array([\n" \
-    "...     [3.0, -2.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d1 = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [-3.0, 0.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [0.0, -1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b2 = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c2 = np.array([\n" \
-    "...     [1.0, 1.0, 0.0],\n" \
-    "...     [1.0, 1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d2 = np.array([\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a, b, c, d, n, m, p, info = ab05qd('N', a1, b1, c1, d1, a2, b2, c2, d2)\n" \
-    ">>> info\n" \
-    "0"
+    "    state order, input count, output count, exit code"
 
 #define DOC_AB05RD "Closed-loop system for mixed output and state feedback control law.\n" \
     "\n" \
@@ -552,53 +248,7 @@
     "\n" \
     "Returns:\n" \
     "  (Ac, Bc, Cc, Dc, rcond, info): Closed-loop matrices,\n" \
-    "    reciprocal condition number, exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab05rd\n" \
-    ">>> n, m, p, mv, pz = 3, 2, 2, 2, 2\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> beta = 1.0\n" \
-    ">>> A = np.array([\n" \
-    "...     [1.0, 0.0, -1.0],\n" \
-    "...     [0.0, -1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> C = np.array([\n" \
-    "...     [3.0, -2.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> D = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> F = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [3.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> K = np.array([\n" \
-    "...     [2.0, 1.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> G = np.array([\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> H = np.array([\n" \
-    "...     [4.0, 3.0],\n" \
-    "...     [2.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Ac, Bc, Cc, Dc, rcond, info = ab05rd('O', 'D', n, m, p, mv, pz, alpha, beta,\n" \
-    "...     A, B, C, D, F, K, G, H)\n" \
-    ">>> info\n" \
-    "0"
+    "    reciprocal condition number, exit code (0=success, 1=singular)"
 
 #define DOC_AB05SD "Closed-loop system for output feedback control law.\n" \
     "\n" \
@@ -627,39 +277,7 @@
     "\n" \
     "Returns:\n" \
     "  (Ac, Bc, Cc, Dc, rcond, info): Closed-loop matrices,\n" \
-    "    reciprocal condition number, exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab05sd\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> alpha = 0.5\n" \
-    ">>> A = np.array([\n" \
-    "...     [-1.0, 0.5, 0.0],\n" \
-    "...     [0.0, -2.0, 0.3],\n" \
-    "...     [0.0, 0.0, -3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.5, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> C = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> D = np.array([\n" \
-    "...     [0.1, 0.0],\n" \
-    "...     [0.0, 0.1]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> F = np.array([\n" \
-    "...     [0.2, 0.3],\n" \
-    "...     [0.1, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Ac, Bc, Cc, Dc, rcond, info = ab05sd('O', 'D', n, m, p, alpha, A, B, C, D, F)\n" \
-    ">>> info\n" \
-    "0"
+    "    reciprocal condition number, exit code (0=success, 1=singular)"
 
 #define DOC_AB07MD "Dual of a state-space representation.\n" \
     "\n" \
@@ -677,35 +295,7 @@
     "  d (ndarray): Feedthrough matrix D (max(m,p) x max(m,p), F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a_dual, b_dual, c_dual, d_dual, info): Dual system matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab07md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 1, 2\n" \
-    ">>> a_in = np.array([\n" \
-    "...     [1.0, 2.0, 0.0],\n" \
-    "...     [4.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b_in = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c_in = np.array([\n" \
-    "...     [0.0, 1.0, -1.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d_in = np.array([\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a, b, c, d = prepare_arrays(n, m, p, a_in, b_in, c_in, d_in)\n" \
-    ">>> a_dual, b_dual, c_dual, d_dual, info = ab07md('D', n, m, p, a, b, c, d)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a_dual, b_dual, c_dual, d_dual, info): Dual system matrices and exit code"
 
 #define DOC_AB07ND "Compute the inverse of a linear system.\n" \
     "\n" \
@@ -720,25 +310,7 @@
     "\n" \
     "Returns:\n" \
     "  (ai, bi, ci, di, rcond, info): Inverse system matrices,\n" \
-    "    reciprocal condition number, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab07nd\n" \
-    ">>> a = np.array([[1.0, 2.0, 0.0],\n" \
-    "...     [4.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[0.0, 1.0, -1.0],\n" \
-    "...     [0.0, 0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[4.0, 0.0],\n" \
-    "...     [0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> ai, bi, ci, di, rcond, info = ab07nd(a, b, c, d)\n" \
-    ">>> info\n" \
-    "0"
+    "    reciprocal condition number, and exit code"
 
 #define DOC_AB08MD "Compute normal rank of transfer-function matrix.\n" \
     "\n" \
@@ -757,20 +329,7 @@
     "  tol (float, optional): Tolerance for rank decisions (default 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (rank, info): Normal rank and exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab08md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 1, 1, 1\n" \
-    ">>> a = np.array([[-1.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> rank, info = ab08md('N', n, m, p, a, b, c, d)\n" \
-    ">>> info\n" \
-    "0"
+    "  (rank, info): Normal rank and exit code (0 = success)"
 
 #define DOC_AB08MZ "Compute normal rank of transfer-function matrix (complex case).\n" \
     "\n" \
@@ -789,20 +348,7 @@
     "  tol (float, optional): Tolerance for rank decisions (default 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (rank, info): Normal rank and exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab08mz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 1, 1, 1\n" \
-    ">>> a = np.array([[-1.0+0j]], order='F', dtype=np.complex128)\n" \
-    ">>> b = np.array([[1.0+0j]], order='F', dtype=np.complex128)\n" \
-    ">>> c = np.array([[1.0+0j]], order='F', dtype=np.complex128)\n" \
-    ">>> d = np.array([[1.0+0j]], order='F', dtype=np.complex128)\n" \
-    ">>> rank, info = ab08mz('N', n, m, p, a, b, c, d)\n" \
-    ">>> info\n" \
-    "0"
+    "  (rank, info): Normal rank and exit code (0 = success)"
 
 #define DOC_AB08ND "Construct regular pencil for invariant zeros.\n" \
     "\n" \
@@ -833,42 +379,7 @@
     "    - kronl: Left Kronecker (row) indices\n" \
     "    - af: Coefficient matrix Af of reduced pencil\n" \
     "    - bf: Coefficient matrix Bf of reduced pencil\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab08nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 6, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 3.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, -4.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0, -1.0],\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [1.0, -1.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [-1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = ab08nd('N', n, m, p, a, b, c, d)\n" \
-    ">>> nu, rank, dinfz, nkror, nkrol, infz, kronr, kronl, af, bf, info = result\n" \
-    ">>> ninfz = sum(infz[i] * (i + 1) for i in range(dinfz))"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AB08NW "Extract regular pencil for finite Smith zeros.\n" \
     "\n" \
@@ -903,42 +414,7 @@
     "    - kronr: Right Kronecker (column) indices\n" \
     "    - infe: Multiplicities of infinite eigenvalues\n" \
     "    - kronl: Left Kronecker (row) indices\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab08nw\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 6, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 3.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, -4.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0, -1.0],\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [1.0, -1.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [-1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = ab08nw('N', n, m, p, a, b, c, d)\n" \
-    ">>> (af, e, nfz, nrank, niz, dinfz, nkror, ninfe, nkrol,\n" \
-    "...     infz, kronr, infe, kronl, info) = result"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AB08NX "Extract reduced system with full row rank D.\n" \
     "\n" \
@@ -958,30 +434,7 @@
     "  tol (float): Tolerance for rank decisions\n" \
     "\n" \
     "Returns:\n" \
-    "  (abcd, ro, sigma, ninfz, mu, nu, nkrol, infz, kronl, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab08nx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 2, 1, 1\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> c = np.random.randn(p, n).astype(float, order='F')\n" \
-    ">>> d = np.random.randn(p, m).astype(float, order='F')\n" \
-    ">>> abcd = np.zeros((n + p, m + n), dtype=float, order='F')\n" \
-    ">>> abcd[:n, :m] = b\n" \
-    ">>> abcd[:n, m:] = a\n" \
-    ">>> abcd[n:, :m] = d\n" \
-    ">>> abcd[n:, m:] = c\n" \
-    ">>> ro = p\n" \
-    ">>> sigma = 0\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> ninfz = 0\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> result = ab08nx(n=n, m=m, p=p, ro=ro, sigma=sigma, svlmax=svlmax,\n" \
-    "...     abcd=abcd.copy(order='F'), ninfz=ninfz, tol=tol)\n" \
-    ">>> abcd_out, ro_out, sigma_out, ninfz_out, mu, nu, nkrol, infz, kronl, info = result"
+    "  (abcd, ro, sigma, ninfz, mu, nu, nkrol, infz, kronl, info)"
 
 #define DOC_AB08NY "Extract reduced system pencil with Dr of full row rank.\n" \
     "\n" \
@@ -1000,28 +453,7 @@
     "  tol (float): Tolerance for rank decisions (< 1)\n" \
     "\n" \
     "Returns:\n" \
-    "  (abcd, ninfz, nr, pr, dinfz, nkronl, infz, kronl, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab08ny\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 2, 1, 1\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> c = np.random.randn(p, n).astype(float, order='F')\n" \
-    ">>> d = np.random.randn(p, m).astype(float, order='F')\n" \
-    ">>> abcd = np.zeros((n + p, m + n), dtype=float, order='F')\n" \
-    ">>> abcd[:n, :m] = b\n" \
-    ">>> abcd[:n, m:] = a\n" \
-    ">>> abcd[n:, :m] = d\n" \
-    ">>> abcd[n:, m:] = c\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> ninfz = 0\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> result = ab08ny(first=True, n=n, m=m, p=p, svlmax=svlmax,\n" \
-    "...     abcd=abcd.copy(order='F'), ninfz=ninfz, tol=tol)\n" \
-    ">>> abcd_out, ninfz_out, nr, pr, dinfz, nkronl, infz, kronl, info = result"
+    "  (abcd, ninfz, nr, pr, dinfz, nkronl, infz, kronl, info)"
 
 #define DOC_AB08NZ "Construct regular pencil for invariant zeros of complex system.\n" \
     "\n" \
@@ -1037,34 +469,7 @@
     "  tol (float): Tolerance for rank decisions\n" \
     "\n" \
     "Returns:\n" \
-    "  (nu, rank, dinfz, nkror, nkrol, infz, kronr, kronl, af, bf, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab08nz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 6, 0, 3\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0+0j, 0.0+0j, 0.0+0j, 0.0+0j, 0.0+0j, 0.0+0j],\n" \
-    "...     [0.0+0j, 1.0+0j, 0.0+0j, 0.0+0j, 0.0+0j, 0.0+0j],\n" \
-    "...     [0.0+0j, 0.0+0j, 3.0+0j, 0.0+0j, 0.0+0j, 0.0+0j],\n" \
-    "...     [0.0+0j, 0.0+0j, 0.0+0j, -4.0+0j, 0.0+0j, 0.0+0j],\n" \
-    "...     [0.0+0j, 0.0+0j, 0.0+0j, 0.0+0j, -1.0+0j, 0.0+0j],\n" \
-    "...     [0.0+0j, 0.0+0j, 0.0+0j, 0.0+0j, 0.0+0j, 3.0+0j],\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> b = np.zeros((n, m), order='F', dtype=np.complex128)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0+0j, 0.0+0j, 0.0+0j, 1.0+0j, 0.0+0j, 0.0+0j],\n" \
-    "...     [0.0+0j, 1.0+0j, 0.0+0j, 1.0+0j, 0.0+0j, 1.0+0j],\n" \
-    "...     [0.0+0j, 0.0+0j, 1.0+0j, 0.0+0j, 0.0+0j, 1.0+0j],\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> d = np.zeros((p, m), order='F', dtype=np.complex128)\n" \
-    ">>> nu, rank, dinfz, nkror, nkrol, infz, kronr, kronl, af, bf, info = ab08nz(\n" \
-    "...     'N', n, m, p, a, b, c, d, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (nu, rank, dinfz, nkror, nkrol, infz, kronr, kronl, af, bf, info)"
 
 #define DOC_AB09AD "Balance & Truncate model reduction for stable systems.\n" \
     "\n" \
@@ -1089,43 +494,7 @@
     "\n" \
     "Returns:\n" \
     "  (ar, br, cr, hsv, nr, iwarn, info): Reduced system matrices,\n" \
-    "    Hankel singular values, actual order, warning indicator, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200, -4.9200,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,   3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,   0.0000,  0.0000,  0.0000, -0.5450,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,  4.9200, -0.04165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,  0.0000, -5.2100, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,   0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tol = 0.1\n" \
-    ">>> nr_in = 0  # Not used when ordsel='A'\n" \
-    ">>> ar, br, cr, hsv, nr_out, iwarn, info = ab09ad(\n" \
-    "...     'C', 'N', 'N', 'A', n, m, p, nr_in, a, b, c, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Hankel singular values, actual order, warning indicator, exit code"
 
 #define DOC_AB09AX "Balance & Truncate model reduction for stable systems.\n" \
     "\n" \
@@ -1148,34 +517,7 @@
     "Returns:\n" \
     "  (ar, br, cr, hsv, t, ti, nr, iwarn, info): Reduced system matrices,\n" \
     "    Hankel singular values, truncation matrices, actual order,\n" \
-    "    warning indicator, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09ax\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 1, 1\n" \
-    ">>> nr = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, -2.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -3.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, -4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [1.0],\n" \
-    "...     [1.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 1.0, 1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ar, br, cr, hsv, t, ti, nr_out, iwarn, info = ab09ax(\n" \
-    "...     'C', 'B', 'F', n, m, p, nr, a, b, c, 0.0\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    warning indicator, and exit code"
 
 #define DOC_AB09BD "SPA model reduction for stable systems.\n" \
     "\n" \
@@ -1202,49 +544,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, nr, hsv, iwarn, info):\n" \
     "    Reduced system matrices, actual order, Hankel singular values,\n" \
-    "    warning indicator, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200, -4.9200,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000, -0.5450,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  4.9200, -0.04165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000, -5.2100, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,   0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 1e-14\n" \
-    ">>> nr_in = 0  # ignored for ORDSEL='A'\n" \
-    ">>> ar, br, cr, dr, nr, hsv, iwarn, info = ab09bd(\n" \
-    "...     'C', 'N', 'N', 'A', n, m, p, nr_in, a, b, c, d, tol1, tol2\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    warning indicator, and exit code"
 
 #define DOC_AB09BX "Compute reduced order model using square-root SPA method.\n" \
     "\n" \
@@ -1272,38 +572,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, nr, hsv, t, ti, nmin, iwarn, info):\n" \
     "    Reduced system matrices, actual order, Hankel singular values,\n" \
-    "    truncation matrices, minimal order, warning, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09bx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> nr_desired = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-2.0,  1.0,  0.0,  0.0],\n" \
-    "...     [ 0.0, -3.0,  0.0,  0.0],\n" \
-    "...     [ 0.0,  0.0, -1.0,  0.5],\n" \
-    "...     [ 0.0,  0.0, -0.5, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.zeros((p, m), order='F', dtype=float)\n" \
-    ">>> ar, br, cr, dr, nr, hsv, t, ti, nmin, iwarn, info = ab09bx(\n" \
-    "...     'C', 'B', 'F', n, m, p, nr_desired, a, b, c, d, 0.0, 0.0\n" \
-    "...     )\n" \
-    "...     ar_reduced = ar[:nr, :nr]\n" \
-    "...     eigs = np.linalg.eigvals(ar_reduced)\n" \
-    ">>> info\n" \
-    "0"
+    "    truncation matrices, minimal order, warning, and exit code"
 
 #define DOC_AB09CD "Optimal Hankel-norm approximation based model reduction for stable systems.\n" \
     "\n" \
@@ -1334,43 +603,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, nr, hsv, nmin, iwarn, info):\n" \
     "    Reduced system matrices, actual order, Hankel singular values,\n" \
-    "    minimal order, warning indicator, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> nr_input = 0  # Will be determined by automatic order selection\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200, -4.9200,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000, -0.5450,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  4.9200, -0.04165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000, -5.2100, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,  1.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,  0.0000,  1.0000,  0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.zeros((p, m), order='F', dtype=float)\n" \
-    ">>> ar, br, cr, dr, nr, hsv, nmin, iwarn, info = ab09cd(\n" \
-    "...     'C', 'N', 'A', n, m, p, nr_input, a, b, c, d, 0.1, 1e-14\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    minimal order, warning indicator, and exit code"
 
 #define DOC_AB09CX "Optimal Hankel-norm approximation model reduction for stable systems.\n" \
     "\n" \
@@ -1399,38 +632,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, nr, hsv, nmin, iwarn, info):\n" \
     "    Reduced system matrices, actual order, Hankel singular values,\n" \
-    "    minimal order, warning indicator, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09cx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> nr_desired = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-2.0,  1.0,  0.0,  0.0],\n" \
-    "...     [ 0.0, -3.0,  0.0,  0.0],\n" \
-    "...     [ 0.0,  0.0, -1.0,  0.5],\n" \
-    "...     [ 0.0,  0.0, -0.5, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.zeros((p, m), order='F', dtype=float)\n" \
-    ">>> ar, br, cr, dr, nr, hsv, nmin, iwarn, info = ab09cx(\n" \
-    "...     'C', 'F', n, m, p, nr_desired, a, b, c, d, 0.0, 0.0\n" \
-    "...     )\n" \
-    "...     ar_reduced = ar[:nr, :nr]\n" \
-    "...     eigs = np.linalg.eigvals(ar_reduced)\n" \
-    ">>> info\n" \
-    "0"
+    "    minimal order, warning indicator, and exit code"
 
 #define DOC_AB09DD "Compute reduced order model using singular perturbation approximation.\n" \
     "\n" \
@@ -1450,44 +652,7 @@
     "\n" \
     "Returns:\n" \
     "  (ar, br, cr, dr, rcond, info): Reduced system matrices,\n" \
-    "    reciprocal condition number, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p, nr = 7, 2, 3, 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165, 4.9200, -4.9200,  0.0,     0.0,      0.0,      0.0],\n" \
-    "...     [ 0.0,    -3.3300,  0.0,     0.0,     0.0,      3.3300,   0.0],\n" \
-    "...     [ 0.5450,  0.0,     0.0,    -0.5450,  0.0,      0.0,      0.0],\n" \
-    "...     [ 0.0,     0.0,     4.9200, -0.04165, 4.9200,   0.0,      0.0],\n" \
-    "...     [ 0.0,     0.0,     0.0,     0.0,    -3.3300,   0.0,      3.3300],\n" \
-    "...     [-5.2100,  0.0,     0.0,     0.0,     0.0,    -12.5000,   0.0],\n" \
-    "...     [ 0.0,     0.0,     0.0,    -5.2100,  0.0,      0.0,    -12.5000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0,     0.0],\n" \
-    "...     [ 0.0,     0.0],\n" \
-    "...     [ 0.0,     0.0],\n" \
-    "...     [ 0.0,     0.0],\n" \
-    "...     [ 0.0,     0.0],\n" \
-    "...     [12.5000,  0.0],\n" \
-    "...     [ 0.0,    12.5000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ar, br, cr, dr, rcond, info = ab09dd('C', n, m, p, nr, a, b, c, d)\n" \
-    ">>> info\n" \
-    "0"
+    "    reciprocal condition number, and exit code"
 
 #define DOC_AB09ED "Optimal Hankel-norm approximation model reduction for unstable systems.\n" \
     "\n" \
@@ -1519,56 +684,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, nr, ns, hsv, nmin, iwarn, info):\n" \
     "    Reduced system matrices, actual order, dimension of stable part,\n" \
-    "    Hankel singular values, minimal order, warning, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09ed\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> nr_in = 0\n" \
-    ">>> alpha = -0.6\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 1e-14\n" \
-    ">>> A = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200, -4.9200,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000, -0.5450,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  4.9200, -0.04165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000, -5.2100, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> C = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> D = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Ar, Br, Cr, Dr, nr, ns, hsv, nmin, iwarn, info = ab09ed(\n" \
-    "...     'C', 'N', 'A', n, m, p, nr_in, alpha,\n" \
-    "...     A, B, C, D, tol1, tol2\n" \
-    "...     )\n" \
-    ">>> Ar_actual = Ar[:nr, :nr].copy()\n" \
-    ">>> Br_actual = Br[:nr, :m].copy()\n" \
-    ">>> Cr_actual = Cr[:p, :nr].copy()\n" \
-    "...     Br_actual[i, :] *= -1\n" \
-    "...     Cr_actual[:, i] *= -1\n" \
-    ">>> info\n" \
-    "0"
+    "    Hankel singular values, minimal order, warning, and exit code"
 
 #define DOC_AB09FD "Balance & Truncate model reduction for unstable systems using coprime factorization.\n" \
     "\n" \
@@ -1606,46 +722,7 @@
     "  (ar, br, cr, nr, nq, hsv, iwarn, info):\n" \
     "    Reduced system matrices (ar, br, cr), actual order (nr),\n" \
     "    order of coprime factorization (nq), Hankel singular values (hsv),\n" \
-    "    warning indicator (iwarn), and exit code (info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09fd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200,  0.4920,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000,  0.0545,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000, -0.4920,  0.004165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.5210, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,   0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> nr = 0\n" \
-    ">>> alpha = -0.1\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 1e-10\n" \
-    ">>> ar, br, cr, nr_out, nq, hsv, iwarn, info = ab09fd(\n" \
-    "...     'C', 'L', 'I', 'B', 'S', 'A',\n" \
-    "...     n, m, p, nr, alpha, a, b, c, tol1, tol2\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    warning indicator (iwarn), and exit code (info)"
 
 #define DOC_AB09GD "SPA model reduction for unstable systems with coprime factorization.\n" \
     "\n" \
@@ -1687,57 +764,7 @@
     "  (ar, br, cr, dr, nr, nq, hsv, iwarn, info):\n" \
     "    Reduced system matrices (ar, br, cr, dr), actual order (nr),\n" \
     "    order of extended system (nq), Hankel singular values (hsv),\n" \
-    "    warning indicator (iwarn), and exit code (info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09gd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> nr = 0\n" \
-    ">>> alpha = -0.1\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 1e-10\n" \
-    ">>> tol3 = 1e-10\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165, 0.0000, 4.9200, 0.4920, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [-5.2100, -12.500, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 3.3300, -3.3300, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.5450, 0.0000, 0.0000, 0.0000, 0.0545, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, -0.49200, 0.004165, 0.0000, 4.9200],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 0.5210, -12.500, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [12.500, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 12.500],\n" \
-    "...     [0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ar, br, cr, dr, nr_out, nq, hsv, iwarn, info = ab09gd(\n" \
-    "...     'C', 'L', 'I', 'B', 'S', 'A', n, m, p, nr, alpha,\n" \
-    "...     a, b, c, d, tol1, tol2, tol3\n" \
-    "...     )\n" \
-    ">>> ar_reduced = ar[:nr_out, :nr_out]\n" \
-    ">>> eig_ar = np.linalg.eigvals(ar_reduced)\n" \
-    ">>> br_reduced = br[:nr_out, :m]\n" \
-    ">>> cr_reduced = cr[:p, :nr_out]\n" \
-    ">>> dr_reduced = dr[:p, :m]\n" \
-    ">>> info\n" \
-    "0"
+    "    warning indicator (iwarn), and exit code (info)"
 
 #define DOC_AB09HD "Stochastic balancing based model reduction.\n" \
     "\n" \
@@ -1772,56 +799,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, nr, ns, hsv, iwarn, info):\n" \
     "    Reduced system matrices, actual order, dimension of stable part,\n" \
-    "    Hankel singular values of phase system, warning, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab09hd\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200, -4.9200,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000, -0.5450,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  4.9200, -0.04165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000, -5.2100, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300],\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,  1.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,  0.0000,  1.0000,  0.0000,  0.0000],\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> nr_in = 0\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> beta = 1.0\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 0.0\n" \
-    ">>> ar, br, cr, dr, nr_out, ns, hsv, iwarn, info = ab09hd(\n" \
-    "...     'C', 'F', 'N', 'A', n, m, p, nr_in, alpha, beta,\n" \
-    "...     a, b, c, d, tol1, tol2\n" \
-    "...     )\n" \
-    ">>> eig_computed = np.linalg.eigvals(ar[:nr_out, :nr_out])\n" \
-    ">>> def sort_key(ev):\n" \
-    "...     return (ev.real, ev.imag)\n" \
-    ">>> eig_computed_sorted = np.array(sorted(eig_computed, key=sort_key))\n" \
-    ">>> info\n" \
-    "0"
+    "    Hankel singular values of phase system, warning, and exit code"
 
 #define DOC_AB09HX "Stochastic balancing model reduction for stable systems.\n" \
     "\n" \
@@ -1862,36 +840,7 @@
     "    - nmin: Order of minimal realization\n" \
     "    - rcond: Reciprocal condition number of Riccati solver\n" \
     "    - iwarn: Warning (0=ok, 1=nr > nmin)\n" \
-    "    - info: Exit code (0=success, 1=A not stable/Schur, 2-5=Hamiltonian errors, 6=D rank deficient, 7=SVD failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab09hx\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> a = np.diag([-1.0, -2.0, -3.0, -4.0]).astype(float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.5, 0.5],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.2, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.5, 0.2, 0.1],\n" \
-    "...     [0.0, 1.0, 0.5, 0.2]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> nr_in = 0\n" \
-    ">>> tol1 = 1e-3\n" \
-    ">>> tol2 = 0.0\n" \
-    ">>> ar, br, cr, dr, nr_out, hsv, t, ti, nmin, rcond, iwarn, info = ab09hx(\n" \
-    "...     'C', 'B', 'A', n, m, p, nr_in, a, b, c, d, tol1, tol2\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1=A not stable/Schur, 2-5=Hamiltonian errors, 6=D rank deficient, 7=SVD failed)"
 
 #define DOC_AB09HY "Cholesky factors of controllability and observability Grammians.\n" \
     "\n" \
@@ -1920,34 +869,7 @@
     "    - scalec: Scaling factor for controllability Grammian\n" \
     "    - scaleo: Scaling factor for observability Grammian\n" \
     "    - rcond: Reciprocal condition number of Riccati solver\n" \
-    "    - info: Exit code (0=success, 1=A unstable, 2-5=Riccati failed, 6=D rank deficient)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09hy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 1\n" \
-    ">>> a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.5, 1.0],\n" \
-    "...     [0.3, 0.7]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.5, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> s, r, scalec, scaleo, rcond, info = ab09hy(n, m, p, a, b, c, d)\n" \
-    ">>> s_upper = np.triu(s)\n" \
-    ">>> r_upper = np.triu(r)\n" \
-    ">>> p_computed = s_upper @ s_upper.T\n" \
-    ">>> q_computed = r_upper.T @ r_upper\n" \
-    ">>> p_eigvals = np.linalg.eigvalsh(p_computed)\n" \
-    ">>> q_eigvals = np.linalg.eigvalsh(q_computed)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1=A unstable, 2-5=Riccati failed, 6=D rank deficient)"
 
 #define DOC_AB09ID "Frequency-weighted model reduction based on balancing techniques.\n" \
     "\n" \
@@ -1988,78 +910,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, av, bv, cv, aw, bw, cw, ns, hsv, nr, iwarn, info):\n" \
     "    Reduced system matrices, transformed weight matrices, stable order,\n" \
-    "    Hankel singular values, actual order, warning, and error code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab09id\n" \
-    ">>> n, m, p = 3, 1, 1\n" \
-    ">>> nv, pv = 6, 1\n" \
-    ">>> nw, mw = 0, 0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-26.4000,  6.4023,  4.3868],\n" \
-    "...     [ 32.0000,  0.0,     0.0   ],\n" \
-    "...     [  0.0,     8.0000,  0.0   ]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [16.0],\n" \
-    "...     [ 0.0],\n" \
-    "...     [ 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [9.2994, 1.1624, 0.1090]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> av = np.array([\n" \
-    "...     [-1.0,  0.0,  4.0, -9.2994, -1.1624, -0.1090],\n" \
-    "...     [ 0.0,  2.0,  0.0, -9.2994, -1.1624, -0.1090],\n" \
-    "...     [ 0.0,  0.0, -3.0, -9.2994, -1.1624, -0.1090],\n" \
-    "...     [16.0, 16.0, 16.0, -26.4000, 6.4023,  4.3868],\n" \
-    "...     [ 0.0,  0.0,  0.0,  32.0000, 0.0,     0.0   ],\n" \
-    "...     [ 0.0,  0.0,  0.0,   0.0,    8.0000,  0.0   ]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> bv = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [1.0],\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> cv = np.array([\n" \
-    "...     [1.0, 1.0, 1.0, 0.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> dv = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> aw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> bw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> cw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> dw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> nr = 2\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> alphac = 0.0\n" \
-    ">>> alphao = 0.0\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 0.0\n" \
-    ">>> (a_out, b_out, c_out, d_out, av_out, bv_out, cv_out,\n" \
-    "...     aw_out, bw_out, cw_out, ns, hsv, nr_out, iwarn, info) = ab09id(\n" \
-    "...     'C', 'S', 'S', 'F', 'L', 'S', 'F',\n" \
-    "...     n, m, p, nv, pv, nw, mw, nr, alpha, alphac, alphao,\n" \
-    "...     a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2\n" \
-    "...     )\n" \
-    "...     err_msg=\"Hankel singular values mismatch\")\n" \
-    ">>> ar_actual = a_out[:nr_out, :nr_out].copy()\n" \
-    ">>> br_actual = b_out[:nr_out, :m].copy()\n" \
-    ">>> cr_actual = c_out[:p, :nr_out].copy()\n" \
-    ">>> dr_actual = d_out[:p, :m].copy()\n" \
-    "...     err_msg=\"Reduced A matrix mismatch\")\n" \
-    "...     err_msg=\"Reduced B matrix mismatch\")\n" \
-    "...     err_msg=\"Reduced C matrix mismatch\")\n" \
-    "...     err_msg=\"Reduced D matrix mismatch\")"
+    "    Hankel singular values, actual order, warning, and error code"
 
 #define DOC_AB09IX "Accuracy enhanced balancing related model reduction.\n" \
     "\n" \
@@ -2097,54 +948,7 @@
     "  (ar, br, cr, dr, ti, t, nr, nminr, hsv, iwarn, info):\n" \
     "    Reduced system matrices, truncation matrices, actual order,\n" \
     "    minimal realization order, Hankel singular values,\n" \
-    "    warning indicator, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09ix\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 1, 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.1,  0.0,  0.0],\n" \
-    "...     [ 0.0, -2.0,  0.1,  0.0],\n" \
-    "...     [ 0.0,  0.0, -3.0,  0.1],\n" \
-    "...     [ 0.0,  0.0,  0.0, -4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ti = np.array([\n" \
-    "...     [0.7071, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.5, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.4082, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.3536]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> t = np.array([\n" \
-    "...     [0.7071, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.5, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.4082, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.3536]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> scalec = 1.0\n" \
-    ">>> scaleo = 1.0\n" \
-    ">>> nr_in = 2\n" \
-    ">>> tol1 = 0.0\n" \
-    ">>> tol2 = 0.0\n" \
-    ">>> ar, br, cr, dr, ti_out, t_out, nr, nminr, hsv, iwarn, info = ab09ix(\n" \
-    "...     'C', 'B', 'N', 'F', n, m, p, nr_in, scalec, scaleo,\n" \
-    "...     a, b, c, d, ti, t, tol1, tol2\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    warning indicator, and exit code"
 
 #define DOC_AB09IY "Cholesky factors of frequency-weighted controllability/observability Grammians.\n" \
     "\n" \
@@ -2187,47 +991,7 @@
     "    - r: N-by-N upper triangular Cholesky factor (Q = R'*R)\n" \
     "    - scalec: Scaling factor for controllability Grammian\n" \
     "    - scaleo: Scaling factor for observability Grammian\n" \
-    "    - info: Exit code (0=success, 1=A unstable, 2=Lyapunov failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09iy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> nv, pv = 0, 0\n" \
-    ">>> nw, mw = 0, 0\n" \
-    ">>> a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.5, 1.0],\n" \
-    "...     [0.3, 0.7]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.5, 0.3],\n" \
-    "...     [0.2, 1.0, 0.6]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> av = np.zeros((0, 0), order='F', dtype=float)\n" \
-    ">>> bv = np.zeros((0, m), order='F', dtype=float)\n" \
-    ">>> cv = np.zeros((pv, 0), order='F', dtype=float)\n" \
-    ">>> dv = np.zeros((pv, m), order='F', dtype=float)\n" \
-    ">>> aw = np.zeros((0, 0), order='F', dtype=float)\n" \
-    ">>> bw = np.zeros((0, mw), order='F', dtype=float)\n" \
-    ">>> cw = np.zeros((p, 0), order='F', dtype=float)\n" \
-    ">>> dw = np.zeros((p, mw), order='F', dtype=float)\n" \
-    ">>> s, r, scalec, scaleo, info = ab09iy(\n" \
-    "...     'C', 'N', 'N', 'N',\n" \
-    "...     n, m, p, nv, pv, nw, mw,\n" \
-    "...     1.0, 1.0,\n" \
-    "...     a, b, c,\n" \
-    "...     av, bv, cv, dv,\n" \
-    "...     aw, bw, cw, dw\n" \
-    "...     )\n" \
-    ">>> p_gram = s @ s.T\n" \
-    ">>> q_gram = r.T @ r\n" \
-    ">>> p_eigvals = np.linalg.eigvalsh(p_gram)\n" \
-    ">>> q_eigvals = np.linalg.eigvalsh(q_gram)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1=A unstable, 2=Lyapunov failed)"
 
 #define DOC_AB09JD "Frequency-weighted Hankel-norm approximation with invertible weights.\n" \
     "\n" \
@@ -2282,74 +1046,7 @@
     "    - ns: Dimension of stable subsystem\n" \
     "    - hsv: Hankel singular values of stable part\n" \
     "    - iwarn: Warning (0=ok, 1=nr>nsmin, 2=nr<nu)\n" \
-    "    - info: Error code (0=success, 1-21 various failures)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab09jd\n" \
-    ">>> n, m, p = 6, 1, 1\n" \
-    ">>> nv, nw = 2, 0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-3.8637, -7.4641, -9.1416, -7.4641, -3.8637, -1.0000],\n" \
-    "...     [ 1.0000,  0.0,     0.0,     0.0,     0.0,     0.0   ],\n" \
-    "...     [ 0.0,     1.0000,  0.0,     0.0,     0.0,     0.0   ],\n" \
-    "...     [ 0.0,     0.0,     1.0000,  0.0,     0.0,     0.0   ],\n" \
-    "...     [ 0.0,     0.0,     0.0,     1.0000,  0.0,     0.0   ],\n" \
-    "...     [ 0.0,     0.0,     0.0,     0.0,     1.0000,  0.0   ]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> av = np.array([\n" \
-    "...     [0.2, -1.0],\n" \
-    "...     [1.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> bv = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> cv = np.array([\n" \
-    "...     [-1.8, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> dv = np.array([\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> aw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> bw = np.zeros((1, m), order='F', dtype=float)\n" \
-    ">>> cw = np.zeros((m, 1), order='F', dtype=float)\n" \
-    ">>> dw = np.zeros((m, m), order='F', dtype=float)\n" \
-    ">>> nr = 0\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 1e-14\n" \
-    ">>> (a_out, b_out, c_out, d_out, av_out, bv_out, cv_out,\n" \
-    "...     aw_out, bw_out, cw_out, nr_out, ns, hsv, iwarn, info) = ab09jd(\n" \
-    "...     'V', 'N', 'I', 'C', 'S', 'A', n, nv, nw, m, p, nr, alpha,\n" \
-    "...     a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2\n" \
-    "...     )\n" \
-    "...     err_msg=\"Hankel singular values mismatch\")\n" \
-    ">>> ar_actual = a_out[:nr_out, :nr_out].copy()\n" \
-    ">>> br_actual = b_out[:nr_out, :m].copy()\n" \
-    ">>> cr_actual = c_out[:p, :nr_out].copy()\n" \
-    ">>> ar_actual = np.abs(ar_actual)\n" \
-    "...     err_msg=\"Reduced A matrix mismatch\")\n" \
-    ">>> br_actual = np.abs(br_actual)\n" \
-    "...     err_msg=\"Reduced B matrix mismatch\")\n" \
-    ">>> cr_actual = np.abs(cr_actual)\n" \
-    "...     err_msg=\"Reduced C matrix mismatch\")\n" \
-    "...     err_msg=\"Reduced D matrix mismatch\")"
+    "    - info: Error code (0=success, 1-21 various failures)"
 
 #define DOC_AB09JV "Construct projection containing poles of G.\n" \
     "\n" \
@@ -2385,43 +1082,7 @@
     "    info=0: success\n" \
     "    info=1: AV not stable (when STBCHK='C')\n" \
     "    info=2: pencil (AV,EV) not in generalized Schur form\n" \
-    "    info=3: Sylvester equation singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09jv\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> nv, pv = 0, p\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.5, 0.0],\n" \
-    "...     [0.0, -2.0, 0.3],\n" \
-    "...     [0.0, 0.0, -3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.5, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> av = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> ev = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> bv = np.zeros((1, p), order='F', dtype=float)\n" \
-    ">>> cv = np.zeros((pv, 1), order='F', dtype=float)\n" \
-    ">>> dv = np.eye(pv, p, order='F', dtype=float)\n" \
-    ">>> c_out, d_out, av_out, ev_out, bv_out, cv_out, info = ab09jv(\n" \
-    "...     'V', 'C', 'I', 'N', n, m, p, nv, pv,\n" \
-    "...     a, b, c, d, av, ev, bv, cv, dv\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info=3: Sylvester equation singular"
 
 #define DOC_AB09JW "Construct projection of G*W or G*conj(W) containing poles of G.\n" \
     "\n" \
@@ -2458,43 +1119,7 @@
     "    info=1: Schur form reduction failed\n" \
     "    info=2: Sylvester equation (generalized) singular\n" \
     "    info=3: Sylvester equation (standard) singular\n" \
-    "    info=4: stability/antistability check failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09jw\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> nw, mw = 0, m\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.5, 0.0],\n" \
-    "...     [0.0, -2.0, 0.3],\n" \
-    "...     [0.0, 0.0, -3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.5, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> aw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> ew = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> bw = np.zeros((1, mw), order='F', dtype=float)\n" \
-    ">>> cw = np.zeros((m, 1), order='F', dtype=float)\n" \
-    ">>> dw = np.eye(m, mw, order='F', dtype=float)\n" \
-    ">>> b_out, d_out, aw_out, ew_out, bw_out, cw_out, info = ab09jw(\n" \
-    "...     'W', 'C', 'I', 'N', n, m, p, nw, mw,\n" \
-    "...     a, b, c, d, aw, ew, bw, cw, dw\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info=4: stability/antistability check failed"
 
 #define DOC_AB09JX "Check stability/antistability of finite eigenvalues.\n" \
     "\n" \
@@ -2521,21 +1146,7 @@
     "  tolinf (float): Tolerance for infinite eigenvalue detection (0 <= tolinf < 1)\n" \
     "\n" \
     "Returns:\n" \
-    "  info: 0 if all in domain, 1 if some outside, -i if param i invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09jx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> er = np.array([-1.0, -2.0, -3.0], order='F', dtype=float)\n" \
-    ">>> ei = np.array([0.0, 0.0, 0.0], order='F', dtype=float)\n" \
-    ">>> ed = np.array([1.0, 1.0, 1.0], order='F', dtype=float)\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> tolinf = 1e-10\n" \
-    ">>> info = ab09jx('C', 'S', 'S', n, alpha, er, ei, ed, tolinf)\n" \
-    ">>> info\n" \
-    "0"
+    "  info: 0 if all in domain, 1 if some outside, -i if param i invalid"
 
 #define DOC_AB09KD "Frequency-weighted Hankel-norm approximation model reduction.\n" \
     "\n" \
@@ -2586,74 +1197,7 @@
     "    - ns: Dimension of stable subsystem\n" \
     "    - hsv: Hankel singular values of stable part\n" \
     "    - iwarn: Warning (0=ok, 1=nr>nsmin, 2=nr<nu)\n" \
-    "    - info: Error code (0=success, 1-13 various failures)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab09kd\n" \
-    ">>> n, m, p = 6, 1, 1\n" \
-    ">>> nv, nw = 2, 0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-3.8637, -7.4641, -9.1416, -7.4641, -3.8637, -1.0000],\n" \
-    "...     [ 1.0000,  0.0,     0.0,     0.0,     0.0,     0.0   ],\n" \
-    "...     [ 0.0,     1.0000,  0.0,     0.0,     0.0,     0.0   ],\n" \
-    "...     [ 0.0,     0.0,     1.0000,  0.0,     0.0,     0.0   ],\n" \
-    "...     [ 0.0,     0.0,     0.0,     1.0000,  0.0,     0.0   ],\n" \
-    "...     [ 0.0,     0.0,     0.0,     0.0,     1.0000,  0.0   ]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> av = np.array([\n" \
-    "...     [0.2, -1.0],\n" \
-    "...     [1.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> bv = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> cv = np.array([\n" \
-    "...     [-1.8, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> dv = np.array([\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> aw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> bw = np.zeros((1, m), order='F', dtype=float)\n" \
-    ">>> cw = np.zeros((m, 1), order='F', dtype=float)\n" \
-    ">>> dw = np.zeros((m, m), order='F', dtype=float)\n" \
-    ">>> nr = 0\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 1e-14\n" \
-    ">>> (a_out, b_out, c_out, d_out, av_out, bv_out, cv_out,\n" \
-    "...     aw_out, bw_out, cw_out, nr_out, ns, hsv, iwarn, info) = ab09kd(\n" \
-    "...     'N', 'C', 'L', 'S', 'A', n, nv, nw, m, p, nr, alpha,\n" \
-    "...     a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2\n" \
-    "...     )\n" \
-    "...     err_msg=\"Hankel singular values mismatch\")\n" \
-    ">>> ar_actual = a_out[:nr_out, :nr_out].copy()\n" \
-    ">>> br_actual = b_out[:nr_out, :m].copy()\n" \
-    ">>> cr_actual = c_out[:p, :nr_out].copy()\n" \
-    ">>> ar_actual = np.abs(ar_actual)\n" \
-    "...     err_msg=\"Reduced A matrix mismatch\")\n" \
-    ">>> br_actual = np.abs(br_actual)\n" \
-    "...     err_msg=\"Reduced B matrix mismatch\")\n" \
-    ">>> cr_actual = np.abs(cr_actual)\n" \
-    "...     err_msg=\"Reduced C matrix mismatch\")\n" \
-    "...     err_msg=\"Reduced D matrix mismatch\")"
+    "    - info: Error code (0=success, 1-13 various failures)"
 
 #define DOC_AB09KX "Stable projection of V*G*W or conj(V)*G*conj(W).\n" \
     "\n" \
@@ -2695,56 +1239,7 @@
     "    - aw, bw, cw: Transformed W matrices (real Schur form)\n" \
     "    - iwarn: Warning (0=ok, 1=AV issue, 2=AW issue, 3=both)\n" \
     "    - info: Error (0=ok, 1=AV Schur failed, 2=AW Schur failed,\n" \
-    "            3=Sylvester (V) failed, 4=Sylvester (W) failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab09kx\n" \
-    ">>> n, m, p = 2, 1, 2\n" \
-    ">>> nv = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [0.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.1],\n" \
-    "...     [0.2]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> av = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> bv = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> cv = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> dv = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> aw = np.zeros((1, 1), order='F', dtype=float)\n" \
-    ">>> bw = np.zeros((1, m), order='F', dtype=float)\n" \
-    ">>> cw = np.zeros((m, 1), order='F', dtype=float)\n" \
-    ">>> dw = np.zeros((m, m), order='F', dtype=float)\n" \
-    ">>> b_out, c_out, d_out, av_out, bv_out, cv_out, aw_out, bw_out, cw_out, iwarn, info = ab09kx(\n" \
-    "...     'N', 'C', 'L', n, nv, 0, m, p,\n" \
-    "...     a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "            3=Sylvester (V) failed, 4=Sylvester (W) failed)"
 
 #define DOC_AB09MD "Balance & Truncate model reduction for ALPHA-stable part of a system.\n" \
     "\n" \
@@ -2771,44 +1266,7 @@
     "Returns:\n" \
     "  (ar, br, cr, ns, hsv, nr, iwarn, info):\n" \
     "    Reduced system matrices, dimension of stable part,\n" \
-    "    Hankel singular values, actual order, warning indicator, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> nr = 0\n" \
-    ">>> alpha = -0.6\n" \
-    ">>> tol = 0.1\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165, 0.0000, 4.9200, -4.9200, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [-5.2100, -12.500, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 3.3300, -3.3300, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.5450, 0.0000, 0.0000, 0.0000, -0.5450, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 4.9200, -0.04165, 0.0000, 4.9200],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, -5.2100, -12.500, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [12.500, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 12.500],\n" \
-    "...     [0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ar, br, cr, ns, hsv, nr_out, iwarn, info = ab09md(\n" \
-    "...     'C', 'N', 'N', 'A', n, m, p, nr, alpha, a, b, c, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Hankel singular values, actual order, warning indicator, and exit code"
 
 #define DOC_AB09ND "SPA model reduction for ALPHA-stable part of a system.\n" \
     "\n" \
@@ -2837,55 +1295,7 @@
     "Returns:\n" \
     "  (ar, br, cr, dr, nr, ns, hsv, iwarn, info):\n" \
     "    Reduced system matrices, actual order, dimension of stable part,\n" \
-    "    Hankel singular values, warning indicator, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab09nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200, -4.9200, 0.0000,   0.0000,  0.0000],\n" \
-    "...     [-5.2100,  -12.500,  0.0000,  0.0000, 0.0000,   0.0000,  0.0000],\n" \
-    "...     [ 0.0000,   3.3300, -3.3300,  0.0000, 0.0000,   0.0000,  0.0000],\n" \
-    "...     [ 0.5450,   0.0000,  0.0000,  0.0000, -0.5450,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,  4.9200, -0.04165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,  0.0000, -5.2100, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,   0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> dico = 'C'\n" \
-    ">>> job = 'N'\n" \
-    ">>> equil = 'N'\n" \
-    ">>> ordsel = 'A'\n" \
-    ">>> nr_in = 0\n" \
-    ">>> alpha = -0.6\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 1e-14\n" \
-    ">>> ar, br, cr, dr, nr, ns, hsv, iwarn, info = ab09nd(\n" \
-    "...     dico, job, equil, ordsel, n, m, p, nr_in, alpha,\n" \
-    "...     a, b, c, d, tol1, tol2\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Hankel singular values, warning indicator, and exit code"
 
 #define DOC_AB13AD "Compute Hankel-norm of ALPHA-stable projection.\n" \
     "\n" \
@@ -2914,43 +1324,7 @@
     "    - ns: Dimension of ALPHA-stable subsystem\n" \
     "    - hsv: Hankel singular values of stable part (length N, leading NS used)\n" \
     "    - info: Error code (0=success, 1=Schur failed, 2=separation failed,\n" \
-    "            3=marginally stable, 4=HSV computation failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13ad\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200, -4.9200,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000, -0.5450,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  4.9200, -0.04165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000, -5.2100, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [12.500, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 12.500],\n" \
-    "...     [0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> hankel_norm, ns, hsv, info = ab13ad('C', 'N', n, m, p, alpha, a, b, c)\n" \
-    "...     err_msg=\"Hankel-norm should match doc example\")\n" \
-    ">>> expected_hsv = np.array([2.5139, 2.0846, 1.9178, 0.7666, 0.5473, 0.0253, 0.0246])\n" \
-    "...     err_msg=\"Hankel singular values should match doc example\")\n" \
-    ">>> info\n" \
-    "0"
+    "            3=marginally stable, 4=HSV computation failed)"
 
 #define DOC_AB13BD "Compute H2 or L2 norm of a transfer-function matrix.\n" \
     "\n" \
@@ -2968,24 +1342,7 @@
     "\n" \
     "Returns:\n" \
     "  (h2norm, nq, iwarn, info): H2/L2 norm, order of minimal realization,\n" \
-    "    warning indicator, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13bd\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> c = np.random.randn(p, n).astype(float, order='F')\n" \
-    ">>> d = np.zeros((p, m), order='F', dtype=float)\n" \
-    ">>> tol = 0.0\n" \
-    ">>> h2norm, nq, iwarn, info = ab13bd(\n" \
-    "...     'C', 'L',\n" \
-    "...     a.copy(order='F'), b.copy(order='F'), c.copy(order='F'),\n" \
-    "...     d.copy(order='F'), tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    warning indicator, exit code"
 
 #define DOC_AB13CD "Compute H-infinity norm of continuous-time stable system.\n" \
     "\n" \
@@ -3007,32 +1364,7 @@
     "\n" \
     "Returns:\n" \
     "  (hnorm, fpeak, info): H-infinity norm, peak frequency, exit code\n" \
-    "    info: 0=success, 1=unstable, 2=tolerance too small, 3=eigenvalue error, 4=SVD error\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13cd\n" \
-    ">>> n, m, np_ = 6, 1, 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [-0.5, -0.0002, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -1.0, -0.00002, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -2.0, -0.000002]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0], [0.0], [1.0], [0.0], [1.0], [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, 0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([[0.0]], order='F', dtype=float)\n" \
-    ">>> tol = 1e-9\n" \
-    ">>> hnorm, fpeak, info = ab13cd(n, m, np_, a, b, c, d, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=unstable, 2=tolerance too small, 3=eigenvalue error, 4=SVD error"
 
 #define DOC_AB13DD "Compute L-infinity norm of state-space system.\n" \
     "\n" \
@@ -3056,32 +1388,7 @@
     "  tol (float): Tolerance for convergence (0 <= tol < 1)\n" \
     "\n" \
     "Returns:\n" \
-    "  (gpeak, fpeak, info): Peak gain [norm, scale], peak frequency, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13dd\n" \
-    ">>> n, m, p = 6, 1, 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [-0.5, -0.0002, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -1.0, -0.00002, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -2.0, -0.000002]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.eye(n, order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0], [0.0], [1.0], [0.0], [1.0], [0.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0, 0.0, 1.0, 0.0, 1.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[0.0]], order='F', dtype=float)\n" \
-    ">>> fpeak = np.array([0.0, 1.0], order='F', dtype=float)\n" \
-    ">>> tol = 1e-9\n" \
-    ">>> gpeak, fpeak_out, info = ab13dd(\n" \
-    "...     'C', 'I', 'N', 'D', n, m, p, fpeak, a, e, b, c, d, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (gpeak, fpeak, info): Peak gain [norm, scale], peak frequency, exit code"
 
 #define DOC_AB13DX "Compute transfer function gain at specific frequency.\n" \
     "\n" \
@@ -3103,25 +1410,7 @@
     "  omega (float): Frequency value\n" \
     "\n" \
     "Returns:\n" \
-    "  (result, info): Maximum singular value, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13dx\n" \
-    ">>> n, m, p = 2, 1, 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.0],\n" \
-    "...     [0.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.eye(n, order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0], [1.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.zeros((p, m), order='F', dtype=float)\n" \
-    ">>> omega = 1.0\n" \
-    ">>> result, info = ab13dx('C', 'I', 'Z', n, m, p, a, e, b, c, d, omega)\n" \
-    ">>> info\n" \
-    "0"
+    "  (result, info): Maximum singular value, exit code"
 
 #define DOC_AB13ED "Estimate distance to instability (stability radius).\n" \
     "\n" \
@@ -3130,16 +1419,7 @@
     "  tol (float): Tolerance\n" \
     "\n" \
     "Returns:\n" \
-    "  (low, high, info): Lower/Upper bounds, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab13ed\n" \
-    ">>> import numpy as np\n" \
-    ">>> A = np.array([[-1.0]], order='F')\n" \
-    ">>> low, high, info = ab13ed(A)\n" \
-    ">>> info\n" \
-    "0"
+    "  (low, high, info): Lower/Upper bounds, exit code"
 
 #define DOC_AB13FD "Compute complex stability radius using SVD.\n" \
     "\n" \
@@ -3152,22 +1432,7 @@
     "  tol (float): Accuracy tolerance (default 0.0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (beta, omega, info): Stability radius, minimizing frequency, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13fd\n" \
-    ">>> a = np.array([\n" \
-    "...     [246.500, 242.500, 202.500, -197.500],\n" \
-    "...     [-252.500, -248.500, -207.500, 202.500],\n" \
-    "...     [-302.500, -297.500, -248.500, 242.500],\n" \
-    "...     [-307.500, -302.500, -252.500, 246.500]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tol = 0.0\n" \
-    ">>> beta, omega, info = ab13fd(a, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (beta, omega, info): Stability radius, minimizing frequency, exit code"
 
 #define DOC_AB13HD "Compute L-infinity norm of proper continuous-time or causal discrete-time descriptor system.\n" \
     "\n" \
@@ -3200,33 +1465,7 @@
     "\n" \
     "Returns:\n" \
     "  (gpeak, fpeak, nr, iwarn, info): Peak gain [norm, scale], peak frequency,\n" \
-    "    reduced order, warning indicator, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13hd\n" \
-    ">>> n, m, p = 6, 1, 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [-0.5, -0.0002, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -1.0, -0.00002, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -2.0, -0.000002]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.eye(n, order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0], [0.0], [1.0], [0.0], [1.0], [0.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0, 0.0, 1.0, 0.0, 1.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[0.0]], order='F', dtype=float)\n" \
-    ">>> fpeak = np.array([0.0, 1.0], order='F', dtype=float)\n" \
-    ">>> tol = np.array([1e-9, -1.0], order='F', dtype=float)\n" \
-    ">>> gpeak, fpeak_out, nr, iwarn, info = ab13hd(\n" \
-    "...     'C', 'I', 'N', 'D', 'N', 'N', 'A',\n" \
-    "...     n, m, p, 0, fpeak, a, e, b, c, d, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    reduced order, warning indicator, exit code"
 
 #define DOC_AB13ID "Check if descriptor system transfer function is proper.\n" \
     "\n" \
@@ -3260,63 +1499,7 @@
     "    - ranke: Rank of E (number of finite generalized eigenvalues)\n" \
     "    - a, e, b, c: Modified system matrices\n" \
     "    - iwarn: Warning (1=E nearly singular, 2=system nearly improper)\n" \
-    "    - info: Exit code (0=success, 1=Schur failed, 2=QZ failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13id\n" \
-    ">>> n, m, p = 9, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-2, -3, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [1, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, -2, -3, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 1, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 1, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 1],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 1, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 1, 0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1, 0],\n" \
-    "...     [0, 0],\n" \
-    "...     [0, 1],\n" \
-    "...     [0, 0],\n" \
-    "...     [-1, 0],\n" \
-    "...     [0, 0],\n" \
-    "...     [0, -1],\n" \
-    "...     [0, 0],\n" \
-    "...     [0, 0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1, 0, 1, -3, 0, 1, 0, 2, 0],\n" \
-    "...     [0, 1, 1, 3, 0, 1, 0, 0, 1],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> jobsys = 'R'  # Reduce\n" \
-    ">>> jobeig = 'I'  # Remove infinite eigenvalues only\n" \
-    ">>> equil = 'N'   # No scaling\n" \
-    ">>> cksing = 'N'  # No singularity check\n" \
-    ">>> restor = 'N'  # No restore\n" \
-    ">>> update = 'U'  # Update matrices\n" \
-    ">>> tol = np.array([0.0, 0.0, 0.0], dtype=float)\n" \
-    ">>> is_proper, nr, ranke, a_out, e_out, b_out, c_out, iwarn, info = ab13id(\n" \
-    "...     jobsys, jobeig, equil, cksing, restor, update,\n" \
-    "...     a, e, b, c, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1=Schur failed, 2=QZ failed)"
 
 #define DOC_AB13MD "Compute upper bound on structured singular value (mu).\n" \
     "\n" \
@@ -3332,22 +1515,7 @@
     "\n" \
     "Returns:\n" \
     "  (bound, d, g, x, info): Upper bound on mu, scaling matrices D and G,\n" \
-    "    scaling vector X for next call, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ab13md\n" \
-    ">>> n = 4\n" \
-    ">>> z_real = np.random.randn(n, n)\n" \
-    ">>> z_imag = np.random.randn(n, n)\n" \
-    ">>> z = (z_real + 1j * z_imag).astype(np.complex128, order='F')\n" \
-    ">>> nblock = np.array([n], dtype=np.int32)\n" \
-    ">>> itype = np.array([2], dtype=np.int32)\n" \
-    ">>> bound, d, g, x, info = ab13md(z, nblock, itype)\n" \
-    ">>> sigma_max = np.linalg.svd(z, compute_uv=False)[0]\n" \
-    ">>> info\n" \
-    "0"
+    "    scaling vector X for next call, exit code"
 
 #define DOC_AB8NXZ "Extract reduced system with same transmission zeros (complex).\n" \
     "\n" \
@@ -3367,28 +1535,7 @@
     "Returns:\n" \
     "  (abcd, ro, sigma, mu, nu, ninfz, infz, kronl, info): Reduced matrix,\n" \
     "    final ro/sigma, dimensions (mu,nu), infinite zero count/degrees,\n" \
-    "    left Kronecker indices, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ab8nxz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 2, 1, 1\n" \
-    ">>> ro = p\n" \
-    ">>> sigma = 0\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> tol = 1.0e-10\n" \
-    ">>> A = np.random.randn(n, n) + 1j * np.random.randn(n, n)\n" \
-    ">>> B = np.random.randn(n, m) + 1j * np.random.randn(n, m)\n" \
-    ">>> C = np.random.randn(p, n) + 1j * np.random.randn(p, n)\n" \
-    ">>> D = np.random.randn(p, m) + 1j * np.random.randn(p, m)\n" \
-    ">>> abcd = np.zeros((n + p, m + n), dtype=complex, order='F')\n" \
-    ">>> abcd[:n, :m] = B\n" \
-    ">>> abcd[:n, m:] = A\n" \
-    ">>> abcd[n:, :m] = D\n" \
-    ">>> abcd[n:, m:] = C\n" \
-    ">>> result = ab8nxz(n, m, p, ro, sigma, svlmax, abcd.copy(), tol)\n" \
-    ">>> abcd_out, ro_out, sigma_out, mu, nu, ninfz, infz, kronl, info = result"
+    "    left Kronecker indices, exit code"
 
 #define DOC_AG07BD "Descriptor inverse of a state-space or descriptor system.\n" \
     "\n" \
@@ -3415,21 +1562,7 @@
     "    - bi: Input matrix of inverse ((n+m) x m)\n" \
     "    - ci: Output matrix of inverse (m x (n+m))\n" \
     "    - di: Feedthrough matrix of inverse (m x m, always zero)\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ag07bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 2, 1\n" \
-    ">>> A = np.array([[1.0, 2.0],\n" \
-    "...     [3.0, 4.0]], order='F', dtype=float)\n" \
-    ">>> B = np.array([[1.0],\n" \
-    "...     [0.0]], order='F', dtype=float)\n" \
-    ">>> C = np.array([[0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> D = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> result = ag07bd('I', n, m, A, B, C, D)\n" \
-    ">>> ai, ei, bi, ci, di, info = result"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AG08BD "Zeros and Kronecker structure of a descriptor system pencil.\n" \
     "\n" \
@@ -3466,62 +1599,7 @@
     "    - kronr: Right Kronecker indices\n" \
     "    - infe: Multiplicities of infinite eigenvalues\n" \
     "    - kronl: Left Kronecker indices\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ag08bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 9, 9, 3, 3\n" \
-    ">>> A = np.array([\n" \
-    "...     [1, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 1, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 1, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 1, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 1],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> E = np.array([\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [1, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 1, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 1, 0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> B = np.array([\n" \
-    "...     [-1, 0, 0],\n" \
-    "...     [0, 0, 0],\n" \
-    "...     [0, 0, 0],\n" \
-    "...     [0, -1, 0],\n" \
-    "...     [0, 0, 0],\n" \
-    "...     [0, 0, 0],\n" \
-    "...     [0, 0, -1],\n" \
-    "...     [0, 0, 0],\n" \
-    "...     [0, 0, 0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> C = np.array([\n" \
-    "...     [0, 1, 1, 0, 3, 4, 0, 0, 2],\n" \
-    "...     [0, 1, 0, 0, 4, 0, 0, 2, 0],\n" \
-    "...     [0, 0, 1, 0, -1, 4, 0, -2, 2],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> D = np.array([\n" \
-    "...     [1, 2, -2],\n" \
-    "...     [0, -1, -2],\n" \
-    "...     [0, 0, 0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> result = ag08bd('N', l, n, m, p, A, E, B, C, D, 1e-7)\n" \
-    ">>> (a_out, e_out, nfz, nrank, niz, dinfz, nkror, ninfe, nkrol,\n" \
-    "...     infz, kronr, infe, kronl, info) = result\n" \
-    "...     eigvals = np.linalg.eigvals(\n" \
-    "...     np.linalg.solve(e_out[:nfz, :nfz], a_out[:nfz, :nfz])\n" \
-    "...     )"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AG08BY "Extract reduced descriptor system pencil preserving finite Smith zeros.\n" \
     "\n" \
@@ -3551,41 +1629,7 @@
     "    - nkronl: Max dimension of left Kronecker blocks\n" \
     "    - infz: Infinite zero degrees\n" \
     "    - kronl: Left Kronecker block counts\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ag08by\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> A = np.array([\n" \
-    "...     [1.0, 2.0, 0.0],\n" \
-    "...     [4.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> C = np.array([\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [0.0, 1.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> D = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> E = np.eye(n, order='F', dtype=float)\n" \
-    ">>> abcd = np.zeros((n + p, m + n), order='F', dtype=float)\n" \
-    ">>> abcd[:n, :m] = B\n" \
-    ">>> abcd[:n, m:] = A\n" \
-    ">>> abcd[n:, :m] = D\n" \
-    ">>> abcd[n:, m:] = C\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> tol = 0.0\n" \
-    ">>> result = ag08by(True, n, m, p, svlmax, abcd.copy(), E.copy(), tol)\n" \
-    ">>> abcd_out, e_out, nr, pr, ninfz, dinfz, nkronl, infz, kronl, info = result"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AG08BZ "Zeros and Kronecker structure of a complex descriptor system pencil.\n" \
     "\n" \
@@ -3621,20 +1665,7 @@
     "    - kronr: Right Kronecker indices\n" \
     "    - infe: Multiplicities of infinite eigenvalues\n" \
     "    - kronl: Left Kronecker indices\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ag08bz\n" \
-    ">>> import numpy as np\n" \
-    ">>> A = self.A.copy()\n" \
-    ">>> E = self.E.copy()\n" \
-    ">>> B = self.B.copy()\n" \
-    ">>> C = self.C.copy()\n" \
-    ">>> D = self.D.copy()\n" \
-    ">>> result = ag08bz(self.equil, self.l, self.n, self.m, self.p,\n" \
-    "...     A, E, B, C, D, self.tol)\n" \
-    ">>> nfz, nrank, niz, dinfz, nkror, ninfe, nkrol, infz, kronr, infe, kronl, info = result"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_AG8BYZ "Extract reduced descriptor system pencil preserving finite Smith zeros (complex).\n" \
     "\n" \
@@ -3664,41 +1695,7 @@
     "    - nkronl: Max dimension of left Kronecker blocks\n" \
     "    - infz: Infinite zero degrees\n" \
     "    - kronl: Left Kronecker block counts\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ag8byz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> A = np.array([\n" \
-    "...     [1.0+0.1j, 2.0+0.0j, 0.0+0.0j],\n" \
-    "...     [4.0+0.0j, -1.0+0.2j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 1.0+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> B = np.array([\n" \
-    "...     [1.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 1.0+0.0j],\n" \
-    "...     [1.0+0.0j, 1.0+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> C = np.array([\n" \
-    "...     [1.0+0.0j, 0.0+0.0j, 1.0+0.0j],\n" \
-    "...     [0.0+0.0j, 1.0+0.0j, -1.0+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> D = np.array([\n" \
-    "...     [0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> E = np.eye(n, order='F', dtype=complex)\n" \
-    ">>> abcd = np.zeros((n + p, m + n), order='F', dtype=complex)\n" \
-    ">>> abcd[:n, :m] = B\n" \
-    ">>> abcd[:n, m:] = A\n" \
-    ">>> abcd[n:, :m] = D\n" \
-    ">>> abcd[n:, m:] = C\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> tol = 0.0\n" \
-    ">>> result = ag8byz(True, n, m, p, svlmax, abcd.copy(), E.copy(), tol)\n" \
-    ">>> abcd_out, e_out, nr, pr, ninfz, dinfz, nkronl, infz, kronl, info = result"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_BB01AD "Generate benchmark examples for continuous-time algebraic Riccati equations.\n" \
     "\n" \
@@ -3731,19 +1728,7 @@
     "    - g: G matrix or packed form\n" \
     "    - q: Q matrix or packed form\n" \
     "    - x: Solution matrix (if vec[8]=True)\n" \
-    "    - info: 0=success, 1=not implemented, 2=invalid param, 3=singular R\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import bb01ad\n" \
-    ">>> nr = [2, 3]\n" \
-    ">>> dpar = np.array([0.1234, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)\n" \
-    ">>> ipar = np.array([0, 0, 0, 0], dtype=np.int32)\n" \
-    ">>> bpar = np.array([True, True, True, False, True, True], dtype=bool)\n" \
-    ">>> vec, n, m, p, a, b, c, g, q, x, info = bb01ad('N', nr, dpar, ipar, bpar)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: 0=success, 1=not implemented, 2=invalid param, 3=singular R"
 
 #define DOC_BB02AD "Generate benchmark examples for discrete-time algebraic Riccati equations.\n" \
     "\n" \
@@ -3777,18 +1762,7 @@
     "    - r: R matrix or G if bpar[3]=True\n" \
     "    - s: Coefficient matrix S (if bpar[6]=True)\n" \
     "    - x: Solution matrix (if vec[9]=True)\n" \
-    "    - info: 0=success, 1=not implemented, 2=div by zero, 3=singular R\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import bb02ad\n" \
-    ">>> nr = np.array([2, 3], dtype=np.int32)\n" \
-    ">>> dpar = np.array([0.1234, 0.0, 0.0, 0.0], dtype=np.float64)\n" \
-    ">>> ipar = np.array([0, 0, 0], dtype=np.int32)\n" \
-    ">>> bpar = np.array([True, True, True, False, False, True, True], dtype=bool)\n" \
-    ">>> result = bb02ad('N', nr, dpar, ipar, bpar)\n" \
-    ">>> vec, n, m, p, a, b, c, q, r, s, x, info = result"
+    "    - info: 0=success, 1=not implemented, 2=div by zero, 3=singular R"
 
 #define DOC_BB03AD "Generate benchmark examples for continuous-time Lyapunov equations.\n" \
     "\n" \
@@ -3825,17 +1799,7 @@
     "    - x: Solution (n x n if provided)\n" \
     "    - u: Cholesky factor (n x n if provided)\n" \
     "    - note: Example description string\n" \
-    "    - info: 0=success, <0=invalid argument\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import bb03ad\n" \
-    ">>> nr = np.array([4, 1], dtype=np.int32)\n" \
-    ">>> dpar = np.array([1.5, 1.5], dtype=np.float64)\n" \
-    ">>> ipar = np.array([5], dtype=np.int32)\n" \
-    ">>> result = bb03ad('N', nr, dpar, ipar)\n" \
-    ">>> vec, n, m, e, a, y, b, x, u, note, info = result"
+    "    - info: 0=success, <0=invalid argument"
 
 #define DOC_BB04AD "Generate benchmark examples for discrete-time Lyapunov equations.\n" \
     "\n" \
@@ -3872,17 +1836,7 @@
     "    - x: Solution (n x n if provided)\n" \
     "    - u: Cholesky factor (n x n if provided)\n" \
     "    - note: Example description string\n" \
-    "    - info: 0=success, <0=invalid argument\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import bb04ad\n" \
-    ">>> nr = np.array([4, 1], dtype=np.int32)\n" \
-    ">>> dpar = np.array([1.5, 1.5], dtype=np.float64)\n" \
-    ">>> ipar = np.array([5], dtype=np.int32)\n" \
-    ">>> result = bb04ad('N', nr, dpar, ipar)\n" \
-    ">>> vec, n, m, e, a, y, b, x, u, note, info = result"
+    "    - info: 0=success, <0=invalid argument"
 
 #define DOC_BD01AD "Generate benchmark examples for continuous-time dynamical systems.\n" \
     "\n" \
@@ -3915,17 +1869,7 @@
     "    - c: Output matrix (p x n)\n" \
     "    - d: Feedthrough matrix (p x m), zero if vec[7]=False\n" \
     "    - note: Example description string\n" \
-    "    - info: 0=success, 1=data file required, <0=invalid argument\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import bd01ad\n" \
-    ">>> nr = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> dpar = np.zeros(7, dtype=np.float64)\n" \
-    ">>> ipar = np.zeros(1, dtype=np.int32)\n" \
-    ">>> result = bd01ad('D', nr, dpar, ipar)\n" \
-    ">>> vec, n, m, p, e, a, b, c, d, note, info = result"
+    "    - info: 0=success, 1=data file required, <0=invalid argument"
 
 #define DOC_BD02AD "Generate benchmark examples for discrete-time dynamical systems.\n" \
     "\n" \
@@ -3958,17 +1902,7 @@
     "    - c: Output matrix (p x n)\n" \
     "    - d: Feedthrough matrix (p x m), zero if vec[7]=False\n" \
     "    - note: Example description string\n" \
-    "    - info: 0=success, 1=data file required, <0=invalid argument\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import bd02ad\n" \
-    ">>> nr = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> dpar = np.zeros(7, dtype=np.float64)\n" \
-    ">>> ipar = np.zeros(1, dtype=np.int32)\n" \
-    ">>> result = bd02ad('D', nr, dpar, ipar)\n" \
-    ">>> vec, n, m, p, e, a, b, c, d, note, info = result"
+    "    - info: 0=success, 1=data file required, <0=invalid argument"
 
 #define DOC_DE01OD "Compute convolution or deconvolution of two real signals.\n" \
     "\n" \
@@ -3978,17 +1912,7 @@
     "  b (ndarray): Second signal (N samples, overwritten)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Result signal and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import de01od\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([0.4862, 0.1948, 0.5788, -0.5861, 0.8254, 0.1815, 0.2904, -0.3599], dtype=float)\n" \
-    ">>> b = np.array([0.2288, 0.3671, 0.6417, 0.3875, 0.2380, 0.4682, 0.5312, 0.6116], dtype=float)\n" \
-    ">>> a_out, info = de01od('C', a, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Result signal and exit code"
 
 #define DOC_DE01PD "Compute convolution or deconvolution using Hartley transform.\n" \
     "\n" \
@@ -4003,20 +1927,7 @@
     "  w (ndarray): Weight vector (N - log2(N) elements for N > 1)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, w, info): Result signal, weight vector, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import de01pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([0.4862, 0.1948, 0.5788, -0.5861, 0.8254, 0.1815, 0.2904, -0.3599],\n" \
-    "...     dtype=float, order='F')\n" \
-    ">>> b = np.array([0.2288, 0.3671, 0.6417, 0.3875, 0.2380, 0.4682, 0.5312, 0.6116],\n" \
-    "...     dtype=float, order='F')\n" \
-    ">>> w = np.zeros(8, dtype=float, order='F')\n" \
-    ">>> a_out, w_out, info = de01pd('C', 'N', a, b, w)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, w, info): Result signal, weight vector, and exit code"
 
 #define DOC_DF01MD "Compute sine or cosine transform of a real signal.\n" \
     "\n" \
@@ -4033,19 +1944,7 @@
     "\n" \
     "Notes:\n" \
     "  For sine transform: first and last coefficients are always 0\n" \
-    "  For cosine transform: coefficients scaled by sampling time dt\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import df01md\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([-0.1862, 0.1288, 0.3948, 0.0671, 0.6788, -0.2417, 0.1861, 0.8875,\n" \
-    "...     0.7254, 0.9380, 0.5815, -0.2682, 0.4904, 0.9312, -0.9599, -0.3116, 0.8743],\n" \
-    "...     dtype=float, order='F')\n" \
-    ">>> dt = 1.0\n" \
-    ">>> a_out, info = df01md('C', dt, a)\n" \
-    ">>> info\n" \
-    "0"
+    "  For cosine transform: coefficients scaled by sampling time dt"
 
 #define DOC_DG01MD "Compute discrete Fourier transform or inverse of complex signal.\n" \
     "\n" \
@@ -4055,17 +1954,7 @@
     "  xi (ndarray): Imaginary part of signal (N samples)\n" \
     "\n" \
     "Returns:\n" \
-    "  (xr, xi, info): Transformed signal (real, imag) and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import dg01md\n" \
-    ">>> import numpy as np\n" \
-    ">>> xr = np.array([-0.1862, 0.3948, 0.6788, 0.1861, 0.7254, 0.5815, 0.4904, -0.9599], dtype=float)\n" \
-    ">>> xi = np.array([0.1288, 0.0671, -0.2417, 0.8875, 0.9380, -0.2682, 0.9312, -0.3116], dtype=float)\n" \
-    ">>> xr_out, xi_out, info = dg01md('D', xr, xi)\n" \
-    ">>> info\n" \
-    "0"
+    "  (xr, xi, info): Transformed signal (real, imag) and exit code"
 
 #define DOC_DG01ND "Compute discrete Fourier transform or inverse of real signal.\n" \
     "\n" \
@@ -4078,17 +1967,7 @@
     "  xi (ndarray): Even samples (forward) or imag part (inverse), N samples\n" \
     "\n" \
     "Returns:\n" \
-    "  (xr, xi, info): N+1 (forward) or N (inverse) components, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import dg01nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> xr = np.array([-0.1862, 0.3948, 0.6788, 0.1861, 0.7254, 0.5815, 0.4904, -0.9599], dtype=float)\n" \
-    ">>> xi = np.array([0.1288, 0.0671, -0.2417, 0.8875, 0.9380, -0.2682, 0.9312, -0.3116], dtype=float)\n" \
-    ">>> xr_out, xi_out, info = dg01nd('D', xr, xi)\n" \
-    ">>> info\n" \
-    "0"
+    "  (xr, xi, info): N+1 (forward) or N (inverse) components, and exit code"
 
 #define DOC_DG01OD "Compute (scrambled) discrete Hartley transform of real signal.\n" \
     "\n" \
@@ -4102,19 +1981,7 @@
     "  w (ndarray): Weight vector (N - log2(N) elements)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, w, info): Transformed signal, weights (for reuse), and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import dg01od\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([1., 2., 3., 4., 5., 6., 7., 8.,\n" \
-    "...     9., 10., 11., 12., 13., 14., 15., 16.], dtype=float, order='F')\n" \
-    ">>> n = len(a)\n" \
-    ">>> w = np.zeros(n, dtype=float, order='F')\n" \
-    ">>> a_out, w_out, info = dg01od('N', 'N', a, w)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, w, info): Transformed signal, weights (for reuse), and exit code"
 
 #define DOC_DGEGV "Compute generalized eigenvalues and eigenvectors.\n" \
     "\n" \
@@ -4138,29 +2005,7 @@
     "    beta: Denominators of eigenvalues (n,)\n" \
     "    vl: Left eigenvectors (n x n) if jobvl='V', else empty\n" \
     "    vr: Right eigenvectors (n x n) if jobvr='V', else empty\n" \
-    "    info: Exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import dgegv\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [3.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> alphar, alphai, beta, vl, vr, info = dgegv('N', 'N', a, b)\n" \
-    ">>> eigs_computed = []\n" \
-    "...     eigs_computed.append(complex(alphar[i], alphai[i]) / beta[i])\n" \
-    ">>> eigs_computed = np.array(sorted(eigs_computed, key=lambda x: x.real))\n" \
-    "...     np.array([e.real for e in eigs_computed]),\n" \
-    "...     rtol=1e-12\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success)"
 
 #define DOC_DK01MD "Apply anti-aliasing window to a real signal.\n" \
     "\n" \
@@ -4169,16 +2014,7 @@
     "  a (ndarray): Signal array (N samples)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Windowed signal and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import dk01md\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([0.3262, 0.8723, -0.7972, 0.6673, -0.1722, 0.3237, 0.5263, -0.3275], dtype=float)\n" \
-    ">>> a_out, info = dk01md('M', a)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Windowed signal and exit code"
 
 #define DOC_DLATZM "Apply Householder matrix generated by DTZRQF.\n" \
     "\n" \
@@ -4199,22 +2035,7 @@
     "  c2 (ndarray): Remaining rows/columns of C (modified in-place)\n" \
     "\n" \
     "Returns:\n" \
-    "  (c1, c2): Modified matrices\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 3\n" \
-    ">>> v = np.random.randn(m - 1).astype(float, order='F')\n" \
-    ">>> tau = 0.5\n" \
-    ">>> incv = 1\n" \
-    ">>> c1 = np.random.randn(1, n).astype(float, order='F')\n" \
-    ">>> c2 = np.random.randn(m - 1, n).astype(float, order='F')\n" \
-    ">>> u = np.vstack([np.ones((1, 1)), v.reshape(-1, 1)])\n" \
-    ">>> P = np.eye(m) - tau * u @ u.T\n" \
-    ">>> from slicot import dlatzm\n" \
-    ">>> c1_out, c2_out = dlatzm('L', m, n, v, incv, tau, c1, c2)\n" \
-    ">>> C_result = np.vstack([c1_out, c2_out])"
+    "  (c1, c2): Modified matrices"
 
 #define DOC_FB01QD "Time-varying square root covariance Kalman filter (dense matrices).\n" \
     "\n" \
@@ -4248,39 +2069,7 @@
     "    k: Kalman gain K_i (N x P) if JOBK='K', else AK_i\n" \
     "    r: Lower triangular (RINOV)^{1/2}_i\n" \
     "    rcond: Reciprocal condition number of (RINOV)^{1/2}_i (if JOBK='K')\n" \
-    "    info: Exit code (0=success, 1=singular matrix, <0=parameter error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import fb01qd\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> s = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.2113, 0.8497, 0.7263, 0.8833],\n" \
-    "...     [0.7560, 0.6857, 0.1985, 0.6525],\n" \
-    "...     [0.0002, 0.8782, 0.5442, 0.3076],\n" \
-    "...     [0.3303, 0.0683, 0.2320, 0.9329],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.5618, 0.5042],\n" \
-    "...     [0.5896, 0.3493],\n" \
-    "...     [0.6853, 0.3873],\n" \
-    "...     [0.8906, 0.9222],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> q = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.3616, 0.5664, 0.5015, 0.2693],\n" \
-    "...     [0.2922, 0.4826, 0.4368, 0.6325],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    "...     s, k, r_out, rcond, info = fb01qd(\n" \
-    "...     'K', 'N', s, a, b, q, c, r, 0.0\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, 1=singular matrix, <0=parameter error)"
 
 #define DOC_FB01RD "Time-invariant square root covariance Kalman filter (observer Hessenberg form).\n" \
     "\n" \
@@ -4300,48 +2089,7 @@
     "  tol (float): Singularity tolerance for gain computation\n" \
     "\n" \
     "Returns:\n" \
-    "  (s, r, k, info): Updated S, updated R, gain K, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import fb01rd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> s = np.array([\n" \
-    "...     [0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.2113, 0.8497, 0.7263, 0.0000],\n" \
-    "...     [0.7560, 0.6857, 0.1985, 0.6525],\n" \
-    "...     [0.0002, 0.8782, 0.5442, 0.3076],\n" \
-    "...     [0.3303, 0.0683, 0.2320, 0.9329]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.5618, 0.5042],\n" \
-    "...     [0.5896, 0.3493],\n" \
-    "...     [0.6853, 0.3873],\n" \
-    "...     [0.8906, 0.9222]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> q = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.3616, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.2922, 0.4826, 0.0000, 0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> s_work = s.copy(order='F')\n" \
-    "...     s_work, r_out, k_out, info = fb01rd(\n" \
-    "...     'K',       # jobk\n" \
-    "...     'N',       # multbq\n" \
-    "...     s_work, a, b, q, c, r_work,\n" \
-    "...     0.0        # tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (s, r, k, info): Updated S, updated R, gain K, exit code"
 
 #define DOC_FB01SD "Time-varying square root information Kalman filter (dense matrices).\n" \
     "\n" \
@@ -4372,56 +2120,7 @@
     "    qinv: Updated process noise innovation square root\n" \
     "    x: Updated/transformed state estimate\n" \
     "    e: Estimated error\n" \
-    "    info: Exit code (0=success, 1=singular matrix, <0=parameter error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import fb01sd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> ainv = np.array([\n" \
-    "...     [0.2113, 0.7560, 0.0002, 0.3303],\n" \
-    "...     [0.8497, 0.6857, 0.8782, 0.0683],\n" \
-    "...     [0.7263, 0.1985, 0.5442, 0.2320],\n" \
-    "...     [0.8833, 0.6525, 0.3076, 0.9329]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.3616, 0.5664, 0.5015, 0.2693],\n" \
-    "...     [0.2922, 0.4826, 0.4368, 0.6325]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> rinv = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [-0.8805, 1.3257],\n" \
-    "...     [2.1039, 0.5207],\n" \
-    "...     [-0.6075, 1.0386],\n" \
-    "...     [-0.8531, 1.1688]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> qinv = np.array([\n" \
-    "...     [1.1159, 0.2305],\n" \
-    "...     [0.0, 0.6597]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> sinv = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> z = np.array([0.0019, 0.5075], dtype=float)\n" \
-    ">>> x = np.array([0.4076, 0.8408, 0.5017, 0.9128], dtype=float)\n" \
-    ">>> rinvy = np.array([0.2129, 0.5591], dtype=float)\n" \
-    ">>> e = np.zeros(p, dtype=float)\n" \
-    ">>> sinv_out, qinv_out, x_out, e_out, info = fb01sd(\n" \
-    "...     'X',       # jobx\n" \
-    "...     'P',       # multab\n" \
-    "...     'N',       # multrc\n" \
-    "...     sinv, ainv, b, rinv, c, qinv,\n" \
-    "...     x, rinvy, z, e\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, 1=singular matrix, <0=parameter error)"
 
 #define DOC_FB01TD "Time-invariant square root information Kalman filter (controller Hessenberg form).\n" \
     "\n" \
@@ -4451,42 +2150,7 @@
     "    qinv: Updated process noise innovation square root (QINOV)^{-1/2}\n" \
     "    x: Updated/transformed state estimate\n" \
     "    e: Estimated error\n" \
-    "    info: Exit code (0=success, 1=singular matrix, <0=parameter error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import fb01td\n" \
-    ">>> import numpy as np\n" \
-    ">>> data = self.load_example_data()\n" \
-    ">>> sinv = data['sinv'].copy(order='F')\n" \
-    ">>> qinv = data['qinv'].copy(order='F')\n" \
-    ">>> x = data['x'].copy()\n" \
-    ">>> e = np.zeros(data['p'], dtype=float)\n" \
-    ">>> sinv_out, qinv_out, x_out, e_out, info = fb01td(\n" \
-    "...     data['jobx'],\n" \
-    "...     data['multrc'],\n" \
-    "...     sinv,\n" \
-    "...     data['ainv'],\n" \
-    "...     data['ainvb'],\n" \
-    "...     data['rinv'],\n" \
-    "...     data['c'],\n" \
-    "...     qinv,\n" \
-    "...     x,\n" \
-    "...     data['rinvy'],\n" \
-    "...     data['z'],\n" \
-    "...     e,\n" \
-    "...     data['tol']\n" \
-    "...     )\n" \
-    "...     sinv_out[:data['n'], :data['n']],\n" \
-    "...     rtol=1e-3, atol=1e-4,\n" \
-    "...     err_msg=\"SINV output mismatch\"\n" \
-    ">>> )\n" \
-    "...     x_out,\n" \
-    "...     rtol=1e-3, atol=1e-4,\n" \
-    "...     err_msg=\"X output mismatch\"\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, 1=singular matrix, <0=parameter error)"
 
 #define DOC_FB01VD "One recursion of the conventional Kalman filter.\n" \
     "\n" \
@@ -4516,54 +2180,7 @@
     "    k: Kalman filter gain K_i (N x L)\n" \
     "    r: Upper triangular Cholesky factor of RINOV_i\n" \
     "    rcond: Reciprocal condition number of RINOV_i\n" \
-    "    info: Exit code (0=success, 1-L=Cholesky failed, L+1=RINOV singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import fb01vd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, l = 4, 3, 2\n" \
-    ">>> P = np.array([\n" \
-    "...     [0.5015, 0.4368, 0.2693, 0.6325],\n" \
-    "...     [0.4368, 0.4818, 0.2639, 0.4148],\n" \
-    "...     [0.2693, 0.2639, 0.1121, 0.6856],\n" \
-    "...     [0.6325, 0.4148, 0.6856, 0.8906]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> A = np.array([\n" \
-    "...     [0.2113, 0.8497, 0.7263, 0.8833],\n" \
-    "...     [0.7560, 0.6857, 0.1985, 0.6525],\n" \
-    "...     [0.0002, 0.8782, 0.5442, 0.3076],\n" \
-    "...     [0.3303, 0.0683, 0.2320, 0.9329]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [0.0437, 0.7783, 0.5618],\n" \
-    "...     [0.4818, 0.2119, 0.5896],\n" \
-    "...     [0.2639, 0.1121, 0.6853],\n" \
-    "...     [0.4148, 0.6856, 0.8906]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Q = np.array([\n" \
-    "...     [0.9329, 0.2146, 0.3126],\n" \
-    "...     [0.2146, 0.2922, 0.5664],\n" \
-    "...     [0.3126, 0.5664, 0.5935]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> C = np.array([\n" \
-    "...     [0.3873, 0.9488, 0.3760, 0.0881],\n" \
-    "...     [0.9222, 0.3435, 0.7340, 0.4498]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> R = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tol = 0.0\n" \
-    ">>> P_updated, K, Rinov_sqrt, rcond, info = fb01vd(n, m, l, P, A, B, C, Q, R, tol)\n" \
-    "...     err_msg=\"P_updated does not match expected\"\n" \
-    ">>> )\n" \
-    "...     err_msg=\"K does not match expected\"\n" \
-    ">>> )\n" \
-    "...     err_msg=\"Rinov_sqrt does not match expected\"\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, 1-L=Cholesky failed, L+1=RINOV singular)"
 
 #define DOC_FD01AD "Fast recursive least-squares filtering.\n" \
     "\n" \
@@ -4601,30 +2218,7 @@
     "    salph: Opposite of reflection coefficients (length l)\n" \
     "    eout: A posteriori output error residual (jp='B' only)\n" \
     "    iwarn: Warning (0=ok, 1=numerical precision issue)\n" \
-    "    info: Exit code (0=success, <0=parameter error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import fd01ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> l = 2\n" \
-    ">>> lam = 0.99\n" \
-    ">>> delta = 1.0e-2  # soft start\n" \
-    ">>> n_iter = 500\n" \
-    ">>> xf = np.zeros(l, dtype=float)\n" \
-    ">>> epsbck = np.zeros(l + 1, dtype=float)\n" \
-    ">>> epsbck[l] = 1.0\n" \
-    ">>> cteta = np.ones(l, dtype=float)\n" \
-    ">>> steta = np.zeros(l, dtype=float)\n" \
-    ">>> yq = np.zeros(l, dtype=float)\n" \
-    ">>> efor = delta\n" \
-    "...     xin = np.sin(0.3 * float(i))\n" \
-    "...     yin = 0.5 * np.sin(0.3 * float(i)) + 2.0 * np.sin(0.3 * float(i - 1))\n" \
-    "...     xf, epsbck, cteta, steta, yq, efor, epos, eout, salph, iwarn, info = fd01ad(\n" \
-    "...     'B', l, lam, xin, yin, efor, xf, epsbck, cteta, steta, yq\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0=parameter error)"
 
 #define DOC_IB01AD "System identification driver - MOESP/N4SID preprocessing and order estimation.\n" \
     "\n" \
@@ -4647,24 +2241,7 @@
     "  tol (float): Order estimation tolerance (>=0: threshold, <0: gap-based)\n" \
     "\n" \
     "Returns:\n" \
-    "  (n, r, sv, iwarn, info): Order, R/S factor, singular values, warning, status\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> u, y, nobr, m, l, nsmp = load_html_example_data()\n" \
-    ">>> meth = 'M'\n" \
-    ">>> alg = 'C'\n" \
-    ">>> jobd = 'N'\n" \
-    ">>> batch = 'O'\n" \
-    ">>> conct = 'N'\n" \
-    ">>> ctrl = 'N'\n" \
-    ">>> rcond = 0.0\n" \
-    ">>> tol = -1.0\n" \
-    ">>> n, r, sv, iwarn, info = ib01ad(meth, alg, jobd, batch, conct, ctrl, nobr, m, l, u, y, rcond, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (n, r, sv, iwarn, info): Order, R/S factor, singular values, warning, status"
 
 #define DOC_IB01BD "State-space matrices estimation from N4SID/MOESP triangular factor.\n" \
     "\n" \
@@ -4684,30 +2261,7 @@
     "  tol (float): Tolerance for rank estimation\n" \
     "\n" \
     "Returns:\n" \
-    "  (A, C, B, D, Q, Ry, S, K, iwarn, info): Matrices, covariances, gain, status\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> u, y, nobr, m, l, nsmp = load_html_example_data()\n" \
-    ">>> n = 4\n" \
-    ">>> meth_ib01ad = 'M'\n" \
-    ">>> alg = 'C'\n" \
-    ">>> jobd = 'N'\n" \
-    ">>> batch = 'O'\n" \
-    ">>> conct = 'N'\n" \
-    ">>> ctrl = 'N'\n" \
-    ">>> rcond = 0.0\n" \
-    ">>> tol_ad = -1.0\n" \
-    ">>> _n_est, r, _sv, _iwarn_ad, info_ad = ib01ad(meth_ib01ad, alg, jobd, batch, conct, ctrl, nobr, m, l, u, y, rcond, tol_ad)\n" \
-    ">>> meth = 'C'\n" \
-    ">>> job = 'A'\n" \
-    ">>> jobck = 'K'\n" \
-    ">>> tol = 0.0\n" \
-    ">>> A, C, B, D, Q, Ry, S, K, iwarn, info = ib01bd(meth, job, jobck, nobr, n, m, l, nsmp, r, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (A, C, B, D, Q, Ry, S, K, iwarn, info): Matrices, covariances, gain, status"
 
 #define DOC_IB01CD "Estimate initial state and system matrices B, D (driver routine).\n" \
     "\n" \
@@ -4738,26 +2292,7 @@
     "  - V: Orthogonal Schur transformation (n,n)\n" \
     "  - rcond: Reciprocal condition number\n" \
     "  - iwarn: Warning (6 = A not stable)\n" \
-    "  - info: Exit code (0=success, 1=Schur failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, l = 3, 1, 2\n" \
-    ">>> A, B, C, D, x0_true = create_stable_system(n, m, l, seed=42)\n" \
-    ">>> nsmp = max(n, 20)\n" \
-    ">>> u = np.random.randn(nsmp, m).astype(float, order='F')\n" \
-    ">>> y = simulate_system(A, B, C, D, u, x0_true)\n" \
-    ">>> jobx0 = 'X'\n" \
-    ">>> comuse = 'U'\n" \
-    ">>> job = 'D'\n" \
-    ">>> tol = 0.0\n" \
-    ">>> x0_est, B_out, D_out, V, rcond, iwarn, info = ib01cd(\n" \
-    "...     jobx0, comuse, job, n, m, l, A, B, C, D, u, y, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  - info: Exit code (0=success, 1=Schur failed)"
 
 #define DOC_IB01MD "Upper triangular factor R of concatenated block Hankel matrices.\n" \
     "\n" \
@@ -4780,25 +2315,7 @@
     "Returns for batch='O' or 'L':\n" \
     "  (r, iwarn, info): Upper triangular R, warning, exit code\n" \
     "Returns for batch='F' or 'I':\n" \
-    "  (r, iwork, iwarn, info): R, iwork state, warning, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01md\n" \
-    ">>> import numpy as np\n" \
-    ">>> nobr = 2\n" \
-    ">>> m = 1\n" \
-    ">>> l = 1\n" \
-    ">>> nsmp = 2 * (m + l + 1) * nobr\n" \
-    ">>> u, y = generate_io_data(nsmp, m, l, seed=42)\n" \
-    ">>> meth = 'N'\n" \
-    ">>> alg = 'Q'\n" \
-    ">>> batch = 'O'\n" \
-    ">>> conct = 'N'\n" \
-    ">>> r, iwarn, info = ib01md(meth, alg, batch, conct, nobr, m, l, u, y)\n" \
-    ">>> nr = 2 * (m + l) * nobr\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, iwork, iwarn, info): R, iwork state, warning, exit code"
 
 #define DOC_IB01ND "SVD system order via block Hankel.\n" \
     "\n" \
@@ -4815,26 +2332,7 @@
     "  tol (float): Tolerance for rank estimation (N4SID only)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, sv, rcond1, rcond2, iwarn, info): Processed R, singular values, rconds, status\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> nobr = 4\n" \
-    ">>> m = 1\n" \
-    ">>> l = 2\n" \
-    ">>> nr = 2 * (m + l) * nobr  # 24\n" \
-    ">>> lnobr = l * nobr  # 8\n" \
-    ">>> r = np.zeros((nr, nr), order='F', dtype=float)\n" \
-    "...     r[i, j] = np.random.randn()\n" \
-    "...     r[i, i] = abs(r[i, i]) + 10.0\n" \
-    ">>> meth = 'M'\n" \
-    ">>> jobd = 'N'\n" \
-    ">>> tol = 0.0\n" \
-    ">>> r_out, sv, rcond1, rcond2, iwarn, info = ib01nd(meth, jobd, nobr, m, l, r, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, sv, rcond1, rcond2, iwarn, info): Processed R, singular values, rconds, status"
 
 #define DOC_IB01OD "Estimate system order from Hankel singular values.\n" \
     "\n" \
@@ -4849,21 +2347,7 @@
     "  tol (float): Tolerance (>=0: threshold, 0: default, <0: gap-based)\n" \
     "\n" \
     "Returns:\n" \
-    "  (n, iwarn, info): Estimated order, warning, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01od\n" \
-    ">>> import numpy as np\n" \
-    ">>> nobr = 5\n" \
-    ">>> l = 2\n" \
-    ">>> sv = np.array([10.0, 5.0, 2.0, 1.0, 0.5, 0.1, 0.05, 0.01, 0.001, 0.0001],\n" \
-    "...     order='F', dtype=float)\n" \
-    ">>> tol = 0.5\n" \
-    ">>> ctrl = 'N'  # No user confirmation\n" \
-    ">>> n, iwarn, info = ib01od(ctrl, nobr, l, sv, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (n, iwarn, info): Estimated order, warning, exit code"
 
 #define DOC_IB01OY "User's confirmation of the system order.\n" \
     "\n" \
@@ -4876,20 +2360,7 @@
     "  sv (ndarray): Singular values, dimension (ns), descending order\n" \
     "\n" \
     "Returns:\n" \
-    "  (n, info): Validated order, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01oy\n" \
-    ">>> import numpy as np\n" \
-    ">>> ns = 10\n" \
-    ">>> nmax = 8\n" \
-    ">>> n = 5\n" \
-    ">>> sv = np.array([10.0, 5.0, 2.0, 1.0, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001],\n" \
-    "...     order='F', dtype=float)\n" \
-    ">>> n_out, info = ib01oy(ns, nmax, n, sv)\n" \
-    ">>> info\n" \
-    "0"
+    "  (n, info): Validated order, exit code"
 
 #define DOC_IB01PD "Estimate system matrices from R factor (subspace identification).\n" \
     "\n" \
@@ -4914,30 +2385,7 @@
     "  JOB='A', JOBCV='N': (a, c, b, d, rcond, iwarn, info)\n" \
     "  JOB='A', JOBCV='C': (a, c, b, d, q, ry, s, o, rcond, iwarn, info)\n" \
     "  JOB='C', JOBCV='N': (a, c, rcond, iwarn, info)\n" \
-    "  JOB='D', JOBCV='N': (b, d, rcond, iwarn, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> nobr = 4\n" \
-    ">>> n = 2\n" \
-    ">>> m = 1\n" \
-    ">>> l = 1\n" \
-    ">>> nsmpl = 100\n" \
-    ">>> nr = 2 * (m + l) * nobr\n" \
-    ">>> r = np.random.randn(nr, nr).astype(float, order='F')\n" \
-    ">>> r = np.triu(r)\n" \
-    ">>> meth = 'M'\n" \
-    ">>> job = 'A'\n" \
-    ">>> jobcv = 'N'\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a, c, b, d, rcond, iwarn, info = ib01pd(\n" \
-    "...     meth, job, jobcv, nobr, n, m, l, nsmpl, r, tol\n" \
-    "...     )\n" \
-    "...     eig_a = np.linalg.eigvals(a)\n" \
-    ">>> info\n" \
-    "0"
+    "  JOB='D', JOBCV='N': (b, d, rcond, iwarn, info)"
 
 #define DOC_IB01QD "Estimate initial state and system matrices B, D.\n" \
     "\n" \
@@ -4965,25 +2413,7 @@
     "  - rcond_w2: Reciprocal condition of W2\n" \
     "  - rcond_u: Reciprocal condition of U (if JOB='D')\n" \
     "  - iwarn: Warning (4 = rank-deficient)\n" \
-    "  - info: Exit code (0=success, 2=SVD failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01qd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, l = 2, 1, 1\n" \
-    ">>> A, B, C, D, x0_true = create_schur_system(n, m, l, seed=42)\n" \
-    ">>> nsmp = n * m + n + m + 10\n" \
-    ">>> u = np.random.randn(nsmp, m).astype(float, order='F')\n" \
-    ">>> y = simulate_system(A, B, C, D, u, x0_true)\n" \
-    ">>> jobx0 = 'X'\n" \
-    ">>> job = 'D'\n" \
-    ">>> tol = 0.0\n" \
-    ">>> x0_est, B_est, D_est, rcond_w2, rcond_u, iwarn, info = ib01qd(\n" \
-    "...     jobx0, job, n, m, l, A, C, u, y, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  - info: Exit code (0=success, 2=SVD failed)"
 
 #define DOC_IB01RD "Estimate initial state for discrete-time LTI system.\n" \
     "\n" \
@@ -5010,26 +2440,7 @@
     "  - x0: Estimated initial state (n,)\n" \
     "  - rcond: Reciprocal condition of triangular factor\n" \
     "  - iwarn: Warning (4 = rank-deficient)\n" \
-    "  - info: Exit code (0=success, 2=SVD failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib01rd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, l = 2, 1, 1\n" \
-    ">>> a = np.array([[0.9, 0.2],\n" \
-    "...     [0.0, 0.8]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[0.5],\n" \
-    "...     [0.3]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0, 0.5]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[0.1]], order='F', dtype=float)\n" \
-    ">>> x0_true = np.array([1.0, -0.5], dtype=float)\n" \
-    ">>> nsmp = 20\n" \
-    ">>> u = np.random.randn(nsmp, m).astype(float, order='F')\n" \
-    ">>> y = _simulate_system(a, b, c, d, u, x0_true)\n" \
-    ">>> x0_est, rcond, iwarn, info = ib01rd('N', n, m, l, nsmp, a, b, c, d, u, y, 0.0)\n" \
-    ">>> info\n" \
-    "0"
+    "  - info: Exit code (0=success, 2=SVD failed)"
 
 #define DOC_IB03AD "Wiener system identification with algorithm choice.\n" \
     "\n" \
@@ -5060,38 +2471,7 @@
     "  nprint (int, optional): Print control (default 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, iwarn, info, dwork): Parameters, warning, status, workspace info\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ib03ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> nobr = 5\n" \
-    ">>> m = 1\n" \
-    ">>> l = 1\n" \
-    ">>> nsmp = 200\n" \
-    ">>> n = 2\n" \
-    ">>> nn = 2\n" \
-    ">>> itmax1 = 50\n" \
-    ">>> itmax2 = 100\n" \
-    ">>> nprint = 0\n" \
-    ">>> tol1 = 1e-4\n" \
-    ">>> tol2 = 1e-4\n" \
-    ">>> u, y = generate_simple_wiener_data(nsmp=nsmp, n=n, m=m, l=l, nn=nn, seed=42)\n" \
-    ">>> bsn = nn * (l + 2) + 1\n" \
-    ">>> lths = n * (l + m + 1) + l * m\n" \
-    ">>> lx = bsn * l + lths\n" \
-    ">>> seed = np.array([1998.0, 1999.0, 2000.0, 2001.0], dtype=float)\n" \
-    ">>> x, iwarn, info, dwork = ib03ad(\n" \
-    "...     'B', 'D', 'F',\n" \
-    "...     nobr, m, l, nsmp, n, nn,\n" \
-    "...     itmax1, itmax2,\n" \
-    "...     u, y,\n" \
-    "...     tol1, tol2,\n" \
-    "...     dwork_seed=seed\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, iwarn, info, dwork): Parameters, warning, status, workspace info"
 
 #define DOC_IB03BD "Wiener system identification using Levenberg-Marquardt algorithm.\n" \
     "\n" \
@@ -5120,40 +2500,7 @@
     "  nprint (int, optional): Print control (default 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, iwarn, info, dwork): Parameters, warning, status, workspace info\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ib03bd\n" \
-    ">>> u, y, seed = load_test_data()\n" \
-    ">>> u = u.reshape(-1, 1).astype(float, order='F')\n" \
-    ">>> y = y.reshape(-1, 1).astype(float, order='F')\n" \
-    ">>> nobr = 10\n" \
-    ">>> m = 1\n" \
-    ">>> l = 1\n" \
-    ">>> nsmp = 1024\n" \
-    ">>> n = 4\n" \
-    ">>> nn = 12\n" \
-    ">>> itmax1 = 500\n" \
-    ">>> itmax2 = 1000\n" \
-    ">>> tol1 = 1e-5\n" \
-    ">>> tol2 = 1e-5\n" \
-    ">>> init = 'B'\n" \
-    ">>> bsn = nn * (l + 2) + 1\n" \
-    ">>> lths = n * (l + m + 1) + l * m\n" \
-    ">>> nx = bsn * l + lths\n" \
-    ">>> dwork_seed = seed.astype(float, order='F')\n" \
-    ">>> x, iwarn, info, dwork_out = ib03bd(\n" \
-    "...     init, nobr, m, l, nsmp, n, nn, itmax1, itmax2,\n" \
-    "...     u, y, tol1, tol2, dwork_seed\n" \
-    "...     )\n" \
-    ">>> residual = dwork_out[1]  # DWORK(2) contains residual\n" \
-    ">>> expected_residual = 0.2995840\n" \
-    "...     f\"Residual mismatch: got {residual}, expected ~{expected_residual}\"\n" \
-    ">>> iterations = int(dwork_out[2])  # DWORK(3) contains iterations\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, iwarn, info, dwork): Parameters, warning, status, workspace info"
 
 #define DOC_MA01AD "Compute complex square root in real arithmetic.\n" \
     "\n" \
@@ -5165,14 +2512,7 @@
     "  xi (float): Imaginary part of input complex number\n" \
     "\n" \
     "Returns:\n" \
-    "  (yr, yi): Real and imaginary parts of square root\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma01ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> xr, xi = 4.0, 0.0\n" \
-    ">>> yr, yi = ma01ad(xr, xi)"
+    "  (yr, yi): Real and imaginary parts of square root"
 
 #define DOC_MA01BD "Compute general product of K real scalars without overflow/underflow.\n" \
     "\n" \
@@ -5188,20 +2528,7 @@
     "  inca (int): Increment for array A (inca != 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (alpha, beta, scal): Scaled result: ALPHA / BETA * BASE^SCAL\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma01bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> base = 2.0\n" \
-    ">>> lgbas = math.log(base)\n" \
-    ">>> k = 3\n" \
-    ">>> s = np.array([1, 1, 1], dtype=np.int32)\n" \
-    ">>> a = np.array([2.0, 3.0, 4.0], dtype=np.float64)\n" \
-    ">>> inca = 1\n" \
-    ">>> alpha, beta, scal = ma01bd(base, lgbas, k, s, a, inca)\n" \
-    ">>> result = alpha * (base ** scal)"
+    "  (alpha, beta, scal): Scaled result: ALPHA / BETA * BASE^SCAL"
 
 #define DOC_MA01BZ "Compute general product of K complex scalars without overflow/underflow.\n" \
     "\n" \
@@ -5218,20 +2545,7 @@
     "Returns:\n" \
     "  (alpha, beta, scal): Scaled result: ALPHA / BETA * BASE^SCAL\n" \
     "                       alpha: complex numerator with 1 <= |alpha| < BASE\n" \
-    "                       beta: complex (0 or 1)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma01bz\n" \
-    ">>> import numpy as np\n" \
-    ">>> base = 2.0\n" \
-    ">>> k = 3\n" \
-    ">>> s = np.array([1, 1, 1], dtype=np.int32)\n" \
-    ">>> a = np.array([1+1j, 2+0j, 0+3j], dtype=np.complex128)\n" \
-    ">>> inca = 1\n" \
-    ">>> alpha, beta, scal = ma01bz(base, k, s, a, inca)\n" \
-    "...     result = alpha * (base ** scal)\n" \
-    "...     expected = (1+1j) * (2+0j) * (0+3j)"
+    "                       beta: complex (0 or 1)"
 
 #define DOC_MA01CD "Compute sign of sum of two scaled numbers without overflow.\n" \
     "\n" \
@@ -5245,13 +2559,7 @@
     "  ib (int): Exponent for second scalar (B * BASE^IB)\n" \
     "\n" \
     "Returns:\n" \
-    "  int: Sign of the sum: 1 (positive), 0 (zero), or -1 (negative)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma01cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> result = ma01cd(0.0, 0, 0.0, 0)"
+    "  int: Sign of the sum: 1 (positive), 0 (zero), or -1 (negative)"
 
 #define DOC_MA01DD "Compute approximate symmetric chordal metric for two complex numbers.\n" \
     "\n" \
@@ -5268,16 +2576,7 @@
     "  safemn (float): Safe minimum (DLAMCH('S'))\n" \
     "\n" \
     "Returns:\n" \
-    "  float: The approximate symmetric chordal metric D (D >= 0)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma01dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> eps, safemn = get_machine_constants()\n" \
-    ">>> ar1, ai1 = 3.0, 4.0\n" \
-    ">>> ar2, ai2 = 3.0, 4.0\n" \
-    ">>> d = ma01dd(ar1, ai1, ar2, ai2, eps, safemn)"
+    "  float: The approximate symmetric chordal metric D (D >= 0)"
 
 #define DOC_MA01DZ "Compute approximate symmetric chordal metric for two complex rationals.\n" \
     "\n" \
@@ -5302,15 +2601,7 @@
     "  (d1, d2, iwarn): Chordal metric D = d1/d2\n" \
     "    d1: Numerator (d1 >= 0)\n" \
     "    d2: Denominator (0 or 1)\n" \
-    "    iwarn: 0 = success, 1 = NaN input (d1 = d2 = 0)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma01dz\n" \
-    ">>> import numpy as np\n" \
-    ">>> eps = np.finfo(float).eps\n" \
-    ">>> safemn = np.finfo(float).tiny\n" \
-    ">>> d1, d2, iwarn = ma01dz(1.0, 2.0, 3.0, 1.0, 2.0, 3.0, eps, safemn)"
+    "    iwarn: 0 = success, 1 = NaN input (d1 = d2 = 0)"
 
 #define DOC_MA02AD "Transpose all or part of a matrix.\n" \
     "\n" \
@@ -5319,18 +2610,7 @@
     "  a (ndarray): Input matrix (m x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  b (ndarray): Transposed matrix (n x m, F-order)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([[1.0, 4.0],\n" \
-    "...     [2.0, 5.0],\n" \
-    "...     [3.0, 6.0]], order='F')\n" \
-    ">>> b = ma02ad('F', a)\n" \
-    ">>> expected = np.array([[1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0]], order='F')"
+    "  b (ndarray): Transposed matrix (n x m, F-order)"
 
 #define DOC_MA02AZ "Transpose or conjugate-transpose a complex matrix.\n" \
     "\n" \
@@ -5342,22 +2622,7 @@
     "  a (ndarray): Input complex matrix (m x n, F-order, complex128)\n" \
     "\n" \
     "Returns:\n" \
-    "  b (ndarray): Output transposed matrix (n x m, F-order, complex128)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02az\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [1+1j, 2+2j, 3+3j],\n" \
-    "...     [4+4j, 5+5j, 6+6j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> b = ma02az('T', 'F', a)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [1+1j, 4+4j],\n" \
-    "...     [2+2j, 5+5j],\n" \
-    "...     [3+3j, 6+6j]\n" \
-    "...     ], order='F', dtype=np.complex128)"
+    "  b (ndarray): Output transposed matrix (n x m, F-order, complex128)"
 
 #define DOC_MA02BD "Reverse order of rows and/or columns of a matrix.\n" \
     "\n" \
@@ -5369,14 +2634,7 @@
     "  a (ndarray): Matrix (m x n, F-order), modified in place\n" \
     "\n" \
     "Returns:\n" \
-    "  a: Permuted matrix\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.random.randn(4, 3).astype(float, order='F')\n" \
-    ">>> ma02bd('L', a)"
+    "  a: Permuted matrix"
 
 #define DOC_MA02BZ "Reverse order of rows and/or columns of a complex matrix.\n" \
     "\n" \
@@ -5388,15 +2646,7 @@
     "  a (ndarray): Complex matrix (m x n, F-order, complex128), modified in place\n" \
     "\n" \
     "Returns:\n" \
-    "  a: Permuted complex matrix\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02bz\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = (np.random.randn(4, 3) + 1j * np.random.randn(4, 3)).astype(\n" \
-    "...     np.complex128, order='F')\n" \
-    ">>> ma02bz('L', a)"
+    "  a: Permuted complex matrix"
 
 #define DOC_MA02CD "Pertranspose the central band of a square matrix.\n" \
     "\n" \
@@ -5410,25 +2660,7 @@
     "  ku (int): Number of superdiagonals to pertranspose (0 <= ku <= n-1)\n" \
     "\n" \
     "Returns:\n" \
-    "  a (ndarray): Matrix with central band pertransposed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [5.0, 6.0, 7.0, 8.0],\n" \
-    "...     [9.0, 10.0, 11.0, 12.0],\n" \
-    "...     [13.0, 14.0, 15.0, 16.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [16.0, 12.0, 8.0, 4.0],\n" \
-    "...     [15.0, 11.0, 7.0, 3.0],\n" \
-    "...     [14.0, 10.0, 6.0, 2.0],\n" \
-    "...     [13.0, 9.0, 5.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ma02cd(a, 3, 3)"
+    "  a (ndarray): Matrix with central band pertransposed"
 
 #define DOC_MA02CZ "Pertranspose the central band of a complex square matrix.\n" \
     "\n" \
@@ -5444,20 +2676,7 @@
     "  ku (int): Number of superdiagonals to pertranspose (0 <= ku <= n-1)\n" \
     "\n" \
     "Returns:\n" \
-    "  a: Matrix with central band pertransposed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02cz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [1+1j, 2+2j, 3+3j, 4+4j],\n" \
-    "...     [5+5j, 6+6j, 7+7j, 8+8j],\n" \
-    "...     [9+9j, 10+10j, 11+11j, 12+12j],\n" \
-    "...     [13+13j, 14+14j, 15+15j, 16+16j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> result = ma02cz(a, 0, 0)"
+    "  a: Matrix with central band pertransposed"
 
 #define DOC_MA02DD "Pack/unpack upper or lower triangle of symmetric matrix.\n" \
     "\n" \
@@ -5473,18 +2692,7 @@
     "\n" \
     "Returns:\n" \
     "  For job='P': packed array (1D, n*(n+1)/2 elements)\n" \
-    "  For job='U': unpacked matrix (n x n, F-order)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([[1.0, 2.0, 4.0],\n" \
-    "...     [0.0, 3.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]], order='F')\n" \
-    ">>> ap = ma02dd('P', 'U', a)\n" \
-    ">>> expected = np.array([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])"
+    "  For job='U': unpacked matrix (n x n, F-order)"
 
 #define DOC_MA02ED "Store by symmetry the upper or lower triangle of a symmetric matrix.\n" \
     "\n" \
@@ -5493,17 +2701,7 @@
     "  a (ndarray): Symmetric matrix (n x n, F-order), modified in place\n" \
     "\n" \
     "Returns:\n" \
-    "  a (ndarray): Completed symmetric matrix with both triangles\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> A_full = np.random.randn(n, n)\n" \
-    ">>> A_full = (A_full + A_full.T) / 2  # Make symmetric\n" \
-    ">>> A = np.triu(A_full).astype(float, order='F')\n" \
-    ">>> from slicot import ma02ed\n" \
-    ">>> ma02ed('U', A)"
+    "  a (ndarray): Completed symmetric matrix with both triangles"
 
 #define DOC_MA02ES "Store by skew-symmetry the upper or lower triangle of a skew-symmetric matrix.\n" \
     "\n" \
@@ -5515,16 +2713,7 @@
     "  a (ndarray): Skew-symmetric matrix (n x n, F-order), modified in place\n" \
     "\n" \
     "Returns:\n" \
-    "  a (ndarray): Completed skew-symmetric matrix (A = -A^T)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> A = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> A_upper = np.triu(A, k=1)\n" \
-    ">>> from slicot import ma02es\n" \
-    ">>> ma02es('U', A_upper)"
+    "  a (ndarray): Completed skew-symmetric matrix (A = -A^T)"
 
 #define DOC_MA02EZ "Store by (skew-)symmetry the upper or lower triangle of a complex matrix.\n" \
     "\n" \
@@ -5542,23 +2731,7 @@
     "\n" \
     "Notes:\n" \
     "  For TRANS='C', SKEW='N': diagonal imaginary parts set to 0 (Hermitian)\n" \
-    "  For TRANS='C', SKEW='S': diagonal real parts set to 0 (skew-Hermitian)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02ez\n" \
-    ">>> import numpy as np\n" \
-    ">>> A = np.array([\n" \
-    "...     [1+2j,  0+0j,  0+0j],\n" \
-    "...     [3+4j,  5+6j,  0+0j],\n" \
-    "...     [7+8j,  9+10j, 11+12j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [1+0j,  3-4j,  7-8j],\n" \
-    "...     [3+4j,  5+0j,  9-10j],\n" \
-    "...     [7+8j,  9+10j, 11+0j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> ma02ez('L', 'C', 'N', A)"
+    "  For TRANS='C', SKEW='S': diagonal real parts set to 0 (skew-Hermitian)"
 
 #define DOC_MA02GD "Column interchanges on a matrix.\n" \
     "\n" \
@@ -5573,27 +2746,7 @@
     "  incx (int): Increment for IPIV traversal\n" \
     "\n" \
     "Returns:\n" \
-    "  a: Permuted matrix\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02gd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3  # rows\n" \
-    ">>> k1, k2 = 1, 2\n" \
-    ">>> incx = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 9.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ipiv = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> a_out = ma02gd(n, a, k1, k2, ipiv, incx)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 9.0]\n" \
-    "...     ], order='F', dtype=float)"
+    "  a: Permuted matrix"
 
 #define DOC_MA02GZ "Column interchanges on a complex matrix.\n" \
     "\n" \
@@ -5611,27 +2764,7 @@
     "  incx (int): Increment between IPIV elements. Negative = reverse order.\n" \
     "\n" \
     "Returns:\n" \
-    "  a: Permuted complex matrix\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02gz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3  # rows\n" \
-    ">>> k1, k2 = 1, 2\n" \
-    ">>> incx = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0+1j, 2.0+2j, 3.0+3j],\n" \
-    "...     [4.0+4j, 5.0+5j, 6.0+6j],\n" \
-    "...     [7.0+7j, 8.0+8j, 9.0+9j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> ipiv = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> a_out = ma02gz(n, a, k1, k2, ipiv, incx)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [1.0+1j, 2.0+2j, 3.0+3j],\n" \
-    "...     [4.0+4j, 5.0+5j, 6.0+6j],\n" \
-    "...     [7.0+7j, 8.0+8j, 9.0+9j]\n" \
-    "...     ], order='F', dtype=complex)"
+    "  a: Permuted complex matrix"
 
 #define DOC_MA02HD "Check if matrix equals scalar times identity-like matrix.\n" \
     "\n" \
@@ -5645,14 +2778,7 @@
     "\n" \
     "Returns:\n" \
     "  bool: True if A = DIAG*I in specified region, False otherwise.\n" \
-    "        Returns False if min(m,n) = 0.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02hd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.eye(3, order='F')\n" \
-    ">>> result = ma02hd('A', a, 1.0)"
+    "        Returns False if min(m,n) = 0."
 
 #define DOC_MA02HZ "Check if complex matrix equals scalar times identity-like matrix.\n" \
     "\n" \
@@ -5666,14 +2792,7 @@
     "\n" \
     "Returns:\n" \
     "  bool: True if A = DIAG*I in specified region, False otherwise.\n" \
-    "        Returns False if min(m,n) = 0.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02hz\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.eye(3, dtype=complex, order='F')\n" \
-    ">>> result = ma02hz('A', a, 1.0+0j)"
+    "        Returns False if min(m,n) = 0."
 
 #define DOC_MA02IZ "Compute norm of complex skew-Hamiltonian or Hamiltonian matrix.\n" \
     "\n" \
@@ -5691,15 +2810,7 @@
     "  qg (ndarray): Complex matrix containing Q and G (n x n+1, F-order, complex128)\n" \
     "\n" \
     "Returns:\n" \
-    "  float: The computed norm value\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02iz\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.zeros((0, 0), dtype=complex, order='F')\n" \
-    ">>> qg = np.zeros((0, 1), dtype=complex, order='F')\n" \
-    "...     result = ma02iz(typ, norm, a, qg)"
+    "  float: The computed norm value"
 
 #define DOC_MA02JD "Test if a matrix is an orthogonal symplectic matrix.\n" \
     "\n" \
@@ -5717,16 +2828,7 @@
     "  q2 (ndarray): Matrix Q2 (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  float: The computed residual || Q^T Q - I ||_F\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02jd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> q1 = np.eye(n, order='F', dtype=float)\n" \
-    ">>> q2 = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> residual = ma02jd(False, False, q1, q2)"
+    "  float: The computed residual || Q^T Q - I ||_F"
 
 #define DOC_MA02JZ "Test if a complex matrix is a unitary symplectic matrix.\n" \
     "\n" \
@@ -5746,16 +2848,7 @@
     "  q2 (ndarray): Complex matrix Q2 (n x n, F-order, complex128)\n" \
     "\n" \
     "Returns:\n" \
-    "  float: The computed residual || Q^H Q - I ||_F\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02jz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> q1 = np.eye(n, order='F', dtype=complex)\n" \
-    ">>> q2 = np.zeros((n, n), order='F', dtype=complex)\n" \
-    ">>> residual = ma02jz(False, False, q1, q2)"
+    "  float: The computed residual || Q^H Q - I ||_F"
 
 #define DOC_MA02MD "Compute norms of a real skew-symmetric matrix.\n" \
     "\n" \
@@ -5775,18 +2868,7 @@
     "  a (ndarray): Skew-symmetric matrix (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  float: The computed norm value\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.zeros((n, n), order='F', dtype=float)\n" \
-    "...     a[i, j] = np.random.randn()\n" \
-    "...     a[j, i] = -a[i, j]\n" \
-    ">>> expected = np.max(np.abs(a))\n" \
-    ">>> norm = ma02md('M', 'U', a)"
+    "  float: The computed norm value"
 
 #define DOC_MA02MZ "Compute norms of a complex skew-Hermitian matrix.\n" \
     "\n" \
@@ -5807,19 +2889,7 @@
     "  a (ndarray): Complex skew-Hermitian matrix (n x n, F-order, complex128)\n" \
     "\n" \
     "Returns:\n" \
-    "  float: The computed norm value\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02mz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.zeros((n, n), order='F', dtype=complex)\n" \
-    "...     a[i, j] = np.random.randn() + 1j * np.random.randn()\n" \
-    "...     a[j, i] = -np.conj(a[i, j])\n" \
-    "...     a[i, i] = 1j * np.random.randn()\n" \
-    ">>> expected = np.max(np.abs(a))\n" \
-    ">>> norm = ma02mz('M', 'U', a)"
+    "  float: The computed norm value"
 
 #define DOC_MA02NZ "Permute two rows and corresponding columns of a (skew-)symmetric/Hermitian complex matrix.\n" \
     "\n" \
@@ -5835,23 +2905,7 @@
     "  a (ndarray): Complex matrix (n x n, F-order, complex128). Modified in-place.\n" \
     "\n" \
     "Returns:\n" \
-    "  a: The permuted matrix (modified in-place)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02nz\n" \
-    ">>> import numpy as np\n" \
-    ">>> A = np.array([\n" \
-    "...     [1+0j,  0+0j,  0+0j],\n" \
-    "...     [2+1j,  3+0j,  0+0j],\n" \
-    "...     [4+2j,  5+3j,  6+0j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [6+0j,  0+0j,  0+0j],\n" \
-    "...     [5-3j,  3+0j,  0+0j],\n" \
-    "...     [4-2j,  2-1j,  1+0j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> ma02nz('L', 'C', 'N', 1, 3, A)"
+    "  a: The permuted matrix (modified in-place)"
 
 #define DOC_MA02OD "Count zero rows of a real (skew-)Hamiltonian matrix.\n" \
     "\n" \
@@ -5872,16 +2926,7 @@
     "  de (ndarray): Matrix DE (m x m+1, F-order) containing E (lower tri) and D (upper tri)\n" \
     "\n" \
     "Returns:\n" \
-    "  int: Number of zero rows in H\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02od\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 3\n" \
-    ">>> a = np.zeros((m, m), order='F', dtype=float)\n" \
-    ">>> de = np.zeros((m, m + 1), order='F', dtype=float)\n" \
-    ">>> nz = ma02od('H', a, de)"
+    "  int: Number of zero rows in H"
 
 #define DOC_MA02OZ "Count zero rows of a complex (skew-)Hamiltonian matrix.\n" \
     "\n" \
@@ -5907,16 +2952,7 @@
     "  de (ndarray): Complex matrix DE (m x m+1, F-order, complex128)\n" \
     "\n" \
     "Returns:\n" \
-    "  int: Number of zero rows in H\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02oz\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 3\n" \
-    ">>> a = np.zeros((m, m), order='F', dtype=complex)\n" \
-    ">>> de = np.zeros((m, m + 1), order='F', dtype=complex)\n" \
-    ">>> nz = ma02oz('H', a, de)"
+    "  int: Number of zero rows in H"
 
 #define DOC_MA02PD "Compute the number of zero rows and zero columns of a real matrix.\n" \
     "\n" \
@@ -5927,16 +2963,7 @@
     "\n" \
     "Returns:\n" \
     "  nzr (int): Number of zero rows\n" \
-    "  nzc (int): Number of zero columns\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([[1.0, 0.0, 2.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [3.0, 0.0, 4.0]], order='F')\n" \
-    ">>> nzr, nzc = ma02pd(a)"
+    "  nzc (int): Number of zero columns"
 
 #define DOC_MA02PZ "Compute the number of zero rows and zero columns of a complex matrix.\n" \
     "\n" \
@@ -5948,16 +2975,7 @@
     "\n" \
     "Returns:\n" \
     "  nzr (int): Number of zero rows\n" \
-    "  nzc (int): Number of zero columns\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ma02pz\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([[1+1j, 0+0j, 2+2j],\n" \
-    "...     [0+0j, 0+0j, 0+0j],\n" \
-    "...     [3+3j, 0+0j, 4+4j]], order='F', dtype=complex)\n" \
-    ">>> nzr, nzc = ma02pz(a)"
+    "  nzc (int): Number of zero columns"
 
 #define DOC_MA02RD "Sort vector D and rearrange E with same permutation.\n" \
     "\n" \
@@ -5976,19 +2994,7 @@
     "Returns:\n" \
     "  d (ndarray): Sorted vector D\n" \
     "  e (ndarray): Rearranged vector E (same permutation as D)\n" \
-    "  info (int): 0 on success, -i if i-th argument had illegal value\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 10\n" \
-    ">>> d = np.random.randn(n).astype(float, order='F')\n" \
-    ">>> e = np.random.randn(n).astype(float, order='F')\n" \
-    ">>> from slicot import ma02rd\n" \
-    ">>> d_out, e_out, info = ma02rd('I', d, e)\n" \
-    "...     j = orig_idx[0]\n" \
-    ">>> info\n" \
-    "0"
+    "  info (int): 0 on success, -i if i-th argument had illegal value"
 
 #define DOC_MA02SD "Compute smallest nonzero absolute value of matrix elements.\n" \
     "\n" \
@@ -5999,15 +3005,7 @@
     "\n" \
     "Returns:\n" \
     "  result (float): Smallest nonzero absolute value. Returns 0 if M=0 or N=0.\n" \
-    "                  Returns overflow value if all elements are zero.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ma02sd\n" \
-    ">>> a = np.array([[1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0]], order='F', dtype=float)\n" \
-    ">>> result = ma02sd(a)"
+    "                  Returns overflow value if all elements are zero."
 
 #define DOC_MB01KD "Skew-symmetric rank-2k update.\n" \
     "\n" \
@@ -6103,41 +3101,7 @@
     "  x (ndarray): n-by-n symmetric X (F-order), triangle per uplo\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01oc\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> alpha = 0.5\n" \
-    ">>> beta = 1.0\n" \
-    ">>> r = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> h = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 7.0, 8.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([\n" \
-    "...     [1.0, 0.5, 0.3],\n" \
-    "...     [0.0, 2.0, 0.4],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x_full = make_symmetric(x, 'U')\n" \
-    ">>> r_out, info = mb01oc('U', 'N', n, alpha, beta, r, h, x)\n" \
-    ">>> r_full_in = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [2.0, 4.0, 5.0],\n" \
-    "...     [3.0, 5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> hx = h @ x_full\n" \
-    ">>> xht = x_full @ h.T\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)"
 
 #define DOC_MB01OD "Symmetric rank 2k update with Hessenberg, symmetric, and triangular matrices.\n" \
     "\n" \
@@ -6159,23 +3123,7 @@
     "  e (ndarray): n-by-n upper triangular E (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01od\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 1\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> beta = 1.0\n" \
-    ">>> r = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> h = np.array([[3.0]], order='F', dtype=float)\n" \
-    ">>> x = np.array([[4.0]], order='F', dtype=float)\n" \
-    ">>> e = np.array([[5.0]], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01od('U', 'N', n, alpha, beta, r, h, x, e)\n" \
-    ">>> expected = alpha * 2.0 + 2.0 * beta * 3.0 * 4.0 * 5.0\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)"
 
 #define DOC_MB01OE "Symmetric rank 2k update with Hessenberg and triangular matrices.\n" \
     "\n" \
@@ -6196,41 +3144,7 @@
     "  e (ndarray): n-by-n upper triangular E (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01oe\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> alpha = 0.5\n" \
-    ">>> beta = 1.0\n" \
-    ">>> r = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> h = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 7.0, 8.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01oe('U', 'N', n, alpha, beta, r, h, e)\n" \
-    ">>> h_full = h.copy()\n" \
-    ">>> e_full = e.copy()\n" \
-    ">>> r_sym = make_symmetric(np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [2.0, 4.0, 5.0],\n" \
-    "...     [3.0, 5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float), 'U')\n" \
-    ">>> expected_full = alpha * r_sym + beta * (h_full @ e_full.T) + beta * (e_full @ h_full.T)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)"
 
 #define DOC_MB01OH "Symmetric rank 2k update with two Hessenberg matrices.\n" \
     "\n" \
@@ -6251,41 +3165,7 @@
     "  a (ndarray): n-by-n upper Hessenberg A (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01oh\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> alpha = 0.5\n" \
-    ">>> beta = 1.0\n" \
-    ">>> r = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> h = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 7.0, 8.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 1.0, 2.0],\n" \
-    "...     [3.0, 2.0, 1.0],\n" \
-    "...     [0.0, 4.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01oh('U', 'N', n, alpha, beta, r, h, a)\n" \
-    ">>> h_full = h.copy()\n" \
-    ">>> a_full = a.copy()\n" \
-    ">>> r_sym = make_symmetric(np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [2.0, 4.0, 5.0],\n" \
-    "...     [3.0, 5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float), 'U')\n" \
-    ">>> expected_full = alpha * r_sym + beta * (h_full @ a_full.T) + beta * (a_full @ h_full.T)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)"
 
 #define DOC_MB01OO "Compute P = op(H)*X*op(E)' or P' with H Hessenberg, X symmetric, E triangular.\n" \
     "\n" \
@@ -6303,20 +3183,7 @@
     "  e (ndarray): n-by-n upper triangular E (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (p, info): Output matrix P and exit code (0=success, -i=param i invalid)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01oo\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> h = make_upper_hessenberg(np.random.randn(n, n).astype(float, order='F'))\n" \
-    ">>> x_full = make_symmetric(np.random.randn(n, n).astype(float, order='F'))\n" \
-    ">>> x = np.triu(x_full).astype(float, order='F')\n" \
-    ">>> e = np.triu(np.random.randn(n, n).astype(float, order='F'))\n" \
-    ">>> p, info = mb01oo('U', 'N', h, x, e)\n" \
-    ">>> info\n" \
-    "0"
+    "  (p, info): Output matrix P and exit code (0=success, -i=param i invalid)"
 
 #define DOC_MB01OS "Compute P = H*X or P = X*H with H Hessenberg and X symmetric.\n" \
     "\n" \
@@ -6333,19 +3200,7 @@
     "  x (ndarray): n-by-n symmetric X (F-order), triangle per uplo\n" \
     "\n" \
     "Returns:\n" \
-    "  (p, info): Output matrix P and exit code (0=success, -i=param i invalid)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01os\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> h = make_upper_hessenberg(np.random.randn(n, n).astype(float, order='F'))\n" \
-    ">>> x_full = make_symmetric(np.random.randn(n, n).astype(float, order='F'))\n" \
-    ">>> x = np.triu(x_full).astype(float, order='F')\n" \
-    ">>> p, info = mb01os('U', 'N', h, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (p, info): Output matrix P and exit code (0=success, -i=param i invalid)"
 
 #define DOC_MB01OT "Symmetric rank 2k update with two upper triangular matrices.\n" \
     "\n" \
@@ -6366,39 +3221,7 @@
     "  t (ndarray): n-by-n upper triangular T (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01ot\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> alpha = 0.5\n" \
-    ">>> beta = 1.0\n" \
-    ">>> r = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> t = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 1.0, 2.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01ot('U', 'N', n, alpha, beta, r, e, t)\n" \
-    ">>> r_sym = make_symmetric(np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [2.0, 4.0, 5.0],\n" \
-    "...     [3.0, 5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float), 'U')\n" \
-    ">>> expected_full = alpha * r_sym + beta * (e @ t.T) + beta * (t @ e.T)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (same triangle) and exit code (0=success, -i=param i invalid)"
 
 #define DOC_MB01PD "Scale matrix to safe numerical range or undo scaling.\n" \
     "\n" \
@@ -6418,18 +3241,7 @@
     "  a (ndarray): Matrix array (column-major, shape (m,n))\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Modified matrix and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb01pd\n" \
-    ">>> m, n = 4, 3\n" \
-    ">>> a = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> anrm = np.linalg.norm(a, ord='fro')\n" \
-    ">>> a_out, info = mb01pd('S', 'G', m, n, 0, 0, anrm, 0, None, a)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Modified matrix and exit code"
 
 #define DOC_MB01QD "Multiply matrix by scalar CTO/CFROM without overflow/underflow.\n" \
     "\n" \
@@ -6445,27 +3257,7 @@
     "  nrows (ndarray, optional): Block sizes\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Modified matrix and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01qd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 4.0, 7.0],\n" \
-    "...     [2.0, 5.0, 8.0],\n" \
-    "...     [3.0, 6.0, 9.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> cfrom, cto = 2.0, 4.0\n" \
-    ">>> a_result, info = mb01qd(b'G', m, n, 0, 0, cfrom, cto, a)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [2.0, 8.0, 14.0],\n" \
-    "...     [4.0, 10.0, 16.0],\n" \
-    "...     [6.0, 12.0, 18.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Modified matrix and exit code"
 
 #define DOC_MB01RB "Block triangular symmetric rank-k update (BLAS 3 version).\n" \
     "\n" \
@@ -6486,21 +3278,7 @@
     "  b (ndarray): Matrix B (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (triangle only) and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 3\n" \
-    ">>> alpha, beta = 2.0, 0.5\n" \
-    ">>> r = np.random.randn(m, m).astype(float, order='F')\n" \
-    ">>> r = np.triu(r)\n" \
-    ">>> a = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> from slicot import mb01rb\n" \
-    ">>> r_out, info = mb01rb('L', 'U', 'N', m, n, alpha, beta, r, a, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (triangle only) and exit code"
 
 #define DOC_MB01RD "Symmetric rank-k matrix update with symmetric matrices.\n" \
     "\n" \
@@ -6518,40 +3296,7 @@
     "  x (ndarray): n-by-n symmetric matrix X (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb01rd\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> alpha, beta = 1.0, 1.0\n" \
-    ">>> r = np.array([\n" \
-    "...     [4.0, 2.0, 1.0],\n" \
-    "...     [0.0, 3.0, 2.0],\n" \
-    "...     [0.0, 0.0, 5.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [3.0, 1.0],\n" \
-    "...     [2.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([\n" \
-    "...     [2.0, 0.5],\n" \
-    "...     [0.5, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x_full = np.array([\n" \
-    "...     [2.0, 0.5],\n" \
-    "...     [0.5, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_full = np.array([\n" \
-    "...     [4.0, 2.0, 1.0],\n" \
-    "...     [2.0, 3.0, 2.0],\n" \
-    "...     [1.0, 2.0, 5.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01rd('U', 'N', m, n, alpha, beta, r, a, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R and exit code"
 
 #define DOC_MB01RH "Symmetric matrix expression with Hessenberg matrix.\n" \
     "\n" \
@@ -6569,44 +3314,7 @@
     "  x (ndarray): n-by-n symmetric matrix X (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01rh\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> alpha = 0.5\n" \
-    ">>> beta = 1.0\n" \
-    ">>> r = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> h = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 7.0, 8.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([\n" \
-    "...     [1.0, 1.0, 2.0],\n" \
-    "...     [0.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01rh('U', 'N', n, alpha, beta, r, h, x)\n" \
-    ">>> r_sym = make_symmetric(np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [2.0, 4.0, 5.0],\n" \
-    "...     [3.0, 5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float), 'U')\n" \
-    ">>> x_sym = make_symmetric(np.array([\n" \
-    "...     [1.0, 1.0, 2.0],\n" \
-    "...     [1.0, 2.0, 1.0],\n" \
-    "...     [2.0, 1.0, 3.0]\n" \
-    "...     ], order='F', dtype=float), 'U')\n" \
-    ">>> expected_full = alpha * r_sym + beta * (h @ x_sym @ h.T)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R and exit code"
 
 #define DOC_MB01RT "Symmetric matrix expression with upper triangular matrix.\n" \
     "\n" \
@@ -6624,44 +3332,7 @@
     "  x (ndarray): n-by-n symmetric matrix X (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01rt\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> alpha = 0.5\n" \
-    ">>> beta = 1.0\n" \
-    ">>> r = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01rt('U', 'N', n, alpha, beta, r, e, x)\n" \
-    ">>> r_sym = make_symmetric(np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [2.0, 4.0, 5.0],\n" \
-    "...     [3.0, 5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float), 'U')\n" \
-    ">>> x_sym = make_symmetric(np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [2.0, 4.0, 5.0],\n" \
-    "...     [3.0, 5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float), 'U')\n" \
-    ">>> expected_full = alpha * r_sym + beta * (e @ x_sym @ e.T)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R and exit code"
 
 #define DOC_MB01RU "Symmetric matrix update: R = alpha*R + beta*op(A)*X*op(A)'.\n" \
     "\n" \
@@ -6679,27 +3350,7 @@
     "  x (ndarray): n-by-n symmetric X (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (triangle only) and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01ru\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> alpha, beta = 1.5, 0.5\n" \
-    ">>> r = np.array([\n" \
-    "...     [4.0, 2.0, 1.0],\n" \
-    "...     [2.0, 5.0, 3.0],\n" \
-    "...     [1.0, 3.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> x = np.array([\n" \
-    "...     [3.0, 1.0],\n" \
-    "...     [1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01ru('U', 'N', m, n, alpha, beta, r, a, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (triangle only) and exit code"
 
 #define DOC_MB01RW "Symmetric matrix transformation (BLAS 2 version).\n" \
     "\n" \
@@ -6714,34 +3365,7 @@
     "  z (ndarray): Transformation matrix Z (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Transformed A and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb01rw\n" \
-    ">>> m, n = 3, 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [4.0, 2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 5.0, 0.5],\n" \
-    "...     [0.0, 0.0, 0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> z = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_full = np.array([\n" \
-    "...     [4.0, 2.0, 1.0, 0.5],\n" \
-    "...     [2.0, 3.0, 2.0, 1.0],\n" \
-    "...     [1.0, 2.0, 5.0, 0.5],\n" \
-    "...     [0.5, 1.0, 0.5, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> expected = z @ a_full @ z.T\n" \
-    ">>> a_out, info = mb01rw('U', 'N', m, n, a, z)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Transformed A and exit code"
 
 #define DOC_MB01RX "Triangular symmetric rank-k update.\n" \
     "\n" \
@@ -6762,31 +3386,7 @@
     "  b (ndarray): Matrix B (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (triangle only) and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb01rx\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> alpha, beta = 2.0, 0.5\n" \
-    ">>> r = np.array([\n" \
-    "...     [4.0, 1.0, 2.0],\n" \
-    "...     [0.0, 3.0, 1.0],\n" \
-    "...     [0.0, 0.0, 5.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [3.0, 1.0],\n" \
-    "...     [2.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [2.0, 1.0, 3.0],\n" \
-    "...     [1.0, 2.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r_out, info = mb01rx('L', 'U', 'N', m, n, alpha, beta, r, a, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (triangle only) and exit code"
 
 #define DOC_MB01RY "Hessenberg matrix product: R = alpha*R + beta*op(H)*B or beta*B*op(H).\n" \
     "\n" \
@@ -6804,21 +3404,7 @@
     "  b (ndarray): m-by-m matrix B (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, info): Updated R (triangle only) and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01ry\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 4\n" \
-    ">>> alpha, beta = 1.5, 0.5\n" \
-    ">>> r = np.random.randn(m, m).astype(float, order='F')\n" \
-    ">>> r = (r + r.T) / 2\n" \
-    ">>> h = make_hessenberg(m)\n" \
-    ">>> b = np.random.randn(m, m).astype(float, order='F')\n" \
-    ">>> r_out, info = mb01ry('L', 'U', 'N', m, alpha, beta, r, h, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, info): Updated R (triangle only) and exit code"
 
 #define DOC_MB01SD "Scale rows or columns of a matrix by a diagonal matrix.\n" \
     "\n" \
@@ -6834,17 +3420,7 @@
     "  c (ndarray): Column scale factors, dimension N (not used if jobs='R')\n" \
     "\n" \
     "Returns:\n" \
-    "  a: The scaled matrix\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01sd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 4\n" \
-    ">>> a = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> r = np.array([2.0, 0.5, 3.0], dtype=float)\n" \
-    ">>> c = np.empty(0, dtype=float)\n" \
-    ">>> a_out = mb01sd('R', a, r, c)"
+    "  a: The scaled matrix"
 
 #define DOC_MB01SS "Scale a symmetric matrix using diagonal scaling factors.\n" \
     "\n" \
@@ -6861,22 +3437,7 @@
     "  d (ndarray): Diagonal scaling factors, dimension N\n" \
     "\n" \
     "Returns:\n" \
-    "  a: The scaled matrix (same triangle as input)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01ss\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a_full = np.random.randn(n, n)\n" \
-    ">>> a = (a_full + a_full.T) / 2\n" \
-    ">>> a = np.asfortranarray(a)\n" \
-    ">>> d = np.array([2.0, 3.0, 0.5])\n" \
-    ">>> a_result = mb01ss('D', 'U', a.copy(order='F'), d)\n" \
-    ">>> d_mat = np.diag(d)\n" \
-    ">>> expected = d_mat @ a @ d_mat\n" \
-    "...     np.triu(a_result), np.triu(expected), rtol=1e-14\n" \
-    ">>> )"
+    "  a: The scaled matrix (same triangle as input)"
 
 #define DOC_MB01TD "Product of upper quasi-triangular matrices B := A * B.\n" \
     "\n" \
@@ -6889,36 +3450,7 @@
     "  b (ndarray): N-by-N upper quasi-triangular matrix B (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (b, info): Product A*B in B, exit code (0=success, 1=structure mismatch)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01td\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [1., 2., 6., 3., 5.],\n" \
-    "...     [-2., -1., -1., 0., -2.],\n" \
-    "...     [0., 0., 1., 5., 1.],\n" \
-    "...     [0., 0., 0., 0., -4.],\n" \
-    "...     [0., 0., 0., 20., 4.]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [5., 5., 1., 5., 1.],\n" \
-    "...     [-2., 1., 3., 0., -4.],\n" \
-    "...     [0., 0., 4., 20., 4.],\n" \
-    "...     [0., 0., 0., 3., 5.],\n" \
-    "...     [0., 0., 0., 1., -2.]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [1., 7., 31., 139., 22.],\n" \
-    "...     [-8., -11., -9., -32., 2.],\n" \
-    "...     [0., 0., 4., 36., 27.],\n" \
-    "...     [0., 0., 0., -4., 8.],\n" \
-    "...     [0., 0., 0., 64., 92.]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result, info = mb01td(a, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (b, info): Product A*B in B, exit code (0=success, 1=structure mismatch)"
 
 #define DOC_MB01UD "Hessenberg matrix product: B = alpha*op(H)*A or alpha*A*op(H).\n" \
     "\n" \
@@ -6932,19 +3464,7 @@
     "  a (ndarray): m-by-n matrix A (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (b, info): Output matrix B and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01ud\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 3\n" \
-    ">>> alpha = 2.0\n" \
-    ">>> h = make_hessenberg(m)\n" \
-    ">>> a = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> b_out, info = mb01ud('L', 'N', m, n, alpha, h, a)\n" \
-    ">>> info\n" \
-    "0"
+    "  (b, info): Output matrix B and exit code"
 
 #define DOC_MB01UW "In-place Hessenberg matrix product: A := alpha*op(H)*A or alpha*A*op(H).\n" \
     "\n" \
@@ -6958,30 +3478,7 @@
     "  a (ndarray): m-by-n matrix A (F-order), modified in-place\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Modified matrix A and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01uw\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> alpha = 2.0\n" \
-    ">>> h = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 7.0, 8.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [3.0, 4.0],\n" \
-    "...     [5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> h_full = h.copy()\n" \
-    ">>> h_full[2, 0] = 0.0\n" \
-    ">>> expected = alpha * (h_full @ a)\n" \
-    ">>> result, info = mb01uw('L', 'N', m, n, alpha, h.copy(), a.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Modified matrix A and exit code"
 
 #define DOC_MB01UX "In-place quasi-triangular matrix product: A := alpha*op(T)*A or alpha*A*op(T).\n" \
     "\n" \
@@ -6999,29 +3496,7 @@
     "  a (ndarray): m-by-n matrix A (F-order), modified in-place\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Modified matrix A and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01ux\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> alpha = 2.0\n" \
-    ">>> t = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 7.0, 8.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [3.0, 4.0],\n" \
-    "...     [5.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> t_full = np.triu(t, -1)\n" \
-    ">>> expected = alpha * (t_full @ a)\n" \
-    ">>> result, info = mb01ux('L', 'U', 'N', m, n, alpha, t.copy(), a.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Modified matrix A and exit code"
 
 #define DOC_MB01UY "Compute matrix product T := alpha*op(T)*A or T := alpha*A*op(T).\n" \
     "\n" \
@@ -7036,28 +3511,7 @@
     "  a (ndarray): Matrix A (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (t, info): Result matrix and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01uy\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> alpha = 2.0\n" \
-    ">>> t = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 4.0],\n" \
-    "...     [2.0, 5.0],\n" \
-    "...     [3.0, 6.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> result, info = mb01uy('L', 'U', 'N', m, n, alpha, t, a)\n" \
-    ">>> expected = alpha * t @ a\n" \
-    ">>> info\n" \
-    "0"
+    "  (t, info): Result matrix and exit code"
 
 #define DOC_MB01UZ "Compute complex matrix product T := alpha*op(T)*A or T := alpha*A*op(T).\n" \
     "\n" \
@@ -7075,22 +3529,7 @@
     "  a (ndarray): m-by-n complex matrix A (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (t, info): Result matrix T (m-by-n) and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01uz\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 4\n" \
-    ">>> alpha = 1.5 + 0.5j\n" \
-    ">>> a = (np.random.randn(m, n) + 1j * np.random.randn(m, n)).astype(\n" \
-    "...     complex, order='F'\n" \
-    "...     )\n" \
-    ">>> t_input = np.zeros((m, n), dtype=complex, order='F')\n" \
-    ">>> t_input[:m, :m] = t\n" \
-    ">>> t_result, info = mb01uz('L', 'U', 'N', m, n, alpha, t_input, a)\n" \
-    ">>> info\n" \
-    "0"
+    "  (t, info): Result matrix T (m-by-n) and exit code"
 
 #define DOC_MB01WD "Residuals of Lyapunov or Stein equations for Cholesky factored solutions.\n" \
     "\n" \
@@ -7115,36 +3554,7 @@
     "  t (ndarray): Triangular matrix T (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, r, info): Modified A, result R, and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01wd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> beta = 0.5\n" \
-    ">>> A = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 9.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> T = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 1.0],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> R_init = np.array([\n" \
-    "...     [1.0, 0.5, 0.25],\n" \
-    "...     [0.5, 2.0, 0.5],\n" \
-    "...     [0.25, 0.5, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> TT = T.T @ T\n" \
-    ">>> A_work = A.copy(order='F')\n" \
-    ">>> R_work = R_init.copy(order='F')\n" \
-    ">>> A_out, R_out, info = mb01wd('C', 'U', 'N', 'F', n, alpha, beta, R_work, A_work, T)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, r, info): Modified A, result R, and exit code (0=success)"
 
 #define DOC_MB01XD "Compute U'*U or L*L' for triangular matrix (block algorithm).\n" \
     "\n" \
@@ -7158,25 +3568,7 @@
     "  a (ndarray): N-by-N triangular matrix (F-order), overwritten with result\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Result matrix (same triangle) and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01xd\n" \
-    ">>> import numpy as np\n" \
-    ">>> u = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> expected_upper = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 20.0, 26.0],\n" \
-    "...     [0.0, 0.0, 70.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result, info = mb01xd('U', u.copy(order='F'))\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Result matrix (same triangle) and exit code (0=success)"
 
 #define DOC_MB01XY "Compute U'*U or L*L' for triangular matrix.\n" \
     "\n" \
@@ -7189,25 +3581,7 @@
     "  a (ndarray): N-by-N triangular matrix (F-order), overwritten with result\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Result matrix (same triangle) and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01xy\n" \
-    ">>> import numpy as np\n" \
-    ">>> u = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> expected_upper = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 20.0, 26.0],\n" \
-    "...     [0.0, 0.0, 70.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result, info = mb01xy('U', u.copy(order='F'))\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Result matrix (same triangle) and exit code (0=success)"
 
 #define DOC_MB01YD "Symmetric rank k operation with banded matrix.\n" \
     "\n" \
@@ -7227,26 +3601,7 @@
     "  c (ndarray): Symmetric matrix C (F-order), updated in place\n" \
     "\n" \
     "Returns:\n" \
-    "  (c, info): Updated C and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb01yd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, k, l = 3, 3, 1\n" \
-    ">>> alpha, beta = 1.0, 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 7.0, 8.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> c_result, info = mb01yd('U', 'N', n, k, l, alpha, beta, a, c)\n" \
-    ">>> full_a = a.copy()\n" \
-    ">>> full_a[2, 0] = 0.0\n" \
-    ">>> expected_full = full_a @ full_a.T\n" \
-    ">>> info\n" \
-    "0"
+    "  (c, info): Updated C and exit code (0=success)"
 
 #define DOC_MB01ZD "Hessenberg-triangular matrix product.\n" \
     "\n" \
@@ -7291,22 +3646,7 @@
     "Returns:\n" \
     "  (g, r, l, cs, info): Generator, Cholesky of T, Cholesky of inv(T),\n" \
     "    transformation info, exit code. Returns None for unrequested outputs.\n" \
-    "    info=1 means matrix is not positive definite.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> n = 3\n" \
-    ">>> m = n * k\n" \
-    ">>> t = np.array([\n" \
-    "...     [3.0, 1.0, 0.1, 0.1, 0.2, 0.05],\n" \
-    "...     [1.0, 4.0, 0.4, 0.1, 0.04, 0.2]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> g, r, l, cs, info = mb02cd('A', 'R', k, n, t)\n" \
-    ">>> info\n" \
-    "0"
+    "    info=1 means matrix is not positive definite."
 
 #define DOC_MB02CU "Bring first part of generator to proper form (block or rank-deficient).\n" \
     "\n" \
@@ -7331,23 +3671,7 @@
     "Returns:\n" \
     "  (a1, a2, b, rnk, ipvt, cs, info): Transformed matrices, rank,\n" \
     "    pivot indices, rotation info, and exit code.\n" \
-    "    info=1 means matrix is not numerically positive definite.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 3\n" \
-    ">>> p = 5\n" \
-    ">>> q = 2\n" \
-    ">>> nb = 2\n" \
-    ">>> a1 = np.tril(np.random.randn(k, k)).astype(float, order='F')\n" \
-    "...     a1[i, i] = np.abs(a1[i, i]) + 5.0\n" \
-    ">>> a2 = np.random.randn(k, p - k).astype(float, order='F')\n" \
-    ">>> b = 0.1 * np.random.randn(k, q).astype(float, order='F')\n" \
-    ">>> from slicot import mb02cu\n" \
-    ">>> a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('C', k, p, q, nb, a1.copy(), a2.copy(), b.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "    info=1 means matrix is not numerically positive definite."
 
 #define DOC_MB02CV "Apply MB02CU transformations to other generator columns/rows.\n" \
     "\n" \
@@ -7372,55 +3696,7 @@
     "  cs (ndarray): Rotation/Householder info from MB02CU\n" \
     "\n" \
     "Returns:\n" \
-    "  (f1, f2, g, info): Transformed generators and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02cv\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> n = 3\n" \
-    ">>> p = 4\n" \
-    ">>> q = 3\n" \
-    ">>> rnk = 2\n" \
-    ">>> nb = 0\n" \
-    ">>> col2 = p - k\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.5, 0.3],\n" \
-    "...     [0.2, 1.2]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [0.5, 0.1],\n" \
-    "...     [0.3, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.8, 0.2, 0.1],\n" \
-    "...     [0.1, 0.7, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> f1 = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.3, 1.2],\n" \
-    "...     [0.2, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> f2 = np.array([\n" \
-    "...     [0.6, 0.2],\n" \
-    "...     [0.1, 0.8],\n" \
-    "...     [0.3, 0.1]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> g = np.array([\n" \
-    "...     [0.4, 0.1, 0.2],\n" \
-    "...     [0.2, 0.5, 0.1],\n" \
-    "...     [0.1, 0.2, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> cs = np.array([\n" \
-    "...     1.1, 0.1, 1.2, 0.2,\n" \
-    "...     0.9, -0.1, 0.95, -0.15,\n" \
-    "...     0.3, 0.4\n" \
-    "...     ], dtype=float)\n" \
-    ">>> f1_out, f2_out, g_out, info = mb02cv('D', 'N', k, n, p, q, nb, rnk,\n" \
-    "...     a1, a2, b, f1, f2, g, cs)\n" \
-    ">>> info\n" \
-    "0"
+    "  (f1, f2, g, info): Transformed generators and exit code"
 
 #define DOC_MB02CX "Bring first blocks of generator to proper form.\n" \
     "\n" \
@@ -7438,21 +3714,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, cs, info): Transformed generators, rotation info, exit code\n" \
-    "  info=1 means matrix is not positive definite\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> p = 4\n" \
-    ">>> q = 3\n" \
-    ">>> k = 3\n" \
-    ">>> a = np.triu(np.random.randn(p, k)).astype(float, order='F')\n" \
-    "...     a[i, i] = np.abs(a[i, i]) + 5.0\n" \
-    ">>> b = 0.1 * np.random.randn(q, k).astype(float, order='F')\n" \
-    ">>> from slicot import mb02cx\n" \
-    ">>> a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  info=1 means matrix is not positive definite"
 
 #define DOC_MB02CY "Apply hyperbolic transformations to generator columns/rows.\n" \
     "\n" \
@@ -7472,25 +3734,7 @@
     "  cs (ndarray): Rotation/Householder info from MB02CX\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, info): Transformed generators and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> p = 3\n" \
-    ">>> q = 2\n" \
-    ">>> n = 4\n" \
-    ">>> k = 3\n" \
-    ">>> a = np.random.randn(p, n).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(q, n).astype(float, order='F')\n" \
-    ">>> h = np.random.randn(q, k).astype(float, order='F')\n" \
-    ">>> lcs = 2 * k + min(k, q)\n" \
-    ">>> cs = np.random.randn(lcs).astype(float, order='F')\n" \
-    ">>> cs[0:2*k:2] = np.abs(cs[0:2*k:2]) + 1.0\n" \
-    ">>> from slicot import mb02cy\n" \
-    ">>> a_out, b_out, info = mb02cy('R', 'N', p, q, n, k, a.copy(), b.copy(), h.copy(), cs.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, info): Transformed generators and exit code"
 
 #define DOC_MB02DD "Update Cholesky factorization of positive definite block Toeplitz matrix.\n" \
     "\n" \
@@ -7516,34 +3760,7 @@
     "Returns:\n" \
     "  (ta, g, r, l, cs, info): Updated transformation info, generator,\n" \
     "    Cholesky of T, Cholesky of inv(T), transformation info, exit code.\n" \
-    "    info=1 means matrix is not positive definite.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> n = 3\n" \
-    ">>> m = 2\n" \
-    ">>> s = (n + m) * k\n" \
-    ">>> t_full = np.array([\n" \
-    "...     [3.0, 1.0, 0.1, 0.1, 0.2, 0.05, 0.1, 0.04, 0.01, 0.02],\n" \
-    "...     [1.0, 4.0, 0.4, 0.1, 0.04, 0.2, 0.03, 0.02, 0.03, 0.01]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> t = t_full[:, :n*k].copy()\n" \
-    ">>> ta = t_full[:, n*k:].copy()\n" \
-    ">>> g, r, l, cs, info = mb02cd('A', 'R', k, n, t)\n" \
-    ">>> r_in = np.zeros((s, m * k), dtype=float, order='F')\n" \
-    ">>> r_in[k:n*k+k, 0:k] = r[:n*k, (n-1)*k:n*k].copy()\n" \
-    ">>> g_in = np.zeros((2 * k, s), dtype=float, order='F')\n" \
-    ">>> g_in[:, :n*k] = g.copy()\n" \
-    ">>> cs_in = np.zeros(3 * (n + m - 1) * k, dtype=float, order='F')\n" \
-    ">>> cs_in[:3*(n-1)*k] = cs.copy()\n" \
-    ">>> ta_out, g_out, r_out, l_out, cs_out, info = mb02dd(\n" \
-    "...     'A', 'R', k, m, n, ta.copy(), t, g_in, r_in, cs_in\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info=1 means matrix is not positive definite."
 
 #define DOC_MB02ED "Solve symmetric positive definite block Toeplitz system.\n" \
     "\n" \
@@ -7561,40 +3778,7 @@
     "\n" \
     "Returns:\n" \
     "  (x, t_out, info): Solution matrix, modified T, exit code\n" \
-    "  info=1 means matrix is not positive definite\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> k = 3\n" \
-    ">>> nrhs = 2\n" \
-    ">>> t = np.array([\n" \
-    "...     [3.0, 1.0, 0.2],\n" \
-    "...     [1.0, 4.0, 0.4],\n" \
-    "...     [0.2, 0.4, 5.0],\n" \
-    "...     [0.1, 0.1, 0.2],\n" \
-    "...     [0.2, 0.04, 0.03],\n" \
-    "...     [0.05, 0.2, 0.1],\n" \
-    "...     [0.1, 0.03, 0.1],\n" \
-    "...     [0.04, 0.02, 0.2],\n" \
-    "...     [0.01, 0.03, 0.02],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> from slicot import mb02ed\n" \
-    ">>> x, t_out, info = mb02ed('C', k, n, nrhs, t.copy(), b.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  info=1 means matrix is not positive definite"
 
 #define DOC_MB02FD "Incomplete Cholesky factor of positive definite block Toeplitz matrix.\n" \
     "\n" \
@@ -7614,22 +3798,7 @@
     "\n" \
     "Returns:\n" \
     "  (r, info): ICC factor R (upper/lower trapezoidal), exit code\n" \
-    "  info=1 means matrix is not positive definite\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02fd\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> n = 4\n" \
-    ">>> m = n * k\n" \
-    ">>> t = np.array([\n" \
-    "...     [3.0, 1.0, 0.1, 0.1, 0.2, 0.05, 0.2, 0.3],\n" \
-    "...     [1.0, 4.0, 0.4, 0.1, 0.04, 0.2, 0.1, 0.2]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> r, info = mb02fd('R', k, n, 0, n, t.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  info=1 means matrix is not positive definite"
 
 #define DOC_MB02GD "Cholesky factorization of banded symmetric positive definite block Toeplitz matrix.\n" \
     "\n" \
@@ -7650,24 +3819,7 @@
     "\n" \
     "Returns:\n" \
     "  (rb, info): Cholesky factor in banded storage format, exit code\n" \
-    "  info=1 means matrix is not positive definite\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02gd\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> n = 4\n" \
-    ">>> nl = 2\n" \
-    ">>> typet = 'R'\n" \
-    ">>> triu = 'T'\n" \
-    ">>> t = np.array([\n" \
-    "...     [3.0000, 1.0000, 0.1000, 0.4000, 0.2000, 0.0000],\n" \
-    "...     [0.0000, 4.0000, 0.1000, 0.1000, 0.0500, 0.2000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> rb, info = mb02gd(typet, triu, k, n, nl, 0, n, t.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  info=1 means matrix is not positive definite"
 
 #define DOC_MB02HD "Cholesky factorization of T'T for banded block Toeplitz matrix.\n" \
     "\n" \
@@ -7691,39 +3843,7 @@
     "\n" \
     "Returns:\n" \
     "  (rb, info): Lower triangular factor R in band storage, exit code\n" \
-    "  info=1 means full rank condition not satisfied\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02hd\n" \
-    ">>> k = 2\n" \
-    ">>> l = 2\n" \
-    ">>> m = 6\n" \
-    ">>> ml = 2\n" \
-    ">>> n = 5\n" \
-    ">>> nu = 1\n" \
-    ">>> p = 0\n" \
-    ">>> s = (min(m * k, n * l) + l - 1) // l  # s = 5\n" \
-    ">>> triu = 'N'\n" \
-    ">>> tc = np.array([\n" \
-    "...     [4.0, 4.0],\n" \
-    "...     [1.0, 3.0],\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     [2.0, 2.0],\n" \
-    "...     [4.0, 4.0],\n" \
-    "...     [3.0, 4.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tr = np.array([\n" \
-    "...     [1.0, 3.0],\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> rb, info = mb02hd(triu, k, l, m, ml, n, nu, p, s, tc, tr)\n" \
-    ">>> x = min(ml + nu + 1, n)  # x = 4\n" \
-    ">>> lenr = x * l  # lenr = 8\n" \
-    ">>> ncols = min(s * l, min(m * k, n * l) - p * l)  # ncols = 10\n" \
-    ">>> info\n" \
-    "0"
+    "  info=1 means full rank condition not satisfied"
 
 #define DOC_MB02ID "Solve over/underdetermined linear systems with block Toeplitz matrix.\n" \
     "\n" \
@@ -7751,38 +3871,7 @@
     "  (b_out, c_out, info):\n" \
     "    - b_out: Overdetermined solution (N*L x RB) if job='O' or 'A'\n" \
     "    - c_out: Underdetermined solution (M*K x RC) if job='U' or 'A'\n" \
-    "    - info: 0=success, <0=invalid arg, 1=T not full rank\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02id\n" \
-    ">>> import numpy as np\n" \
-    ">>> k, l, m, n = 3, 2, 4, 3\n" \
-    ">>> rb, rc = 1, 1\n" \
-    ">>> tc = np.array([\n" \
-    "...     [5.0, 2.0],\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [4.0, 3.0],\n" \
-    "...     [4.0, 0.0],\n" \
-    "...     [2.0, 2.0],\n" \
-    "...     [3.0, 3.0],\n" \
-    "...     [5.0, 1.0],\n" \
-    "...     [3.0, 3.0],\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [2.0, 3.0],\n" \
-    "...     [1.0, 3.0],\n" \
-    "...     [2.0, 2.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tr = np.array([\n" \
-    "...     [1.0, 4.0, 2.0, 3.0],\n" \
-    "...     [2.0, 2.0, 2.0, 4.0],\n" \
-    "...     [3.0, 1.0, 0.0, 1.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.ones((m*k, rb), order='F', dtype=float)\n" \
-    ">>> c = np.ones((n*l, rc), order='F', dtype=float)\n" \
-    ">>> b_out, c_out, info = mb02id('A', k, l, m, n, tc, tr, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: 0=success, <0=invalid arg, 1=T not full rank"
 
 #define DOC_MB02JD "Full QR factorization of a block Toeplitz matrix of full rank.\n" \
     "\n" \
@@ -7803,31 +3892,7 @@
     "\n" \
     "Returns:\n" \
     "  (q, r, info): Factor Q (M*K x cols), lower triangular factor R, exit code\n" \
-    "  info=1 means full rank condition numerically violated\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02jd\n" \
-    ">>> import numpy as np\n" \
-    ">>> k, l, m, n = 2, 3, 4, 3\n" \
-    ">>> p, s = 0, 3  # Compute all 3 block columns from scratch\n" \
-    ">>> tc = np.array([\n" \
-    "...     [1.0, 4.0, 0.0],\n" \
-    "...     [4.0, 1.0, 2.0],\n" \
-    "...     [4.0, 2.0, 2.0],\n" \
-    "...     [5.0, 3.0, 2.0],\n" \
-    "...     [2.0, 4.0, 4.0],\n" \
-    "...     [5.0, 3.0, 4.0],\n" \
-    "...     [2.0, 2.0, 5.0],\n" \
-    "...     [4.0, 2.0, 3.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tr = np.array([\n" \
-    "...     [3.0, 4.0, 2.0, 5.0, 0.0, 4.0],\n" \
-    "...     [5.0, 1.0, 1.0, 2.0, 4.0, 1.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> q, r, info = mb02jd('Q', k, l, m, n, p, s, tc, tr)\n" \
-    ">>> info\n" \
-    "0"
+    "  info=1 means full rank condition numerically violated"
 
 #define DOC_MB02JX "Low rank QR factorization with column pivoting of a block Toeplitz matrix.\n" \
     "\n" \
@@ -7852,37 +3917,7 @@
     "    - q: Factor Q (M*K x RNK, F-order) if job='Q'\n" \
     "    - r: Lower trapezoidal factor R (N*L x RNK, F-order)\n" \
     "    - jpvt: Column permutation (jpvt[j]=k means col j of T*P was col k of T)\n" \
-    "    - info: 0=success, 1=generator indefinite, 2=columns not linearly dependent\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02jx\n" \
-    ">>> import numpy as np\n" \
-    ">>> k, l, m, n = 3, 3, 4, 4\n" \
-    ">>> tol1, tol2 = -1.0, -1.0  # Use defaults\n" \
-    ">>> tc = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [1.0, 1.0, 0.0],\n" \
-    "...     [2.0, 2.0, 0.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tr = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 1.0, 2.0, 3.0, 0.0, 1.0, 1.0],\n" \
-    "...     [1.0, 2.0, 3.0, 1.0, 2.0, 3.0, 1.0, 2.0, 1.0],\n" \
-    "...     [1.0, 2.0, 3.0, 1.0, 2.0, 3.0, 1.0, 1.0, 1.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> rnk, q, r, jpvt, info = mb02jx('Q', k, l, m, n, tc, tr, tol1, tol2)\n" \
-    "...     qtq = q.T @ q\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: 0=success, 1=generator indefinite, 2=columns not linearly dependent"
 
 #define DOC_MB02KD "Block Toeplitz matrix-matrix product.\n" \
     "\n" \
@@ -7905,47 +3940,7 @@
     "  c (ndarray, optional): Input matrix C (for beta != 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (c, info): Result matrix C = alpha*op(T)*B + beta*C, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02kd\n" \
-    ">>> import numpy as np\n" \
-    ">>> k, l, m, n, r = 3, 2, 4, 5, 1\n" \
-    ">>> tc = np.array([\n" \
-    "...     [4.0, 1.0],\n" \
-    "...     [3.0, 5.0],\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     [4.0, 1.0],\n" \
-    "...     [3.0, 4.0],\n" \
-    "...     [2.0, 4.0],\n" \
-    "...     [3.0, 1.0],\n" \
-    "...     [3.0, 0.0],\n" \
-    "...     [4.0, 4.0],\n" \
-    "...     [5.0, 1.0],\n" \
-    "...     [3.0, 1.0],\n" \
-    "...     [4.0, 3.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tr = np.array([\n" \
-    "...     [5.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0, 3.0],\n" \
-    "...     [4.0, 1.0, 5.0, 4.0, 5.0, 4.0, 1.0, 2.0],\n" \
-    "...     [2.0, 3.0, 4.0, 1.0, 3.0, 3.0, 3.0, 3.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0],\n" \
-    "...     [2.0],\n" \
-    "...     [2.0],\n" \
-    "...     [2.0],\n" \
-    "...     [1.0],\n" \
-    "...     [3.0],\n" \
-    "...     [3.0],\n" \
-    "...     [4.0],\n" \
-    "...     [2.0],\n" \
-    "...     [3.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c, info = mb02kd('C', 'N', k, l, m, n, r, 1.0, 0.0, tc, tr, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (c, info): Result matrix C = alpha*op(T)*B + beta*C, exit code"
 
 #define DOC_MB02MD "Total Least Squares solution using SVD approach.\n" \
     "\n" \
@@ -7971,25 +3966,7 @@
     "    - rank: Computed/adjusted rank\n" \
     "    - rcond: Reciprocal condition number of F\n" \
     "    - iwarn: 0=ok, 1=multiplicity, 2=F singular\n" \
-    "    - info: Exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02md\n" \
-    ">>> m, n, l = 6, 3, 1\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.80010, 0.39985, 0.60005, 0.89999],\n" \
-    "...     [0.29996, 0.69990, 0.39997, 0.82997],\n" \
-    "...     [0.49994, 0.60003, 0.20012, 0.79011],\n" \
-    "...     [0.90013, 0.20016, 0.79995, 0.85002],\n" \
-    "...     [0.39998, 0.80006, 0.49985, 0.99016],\n" \
-    "...     [0.20002, 0.90007, 0.70009, 1.02994],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tol = 0.0\n" \
-    ">>> c_out, s, x, rank, rcond, iwarn, info = mb02md('B', m, n, l, c, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code"
 
 #define DOC_MB02ND "Total Least Squares solution using Partial SVD approach.\n" \
     "\n" \
@@ -8016,30 +3993,7 @@
     "    - q: Bidiagonal matrix elements (2*p-1 where p=min(m,n+l))\n" \
     "    - inul: Boolean list indicating singular subspace columns\n" \
     "    - iwarn: 0=ok, 1=multiplicity, 2=F singular\n" \
-    "    - info: Exit code (0=success, 1=max iterations, 2=rank too large)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n, l = 6, 3, 1\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.80010, 0.39985, 0.60005, 0.89999],\n" \
-    "...     [0.29996, 0.69990, 0.39997, 0.82997],\n" \
-    "...     [0.49994, 0.60003, 0.20012, 0.79011],\n" \
-    "...     [0.90013, 0.20016, 0.79995, 0.85002],\n" \
-    "...     [0.39998, 0.80006, 0.49985, 0.99016],\n" \
-    "...     [0.20002, 0.90007, 0.70009, 1.02994],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> rank = -1\n" \
-    ">>> theta = 0.001\n" \
-    ">>> tol = 0.0\n" \
-    ">>> reltol = 0.0\n" \
-    ">>> x, rank_out, theta_out, q, inul, iwarn, info = mb02nd(\n" \
-    "...     m, n, l, rank, theta, c, tol, reltol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1=max iterations, 2=rank too large)"
 
 #define DOC_MB02NY "Separate zero singular value of bidiagonal submatrix.\n" \
     "\n" \
@@ -8059,21 +4013,7 @@
     "  v (ndarray): Right transformation matrix (n x p, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (q, e, u, v): Transformed diagonal, superdiagonal, and matrices\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02ny\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 5, 5\n" \
-    ">>> p = min(m, n)\n" \
-    ">>> i_idx = 2  # Q(2) is negligible (1-based index)\n" \
-    ">>> k = 4      # Consider submatrix up to index 4\n" \
-    ">>> q = np.array([2.0, 1.5, 0.8, 1.2, 0.9], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([0.5, 0.3, 0.7, 0.4], dtype=np.float64, order='F')\n" \
-    ">>> u = np.eye(m, p, dtype=np.float64, order='F')\n" \
-    ">>> v = np.eye(n, p, dtype=np.float64, order='F')\n" \
-    ">>> q_out, e_out, u_out, v_out = mb02ny(True, True, m, n, i_idx, k, q, e, u, v)"
+    "  (q, e, u, v): Transformed diagonal, superdiagonal, and matrices"
 
 #define DOC_MB02OD "Solve triangular matrix equation with condition estimation.\n" \
     "\n" \
@@ -8093,19 +4033,7 @@
     "\n" \
     "Returns:\n" \
     "  (x, rcond, info): Solution X, reciprocal condition number, exit code\n" \
-    "  info=1 means matrix is singular (rcond <= tol)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02od\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> a = np.triu(np.random.rand(m, m).astype(float, order='F')) + np.eye(m) * 2.0\n" \
-    ">>> b = np.random.rand(m, n).astype(float, order='F')\n" \
-    ">>> x, rcond, info = mb02od('L', 'U', 'N', 'N', '1', alpha, a, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  info=1 means matrix is singular (rcond <= tol)"
 
 #define DOC_MB02PD "Solve linear system op(A)*X = B with LU factorization.\n" \
     "\n" \
@@ -8120,22 +4048,7 @@
     "\n" \
     "Returns:\n" \
     "  (x, ferr, berr, rcond, info): Solution X, forward/backward error,\n" \
-    "                                condition number, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02pd\n" \
-    ">>> n = 4\n" \
-    ">>> nrhs = 2\n" \
-    ">>> A = np.eye(n) + 0.5 * np.random.randn(n, n)\n" \
-    ">>> A = np.asfortranarray(A)\n" \
-    ">>> X_true = np.random.randn(n, nrhs)\n" \
-    ">>> B = A @ X_true\n" \
-    ">>> B = np.asfortranarray(B)\n" \
-    ">>> X, ferr, berr, rcond, info = mb02pd('N', 'N', A.copy(order='F'), B.copy(order='F'))\n" \
-    ">>> info\n" \
-    "0"
+    "                                condition number, exit code"
 
 #define DOC_MB02QD "Linear least squares solution using complete orthogonal factorization.\n" \
     "\n" \
@@ -8156,37 +4069,7 @@
     "\n" \
     "Returns:\n" \
     "  (x, rank, sval, jpvt, info): Solution X (N-by-NRHS), effective rank,\n" \
-    "                               singular value estimates [3], permutation, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02qd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n, nrhs = 4, 3, 2\n" \
-    ">>> rcond = 2.3e-16\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 2.0, -3.0],\n" \
-    "...     [3.0, 3.0, -1.0],\n" \
-    "...     [4.0, 4.0, -5.0],\n" \
-    "...     [-1.0, -1.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> expected_rank = 2\n" \
-    ">>> expected_sval = np.array([7.8659, 2.6698, 0.0000], dtype=float)\n" \
-    ">>> expected_x = np.array([\n" \
-    "...     [-0.0034, -0.1054],\n" \
-    "...     [-0.0034, -0.1054],\n" \
-    "...     [-0.0816, -0.1973]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x, rank, sval, jpvt, info = mb02qd('L', 'N', m, n, nrhs, rcond, svlmax, a, b)\n" \
-    ">>> info\n" \
-    "0"
+    "                               singular value estimates [3], permutation, exit code"
 
 #define DOC_MB02RD "Solve linear system with Hessenberg LU factorization.\n" \
     "\n" \
@@ -8214,24 +4097,7 @@
     "  b (ndarray): Right-hand side matrix (n x nrhs, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, info): Solution matrix and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02rz\n" \
-    ">>> import numpy as np\n" \
-    ">>> h = np.array([\n" \
-    "...     [2.0 + 1.0j, 3.0 + 0.0j],\n" \
-    "...     [1.0 + 0.0j, 4.0 + 2.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0 + 0.0j],\n" \
-    "...     [2.0 + 1.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> h_lu, ipiv, info_lu = mb02sz(h)\n" \
-    ">>> x, info = mb02rz('N', h_lu, ipiv, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, info): Solution matrix and exit code (0=success)"
 
 #define DOC_MB02SD "LU factorization of upper Hessenberg matrix.\n" \
     "\n" \
@@ -8242,18 +4108,7 @@
     "  h (ndarray): Upper Hessenberg matrix (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (h, ipiv, info): LU factors, pivots (1-based), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02sd\n" \
-    ">>> n = 4\n" \
-    ">>> h = np.zeros((n, n), order='F', dtype=float)\n" \
-    "...     h[i, j] = np.random.randn()\n" \
-    ">>> h_out, ipiv, info = mb02sd(n, h)\n" \
-    ">>> info\n" \
-    "0"
+    "  (h, ipiv, info): LU factors, pivots (1-based), exit code"
 
 #define DOC_MB02SZ "LU factorization of complex upper Hessenberg matrix.\n" \
     "\n" \
@@ -8269,25 +4124,7 @@
     "  (h_lu, ipiv, info):\n" \
     "    - h_lu: LU factors (L stored below diagonal, U on/above diagonal)\n" \
     "    - ipiv: Pivot indices (1-based, n elements)\n" \
-    "    - info: Exit code (0=success, >0=singular U)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02sz\n" \
-    ">>> import numpy as np\n" \
-    ">>> h = np.array([\n" \
-    "...     [2.0 + 1.0j, 3.0 + 0.0j],\n" \
-    "...     [1.0 + 0.0j, 4.0 + 2.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> h_result, ipiv, info = mb02sz(h)\n" \
-    ">>> u = np.triu(h_result)\n" \
-    ">>> l = np.eye(2, dtype=complex)\n" \
-    ">>> l[1, 0] = h_result[1, 0]\n" \
-    ">>> p = np.eye(2, dtype=complex)\n" \
-    "...     p = np.array([[0, 1], [1, 0]], dtype=complex)\n" \
-    ">>> h_reconstructed = p @ l @ u\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, >0=singular U)"
 
 #define DOC_MB02TD "Estimate reciprocal condition number of upper Hessenberg matrix.\n" \
     "\n" \
@@ -8301,25 +4138,7 @@
     "  ipiv (ndarray): Pivot indices from mb02sd (n elements)\n" \
     "\n" \
     "Returns:\n" \
-    "  (rcond, info): Reciprocal condition estimate and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02td\n" \
-    ">>> n = 5\n" \
-    ">>> h = np.array([\n" \
-    "...     [1.0, 2.0, 6.0, 3.0, 5.0],\n" \
-    "...     [-2.0, -1.0, -1.0, 0.0, -2.0],\n" \
-    "...     [0.0, 3.0, 1.0, 5.0, 1.0],\n" \
-    "...     [0.0, 0.0, 2.0, 0.0, -4.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> hnorm_1 = np.max(np.sum(np.abs(h), axis=0))\n" \
-    ">>> h_lu, ipiv, info_sd = mb02sd(n, h)\n" \
-    ">>> rcond, info = mb02td('O', n, hnorm_1, h_lu, ipiv)\n" \
-    ">>> info\n" \
-    "0"
+    "  (rcond, info): Reciprocal condition estimate and exit code (0=success)"
 
 #define DOC_MB02TZ "Estimate reciprocal condition number of complex Hessenberg matrix.\n" \
     "\n" \
@@ -8332,25 +4151,7 @@
     "  ipiv (ndarray): Pivot indices from mb02sz (n elements)\n" \
     "\n" \
     "Returns:\n" \
-    "  (rcond, info): Reciprocal condition estimate and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02tz\n" \
-    ">>> import numpy as np\n" \
-    ">>> h = np.array([\n" \
-    "...     [2.0 + 0.0j, 1.0 + 0.0j],\n" \
-    "...     [0.0 + 0.0j, 2.0 + 0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> hnorm = np.linalg.norm(h, 1)\n" \
-    ">>> h_lu, ipiv, info_lu = mb02sz(h)\n" \
-    ">>> rcond, info = mb02tz('1', hnorm, h_lu, ipiv)\n" \
-    ">>> actual_cond = np.linalg.cond(np.array([\n" \
-    "...     [2.0 + 0.0j, 1.0 + 0.0j],\n" \
-    "...     [0.0 + 0.0j, 2.0 + 0.0j]\n" \
-    "...     ]), 1)\n" \
-    ">>> info\n" \
-    "0"
+    "  (rcond, info): Reciprocal condition estimate and exit code (0=success)"
 
 #define DOC_MB02UD "Minimum norm least squares solution using SVD.\n" \
     "\n" \
@@ -8375,24 +4176,7 @@
     "  ldwork (int, optional): Workspace size\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, q, sv, rank, rp, info): Solution, Q matrix, singular values, rank, pseudoinverse, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 3\n" \
-    ">>> l = m\n" \
-    ">>> r = np.triu(np.random.randn(l, l)).astype(float, order='F')\n" \
-    ">>> r[l-1, l-1] = 1e-16\n" \
-    ">>> b = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> from slicot import mb02ud\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> rcond = 1e-10\n" \
-    ">>> x, q, sv, rank, rp, info = mb02ud(\n" \
-    "...     'N', 'L', 'N', 'N', m, n, alpha, rcond, r.copy(), b.copy()\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, q, sv, rank, rp, info): Solution, Q matrix, singular values, rank, pseudoinverse, exit code"
 
 #define DOC_MB02UU "Solve linear system using LU factorization with complete pivoting.\n" \
     "\n" \
@@ -8406,22 +4190,7 @@
     "  jpiv (ndarray): Column pivot indices from mb02uv (n,)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, scale): Solution vector and scale factor (0 < scale <= 1)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02uu\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [4.0, 2.0, 1.0, 3.0],\n" \
-    "...     [2.0, 5.0, 3.0, 1.0],\n" \
-    "...     [1.0, 3.0, 6.0, 2.0],\n" \
-    "...     [3.0, 1.0, 2.0, 7.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> rhs = np.array([10.0, 11.0, 12.0, 13.0], dtype=float)\n" \
-    ">>> a_lu, ipiv, jpiv, info = mb02uv(n, a)\n" \
-    ">>> x, scale = mb02uu(n, a_lu, rhs, ipiv, jpiv)"
+    "  (x, scale): Solution vector and scale factor (0 < scale <= 1)"
 
 #define DOC_MB02UV "LU factorization with complete pivoting.\n" \
     "\n" \
@@ -8432,22 +4201,7 @@
     "  a (ndarray): n-by-n matrix A (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a_lu, ipiv, jpiv, info): LU factors, row pivots, column pivots, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02uv\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 1.0, 3.0, 4.0],\n" \
-    "...     [4.0, 3.0, 2.0, 1.0],\n" \
-    "...     [1.0, 4.0, 2.0, 3.0],\n" \
-    "...     [3.0, 2.0, 4.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_lu, ipiv, jpiv, info = mb02uv(n, a)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a_lu, ipiv, jpiv, info): LU factors, row pivots, column pivots, exit code"
 
 #define DOC_MB02UW "Solve 1x1 or 2x2 linear system with scaling and perturbation.\n" \
     "\n" \
@@ -8461,16 +4215,7 @@
     "  b (ndarray): RHS matrix B (n x m, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, scale, iwarn): Solution, scale factor, warning (1=A perturbed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02uw\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([[4.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> par = np.array([2.22e-16, 2.23e-308, 1e-10], dtype=float)\n" \
-    ">>> x, scale, iwarn = mb02uw(False, par, a, b)"
+    "  (x, scale, iwarn): Solution, scale factor, warning (1=A perturbed)"
 
 #define DOC_MB02VD "Solve X * op(A) = B using LU factorization.\n" \
     "\n" \
@@ -8480,28 +4225,7 @@
     "  b (ndarray): RHS matrix B (m x n, F-order), overwritten with solution X\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, ipiv, info): Solution X, pivots, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb02vd\n" \
-    ">>> n = 4\n" \
-    ">>> m = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [4.0, 2.0, 1.0, 3.0],\n" \
-    "...     [1.0, 5.0, 2.0, 1.0],\n" \
-    "...     [2.0, 1.0, 6.0, 2.0],\n" \
-    "...     [1.0, 2.0, 1.0, 7.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [5.0, 6.0, 7.0, 8.0],\n" \
-    "...     [9.0, 10.0, 11.0, 12.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x, ipiv, info = mb02vd('N', a.copy(order='F'), b.copy(order='F'))\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, ipiv, info): Solution X, pivots, exit code"
 
 #define DOC_MB02WD "Solve symmetric linear system using conjugate gradient.\n" \
     "\n" \
@@ -8518,22 +4242,27 @@
     "\n" \
     "Returns:\n" \
     "  (x, iterations, residual, iwarn, info): Solution, iteration count,\n" \
-    "    residual norm, warning code, exit code\n" \
+    "    residual norm, warning code, exit code"
+
+#define DOC_MB02XD "Solve A'*A*X = B using Cholesky factorization.\n" \
     "\n" \
-    "Examples:\n" \
+    "Solves a set of systems A'*A*X = B with A'*A positive definite\n" \
+    "using Cholesky factorization. The routine computes A'*A and\n" \
+    "solves via symmetric Gaussian elimination.\n" \
     "\n" \
-    ">>> from slicot import mb02wd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [4.0, 2.0, 1.0],\n" \
-    "...     [0.0, 5.0, 2.0],\n" \
-    "...     [0.0, 0.0, 6.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([1.0, 2.0, 3.0], dtype=np.float64)\n" \
-    ">>> x = np.zeros(3, dtype=np.float64)\n" \
-    ">>> x_out, iterations, residual, iwarn, info = slicot.mb02wd('U', 100, a, b, x, 1e-12)\n" \
-    ">>> info\n" \
-    "0"
+    "Parameters:\n" \
+    "  stor (str): 'F' full storage, 'P' packed storage for A'*A\n" \
+    "  uplo (str): 'U' upper triangle, 'L' lower triangle\n" \
+    "  m (int): Rows of A (>= 0)\n" \
+    "  n (int): Columns of A, rows of X and B (>= 0)\n" \
+    "  nrhs (int): Number of right-hand sides (>= 0)\n" \
+    "  a (ndarray): M-by-N matrix A (F-order)\n" \
+    "  b (ndarray): N-by-NRHS right-hand side, overwritten with solution (F-order)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (ata, info):\n" \
+    "    ata: N-by-N Cholesky factor of A'*A (or packed form)\n" \
+    "    info: 0=success, >0=not positive definite (leading minor i)"
 
 #define DOC_MB02YD "Solve augmented system A*x = b, D*x = 0 in least squares sense.\n" \
     "\n" \
@@ -8548,24 +4277,7 @@
     "  tol (float): Tolerance for rank determination (COND='E')\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, rank, info): Solution vector, estimated rank, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb02yd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> r = np.array([\n" \
-    "...     [3.0, 2.0, 1.0],\n" \
-    "...     [0.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> ipvt = np.array([1, 2, 3], dtype=np.int32)\n" \
-    ">>> diag = np.array([0.1, 0.2, 0.3], dtype=np.float64)\n" \
-    ">>> qtb = np.array([1.0, 2.0, 3.0], dtype=np.float64)\n" \
-    ">>> x, rank, info = mb02yd('N', n, r, ipvt, diag, qtb, 0, 0.0)\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, rank, info): Solution vector, estimated rank, exit code"
 
 #define DOC_MB03AB "Compute Givens rotations for Wilkinson shift polynomial.\n" \
     "\n" \
@@ -8588,32 +4300,7 @@
     "\n" \
     "Returns:\n" \
     "  (c1, s1, c2, s2): Givens rotation parameters.\n" \
-    "    For SHFT='S': c2=1, s2=0\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03ab\n" \
-    ">>> k = 2\n" \
-    ">>> n = 3\n" \
-    ">>> lda1, lda2 = n, n\n" \
-    ">>> a = np.zeros((lda1, lda2, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 8.0, 9.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 1.5],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> w1 = 0.0\n" \
-    ">>> w2 = 1.5\n" \
-    ">>> c1, s1, c2, s2 = mb03ab('S', k, n, amap, s, sinv, a, w1, w2)"
+    "    For SHFT='S': c2=1, s2=0"
 
 #define DOC_MB03AD "Compute Givens rotations for Wilkinson shift polynomial (implicit shifts).\n" \
     "\n" \
@@ -8633,33 +4320,7 @@
     "\n" \
     "Returns:\n" \
     "  (c1, s1, c2, s2): Givens rotation parameters.\n" \
-    "    For SHFT='S': c2=1, s2=0\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03ad\n" \
-    ">>> k = 2\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.zeros((n, n, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [0.5, 1.5, 2.5, 3.5],\n" \
-    "...     [0.0, 0.3, 0.8, 1.2],\n" \
-    "...     [0.0, 0.0, 0.2, 0.6]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [2.0, 1.0, 0.5, 0.2],\n" \
-    "...     [0.0, 1.5, 1.0, 0.5],\n" \
-    "...     [0.0, 0.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 3.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> c1, s1, c2, s2 = mb03ad('D', k, n, amap, s, sinv, a)\n" \
-    "...     err_msg=\"First Givens rotation must be normalized\")\n" \
-    "...     err_msg=\"Second Givens rotation must be normalized\")"
+    "    For SHFT='S': c2=1, s2=0"
 
 #define DOC_MB03AE "Compute Givens rotations for Wilkinson shift polynomial (variant).\n" \
     "\n" \
@@ -8679,30 +4340,7 @@
     "\n" \
     "Returns:\n" \
     "  (c1, s1, c2, s2): Givens rotation parameters.\n" \
-    "    For SHFT='S' or N==2: c2=1, s2=0\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03ae\n" \
-    ">>> k = 2\n" \
-    ">>> n = 3\n" \
-    ">>> lda1, lda2 = n, n\n" \
-    ">>> a = np.zeros((lda1, lda2, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 8.0, 9.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 1.5],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> c1, s1, c2, s2 = mb03ae('S', k, n, amap, s, sinv, a)"
+    "    For SHFT='S' or N==2: c2=1, s2=0"
 
 #define DOC_MB03AG "Compute Givens rotations for Wilkinson shift polynomial (full evaluation).\n" \
     "\n" \
@@ -8725,30 +4363,7 @@
     "\n" \
     "Returns:\n" \
     "  (c1, s1, c2, s2): Givens rotation parameters.\n" \
-    "    For SHFT='S': c2=1, s2=0\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03ag\n" \
-    ">>> k = 2\n" \
-    ">>> n = 3\n" \
-    ">>> lda1, lda2 = n, n\n" \
-    ">>> a = np.zeros((lda1, lda2, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 8.0, 9.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 1.5],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> c1, s1, c2, s2 = mb03ag('S', k, n, amap, s, sinv, a)"
+    "    For SHFT='S': c2=1, s2=0"
 
 #define DOC_MB03AH "Compute Givens rotations for real Wilkinson shift polynomial (partial evaluation).\n" \
     "\n" \
@@ -8773,34 +4388,7 @@
     "\n" \
     "Returns:\n" \
     "  (c1, s1, c2, s2, info): Givens rotation parameters and exit code.\n" \
-    "    For SHFT='S' or N==2: c2=1, s2=0. info=0 always (no error checking).\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ah\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2  # number of factors\n" \
-    ">>> n = 3  # order of factors\n" \
-    ">>> a = np.zeros((n, n, k), order='F', dtype=float)\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 1.5, 0.3],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [1.0, 0.5, 0.2],\n" \
-    "...     [0.4, 1.2, 0.3],\n" \
-    "...     [0.0, 0.3, 0.8]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> c1, s1, c2, s2, info = mb03ah('S', k, n, amap, s, sinv, a)\n" \
-    "...     err_msg=\"First rotation not normalized\")\n" \
-    "...     err_msg=\"C2 should be 1 for single shift\")\n" \
-    "...     err_msg=\"S2 should be 0 for single shift\")\n" \
-    ">>> info\n" \
-    "0"
+    "    For SHFT='S' or N==2: c2=1, s2=0. info=0 always (no error checking)."
 
 #define DOC_MB03AI "Compute Givens rotations for Wilkinson shift polynomial (full evaluation).\n" \
     "\n" \
@@ -8819,30 +4407,7 @@
     "\n" \
     "Returns:\n" \
     "  (c1, s1, c2, s2): Givens rotation parameters.\n" \
-    "    For SHFT='S' or N==2: c2=1, s2=0\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03ai\n" \
-    ">>> k = 2\n" \
-    ">>> n = 3\n" \
-    ">>> lda1, lda2 = n, n\n" \
-    ">>> a = np.zeros((lda1, lda2, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 1.5],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [0.0, 8.0, 9.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> c1, s1, c2, s2 = mb03ai('S', k, n, amap, s, sinv, a)"
+    "    For SHFT='S' or N==2: c2=1, s2=0"
 
 #define DOC_MB03BA "Compute maps for Hessenberg index and signature array.\n" \
     "\n" \
@@ -8855,18 +4420,7 @@
     "  s (ndarray): Signature array, dimension (K). Each entry must be 1 or -1.\n" \
     "\n" \
     "Returns:\n" \
-    "  (smult, amap, qmap): Signature multiplier, factor access map, Q access map\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03ba\n" \
-    ">>> k = 4\n" \
-    ">>> h = 2\n" \
-    ">>> s = np.array([1, 1, -1, 1], dtype=np.int32, order='F')\n" \
-    ">>> smult, amap, qmap = mb03ba(k, h, s)\n" \
-    ">>> expected_amap = np.array([2, 3, 4, 1], dtype=np.int32)\n" \
-    ">>> expected_qmap = np.array([2, 3, 4, 1], dtype=np.int32)"
+    "  (smult, amap, qmap): Signature multiplier, factor access map, Q access map"
 
 #define DOC_MB03BC "Product SVD of 2x2 triangular factors.\n" \
     "\n" \
@@ -8896,22 +4450,7 @@
     "  (a, cv, sv):\n" \
     "    - a: Modified triangular factors (product is diagonal)\n" \
     "    - cv: Cosines of Givens rotations (K,)\n" \
-    "    - sv: Sines of Givens rotations (K,)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03bc\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> a = np.zeros((2, 2, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([[1.0, 0.5], [0.0, 0.8]], dtype=float)\n" \
-    ">>> a[:, :, 1] = np.array([[2.0, -0.3], [0.0, 1.5]], dtype=float)\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32, order='F')\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32, order='F')\n" \
-    ">>> sinv = 1\n" \
-    ">>> macpar = get_macpar()\n" \
-    ">>> a_out, cv, sv = mb03bc(k, amap, s, sinv, a, macpar)\n" \
-    "...     norm = cv[i]**2 + sv[i]**2"
+    "    - sv: Sines of Givens rotations (K,)"
 
 #define DOC_MB03BD "Compute eigenvalues of periodic Hessenberg matrix product.\n" \
     "\n" \
@@ -8943,59 +4482,7 @@
     "    - iwarn: Warning code\n" \
     "    - info: Exit code (0 = success)\n" \
     "\n" \
-    "Eigenvalue formula: (alphar + alphai*j) / beta * 2^scal\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03bd\n" \
-    ">>> k = 3\n" \
-    ">>> n = 3\n" \
-    ">>> h = 2\n" \
-    ">>> ilo = 1\n" \
-    ">>> ihi = 3\n" \
-    ">>> s = np.array([-1, 1, -1], dtype=np.int32)\n" \
-    ">>> a0 = np.array([\n" \
-    "...     [2.0, 0.0, 1.0],\n" \
-    "...     [0.0, -2.0, -1.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.0, 2.0, 0.0],\n" \
-    "...     [4.0, -1.0, 3.0],\n" \
-    "...     [0.0, 3.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [1.0, 0.0, 1.0],\n" \
-    "...     [0.0, 4.0, -1.0],\n" \
-    "...     [0.0, 0.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.zeros((n, n, k), order='F', dtype=float)\n" \
-    ">>> a[:, :, 0] = a0\n" \
-    ">>> a[:, :, 1] = a1\n" \
-    ">>> a[:, :, 2] = a2\n" \
-    ">>> a_out, q_out, alphar, alphai, beta, scal, iwarn, info = mb03bd(\n" \
-    "...     'S', 'C', 'I', k, n, h, ilo, ihi, s, a\n" \
-    "...     )\n" \
-    ">>> expected_alphar = np.array([0.3230, 0.3230, -0.8752])\n" \
-    ">>> expected_alphai = np.array([0.5694, -0.5694, 0.0])\n" \
-    ">>> expected_beta = np.array([1.0, 1.0, 1.0])\n" \
-    ">>> expected_scal = np.array([0, 0, -1], dtype=np.int32)\n" \
-    ">>> base = 2.0\n" \
-    ">>> eig = []\n" \
-    ">>> i = 0\n" \
-    "...     val = (alphar[i] / beta[i]) * (base ** scal[i])\n" \
-    "...     eig.append(val)\n" \
-    "...     i += 1\n" \
-    "...     else:\n" \
-    "...     val = (complex(alphar[i], alphai[i]) / beta[i]) * (base ** scal[i])\n" \
-    "...     eig.append(val)\n" \
-    "...     eig.append(val.conjugate())\n" \
-    "...     i += 2\n" \
-    ">>> eig = np.array(sorted(eig, key=lambda x: (x.real, x.imag)))\n" \
-    ">>> expected = np.array(sorted([0.3230 + 0.5694j, 0.3230 - 0.5694j, -0.4376], key=lambda x: (x.real, x.imag)))\n" \
-    ">>> info\n" \
-    "0"
+    "Eigenvalue formula: (alphar + alphai*j) / beta * 2^scal"
 
 #define DOC_MB03BE "Apply periodic QZ iterations to 2x2 matrix product.\n" \
     "\n" \
@@ -9011,28 +4498,7 @@
     "  a (ndarray): Matrix factors (2 x 2 x K, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  a: Modified matrix factors with quasi-triangular first factor\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03be\n" \
-    ">>> k = 2\n" \
-    ">>> a = np.zeros((2, 2, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [2.0, 1.5],\n" \
-    "...     [0.8, 1.2]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [1.5, 0.5],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> a_out = mb03be(k, amap, s, sinv, a)\n" \
-    ">>> ai = amap[0] - 1\n" \
-    ">>> subdiag_after = abs(a_out[1, 0, ai])"
+    "  a: Modified matrix factors with quasi-triangular first factor"
 
 #define DOC_MB03BF "Apply periodic QZ iterations to 2x2 matrix product with ULP tolerance.\n" \
     "\n" \
@@ -9049,29 +4515,7 @@
     "  ulp (float): Machine precision for convergence test\n" \
     "\n" \
     "Returns:\n" \
-    "  a: Modified matrix factors with quasi-triangular Hessenberg factor\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03bf\n" \
-    ">>> k = 2\n" \
-    ">>> a = np.zeros((2, 2, k), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [2.0, 1.5],\n" \
-    "...     [0.8, 1.2]\n" \
-    "...     ], order='F')\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [1.5, 0.5],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> amap = np.array([1, 2], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> ulp = np.finfo(float).eps\n" \
-    ">>> a_out = mb03bf(k, amap, s, sinv, a, ulp)\n" \
-    ">>> ai = amap[k - 1] - 1\n" \
-    ">>> subdiag_after = abs(a_out[1, 0, ai])"
+    "  a: Modified matrix factors with quasi-triangular Hessenberg factor"
 
 #define DOC_MB03BG "Compute eigenvalues of 2x2 trailing submatrix of matrix product.\n" \
     "\n" \
@@ -9088,28 +4532,7 @@
     "  a (ndarray): Matrix factors (N x N x K, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (wr, wi): Real and imaginary parts of the two eigenvalues\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03bg\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 1\n" \
-    ">>> n = 2\n" \
-    ">>> amap = np.array([1], dtype=np.int32)\n" \
-    ">>> s = np.array([1], dtype=np.int32)\n" \
-    ">>> sinv = 1\n" \
-    ">>> a = np.zeros((2, 2, 1), dtype=float, order='F')\n" \
-    ">>> a[:, :, 0] = np.array([[3.0, 1.0],\n" \
-    "...     [2.0, 4.0]], order='F')\n" \
-    ">>> wr, wi = mb03bg(k, n, amap, s, sinv, a)\n" \
-    ">>> eigs_computed = wr + 1j * wi\n" \
-    "...     sorted(eigs_computed.real),\n" \
-    "...     rtol=1e-14\n" \
-    ">>> )\n" \
-    "...     sorted(np.abs(eigs_computed.imag)),\n" \
-    "...     rtol=1e-14\n" \
-    ">>> )"
+    "  (wr, wi): Real and imaginary parts of the two eigenvalues"
 
 #define DOC_MB03BZ "Complex periodic QZ algorithm for eigenvalues of generalized matrix products.\n" \
     "\n" \
@@ -9139,46 +4562,7 @@
     "    - scal: Scaling exponents (int, dimension N)\n" \
     "    - info: Exit code (0=success, <0=param error, >0=convergence failure)\n" \
     "\n" \
-    "Eigenvalue formula: alpha(i) / beta(i) * BASE^scal(i)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03bz\n" \
-    ">>> k = 3\n" \
-    ">>> n = 4\n" \
-    ">>> ilo = 1\n" \
-    ">>> ihi = 4\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [0.8637+0.9326j, 0.8819+0.4850j, 0.5920+0.8826j, 0.8991+0.9040j],\n" \
-    "...     [0.6994+0.8588j, 0.9527+0.2672j, 0.5087+0.0621j, 0.9653+0.5715j],\n" \
-    "...     [0.0+0.0j,       0.1561+0.1898j, 0.9514+0.9266j, 0.6582+0.3102j],\n" \
-    "...     [0.0+0.0j,       0.0+0.0j,       0.8649+0.1265j, 0.1701+0.0013j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [0.5113+0.7375j, 0.6869+0.7692j, 0.7812+0.1467j, 0.7216+0.9498j],\n" \
-    "...     [0.0+0.0j,       0.1319+0.9137j, 0.5879+0.0201j, 0.9834+0.0549j],\n" \
-    "...     [0.0+0.0j,       0.0+0.0j,       0.7711+0.2422j, 0.9468+0.3280j],\n" \
-    "...     [0.0+0.0j,       0.0+0.0j,       0.0+0.0j,       0.2219+0.3971j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> a3 = np.array([\n" \
-    "...     [0.0158+0.4042j, 0.0082+0.2033j, 0.1028+0.9913j, 0.6954+0.1987j],\n" \
-    "...     [0.0+0.0j,       0.5066+0.4587j, 0.1060+0.6949j, 0.5402+0.0970j],\n" \
-    "...     [0.0+0.0j,       0.0+0.0j,       0.4494+0.3700j, 0.8492+0.4882j],\n" \
-    "...     [0.0+0.0j,       0.0+0.0j,       0.0+0.0j,       0.2110+0.5824j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> a = np.zeros((n, n, k), dtype=np.complex128, order='F')\n" \
-    ">>> a[:, :, 0] = a1\n" \
-    ">>> a[:, :, 1] = a2\n" \
-    ">>> a[:, :, 2] = a3\n" \
-    ">>> s = np.array([1, -1, 1], dtype=np.int32)\n" \
-    ">>> a_out, q_out, alpha, beta, scal, info = mb03bz('S', 'I', k, n, ilo, ihi, s, a)\n" \
-    "...     f\"a_out[{i},{i},{l}] diagonal should be real\"\n" \
-    "...     f\"a_out[{i},{i},{l}] diagonal should be non-negative\"\n" \
-    "...     qh = np.conj(q_out[:, :, l].T)\n" \
-    "...     identity_check = qh @ q_out[:, :, l]\n" \
-    ">>> info\n" \
-    "0"
+    "Eigenvalue formula: alpha(i) / beta(i) * BASE^scal(i)"
 
 #define DOC_MB03CD "Exchange eigenvalues in block triangular pencils.\n" \
     "\n" \
@@ -9203,32 +4587,7 @@
     "    - a, b, d: Transformed matrices\n" \
     "    - q1, q2, q3: Orthogonal transformation matrices\n" \
     "    - n1, n2: Exchanged block sizes (if UPLO='U')\n" \
-    "    - info: Exit code (0=success, 1-5=algorithm error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03cd\n" \
-    ">>> n1, n2 = 1, 1\n" \
-    ">>> m = n1 + n2\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 0.5],\n" \
-    "...     [0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.2],\n" \
-    "...     [0.0, 1.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, 0.1],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> prec = np.finfo(float).eps\n" \
-    ">>> a_out, b_out, d_out, q1, q2, q3, n1_out, n2_out, info = mb03cd(\n" \
-    "...     uplo='U', n1=n1, n2=n2, prec=prec, a=a, b=b, d=d\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1-5=algorithm error)"
 
 #define DOC_MB03CZ "Exchange eigenvalues of complex 2x2 upper triangular pencil.\n" \
     "\n" \
@@ -9247,46 +4606,7 @@
     "Returns:\n" \
     "  (co1, si1, co2, si2, co3, si3): Unitary matrix parameters\n" \
     "    - co1, co2, co3: Cosines (real)\n" \
-    "    - si1, si2, si3: Sines (complex)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03cz\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0 + 0.5j, 0.3 - 0.2j],\n" \
-    "...     [0.0 + 0.0j, 2.0 - 1.0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.5 + 0.1j, -0.4 + 0.3j],\n" \
-    "...     [0.0 + 0.0j, 1.5 - 0.5j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0 + 0.0j, 0.2 + 0.1j],\n" \
-    "...     [0.0 + 0.0j, 0.8 - 0.2j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> co1, si1, co2, si2, co3, si3 = mb03cz(a, b, d)\n" \
-    ">>> q1 = np.array([\n" \
-    "...     [co1, si1],\n" \
-    "...     [-np.conj(si1), co1]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    ">>> q2 = np.array([\n" \
-    "...     [co2, si2],\n" \
-    "...     [-np.conj(si2), co2]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    ">>> q3 = np.array([\n" \
-    "...     [co3, si3],\n" \
-    "...     [-np.conj(si3), co3]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    "...     q1 @ q1.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )\n" \
-    "...     q2 @ q2.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )\n" \
-    "...     q3 @ q3.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )\n" \
-    ">>> a_trans = q3.conj().T @ a @ q2\n" \
-    ">>> b_trans = q2.conj().T @ b @ q1\n" \
-    ">>> d_trans = q3.conj().T @ d @ q1"
+    "    - si1, si2, si3: Sines (complex)"
 
 #define DOC_MB03DD "Exchange eigenvalues of real block upper triangular pencil.\n" \
     "\n" \
@@ -9313,23 +4633,7 @@
     "    - a, b: Transformed matrices\n" \
     "    - q1, q2: Orthogonal transformation matrices\n" \
     "    - n1, n2: Exchanged block sizes (if UPLO='U'/'T' and INFO=0)\n" \
-    "    - info: Exit code (0=success, 3=QZ failed, 4=DHGEQZ error, 5=DTGSEN reorder failed)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n1, n2 = 1, 1\n" \
-    ">>> m = n1 + n2\n" \
-    ">>> prec = np.finfo(float).eps\n" \
-    ">>> a = np.array([[2.0, 1.0],\n" \
-    "...     [0.0, 3.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0, 0.5],\n" \
-    "...     [0.0, 2.0]], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, q1, q2, n1_out, n2_out, info = mb03dd('U', n1, n2, prec, a, b)\n" \
-    ">>> eig_trans = np.linalg.eigvals(a_out @ np.linalg.inv(b_out))\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 3=QZ failed, 4=DHGEQZ error, 5=DTGSEN reorder failed)"
 
 #define DOC_MB03DZ "Exchange eigenvalues of complex 2x2 upper triangular pencil.\n" \
     "\n" \
@@ -9353,35 +4657,7 @@
     "    - co1 (float): Cosine of Q1\n" \
     "    - si1 (complex): Sine of Q1\n" \
     "    - co2 (float): Cosine of Q2\n" \
-    "    - si2 (complex): Sine of Q2\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03dz\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0 + 0.5j, 0.3 - 0.2j],\n" \
-    "...     [0.0 + 0.0j, 2.0 - 1.0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.5 + 0.1j, -0.4 + 0.3j],\n" \
-    "...     [0.0 + 0.0j, 1.5 - 0.5j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> co1, si1, co2, si2 = mb03dz(a, b)\n" \
-    ">>> q1 = np.array([\n" \
-    "...     [co1, si1],\n" \
-    "...     [-np.conj(si1), co1]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    ">>> q2 = np.array([\n" \
-    "...     [co2, si2],\n" \
-    "...     [-np.conj(si2), co2]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    "...     q1 @ q1.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )\n" \
-    "...     q2 @ q2.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )\n" \
-    ">>> a_trans = q2.conj().T @ a @ q1\n" \
-    ">>> b_trans = q2.conj().T @ b @ q1"
+    "    - si2 (complex): Sine of Q2"
 
 #define DOC_MB03ED "Compute orthogonal matrices for 2x2 or 4x4 skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9410,23 +4686,7 @@
     "    - q1: First orthogonal transformation matrix (N x N)\n" \
     "    - q2: Second orthogonal transformation matrix (N x N)\n" \
     "    - q3: Third orthogonal transformation matrix (N x N)\n" \
-    "    - info: Exit code (0=success, 1=QZ failed, 2=other DGGES error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ed\n" \
-    ">>> import numpy as np\n" \
-    ">>> prec = np.finfo(float).eps\n" \
-    ">>> n = 2\n" \
-    ">>> a = np.array([[2.0, 0.0],\n" \
-    "...     [0.0, 3.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 2.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[0.0, 1.0],\n" \
-    "...     [2.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> d_out, q1, q2, q3, info = mb03ed(n, prec, a, b, d)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1=QZ failed, 2=other DGGES error)"
 
 #define DOC_MB03FD "Reduce 2x2 or 4x4 block diagonal skew-Hamiltonian/Hamiltonian pencil to Schur form.\n" \
     "\n" \
@@ -9453,25 +4713,7 @@
     "    - b: Transformed B (quasi-triangular if N=4, unchanged if N=2)\n" \
     "    - q1: First orthogonal transformation matrix (N x N)\n" \
     "    - q2: Second orthogonal transformation matrix (N x N)\n" \
-    "    - info: Exit code (0=success, 1=QZ failed in DGGES, 2=other DGGES error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03fd\n" \
-    ">>> n = 2\n" \
-    ">>> prec = np.finfo(float).eps\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 0.0],\n" \
-    "...     [0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0, 1.5],\n" \
-    "...     [2.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, q1, q2, info = mb03fd(n=n, prec=prec, a=a, b=b)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0=success, 1=QZ failed in DGGES, 2=other DGGES error)"
 
 #define DOC_MB03FZ "Eigenvalues and deflating subspace of complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9495,30 +4737,7 @@
     "  (z, b, fg, neig, d, c, q, u, alphar, alphai, beta, info):\n" \
     "    Transformed matrices, number of negative eigenvalues, output matrices,\n" \
     "    deflating/companion subspaces, eigenvalue components, exit code.\n" \
-    "    Eigenvalue = (alphar + i*alphai) / beta\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03fz\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> z = np.array([\n" \
-    "...     [0.0328 + 0.9611j, 0.6428 + 0.2585j, 0.7033 + 0.4254j, 0.2552 + 0.7053j],\n" \
-    "...     [0.0501 + 0.2510j, 0.2827 + 0.8865j, 0.4719 + 0.5387j, 0.0389 + 0.5676j],\n" \
-    "...     [0.5551 + 0.4242j, 0.0643 + 0.2716j, 0.1165 + 0.7875j, 0.9144 + 0.3891j],\n" \
-    "...     [0.0539 + 0.7931j, 0.0408 + 0.2654j, 0.9912 + 0.0989j, 0.0991 + 0.6585j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0547 + 0.8726j, 0.4008 + 0.8722j],\n" \
-    "...     [0.7423 + 0.6166j, 0.2631 + 0.5872j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> fg = np.array([\n" \
-    "...     [0.8740 + 0.0j,         0.3697 + 0.0j,         0.9178 + 0.6418j],\n" \
-    "...     [0.7748 + 0.5358j,      0.1652 + 0.0j,         0.2441 + 0.0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> (z_out, b_out, fg_out, neig, d, c, q, u,\n" \
-    "...     alphar, alphai, beta, info) = mb03fz('C', 'C', 'P', n, z, b, fg)"
+    "    Eigenvalue = (alphar + i*alphai) / beta"
 
 #define DOC_MB03GD "Exchange eigenvalues of 2x2 or 4x4 skew-Hamiltonian/Hamiltonian pencil (factored).\n" \
     "\n" \
@@ -9539,22 +4758,7 @@
     "  (q, u, info):\n" \
     "    - q (ndarray): N-by-N orthogonal transformation matrix Q\n" \
     "    - u (ndarray): N-by-N orthogonal symplectic transformation matrix U\n" \
-    "    - info (int): 0=success, 1=B11 or B22 numerically singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03gd\n" \
-    ">>> n = 2\n" \
-    ">>> b = np.array([\n" \
-    "...     [2.0, 0.5],\n" \
-    "...     [0.0, 1.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([[1.0, 0.3]], order='F', dtype=float)\n" \
-    ">>> macpar = np.array([2.2e-16, 2.2e-308], dtype=float)\n" \
-    ">>> q, u, info = mb03gd(n, b, d, macpar)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info (int): 0=success, 1=B11 or B22 numerically singular"
 
 #define DOC_MB03GZ "Compute unitary matrices for 2x2 skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9581,30 +4785,7 @@
     "    - co1 (float): Cosine element of Q\n" \
     "    - si1 (complex): Sine element of Q\n" \
     "    - co2 (float): Cosine element of U\n" \
-    "    - si2 (complex): Sine element of U\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03gz\n" \
-    ">>> z11 = 1.0 + 0.5j\n" \
-    ">>> z12 = 0.3 - 0.2j\n" \
-    ">>> z22 = 2.0 - 1.0j\n" \
-    ">>> h11 = 0.5 + 0.1j\n" \
-    ">>> h12 = -0.4 + 0.3j\n" \
-    ">>> co1, si1, co2, si2 = mb03gz(z11, z12, z22, h11, h12)\n" \
-    ">>> q = np.array([\n" \
-    "...     [co1, si1],\n" \
-    "...     [-np.conj(si1), co1]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    ">>> u = np.array([\n" \
-    "...     [co2, si2],\n" \
-    "...     [-np.conj(si2), co2]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    "...     q @ q.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )\n" \
-    "...     u @ u.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )"
+    "    - si2 (complex): Sine element of U"
 
 #define DOC_MB03HD "Exchange eigenvalues of 2x2 or 4x4 skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9628,22 +4809,7 @@
     "Returns:\n" \
     "  (q, info):\n" \
     "    - q (ndarray): N-by-N orthogonal transformation matrix Q\n" \
-    "    - info (int): 0=success, 1=B11 nearly singular (perturbed values used)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03hd\n" \
-    ">>> n = 2\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = np.zeros((1, 2), order='F', dtype=float)\n" \
-    ">>> macpar = np.array([1e-16, 1e-308], dtype=float)\n" \
-    ">>> q, info = mb03hd(n, a, b, macpar)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info (int): 0=success, 1=B11 nearly singular (perturbed values used)"
 
 #define DOC_MB03HZ "Exchange eigenvalues of complex 2x2 skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9672,23 +4838,7 @@
     "Returns:\n" \
     "  (co, si):\n" \
     "    - co (float): Upper left element of Q (real)\n" \
-    "    - si (complex): Upper right element of Q\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03hz\n" \
-    ">>> s11 = 1.0 + 0.5j\n" \
-    ">>> s12 = 0.3 - 0.2j\n" \
-    ">>> h11 = 0.5 + 0.1j\n" \
-    ">>> h12 = -0.4 + 0.3j\n" \
-    ">>> co, si = mb03hz(s11, s12, h11, h12)\n" \
-    ">>> q = np.array([\n" \
-    "...     [co, si],\n" \
-    "...     [-np.conj(si), co]\n" \
-    "...     ], dtype=np.complex128)\n" \
-    "...     q @ q.conj().T, np.eye(2), rtol=1e-14, atol=1e-14\n" \
-    ">>> )"
+    "    - si (complex): Upper right element of Q"
 
 #define DOC_MB03ID "Reorder eigenvalues of real skew-Hamiltonian/Hamiltonian pencil (factored version).\n" \
     "\n" \
@@ -9718,34 +4868,7 @@
     "    q: Orthogonal matrix Q\n" \
     "    u1, u2: Blocks of orthogonal symplectic U\n" \
     "    neig (int): Number of eigenvalues with negative real part\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid, 1=QZ failed, 2=MB03CD error, 3=MB03GD error\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03id\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2  # m = 2\n" \
-    ">>> a = np.zeros((m, m), dtype=float, order='F')\n" \
-    ">>> a[0, 0] = 2.0\n" \
-    ">>> a[0, 1] = 0.5\n" \
-    ">>> a[1, 1] = 3.0\n" \
-    ">>> c = np.zeros((m, m), dtype=float, order='F')\n" \
-    ">>> c[0, 0] = 1.0\n" \
-    ">>> c[1, 0] = 0.3\n" \
-    ">>> c[1, 1] = 2.0\n" \
-    ">>> d = np.array([[0.1, 0.2], [0.3, 0.4]], dtype=float, order='F')\n" \
-    ">>> b = np.zeros((m, m), dtype=float, order='F')\n" \
-    ">>> b[0, 0] = -1.0  # Negative eigenvalue\n" \
-    ">>> b[0, 1] = 0.2\n" \
-    ">>> b[1, 1] = 1.0   # Positive eigenvalue\n" \
-    ">>> f = np.array([[0.5, 0.1], [0.0, 0.6]], dtype=float, order='F')\n" \
-    ">>> (a_out, c_out, d_out, b_out, f_out, q_out, u1_out, u2_out,\n" \
-    "...     neig, info) = mb03id('I', 'I', n, a, c, d, b, f)\n" \
-    ">>> qtq = q_out.T @ q_out\n" \
-    ">>> u1tu1_u2tu2 = u1_out.T @ u1_out + u2_out.T @ u2_out\n" \
-    ">>> u1tu2 = u1_out.T @ u2_out\n" \
-    ">>> u2tu1 = u2_out.T @ u1_out"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid, 1=QZ failed, 2=MB03CD error, 3=MB03GD error"
 
 #define DOC_MB03IZ "Reorder eigenvalues of complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9773,48 +4896,7 @@
     "    q: Unitary matrix Q\n" \
     "    u1, u2: Blocks of unitary symplectic U\n" \
     "    neig (int): Number of eigenvalues with negative real part\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03iz\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0 + 0.5j, 0.3 - 0.2j],\n" \
-    "...     [0.0 + 0.0j, -0.5 + 0.1j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.8 + 0.1j, 0.0 + 0.0j],\n" \
-    "...     [0.2 - 0.3j, 0.6 + 0.2j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.4 + 0.2j, -0.1 + 0.1j],\n" \
-    "...     [0.1 - 0.2j, 0.3 + 0.1j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.7 + 0.3j, 0.2 - 0.1j],\n" \
-    "...     [0.0 + 0.0j, 0.4 + 0.2j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> f = np.array([\n" \
-    "...     [1.0 + 0.0j, 0.1 - 0.05j],\n" \
-    "...     [0.1 + 0.05j, 0.8 + 0.0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a_out, c_out, d_out, b_out, f_out, q, u1, u2, neig, info = mb03iz(\n" \
-    "...     'I', 'I', n, a, c, d, b, f, tol\n" \
-    "...     )\n" \
-    "...     q @ q.conj().T, np.eye(n), rtol=1e-13, atol=1e-14\n" \
-    ">>> )\n" \
-    ">>> u_full = np.block([\n" \
-    "...     [u1, u2],\n" \
-    "...     [-np.conj(u2), np.conj(u1)]\n" \
-    "...     ])\n" \
-    "...     u_full @ u_full.conj().T, np.eye(n), rtol=1e-13, atol=1e-14\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid"
 
 #define DOC_MB03JD "Reorder eigenvalues of real skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9836,33 +4918,7 @@
     "    a, d, b, f: Transformed matrices\n" \
     "    q: Orthogonal matrix Q\n" \
     "    neig (int): Number of eigenvalues with negative real part\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03jd\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, -0.8]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.3],\n" \
-    "...     [-0.3, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.7, 0.2],\n" \
-    "...     [0.0, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> f = np.array([\n" \
-    "...     [1.0, 0.1],\n" \
-    "...     [0.1, 0.8]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, d_out, b_out, f_out, q, neig, info = mb03jd('I', n, a, d, b, f)\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid"
 
 #define DOC_MB03JP "Reorder eigenvalues of real skew-Hamiltonian/Hamiltonian pencil (panel variant).\n" \
     "\n" \
@@ -9885,37 +4941,7 @@
     "    a, d, b, f: Transformed matrices\n" \
     "    q: Orthogonal matrix Q\n" \
     "    neig (int): Number of eigenvalues with negative real part\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03jp\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.3],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [-1.0, 0.2],\n" \
-    "...     [0.0, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> f = np.array([\n" \
-    "...     [0.5, 0.1],\n" \
-    "...     [0.0, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, d_out, b_out, f_out, q_out, neig, info = mb03jp(\n" \
-    "...     compq='I', n=n, a=a, d=d, b=b, f=f\n" \
-    "...     )\n" \
-    ">>> qtq = q_out.T @ q_out\n" \
-    "...     err_msg=\"Q should be orthogonal\")\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid"
 
 #define DOC_MB03JZ "Reorder eigenvalues of complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -9941,29 +4967,7 @@
     "    a, d, b, f: Transformed matrices (complex)\n" \
     "    q: Unitary matrix Q (complex)\n" \
     "    neig (int): Number of eigenvalues with negative real part\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03jz\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 2  # n = 2*m = 4\n" \
-    ">>> n = 2 * m\n" \
-    ">>> a = np.array([[1.0 + 0.0j, 0.3 - 0.2j],\n" \
-    "...     [0.0, 2.0 + 0.0j]], dtype=complex, order='F')\n" \
-    ">>> b = np.array([[1.0 + 0.0j, 0.2 + 0.1j],\n" \
-    "...     [0.0, 3.0 + 0.0j]], dtype=complex, order='F')\n" \
-    ">>> d = np.array([[0.5j, 0.1 + 0.2j],\n" \
-    "...     [0.0, -0.3j]], dtype=complex, order='F')\n" \
-    ">>> f = np.array([[1.0, 0.2 - 0.1j],\n" \
-    "...     [0.0, 0.8]], dtype=complex, order='F')\n" \
-    ">>> a_out, d_out, b_out, f_out, q_out, neig, info = mb03jz(\n" \
-    "...     'I', n, a.copy(order='F'), d.copy(order='F'),\n" \
-    "...     b.copy(order='F'), f.copy(order='F')\n" \
-    "...     )\n" \
-    "...     rtol=1e-14, atol=1e-14)\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid"
 
 #define DOC_MB03KA "Move diagonal blocks in generalized periodic Schur form.\n" \
     "\n" \
@@ -9993,47 +4997,7 @@
     "\n" \
     "Returns:\n" \
     "  (t, q, ifst, ilst, info): Updated T matrices, updated Q matrices, final IFST, final ILST, exit code\n" \
-    "  info=0: success, info=1: reordering failed, info=-21: workspace too small\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ka\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> nc = 3\n" \
-    ">>> kschur = 1\n" \
-    ">>> ifst = 1\n" \
-    ">>> ilst = 3\n" \
-    ">>> n = np.array([nc, nc], dtype=np.int32)\n" \
-    ">>> ni = np.array([0, 0], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> t1 = np.array([\n" \
-    "...     [2.0, 0.5, 0.3],\n" \
-    "...     [0.0, 3.0, 0.4],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> t2 = np.array([\n" \
-    "...     [1.5, 0.2, 0.1],\n" \
-    "...     [0.0, 2.5, 0.3],\n" \
-    "...     [0.0, 0.0, 3.5]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> t = np.concatenate([t1.ravel('F'), t2.ravel('F')])\n" \
-    ">>> ldt = np.array([nc, nc], dtype=np.int32)\n" \
-    ">>> ixt = np.array([1, nc*nc + 1], dtype=np.int32)\n" \
-    ">>> q = np.eye(nc, dtype=np.float64, order='F').ravel('F')\n" \
-    ">>> q = np.concatenate([q, np.eye(nc, dtype=np.float64, order='F').ravel('F')])\n" \
-    ">>> ldq = np.array([nc, nc], dtype=np.int32)\n" \
-    ">>> ixq = np.array([1, nc*nc + 1], dtype=np.int32)\n" \
-    ">>> whichq = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> eps = np.finfo(np.float64).eps\n" \
-    ">>> smlnum = np.finfo(np.float64).tiny / eps\n" \
-    ">>> tol = np.array([10.0, eps, smlnum], dtype=np.float64)\n" \
-    ">>> t_out, q_out, ifst_out, ilst_out, info = mb03ka(\n" \
-    "...     'U', whichq, False, k, nc, kschur, ifst, ilst,\n" \
-    "...     n, ni, s, t.copy(), ldt, ixt, q.copy(), ldq, ixq, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  info=0: success, info=1: reordering failed, info=-21: workspace too small"
 
 #define DOC_MB03KB "Swap pairs of adjacent diagonal blocks in generalized periodic Schur form.\n" \
     "\n" \
@@ -10064,48 +5028,7 @@
     "\n" \
     "Returns:\n" \
     "  (t, q, info): Updated T matrices, updated Q matrices, exit code\n" \
-    "  info=0: success, info=1: swap rejected, info=-22: workspace too small\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03kb\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> nc = 3\n" \
-    ">>> kschur = 1\n" \
-    ">>> j1 = 1\n" \
-    ">>> n1 = 1\n" \
-    ">>> n2 = 1\n" \
-    ">>> n = np.array([nc, nc], dtype=np.int32)\n" \
-    ">>> ni = np.array([0, 0], dtype=np.int32)\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> t1 = np.array([\n" \
-    "...     [2.0, 0.5, 0.3],\n" \
-    "...     [0.0, 3.0, 0.4],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> t2 = np.array([\n" \
-    "...     [1.5, 0.2, 0.1],\n" \
-    "...     [0.0, 2.5, 0.3],\n" \
-    "...     [0.0, 0.0, 3.5]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> t = np.concatenate([t1.ravel('F'), t2.ravel('F')])\n" \
-    ">>> ldt = np.array([nc, nc], dtype=np.int32)\n" \
-    ">>> ixt = np.array([1, nc*nc + 1], dtype=np.int32)\n" \
-    ">>> q = np.eye(nc, dtype=np.float64, order='F').ravel('F')\n" \
-    ">>> q = np.concatenate([q, np.eye(nc, dtype=np.float64, order='F').ravel('F')])\n" \
-    ">>> ldq = np.array([nc, nc], dtype=np.int32)\n" \
-    ">>> ixq = np.array([1, nc*nc + 1], dtype=np.int32)\n" \
-    ">>> whichq = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> eps = np.finfo(np.float64).eps\n" \
-    ">>> smlnum = np.finfo(np.float64).tiny / eps\n" \
-    ">>> tol = np.array([10.0, eps, smlnum], dtype=np.float64)\n" \
-    ">>> t_out, q_out, info = mb03kb(\n" \
-    "...     'U', whichq, False, k, nc, kschur, j1, n1, n2,\n" \
-    "...     n, ni, s, t.copy(), ldt, ixt, q.copy(), ldq, ixq, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  info=0: success, info=1: swap rejected, info=-22: workspace too small"
 
 #define DOC_MB03KC "Reduce 2x2 formal matrix product to periodic Hessenberg-triangular form.\n" \
     "\n" \
@@ -10130,21 +5053,7 @@
     "  (v, tau, a):\n" \
     "    - v (ndarray): Array of length 2*k containing K 2-vectors v_k\n" \
     "    - tau (ndarray): Array of length k containing tau_k values\n" \
-    "    - a (ndarray): Transformed matrices Te_k (N x N x K, F-order)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03kc\n" \
-    ">>> import numpy as np\n" \
-    ">>> k = 2\n" \
-    ">>> khess = 1\n" \
-    ">>> n = 3\n" \
-    ">>> r = 1\n" \
-    ">>> lda = n\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> a = np.random.randn(n, n, k).astype(np.float64, order='F')\n" \
-    ">>> v, tau, a_out = mb03kc(k, khess, n, r, s, a, lda)\n" \
-    "...     a_block = a_out[r-1:r+1, r-1:r+1, i]"
+    "    - a (ndarray): Transformed matrices Te_k (N x N x K, F-order)"
 
 #define DOC_MB03KD "Reorder diagonal blocks in generalized periodic Schur form.\n" \
     "\n" \
@@ -10175,51 +5084,7 @@
     "    t: Reordered T matrices\n" \
     "    q: Orthogonal transformation matrices\n" \
     "    m: Number of selected eigenvalues reordered\n" \
-    "    info: 0=success, <0=param error, 1=reordering failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03kd\n" \
-    ">>> k = 3\n" \
-    ">>> n = 3\n" \
-    ">>> nc = n\n" \
-    ">>> kschur = 2\n" \
-    ">>> nd = np.array([n, n, n], dtype=np.int32)\n" \
-    ">>> ni = np.array([0, 0, 0], dtype=np.int32)\n" \
-    ">>> s = np.array([1, -1, 1], dtype=np.int32)\n" \
-    ">>> t1 = np.array([\n" \
-    "...     [1.8451, 0.0, 0.0],\n" \
-    "...     [0.9260, 1.3976, 0.0],\n" \
-    "...     [1.2717, -2.3544, -3.1023]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> t2 = np.array([\n" \
-    "...     [-2.0990, 0.0, 0.0],\n" \
-    "...     [-1.0831, 3.4838, 3.4552],\n" \
-    "...     [-2.5601, 0.2950, -2.1690]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> t3 = np.array([\n" \
-    "...     [2.5997, 0.0, 0.0],\n" \
-    "...     [-0.0087, 1.9846, 0.0],\n" \
-    "...     [1.6898, 0.1942, 2.3259]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> t_size = n * n * k\n" \
-    ">>> t = np.zeros(t_size, dtype=np.float64, order='F')\n" \
-    ">>> t[:n*n] = t1.ravel('F')\n" \
-    ">>> t[n*n:2*n*n] = t2.ravel('F')\n" \
-    ">>> t[2*n*n:] = t3.ravel('F')\n" \
-    ">>> ldt = np.array([n, n, n], dtype=np.int32)\n" \
-    ">>> ixt = np.array([1, n*n + 1, 2*n*n + 1], dtype=np.int32)\n" \
-    ">>> ldq = np.array([n, n, n], dtype=np.int32)\n" \
-    ">>> ixq = np.array([1, n*n + 1, 2*n*n + 1], dtype=np.int32)\n" \
-    ">>> select = np.array([False, False, True], dtype=np.bool_)\n" \
-    ">>> tol = 100.0\n" \
-    ">>> t_out, q_out, m, info = mb03kd(\n" \
-    "...     'I', 'N', k, nc, kschur, nd, ni, s, select,\n" \
-    "...     t.copy(), ldt, ixt, ldq, ixq, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, <0=param error, 1=reordering failed"
 
 #define DOC_MB03KE "Solve small periodic Sylvester-like equations.\n" \
     "\n" \
@@ -10248,26 +5113,7 @@
     "  (x, scale, info):\n" \
     "    - x (ndarray): Solution sequence X(i) (length M*N*K)\n" \
     "    - scale (float): Scale factor (<= 1) to avoid overflow\n" \
-    "    - info (int): 0=success, -21=ldwork too small, 1=scaled\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ke\n" \
-    ">>> import numpy as np\n" \
-    ">>> k, m, n = 2, 1, 1\n" \
-    ">>> trana, tranb = False, False\n" \
-    ">>> isgn = 1\n" \
-    ">>> a = np.array([2.0, 3.0], dtype=float, order='F')\n" \
-    ">>> b = np.array([1.5, 0.5], dtype=float, order='F')\n" \
-    ">>> c = np.array([1.0, 2.0], dtype=float, order='F')\n" \
-    ">>> s = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> x, scale, info = mb03ke(trana, tranb, isgn, k, m, n, s, a, b, c)\n" \
-    "...     i_next = (i + 1) % k\n" \
-    "...     lhs = a[i] * x[i] + isgn * x[i_next] * b[i]\n" \
-    "...     else:\n" \
-    "...     lhs = a[i] * x[i_next] + isgn * x[i] * b[i]\n" \
-    ">>> info\n" \
-    "0"
+    "    - info (int): 0=success, -21=ldwork too small, 1=scaled"
 
 #define DOC_MB03LD "Eigenvalues and right deflating subspace of real skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -10290,45 +5136,7 @@
     "    neig: Number of eigenvalues with negative real part\n" \
     "    q: N-by-NEIG deflating subspace (if compq='C' and neig>0)\n" \
     "    alphar, alphai, beta: Eigenvalue components (lambda=alpha/beta)\n" \
-    "    info: 0=success, 1=MB04BD/HD QZ failed, 2=MB04HD/MB03DD failed, 3=singular, 4=SVD failed, 5=eigenvalues may be inaccurate\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ld\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 8\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.1472, 1.3236, 4.5751, 4.5717],\n" \
-    "...     [4.0579, -4.0246, 4.6489, -0.1462],\n" \
-    "...     [-3.7301, -2.2150, -3.4239, 3.0028],\n" \
-    "...     [4.1338, 0.4688, 4.7059, -3.5811]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.0000, 0.0000, -1.5510, -4.5974, -2.5127],\n" \
-    "...     [3.5071, 0.0000, 0.0000, 1.5961, 2.4490],\n" \
-    "...     [-3.1428, 2.5648, 0.0000, 0.0000, -0.0596],\n" \
-    "...     [3.0340, 2.4892, -1.1604, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.6882, -3.3782, -3.3435, 1.8921],\n" \
-    "...     [-0.3061, 2.9428, 1.0198, 2.4815],\n" \
-    "...     [-4.8810, -1.8878, -2.3703, -0.4946],\n" \
-    "...     [-1.6288, 0.2853, 1.5408, -4.1618]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> fg = np.array([\n" \
-    "...     [-2.4013, -2.7102, 0.3834, -3.9335, 3.1730],\n" \
-    "...     [-3.1815, -2.3620, 4.9613, 4.6190, 3.6869],\n" \
-    "...     [3.6929, 0.7970, 0.4986, -4.9537, -4.1556],\n" \
-    "...     [3.5303, 1.2206, -1.4905, 0.1325, -1.0022]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, de_out, b_out, fg_out, neig, q, alphar, alphai, beta, info = mb03ld(\n" \
-    "...     'C', 'P', n, a, de, b, fg\n" \
-    "...     )\n" \
-    ">>> q_sub = q[:n, :neig]\n" \
-    ">>> qtq = q_sub.T @ q_sub\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=MB04BD/HD QZ failed, 2=MB04HD/MB03DD failed, 3=singular, 4=SVD failed, 5=eigenvalues may be inaccurate"
 
 #define DOC_MB03LF "Eigenvalues and deflating subspace of skew-Hamiltonian/Hamiltonian pencil in factored form.\n" \
     "\n" \
@@ -10353,41 +5161,7 @@
     "    u: N-by-NEIG companion subspace (if compu='C')\n" \
     "    alphar, alphai, beta: Eigenvalue components (lambda=alpha/beta)\n" \
     "    iwarn: 0=ok, 1=some eigenvalues may be unreliable\n" \
-    "    info: 0=success, 1=QZ failed, 2=QZ iteration failed, 3=singular, 4=SVD failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03lf\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 8\n" \
-    ">>> m = n // 2\n" \
-    ">>> z = np.array([\n" \
-    "...     [3.1472, 4.5751, -0.7824, 1.7874, -2.2308, -0.6126, 2.0936, 4.5974],\n" \
-    "...     [4.0579, 4.6489, 4.1574, 2.5774, -4.5383, -1.1844, 2.5469, -1.5961],\n" \
-    "...     [-3.7301, -3.4239, 2.9221, 2.4313, -4.0287, 2.6552, -2.2397, 0.8527],\n" \
-    "...     [4.1338, 4.7059, 4.5949, -1.0777, 3.2346, 2.9520, 1.7970, -2.7619],\n" \
-    "...     [1.3236, 4.5717, 1.5574, 1.5548, 1.9483, -3.1313, 1.5510, 2.5127],\n" \
-    "...     [-4.0246, -0.1462, -4.6429, -3.2881, -1.8290, -0.1024, -3.3739, -2.4490],\n" \
-    "...     [-2.2150, 3.0028, 3.4913, 2.0605, 4.5022, -0.5441, -3.8100, 0.0596],\n" \
-    "...     [0.4688, -3.5811, 4.3399, -4.6817, -4.6555, 1.4631, -0.0164, 1.9908]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.6882, -3.3782, -3.3435, 1.8921],\n" \
-    "...     [-0.3061, 2.9428, 1.0198, 2.4815],\n" \
-    "...     [-4.8810, -1.8878, -2.3703, -0.4946],\n" \
-    "...     [-1.6288, 0.2853, 1.5408, -4.1618]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> fg = np.array([\n" \
-    "...     [-2.4013, -2.7102, 0.3834, -3.9335, 3.1730],\n" \
-    "...     [-3.1815, -2.3620, 4.9613, 4.6190, 3.6869],\n" \
-    "...     [3.6929, 0.7970, 0.4986, -4.9537, -4.1556],\n" \
-    "...     [3.5303, 1.2206, -1.4905, 0.1325, -1.0022]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> z_out, neig, q, u, alphar, alphai, beta, iwarn, info = mb03lf(\n" \
-    "...     'C', 'C', 'P', z, b, fg\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=QZ failed, 2=QZ iteration failed, 3=singular, 4=SVD failed"
 
 #define DOC_MB03LP "Eigenvalues and right deflating subspace of real skew-Hamiltonian/Hamiltonian pencil (panel-based).\n" \
     "\n" \
@@ -10412,40 +5186,7 @@
     "    neig: Number of eigenvalues with negative real part\n" \
     "    q: 2N-by-NEIG deflating subspace (if compq='C' and neig>0), or None\n" \
     "    alphar, alphai, beta: Eigenvalue components (lambda=alpha/beta)\n" \
-    "    info: 0=success, 1=MB04BP/HD QZ failed, 2=MB04HD/MB03DD failed, 3=singular, 4=SVD failed, 5=eigenvalues may be inaccurate\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03lp\n" \
-    ">>> n = 8\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.1472, 1.3236, 4.5751, 4.5717],\n" \
-    "...     [4.0579, -4.0246, 4.6489, -0.1462],\n" \
-    "...     [-3.7301, -2.2150, -3.4239, 3.0028],\n" \
-    "...     [4.1338, 0.4688, 4.7059, -3.5811]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.0000, 0.0000, -1.5510, -4.5974, -2.5127],\n" \
-    "...     [3.5071, 0.0000, 0.0000, 1.5961, 2.4490],\n" \
-    "...     [-3.1428, 2.5648, 0.0000, 0.0000, -0.0596],\n" \
-    "...     [3.0340, 2.4892, -1.1604, 0.0000, 0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.6882, -3.3782, -3.3435, 1.8921],\n" \
-    "...     [-0.3061, 2.9428, 1.0198, 2.4815],\n" \
-    "...     [-4.8810, -1.8878, -2.3703, -0.4946],\n" \
-    "...     [-1.6288, 0.2853, 1.5408, -4.1618]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> fg = np.array([\n" \
-    "...     [-2.4013, -2.7102, 0.3834, -3.9335, 3.1730],\n" \
-    "...     [-3.1815, -2.3620, 4.9613, 4.6190, 3.6869],\n" \
-    "...     [3.6929, 0.7970, 0.4986, -4.9537, -4.1556],\n" \
-    "...     [3.5303, 1.2206, -1.4905, 0.1325, -1.0022]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> result = mb03lp('C', 'P', a, de, b, fg)\n" \
-    ">>> a_out, de_out, b_out, fg_out, neig, q, alphar, alphai, beta, info = result"
+    "    info: 0=success, 1=MB04BP/HD QZ failed, 2=MB04HD/MB03DD failed, 3=singular, 4=SVD failed, 5=eigenvalues may be inaccurate"
 
 #define DOC_MB03LZ "Eigenvalues and right deflating subspace of complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -10468,35 +5209,7 @@
     "    q: N-by-NEIG deflating subspace (if compq='C' and neig>0)\n" \
     "    alphar, alphai, beta: Eigenvalue components (lambda=alpha/beta)\n" \
     "    neig: Number of eigenvalues with negative real part\n" \
-    "    info: 0=success, 1=MB04FD failed, 2=ZHGEQZ failed, 3=SVD failed, 4=singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03lz\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0604 + 0.6568j, 0.5268 + 0.2919j],\n" \
-    "...     [0.3992 + 0.6279j, 0.4167 + 0.4316j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.0 + 0.4896j, 0.0 + 0.9516j, 0.3724 + 0.0526j],\n" \
-    "...     [0.9840 + 0.3394j, 0.0 + 0.9203j, 0.0 + 0.7378j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.2691 + 0.4177j, 0.5478 + 0.3014j],\n" \
-    "...     [0.4228 + 0.9830j, 0.9427 + 0.7010j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> fg = np.array([\n" \
-    "...     [0.6663 + 0.0j, 0.6981 + 0.0j, 0.1781 + 0.8818j],\n" \
-    "...     [0.5391 + 0.1711j, 0.6665 + 0.0j, 0.1280 + 0.0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> result = mb03lz('C', 'P', n, a, de, b, fg)\n" \
-    ">>> a_out, de_out, b_out, fg_out, q, alphar, alphai, beta, neig, info = result\n" \
-    ">>> actual_eig = (alphar + 1j * alphai) / beta\n" \
-    ">>> q_sub = q[:, :neig]\n" \
-    ">>> qtq = np.conj(q_sub.T) @ q_sub"
+    "    info: 0=success, 1=MB04FD failed, 2=ZHGEQZ failed, 3=SVD failed, 4=singular"
 
 #define DOC_MB03MD "Compute upper bound for L singular values of bidiagonal matrix.\n" \
     "\n" \
@@ -10520,26 +5233,7 @@
     "    - theta (float): Computed upper bound\n" \
     "    - l (int): May be increased if multiplicity > 1\n" \
     "    - iwarn (int): 0=ok, 1=L increased due to coinciding singular values\n" \
-    "    - info (int): 0=success, <0=parameter error\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03md\n" \
-    ">>> import numpy as np\n" \
-    ">>> pass\n" \
-    ">>> n = 5\n" \
-    ">>> l_in = 3\n" \
-    ">>> theta_in = -3.0  # negative means use default estimate\n" \
-    ">>> tol = 0.0\n" \
-    ">>> reltol = 0.0  # will use default\n" \
-    ">>> q = np.array([1.0, 2.0, 3.0, 4.0, 5.0], dtype=float)\n" \
-    ">>> e = np.array([2.0, 3.0, 4.0, 5.0], dtype=float)\n" \
-    ">>> q2, e2, pivmin = compute_pivmin_and_squares(q, e)\n" \
-    ">>> theta_out, l_out, iwarn, info = mb03md(\n" \
-    "...     n, l_in, theta_in, q, e, q2, e2, pivmin, tol, reltol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    - info (int): 0=success, <0=parameter error"
 
 #define DOC_MB03OD "Incremental rank estimation for QR factorization.\n" \
     "\n" \
@@ -10552,29 +5246,7 @@
     "  jobqr (str, optional): 'Q' = perform QR (default), 'N' = use existing\n" \
     "\n" \
     "Returns:\n" \
-    "  (jpvt, rank, sval, info): Pivot indices, rank, singular values, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03od\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 6, 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [ 1.,  2.,  6.,  3.,  5.],\n" \
-    "...     [-2., -1., -1.,  0., -2.],\n" \
-    "...     [ 5.,  5.,  1.,  5.,  1.],\n" \
-    "...     [-2., -1., -1.,  0., -2.],\n" \
-    "...     [ 4.,  8.,  4., 20.,  4.],\n" \
-    "...     [-2., -1., -1.,  0., -2.]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> rcond = 5e-16\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> expected_rank = 4\n" \
-    ">>> expected_jpvt = np.array([4, 3, 1, 5, 2], dtype=np.int32)\n" \
-    ">>> expected_sval = np.array([22.7257, 1.4330, 0.0])\n" \
-    ">>> jpvt, rank, sval, info = mb03od(m, n, a, rcond, svlmax, jobqr='Q')\n" \
-    ">>> info\n" \
-    "0"
+    "  (jpvt, rank, sval, info): Pivot indices, rank, singular values, exit code"
 
 #define DOC_MB03OY "Matrix rank determination by incremental condition estimation.\n" \
     "\n" \
@@ -10586,28 +5258,7 @@
     "  svlmax (float): Estimate of largest singular value\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, rank, info, sval, jpvt, tau): QR factorization results\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03oy\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 6, 4\n" \
-    ">>> rcond = 1.0e-10\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> U = np.linalg.qr(np.random.randn(m, m))[0]  # Orthogonal m x m\n" \
-    ">>> V = np.linalg.qr(np.random.randn(n, n))[0]  # Orthogonal n x n\n" \
-    ">>> sigma = np.array([10.0, 5.0, 2.0, 1e-14])\n" \
-    ">>> Sigma = np.zeros((m, n))\n" \
-    "...     Sigma[i, i] = sigma[i]\n" \
-    ">>> a = U @ Sigma @ V.T\n" \
-    ">>> a = np.asfortranarray(a)\n" \
-    ">>> true_rank = np.linalg.matrix_rank(a, tol=rcond * sigma[0])\n" \
-    ">>> a_result, rank, info, sval, jpvt, tau = mb03oy(m, n, a.copy(), rcond, svlmax)\n" \
-    ">>> cond_estimate = sval[0] / sval[1]\n" \
-    ">>> true_svd = np.linalg.svd(a, compute_uv=False)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, rank, info, sval, jpvt, tau): QR factorization results"
 
 #define DOC_MB03PD "Rank-revealing RQ factorization with row pivoting.\n" \
     "\n" \
@@ -10629,28 +5280,7 @@
     "    - info: Exit code (0 = success, <0 = param error)\n" \
     "    - sval: Singular value estimates (3 values)\n" \
     "    - jpvt: Row pivot indices (1-based)\n" \
-    "    - tau: Elementary reflector factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 6, 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [1., 2., 6., 3., 5.],\n" \
-    "...     [-2., -1., -1., 0., -2.],\n" \
-    "...     [5., 5., 1., 5., 1.],\n" \
-    "...     [-2., -1., -1., 0., -2.],\n" \
-    "...     [4., 8., 4., 20., 4.],\n" \
-    "...     [-2., -1., -1., 0., -2.]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> rcond = 5e-16\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> a_out, rank, info, sval, jpvt, tau = mb03pd('R', m, n, a.copy(order='F'), rcond, svlmax)\n" \
-    ">>> expected_jpvt = np.array([2, 4, 6, 3, 1, 5], dtype=np.int32)\n" \
-    ">>> expected_sval = np.array([24.5744, 0.9580, 0.0000])\n" \
-    ">>> info\n" \
-    "0"
+    "    - tau: Elementary reflector factors"
 
 #define DOC_MB03PY "Rank-revealing RQ factorization with row pivoting.\n" \
     "\n" \
@@ -10671,19 +5301,7 @@
     "    - info: Exit code (0 = success)\n" \
     "    - sval: Singular value estimates (3 values)\n" \
     "    - jpvt: Row pivot indices (1-based)\n" \
-    "    - tau: Elementary reflector factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03py\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 4\n" \
-    ">>> a = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> rcond = 1e-10\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> a_out, rank, info, sval, jpvt, tau = mb03py(m, n, a.copy(order='F'), rcond, svlmax)\n" \
-    ">>> info\n" \
-    "0"
+    "    - tau: Elementary reflector factors"
 
 #define DOC_MB03QD "Reorder eigenvalues in quasi-triangular matrix.\n" \
     "\n" \
@@ -10697,26 +5315,7 @@
     "  alpha (float): Stability boundary\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, u, ndim, info): Reordered A, updated U, invariant subspace dim, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03qd\n" \
-    ">>> a = np.array([\n" \
-    "...     [ 1.0,  0.5,  0.2,  0.1],\n" \
-    "...     [ 0.0,  2.0,  0.3,  0.2],\n" \
-    "...     [ 0.0,  0.0, -1.0,  0.4],\n" \
-    "...     [ 0.0,  0.0,  0.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> n = 4\n" \
-    ">>> nlow = 1\n" \
-    ">>> nsup = 4\n" \
-    ">>> alpha = 0.0  # Boundary: Re(lambda) < 0 is stable\n" \
-    ">>> a_out, u, ndim, info = mb03qd('C', 'S', 'I', a.copy(order='F'), nlow, nsup, alpha)\n" \
-    ">>> eig_after = np.sort(np.linalg.eigvals(a_out).real)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, u, ndim, info): Reordered A, updated U, invariant subspace dim, exit code"
 
 #define DOC_MB03QG "Reorder diagonal blocks of upper quasi-triangular matrix pencil.\n" \
     "\n" \
@@ -10745,33 +5344,7 @@
     "    u (ndarray): Accumulated transformation matrix UT\n" \
     "    v (ndarray): Accumulated transformation matrix VT\n" \
     "    ndim (int): Number of eigenvalues in domain of interest\n" \
-    "    info (int): 0=success, <0=param error, 1=block boundary error, 2=swap failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03qg\n" \
-    ">>> n = 4\n" \
-    ">>> nlow = 1\n" \
-    ">>> nsup = 4\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> a_schur = np.array([\n" \
-    "...     [-1.4394,  2.5550, -12.5655, -4.0714],\n" \
-    "...     [ 2.8887, -1.1242,   9.2819, -2.6724],\n" \
-    "...     [ 0.0000,  0.0000, -19.7785, 36.4447],\n" \
-    "...     [ 0.0000,  0.0000,   0.0000,  3.5537]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e_schur = np.array([\n" \
-    "...     [-16.0178,  0.0000,  2.3850,  4.7645],\n" \
-    "...     [  0.0000,  3.2809, -1.5640,  1.9954],\n" \
-    "...     [  0.0000,  0.0000, -3.0652,  0.3039],\n" \
-    "...     [  0.0000,  0.0000,  0.0000,  1.1671]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, e_out, u_out, v_out, ndim, info = mb03qg(\n" \
-    "...     'C', 'S', 'I', 'I', a_schur.copy(), e_schur.copy(), nlow, nsup, alpha\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0=success, <0=param error, 1=block boundary error, 2=swap failed"
 
 #define DOC_MB03QV "Compute eigenvalues of upper quasi-triangular matrix pencil.\n" \
     "\n" \
@@ -10787,28 +5360,7 @@
     "    alphar (ndarray): Real parts of eigenvalue numerators\n" \
     "    alphai (ndarray): Imaginary parts of eigenvalue numerators\n" \
     "    beta (ndarray): Eigenvalue denominators\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03qv\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> s = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 2.0, 0.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> t = np.array([\n" \
-    "...     [2.0, 0.0, 0.0],\n" \
-    "...     [0.0, 3.0, 0.0],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> alphar, alphai, beta, info = mb03qv(s, t)\n" \
-    ">>> eigenvalues = alphar / beta\n" \
-    ">>> expected_eigenvalues = np.array([0.5, 2.0/3.0, 0.75])\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid"
 
 #define DOC_MB03QW "Reduce 2-by-2 diagonal block pair of quasi-triangular pencil.\n" \
     "\n" \
@@ -10833,31 +5385,7 @@
     "    alphar (ndarray): Real parts of eigenvalue numerators (2,)\n" \
     "    alphai (ndarray): Imaginary parts of eigenvalue numerators (2,)\n" \
     "    beta (ndarray): Eigenvalue denominators (2,)\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03qw\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> l = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 0.5],\n" \
-    "...     [3.0, 1.0, 0.3],\n" \
-    "...     [0.0, 0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [2.0, 1.0, 0.2],\n" \
-    "...     [0.0, 1.5, 0.1],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> v = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, e_out, u_out, v_out, alphar, alphai, beta, info = mb03qw(n, l, a, e, u, v)\n" \
-    ">>> eig1 = (alphar[0] + 1j * alphai[0]) / beta[0] if beta[0] != 0 else np.inf\n" \
-    ">>> eig2 = (alphar[1] + 1j * alphai[1]) / beta[1] if beta[1] != 0 else np.inf\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid"
 
 #define DOC_MB03QX "Compute eigenvalues of upper quasi-triangular matrix.\n" \
     "\n" \
@@ -10867,24 +5395,7 @@
     "  t (ndarray): Upper quasi-triangular matrix (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (wr, wi, info): Real parts, imaginary parts, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03qx\n" \
-    ">>> n = 4\n" \
-    ">>> t = np.array([\n" \
-    "...     [1.0, 0.5, 0.2, 0.1],\n" \
-    "...     [0.0, 2.0, 0.3, 0.2],\n" \
-    "...     [0.0, 0.0, 3.0, 0.4],\n" \
-    "...     [0.0, 0.0, 0.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> wr, wi, info = mb03qx(t)\n" \
-    ">>> expected_wr = np.array([1.0, 2.0, 3.0, 4.0])\n" \
-    ">>> expected_wi = np.zeros(4)\n" \
-    ">>> info\n" \
-    "0"
+    "  (wr, wi, info): Real parts, imaginary parts, exit code"
 
 #define DOC_MB03QY "Process 2x2 diagonal block of quasi-triangular matrix.\n" \
     "\n" \
@@ -10898,23 +5409,7 @@
     "  u (ndarray): Transformation matrix (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, u, e1, e2, info): Transformed matrices, eigenvalue parts, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03qy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> l = 1  # 1-based position\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 3.0, 1.5],\n" \
-    "...     [-1.0, 2.0, 0.5],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, u_out, e1, e2, info = mb03qy(n, l, a, u)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, u, e1, e2, info): Transformed matrices, eigenvalue parts, exit code"
 
 #define DOC_MB03RD "Reduce real Schur form matrix to block-diagonal form.\n" \
     "\n" \
@@ -10928,26 +5423,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, x, nblcks, blsize, wr, wi, info): Block-diagonal A, transformation X,\n" \
-    "   number of blocks, block sizes, real/imag eigenvalues, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03rd\n" \
-    ">>> n = 4\n" \
-    ">>> pmax = 1.0e3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.5, 0.2, 0.1],\n" \
-    "...     [0.0, 2.0, 0.3, 0.2],\n" \
-    "...     [0.0, 0.0, 3.0, 0.4],\n" \
-    "...     [0.0, 0.0, 0.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, x_out, nblcks, blsize, wr, wi, info = mb03rd('U', 'N', a, pmax, x)\n" \
-    ">>> total_size = 0\n" \
-    "...     total_size += blsize[i]\n" \
-    ">>> info\n" \
-    "0"
+    "   number of blocks, block sizes, real/imag eigenvalues, exit code"
 
 #define DOC_MB03RW "Solve complex Sylvester equation -AX + XB = C.\n" \
     "\n" \
@@ -10966,28 +5442,7 @@
     "Returns:\n" \
     "  (x, info):\n" \
     "    x (ndarray): Solution matrix X (M-by-N, complex)\n" \
-    "    info (int): 0=success, 1=element of X exceeds PMAX, 2=perturbed values used\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03rw\n" \
-    ">>> m, n = 3, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0 + 0.5j, 0.2 + 0.1j, 0.1 - 0.2j],\n" \
-    "...     [0.0 + 0.0j, 2.0 - 0.3j, 0.3 + 0.1j],\n" \
-    "...     [0.0 + 0.0j, 0.0 + 0.0j, 3.0 + 0.2j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [4.0 + 0.1j, 0.1 + 0.2j, 0.2 - 0.1j],\n" \
-    "...     [0.0 + 0.0j, 5.0 - 0.2j, 0.1 + 0.3j],\n" \
-    "...     [0.0 + 0.0j, 0.0 + 0.0j, 6.0 + 0.4j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> pmax = 1e6\n" \
-    ">>> x, info = mb03rw(m, n, pmax, a, b, c)\n" \
-    "...     atol=1e-10, rtol=1e-10)\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0=success, 1=element of X exceeds PMAX, 2=perturbed values used"
 
 #define DOC_MB03RX "Reorder diagonal blocks of a real Schur form matrix.\n" \
     "\n" \
@@ -11004,26 +5459,7 @@
     "  wi (ndarray): Imaginary parts of eigenvalues (n,)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, x, wr, wi, ku_out): Reordered matrix, transformation, eigenvalues, new ku\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03rx\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.5, 0.3],\n" \
-    "...     [0.0, 2.0, 0.4],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.eye(n, order='F', dtype=float)\n" \
-    ">>> wr = np.array([1.0, 2.0, 3.0], dtype=float)\n" \
-    ">>> wi = np.zeros(n, dtype=float)\n" \
-    ">>> kl = 1\n" \
-    ">>> ku = 3\n" \
-    ">>> a_out, x_out, wr_out, wi_out, ku_out = mb03rx('V', kl, ku, a, x, wr, wi)\n" \
-    ">>> eig_before = sorted([1.0, 2.0, 3.0])\n" \
-    ">>> eig_after = sorted(wr_out.tolist())"
+    "  (a, x, wr, wi, ku_out): Reordered matrix, transformation, eigenvalues, new ku"
 
 #define DOC_MB03RY "Solve Sylvester equation -AX + XB = C with norm bound.\n" \
     "\n" \
@@ -11037,19 +5473,7 @@
     "  pmax (float): Upper bound for infinity norm of elementary submatrices\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, info): Solution X (same array as c), exit code (0=ok, 1=norm exceeded)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ry\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[3.0]], order='F', dtype=float)\n" \
-    ">>> pmax = 1000.0\n" \
-    ">>> x, info = mb03ry(a, b, c, pmax)\n" \
-    ">>> residual = -a @ x + x @ b\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, info): Solution X (same array as c), exit code (0=ok, 1=norm exceeded)"
 
 #define DOC_MB03RZ "Reduce complex Schur form matrix to block-diagonal form.\n" \
     "\n" \
@@ -11074,24 +5498,7 @@
     "    nblcks (int): Number of diagonal blocks\n" \
     "    blsize (ndarray): Block sizes (nblcks,)\n" \
     "    w (ndarray): Eigenvalues (N,)\n" \
-    "    info (int): 0=success, <0=param error\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03rz\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0 + 2.0j, 0.0 + 0.0j, 0.0 + 0.0j],\n" \
-    "...     [0.0 + 0.0j, 3.0 + 4.0j, 0.0 + 0.0j],\n" \
-    "...     [0.0 + 0.0j, 0.0 + 0.0j, 5.0 + 6.0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> pmax = 1000.0\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a_out, x_out, nblcks, blsize, w, info = mb03rz('N', 'N', a, pmax, tol)\n" \
-    ">>> expected_eig = np.array([1.0+2.0j, 3.0+4.0j, 5.0+6.0j])\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0=success, <0=param error"
 
 #define DOC_MB03SD "Eigenvalues of a square-reduced Hamiltonian matrix.\n" \
     "\n" \
@@ -11107,36 +5514,7 @@
     "  (wr, wi, info):\n" \
     "    wr (ndarray): Real parts of N eigenvalues with non-negative real part\n" \
     "    wi (ndarray): Imaginary parts of N eigenvalues\n" \
-    "    info (int): 0=success, <0=param error, >0=DHSEQR failed at i-th eigenvalue\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03sd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0,  0.0,  0.0],\n" \
-    "...     [0.0,  1.0,  2.0],\n" \
-    "...     [0.0, -1.0,  3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> qg = np.zeros((3, 4), order='F', dtype=float)\n" \
-    ">>> qg[0, 0] = -2.0  # Q'(1,1)\n" \
-    ">>> qg[1, 0] = 0.0   # Q'(2,1)\n" \
-    ">>> qg[2, 0] = 0.0   # Q'(3,1)\n" \
-    ">>> qg[1, 1] = 0.0   # Q'(2,2) - wait, this conflicts with G' storage\n" \
-    ">>> qg[2, 1] = 0.0   # Q'(3,2)\n" \
-    ">>> qg[2, 2] = 0.0   # Q'(3,3)\n" \
-    ">>> qg[0, 1] = 1.0   # G'(1,1)\n" \
-    ">>> qg[0, 2] = 0.0   # G'(2,1)\n" \
-    ">>> qg[0, 3] = 0.0   # G'(3,1)\n" \
-    ">>> qg[1, 2] = 2.0   # G'(2,2)\n" \
-    ">>> qg[1, 3] = 3.0   # G'(3,2)\n" \
-    ">>> qg[2, 3] = 4.0   # G'(3,3)\n" \
-    ">>> wr, wi, info = mb03sd('S', a, qg)\n" \
-    ">>> expected_wr = np.array([2.0, 2.0, np.sqrt(2)])\n" \
-    ">>> expected_wi = np.array([1.0, -1.0, 0.0])\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0=success, <0=param error, >0=DHSEQR failed at i-th eigenvalue"
 
 #define DOC_MB03TD "Reorder diagonal blocks of (skew-)Hamiltonian Schur form.\n" \
     "\n" \
@@ -11163,41 +5541,7 @@
     "    wr (ndarray): Real parts of eigenvalues (n,)\n" \
     "    wi (ndarray): Imaginary parts of eigenvalues (n,)\n" \
     "    m (int): Dimension of specified invariant subspace\n" \
-    "    info (int): 0=success, <0=param error, 1=reordering failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03td\n" \
-    ">>> n = 5\n" \
-    ">>> select = np.array([False, True, True, False, False], dtype=bool)\n" \
-    ">>> lower = np.array([False, True, True, False, False], dtype=bool)\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.9501, 0.7621, 0.6154, 0.4057, 0.0579],\n" \
-    "...     [0.0,    0.4565, 0.7919, 0.9355, 0.3529],\n" \
-    "...     [0.0,   -0.6822, 0.4565, 0.9169, 0.8132],\n" \
-    "...     [0.0,    0.0,    0.0,    0.4103, 0.0099],\n" \
-    "...     [0.0,    0.0,    0.0,    0.0,    0.1389]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> g = np.array([\n" \
-    "...     [0.0,   -0.1834, -0.1851,  0.5659,  0.3040],\n" \
-    "...     [0.0,    0.0,     0.4011, -0.9122,  0.2435],\n" \
-    "...     [0.0,    0.0,     0.0,     0.4786, -0.2432],\n" \
-    "...     [0.0,    0.0,     0.0,     0.0,    -0.5272],\n" \
-    "...     [0.0,    0.0,     0.0,     0.0,     0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> u1 = np.eye(n, order='F', dtype=float)\n" \
-    ">>> u2 = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> a_out, g_out, u1_out, u2_out, wr, wi, m, info = mb03td(\n" \
-    "...     'S', 'U', select, lower, a, g, u1, u2\n" \
-    "...     )\n" \
-    ">>> u_full = np.block([\n" \
-    "...     [u1_out, u2_out],\n" \
-    "...     [-u2_out, u1_out]\n" \
-    "...     ])\n" \
-    ">>> identity = np.eye(2 * n)\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0=success, <0=param error, 1=reordering failed"
 
 #define DOC_MB03TS "Swap diagonal blocks in (skew-)Hamiltonian Schur form.\n" \
     "\n" \
@@ -11221,33 +5565,7 @@
     "    g (ndarray): Updated matrix G\n" \
     "    u1 (ndarray): Updated matrix U1\n" \
     "    u2 (ndarray): Updated matrix U2\n" \
-    "    info (int): 0=success, 1=swap rejected (result would be far from Schur form)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ts\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.5, 0.3],\n" \
-    "...     [0.0, 2.0, 0.4],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> g = np.array([\n" \
-    "...     [0.1, 0.2, 0.3],\n" \
-    "...     [0.0, 0.4, 0.5],\n" \
-    "...     [0.0, 0.0, 0.6]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> u1 = np.eye(n, order='F', dtype=float)\n" \
-    ">>> u2 = np.eye(n, order='F', dtype=float)\n" \
-    ">>> isham = True\n" \
-    ">>> wantu = True\n" \
-    ">>> j1 = 1\n" \
-    ">>> n1 = 1\n" \
-    ">>> n2 = 1\n" \
-    ">>> a_out, g_out, u1_out, u2_out, info = mb03ts(isham, wantu, a, g, u1, u2, j1, n1, n2)\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0=success, 1=swap rejected (result would be far from Schur form)"
 
 #define DOC_MB03UD "Singular value decomposition of upper triangular matrix.\n" \
     "\n" \
@@ -11279,36 +5597,7 @@
     "  a (ndarray): 3D matrix array (n,n,p), column-major\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, tau, info): Reduced matrices, tau factors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03vd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> p = 2\n" \
-    ">>> ilo = 1\n" \
-    ">>> ihi = 4\n" \
-    ">>> a1 = np.array([\n" \
-    "...     [1.5, -0.7, 3.5, -0.7],\n" \
-    "...     [1.0,  0.0, 2.0,  3.0],\n" \
-    "...     [1.5, -0.7, 2.5, -0.3],\n" \
-    "...     [1.0,  0.0, 2.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a2 = np.array([\n" \
-    "...     [1.5, -0.7, 3.5, -0.7],\n" \
-    "...     [1.0,  0.0, 2.0,  3.0],\n" \
-    "...     [1.5, -0.7, 2.5, -0.3],\n" \
-    "...     [1.0,  0.0, 2.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a = np.zeros((n, n, p), dtype=np.float64, order='F')\n" \
-    ">>> a[:, :, 0] = a1\n" \
-    ">>> a[:, :, 1] = a2\n" \
-    ">>> a_out, tau, info = mb03vd(n, p, ilo, ihi, a)\n" \
-    ">>> h1 = np.triu(a_out[:, :, 0], -1)\n" \
-    ">>> h2 = np.triu(a_out[:, :, 1])\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, tau, info): Reduced matrices, tau factors, exit code"
 
 #define DOC_MB03VW "Reduce periodic product to Hessenberg-triangular form (unblocked).\n" \
     "\n" \
@@ -11329,26 +5618,7 @@
     "  q (ndarray, optional): 3D array (n,n,k) for Q matrices (compq='U')\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, q, h, info): Reduced factors, orthogonal matrices, Hessenberg index, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03vw\n" \
-    ">>> n = 4\n" \
-    ">>> k = 2\n" \
-    ">>> ilo = 1\n" \
-    ">>> ihi = n\n" \
-    ">>> a = np.random.randn(n, n, k).astype(float, order='F')\n" \
-    ">>> s = np.array([1, -1], dtype=np.int32)\n" \
-    ">>> h = 1\n" \
-    ">>> a_out, q_out, h_out, info = mb03vw('I', None, 'N', n, k, h, ilo, ihi, s, a)\n" \
-    "...     f\"Matrix {i} not upper triangular at ({row},{col})\"\n" \
-    ">>> h_idx = h_out - 1\n" \
-    "...     f\"Hessenberg matrix has nonzero at ({row},{col})\"\n" \
-    "...     qt_q = q_out[:, :, i].T @ q_out[:, :, i]\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, q, h, info): Reduced factors, orthogonal matrices, Hessenberg index, exit code"
 
 #define DOC_MB03VY "Generate orthogonal matrices from periodic Hessenberg reduction.\n" \
     "\n" \
@@ -11364,21 +5634,7 @@
     "  tau (ndarray): 2D array (n-1,p) with scalar factors from mb03vd\n" \
     "\n" \
     "Returns:\n" \
-    "  (q, info): Orthogonal matrices Q_j, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03vy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> p = 2\n" \
-    ">>> ilo = 1\n" \
-    ">>> ihi = n\n" \
-    ">>> a_out, tau, info_vd = mb03vd(n, p, ilo, ihi, a)\n" \
-    ">>> q, info_vy = mb03vy(n, p, ilo, ihi, a_out, tau)\n" \
-    "...     qj = q[:, :, j]\n" \
-    "...     qtq = qj.T @ qj\n" \
-    "...     qqt = qj @ qj.T"
+    "  (q, info): Orthogonal matrices Q_j, exit code"
 
 #define DOC_MB03WA "Swap adjacent diagonal blocks in periodic real Schur form.\n" \
     "\n" \
@@ -11409,31 +5665,7 @@
     "    b_out: Reordered matrix B\n" \
     "    q_out: Updated orthogonal matrix Q (if wantq)\n" \
     "    z_out: Updated orthogonal matrix Z (if wantz)\n" \
-    "    info: 0=success, 1=swap rejected (would be too far from Schur form)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03wa\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 0.5],\n" \
-    "...     [0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.3],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> q = np.eye(2, order='F', dtype=float)\n" \
-    ">>> z = np.eye(2, order='F', dtype=float)\n" \
-    ">>> eig_before = np.linalg.eigvals(a @ b)\n" \
-    ">>> a_out, b_out, q_out, z_out, info = mb03wa(True, True, 1, 1, a, b, q, z)\n" \
-    ">>> eig_after = np.linalg.eigvals(a_out @ b_out)\n" \
-    "...     sorted(eig_before.real),\n" \
-    "...     sorted(eig_after.real),\n" \
-    "...     rtol=1e-10\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=swap rejected (would be too far from Schur form)"
 
 #define DOC_MB03WD "Compute periodic Schur decomposition of matrix product.\n" \
     "\n" \
@@ -11453,39 +5685,7 @@
     "  z (ndarray, optional): 3D array for COMPZ='V'\n" \
     "\n" \
     "Returns:\n" \
-    "  (h, z, wr, wi, info): Schur form, transforms, eigenvalues, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03wd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> p = 2\n" \
-    ">>> ilo = 1\n" \
-    ">>> ihi = 4\n" \
-    ">>> iloz = 1\n" \
-    ">>> ihiz = 4\n" \
-    ">>> a = np.zeros((n, n, p), order='F', dtype=float)\n" \
-    ">>> a[:, :, 0] = np.array([\n" \
-    "...     [1.5, -0.7, 3.5, -0.7],\n" \
-    "...     [1.0,  0.0, 2.0,  3.0],\n" \
-    "...     [1.5, -0.7, 2.5, -0.3],\n" \
-    "...     [1.0,  0.0, 2.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a[:, :, 1] = np.array([\n" \
-    "...     [1.5, -0.7, 3.5, -0.7],\n" \
-    "...     [1.0,  0.0, 2.0,  3.0],\n" \
-    "...     [1.5, -0.7, 2.5, -0.3],\n" \
-    "...     [1.0,  0.0, 2.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> h, tau, info_vd = mb03vd(n, p, ilo, ihi, a)\n" \
-    ">>> h_result, z, wr, wi, info = mb03wd('S', 'I', n, p, ilo, ihi, iloz, ihiz, h)\n" \
-    ">>> expected_wr = np.array([6.449861, 6.449861, 0.091315, 0.208964])\n" \
-    ">>> expected_wi = np.array([7.817717, -7.817717, 0.0, 0.0])\n" \
-    ">>> t1 = h_result[:, :, 0]\n" \
-    ">>> t2 = h_result[:, :, 1]\n" \
-    ">>> info\n" \
-    "0"
+    "  (h, z, wr, wi, info): Schur form, transforms, eigenvalues, exit code"
 
 #define DOC_MB03WX "Compute eigenvalues of a product of matrices in periodic Schur form.\n" \
     "\n" \
@@ -11499,27 +5699,7 @@
     "               T(*,*,j) for j > 1 are upper triangular.\n" \
     "\n" \
     "Returns:\n" \
-    "  (wr, wi, info): Real and imaginary parts of eigenvalues, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03wx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> p = 1\n" \
-    ">>> t1 = np.array([\n" \
-    "...     [2.0, 3.0, 0.5, 0.3],\n" \
-    "...     [-1.0, 2.0, 0.2, 0.1],\n" \
-    "...     [0.0, 0.0, 4.0, 0.4],\n" \
-    "...     [0.0, 0.0, 0.0, 5.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> t = np.zeros((n, n, p), order='F', dtype=float)\n" \
-    ">>> t[:, :, 0] = t1\n" \
-    ">>> wr, wi, info = mb03wx(n, p, t)\n" \
-    ">>> expected_wr = np.array([2.0, 2.0, 4.0, 5.0])\n" \
-    ">>> expected_wi = np.array([np.sqrt(3.0), -np.sqrt(3.0), 0.0, 0.0])\n" \
-    ">>> info\n" \
-    "0"
+    "  (wr, wi, info): Real and imaginary parts of eigenvalues, exit code"
 
 #define DOC_MB03XD "Compute eigenvalues of Hamiltonian matrix.\n" \
     "\n" \
@@ -11536,32 +5716,7 @@
     "  qg (ndarray): Q (lower) and G (upper), shape (n,n+1)\n" \
     "\n" \
     "Returns:\n" \
-    "  (S, T, QG, U1, U2, V1, V2, wr, wi, ilo, scale, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03xd\n" \
-    ">>> n = 5\n" \
-    ">>> A = np.array([\n" \
-    "...     [3.7588548168313685e-001, 9.1995720669587144e-001, 1.9389317998466821e-001, 5.4878212553858818e-001, 6.2731478808399666e-001],\n" \
-    "...     [9.8764628987858052e-003, 8.4472150190817474e-001, 9.0481233416635698e-001, 9.3158335257969060e-001, 6.9908013774533750e-001],\n" \
-    "...     [4.1985780631021896e-001, 3.6775288246828447e-001, 5.6920574967174709e-001, 3.3519743020639464e-001, 3.9718395379261456e-001],\n" \
-    "...     [7.5366962581358721e-001, 6.2080133182114383e-001, 6.3178992922175603e-001, 6.5553105501201447e-001, 4.1362889533818031e-001],\n" \
-    "...     [7.9387177473231862e-001, 7.3127726446634478e-001, 2.3441295540825388e-001, 3.9190420688900335e-001, 6.5521294635567051e-001]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> QG = np.array([\n" \
-    "...     [1.8015558545989005e-001, 4.1879254941592853e-001, 2.7203760737317784e-001, 2.8147214090719214e-001, 1.7731904815580199e-001, 3.4718672159409536e-001],\n" \
-    "...     [2.7989257702981651e-001, 3.5042861661866559e-001, 2.5565572408444881e-001, 4.3977750345993827e-001, 2.8855026075967616e-001, 2.1496327083014577e-001],\n" \
-    "...     [1.7341073886969158e-001, 3.9913855375815932e-001, 4.0151317011596516e-001, 4.0331887464437133e-001, 2.6723538667317948e-001, 3.7110275606849241e-001],\n" \
-    "...     [3.7832182695699140e-001, 3.3812641389556752e-001, 8.4360396433341395e-002, 4.3672540277019672e-001, 7.0022228267365608e-002, 3.8210230186291916e-001],\n" \
-    "...     [1.9548216143135175e-001, 2.9055490787446736e-001, 4.7670819669167425e-001, 1.4636498713707141e-001, 2.7670398401519275e-001, 2.9431082727794898e-002]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> S, T, QG_out, U1, U2, V1, V2, wr, wi, ilo, scale, info = mb03xd(\n" \
-    "...     'N', 'G', 'U', 'V', n, A, QG\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (S, T, QG, U1, U2, V1, V2, wr, wi, ilo, scale, info)"
 
 #define DOC_MB03XP "Periodic Schur decomposition of A*B product.\n" \
     "\n" \
@@ -11578,22 +5733,7 @@
     "  b (ndarray): Upper triangular matrix B\n" \
     "\n" \
     "Returns:\n" \
-    "  (S, T, Q, Z, alphar, alphai, beta, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03xp\n" \
-    ">>> n = 4\n" \
-    ">>> ilo = 1\n" \
-    ">>> ihi = 4\n" \
-    ">>> A = np.triu(np.random.randn(n, n), k=-1).astype(float, order='F')\n" \
-    ">>> B = np.triu(np.random.randn(n, n)).astype(float, order='F')\n" \
-    ">>> S, T, Q, Z, alphar, alphai, beta, info = mb03xp(\n" \
-    "...     'S', 'I', 'I', n, ilo, ihi, A, B\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (S, T, Q, Z, alphar, alphai, beta, info)"
 
 #define DOC_MB03XS "Eigenvalues and real skew-Hamiltonian Schur form of a skew-Hamiltonian matrix.\n" \
     "\n" \
@@ -11615,27 +5755,7 @@
     "\n" \
     "Returns (jobu='U'):\n" \
     "  (a_out, qg_out, u1, u2, wr, wi, info):\n" \
-    "    u1, u2: N-by-N matrices where U = [[U1, U2], [-U2, U1]]\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03xs\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> a = np.array([[1.0, 2.0], [0.5, 1.5]], dtype=float, order='F')\n" \
-    ">>> q_lower = np.zeros((n, n), dtype=float, order='F')\n" \
-    ">>> q_lower[1, 0] = 0.3\n" \
-    ">>> g_upper = np.zeros((n, n), dtype=float, order='F')\n" \
-    ">>> g_upper[0, 1] = 0.4\n" \
-    ">>> qg = pack_qg(n, q_lower, g_upper)\n" \
-    ">>> a_work = a.copy(order='F')\n" \
-    ">>> qg_work = qg.copy(order='F')\n" \
-    ">>> a_out, qg_out, wr, wi, info = mb03xs(a_work, qg_work, jobu='N')\n" \
-    ">>> eig_computed = wr + 1j * wi\n" \
-    ">>> eig_full = np.concatenate([eig_computed, eig_computed])\n" \
-    ">>> eig_full_sorted = np.sort(np.abs(eig_full))\n" \
-    ">>> info\n" \
-    "0"
+    "    u1, u2: N-by-N matrices where U = [[U1, U2], [-U2, U1]]"
 
 #define DOC_MB03XU "Panel reduction for blocked Hamiltonian matrix.\n" \
     "\n" \
@@ -11656,26 +5776,7 @@
     "\n" \
     "Returns:\n" \
     "  (A, B, G, Q, XA, XB, XG, XQ, YA, YB, YG, YQ, CSL, CSR, TAUL, TAUR, info):\n" \
-    "    Modified matrices, update matrices, Givens rotations, reflectors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03xu\n" \
-    ">>> n = 5\n" \
-    ">>> k = 2\n" \
-    ">>> nb = 2\n" \
-    ">>> A = np.random.randn(k + n, n).astype(float, order='F')\n" \
-    ">>> B = np.random.randn(n, k + n).astype(float, order='F')\n" \
-    ">>> G = np.random.randn(k + n, k + n).astype(float, order='F')\n" \
-    ">>> G = (G + G.T) / 2\n" \
-    ">>> Q = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> (A_out, B_out, G_out, Q_out,\n" \
-    "...     XA, XB, XG, XQ, YA, YB, YG, YQ,\n" \
-    "...     CSL, CSR, TAUL, TAUR, info) = mb03xu(\n" \
-    "...     False, False, n, k, nb,\n" \
-    "...     A.copy(), B.copy(), G.copy(), Q.copy()\n" \
-    "...     )"
+    "    Modified matrices, update matrices, Givens rotations, reflectors, exit code"
 
 #define DOC_MB03XZ "Eigenvalues of complex Hamiltonian matrix.\n" \
     "\n" \
@@ -11698,34 +5799,7 @@
     "    u1, u2: 2N-by-2N blocks of unitary symplectic U (if job!='E' and jobu='U')\n" \
     "    ilo: Balancing index (1 if balanc='N')\n" \
     "    scale: Balancing scale factors\n" \
-    "    info: 0=success, <0=param error, >0=QR failed, 2N+1=2x2 block failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03xz\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.8147+0.4217j, 0.6323+0.6557j, 0.9575+0.6787j, 0.9571+0.6554j],\n" \
-    "...     [0.9057+0.9157j, 0.0975+0.0357j, 0.9648+0.7577j, 0.4853+0.1711j],\n" \
-    "...     [0.1269+0.7922j, 0.2784+0.8491j, 0.1576+0.7431j, 0.8002+0.7060j],\n" \
-    "...     [0.9133+0.9594j, 0.5468+0.9339j, 0.9705+0.3922j, 0.1418+0.0318j],\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> qg = np.array([\n" \
-    "...     [0.2769+0.0j,      0.6948+0.0j,      0.4387+0.7513j, 0.1869+0.8909j, 0.7094+0.1493j],\n" \
-    "...     [0.0462+0.1626j,   0.3171+0.0j,      0.3816+0.0j,    0.4898+0.9593j, 0.7547+0.2575j],\n" \
-    "...     [0.0971+0.1190j,   0.9502+0.5853j,   0.7655+0.0j,    0.4456+0.0j,    0.2760+0.8407j],\n" \
-    "...     [0.8235+0.4984j,   0.0344+0.2238j,   0.7952+0.6991j, 0.6463+0.0j,    0.6797+0.0j],\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> expected_wr = np.array([3.0844, -3.0844, 0.5241, -0.5241, 0.8824, -0.8824, 0.4459, -0.4459])\n" \
-    ">>> expected_wi = np.array([2.7519,  2.7519, -1.3026, -1.3026, -0.6918, -0.6918, 0.4748, 0.4748])\n" \
-    ">>> wr, wi, sc, gc, u1, u2, ilo, scale, info = mb03xz(\n" \
-    "...     a, qg, balanc='N', job='G', jobu='U'\n" \
-    "...     )\n" \
-    ">>> eig_computed = wr + 1j * wi\n" \
-    ">>> idx_c = np.lexsort((eig_computed.imag, eig_computed.real))\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, <0=param error, >0=QR failed, 2N+1=2x2 block failed"
 
 #define DOC_MB03YA "Annihilate subdiagonal entries of Hessenberg matrix.\n" \
     "\n" \
@@ -11741,29 +5815,7 @@
     "  a, b, q, z (ndarray): Matrices\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, q, z, info): Transformed matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03ya\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> ilo, ihi = 1, 4\n" \
-    ">>> iloq, ihiq = 1, 4\n" \
-    ">>> pos = 2\n" \
-    ">>> a = np.zeros((n, n), order='F', dtype=float)\n" \
-    "...     a[i, j] = np.random.randn()\n" \
-    "...     a[i + 1, i] = np.random.randn()\n" \
-    ">>> b = np.zeros((n, n), order='F', dtype=float)\n" \
-    "...     b[i, j] = np.random.randn()\n" \
-    ">>> b[pos - 1, pos - 1] = 0.0\n" \
-    ">>> q = np.eye(n, order='F', dtype=float)\n" \
-    ">>> z = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, b_out, q_out, z_out, info = mb03ya(\n" \
-    "...     True, True, True, ilo, ihi, iloq, ihiq, pos, a, b, q, z\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, q, z, info): Transformed matrices and exit code"
 
 #define DOC_MB03YD "Periodic QR iteration for eigenvalues of periodic Hessenberg matrix.\n" \
     "\n" \
@@ -11780,30 +5832,7 @@
     "  a, b, q, z (ndarray): Input matrices (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (alphar, alphai, beta, info): Eigenvalue numerators/denominators and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03yd\n" \
-    ">>> n = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.0, 1.0],\n" \
-    "...     [0.5, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> q = np.eye(n, order='F', dtype=float)\n" \
-    ">>> z = np.eye(n, order='F', dtype=float)\n" \
-    ">>> alphar, alphai, beta, info = mb03yd(\n" \
-    "...     wantt=True, wantq=True, wantz=True,\n" \
-    "...     n=n, ilo=1, ihi=n, iloq=1, ihiq=n,\n" \
-    "...     a=a, b=b, q=q, z=z\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (alphar, alphai, beta, info): Eigenvalue numerators/denominators and exit code"
 
 #define DOC_MB03YT "Periodic Schur factorization of 2x2 matrix pair.\n" \
     "\n" \
@@ -11813,21 +5842,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, alphar, alphai, beta, csl, snl, csr, snr):\n" \
-    "    Transformed matrices, eigenvalue info, rotation parameters\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03yt\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [4.0, 1.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, alphar, alphai, beta, csl, snl, csr, snr = mb03yt(a, b)"
+    "    Transformed matrices, eigenvalue info, rotation parameters"
 
 #define DOC_MB03ZA "Reorder eigenvalues in periodic Schur form and compute stable subspace.\n" \
     "\n" \
@@ -11858,35 +5873,7 @@
     "    r22: M-by-M R22 matrix stored in A\n" \
     "    wr, wi: Real/imaginary parts of eigenvalues of R11\n" \
     "    m: Number of selected eigenvalues\n" \
-    "    info: 0=success, 1-4=various algorithm failures\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb03za\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-2.0, 0.5, 0.1],\n" \
-    "...     [0.0, -1.5, 0.3],\n" \
-    "...     [0.0, 0.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.2, 0.1],\n" \
-    "...     [0.0, 1.5, 0.2],\n" \
-    "...     [0.0, 0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.eye(n, order='F', dtype=float)\n" \
-    ">>> u1 = np.eye(n, order='F', dtype=float)\n" \
-    ">>> u2 = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> v1 = np.eye(n, order='F', dtype=float)\n" \
-    ">>> v2 = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> w = np.zeros((2*n, 2*n), order='F', dtype=float)\n" \
-    ">>> select = np.array([True, True, True], dtype=bool)\n" \
-    ">>> r22, b_out, c_out, u1_out, u2_out, v1_out, v2_out, w_out, wr, wi, m, info = mb03za(\n" \
-    "...     'N', 'N', 'N', 'I', 'A', select, a, b, c, u1, u2, v1, v2, w\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1-4=various algorithm failures"
 
 #define DOC_MB03ZD "Compute stable/unstable invariant subspaces for Hamiltonian matrix.\n" \
     "\n" \
@@ -11916,82 +5903,7 @@
     "    wr, wi: Real/imaginary parts of eigenvalues\n" \
     "    us: Stable invariant subspace basis (mm x m, F-order)\n" \
     "    uu: Unstable invariant subspace basis (mm x m, F-order)\n" \
-    "    info: 0=success, 1-5=various algorithm failures\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb03zd\n" \
-    ">>> n = 5\n" \
-    ">>> ilo = 1\n" \
-    ">>> s = np.array([\n" \
-    "...     [-3.1844761777714732,  0.1612357243439331, -0.0628592203751138,  0.2449004200921981,  0.1974400149992579],\n" \
-    "...     [ 0.0000000000000000, -0.1510667773167784,  0.4260444411622838, -0.1775026035208615,  0.3447278421198472],\n" \
-    "...     [ 0.0000000000000000, -0.1386140422054264, -0.3006779624777515,  0.2944143257134196,  0.3456440339120323],\n" \
-    "...     [ 0.0000000000000000,  0.0000000000000000,  0.0000000000000000, -0.2710128384740570,  0.0933189808067138],\n" \
-    "...     [ 0.0000000000000000,  0.0000000000000000,  0.0000000000000000,  0.4844146572359603,  0.2004347508746697]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> t = np.array([\n" \
-    "...     [ 3.2038208121776366,  0.1805955192510651,  0.2466389119377561, -0.2539149302433368, -0.0359238844381195],\n" \
-    "...     [ 0.0000000000000000, -0.7196686433290816,  0.0000000000000000,  0.2428659121580384, -0.0594190100670832],\n" \
-    "...     [ 0.0000000000000000,  0.0000000000000000, -0.1891741194498107, -0.3309578443491266, -0.0303520731950515],\n" \
-    "...     [ 0.0000000000000000,  0.0000000000000000,  0.0000000000000000, -0.4361574461961550,  0.0000000000000000],\n" \
-    "...     [ 0.0000000000000000,  0.0000000000000000,  0.0000000000000000,  0.0000000000000000,  0.1530894573304220]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> g = np.array([\n" \
-    "...     [-0.0370982242678464,  0.0917788436945724, -0.0560402416315252,  0.1345152517579192,  0.0256668227276700],\n" \
-    "...     [ 0.0652183678916931, -0.0700457231988297,  0.0350041175858839, -0.2233868768749268, -0.1171980260782843],\n" \
-    "...     [-0.0626428681377119,  0.2327575351902772, -0.1251515732208170, -0.0177816046663201,  0.3696921118421182],\n" \
-    "...     [ 0.0746042309265599, -0.0828007611045140,  0.0217427473546043, -0.1157775118548851, -0.3161183681200527],\n" \
-    "...     [ 0.1374372236164812,  0.1002727885506992,  0.4021556774753973, -0.0431072263235579,  0.1067394572547867]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> u1 = np.array([\n" \
-    "...     [ 0.3806883009357247, -0.0347810363019649, -0.5014665065895758,  0.5389691288472394,  0.2685446895251367],\n" \
-    "...     [ 0.4642712665555326, -0.5942766860716395,  0.4781179763952615,  0.2334370556238151,  0.0166790369048933],\n" \
-    "...     [ 0.2772789197782788, -0.0130145392695876, -0.2123817030594055, -0.2550292626960107, -0.5049268366774490],\n" \
-    "...     [ 0.4209268575081796,  0.1499593172661228, -0.1925590746592156, -0.5472292877802402,  0.4543329704184054],\n" \
-    "...     [ 0.3969669479129449,  0.6321903535930828,  0.3329156356041961,  0.0163533225344433, -0.2638879466190024]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> u2 = np.array([\n" \
-    "...     [-0.1795922007470742,  0.1908329820840911,  0.0868799433942070,  0.3114741142062388, -0.2579907627915167],\n" \
-    "...     [-0.2447897730222852, -0.1028403314750045, -0.1157840914576285, -0.1873268885694406,  0.1700708002861580],\n" \
-    "...     [-0.2243335325285328,  0.3180998613802520,  0.3315380214794822,  0.1977859924739963,  0.5072476567310013],\n" \
-    "...     [-0.2128397588651423, -0.2740560593051881,  0.1941418870268881, -0.3096684962457369, -0.0581576193198714],\n" \
-    "...     [-0.2002027567371932, -0.0040094115506855, -0.3979373387545264,  0.1520881534833910, -0.2010804514091372]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> v1 = np.array([\n" \
-    "...     [ 0.4447147692018334, -0.6830166755147440, -0.0002576861753487,  0.5781954611783305, -0.0375091627893805],\n" \
-    "...     [ 0.5121756358795817,  0.0297197140254773,  0.4332229148788766, -0.3240527006890552,  0.5330850295256511],\n" \
-    "...     [ 0.3664711365265602,  0.3288511296455119,  0.0588396016404451,  0.1134221597062257,  0.1047567336850078],\n" \
-    "...     [ 0.4535357098437908,  0.1062866148880792, -0.3964092656837774, -0.2211800890450674,  0.0350667323996222],\n" \
-    "...     [ 0.4450432900616097,  0.2950206358263853, -0.1617837757183893, -0.0376369332204927, -0.6746752660482623]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> v2 = np.array([\n" \
-    "...     [ 0.0000000000000000,  0.0000000000000000,  0.0000000000000000,  0.0000000000000000,  0.0000000000000000],\n" \
-    "...     [ 0.0299719306696789, -0.2322624725320701, -0.0280846899680325, -0.3044255686880000, -0.1077641482535519],\n" \
-    "...     [-0.0069083614679702,  0.3351358347080056, -0.4922707032978891,  0.4293545450291714,  0.4372821269062001],\n" \
-    "...     [ 0.0167847133528843,  0.2843629278945327,  0.5958979805231146,  0.3097336757510886, -0.2086733033047188],\n" \
-    "...     [ 0.0248567764822071, -0.2810759958040470, -0.1653113624869834, -0.3528780198620412, -0.0254898556119252]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> scale = np.zeros(n, dtype=float, order='F')\n" \
-    ">>> m, wr, wi, us, uu, info = mb03zd(\n" \
-    "...     'A', 'L', 'B', 'N', 'B',\n" \
-    "...     n, 2*n, ilo, scale, s, t, g, u1, u2, v1, v2\n" \
-    "...     )\n" \
-    ">>> expected_wr = np.array([-3.1941, -0.1350, -0.1350, -0.0595, -0.0595])\n" \
-    ">>> expected_wi = np.array([0.0000, 0.3179, -0.3179, 0.2793, -0.2793])\n" \
-    ">>> us_orth = us.T @ us - np.eye(m)\n" \
-    ">>> orth_us = np.linalg.norm(us_orth, 'fro')\n" \
-    ">>> uu_orth = uu.T @ uu - np.eye(m)\n" \
-    ">>> orth_uu = np.linalg.norm(uu_orth, 'fro')\n" \
-    ">>> us1, us2 = us[:n, :], us[n:, :]\n" \
-    ">>> symp_us = us1.T @ us2 - us2.T @ us1\n" \
-    ">>> symp_us_norm = np.linalg.norm(symp_us, 'fro')\n" \
-    ">>> uu1, uu2 = uu[:n, :], uu[n:, :]\n" \
-    ">>> symp_uu = uu1.T @ uu2 - uu2.T @ uu1\n" \
-    ">>> symp_uu_norm = np.linalg.norm(symp_uu, 'fro')\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1-5=various algorithm failures"
 
 #define DOC_MB04AD "Compute eigenvalues of skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -12022,36 +5934,7 @@
     "    q1, q2: Orthogonal matrices (n x n)\n" \
     "    u11, u12, u21, u22: Symplectic transformation blocks (n/2 x n/2)\n" \
     "    alphar, alphai, beta: Generalized eigenvalues (n/2,)\n" \
-    "    info: 0=success, 3=QZ did not converge\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 8\n" \
-    ">>> m = n // 2\n" \
-    ">>> z = np.array([\n" \
-    "...     [3.1472, 4.5751, -0.7824, 1.7874, -2.2308, -0.6126, 2.0936, 4.5974],\n" \
-    "...     [4.0579, 4.6489, 4.1574, 2.5774, -4.5383, -1.1844, 2.5469, -1.5961],\n" \
-    "...     [-3.7301, -3.4239, 2.9221, 2.4313, -4.0287, 2.6552, -2.2397, 0.8527],\n" \
-    "...     [4.1338, 4.7059, 4.5949, -1.0777, 3.2346, 2.9520, 1.7970, -2.7619],\n" \
-    "...     [1.3236, 4.5717, 1.5574, 1.5548, 1.9483, -3.1313, 1.5510, 2.5127],\n" \
-    "...     [-4.0246, -0.1462, -4.6429, -3.2881, -1.8290, -0.1024, -3.3739, -2.4490],\n" \
-    "...     [-2.2150, 3.0028, 3.4913, 2.0605, 4.5022, -0.5441, -3.8100, 0.0596],\n" \
-    "...     [0.4688, -3.5811, 4.3399, -4.6817, -4.6555, 1.4631, -0.0164, 1.9908],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> h = np.array([\n" \
-    "...     [3.9090, -3.5071, 3.1428, -3.0340, -1.4834, 3.7401, -0.1715, 0.4026],\n" \
-    "...     [4.5929, -2.4249, -2.5648, -2.4892, 3.7401, -2.1416, 1.6251, 2.6645],\n" \
-    "...     [0.4722, 3.4072, 4.2926, 1.1604, -0.1715, 1.6251, -4.2415, -0.0602],\n" \
-    "...     [-3.6138, -2.4572, -1.5002, -0.2671, 0.4026, 2.6645, -0.0602, -3.7009],\n" \
-    "...     [0.6882, -1.8421, -4.1122, 0.1317, -3.9090, -4.5929, -0.4722, 3.6138],\n" \
-    "...     [-1.8421, 2.9428, -0.4340, 1.3834, 3.5071, 2.4249, -3.4072, 2.4572],\n" \
-    "...     [-4.1122, -0.4340, -2.3703, 0.5231, -3.1428, 2.5648, -4.2926, 1.5002],\n" \
-    "...     [0.1317, 1.3834, 0.5231, -4.1618, 3.0340, 2.4892, -1.1604, 0.2671],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> result = mb04ad('T', 'I', 'I', 'I', 'I', z, h)\n" \
-    ">>> t_out, z_out, h_out, q1, q2, u11, u12, u21, u22, alphar, alphai, beta, info = result"
+    "    info: 0=success, 3=QZ did not converge"
 
 #define DOC_MB04AZ "Eigenvalues of complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -12077,30 +5960,7 @@
     "    q: Unitary Q matrix (2N x 2N) if COMPQ='C'\n" \
     "    u: Unitary U matrix (N x 2N) if COMPU='C'\n" \
     "    alphar, alphai, beta: Generalized eigenvalues (N,)\n" \
-    "    info: 0=success, positive=failure\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04az\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> z = np.array([\n" \
-    "...     [0.4941+0.8054j, 0.8909+0.8865j, 0.0305+0.9786j, 0.9047+0.0596j],\n" \
-    "...     [0.7790+0.5767j, 0.3341+0.0286j, 0.7440+0.7126j, 0.6098+0.6819j],\n" \
-    "...     [0.7150+0.1829j, 0.6987+0.4899j, 0.5000+0.5004j, 0.6176+0.0424j],\n" \
-    "...     [0.9037+0.2399j, 0.1978+0.1679j, 0.4799+0.4710j, 0.8594+0.0714j],\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> b_in = np.array([\n" \
-    "...     [0.5216+0.7224j, 0.8181+0.6596j],\n" \
-    "...     [0.0967+0.1498j, 0.8175+0.5185j],\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> fg_in = np.array([\n" \
-    "...     [0.9729+0.0j, 0.8003+0.0j, 0.4323+0.8313j],\n" \
-    "...     [0.6489+0.1331j, 0.4537+0.0j, 0.8253+0.0j],\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> result = mb04az('T', 'C', 'C', z, b_in, fg_in)\n" \
-    ">>> z_out, b_out, fg_out, d, c, q, u, alphar, alphai, beta, info = result"
+    "    info: 0=success, positive=failure"
 
 #define DOC_MB04BD "Eigenvalues of skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -12129,42 +5989,7 @@
     "    f: Skew-symmetric matrix F (n/2 x n/2)\n" \
     "    c2: Output matrix C2 (n/2 x n/2)\n" \
     "    alphar, alphai, beta: Generalized eigenvalues (n/2,)\n" \
-    "    info: 0=success, 1=eigenvalue problem, 2=QZ failed, 3=warning\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04bd\n" \
-    ">>> n = 8\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.1472,  1.3236,  4.5751,  4.5717],\n" \
-    "...     [4.0579, -4.0246,  4.6489, -0.1462],\n" \
-    "...     [-3.7301, -2.2150, -3.4239,  3.0028],\n" \
-    "...     [4.1338,  0.4688,  4.7059, -3.5811]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.0000,  0.0000, -1.5510, -4.5974, -2.5127],\n" \
-    "...     [3.5071,  0.0000,  0.0000,  1.5961,  2.4490],\n" \
-    "...     [-3.1428,  2.5648,  0.0000,  0.0000, -0.0596],\n" \
-    "...     [3.0340,  2.4892, -1.1604,  0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c1 = np.array([\n" \
-    "...     [0.6882, -3.3782, -3.3435,  1.8921],\n" \
-    "...     [-0.3061,  2.9428,  1.0198,  2.4815],\n" \
-    "...     [-4.8810, -1.8878, -2.3703, -0.4946],\n" \
-    "...     [-1.6288,  0.2853,  1.5408, -4.1618]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> vw = np.array([\n" \
-    "...     [-2.4013, -2.7102,  0.3834, -3.9335,  3.1730],\n" \
-    "...     [-3.1815, -2.3620,  4.9613,  4.6190,  3.6869],\n" \
-    "...     [3.6929,  0.7970,  0.4986, -4.9537, -4.1556],\n" \
-    "...     [3.5303,  1.2206, -1.4905,  0.1325, -1.0022]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = mb04bd('T', 'I', 'I', a, de, c1, vw)\n" \
-    ">>> (a_out, de_out, c1_out, vw_out, q1, q2, b, f, c2,\n" \
-    "...     alphar, alphai, beta, info) = result\n" \
-    ">>> m = n // 2"
+    "    info: 0=success, 1=eigenvalue problem, 2=QZ failed, 3=warning"
 
 #define DOC_MB04BP "Eigenvalues of skew-Hamiltonian/Hamiltonian pencil (block algorithm).\n" \
     "\n" \
@@ -12193,40 +6018,7 @@
     "    f: Skew-symmetric matrix F (n/2 x n/2)\n" \
     "    c2: Output matrix C2 (n/2 x n/2)\n" \
     "    alphar, alphai, beta: Generalized eigenvalues (n/2,)\n" \
-    "    info: 0=success, 1=eigenvalue problem, 2=QZ failed, 3=warning\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04bp\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.1472,  1.3236,  4.5751,  4.5717],\n" \
-    "...     [4.0579, -4.0246,  4.6489, -0.1462],\n" \
-    "...     [-3.7301, -2.2150, -3.4239,  3.0028],\n" \
-    "...     [4.1338,  0.4688,  4.7059, -3.5811]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.0000,  0.0000, -1.5510, -4.5974, -2.5127],\n" \
-    "...     [3.5071,  0.0000,  0.0000,  1.5961,  2.4490],\n" \
-    "...     [-3.1428,  2.5648,  0.0000,  0.0000, -0.0596],\n" \
-    "...     [3.0340,  2.4892, -1.1604,  0.0000,  0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c1 = np.array([\n" \
-    "...     [0.6882, -3.3782, -3.3435,  1.8921],\n" \
-    "...     [-0.3061,  2.9428,  1.0198,  2.4815],\n" \
-    "...     [-4.8810, -1.8878, -2.3703, -0.4946],\n" \
-    "...     [-1.6288,  0.2853,  1.5408, -4.1618]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> vw = np.array([\n" \
-    "...     [-2.4013, -2.7102,  0.3834, -3.9335,  3.1730],\n" \
-    "...     [-3.1815, -2.3620,  4.9613,  4.6190,  3.6869],\n" \
-    "...     [3.6929,  0.7970,  0.4986, -4.9537, -4.1556],\n" \
-    "...     [3.5303,  1.2206, -1.4905,  0.1325, -1.0022]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> result = mb04bp('T', 'I', 'I', a, de, c1, vw)\n" \
-    ">>> a_out, de_out, c1_out, vw_out, q1, q2, b, f, c2, alphar, alphai, beta, info = result\n" \
-    ">>> m = 4\n" \
-    ">>> n = 8"
+    "    info: 0=success, 1=eigenvalue problem, 2=QZ failed, 3=warning"
 
 #define DOC_MB04BZ "Eigenvalues of complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -12252,33 +6044,7 @@
     "    fg: Hermitian BF matrix (N x N)\n" \
     "    q: Unitary Q matrix (2N x 2N)\n" \
     "    alphar, alphai, beta: Generalized eigenvalues (N,)\n" \
-    "    info: 0=success, 1=MB04FD QZ failed, 2=ZHGEQZ failed, 3=pencil singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04bz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0604+0.6568j, 0.5268+0.2919j],\n" \
-    "...     [0.3992+0.6279j, 0.4167+0.4316j],\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> de = np.array([\n" \
-    "...     [0+0.4896j, 0+0.9516j, 0.3724+0.0526j],\n" \
-    "...     [0.9840+0.3394j, 0+0.9203j, 0+0.7378j],\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> b_in = np.array([\n" \
-    "...     [0.2691+0.4177j, 0.5478+0.3014j],\n" \
-    "...     [0.4228+0.9830j, 0.9427+0.7010j],\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> fg = np.array([\n" \
-    "...     [0.6663+0j, 0.6981+0j, 0.1781+0.8818j],\n" \
-    "...     [0.5391+0.1711j, 0.6665+0j, 0.1280+0j],\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> result = mb04bz('T', 'C', a, de, b_in, fg)\n" \
-    ">>> a_out, de_out, b_out, fg_out, q, alphar, alphai, beta, info = result\n" \
-    ">>> eigenvalues = (alphar + 1j * alphai) / beta"
+    "    info: 0=success, 1=MB04FD QZ failed, 2=ZHGEQZ failed, 3=pencil singular"
 
 #define DOC_MB04CD "Reduce skew-Hamiltonian/Hamiltonian pencil to generalized Schur form.\n" \
     "\n" \
@@ -12301,31 +6067,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, d, q1, q2, q3, info): Transformed matrices, orthogonal Q matrices, exit code\n" \
-    "  info=0: success, info=1-4: algorithm warnings\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04cd\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> a11 = np.triu(np.random.randn(m, m))\n" \
-    ">>> a22 = np.triu(np.random.randn(m, m))\n" \
-    ">>> a = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> a[:m, :m] = a11\n" \
-    ">>> a[m:, m:] = a22\n" \
-    ">>> b11 = np.triu(np.random.randn(m, m))\n" \
-    ">>> b22 = np.triu(np.random.randn(m, m))\n" \
-    ">>> b = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> b[:m, :m] = b11\n" \
-    ">>> b[m:, m:] = b22\n" \
-    ">>> d12 = np.triu(np.random.randn(m, m))\n" \
-    ">>> d21 = np.triu(np.random.randn(m, m))\n" \
-    ">>> d = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> d[:m, m:] = d12\n" \
-    ">>> d[m:, :m] = d21\n" \
-    ">>> result = mb04cd('I', 'I', 'I', a, b, d)\n" \
-    ">>> a_out, b_out, d_out, q1, q2, q3, info = result"
+    "  info=0: success, info=1-4: algorithm warnings"
 
 #define DOC_MB04DB "Apply inverse balancing transformation to [V1; sgn*V2].\n" \
     "\n" \
@@ -12342,22 +6084,7 @@
     "  v2 (ndarray): N-by-M matrix V2 (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (v1, v2, info): Transformed matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04db\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> m = 3\n" \
-    ">>> ilo = 1\n" \
-    ">>> v1 = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> v2 = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> lscale = np.ones(n, dtype=float)\n" \
-    ">>> rscale = np.ones(n, dtype=float)\n" \
-    ">>> v1_out, v2_out, info = mb04db('N', 'P', ilo, lscale, rscale, v1, v2)\n" \
-    ">>> info\n" \
-    "0"
+    "  (v1, v2, info): Transformed matrices and exit code"
 
 #define DOC_MB04DD "Balance a real Hamiltonian matrix.\n" \
     "\n" \
@@ -12367,18 +6094,7 @@
     "  qg (ndarray): N-by-(N+1) matrix with lower tri Q, upper tri G\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, qg, ilo, scale, info): Balanced matrices and scaling info\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> qg = np.random.randn(n, n + 1).astype(float, order='F')\n" \
-    ">>> a_out, qg_out, ilo, scale, info = mb04dd('N', a, qg)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, qg, ilo, scale, info): Balanced matrices and scaling info"
 
 #define DOC_MB04DI "Apply inverse balancing transformation to [V1; sgn*V2].\n" \
     "\n" \
@@ -12394,21 +6110,7 @@
     "  v2 (ndarray): N-by-M matrix V2 (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (v1, v2, info): Transformed matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04di\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> m = 3\n" \
-    ">>> ilo = 2\n" \
-    ">>> scale = np.array([5.0, 1.0, 2.0, 0.5], order='F', dtype=float)\n" \
-    ">>> v1 = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> v2 = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> v1_out, v2_out, info = mb04di('N', 'P', ilo, scale, v1, v2)\n" \
-    ">>> info\n" \
-    "0"
+    "  (v1, v2, info): Transformed matrices and exit code"
 
 #define DOC_MB04DL "Balance a real matrix pencil (A, B).\n" \
     "\n" \
@@ -12424,30 +6126,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, ilo, ihi, lscale, rscale, dwork, iwarn, info):\n" \
-    "    Balanced matrices, indices, scaling factors, workspace, and exit codes\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04dl\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.0, -1e-12, 0.0],\n" \
-    "...     [0.0, -2.0, 0.0, 0.0],\n" \
-    "...     [-1.0, -1.0, -1.0, 0.0],\n" \
-    "...     [-1.0, -1.0, 0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, ilo, ihi, lscale, rscale, dwork, iwarn, info = mb04dl(\n" \
-    "...     'B', n, -3.0, a, b\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Balanced matrices, indices, scaling factors, workspace, and exit codes"
 
 #define DOC_MB04DP "Balance a real skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -12465,34 +6144,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, de, c, vw, ilo, lscale, rscale, dwork, iwarn, info):\n" \
-    "    Balanced matrices, ILO, scaling factors, workspace, and exit codes\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04dp\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> vw = np.array([\n" \
-    "...     [-1.0, -1e-12, 0.0],\n" \
-    "...     [-1.0, -1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, de_out, c_out, vw_out, ilo, lscale, rscale, dwork, iwarn, info = mb04dp(\n" \
-    "...     'B', n, -3.0, a, de, c, vw\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Balanced matrices, ILO, scaling factors, workspace, and exit codes"
 
 #define DOC_MB04DS "Balance a real skew-Hamiltonian matrix.\n" \
     "\n" \
@@ -12509,32 +6161,7 @@
     "Returns:\n" \
     "  (a, qg, ilo, scale, info):\n" \
     "    Balanced matrices, ILO (number of deflated eigenvalues + 1),\n" \
-    "    scaling factors, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04ds\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 6\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0576, 0.0, 0.5208, 0.0, 0.7275, -0.7839],\n" \
-    "...     [0.1901, 0.0439, 0.1663, 0.0928, 0.6756, -0.5030],\n" \
-    "...     [0.5962, 0.0, 0.4418, 0.0, -0.5955, 0.7176],\n" \
-    "...     [0.5869, 0.0, 0.3939, 0.0353, 0.6992, -0.0147],\n" \
-    "...     [0.2222, 0.0, -0.3663, 0.0, 0.5548, -0.4608],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.1338]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> qg = np.array([\n" \
-    "...     [0.0, 0.0, -0.9862, -0.4544, -0.4733, 0.4435, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, -0.6927, 0.6641, 0.4453, 0.0],\n" \
-    "...     [-0.3676, 0.0, 0.0, 0.0, 0.0841, 0.3533, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0877, 0.0],\n" \
-    "...     [0.9561, 0.0, 0.4784, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [-0.0164, -0.4514, -0.8289, -0.6831, -0.1536, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, qg_out, ilo, scale, info = mb04ds('B', n, a, qg)\n" \
-    ">>> info\n" \
-    "0"
+    "    scaling factors, and exit code"
 
 #define DOC_MB04DY "Symplectic scaling of a Hamiltonian matrix.\n" \
     "\n" \
@@ -12555,59 +6182,7 @@
     "Returns:\n" \
     "  (a, qg, d, info):\n" \
     "    Scaled matrices, scaling factors (N for 'S', 1 for '1'/'O'),\n" \
-    "    and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04dy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.4,   0.05,   0.0007],\n" \
-    "...     [-4.7,   0.8,    0.025],\n" \
-    "...     [81.0,  29.0,   -0.9]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> qg = np.zeros((n, n + 1), order='F', dtype=float)\n" \
-    ">>> qg[0, 1] = 0.0034\n" \
-    ">>> qg[0, 2] = 0.0014\n" \
-    ">>> qg[0, 3] = 0.00077\n" \
-    ">>> qg[1, 2] = -0.005\n" \
-    ">>> qg[1, 3] = 0.0004\n" \
-    ">>> qg[2, 3] = 0.003\n" \
-    ">>> qg[0, 0] = -18.0\n" \
-    ">>> qg[1, 0] = -12.0\n" \
-    ">>> qg[2, 0] = 43.0\n" \
-    ">>> qg[1, 1] = 99.0\n" \
-    ">>> qg[2, 1] = 420.0\n" \
-    ">>> qg[2, 2] = -200.0\n" \
-    ">>> q_full = np.zeros((n, n), dtype=float)\n" \
-    ">>> g_full = np.zeros((n, n), dtype=float)\n" \
-    "...     q_full[i, j] = qg[i, j]\n" \
-    "...     q_full[j, i] = qg[i, j]\n" \
-    "...     g_full[i, j] = qg[i, j + 1]\n" \
-    "...     g_full[j, i] = qg[i, j + 1]\n" \
-    ">>> a_out, qg_out, d, info = mb04dy('S', a.copy(), qg.copy())\n" \
-    ">>> q_scaled = np.zeros((n, n), dtype=float)\n" \
-    ">>> g_scaled = np.zeros((n, n), dtype=float)\n" \
-    "...     q_scaled[i, j] = qg_out[i, j]\n" \
-    "...     q_scaled[j, i] = qg_out[i, j]\n" \
-    "...     g_scaled[i, j] = qg_out[i, j + 1]\n" \
-    "...     g_scaled[j, i] = qg_out[i, j + 1]\n" \
-    ">>> h_scaled = np.zeros((2*n, 2*n), dtype=float)\n" \
-    ">>> h_scaled[:n, :n] = a_out\n" \
-    ">>> h_scaled[:n, n:] = g_scaled\n" \
-    ">>> h_scaled[n:, :n] = q_scaled\n" \
-    ">>> h_scaled[n:, n:] = -a_out.T\n" \
-    ">>> D_full = np.diag(np.concatenate([d, 1.0 / d]))\n" \
-    ">>> D_inv = np.diag(np.concatenate([1.0 / d, d]))\n" \
-    ">>> h_reconstructed = D_full @ h_scaled @ D_inv\n" \
-    ">>> eig_reconstructed = np.linalg.eigvals(h_reconstructed)\n" \
-    ">>> eig_reconstructed_sorted = sorted(eig_reconstructed, key=lambda x: (x.real, x.imag))\n" \
-    "...     np.array(eig_reconstructed_sorted),\n" \
-    "...     rtol=1e-10, atol=1e-12\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    and exit code"
 
 #define DOC_MB04DZ "Balance a complex Hamiltonian matrix.\n" \
     "\n" \
@@ -12624,32 +6199,7 @@
     "Returns:\n" \
     "  (a, qg, ilo, scale, info):\n" \
     "    Balanced matrices, ILO (number of deflated eigenvalues + 1),\n" \
-    "    scaling factors (real array), and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04dz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 6\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0994+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.9696+0.0j],\n" \
-    "...     [0.3248+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.4372+0.0j, 0.8308+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0717+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.1976+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> qg = np.array([\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0651+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0444+0.0j, 0.0+0.0j, 0.0+0.0j, 0.1957+0.0j, 0.0+0.0j],\n" \
-    "...     [0.8144+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.3652+0.0j, 0.0+0.0j, 0.9121+0.0j],\n" \
-    "...     [0.9023+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 1.0945+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> a_out, qg_out, ilo, scale, info = mb04dz('B', a, qg)\n" \
-    ">>> info\n" \
-    "0"
+    "    scaling factors (real array), and exit code"
 
 #define DOC_MB04ED "Eigenvalues of skew-Hamiltonian/skew-Hamiltonian pencil.\n" \
     "\n" \
@@ -12669,48 +6219,7 @@
     "Returns:\n" \
     "  (z, b, fg, q, u1, u2, alphar, alphai, beta, info):\n" \
     "    Transformed matrices, orthogonal Q, symplectic U blocks,\n" \
-    "    eigenvalue components (lambda = (alphar+alphai*j)/beta), info\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04ed\n" \
-    ">>> n = 8\n" \
-    ">>> m = n // 2  # m = 4\n" \
-    ">>> z = np.array([\n" \
-    "...     [0.0949, 3.3613, -4.7663, -0.5534, 0.6408, -3.2793, 3.4253, 2.9654],\n" \
-    "...     [0.1138, -1.5903, 2.1837, -4.1648, -4.3775, -1.7454, 0.1744, 2.3262],\n" \
-    "...     [2.7505, 4.4048, 4.4183, 3.0478, 2.7728, 2.3048, -0.6451, -1.2045],\n" \
-    "...     [3.6091, -4.1716, 3.4461, 3.6880, -0.0985, 3.8458, 0.2528, -1.3859],\n" \
-    "...     [0.4352, -3.2829, 3.7246, 0.4794, -0.3690, -1.5562, -3.4817, -2.2902],\n" \
-    "...     [1.3080, -3.9881, -3.5497, 3.5020, 2.2582, 4.4764, -4.4080, -1.6818],\n" \
-    "...     [1.1308, -1.5087, 2.4730, 2.1553, -1.7129, -4.8669, -2.4102, 4.2274],\n" \
-    "...     [4.7933, -4.3671, -0.0473, -2.0092, 1.2439, -4.7385, 3.4242, -0.2764]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [2.0936, 1.5510, 4.5974, 2.5127],\n" \
-    "...     [2.5469, -3.3739, -1.5961, -2.4490],\n" \
-    "...     [-2.2397, -3.8100, 0.8527, 0.0596],\n" \
-    "...     [1.7970, -0.0164, -2.7619, 1.9908]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> fg = np.array([\n" \
-    "...     [1.0000, 2.0000, -4.0500, 1.3353, 0.2899],\n" \
-    "...     [-0.4318, 2.0000, 2.0000, -2.9860, -0.0160],\n" \
-    "...     [1.0241, 0.9469, 2.0000, 2.0000, 1.3303],\n" \
-    "...     [0.0946, -0.1272, -4.4003, 2.0000, 2.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> z_out, b_out, fg_out, q_out, u1_out, u2_out, alphar, alphai, beta, info = mb04ed(\n" \
-    "...     'T', 'I', 'I', z, b, fg\n" \
-    "...     )\n" \
-    ">>> qtq = q_out.T @ q_out\n" \
-    ">>> u = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> u[:m, :m] = u1_out\n" \
-    ">>> u[:m, m:] = u2_out\n" \
-    ">>> u[m:, :m] = -u2_out\n" \
-    ">>> u[m:, m:] = u1_out\n" \
-    ">>> utu = u.T @ u\n" \
-    ">>> info\n" \
-    "0"
+    "    eigenvalue components (lambda = (alphar+alphai*j)/beta), info"
 
 #define DOC_MB04FD "Eigenvalues of skew-Hamiltonian/skew-Hamiltonian pencil (real).\n" \
     "\n" \
@@ -12730,45 +6239,7 @@
     "Returns:\n" \
     "  (a, de, b, fg, q, alphar, alphai, beta, info):\n" \
     "    Transformed matrices, orthogonal Q,\n" \
-    "    eigenvalue components (lambda = (alphar+alphai*j)/beta), info\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04fd\n" \
-    ">>> n = 8\n" \
-    ">>> m = n // 2  # m = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.8147, 0.6323, 0.9575, 0.9571],\n" \
-    "...     [0.9057, 0.0975, 0.9648, 0.4853],\n" \
-    "...     [0.1269, 0.2784, 0.1576, 0.8002],\n" \
-    "...     [0.9133, 0.5468, 0.9705, 0.1418]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.4217, 0.6557, 0.6787, 0.6554, 0.2769],\n" \
-    "...     [0.9157, 0.0357, 0.7577, 0.1711, 0.0461],\n" \
-    "...     [0.7922, 0.8491, 0.7431, 0.7060, 0.0971],\n" \
-    "...     [0.9594, 0.9339, 0.3922, 0.0318, 0.8234]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.6948, 0.4387, 0.1868, 0.7093],\n" \
-    "...     [0.3170, 0.3815, 0.4897, 0.7546],\n" \
-    "...     [0.9502, 0.7655, 0.4455, 0.2760],\n" \
-    "...     [0.0344, 0.7951, 0.6463, 0.6797]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> fg = np.array([\n" \
-    "...     [0.6550, 0.9597, 0.7512, 0.8909, 0.1492],\n" \
-    "...     [0.1626, 0.3403, 0.2550, 0.9592, 0.2575],\n" \
-    "...     [0.1189, 0.5852, 0.5059, 0.5472, 0.8407],\n" \
-    "...     [0.4983, 0.2238, 0.6990, 0.1386, 0.2542]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, de_out, b_out, fg_out, q_out, alphar, alphai, beta, iwork, info = mb04fd(\n" \
-    "...     'T', 'I', a.copy(), de.copy(), b.copy(), fg.copy()\n" \
-    "...     )\n" \
-    ">>> eigenvalues_actual = np.sort(alphar / beta)\n" \
-    ">>> qtq = q_out.T @ q_out\n" \
-    ">>> info\n" \
-    "0"
+    "    eigenvalue components (lambda = (alphar+alphai*j)/beta), info"
 
 #define DOC_MB04FP "Eigenvalues of skew-Hamiltonian/skew-Hamiltonian pencil (panel-based).\n" \
     "\n" \
@@ -12790,24 +6261,7 @@
     "  (a, de, b, fg, q, alphar, alphai, beta, iwork, info):\n" \
     "    Transformed matrices, orthogonal Q,\n" \
     "    eigenvalue components (lambda = (alphar+alphai*j)/beta),\n" \
-    "    iwork (inaccurate eigenvalue info), info\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04fp\n" \
-    ">>> n = 64\n" \
-    ">>> m = n // 2\n" \
-    ">>> a = np.random.randn(m, m).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(m, m).astype(float, order='F')\n" \
-    ">>> de = make_skew_symmetric_storage(m)\n" \
-    ">>> fg = make_skew_symmetric_storage(m)\n" \
-    ">>> a_out, de_out, b_out, fg_out, q_out, alphar, alphai, beta, iwork, info = mb04fp(\n" \
-    "...     'T', 'I', a.copy(), de.copy(), b.copy(), fg.copy()\n" \
-    "...     )\n" \
-    ">>> qtq = q_out.T @ q_out\n" \
-    ">>> info\n" \
-    "0"
+    "    iwork (inaccurate eigenvalue info), info"
 
 #define DOC_MB04GD "RQ factorization with row pivoting.\n" \
     "\n" \
@@ -12821,28 +6275,7 @@
     "                  On exit: jpvt[i] = k means row i of P*A was row k of A\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, jpvt, tau, info): Modified matrix, pivot indices, reflector factors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04gd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 6\n" \
-    ">>> n = 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 6.0, 3.0, 5.0],\n" \
-    "...     [-2.0, -1.0, -1.0, 0.0, -2.0],\n" \
-    "...     [5.0, 5.0, 1.0, 5.0, 1.0],\n" \
-    "...     [-2.0, -1.0, -1.0, 0.0, -2.0],\n" \
-    "...     [4.0, 8.0, 4.0, 20.0, 4.0],\n" \
-    "...     [-2.0, -1.0, -1.0, 0.0, -2.0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> jpvt = np.array([0, 0, 0, 0, 0, 0], dtype=np.int32)\n" \
-    ">>> a_out, jpvt_out, tau, info = mb04gd(a, jpvt)\n" \
-    ">>> k = min(m, n)\n" \
-    "...     rtol=1e-3, atol=1e-3)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, jpvt, tau, info): Modified matrix, pivot indices, reflector factors, exit code"
 
 #define DOC_MB04HD "Reduce skew-Hamiltonian/Hamiltonian pencil to generalized Schur form.\n" \
     "\n" \
@@ -12864,26 +6297,7 @@
     "  info=1: QZ algorithm failed\n" \
     "  info=2: warning - eigenvalue reordering failed\n" \
     "  info=3: reordering in periodic QZ failed\n" \
-    "  info=4: illegal structure (deflation window too small)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04hd\n" \
-    ">>> n = 4\n" \
-    ">>> m = n // 2\n" \
-    ">>> a11 = np.triu(np.random.randn(m, m))\n" \
-    ">>> a22 = np.triu(np.random.randn(m, m))\n" \
-    ">>> a = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> a[:m, :m] = a11\n" \
-    ">>> a[m:, m:] = a22\n" \
-    ">>> b12 = np.triu(np.random.randn(m, m))\n" \
-    ">>> b21 = np.triu(np.random.randn(m, m))\n" \
-    ">>> b = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> b[:m, m:] = b12\n" \
-    ">>> b[m:, :m] = b21\n" \
-    ">>> result = mb04hd('I', 'I', a, b)\n" \
-    ">>> a_out, b_out, q1, q2, info = result"
+    "  info=4: illegal structure (deflation window too small)"
 
 #define DOC_MB04ID "QR factorization of matrix with lower-left zero triangle.\n" \
     "\n" \
@@ -12902,21 +6316,7 @@
     "Returns:\n" \
     "  If l>0: (b, tau, info) - transformed B, Householder factors, exit code\n" \
     "  If l=0: (tau, info) - Householder factors, exit code\n" \
-    "  If ldwork=-1: adds optimal workspace size to tuple\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04id\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 8, 7, 2\n" \
-    ">>> a = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> a[6, 0] = 0.0  # Zero triangle\n" \
-    ">>> a[7, 0] = 0.0\n" \
-    ">>> a[7, 1] = 0.0\n" \
-    ">>> a_out, tau, info = mb04id(n, m, p, a)\n" \
-    ">>> r = np.triu(a_out[:min(n, m), :])\n" \
-    ">>> info\n" \
-    "0"
+    "  If ldwork=-1: adds optimal workspace size to tuple"
 
 #define DOC_MB04IY "Apply orthogonal transformations from MB04ID to matrix C.\n" \
     "\n" \
@@ -12951,22 +6351,7 @@
     "    tau: Complex scalar factors of reflectors (min(n,m),)\n" \
     "    info: Exit code (0 = success)\n" \
     "    zwork_opt: Optimal workspace size\n" \
-    "    b: Transformed B (only if b provided)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04iz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 6, 5, 2\n" \
-    ">>> a = (np.random.randn(n, m) + 1j * np.random.randn(n, m)).astype(\n" \
-    "...     np.complex128, order='F'\n" \
-    "...     )\n" \
-    "...     a[n - p + i, j] = 0.0\n" \
-    ">>> result = mb04iz(a, p)\n" \
-    ">>> a_out, tau, info = result['a'], result['tau'], result['info']\n" \
-    "...     if i > j:  # Below diagonal\n" \
-    "...     pass  # These contain Householder vectors\n" \
-    "...     else:"
+    "    b: Transformed B (only if b provided)"
 
 #define DOC_MB04JD "LQ factorization of matrix with upper-right zero triangle.\n" \
     "\n" \
@@ -12986,22 +6371,7 @@
     "Returns:\n" \
     "  If l>0: (a, b, tau, info) - factored A, transformed B, reflectors, exit code\n" \
     "  If l=0: (a, tau, info) - factored A, Householder factors, exit code\n" \
-    "  If ldwork=-1: adds optimal workspace size to tuple\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04jd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 8, 7, 2\n" \
-    ">>> a = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> a[0, 5] = 0.0\n" \
-    ">>> a[0, 6] = 0.0\n" \
-    ">>> a[1, 6] = 0.0\n" \
-    ">>> a_out, tau, info = mb04jd(n, m, p, a)\n" \
-    ">>> l_mat = np.tril(a_out[:, :min(n, m)])\n" \
-    ">>> diag_size = min(n, m)\n" \
-    ">>> info\n" \
-    "0"
+    "  If ldwork=-1: adds optimal workspace size to tuple"
 
 #define DOC_MB04KD "QR factorization of special structured block matrix.\n" \
     "\n" \
@@ -13017,34 +6387,7 @@
     "  b (ndarray): Matrix B (p x m, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r_bar, a_out, d, c, tau): Transformed matrices and Householder factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 4\n" \
-    ">>> R = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 1.5],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> A = np.array([\n" \
-    "...     [1.0, 2.0, 1.0],\n" \
-    "...     [3.0, 1.0, 2.0],\n" \
-    "...     [2.0, 3.0, 1.0],\n" \
-    "...     [1.0, 1.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [1.5, 2.0],\n" \
-    "...     [2.5, 1.0],\n" \
-    "...     [1.0, 3.0],\n" \
-    "...     [3.0, 1.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> from slicot import mb04kd\n" \
-    ">>> R_bar, A_out, D, C, tau = mb04kd('F', n, m, p, R.copy(), A.copy(), B.copy())\n" \
-    ">>> original_norm_sq = np.linalg.norm(R)**2 + np.linalg.norm(A)**2 + np.linalg.norm(B)**2\n" \
-    ">>> result_norm_sq = np.linalg.norm(R_bar)**2 + np.linalg.norm(C)**2 + np.linalg.norm(D)**2\n" \
-    "...     err_msg=\"Orthogonal transformation should preserve Frobenius norm\")"
+    "  (r_bar, a_out, d, c, tau): Transformed matrices and Householder factors"
 
 #define DOC_MB04LD "LQ factorization of special structured block matrix.\n" \
     "\n" \
@@ -13062,21 +6405,7 @@
     "  b (ndarray): Matrix B (p x m, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (l_bar, a_out, d, c, tau): Transformed matrices and Householder factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 4, 2\n" \
-    ">>> L = np.tril(np.random.randn(n, n)).astype(float, order='F')\n" \
-    ">>> L += np.diag(np.abs(np.diag(L)) + 1.0)\n" \
-    ">>> A = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> B = np.random.randn(p, m).astype(float, order='F')\n" \
-    ">>> from slicot import mb04ld\n" \
-    ">>> L_bar, A_out, D, C, tau = mb04ld('F', n, m, p, L.copy(), A.copy(), B.copy())\n" \
-    ">>> original_norm_sq = np.linalg.norm(L)**2 + np.linalg.norm(A)**2 + np.linalg.norm(B)**2\n" \
-    ">>> result_norm_sq = np.linalg.norm(L_bar)**2 + np.linalg.norm(C)**2 + np.linalg.norm(D)**2\n" \
-    "...     err_msg=\"Orthogonal transformation should preserve Frobenius norm\")"
+    "  (l_bar, a_out, d, c, tau): Transformed matrices and Householder factors"
 
 #define DOC_MB04MD "Balance a general real matrix to reduce its 1-norm.\n" \
     "\n" \
@@ -13093,22 +6422,7 @@
     "    a_balanced: Balanced matrix\n" \
     "    scale: Scaling factors D(j) for j=1,...,N\n" \
     "    maxred_out: Ratio of original/balanced 1-norm (if A non-zero)\n" \
-    "    info: 0=success, <0=param -info invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0],\n" \
-    "...     [300.0, 400.0, 500.0, 600.0],\n" \
-    "...     [1.0, 2.0, 0.0, 0.0],\n" \
-    "...     [1.0, 1.0, 1.0, 1.0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_balanced, scale, maxred_out, info = mb04md(a)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, <0=param -info invalid"
 
 #define DOC_MB04ND "RQ factorization of special structured block matrix.\n" \
     "\n" \
@@ -13125,22 +6439,7 @@
     "  c (ndarray): m-by-p matrix C (modified in place)\n" \
     "\n" \
     "Returns:\n" \
-    "  tau (ndarray): Scalar factors of elementary reflectors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 3\n" \
-    ">>> a = np.random.randn(n, p).astype(float, order='F')\n" \
-    ">>> r = np.triu(np.random.randn(n, n)).astype(float, order='F')\n" \
-    ">>> c = np.random.randn(m, p).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> a_work = a.copy(order='F')\n" \
-    ">>> r_work = r.copy(order='F')\n" \
-    ">>> c_work = c.copy(order='F')\n" \
-    ">>> b_work = b.copy(order='F')\n" \
-    ">>> from slicot import mb04nd\n" \
-    ">>> tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)"
+    "  tau (ndarray): Scalar factors of elementary reflectors"
 
 #define DOC_MB04NY "Apply Householder reflector to matrix [A B] from the right.\n" \
     "\n" \
@@ -13157,21 +6456,7 @@
     "  b (ndarray): Matrix B (m x n, F-order, modified in place)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b): Updated matrices\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 1\n" \
-    ">>> a = np.random.randn(m, 1).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> v = np.random.randn(n).astype(float, order='F')\n" \
-    ">>> incv = 1\n" \
-    ">>> tau = 1.5\n" \
-    ">>> from slicot import mb04ny\n" \
-    ">>> a_out = a.copy(order='F')\n" \
-    ">>> b_out = b.copy(order='F')\n" \
-    ">>> _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)"
+    "  (a, b): Updated matrices"
 
 #define DOC_MB04OD "QR factorization of structured block matrix.\n" \
     "\n" \
@@ -13191,33 +6476,7 @@
     "  c (ndarray): p-by-m matrix C (F-order), modified\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, a, b, c, tau): Updated matrices and Householder scalars\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> uplo = 'F'\n" \
-    ">>> r = np.array([\n" \
-    "...     [3., 2., 1.],\n" \
-    "...     [0., 2., 1.],\n" \
-    "...     [0., 0., 1.]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a = np.array([\n" \
-    "...     [2., 3., 1.],\n" \
-    "...     [4., 6., 5.]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [3., 2.],\n" \
-    "...     [1., 3.],\n" \
-    "...     [3., 2.]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1., 3.],\n" \
-    "...     [3., 2.]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> from slicot import mb04od\n" \
-    ">>> r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)"
+    "  (r, a, b, c, tau): Updated matrices and Householder scalars"
 
 #define DOC_MB04OW "Performs a QR factorization update.\n" \
     "\n" \
@@ -13235,59 +6494,7 @@
     "  incd (int, optional): Increment for d\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, t, x, b, c, d): Modified arrays\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04ow\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n, p = 4, 3, 2\n" \
-    ">>> lda = m + 2\n" \
-    ">>> ldt = n + 2\n" \
-    ">>> ldb = m + 2\n" \
-    ">>> ldc = n + 2\n" \
-    ">>> u1 = np.triu(np.random.rand(m, m))\n" \
-    ">>> u2 = np.random.rand(m, n)\n" \
-    ">>> t = np.triu(np.random.rand(n, n))\n" \
-    ">>> a = np.zeros((lda, n + m), order='F')\n" \
-    ">>> a[:m, :m] = u1\n" \
-    ">>> a[:m, m:m+n] = u2\n" \
-    ">>> t_arr = np.zeros((ldt, n), order='F')\n" \
-    ">>> t_arr[:n, :n] = t\n" \
-    ">>> b = np.random.rand(m, p)\n" \
-    ">>> b_arr = np.zeros((ldb, p), order='F')\n" \
-    ">>> b_arr[:m, :p] = b\n" \
-    ">>> c = np.random.rand(n, p)\n" \
-    ">>> c_arr = np.zeros((ldc, p), order='F')\n" \
-    ">>> c_arr[:n, :p] = c\n" \
-    ">>> x = np.random.rand(m + n)\n" \
-    ">>> x_arr = x.copy() # MB04OW modifies X\n" \
-    ">>> d = np.random.rand(p)\n" \
-    ">>> d_arr = d.copy() # MB04OW modifies D\n" \
-    ">>> K = np.zeros((m + n + 1, m + n + p))\n" \
-    ">>> K[:m, :m] = u1\n" \
-    ">>> K[:m, m:m+n] = u2\n" \
-    ">>> K[:m, m+n:] = b\n" \
-    ">>> K[m:m+n, m:m+n] = t\n" \
-    ">>> K[m:m+n, m+n:] = c\n" \
-    ">>> K[m+n, :m+n] = x\n" \
-    ">>> K[m+n, m+n:] = d\n" \
-    ">>> a_out, t_out, x_out, b_out, c_out, d_out = mb04ow(m, n, p, a, t_arr, x_arr, b_arr, c_arr, d_arr)\n" \
-    ">>> K_out = np.zeros_like(K)\n" \
-    ">>> r1 = a_out[:m, :m] # Upper triangular\n" \
-    ">>> r2 = a_out[:m, m:m+n]\n" \
-    ">>> r3 = t_out[:n, :n] # Upper triangular\n" \
-    ">>> b_new = b_out[:m, :p]\n" \
-    ">>> c_new = c_out[:n, :p]\n" \
-    ">>> d_new = d_out\n" \
-    ">>> K_out[:m, :m] = np.triu(r1)\n" \
-    ">>> K_out[:m, m:m+n] = r2\n" \
-    ">>> K_out[:m, m+n:] = b_new\n" \
-    ">>> K_out[m:m+n, m:m+n] = np.triu(r3)\n" \
-    ">>> K_out[m:m+n, m+n:] = c_new\n" \
-    ">>> K_out[m+n, m+n:] = d_new\n" \
-    ">>> gram_in = K.T @ K\n" \
-    ">>> gram_out = K_out.T @ K_out"
+    "  (a, t, x, b, c, d): Modified arrays"
 
 #define DOC_MB04OX "QR factorization update for rank-one modification.\n" \
     "\n" \
@@ -13298,22 +6505,7 @@
     "  x (ndarray): Vector x (n,), overwritten\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, x_out): Updated upper triangular matrix R, modified x\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04ox\n" \
-    ">>> n = 3\n" \
-    ">>> u = np.array([\n" \
-    "...     [2.0, 1.0, 0.5],\n" \
-    "...     [0.0, 3.0, 1.0],\n" \
-    "...     [0.0, 0.0, 4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([1.0, 1.0, 1.0], order='F', dtype=float)\n" \
-    ">>> r, x_out = mb04ox(u.copy(order='F'), x.copy(order='F'))\n" \
-    ">>> aug_norm_sq = np.sum(augmented**2)\n" \
-    ">>> r_norm_sq = np.sum(np.triu(r)**2)"
+    "  (r, x_out): Updated upper triangular matrix R, modified x"
 
 #define DOC_MB04OY "Apply Householder reflector to matrix [A; B].\n" \
     "\n" \
@@ -13329,20 +6521,7 @@
     "  b (ndarray): Matrix B (m x n, F-order, modified in place)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b): Updated matrices\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 1, 3\n" \
-    ">>> a = np.random.randn(1, n).astype(float, order='F')\n" \
-    ">>> b = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> v = np.random.randn(m).astype(float, order='F')\n" \
-    ">>> tau = 1.5\n" \
-    ">>> from slicot import mb04oy\n" \
-    ">>> a_out = a.copy(order='F')\n" \
-    ">>> b_out = b.copy(order='F')\n" \
-    ">>> mb04oy(m, n, v, tau, a_out, b_out)"
+    "  (a, b): Updated matrices"
 
 #define DOC_MB04PA "Reduce (skew-)Hamiltonian like matrix with orthogonal symplectic transformation.\n" \
     "\n" \
@@ -13367,31 +6546,7 @@
     "  dwork (ndarray): Workspace (3*nb,)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, qg, xa, xg, xq, ya, cs, tau): Modified arrays\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04pa\n" \
-    ">>> n, k, nb = 0, 0, 0\n" \
-    ">>> lda = 1\n" \
-    ">>> ldqg = 1\n" \
-    ">>> ldxa = 1\n" \
-    ">>> ldxg = 1\n" \
-    ">>> ldxq = 1\n" \
-    ">>> ldya = 1\n" \
-    ">>> a = np.zeros((1, 1), order='F')\n" \
-    ">>> qg = np.zeros((1, 2), order='F')\n" \
-    ">>> xa = np.zeros((1, 1), order='F')\n" \
-    ">>> xg = np.zeros((1, 1), order='F')\n" \
-    ">>> xq = np.zeros((1, 1), order='F')\n" \
-    ">>> ya = np.zeros((1, 1), order='F')\n" \
-    ">>> cs = np.zeros(1, order='F')\n" \
-    ">>> tau = np.zeros(1, order='F')\n" \
-    ">>> dwork = np.zeros(1, order='F')\n" \
-    ">>> a_out, qg_out, xa_out, xg_out, xq_out, ya_out, cs_out, tau_out = mb04pa(\n" \
-    "...     True, n, k, nb, a, qg, xa, xg, xq, ya, cs, tau, dwork\n" \
-    "...     )"
+    "  (a, qg, xa, xg, xq, ya, cs, tau): Modified arrays"
 
 #define DOC_MB04PB "Reduce Hamiltonian matrix to PVL form (blocked version).\n" \
     "\n" \
@@ -13411,38 +6566,7 @@
     "    qg: Diagonal Qout, upper tri Gout, reflector info\n" \
     "    cs: Cosines and sines of Givens rotations (2*n-2,)\n" \
     "    tau: Scalar factors of elementary reflectors (n-1,)\n" \
-    "    info: 0=success, <0=param -info invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04pb\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 5\n" \
-    ">>> ilo = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.9501, 0.7621, 0.6154, 0.4057, 0.0579],\n" \
-    "...     [0.2311, 0.4565, 0.7919, 0.9355, 0.3529],\n" \
-    "...     [0.6068, 0.0185, 0.9218, 0.9169, 0.8132],\n" \
-    "...     [0.4860, 0.8214, 0.7382, 0.4103, 0.0099],\n" \
-    "...     [0.8913, 0.4447, 0.1763, 0.8936, 0.1389],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> qg = np.array([\n" \
-    "...     [0.3869, 0.4055, 0.2140, 1.0224, 1.1103, 0.7016],\n" \
-    "...     [1.3801, 0.7567, 1.4936, 1.2913, 0.9515, 1.1755],\n" \
-    "...     [0.7993, 1.7598, 1.6433, 1.0503, 0.8839, 1.1010],\n" \
-    "...     [1.2019, 1.1956, 0.9346, 0.6824, 0.7590, 1.1364],\n" \
-    "...     [0.8780, 0.9029, 1.6565, 1.1022, 0.7408, 0.3793],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, qg_out, cs, tau, info = mb04pb(n, ilo, a, qg)\n" \
-    ">>> expected_a = np.array([\n" \
-    "...     [0.9501, -1.5494, 0.5268, 0.3187, -0.6890],\n" \
-    "...     [-2.4922, 2.0907, -1.3598, 0.5682, 0.5618],\n" \
-    "...     [0.0000, -1.7723, 0.3960, -0.2624, -0.3709],\n" \
-    "...     [0.0000, 0.0000, -0.2648, 0.2136, -0.3226],\n" \
-    "...     [0.0000, 0.0000, 0.0000, -0.2308, 0.2319],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, <0=param -info invalid"
 
 #define DOC_MB04PU "Reduce Hamiltonian matrix to Paige/Van Loan (PVL) form.\n" \
     "\n" \
@@ -13462,38 +6586,7 @@
     "    qg: Diagonal Qout, upper tri Gout, reflector info\n" \
     "    cs: Cosines and sines of Givens rotations (2*n-2,)\n" \
     "    tau: Scalar factors of elementary reflectors (n-1,)\n" \
-    "    info: 0=success, <0=param -info invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04pu\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 5\n" \
-    ">>> ilo = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.9501, 0.7621, 0.6154, 0.4057, 0.0579],\n" \
-    "...     [0.2311, 0.4565, 0.7919, 0.9355, 0.3529],\n" \
-    "...     [0.6068, 0.0185, 0.9218, 0.9169, 0.8132],\n" \
-    "...     [0.4860, 0.8214, 0.7382, 0.4103, 0.0099],\n" \
-    "...     [0.8913, 0.4447, 0.1763, 0.8936, 0.1389],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> qg = np.array([\n" \
-    "...     [0.4055, 0.3869, 1.3801, 0.7993, 1.2019, 0.8780],\n" \
-    "...     [0.2140, 1.4936, 0.7567, 1.7598, 1.1956, 0.9029],\n" \
-    "...     [1.0224, 1.2913, 1.0503, 1.6433, 0.9346, 1.6565],\n" \
-    "...     [1.1103, 0.9515, 0.8839, 0.7590, 0.6824, 1.1022],\n" \
-    "...     [0.7016, 1.1755, 1.1010, 1.1364, 0.3793, 0.7408],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_result, qg_result, cs, tau, info = mb04pu(n, ilo, a, qg)\n" \
-    "...     err_msg=f\"A[{i},{j}] magnitude mismatch\"\n" \
-    "...     )\n" \
-    "...     else:\n" \
-    "...     err_msg=f\"A[{i},{j}] mismatch\"\n" \
-    "...     )\n" \
-    "...     )\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, <0=param -info invalid"
 
 #define DOC_MB04PY "Apply elementary reflector to matrix from left or right.\n" \
     "\n" \
@@ -13509,18 +6602,7 @@
     "  c (ndarray): Matrix C (m x n, F-order, modified in place)\n" \
     "\n" \
     "Returns:\n" \
-    "  c: Updated matrix\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 1, 3\n" \
-    ">>> c = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> v = np.empty(0, dtype=float, order='F')\n" \
-    ">>> tau = 1.5\n" \
-    ">>> from slicot import mb04py\n" \
-    ">>> c_out = c.copy(order='F')\n" \
-    ">>> mb04py('L', m, n, v, tau, c_out)"
+    "  c: Updated matrix"
 
 #define DOC_MB04QB "Apply symplectic reflectors and Givens rotations (blocked).\n" \
     "\n" \
@@ -13546,25 +6628,7 @@
     "  ldwork (int, optional): Workspace size, -1 for query\n" \
     "\n" \
     "Returns:\n" \
-    "  (c, d, info): Modified matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04qb\n" \
-    ">>> m, n, k = 4, 0, 2\n" \
-    ">>> v = np.eye(m, k, order='F')\n" \
-    ">>> w = np.eye(m, k, order='F')\n" \
-    ">>> c = np.zeros((m, 1), order='F')\n" \
-    ">>> d = np.zeros((m, 1), order='F')\n" \
-    ">>> cs = np.ones(2 * k, order='F')\n" \
-    ">>> tau = np.zeros(k, order='F')\n" \
-    ">>> c_out, d_out, info = mb04qb(\n" \
-    "...     'N', 'N', 'N', 'C', 'C', m, n, k,\n" \
-    "...     v, w, c, d, cs, tau\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (c, d, info): Modified matrices and exit code"
 
 #define DOC_MB04QC "Apply symplectic block reflector to matrices.\n" \
     "\n" \
@@ -13584,24 +6648,7 @@
     "  a, b (ndarray): Input matrices (modified)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b): Modified matrices\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04qc\n" \
-    ">>> m, n, k = 4, 3, 2\n" \
-    ">>> V = np.zeros((m, k), order='F', dtype=float)\n" \
-    ">>> W = np.zeros((m, k), order='F', dtype=float)\n" \
-    "...     V[i, i] = 1.0\n" \
-    "...     W[i, i] = 1.0\n" \
-    ">>> rs = np.zeros((k, 6*k), order='F', dtype=float)\n" \
-    ">>> t = np.zeros((k, 9*k), order='F', dtype=float)\n" \
-    ">>> A = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> B = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> A_out, B_out = mb04qc(\n" \
-    "...     'Z', 'N', 'N', 'N', 'F', 'C', 'C', m, n, k, V, W, rs, t, A.copy(), B.copy()\n" \
-    "...     )"
+    "  (a, b): Modified matrices"
 
 #define DOC_MB04QF "Form triangular block factors of symplectic block reflector.\n" \
     "\n" \
@@ -13619,24 +6666,7 @@
     "  tau (ndarray): F reflector scalars\n" \
     "\n" \
     "Returns:\n" \
-    "  (rs, t, info): Block factor matrices RS (k,6k), T (k,9k), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04qf\n" \
-    ">>> n, k = 4, 2\n" \
-    ">>> V = np.zeros((n, k), order='F', dtype=float)\n" \
-    ">>> W = np.zeros((n, k), order='F', dtype=float)\n" \
-    "...     V[i, i] = 1.0\n" \
-    "...     W[i, i] = 0.0\n" \
-    ">>> cs = np.zeros(2*k, order='F', dtype=float)\n" \
-    "...     cs[2*i] = 1.0\n" \
-    "...     cs[2*i + 1] = 0.0\n" \
-    ">>> tau = np.zeros(k, order='F', dtype=float)\n" \
-    ">>> rs, t, info = mb04qf('F', 'C', 'C', n, k, V, W, cs, tau)\n" \
-    ">>> info\n" \
-    "0"
+    "  (rs, t, info): Block factor matrices RS (k,6k), T (k,9k), exit code"
 
 #define DOC_MB04QS "Multiply by product of symplectic reflectors and Givens rotations.\n" \
     "\n" \
@@ -13660,23 +6690,7 @@
     "  ldwork (int, optional): Workspace size, -1 for query\n" \
     "\n" \
     "Returns:\n" \
-    "  (c, d, info): Modified matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04qs\n" \
-    ">>> m, n = 4, 0\n" \
-    ">>> ilo = 1\n" \
-    ">>> v = np.eye(m, order='F')\n" \
-    ">>> w = np.eye(m, order='F')\n" \
-    ">>> c = np.zeros((m, 1), order='F')\n" \
-    ">>> d = np.zeros((m, 1), order='F')\n" \
-    ">>> cs = np.ones(2 * m - 2 if m > 1 else 1, order='F')\n" \
-    ">>> tau = np.zeros(m - 1 if m > 1 else 1, order='F')\n" \
-    ">>> c_out, d_out, info = mb04qs('N', 'N', 'N', m, n, ilo, v, w, c, d, cs, tau)\n" \
-    ">>> info\n" \
-    "0"
+    "  (c, d, info): Modified matrices and exit code"
 
 #define DOC_MB04QU "Apply symplectic reflectors and Givens rotations (unblocked).\n" \
     "\n" \
@@ -13698,28 +6712,7 @@
     "  k (int, optional): Number of reflectors (default: infer from V)\n" \
     "\n" \
     "Returns:\n" \
-    "  (c, d, info): Modified matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04qu\n" \
-    ">>> m, n, k = 4, 3, 2\n" \
-    ">>> V = np.zeros((m, k), order='F', dtype=float)\n" \
-    ">>> W = np.zeros((m, k), order='F', dtype=float)\n" \
-    "...     V[i, i] = 1.0\n" \
-    "...     W[i, i] = 0.0\n" \
-    ">>> C = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> D = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> cs = np.zeros(2*k, order='F', dtype=float)\n" \
-    "...     cs[2*i] = 1.0\n" \
-    "...     cs[2*i + 1] = 0.0\n" \
-    ">>> tau = np.zeros(k, order='F', dtype=float)\n" \
-    ">>> C_out, D_out, info = mb04qu(\n" \
-    "...     'N', 'N', 'N', 'C', 'C', C.copy(), D.copy(), V, W, cs, tau\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (c, d, info): Modified matrices and exit code"
 
 #define DOC_MB04RB "Reduce skew-Hamiltonian matrix to PVL form (blocked).\n" \
     "\n" \
@@ -13745,32 +6738,7 @@
     "    qg: Reflector info in cols 1:N-1, strictly upper Gout in cols 2:N+1\n" \
     "    cs: Cosines/sines of Givens rotations G(i), length 2*(N-1)\n" \
     "    tau: Scalar factors of reflectors F(i), length N-1\n" \
-    "    info: Exit code (0=success, <0=invalid parameter -info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04rb\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> ilo = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 9.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> qg = np.zeros((n, n + 1), order='F', dtype=float)\n" \
-    ">>> qg[1, 0] = 0.5\n" \
-    ">>> qg[2, 0] = 0.3\n" \
-    ">>> qg[2, 1] = 0.2\n" \
-    ">>> qg[0, 2] = 1.0\n" \
-    ">>> qg[0, 3] = 0.7\n" \
-    ">>> qg[1, 3] = 0.4\n" \
-    ">>> a_out, qg_out, cs, tau, info = mb04rb(n, ilo, a, qg)\n" \
-    "...     c = cs[2 * i]\n" \
-    "...     s = cs[2 * i + 1]\n" \
-    "...     err_msg=f\"Givens rotation {i} not normalized\")\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0=invalid parameter -info)"
 
 #define DOC_MB04RD "Block-diagonalize generalized real Schur form using well-conditioned transformations.\n" \
     "\n" \
@@ -13794,25 +6762,7 @@
     "Returns:\n" \
     "  (a, b, x, y, nblcks, blsize, alphar, alphai, beta, info):\n" \
     "    Block-diagonalized matrices, number of blocks, block sizes,\n" \
-    "    eigenvalue components (alphar+i*alphai)/beta, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04rd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> pmax = 1e10\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 4.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 2.0]], order='F', dtype=float)\n" \
-    ">>> x = np.eye(n, order='F', dtype=float)\n" \
-    ">>> y = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, b_out, x_out, y_out, nblcks, blsize, alphar, alphai, beta, info = mb04rd(\n" \
-    "...     'U', 'U', 'N', n, pmax, a, b, x, y, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    eigenvalue components (alphar+i*alphai)/beta, exit code"
 
 #define DOC_MB04RS "Solve generalized real Sylvester equation with Schur form matrices.\n" \
     "\n" \
@@ -13840,25 +6790,7 @@
     "\n" \
     "Returns:\n" \
     "  (r, l, scale, info): Solution R (in c), solution L (in f),\n" \
-    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04rs\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 1, 1\n" \
-    ">>> pmax = 1e10\n" \
-    ">>> a = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[3.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> e = np.array([[4.0]], order='F', dtype=float)\n" \
-    ">>> f = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> r, l_mat, scale, info = mb04rs(m, n, pmax, a, b, c, d, e, f)\n" \
-    ">>> rhs1 = a @ r - l_mat @ b\n" \
-    ">>> rhs2 = d @ r - l_mat @ e\n" \
-    ">>> info\n" \
-    "0"
+    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular)"
 
 #define DOC_MB04RT "Blocked solver for generalized real Sylvester equation (Level 3 BLAS).\n" \
     "\n" \
@@ -13882,25 +6814,7 @@
     "\n" \
     "Returns:\n" \
     "  (r, l, scale, info): Solution R (in c), solution L (in f),\n" \
-    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04rt\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 1, 1\n" \
-    ">>> pmax = 1e10\n" \
-    ">>> a = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[3.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> e = np.array([[4.0]], order='F', dtype=float)\n" \
-    ">>> f = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> r, l_mat, scale, info = mb04rt(m, n, pmax, a, b, c, d, e, f)\n" \
-    ">>> rhs1 = a @ r - l_mat @ b\n" \
-    ">>> rhs2 = d @ r - l_mat @ e\n" \
-    ">>> info\n" \
-    "0"
+    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular)"
 
 #define DOC_MB04RU "Reduce skew-Hamiltonian matrix to PVL form (unblocked).\n" \
     "\n" \
@@ -13925,32 +6839,7 @@
     "    qg: Reflector info in cols 1:N-1, strictly upper Gout in cols 2:N+1\n" \
     "    cs: Cosines/sines of Givens rotations G(i), length 2*(N-1)\n" \
     "    tau: Scalar factors of reflectors F(i), length N-1\n" \
-    "    info: Exit code (0=success, <0=invalid parameter -info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04ru\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> ilo = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 9.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> qg = np.zeros((n, n + 1), order='F', dtype=float)\n" \
-    ">>> qg[1, 0] = 0.5\n" \
-    ">>> qg[2, 0] = 0.3\n" \
-    ">>> qg[2, 1] = 0.2\n" \
-    ">>> qg[0, 2] = 1.0\n" \
-    ">>> qg[0, 3] = 0.7\n" \
-    ">>> qg[1, 3] = 0.4\n" \
-    ">>> a_out, qg_out, cs, tau, info = mb04ru(n, ilo, a, qg)\n" \
-    "...     c = cs[2 * i]\n" \
-    "...     s = cs[2 * i + 1]\n" \
-    "...     err_msg=f\"Givens rotation {i} not normalized\")\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0=invalid parameter -info)"
 
 #define DOC_MB04RV "Solve the generalized complex Sylvester equation.\n" \
     "\n" \
@@ -13981,23 +6870,7 @@
     "\n" \
     "Returns:\n" \
     "  (r, l, scale, info): Solution R (in c), solution L (in f),\n" \
-    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular/close eigenvalues)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04rv\n" \
-    ">>> m, n = 1, 1\n" \
-    ">>> pmax = 1e6\n" \
-    ">>> a = np.array([[2.0 + 1.0j]], dtype=complex, order='F')\n" \
-    ">>> b = np.array([[3.0 + 0.5j]], dtype=complex, order='F')\n" \
-    ">>> d = np.array([[1.0 + 0.0j]], dtype=complex, order='F')\n" \
-    ">>> e = np.array([[1.0 + 0.0j]], dtype=complex, order='F')\n" \
-    ">>> c = np.array([[3.0 + 2.0j]], dtype=complex, order='F')\n" \
-    ">>> f = np.array([[1.0 + 1.0j]], dtype=complex, order='F')\n" \
-    ">>> r, l, scale, info = mb04rv(m, n, pmax, a, b, c, d, e, f)\n" \
-    ">>> info\n" \
-    "0"
+    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular/close eigenvalues)"
 
 #define DOC_MB04RW "Blocked solver for generalized complex Sylvester equation (Level 3 BLAS).\n" \
     "\n" \
@@ -14031,29 +6904,7 @@
     "\n" \
     "Returns:\n" \
     "  (r, l, scale, info): Solution R (in c), solution L (in f),\n" \
-    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular/close eigenvalues)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04rw\n" \
-    ">>> m, n = 2, 2\n" \
-    ">>> pmax = 1e6\n" \
-    ">>> a = np.array([[2.0+1.0j, 0.5+0.2j],\n" \
-    "...     [0.0+0.0j, 1.0+0.5j]], dtype=complex, order='F')\n" \
-    ">>> b = np.array([[1.0+0.3j, 0.3+0.1j],\n" \
-    "...     [0.0+0.0j, 0.8+0.2j]], dtype=complex, order='F')\n" \
-    ">>> d = np.array([[1.0+0.0j, 0.2+0.1j],\n" \
-    "...     [0.0+0.0j, 0.5+0.0j]], dtype=complex, order='F')\n" \
-    ">>> e = np.array([[0.5+0.0j, 0.1+0.0j],\n" \
-    "...     [0.0+0.0j, 0.3+0.0j]], dtype=complex, order='F')\n" \
-    ">>> c = np.array([[1.0+1.0j, 2.0+0.5j],\n" \
-    "...     [0.5+0.2j, 1.5+1.0j]], dtype=complex, order='F')\n" \
-    ">>> f = np.array([[0.5+0.5j, 1.0+0.3j],\n" \
-    "...     [0.3+0.1j, 0.8+0.6j]], dtype=complex, order='F')\n" \
-    ">>> r, l, scale, info = mb04rw(m, n, pmax, a, b, c, d, e, f)\n" \
-    ">>> info\n" \
-    "0"
+    "    scaling factor, exit code (0=success, 1=element > pmax, 2=singular/close eigenvalues)"
 
 #define DOC_MB04RZ "Block-diagonalize generalized complex Schur form using well-conditioned transformations.\n" \
     "\n" \
@@ -14077,25 +6928,7 @@
     "Returns:\n" \
     "  (a, b, x, y, nblcks, blsize, alpha, beta, info):\n" \
     "    Block-diagonalized matrices, number of blocks, block sizes,\n" \
-    "    complex eigenvalue components alpha/beta, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04rz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> pmax = 1e10\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([[1.0+1.0j, 0.0],\n" \
-    "...     [0.0, 4.0+2.0j]], order='F', dtype=complex)\n" \
-    ">>> b = np.array([[1.0+0.0j, 0.0],\n" \
-    "...     [0.0, 2.0+0.0j]], order='F', dtype=complex)\n" \
-    ">>> x = np.eye(n, order='F', dtype=complex)\n" \
-    ">>> y = np.eye(n, order='F', dtype=complex)\n" \
-    ">>> a_out, b_out, x_out, y_out, nblcks, blsize, alpha, beta, info = mb04rz(\n" \
-    "...     'U', 'U', 'N', n, pmax, a, b, x, y, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    complex eigenvalue components alpha/beta, exit code"
 
 #define DOC_MB04SU "Compute symplectic QR decomposition of a real 2M-by-N matrix [A; B].\n" \
     "\n" \
@@ -14118,29 +6951,7 @@
     "    b: [R21 R22] with reflector info in zero parts\n" \
     "    cs: Cosines/sines of Givens rotations G(i), length 2*min(m,n)\n" \
     "    tau: Scalar factors of reflectors F(i), length min(m,n)\n" \
-    "    info: Exit code (0=success, <0=invalid parameter -info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04su\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 10.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.1, 0.2, 0.3],\n" \
-    "...     [0.4, 0.5, 0.6],\n" \
-    "...     [0.7, 0.8, 0.9]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_out, b_out, cs, tau, info = mb04su(m, n, a, b)\n" \
-    ">>> k = min(m, n)\n" \
-    "...     c, s = cs[2 * i], cs[2 * i + 1]\n" \
-    "...     err_msg=f\"Givens rotation {i} not normalized\")\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0=invalid parameter -info)"
 
 #define DOC_MB04TB "Symplectic URV decomposition (blocked).\n" \
     "\n" \
@@ -14162,47 +6973,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, g, q, csl, csr, taul, taur, info):\n" \
-    "    Modified matrices, Givens rotations, reflector factors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04tb\n" \
-    ">>> n = 5\n" \
-    ">>> A = np.array([\n" \
-    "...     [0.4643, 0.3655, 0.6853, 0.5090, 0.3718],\n" \
-    "...     [0.3688, 0.6460, 0.4227, 0.6798, 0.5135],\n" \
-    "...     [0.7458, 0.5043, 0.9419, 0.9717, 0.9990],\n" \
-    "...     [0.7140, 0.4941, 0.7802, 0.5272, 0.1220],\n" \
-    "...     [0.7418, 0.0339, 0.7441, 0.0436, 0.6564]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [-0.4643, -0.3688, -0.7458, -0.7140, -0.7418],\n" \
-    "...     [-0.3655, -0.6460, -0.5043, -0.4941, -0.0339],\n" \
-    "...     [-0.6853, -0.4227, -0.9419, -0.7802, -0.7441],\n" \
-    "...     [-0.5090, -0.6798, -0.9717, -0.5272, -0.0436],\n" \
-    "...     [-0.3718, -0.5135, -0.9990, -0.1220, -0.6564]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> G = np.array([\n" \
-    "...     [0.7933, 1.5765, 1.0711, 1.0794, 0.8481],\n" \
-    "...     [1.5765, 0.1167, 1.5685, 0.8756, 0.5037],\n" \
-    "...     [1.0711, 1.5685, 0.9902, 0.3858, 0.2109],\n" \
-    "...     [1.0794, 0.8756, 0.3858, 1.8834, 1.4338],\n" \
-    "...     [0.8481, 0.5037, 0.2109, 1.4338, 0.1439]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Q = np.array([\n" \
-    "...     [1.0786, 1.5264, 1.1721, 1.5343, 0.4756],\n" \
-    "...     [1.5264, 0.8644, 0.6872, 1.1379, 0.6499],\n" \
-    "...     [1.1721, 0.6872, 1.5194, 1.1197, 1.0158],\n" \
-    "...     [1.5343, 1.1379, 1.1197, 0.6612, 0.2004],\n" \
-    "...     [0.4756, 0.6499, 1.0158, 0.2004, 1.2188]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ilo = 1\n" \
-    ">>> A_out, B_out, G_out, Q_out, csl, csr, taul, taur, info = mb04tb(\n" \
-    "...     'N', 'N', n, ilo, A, B, G, Q\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Modified matrices, Givens rotations, reflector factors, exit code"
 
 #define DOC_MB04TS "Symplectic URV decomposition (unblocked).\n" \
     "\n" \
@@ -14223,46 +6994,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, g, q, csl, csr, taul, taur, info):\n" \
-    "    Modified matrices, Givens rotations, reflector factors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04ts\n" \
-    ">>> n = 5\n" \
-    ">>> A = np.array([\n" \
-    "...     [0.4643, 0.3655, 0.6853, 0.5090, 0.3718],\n" \
-    "...     [0.3688, 0.6460, 0.4227, 0.6798, 0.5135],\n" \
-    "...     [0.7458, 0.5043, 0.9419, 0.9717, 0.9990],\n" \
-    "...     [0.7140, 0.4941, 0.7802, 0.5272, 0.1220],\n" \
-    "...     [0.7418, 0.0339, 0.7441, 0.0436, 0.6564]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [-0.4643, -0.3688, -0.7458, -0.7140, -0.7418],\n" \
-    "...     [-0.3655, -0.6460, -0.5043, -0.4941, -0.0339],\n" \
-    "...     [-0.6853, -0.4227, -0.9419, -0.7802, -0.7441],\n" \
-    "...     [-0.5090, -0.6798, -0.9717, -0.5272, -0.0436],\n" \
-    "...     [-0.3718, -0.5135, -0.9990, -0.1220, -0.6564]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> G = np.array([\n" \
-    "...     [0.7933, 1.5765, 1.0711, 1.0794, 0.8481],\n" \
-    "...     [1.5765, 0.1167, 1.5685, 0.8756, 0.5037],\n" \
-    "...     [1.0711, 1.5685, 0.9902, 0.3858, 0.2109],\n" \
-    "...     [1.0794, 0.8756, 0.3858, 1.8834, 1.4338],\n" \
-    "...     [0.8481, 0.5037, 0.2109, 1.4338, 0.1439]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Q = np.array([\n" \
-    "...     [1.0786, 1.5264, 1.1721, 1.5343, 0.4756],\n" \
-    "...     [1.5264, 0.8644, 0.6872, 1.1379, 0.6499],\n" \
-    "...     [1.1721, 0.6872, 1.5194, 1.1197, 1.0158],\n" \
-    "...     [1.5343, 1.1379, 1.1197, 0.6612, 0.2004],\n" \
-    "...     [0.4756, 0.6499, 1.0158, 0.2004, 1.2188]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> A_out, B_out, G_out, Q_out, csl, csr, taul, taur, info = mb04ts(\n" \
-    "...     'N', 'N', n, 1, A.copy(), B.copy(), G.copy(), Q.copy()\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Modified matrices, Givens rotations, reflector factors, exit code"
 
 #define DOC_MB04TT "Row compression with column echelon form preservation.\n" \
     "\n" \
@@ -14290,33 +7022,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, q, z, istair, rank, info):\n" \
-    "    Transformed matrices, updated staircase array, rank of Aj, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04tt\n" \
-    ">>> m, n = 3, 5\n" \
-    ">>> ifira, ifica, nca = 1, 1, 2\n" \
-    ">>> A = np.array([\n" \
-    "...     [1.0, 2.0, 0.5, 0.2, 0.1],\n" \
-    "...     [4.0, 5.0, 0.6, 0.3, 0.2],\n" \
-    "...     [7.0, 8.0, 0.7, 0.4, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> E = np.array([\n" \
-    "...     [0.0, 0.0, 1.0, 0.5, 0.2],\n" \
-    "...     [0.0, 0.0, 0.0, 2.0, 0.3],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 1.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> istair = np.array([3, 4, 5], dtype=np.int32)\n" \
-    ">>> Q = np.eye(m, order='F', dtype=float)\n" \
-    ">>> Z = np.eye(n, order='F', dtype=float)\n" \
-    ">>> A_out, E_out, Q_out, Z_out, istair_out, rank, info = mb04tt(\n" \
-    "...     True, True, m, n, ifira, ifica, nca, A.copy(), E.copy(),\n" \
-    "...     Q.copy(), Z.copy(), istair.copy(), 1e-10\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Transformed matrices, updated staircase array, rank of Aj, exit code"
 
 #define DOC_MB04TU "Givens transformation with interchange (modified DROT).\n" \
     "\n" \
@@ -14336,17 +7042,7 @@
     "  incy (int, optional): Increment for Y (default: 1)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, y): Transformed arrays\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04tu\n" \
-    ">>> import numpy as np\n" \
-    ">>> x = np.array([1.0, 2.0, 3.0], dtype=float, order='F')\n" \
-    ">>> y = np.array([4.0, 5.0, 6.0], dtype=float, order='F')\n" \
-    ">>> c = 1.0\n" \
-    ">>> s = 0.0\n" \
-    ">>> x_out, y_out = mb04tu(x, y, c, s)"
+    "  (x, y): Transformed arrays"
 
 #define DOC_MB04TV "Reduce submatrix A(k) to upper triangular form using column Givens rotations.\n" \
     "\n" \
@@ -14368,28 +7064,7 @@
     "  updatz (bool, optional): Whether to accumulate transforms in Z (default: False)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, z, info): Transformed matrices and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04tv\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> nra = 2\n" \
-    ">>> nca = 3\n" \
-    ">>> ifira = 1  # 1-based row index\n" \
-    ">>> ifica = 1  # 1-based column index\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> e = np.zeros((0, 3), dtype=float, order='F')  # Empty, ifira-1=0 rows\n" \
-    ">>> z = np.eye(n, dtype=float, order='F')\n" \
-    ">>> a_out, e_out, z_out, info = mb04tv(\n" \
-    "...     n, nra, nca, ifira, ifica, a, e, z, updatz=True\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, z, info): Transformed matrices and exit code (0=success)"
 
 #define DOC_MB04TW "Reduce submatrix E(k) to upper triangular form using row Givens rotations.\n" \
     "\n" \
@@ -14413,33 +7088,7 @@
     "  updatq (bool, optional): Whether to accumulate transforms in Q (default: False)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, q, info): Transformed matrices and exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04tw\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 2\n" \
-    ">>> n = 2\n" \
-    ">>> nre = 2\n" \
-    ">>> nce = 2\n" \
-    ">>> ifire = 1  # 1-based\n" \
-    ">>> ifice = 1  # 1-based\n" \
-    ">>> ifica = 1  # 1-based\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0],\n" \
-    "...     [3.0, 4.0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a = np.array([\n" \
-    "...     [5.0, 6.0],\n" \
-    "...     [7.0, 8.0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> q = np.eye(m, dtype=float, order='F')\n" \
-    ">>> a_out, e_out, q_out, info = mb04tw(\n" \
-    "...     m, n, nre, nce, ifire, ifice, ifica, a, e, q, updatq=True\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, q, info): Transformed matrices and exit code (0=success)"
 
 #define DOC_MB04TX "Separate pencils s*E(eps)-A(eps) and s*E(inf)-A(inf).\n" \
     "\n" \
@@ -14466,42 +7115,7 @@
     "Returns:\n" \
     "  (a, e, q, z, nblcks, inuk, imuk, mnei, info):\n" \
     "    Transformed matrices, updated block count, dimensions, pencil sizes, exit code.\n" \
-    "    mnei = [meps, neps, minf, ninf] dimensions of epsilon and infinite pencils.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04tx\n" \
-    ">>> import numpy as np\n" \
-    ">>> nblcks = 2\n" \
-    ">>> inuk = np.array([2, 1], dtype=np.int32)\n" \
-    ">>> imuk = np.array([3, 2], dtype=np.int32)\n" \
-    ">>> m = np.sum(inuk)  # 3\n" \
-    ">>> n = np.sum(imuk)  # 5\n" \
-    ">>> a = np.zeros((m, n), dtype=float, order='F')\n" \
-    ">>> e = np.zeros((m, n), dtype=float, order='F')\n" \
-    ">>> a[0, 0] = 1.0\n" \
-    ">>> a[0, 1] = 2.0\n" \
-    ">>> a[0, 2] = 3.0\n" \
-    ">>> a[1, 0] = 0.5\n" \
-    ">>> a[1, 1] = 1.5\n" \
-    ">>> a[1, 2] = 2.5\n" \
-    ">>> a[2, 3] = 1.0\n" \
-    ">>> a[2, 4] = 2.0\n" \
-    ">>> e[0, 1] = 1.0\n" \
-    ">>> e[0, 2] = 2.0\n" \
-    ">>> e[0, 3] = 3.0\n" \
-    ">>> e[1, 2] = 0.5\n" \
-    ">>> e[1, 3] = 1.5\n" \
-    ">>> e[1, 4] = 2.5\n" \
-    ">>> e[2, 4] = 1.0\n" \
-    ">>> q = np.eye(m, dtype=float, order='F')\n" \
-    ">>> z = np.eye(n, dtype=float, order='F')\n" \
-    ">>> a_out, e_out, q_out, z_out, nblcks_out, inuk_out, imuk_out, mnei, info = mb04tx(\n" \
-    "...     a, e, inuk, imuk, q=q, z=z, updatq=True, updatz=True\n" \
-    "...     )\n" \
-    ">>> meps, neps, minf, ninf = mnei\n" \
-    ">>> info\n" \
-    "0"
+    "    mnei = [meps, neps, minf, ninf] dimensions of epsilon and infinite pencils."
 
 #define DOC_MB04TY "Triangularize full rank submatrices in staircase pencil.\n" \
     "\n" \
@@ -14528,26 +7142,7 @@
     "  (a, e, q, z, info): Transformed matrices and exit code.\n" \
     "    info=0: success\n" \
     "    info=1: incorrect dimensions of full column rank submatrix (mu(k+1) > nu(k))\n" \
-    "    info=2: incorrect dimensions of full row rank submatrix (nu(k) > mu(k))\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04ty\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 2\n" \
-    ">>> n = 2\n" \
-    ">>> nblcks = 1\n" \
-    ">>> inuk = np.array([2], dtype=np.int32)\n" \
-    ">>> imuk = np.array([2], dtype=np.int32)\n" \
-    ">>> a = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> e = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> q = np.eye(m, dtype=float, order='F')\n" \
-    ">>> z = np.eye(n, dtype=float, order='F')\n" \
-    ">>> a_out, e_out, q_out, z_out, info = mb04ty(\n" \
-    "...     m, n, nblcks, inuk, imuk, a, e, q, z, updatq=True, updatz=True\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info=2: incorrect dimensions of full row rank submatrix (nu(k) > mu(k))"
 
 #define DOC_MB04UD "Reduce pencil sE-A to column echelon form with orthogonal transformations.\n" \
     "\n" \
@@ -14574,28 +7169,7 @@
     "    z: Orthogonal column transformation matrix (if jobz='I' or 'U')\n" \
     "    ranke: Computed rank of E\n" \
     "    istair: Staircase structure array (+j=corner, -j=boundary)\n" \
-    "    info: Exit code (0=success, <0=invalid parameter -info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 0.0, 2.0, -2.0],\n" \
-    "...     [0.0, -2.0, 0.0, 2.0],\n" \
-    "...     [2.0, 0.0, -2.0, 0.0],\n" \
-    "...     [2.0, -2.0, 0.0, 2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, -1.0],\n" \
-    "...     [0.0, -1.0, 0.0, 1.0],\n" \
-    "...     [1.0, 0.0, -1.0, 0.0],\n" \
-    "...     [1.0, -1.0, 0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> from slicot import mb04ud\n" \
-    ">>> a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('N', 'N', m, n, a, e)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0=invalid parameter -info)"
 
 #define DOC_MB04VD "Upper block triangular form for rectangular pencil sE-A.\n" \
     "\n" \
@@ -14623,29 +7197,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, q, z, nblcks, nblcki, imuk, inuk, imuk0, mnei, info):\n" \
-    "    Transformed matrices, block counts, dimension arrays, exit code.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04vd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 2, 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.0, -1.0, 0.0],\n" \
-    "...     [1.0, 1.0, 0.0, -1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [0.0, -1.0, 0.0, 0.0],\n" \
-    "...     [0.0, -1.0, 0.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_ud, e_ud, q_ud, z_ud, ranke, istair, info = mb04ud(\n" \
-    "...     'I', 'I', m, n, a.copy(order='F'), e.copy(order='F')\n" \
-    "...     )\n" \
-    ">>> (a_vd, e_vd, q_vd, z_vd, nblcks, nblcki,\n" \
-    "...     imuk, inuk, imuk0, mnei, info_vd) = mb04vd(\n" \
-    "...     'S', 'U', 'U', m, n, ranke, a_ud.copy(order='F'), e_ud.copy(order='F'),\n" \
-    "...     q_ud.copy(order='F'), z_ud.copy(order='F'), istair.copy()\n" \
-    "...     )"
+    "    Transformed matrices, block counts, dimension arrays, exit code."
 
 #define DOC_MB04VX "Separate pencils s*E(eps)-A(eps) and s*E(inf)-A(inf) (variant).\n" \
     "\n" \
@@ -14665,32 +7217,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, q, z, inuk, imuk, mnei): Transformed matrices and pencil dimensions.\n" \
-    "    mnei = [meps, neps, minf] dimensions of epsilon and infinite pencils.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04vx\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 4\n" \
-    ">>> nblcks = 2\n" \
-    ">>> inuk = np.array([2, 1], dtype=np.int32)\n" \
-    ">>> imuk = np.array([2, 2], dtype=np.int32)\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 0.5, 0.3],\n" \
-    "...     [0.0, 3.0, 1.0, 0.2],\n" \
-    "...     [0.0, 0.0, 2.0, 0.1]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 0.5, 0.3, 0.2],\n" \
-    "...     [0.0, 1.0, 0.4, 0.1],\n" \
-    "...     [0.0, 0.0, 1.0, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> q = np.eye(m, order='F', dtype=float)\n" \
-    ">>> z = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, e_out, q_out, z_out, inuk_out, imuk_out, mnei = mb04vx(\n" \
-    "...     a, e, q, z, nblcks, inuk, imuk, updatq=True, updatz=True\n" \
-    "...     )\n" \
-    ">>> meps, neps, minf = mnei[0], mnei[1], mnei[2]"
+    "    mnei = [meps, neps, minf] dimensions of epsilon and infinite pencils."
 
 #define DOC_MB04WD "Generate matrix Q with orthogonal columns from symplectic reflectors (blocked version).\n" \
     "\n" \
@@ -14713,33 +7240,7 @@
     "  tau (ndarray): Scalar factors of reflectors F(i), length k\n" \
     "\n" \
     "Returns:\n" \
-    "  (q1, q2, info): Generated orthogonal matrices, exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04wd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 10.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.1, 0.2, 0.3],\n" \
-    "...     [0.4, 0.5, 0.6],\n" \
-    "...     [0.7, 0.8, 0.9]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_qr, b_qr, cs, tau, info_su = mb04su(m, n, a, b)\n" \
-    ">>> k = min(m, n)\n" \
-    ">>> q1_in = a_qr.copy()\n" \
-    ">>> q2_in = b_qr.copy()\n" \
-    ">>> q1, q2, info = mb04wd(False, False, m, n, k, q1_in, q2_in, cs, tau)\n" \
-    ">>> q1_q1t = q1.T @ q1\n" \
-    ">>> q2_q2t = q2.T @ q2\n" \
-    "...     err_msg=\"Q1^T Q1 + Q2^T Q2 should equal I\")\n" \
-    ">>> info\n" \
-    "0"
+    "  (q1, q2, info): Generated orthogonal matrices, exit code (0=success)"
 
 #define DOC_MB04WP "Generate orthogonal symplectic matrix U from MB04PU output.\n" \
     "\n" \
@@ -14761,37 +7262,7 @@
     "  tau (ndarray): Scalar factors of reflectors F(i), length n-1\n" \
     "\n" \
     "Returns:\n" \
-    "  (u1, u2, info): Generated orthogonal symplectic matrix blocks, exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04wp\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 5\n" \
-    ">>> ilo = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.9501, 0.7621, 0.6154, 0.4057, 0.0579],\n" \
-    "...     [0.2311, 0.4565, 0.7919, 0.9355, 0.3529],\n" \
-    "...     [0.6068, 0.0185, 0.9218, 0.9169, 0.8132],\n" \
-    "...     [0.4860, 0.8214, 0.7382, 0.4103, 0.0099],\n" \
-    "...     [0.8913, 0.4447, 0.1763, 0.8936, 0.1389],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> qg = np.array([\n" \
-    "...     [0.4055, 0.3869, 1.3801, 0.7993, 1.2019, 0.8780],\n" \
-    "...     [0.2140, 1.4936, 0.7567, 1.7598, 1.1956, 0.9029],\n" \
-    "...     [1.0224, 1.2913, 1.0503, 1.6433, 0.9346, 1.6565],\n" \
-    "...     [1.1103, 0.9515, 0.8839, 0.7590, 0.6824, 1.1022],\n" \
-    "...     [0.7016, 1.1755, 1.1010, 1.1364, 0.3793, 0.7408],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_pvl, qg_pvl, cs, tau, info_pu = mb04pu(n, ilo, a, qg)\n" \
-    ">>> u1_in = np.tril(a_pvl).copy(order='F')\n" \
-    ">>> u2_in = np.tril(qg_pvl[:, :n]).copy(order='F')\n" \
-    ">>> u1, u2, info = mb04wp(n, ilo, u1_in, u2_in, cs, tau)\n" \
-    "...     u1[:, j] *= -1\n" \
-    "...     u2[:, j] *= -1\n" \
-    "...     break\n" \
-    ">>> info\n" \
-    "0"
+    "  (u1, u2, info): Generated orthogonal symplectic matrix blocks, exit code (0=success)"
 
 #define DOC_MB04WR "Generate orthogonal symplectic matrices U or V from symplectic reflectors.\n" \
     "\n" \
@@ -14817,27 +7288,7 @@
     "  tau (ndarray): Scalar factors of reflectors, length n (job='U') or n-1 (job='V')\n" \
     "\n" \
     "Returns:\n" \
-    "  (q1, q2, info): Generated orthogonal symplectic matrix blocks, exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04wr\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> ilo = 1\n" \
-    ">>> A = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> B = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> G = np.random.randn(n, n)\n" \
-    ">>> G = (G + G.T).astype(float, order='F')\n" \
-    ">>> Q = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> A_out, B_out, G_out, Q_out, csl, csr, taul, taur, info = mb04ts(\n" \
-    "...     'N', 'N', n, ilo, A.copy(), B.copy(), G.copy(), Q.copy()\n" \
-    "...     )\n" \
-    ">>> q1 = A_out.copy()\n" \
-    ">>> q2 = Q_out.copy()\n" \
-    ">>> q1_out, q2_out, info = mb04wr('U', 'N', n, ilo, q1, q2, csl, taul)\n" \
-    ">>> info\n" \
-    "0"
+    "  (q1, q2, info): Generated orthogonal symplectic matrix blocks, exit code (0=success)"
 
 #define DOC_MB04WU "Generate matrix Q with orthogonal columns from symplectic reflectors and Givens rotations.\n" \
     "\n" \
@@ -14860,33 +7311,7 @@
     "  tau (ndarray): Scalar factors of reflectors F(i), length k\n" \
     "\n" \
     "Returns:\n" \
-    "  (q1, q2, info): Generated orthogonal matrices, exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04wu\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 10.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.1, 0.2, 0.3],\n" \
-    "...     [0.4, 0.5, 0.6],\n" \
-    "...     [0.7, 0.8, 0.9]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_qr, b_qr, cs, tau, info_su = mb04su(m, n, a, b)\n" \
-    ">>> k = min(m, n)\n" \
-    ">>> q1_in = a_qr.copy()\n" \
-    ">>> q2_in = b_qr.copy()\n" \
-    ">>> q1, q2, info = mb04wu(False, False, m, n, k, q1_in, q2_in, cs, tau)\n" \
-    ">>> q1_q1t = q1.T @ q1\n" \
-    ">>> q2_q2t = q2.T @ q2\n" \
-    "...     err_msg=\"Q1^T Q1 + Q2^T Q2 should equal I\")\n" \
-    ">>> info\n" \
-    "0"
+    "  (q1, q2, info): Generated orthogonal matrices, exit code (0=success)"
 
 #define DOC_MB04XD "Compute basis for left/right singular subspace for smallest singular values.\n" \
     "\n" \
@@ -14916,33 +7341,7 @@
     "    partially diagonalized bidiagonal q[0:p] diagonal, q[p:2p-1] superdiagonal;\n" \
     "    boolean array where True indicates subspace basis columns;\n" \
     "    warning (1 = rank lowered due to multiplicity);\n" \
-    "    exit code (0 = success, 1 = max QR/QL iterations exceeded)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb04xd\n" \
-    ">>> m, n = 6, 4\n" \
-    ">>> rank_in = -1\n" \
-    ">>> theta_in = 0.001\n" \
-    ">>> tol = 0.0\n" \
-    ">>> reltol = 0.0\n" \
-    ">>> jobu = 'A'\n" \
-    ">>> jobv = 'A'\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.80010, 0.39985, 0.60005, 0.89999],\n" \
-    "...     [0.29996, 0.69990, 0.39997, 0.82997],\n" \
-    "...     [0.49994, 0.60003, 0.20012, 0.79011],\n" \
-    "...     [0.90013, 0.20016, 0.79995, 0.85002],\n" \
-    "...     [0.39998, 0.80006, 0.49985, 0.99016],\n" \
-    "...     [0.20002, 0.90007, 0.70009, 1.02994],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> rank, theta, u, v, q, inul, iwarn, info = mb04xd(\n" \
-    "...     jobu, jobv, a, rank_in, theta_in, tol, reltol\n" \
-    "...     )\n" \
-    ">>> p = min(m, n)\n" \
-    ">>> info\n" \
-    "0"
+    "    exit code (0 = success, 1 = max QR/QL iterations exceeded)"
 
 #define DOC_MB04XY "Apply Householder transformations from bidiagonalization to matrices.\n" \
     "\n" \
@@ -14967,23 +7366,7 @@
     "  inul (ndarray): Boolean array of length max(m,n). inul[i]=True to transform column i.\n" \
     "\n" \
     "Returns:\n" \
-    "  (u, v, info): Transformed matrices, exit code (0=success, <0=-i param error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 3\n" \
-    ">>> p = min(m, n)\n" \
-    ">>> x = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> taup = np.zeros(p, dtype=float)\n" \
-    ">>> tauq = np.zeros(p, dtype=float)\n" \
-    ">>> u = np.eye(m, dtype=float, order='F')\n" \
-    ">>> v = np.eye(n, dtype=float, order='F')\n" \
-    ">>> inul = np.ones(max(m, n), dtype=bool)\n" \
-    ">>> from slicot import mb04xy\n" \
-    ">>> u_out, v_out, info = mb04xy('A', 'A', m, n, x, taup, tauq, u, v, inul)\n" \
-    ">>> info\n" \
-    "0"
+    "  (u, v, info): Transformed matrices, exit code (0=success, <0=-i param error)"
 
 #define DOC_MB04YD "Partial diagonalization of a bidiagonal matrix.\n" \
     "\n" \
@@ -15021,26 +7404,7 @@
     "  - jobu='I'/'U': (q, e, u, theta, rank, inul, iwarn, info)\n" \
     "  - jobv='I'/'U': (q, e, v, theta, rank, inul, iwarn, info)\n" \
     "  - both: (q, e, u, v, theta, rank, inul, iwarn, info)\n" \
-    "  where inul (bool array) indicates elements with singular values <= theta.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb04yd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 5\n" \
-    ">>> n = 5\n" \
-    ">>> p = min(m, n)\n" \
-    ">>> q = np.array([1.0, 2.0, 3.0, 4.0, 5.0], dtype=float, order='F')\n" \
-    ">>> e = np.array([2.0, 3.0, 4.0, 5.0], dtype=float, order='F')\n" \
-    ">>> theta = 2.0\n" \
-    ">>> rank = -1\n" \
-    ">>> tol = 0.0\n" \
-    ">>> reltol = 0.0\n" \
-    ">>> q_out, e_out, theta_out, rank_out, inul_out, iwarn, info = mb04yd(\n" \
-    "...     'N', 'N', m, n, rank, theta, q, e, tol, reltol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  where inul (bool array) indicates elements with singular values <= theta."
 
 #define DOC_MB04YW "Perform one QR or QL iteration step on bidiagonal submatrix.\n" \
     "\n" \
@@ -15064,29 +7428,7 @@
     "  v (ndarray, optional): N-by-p right transformation matrix (F-order, required if updatv)\n" \
     "\n" \
     "Returns:\n" \
-    "  (d, e, u, v, info): Transformed diagonal/superdiagonal, updated U/V, exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 4\n" \
-    ">>> p = min(m, n)\n" \
-    ">>> d = np.abs(np.random.randn(p)) + 0.1\n" \
-    ">>> e = np.random.randn(p - 1) * 0.5\n" \
-    ">>> j = np.diag(d) + np.diag(e, 1)\n" \
-    ">>> d_out = d.astype(float, order='F').copy()\n" \
-    ">>> e_out = e.astype(float, order='F').copy()\n" \
-    ">>> l, k = 1, p\n" \
-    ">>> from slicot import mb04yw\n" \
-    ">>> d_res, e_res, u_out, v_out, info = mb04yw(\n" \
-    "...     True, False, False, m, n, l, k, 0.0,\n" \
-    "...     d_out, e_out, None, None\n" \
-    "...     )\n" \
-    ">>> j_new = np.diag(d_res) + np.diag(e_res, 1)\n" \
-    ">>> jtj_new = j_new.T @ j_new\n" \
-    ">>> eig_new = np.sort(np.linalg.eigvalsh(jtj_new))\n" \
-    ">>> info\n" \
-    "0"
+    "  (d, e, u, v, info): Transformed diagonal/superdiagonal, updated U/V, exit code (0=success)"
 
 #define DOC_MB04ZD "Hamiltonian matrix square-reduction.\n" \
     "\n" \
@@ -15103,37 +7445,7 @@
     "  u (ndarray, optional): N-by-2N transform matrix (for 'V'/'A' modes)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, qg, u, info): Square-reduced matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> compu = 'N'\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [4.0, 5.0, 6.0],\n" \
-    "...     [7.0, 8.0, 9.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> g_upper = np.array([\n" \
-    "...     [1.0, 1.0, 1.0],\n" \
-    "...     [0.0, 2.0, 2.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> q_lower = np.array([\n" \
-    "...     [7.0, 0.0, 0.0],\n" \
-    "...     [6.0, 8.0, 0.0],\n" \
-    "...     [5.0, 4.0, 9.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> qg = np.zeros((n, n+1), dtype=float, order='F')\n" \
-    "...     qg[i, j] = q_lower[i, j]\n" \
-    "...     qg[i, j+1] = g_upper[i, j]\n" \
-    ">>> from slicot import mb04zd\n" \
-    ">>> a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg)\n" \
-    "...     rtol=1e-3, atol=1e-4)\n" \
-    "...     rtol=1e-3, atol=1e-4)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, qg, u, info): Square-reduced matrices and exit code"
 
 #define DOC_MB05MD "Matrix exponential for a real non-defective matrix.\n" \
     "\n" \
@@ -15153,36 +7465,7 @@
     "    y: Intermediate matrix (exp(A*delta) = V*Y)\n" \
     "    valr: Real parts of eigenvalues\n" \
     "    vali: Imaginary parts of eigenvalues\n" \
-    "    info: Exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb05md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> delta = 1.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.0, 2.3, -2.6],\n" \
-    "...     [0.0, 0.5, -1.4, -0.7],\n" \
-    "...     [2.3, -1.4, 0.5, 0.0],\n" \
-    "...     [-2.6, -0.7, 0.0, 0.5],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> exp_a_delta, v, y, valr, vali, info = mb05md('N', n, delta, a)\n" \
-    ">>> eig_computed = valr + 1j * vali\n" \
-    "...     sorted(eig_computed, key=lambda x: (x.real, x.imag)),\n" \
-    "...     rtol=1e-3, atol=1e-4\n" \
-    ">>> )\n" \
-    "...     if vali[i] == 0:  # Real eigenvalue\n" \
-    "...     f\"Eigenvector {i} failed: ||A*v - λ*v|| = {np.linalg.norm(residual)}\"\n" \
-    ">>> mapping = {}\n" \
-    "...     mapping[i] = j\n" \
-    "...     break\n" \
-    "...     j = mapping[i]\n" \
-    "...     v_comp = v[:, i]\n" \
-    "...     np.allclose(v_comp, -v_exp, rtol=1e-3, atol=1e-4)), \\\n" \
-    "...     f\"Eigenvector {i} doesn't match expected column {j} (λ={valr[i]})\"\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code"
 
 #define DOC_MB05MY "Schur form, eigenvalues, and right eigenvectors.\n" \
     "\n" \
@@ -15196,21 +7479,7 @@
     "  a (ndarray): N-by-N matrix A (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (wr, wi, r, q, t, info): Eigenvalues, eigenvectors, Schur form\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb05my\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 3.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> wr, wi, r, q, t, info = mb05my('N', a)\n" \
-    ">>> eig_computed = np.sort(wr)\n" \
-    ">>> info\n" \
-    "0"
+    "  (wr, wi, r, q, t, info): Eigenvalues, eigenvectors, Schur form"
 
 #define DOC_MB05ND "Matrix exponential and integral.\n" \
     "\n" \
@@ -15224,25 +7493,7 @@
     "  tol (float): Tolerance for Pade approximation order\n" \
     "\n" \
     "Returns:\n" \
-    "  (ex, exint, info): exp(A*delta), integral H(delta), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb05nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 5\n" \
-    ">>> delta = 0.1\n" \
-    ">>> tol = 0.0001\n" \
-    ">>> a = np.array([\n" \
-    "...     [5.0, 4.0, 3.0, 2.0, 1.0],\n" \
-    "...     [1.0, 6.0, 0.0, 4.0, 3.0],\n" \
-    "...     [2.0, 0.0, 7.0, 6.0, 5.0],\n" \
-    "...     [1.0, 3.0, 1.0, 8.0, 7.0],\n" \
-    "...     [2.0, 5.0, 7.0, 1.0, 9.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ex, exint, info = mb05nd(n, delta, a, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (ex, exint, info): exp(A*delta), integral H(delta), exit code"
 
 #define DOC_MB05OD "Matrix exponential with accuracy estimate.\n" \
     "\n" \
@@ -15262,24 +7513,7 @@
     "    mdig: Minimal accurate digits in 1-norm of result\n" \
     "    idig: Accurate digits at 95% confidence level\n" \
     "    iwarn: Warning (0=ok, 1=possible, 2=severe inaccuracy, 3=balancing unused)\n" \
-    "    info: Exit code (0=ok, 1=norm too large, 2=singular, 3=overflow)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb05od\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> delta = 1.0\n" \
-    ">>> ndiag = 9\n" \
-    ">>> balanc = 'S'\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 1.0, 1.0],\n" \
-    "...     [0.0, 3.0, 2.0],\n" \
-    "...     [1.0, 0.0, 4.0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> exp_a, mdig, idig, iwarn, info = mb05od(balanc, n, ndiag, delta, a)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=ok, 1=norm too large, 2=singular, 3=overflow)"
 
 #define DOC_MB05OY "Restore matrix after balancing transformations.\n" \
     "\n" \
@@ -15295,22 +7529,7 @@
     "  scale (ndarray): Permutation/scaling from DGEBAL\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, info): Back-transformed matrix and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mb05oy\n" \
-    ">>> n = 4\n" \
-    ">>> low = 1  # 1-based\n" \
-    ">>> igh = 4  # 1-based\n" \
-    ">>> scale = np.array([1.0, 2.0, 4.0, 8.0], dtype=float)\n" \
-    ">>> D = np.diag(scale)\n" \
-    ">>> D_inv = np.diag(1.0 / scale)\n" \
-    ">>> a_test = a_balanced.copy(order='F')\n" \
-    ">>> a_out, info = mb05oy('S', n, low, igh, a_test, scale)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, info): Back-transformed matrix and exit code"
 
 #define DOC_MB3JZP "Reorder eigenvalues of complex skew-Hamiltonian/Hamiltonian pencil (panel variant).\n" \
     "\n" \
@@ -15337,29 +7556,7 @@
     "    a, d, b, f: Transformed matrices (complex)\n" \
     "    q: Unitary matrix Q (complex)\n" \
     "    neig (int): Number of eigenvalues with negative real part\n" \
-    "    info (int): 0 = success, <0 = -i means i-th argument invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb3jzp\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 2  # n = 2*m = 4\n" \
-    ">>> n = 2 * m\n" \
-    ">>> a = np.array([[1.0 + 0.0j, 0.3 - 0.2j],\n" \
-    "...     [0.0, 2.0 + 0.0j]], dtype=complex, order='F')\n" \
-    ">>> b = np.array([[1.0 + 0.0j, 0.2 + 0.1j],\n" \
-    "...     [0.0, 3.0 + 0.0j]], dtype=complex, order='F')\n" \
-    ">>> d = np.array([[0.5j, 0.1 + 0.2j],\n" \
-    "...     [0.0, -0.3j]], dtype=complex, order='F')\n" \
-    ">>> f = np.array([[1.0, 0.2 - 0.1j],\n" \
-    "...     [0.0, 0.8]], dtype=complex, order='F')\n" \
-    ">>> a_out, d_out, b_out, f_out, q_out, neig, info = mb3jzp(\n" \
-    "...     'I', n, a.copy(order='F'), d.copy(order='F'),\n" \
-    "...     b.copy(order='F'), f.copy(order='F')\n" \
-    "...     )\n" \
-    "...     rtol=1e-14, atol=1e-14)\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): 0 = success, <0 = -i means i-th argument invalid"
 
 #define DOC_MB3LZP "Eigenvalues and deflating subspace of complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -15393,21 +7590,7 @@
     "       orthonormal basis of right deflating subspace\n" \
     "    alphar, alphai, beta: Eigenvalue components (lambda = (alphar+i*alphai)/beta)\n" \
     "    neig: Number of eigenvalues with negative real part\n" \
-    "    info: 0=success, 1=MB04FP QZ failed, 2=ZHGEQZ failed, 3=ZGESVD failed, 4=singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb3lzp\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 2  # n = 2*m = 4\n" \
-    ">>> n = 2 * m\n" \
-    ">>> a, de, b, fg = make_test_pencil(m)\n" \
-    ">>> alphar, alphai, beta, neig, info = mb3lzp(\n" \
-    "...     'N', 'P', n, a.copy(order='F'), de.copy(order='F'),\n" \
-    "...     b.copy(order='F'), fg.copy(order='F')\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=MB04FP QZ failed, 2=ZHGEQZ failed, 3=ZGESVD failed, 4=singular"
 
 #define DOC_MB3OYZ "Complex rank-revealing QR factorization with column pivoting.\n" \
     "\n" \
@@ -15423,26 +7606,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, rank, info, sval, jpvt, tau): QR factors, rank, exit code,\n" \
-    "    singular value estimates, column permutation, reflector factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb3oyz\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 6, 4\n" \
-    ">>> rcond = 1.0e-10\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> U = np.linalg.qr(np.random.randn(m, m) + 1j * np.random.randn(m, m))[0]\n" \
-    ">>> V = np.linalg.qr(np.random.randn(n, n) + 1j * np.random.randn(n, n))[0]\n" \
-    ">>> sigma = np.array([10.0, 5.0, 2.0, 1e-14])\n" \
-    ">>> Sigma = np.zeros((m, n), dtype=complex)\n" \
-    "...     Sigma[i, i] = sigma[i]\n" \
-    ">>> a = U @ Sigma @ V.conj().T\n" \
-    ">>> a = np.asfortranarray(a)\n" \
-    ">>> true_rank = np.linalg.matrix_rank(a, tol=rcond * sigma[0])\n" \
-    ">>> a_result, rank, info, sval, jpvt, tau = mb3oyz(m, n, a.copy(), rcond, svlmax)\n" \
-    ">>> info\n" \
-    "0"
+    "    singular value estimates, column permutation, reflector factors"
 
 #define DOC_MB3PYZ "Complex rank-revealing RQ factorization with row pivoting.\n" \
     "\n" \
@@ -15458,26 +7622,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, rank, info, sval, jpvt, tau): RQ factors, rank, exit code,\n" \
-    "    singular value estimates, row permutation, reflector factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb3pyz\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 4, 6\n" \
-    ">>> rcond = 1.0e-10\n" \
-    ">>> svlmax = 0.0\n" \
-    ">>> U = np.linalg.qr(np.random.randn(m, m) + 1j * np.random.randn(m, m))[0]\n" \
-    ">>> V = np.linalg.qr(np.random.randn(n, n) + 1j * np.random.randn(n, n))[0]\n" \
-    ">>> sigma = np.array([10.0, 5.0, 2.0, 1e-14])\n" \
-    ">>> Sigma = np.zeros((m, n), dtype=complex)\n" \
-    "...     Sigma[i, i] = sigma[i]\n" \
-    ">>> a = U @ Sigma @ V.conj().T\n" \
-    ">>> a = np.asfortranarray(a)\n" \
-    ">>> true_rank = np.linalg.matrix_rank(a, tol=rcond * sigma[0])\n" \
-    ">>> a_result, rank, info, sval, jpvt, tau = mb3pyz(m, n, a.copy(), rcond, svlmax)\n" \
-    ">>> info\n" \
-    "0"
+    "    singular value estimates, row permutation, reflector factors"
 
 #define DOC_MB4DBZ "Inverse balancing transformation for complex skew-Hamiltonian/Hamiltonian eigenvectors.\n" \
     "\n" \
@@ -15495,24 +7640,7 @@
     "  v2 (ndarray): Complex N-by-M matrix V2 (F-order, modified in place)\n" \
     "\n" \
     "Returns:\n" \
-    "  (v1, v2, info): Modified matrices and exit code (info=0: success, <0: -info arg illegal)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb4dbz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> m = 2\n" \
-    ">>> ilo = 1\n" \
-    ">>> v1 = (np.random.randn(n, m) + 1j * np.random.randn(n, m)).astype(\n" \
-    "...     complex, order='F')\n" \
-    ">>> v2 = (np.random.randn(n, m) + 1j * np.random.randn(n, m)).astype(\n" \
-    "...     complex, order='F')\n" \
-    ">>> lscale = np.array([2.0, 0.5, 4.0], dtype=float)\n" \
-    ">>> rscale = np.array([0.25, 8.0, 1.0], dtype=float)\n" \
-    ">>> v1_out, v2_out, info = mb4dbz('S', 'P', n, ilo, lscale, rscale, v1, v2)\n" \
-    ">>> info\n" \
-    "0"
+    "  (v1, v2, info): Modified matrices and exit code (info=0: success, <0: -info arg illegal)"
 
 #define DOC_MB4DLZ "Balance a complex matrix pencil (A,B).\n" \
     "\n" \
@@ -15535,33 +7663,7 @@
     "    rscale: Right permutation/scaling factors\n" \
     "    dwork: Contains initial/final 1-norms and threshold used\n" \
     "    iwarn: Warning indicator (0=ok, 1=scaling reset to 1)\n" \
-    "    info: Exit code (0=success, <0: -info arg illegal)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb4dlz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [1+0.5j, 0, -1e-12, 0],\n" \
-    "...     [0, -2-1j, 0, 0],\n" \
-    "...     [1, -1-0.5j, -1+0.5j, 0],\n" \
-    "...     [-1+0.5j, -1, 0, 2-1j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1+0.5j, 0, 0, 0],\n" \
-    "...     [0, 1+0.5j, 0, 0],\n" \
-    "...     [0, 0, 1-0.5j, 0],\n" \
-    "...     [0, 0, 0, 1-0.5j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> a_out, b_out, ilo, ihi, lscale, rscale, dwork, iwarn, info = mb4dlz(\n" \
-    "...     'N', n, 0.0, a.copy(), b.copy()\n" \
-    "...     )\n" \
-    ">>> a_out, b_out, ilo, ihi, lscale, rscale, dwork, iwarn, info = mb4dlz(\n" \
-    "...     'B', n, -3.0, a.copy(), b.copy()\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0: -info arg illegal)"
 
 #define DOC_MB4DPZ "Balance a complex skew-Hamiltonian/Hamiltonian pencil.\n" \
     "\n" \
@@ -15591,34 +7693,7 @@
     "    rscale: Right permutation/scaling factors\n" \
     "    dwork: Contains initial/final 1-norms (S,H) and threshold used\n" \
     "    iwarn: Warning indicator (0=ok, 1=scaling reset to 1)\n" \
-    "    info: Exit code (0=success, <0: -info arg illegal)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mb4dpz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> job = 'B'\n" \
-    ">>> thresh = -3.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0+0.5j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 1.0+0.5j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> de = np.array([\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0+0.5j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, -2.0-1.0j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> vw = np.array([\n" \
-    "...     [1.0+0.0j, -1e-12+0.0j, 0.0+0.0j],\n" \
-    "...     [-1.0+0.5j, -1.0+0.0j, 0.0+0.0j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> ilo, lscale, rscale, dwork, iwarn, info = mb4dpz(job, n, thresh, a, de, c, vw)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0: -info arg illegal)"
 
 #define DOC_MC01MD "Compute shifted polynomial coefficients using Horner's algorithm.\n" \
     "\n" \
@@ -15632,20 +7707,7 @@
     "  p (ndarray): Polynomial coefficients in increasing powers of x\n" \
     "\n" \
     "Returns:\n" \
-    "  (q, info): Shifted coefficients (leading k meaningful), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01md\n" \
-    ">>> dp = 5\n" \
-    ">>> alpha = 2.0\n" \
-    ">>> k = 6\n" \
-    ">>> p = np.array([6.0, 5.0, 4.0, 3.0, 2.0, 1.0], order='F', dtype=float)\n" \
-    ">>> q, info = mc01md(alpha, k, p)\n" \
-    ">>> expected_q = np.array([120.0, 201.0, 150.0, 59.0, 12.0, 1.0])\n" \
-    ">>> info\n" \
-    "0"
+    "  (q, info): Shifted coefficients (leading k meaningful), exit code"
 
 #define DOC_MC01ND "Evaluate real polynomial at complex point using Horner's algorithm.\n" \
     "\n" \
@@ -15658,19 +7720,7 @@
     "  p (ndarray): Polynomial coefficients in increasing powers of x\n" \
     "\n" \
     "Returns:\n" \
-    "  (vr, vi, info): Real and imaginary parts of P(x0), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01nd\n" \
-    ">>> dp = 4\n" \
-    ">>> xr = -1.56\n" \
-    ">>> xi = 0.29\n" \
-    ">>> p = np.array([5.0, 3.0, -1.0, 2.0, 1.0], order='F', dtype=float)\n" \
-    ">>> vr, vi, info = mc01nd(xr, xi, p)\n" \
-    ">>> info\n" \
-    "0"
+    "  (vr, vi, info): Real and imaginary parts of P(x0), exit code"
 
 #define DOC_MC01OD "Compute complex polynomial coefficients from zeros.\n" \
     "\n" \
@@ -15684,19 +7734,7 @@
     "\n" \
     "Returns:\n" \
     "  (rep, imp, info): Real and imaginary parts of coefficients\n" \
-    "    (increasing powers), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01od\n" \
-    ">>> rez = np.array([1.1, 0.6, -2.0, -0.8, -0.3], order='F', dtype=float)\n" \
-    ">>> imz = np.array([0.9, -0.7, 0.3, 2.5, -0.4], order='F', dtype=float)\n" \
-    ">>> rep, imp, info = mc01od(rez, imz)\n" \
-    ">>> expected_rep = np.array([2.7494, -1.7590, 0.0290, -1.6500, 1.4000, 1.0000])\n" \
-    ">>> expected_imp = np.array([-2.1300, -5.4205, 2.8290, -1.7300, -2.6000, 0.0000])\n" \
-    ">>> info\n" \
-    "0"
+    "    (increasing powers), exit code"
 
 #define DOC_MC01PD "Compute polynomial coefficients from zeros.\n" \
     "\n" \
@@ -15705,19 +7743,7 @@
     "  imz (ndarray): Imaginary parts of zeros\n" \
     "\n" \
     "Returns:\n" \
-    "  (p, info): Polynomial coefficients (increasing powers), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01pd\n" \
-    ">>> k = 5\n" \
-    ">>> rez = np.array([0.0, 0.0, 2.0, 1.0, 1.0], order='F', dtype=float)\n" \
-    ">>> imz = np.array([1.0, -1.0, 0.0, 3.0, -3.0], order='F', dtype=float)\n" \
-    ">>> p, info = mc01pd(rez, imz)\n" \
-    ">>> expected_p = np.array([-20.0, 14.0, -24.0, 15.0, -4.0, 1.0])\n" \
-    ">>> info\n" \
-    "0"
+    "  (p, info): Polynomial coefficients (increasing powers), exit code"
 
 #define DOC_MC01PY "Compute polynomial coefficients from zeros (decreasing order).\n" \
     "\n" \
@@ -15733,18 +7759,7 @@
     "  imz (ndarray): Imaginary parts of zeros\n" \
     "\n" \
     "Returns:\n" \
-    "  (p, info): Polynomial coefficients (decreasing powers), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01py\n" \
-    ">>> rez = np.array([3.0], order='F', dtype=float)\n" \
-    ">>> imz = np.array([0.0], order='F', dtype=float)\n" \
-    ">>> p, info = mc01py(rez, imz)\n" \
-    ">>> expected_p = np.array([1.0, -3.0])\n" \
-    ">>> info\n" \
-    "0"
+    "  (p, info): Polynomial coefficients (decreasing powers), exit code"
 
 #define DOC_MC01QD "Polynomial division: quotient and remainder.\n" \
     "\n" \
@@ -15757,18 +7772,7 @@
     "\n" \
     "Returns:\n" \
     "  (rq, db, iwarn, info): Combined [R | Q] array, divisor degree,\n" \
-    "    warning count (leading zeros removed), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01qd\n" \
-    ">>> a = np.array([2.0, 2.0, -1.0, 2.0, 1.0], order='F', dtype=float)\n" \
-    ">>> b = np.array([1.0, -1.0, 1.0], order='F', dtype=float)\n" \
-    ">>> rq, db_out, iwarn, info = mc01qd(a, b)\n" \
-    ">>> expected_rq = np.array([1.0, 0.0, 1.0, 3.0, 1.0])\n" \
-    ">>> info\n" \
-    "0"
+    "    warning count (leading zeros removed), exit code"
 
 #define DOC_MC01RD "Compute polynomial P(x) = P1(x)*P2(x) + alpha*P3(x).\n" \
     "\n" \
@@ -15786,20 +7790,7 @@
     "  dp3 (int, optional): Degree of P3(x), -1 for zero polynomial\n" \
     "\n" \
     "Returns:\n" \
-    "  (p, dp, info): Result polynomial coefficients, degree, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mc01rd\n" \
-    ">>> import numpy as np\n" \
-    ">>> p1 = np.array([1.0, 2.5], dtype=float)\n" \
-    ">>> p2 = np.array([1.0, 0.1, -0.4], dtype=float)\n" \
-    ">>> p3 = np.array([1.15, 1.5, 0.0, 0.0], dtype=float)\n" \
-    ">>> alpha = -2.2\n" \
-    ">>> p_out, dp_out, info = mc01rd(p1, p2, p3, alpha)\n" \
-    ">>> expected = np.array([-1.53, -0.70, -0.15, -1.0])\n" \
-    ">>> info\n" \
-    "0"
+    "  (p, dp, info): Result polynomial coefficients, degree, exit code"
 
 #define DOC_MC01SD "Scale polynomial coefficients for minimal variation.\n" \
     "\n" \
@@ -15812,16 +7803,7 @@
     "\n" \
     "Returns:\n" \
     "  (q, s, t, mant, e, info): Scaled coefficients Q(x), scaling exponents S and T,\n" \
-    "    mantissas and exponents of Q(x) coefficients, exit code (0=success, 1=zero polynomial)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mc01sd\n" \
-    ">>> import numpy as np\n" \
-    ">>> p = np.array([10.0, -40.5, 159.5, 0.0, 2560.0, -10236.5], order='F', dtype=float)\n" \
-    ">>> q, s, t, mant, e, info = mc01sd(p)\n" \
-    ">>> info\n" \
-    "0"
+    "    mantissas and exponents of Q(x) coefficients, exit code (0=success, 1=zero polynomial)"
 
 #define DOC_MC01SW "Extract mantissa and exponent of a real number.\n" \
     "\n" \
@@ -15833,13 +7815,7 @@
     "  b (int): The base (>= 2)\n" \
     "\n" \
     "Returns:\n" \
-    "  (m, e): Mantissa and exponent\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mc01sw\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, e = mc01sw(1000.0, 10)"
+    "  (m, e): Mantissa and exponent"
 
 #define DOC_MC01SX "Compute variation of exponents in floating-point series.\n" \
     "\n" \
@@ -15848,15 +7824,7 @@
     "  mant (ndarray): Array of mantissas (f64)\n" \
     "\n" \
     "Returns:\n" \
-    "  int: Variation V = max(E(j)) - min(E(j)) for non-zero mantissas\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01sx\n" \
-    ">>> e = np.array([5, 10, 3, 8], dtype=np.int32)\n" \
-    ">>> mant = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float64)\n" \
-    ">>> v = mc01sx(e, mant)"
+    "  int: Variation V = max(E(j)) - min(E(j)) for non-zero mantissas"
 
 #define DOC_MC01SY "Reconstruct a real number from mantissa and exponent.\n" \
     "\n" \
@@ -15868,16 +7836,7 @@
     "  b (int): The base (>= 2)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, ovflow): The reconstructed value and overflow flag\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01sy\n" \
-    ">>> test_values = [1024.0, 0.5, -256.0, 1.5, 0.125]\n" \
-    ">>> base = 2\n" \
-    "...     m, e = mc01sw(original, base)\n" \
-    "...     reconstructed, ovflow = mc01sy(m, e, base)"
+    "  (a, ovflow): The reconstructed value and overflow flag"
 
 #define DOC_MC01TD "Determine polynomial stability (Routh or Schur-Cohn).\n" \
     "\n" \
@@ -15887,16 +7846,7 @@
     "\n" \
     "Returns:\n" \
     "  (stable, nz, dp_out, iwarn, info): Stability flag, unstable zeros,\n" \
-    "    actual degree, warning, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01td\n" \
-    ">>> p = np.array([2.0, 0.0, 1.0, -1.0, 1.0], order='F', dtype=float)\n" \
-    ">>> stable, nz, dp_out, iwarn, info = mc01td('C', p)\n" \
-    ">>> info\n" \
-    "0"
+    "    actual degree, warning, exit code"
 
 #define DOC_MC01VD "Compute roots of a quadratic equation with real coefficients.\n" \
     "\n" \
@@ -15916,18 +7866,7 @@
     "    info = 1: a=b=0 or a=0 and -c/b overflows\n" \
     "    info = 2: a=0 (linear equation), z1re=BIG\n" \
     "    info = 3: c=0 and -b/a overflows, or largest root overflows\n" \
-    "    info = 4: roots cannot be computed without overflow\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mc01vd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = 0.5\n" \
-    ">>> b = -1.0\n" \
-    ">>> c = 2.0\n" \
-    ">>> z1re, z1im, z2re, z2im, info = mc01vd(a, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "    info = 4: roots cannot be computed without overflow"
 
 #define DOC_MC01WD "Compute polynomial quotient and remainder for quadratic divisor.\n" \
     "\n" \
@@ -15939,21 +7878,7 @@
     "  u2 (float): Constant coefficient of divisor\n" \
     "\n" \
     "Returns:\n" \
-    "  (q, info): Quotient polynomial coefficients, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mc01wd\n" \
-    ">>> import numpy as np\n" \
-    ">>> p = np.array([0.62, 1.10, 1.64, 1.88, 2.12, 1.70, 1.00], dtype=float)\n" \
-    ">>> u1 = 0.60\n" \
-    ">>> u2 = 0.80\n" \
-    ">>> q, info = mc01wd(p, u1, u2)\n" \
-    ">>> expected_q1 = 0.10\n" \
-    ">>> expected_q2 = 0.20\n" \
-    ">>> expected_quotient = np.array([0.6, 0.7, 0.8, 0.9, 1.0])\n" \
-    ">>> info\n" \
-    "0"
+    "  (q, info): Quotient polynomial coefficients, exit code"
 
 #define DOC_MC01XD "Compute roots of cubic polynomial.\n" \
     "\n" \
@@ -15967,19 +7892,7 @@
     "  delta (float): Cubic coefficient\n" \
     "\n" \
     "Returns:\n" \
-    "  (evr, evi, evq, info): Real parts, imaginary parts, quotients, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc01xd\n" \
-    ">>> alpha, beta, gamma, delta = -6.0, 11.0, -6.0, 1.0\n" \
-    ">>> evr, evi, evq, info = mc01xd(alpha, beta, gamma, delta)\n" \
-    ">>> roots = []\n" \
-    "...     roots.append(complex(evr[k], evi[k]) / evq[k])\n" \
-    ">>> real_roots = sorted([r.real for r in roots])\n" \
-    ">>> info\n" \
-    "0"
+    "  (evr, evi, evq, info): Real parts, imaginary parts, quotients, exit code"
 
 #define DOC_MC03MD "Compute polynomial matrix P(x) = P1(x)*P2(x) + alpha*P3(x).\n" \
     "\n" \
@@ -15997,28 +7910,7 @@
     "  dp3 (int, optional): Degree of P3(x), -1 for zero polynomial\n" \
     "\n" \
     "Returns:\n" \
-    "  (p, dp, info): Result polynomial matrix coefficients (rp1, cp2, max_deg+1), degree, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc03md\n" \
-    ">>> rp1, cp1, cp2 = 3, 2, 2\n" \
-    ">>> dp1, dp2, dp3 = 2, 1, 1\n" \
-    ">>> p1 = np.zeros((rp1, cp1, dp1 + 1), order='F', dtype=float)\n" \
-    ">>> p1[:, :, 0] = np.array([[1.0, 2.0], [0.0, -1.0], [3.0, 2.0]], order='F')\n" \
-    ">>> p1[:, :, 1] = np.array([[-2.0, 3.0], [4.0, 7.0], [9.0, -2.0]], order='F')\n" \
-    ">>> p1[:, :, 2] = np.array([[6.0, 1.0], [2.0, 2.0], [-3.0, 4.0]], order='F')\n" \
-    ">>> p2 = np.zeros((cp1, cp2, dp2 + 1), order='F', dtype=float)\n" \
-    ">>> p2[:, :, 0] = np.array([[6.0, 1.0], [1.0, 7.0]], order='F')\n" \
-    ">>> p2[:, :, 1] = np.array([[-9.0, 7.0], [-6.0, 8.0]], order='F')\n" \
-    ">>> p3 = np.zeros((rp1, cp2, max(dp1 + dp2, dp3) + 1), order='F', dtype=float)\n" \
-    ">>> p3[:, :, 0] = np.array([[1.0, 0.0], [1.0, 1.0], [0.0, 1.0]], order='F')\n" \
-    ">>> p3[:, :, 1] = np.array([[-1.0, -1.0], [1.0, -1.0], [1.0, 1.0]], order='F')\n" \
-    ">>> alpha = 1.0\n" \
-    ">>> p_out, dp_out, info = mc03md(p1, p2, p3.copy(), alpha)\n" \
-    ">>> info\n" \
-    "0"
+    "  (p, dp, info): Result polynomial matrix coefficients (rp1, cp2, max_deg+1), degree, exit code"
 
 #define DOC_MC03ND "Compute minimal polynomial basis for right nullspace of polynomial matrix.\n" \
     "\n" \
@@ -16042,48 +7934,7 @@
     "    gam (ndarray): Information about nullspace vector ordering.\n" \
     "    nullsp (ndarray): Right nullspace vectors in condensed form.\n" \
     "    ker (ndarray): 3D array (np, nk, dk+1) of kernel coefficients.\n" \
-    "    info (int): Exit code. 0 = success.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc03nd\n" \
-    ">>> mp, np_dim, dp = 5, 4, 2\n" \
-    ">>> p0 = np.array([\n" \
-    "...     [2.0, 2.0, 0.0, 3.0],\n" \
-    "...     [0.0, 4.0, 0.0, 6.0],\n" \
-    "...     [8.0, 8.0, 0.0, 12.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [2.0, 2.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> p1 = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 2.0, 0.0],\n" \
-    "...     [4.0, 0.0, 4.0, 0.0],\n" \
-    "...     [2.0, 2.0, 0.0, 3.0],\n" \
-    "...     [3.0, 2.0, 1.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> p2 = np.array([\n" \
-    "...     [0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [1.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [1.0, 0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> p = np.zeros((mp, np_dim, dp + 1), order='F', dtype=float)\n" \
-    ">>> p[:, :, 0] = p0\n" \
-    ">>> p[:, :, 1] = p1\n" \
-    ">>> p[:, :, 2] = p2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> dk, gam, nullsp, ker, info = mc03nd(mp, np_dim, dp, p, tol)\n" \
-    ">>> nk = sum(gam[:dk + 1])\n" \
-    ">>> m1 = sum((i + 1) * gam[i] for i in range(dk + 1))\n" \
-    "...     ps = p0 + p1*s + p2*s**2\n" \
-    "...     ks = np.zeros((np_dim, nk), order='F', dtype=float)\n" \
-    "...     ks += ker[:np_dim, :nk, k] * (s**k)\n" \
-    "...     product = ps @ ks\n" \
-    ">>> info\n" \
-    "0"
+    "    info (int): Exit code. 0 = success."
 
 #define DOC_MC03NX "Construct companion pencil from polynomial matrix.\n" \
     "\n" \
@@ -16097,23 +7948,7 @@
     "              p[:,:,k] = coefficient matrix P(k) for s^k.\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e): Companion pencil matrices A and E\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import mc03nx\n" \
-    ">>> mp, np_, dp = 2, 2, 2\n" \
-    ">>> P0 = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)\n" \
-    ">>> P1 = np.array([[5.0, 6.0], [7.0, 8.0]], order='F', dtype=float)\n" \
-    ">>> P2 = np.array([[9.0, 10.0], [11.0, 12.0]], order='F', dtype=float)\n" \
-    ">>> p = np.zeros((mp, np_, dp + 1), order='F', dtype=float)\n" \
-    ">>> p[:, :, 0] = P0\n" \
-    ">>> p[:, :, 1] = P1\n" \
-    ">>> p[:, :, 2] = P2\n" \
-    ">>> a, e = mc03nx(p)\n" \
-    ">>> nrows = dp * mp\n" \
-    ">>> ncols = (dp - 1) * mp + np_"
+    "  (a, e): Companion pencil matrices A and E"
 
 #define DOC_MC03NY "Minimal polynomial basis for right nullspace of staircase pencil.\n" \
     "\n" \
@@ -16134,26 +7969,7 @@
     "\n" \
     "Returns:\n" \
     "  (veps, imuk, info): Minimal polynomial basis (nca x ncv),\n" \
-    "    restored mu(k) array, exit code (>0 means block not full row rank)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import mc03ny\n" \
-    ">>> import numpy as np\n" \
-    ">>> nblcks = 1\n" \
-    ">>> mu = np.array([3], dtype=np.int32)\n" \
-    ">>> nu = np.array([2], dtype=np.int32)\n" \
-    ">>> nra = np.sum(nu)\n" \
-    ">>> nca = np.sum(mu)\n" \
-    ">>> a = np.random.randn(nra, nca).astype(float, order='F')\n" \
-    ">>> e = np.random.randn(nra, nca).astype(float, order='F')\n" \
-    ">>> a[0, 1] = 2.0\n" \
-    ">>> a[1, 1] = 0.0\n" \
-    ">>> a[1, 2] = 3.0\n" \
-    ">>> ncv = 1 * (mu[0] - nu[0])\n" \
-    ">>> veps, imuk_out, info = mc03ny(nblcks, nra, nca, a, e, mu.copy(), nu)\n" \
-    ">>> info\n" \
-    "0"
+    "    restored mu(k) array, exit code (>0 means block not full row rank)"
 
 #define DOC_MD03BA "QR factorization with column pivoting for Levenberg-Marquardt.\n" \
     "\n" \
@@ -16165,26 +7981,7 @@
     "  e (ndarray): Error vector (M)\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, e, jnorms, gnorm, ipvt, info): R factor, Q'*e, norms, gradient norm, permutation, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> try:\n" \
-    ">>> from slicot import md03ba\n" \
-    ">>> except ImportError:\n" \
-    "...     self.fail(\"Could not import md03ba\")\n" \
-    ">>> m, n = 5, 3\n" \
-    ">>> ipar = np.array([m], dtype=np.int32)\n" \
-    ">>> j_in = np.random.rand(m, n)\n" \
-    ">>> j = np.asfortranarray(j_in)\n" \
-    ">>> e_in = np.random.rand(m)\n" \
-    ">>> e = e_in.copy()\n" \
-    ">>> fnorm = np.linalg.norm(e)\n" \
-    ">>> j_out, e_out, jnorms, gnorm, ipvt, info = md03ba(n, ipar, fnorm, j, e)\n" \
-    ">>> norm_e_out = np.linalg.norm(e_out)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, e, jnorms, gnorm, ipvt, info): R factor, Q'*e, norms, gradient norm, permutation, exit code"
 
 #define DOC_MD03BB "Compute Levenberg-Marquardt parameter for compressed Jacobian (Wrapper for MD03BY).\n" \
     "\n" \
@@ -16201,27 +7998,7 @@
     "  tol (float): Tolerance for rank determination (COND='E')\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, par, rank, x, rx, info): Modified R, LM parameter, rank, solution, residual, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import md03bb\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> ipar = np.array([0], dtype=np.int32)\n" \
-    ">>> r = np.triu(np.random.rand(n, n))\n" \
-    ">>> for i in range(n): r[i, i] += 2.0\n" \
-    ">>> r_in = np.asfortranarray(r)\n" \
-    ">>> ipvt = np.arange(1, n+1, dtype=np.int32)\n" \
-    ">>> diag = np.ones(n)\n" \
-    ">>> qtb = np.random.rand(n)\n" \
-    ">>> delta = 1.0\n" \
-    ">>> par = 0.0\n" \
-    ">>> ranks = np.array([n], dtype=np.int32)\n" \
-    ">>> tol = 0.0\n" \
-    ">>> r_out, par_out, ranks_out, x, rx, info = md03bb('N', n, ipar, r_in, ipvt, diag, qtb, delta, par, ranks, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, par, rank, x, rx, info): Modified R, LM parameter, rank, solution, residual, exit code"
 
 #define DOC_MD03BD "Levenberg-Marquardt nonlinear least squares optimizer.\n" \
     "\n" \
@@ -16237,51 +8014,7 @@
     "  gtol (float): Gradient tolerance (default eps)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, nfev, njev, fnorm, iwarn, info): Solution, evaluations, norm, status\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import md03bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 15\n" \
-    ">>> n = 3\n" \
-    ">>> y = np.array([\n" \
-    "...     0.14, 0.18, 0.22, 0.25, 0.29,\n" \
-    "...     0.32, 0.35, 0.39, 0.37, 0.58,\n" \
-    "...     0.73, 0.96, 1.34, 2.10, 4.39\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> x0 = np.array([1.0, 1.0, 1.0], dtype=np.float64, order='F')\n" \
-    ">>> def fcn(x):\n" \
-    "...     e = np.zeros(m, dtype=np.float64, order='F')\n" \
-    "...     for i in range(1, m + 1):  # 1-based for compatibility\n" \
-    "...     tmp1 = float(i)\n" \
-    "...     tmp2 = float(16 - i)\n" \
-    "...     tmp3 = tmp2 if i > 8 else tmp1\n" \
-    "...     e[i-1] = y[i-1] - (x[0] + tmp1 / (x[1]*tmp2 + x[2]*tmp3))\n" \
-    "...     return e\n" \
-    ">>> def jac(x):\n" \
-    "...     j = np.zeros((m, n), dtype=np.float64, order='F')\n" \
-    "...     for i in range(1, m + 1):  # 1-based\n" \
-    "...     tmp1 = float(i)\n" \
-    "...     tmp2 = float(16 - i)\n" \
-    "...     tmp3 = tmp2 if i > 8 else tmp1\n" \
-    "...     tmp4 = (x[1]*tmp2 + x[2]*tmp3)**2\n" \
-    "...     j[i-1, 0] = -1.0\n" \
-    "...     j[i-1, 1] = tmp1*tmp2/tmp4\n" \
-    "...     j[i-1, 2] = tmp1*tmp3/tmp4\n" \
-    "...     return j\n" \
-    ">>> ftol = -1.0  # Use sqrt(eps)\n" \
-    ">>> xtol = -1.0  # Use sqrt(eps)\n" \
-    ">>> gtol = -1.0  # Use eps\n" \
-    ">>> x, nfev, njev, fnorm, iwarn, info = slicot.md03bd(\n" \
-    "...     m, n, x0, fcn, jac,\n" \
-    "...     itmax=100,\n" \
-    "...     ftol=ftol,\n" \
-    "...     xtol=xtol,\n" \
-    "...     gtol=gtol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, nfev, njev, fnorm, iwarn, info): Solution, evaluations, norm, status"
 
 #define DOC_MD03BF "Kowalik-Osborne test function for nonlinear least squares.\n" \
     "\n" \
@@ -16295,16 +8028,7 @@
     "Returns:\n" \
     "  iflag=1: (e, info) - Error vector (15,), exit code\n" \
     "  iflag=2: (j, e, nfevl, info) - Jacobian (15x3), error, evals, code\n" \
-    "  iflag=3: (ipar, info) - Workspace requirements tuple, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import md03bf\n" \
-    ">>> import numpy as np\n" \
-    ">>> x = np.array([1.0, 1.0, 1.0], dtype=np.float64)\n" \
-    ">>> e, info = md03bf(1, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  iflag=3: (ipar, info) - Workspace requirements tuple, exit code"
 
 #define DOC_MD03BY "Compute Levenberg-Marquardt parameter for trust region subproblem.\n" \
     "\n" \
@@ -16321,31 +8045,7 @@
     "  tol (float): Tolerance for rank determination (COND='E')\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, par, rank, x, rx, info): Modified R, LM parameter, rank, solution, residual, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import md03by\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> r = np.array([\n" \
-    "...     [10.0,  2.0,  1.0],\n" \
-    "...     [ 0.0,  8.0,  0.5],\n" \
-    "...     [ 0.0,  0.0,  5.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> ipvt = np.array([1, 2, 3], dtype=np.int32)\n" \
-    ">>> diag = np.array([1.0, 1.0, 1.0], dtype=float)\n" \
-    ">>> qtb = np.array([5.0, 4.0, 2.5], dtype=float)\n" \
-    ">>> delta = 10.0  # Large trust radius - accept Gauss-Newton step\n" \
-    ">>> par = 0.0\n" \
-    ">>> tol = 0.0\n" \
-    ">>> r_out, par_out, rank, x, rx, info = md03by(\n" \
-    "...     cond='N', n=n, r=r, ipvt=ipvt, diag=diag,\n" \
-    "...     qtb=qtb, delta=delta, par=par, rank=0, tol=tol\n" \
-    "...     )\n" \
-    ">>> dxnorm = np.linalg.norm(diag * x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, par, rank, x, rx, info): Modified R, LM parameter, rank, solution, residual, exit code"
 
 #define DOC_NF01AY "Calculate the output of a set of neural networks.\n" \
     "\n" \
@@ -16358,38 +8058,7 @@
     "  z (ndarray): Input samples (nsmp x nz, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (y, info): Output samples, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import nf01ay\n" \
-    ">>> import numpy as np\n" \
-    ">>> nsmp = 5\n" \
-    ">>> nz = 3\n" \
-    ">>> l = 2\n" \
-    ">>> nn = 4\n" \
-    ">>> ipar = np.array([nn], dtype=np.int32)\n" \
-    ">>> ldwb = nn * (nz + 2) + 1\n" \
-    ">>> lwb = ldwb * l\n" \
-    ">>> wb = np.random.rand(lwb)\n" \
-    ">>> wb = (wb - 0.5) * 2.0 \n" \
-    ">>> z = np.random.rand(nsmp, nz) # Row-major in python, but we pass it F-order\n" \
-    ">>> z_arr = np.asfortranarray(z)\n" \
-    "...     offset = k * ldwb\n" \
-    "...     wb_k = wb[offset : offset + ldwb]\n" \
-    "...     w_end = nn * nz\n" \
-    "...     w_flat = wb_k[:w_end]\n" \
-    "...     ws_start = w_end\n" \
-    "...     ws_end = ws_start + nn\n" \
-    "...     ws = wb_k[ws_start:ws_end]\n" \
-    "...     b_start = ws_end\n" \
-    "...     b = wb_k[b_start:] # length nn+1\n" \
-    "...     W = w_flat.reshape((nz, nn), order='F')\n" \
-    "...     linear_part = z @ W + b[:nn]\n" \
-    "...     hidden = np.tanh(linear_part)\n" \
-    ">>> y_act, info = nf01ay(nsmp, nz, l, ipar, wb, z_arr)\n" \
-    ">>> info\n" \
-    "0"
+    "  (y, info): Output samples, exit code"
 
 #define DOC_NF01BR "Solve system of linear equations R*x = b or R'*x = b in least squares sense.\n" \
     "\n" \
@@ -16407,32 +8076,7 @@
     "  tol (float): Tolerance for rank determination\n" \
     "\n" \
     "Returns:\n" \
-    "  (b, ranks, info): Solution x, ranks, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import nf01br\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> st = 0\n" \
-    ">>> bn = 1\n" \
-    ">>> bsm = 4\n" \
-    ">>> bsn = 4\n" \
-    ">>> ipar = np.array([st, bn, bsm, bsn], dtype=np.int32)\n" \
-    ">>> ldr = n\n" \
-    ">>> r = np.triu(np.random.rand(n, n))\n" \
-    "...     r[i, i] += 2.0\n" \
-    ">>> r_arr = np.asfortranarray(r)\n" \
-    ">>> b = np.random.rand(n)\n" \
-    ">>> b_in = b.copy()\n" \
-    ">>> sdiag = np.zeros(n)\n" \
-    ">>> s = np.zeros((1, 1))\n" \
-    ">>> ranks = np.zeros(bn+1, dtype=np.int32)\n" \
-    ">>> b_out, ranks_out, info = nf01br('N', 'U', 'N', n, ipar, r_arr, sdiag, s, b_in, ranks, 0.0)\n" \
-    ">>> x = b_out\n" \
-    ">>> b_rec = r @ x\n" \
-    ">>> info\n" \
-    "0"
+    "  (b, ranks, info): Solution x, ranks, exit code"
 
 #define DOC_NF01BS "QR factorization of Jacobian in compressed form.\n" \
     "\n" \
@@ -16444,28 +8088,7 @@
     "  e (ndarray): Error vector\n" \
     "\n" \
     "Returns:\n" \
-    "  (r, e, jnorms, gnorm, ipvt, info): R factor, Q'*e, norms, gradient norm, permutation, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import nf01bs\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 5, 3\n" \
-    ">>> st = 0\n" \
-    ">>> bn = 1\n" \
-    ">>> bsm = 5\n" \
-    ">>> bsn = 3\n" \
-    ">>> ipar = np.array([st, bn, bsm, bsn], dtype=np.int32)\n" \
-    ">>> fnorm = 1.0\n" \
-    ">>> j_in = np.random.rand(m, n)\n" \
-    ">>> j = np.asfortranarray(j_in)\n" \
-    ">>> e_in = np.random.rand(m)\n" \
-    ">>> e = e_in.copy()\n" \
-    ">>> j_out, e_out, jnorms, gnorm, ipvt, info = nf01bs(n, ipar, fnorm, j, e)\n" \
-    ">>> r = np.triu(j_out[:n, :])\n" \
-    ">>> diag_r = np.abs(np.diag(j_out))\n" \
-    ">>> info\n" \
-    "0"
+    "  (r, e, jnorms, gnorm, ipvt, info): R factor, Q'*e, norms, gradient norm, permutation, exit code"
 
 #define DOC_NF01BY "Compute the Jacobian of the error function for a neural network.\n" \
     "\n" \
@@ -16480,46 +8103,7 @@
     "  e (ndarray): Error vector (nsmp)\n" \
     "\n" \
     "Returns:\n" \
-    "  (j, jte, info): Jacobian, J'*e, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> try:\n" \
-    ">>> from slicot import nf01by\n" \
-    ">>> except ImportError:\n" \
-    "...     self.fail(\"Could not import nf01by\")\n" \
-    ">>> nsmp = 5\n" \
-    ">>> nz = 3\n" \
-    ">>> l = 1\n" \
-    ">>> nn = 4\n" \
-    ">>> ipar = np.array([nn], dtype=np.int32)\n" \
-    ">>> nwb = nn * (nz + 2) + 1\n" \
-    ">>> wb = np.random.rand(nwb)\n" \
-    ">>> wb = (wb - 0.5) * 2.0\n" \
-    ">>> z = np.random.rand(nsmp, nz)\n" \
-    ">>> z_arr = np.asfortranarray(z)\n" \
-    ">>> e = np.random.rand(nsmp)\n" \
-    ">>> j, jte, info = nf01by('C', nsmp, nz, l, ipar, wb, z_arr, e)\n" \
-    ">>> w_end = nn * nz\n" \
-    ">>> w_flat = wb[:w_end]\n" \
-    ">>> ws_start = w_end\n" \
-    ">>> ws_end = ws_start + nn\n" \
-    ">>> ws = wb[ws_start:ws_end]\n" \
-    ">>> b_start = ws_end\n" \
-    ">>> b = wb[b_start:] # nn+1\n" \
-    ">>> W = w_flat.reshape((nz, nn), order='F') # Input weights\n" \
-    ">>> linear = z @ W + b[:nn]\n" \
-    ">>> act = np.tanh(linear)\n" \
-    ">>> j_b_out = j[:, nwb-1]\n" \
-    ">>> j_ws = j[:, ws_start:ws_end]\n" \
-    ">>> d_act = 1.0 - act**2\n" \
-    ">>> expected_j_b = d_act * ws[None, :]\n" \
-    ">>> j_b = j[:, b_start:b_start+nn]\n" \
-    "...     j_w_i = j[:, i*nz : (i+1)*nz]\n" \
-    "...     expected_j_w_i = expected_j_b[:, i:i+1] * z\n" \
-    ">>> info\n" \
-    "0"
+    "  (j, jte, info): Jacobian, J'*e, exit code"
 
 #define DOC_SB01BD "Multi-input pole assignment using state feedback.\n" \
     "\n" \
@@ -16539,36 +8123,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, wr, wi, nfp, nap, nup, f, z, iwarn, info):\n" \
-    "    Schur form, eigenvalues, counts, feedback, transformation\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb01bd\n" \
-    ">>> n, m, np_poles = 4, 2, 2\n" \
-    ">>> alpha = -0.4\n" \
-    ">>> tol = 1e-8\n" \
-    ">>> a = np.array([\n" \
-    "...     [-6.8,  0.0, -207.0,  0.0],\n" \
-    "...     [ 1.0,  0.0,    0.0,  0.0],\n" \
-    "...     [43.2,  0.0,    0.0, -4.2],\n" \
-    "...     [ 0.0,  0.0,    1.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [5.64, 0.0 ],\n" \
-    "...     [0.0,  0.0 ],\n" \
-    "...     [0.0,  1.18],\n" \
-    "...     [0.0,  0.0 ]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> wr = np.array([-0.5, -0.5, -2.0, -0.4], dtype=float)\n" \
-    ">>> wi = np.array([ 0.15, -0.15, 0.0, 0.0], dtype=float)\n" \
-    ">>> result = sb01bd('C', n, m, np_poles, alpha, a.copy(order='F'),\n" \
-    "...     b.copy(order='F'), wr[:np_poles].copy(),\n" \
-    "...     wi[:np_poles].copy(), tol)\n" \
-    ">>> a_out, wr_out, wi_out, nfp, nap, nup, f, z, iwarn, info = result\n" \
-    ">>> eigs = np.linalg.eigvals(closed_loop)\n" \
-    "...     found = min(abs(e - expected) for e in eigs)\n" \
-    ">>> large_stable_found = sum(1 for e in eigs if abs(e.imag) > 50 and e.real < 0)"
+    "    Schur form, eigenvalues, counts, feedback, transformation"
 
 #define DOC_SB01BX "Select eigenvalue(s) closest to a given value.\n" \
     "\n" \
@@ -16583,19 +8138,7 @@
     "  wi (ndarray): Imaginary parts of eigenvalues\n" \
     "\n" \
     "Returns:\n" \
-    "  (wr, wi, s, p): Reordered arrays, sum, product\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb01bx\n" \
-    ">>> import numpy as np\n" \
-    ">>> reig = True\n" \
-    ">>> n = 5\n" \
-    ">>> xr = 2.5  # Target value\n" \
-    ">>> xi = 0.0  # Not used for real\n" \
-    ">>> wr = np.array([1.0, 4.0, 2.0, 6.0, 3.0], order='F', dtype=float)\n" \
-    ">>> wi = np.zeros(n, order='F', dtype=float)  # Not used\n" \
-    ">>> wr_out, wi_out, s, p = sb01bx(reig, n, xr, xi, wr, wi)"
+    "  (wr, wi, s, p): Reordered arrays, sum, product"
 
 #define DOC_SB01BY "Pole placement for N=1 or N=2 systems.\n" \
     "\n" \
@@ -16611,21 +8154,7 @@
     "  tol (float): Tolerance for controllability\n" \
     "\n" \
     "Returns:\n" \
-    "  (f, info): Feedback matrix (m x n), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb01by\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 1, 1\n" \
-    ">>> s = -1.0  # Target eigenvalue\n" \
-    ">>> p = 0.0   # Not used for N=1\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> a = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> f, info = sb01by(n, m, s, p, a, b, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (f, info): Feedback matrix (m x n), exit code"
 
 #define DOC_SB01DD "Eigenstructure assignment for multi-input system in orthogonal canonical form.\n" \
     "\n" \
@@ -16650,36 +8179,7 @@
     "    z_out: Orthogonal transformation\n" \
     "    g: M-by-N feedback matrix\n" \
     "    count: Number of Y elements used\n" \
-    "    info: 0=success, <0=invalid arg, 1=not controllable\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb01dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> m = 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  2.0, -3.0],\n" \
-    "...     [ 1.0, -4.0,  3.0, -1.0],\n" \
-    "...     [ 0.0,  2.0,  4.0, -5.0],\n" \
-    "...     [ 0.0,  0.0, -1.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> wr = np.array([-1.0, -1.0, -1.0, -1.0], dtype=float)\n" \
-    ">>> wi = np.array([0.0, 0.0, 0.0, 0.0], dtype=float)\n" \
-    ">>> y = np.array([1.0, 2.0, 2.0, 1.0, -1.0, -2.0, 3.0, 1.0], dtype=float)\n" \
-    ">>> a_can, b_can, ncont, indcon, nblk, z, tau, info1 = ab01nd(\n" \
-    "...     'I', a, b, tol\n" \
-    "...     )\n" \
-    ">>> a_schur, b_out, z_out, g, count, info2 = sb01dd(\n" \
-    "...     a_can, b_can, indcon, nblk[:indcon].copy(), wr, wi, z, y, tol=tol\n" \
-    "...     )"
+    "    info: 0=success, <0=invalid arg, 1=not controllable"
 
 #define DOC_SB01FY "Inner denominator of right-coprime factorization (order 1 or 2).\n" \
     "\n" \
@@ -16691,21 +8191,7 @@
     "  b (ndarray): Input matrix (n x m)\n" \
     "\n" \
     "Returns:\n" \
-    "  (f, v, info): Feedback matrix (m x n), V matrix (m x m), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb01fy\n" \
-    ">>> n = 1\n" \
-    ">>> m = 2\n" \
-    ">>> a = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0, 0.5]], order='F', dtype=float)\n" \
-    ">>> f, v, info = sb01fy(False, a, b)\n" \
-    ">>> a_closed = a + b @ f\n" \
-    ">>> eig_closed = np.linalg.eigvals(a_closed)\n" \
-    ">>> info\n" \
-    "0"
+    "  (f, v, info): Feedback matrix (m x n), V matrix (m x m), exit code"
 
 #define DOC_SB01MD "Single-input pole assignment via state feedback.\n" \
     "\n" \
@@ -16728,28 +8214,7 @@
     "    b_out: Transformed B (Z*B)\n" \
     "    z_out: Orthogonal Z reducing (A-B*G) to Schur form\n" \
     "    g: State feedback matrix (NCONT elements)\n" \
-    "    info: 0=success, <0=parameter -info invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb01md\n" \
-    ">>> n = 4\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  2.0, -3.0],\n" \
-    "...     [ 1.0, -4.0,  3.0, -1.0],\n" \
-    "...     [ 0.0,  2.0,  4.0, -5.0],\n" \
-    "...     [ 0.0,  0.0, -1.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([1.0, 0.0, 0.0, 0.0], order='F', dtype=float)\n" \
-    ">>> wr = np.array([-1.0, -1.0, -1.0, -1.0], dtype=float)\n" \
-    ">>> wi = np.array([0.0, 0.0, 0.0, 0.0], dtype=float)\n" \
-    ">>> result_ab = ab01md('I', a.copy(order='F'), b.copy(order='F'), tol)\n" \
-    ">>> a_can, b_can, ncont, z, tau, info_ab = result_ab\n" \
-    ">>> result_sb = sb01md(ncont, n, a_can.copy(order='F'), b_can.copy(order='F'),\n" \
-    "...     wr.copy(), wi.copy(), z.copy(order='F'))\n" \
-    ">>> a_out, b_out, z_out, g, info_sb = result_sb"
+    "    info: 0=success, <0=parameter -info invalid"
 
 #define DOC_SB02CX "Select purely imaginary eigenvalues for H-infinity norm.\n" \
     "\n" \
@@ -16763,18 +8228,7 @@
     "  ieig (float): Imaginary part of eigenvalue (unused)\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if purely imaginary, False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02cx\n" \
-    ">>> result = sb02cx(0.0, 1.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02cx(0.0, -5.5)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02cx(0.0, 0.0)\n" \
-    ">>> assert_equal(result, True)"
+    "  bool: True if purely imaginary, False otherwise"
 
 #define DOC_SB02MD "Solve continuous/discrete-time algebraic Riccati equation.\n" \
     "\n" \
@@ -16806,28 +8260,7 @@
     "  - wi: Imaginary parts of eigenvalues (2n)\n" \
     "  - S: Schur form (2n x 2n)\n" \
     "  - U: Orthogonal transformation (2n x 2n)\n" \
-    "  - info: Exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02md\n" \
-    ">>> n = 2\n" \
-    ">>> A = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> Q = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> G = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> X, rcond, wr, wi, S, U, info = sb02md('C', 'D', 'U', 'N', 'S', n, A, G, Q)\n" \
-    ">>> info\n" \
-    "0"
+    "  - info: Exit code"
 
 #define DOC_SB02MR "Select unstable eigenvalues for continuous-time Riccati.\n" \
     "\n" \
@@ -16841,18 +8274,7 @@
     "  ieig (float): Imaginary part of eigenvalue (unused)\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if unstable (reig >= 0), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02mr\n" \
-    ">>> result = sb02mr(1.0, 0.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mr(0.5, 2.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mr(100.0, -50.0)\n" \
-    ">>> assert_equal(result, True)"
+    "  bool: True if unstable (reig >= 0), False otherwise"
 
 #define DOC_SB02MS "Select unstable eigenvalues for discrete-time Riccati.\n" \
     "\n" \
@@ -16866,20 +8288,7 @@
     "  ieig (float): Imaginary part of eigenvalue\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if unstable (|lambda| >= 1), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02ms\n" \
-    ">>> result = sb02ms(2.0, 0.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02ms(0.0, 1.5)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02ms(0.8, 0.8)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02ms(-1.5, 0.5)\n" \
-    ">>> assert_equal(result, True)"
+    "  bool: True if unstable (|lambda| >= 1), False otherwise"
 
 #define DOC_SB02MT "Riccati preprocessing - convert coupling weight problems to standard form.\n" \
     "\n" \
@@ -16906,24 +8315,7 @@
     "  Variable outputs based on jobg and jobl:\n" \
     "  - If jobg='G', jobl='Z': (g, oufact, info)\n" \
     "  - If jobg='N', jobl='N': (a, b, q, l, oufact, info)\n" \
-    "  - If jobg='G', jobl='N': (a, b, q, l, g, oufact, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 4, 2\n" \
-    ">>> B = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> R_half = np.random.randn(m, m)\n" \
-    ">>> R = (R_half.T @ R_half + np.eye(m) * 3.0).astype(float, order='F')\n" \
-    ">>> R_inv = np.linalg.inv(R)\n" \
-    ">>> from slicot import sb02mt\n" \
-    ">>> G = np.zeros((n, n), dtype=float, order='F')\n" \
-    ">>> G_out, oufact, info = sb02mt(\n" \
-    "...     'G', 'Z', 'N', 'U',\n" \
-    "...     )\n" \
-    ">>> G_upper = np.triu(G_out)\n" \
-    ">>> info\n" \
-    "0"
+    "  - If jobg='G', jobl='N': (a, b, q, l, g, oufact, info)"
 
 #define DOC_SB02MU "Construct Hamiltonian or symplectic matrix for Riccati equations.\n" \
     "\n" \
@@ -16965,18 +8357,7 @@
     "  ieig (float): Imaginary part of eigenvalue (unused)\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if stable (reig < 0), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02mv\n" \
-    ">>> result = sb02mv(-1.0, 0.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mv(-0.5, 2.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mv(-100.0, 50.0)\n" \
-    ">>> assert_equal(result, True)"
+    "  bool: True if stable (reig < 0), False otherwise"
 
 #define DOC_SB02MW "Select stable eigenvalues for discrete-time Riccati.\n" \
     "\n" \
@@ -16990,24 +8371,7 @@
     "  ieig (float): Imaginary part of eigenvalue\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if stable (|lambda| < 1), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02mw\n" \
-    ">>> result = sb02mw(0.0, 0.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mw(0.5, 0.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mw(0.0, 0.5)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mw(-0.5, 0.0)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mw(0.3, 0.4)\n" \
-    ">>> assert_equal(result, True)\n" \
-    ">>> result = sb02mw(0.6, -0.6)\n" \
-    ">>> assert_equal(result, True)"
+    "  bool: True if stable (|lambda| < 1), False otherwise"
 
 #define DOC_SB02MX "Extended Riccati preprocessing - convert coupling weight problems.\n" \
     "\n" \
@@ -17039,24 +8403,7 @@
     "  Variable outputs based on jobg and jobl:\n" \
     "  - If jobg='G', jobl='Z': (g, oufact, info)\n" \
     "  - If jobg='N', jobl='N': (a, b, q, l, oufact, info)\n" \
-    "  - If jobg='G', jobl='N': (a, b, q, l, g, oufact, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 4, 2\n" \
-    ">>> B = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> R_half = np.random.randn(m, m)\n" \
-    ">>> R = (R_half.T @ R_half + np.eye(m) * 3.0).astype(float, order='F')\n" \
-    ">>> R_inv = np.linalg.inv(R)\n" \
-    ">>> from slicot import sb02mx\n" \
-    ">>> G = np.zeros((n, n), dtype=float, order='F')\n" \
-    ">>> G_out, oufact, info = sb02mx(\n" \
-    "...     'G', 'Z', 'N', 'U', 'N', 'M', 'D',\n" \
-    "...     )\n" \
-    ">>> G_upper = np.triu(G_out)\n" \
-    ">>> info\n" \
-    "0"
+    "  - If jobg='G', jobl='N': (a, b, q, l, g, oufact, info)"
 
 #define DOC_SB02ND "Optimal state feedback matrix for optimal control problem.\n" \
     "\n" \
@@ -17087,28 +8434,7 @@
     "  - x_out: Possibly modified X (for discrete with factored R)\n" \
     "  - oufact: Array [fact_type, x_fact_type]\n" \
     "  - rcond: Reciprocal condition number\n" \
-    "  - info: Exit code (0=success, m+1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02nd\n" \
-    ">>> n, m = 2, 1\n" \
-    ">>> p = 0\n" \
-    ">>> a = np.array([[2.0, -1.0],\n" \
-    "...     [1.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0],\n" \
-    "...     [0.0]], order='F', dtype=float)\n" \
-    ">>> r = np.zeros((m, m), order='F', dtype=float)\n" \
-    ">>> x = np.eye(n, order='F', dtype=float)\n" \
-    ">>> l = np.zeros((n, m), order='F', dtype=float)\n" \
-    ">>> ipiv = np.zeros(m, dtype=np.int32)\n" \
-    ">>> rnorm = 0.0\n" \
-    ">>> f, r_out, x_out, oufact, rcond, info = sb02nd(\n" \
-    "...     'D', 'N', 'U', 'Z', n, m, p, a, b, r, ipiv, l, x, rnorm\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  - info: Exit code (0=success, m+1=singular)"
 
 #define DOC_SB02OD "Solve continuous- or discrete-time algebraic Riccati equations.\n" \
     "\n" \
@@ -17143,38 +8469,7 @@
     "    alfar, alfai, beta: Generalized eigenvalues (lambda = (alfar+j*alfai)/beta)\n" \
     "    s, t: 2N-by-2N Schur matrices\n" \
     "    u: 2N-by-2N transformation matrix\n" \
-    "    info: 0=success, 1-6 various errors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02od\n" \
-    ">>> n, m, p = 2, 1, 3\n" \
-    ">>> A = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> B = np.array([\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> C = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> D = np.array([\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> L = np.zeros((n, m), dtype=float, order='F')\n" \
-    ">>> X, rcond, alfar, alfai, beta, S, T, U, info = sb02od(\n" \
-    "...     'C', 'B', 'B', 'U', 'Z', 'S',\n" \
-    "...     n, m, p, A, B, C, D, L, 0.0\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1-6 various errors"
 
 #define DOC_SB02OU "Select unstable generalized eigenvalues for continuous-time Riccati.\n" \
     "\n" \
@@ -17192,13 +8487,7 @@
     "  beta (float): Eigenvalue denominator\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if unstable (Re(lambda) > 0), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02ou\n" \
-    ">>> result = sb02ou(1.0, 0.0, 2.0)"
+    "  bool: True if unstable (Re(lambda) > 0), False otherwise"
 
 #define DOC_SB02OV "Select unstable generalized eigenvalues for discrete-time Riccati.\n" \
     "\n" \
@@ -17216,13 +8505,7 @@
     "  beta (float): Eigenvalue denominator\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if unstable (|lambda| >= 1), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02ov\n" \
-    ">>> result = sb02ov(2.0, 0.0, 1.0)"
+    "  bool: True if unstable (|lambda| >= 1), False otherwise"
 
 #define DOC_SB02OW "Select stable generalized eigenvalues for continuous-time Riccati.\n" \
     "\n" \
@@ -17240,13 +8523,7 @@
     "  beta (float): Eigenvalue denominator\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if stable (Re(lambda) < 0), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02ow\n" \
-    ">>> result = sb02ow(-1.0, 0.0, 2.0)"
+    "  bool: True if stable (Re(lambda) < 0), False otherwise"
 
 #define DOC_SB02OX "Select stable generalized eigenvalues for discrete-time Riccati.\n" \
     "\n" \
@@ -17264,13 +8541,7 @@
     "  beta (float): Eigenvalue denominator\n" \
     "\n" \
     "Returns:\n" \
-    "  bool: True if stable (|lambda| < 1), False otherwise\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02ox\n" \
-    ">>> result = sb02ox(1.0, 0.0, 2.0)"
+    "  bool: True if stable (|lambda| < 1), False otherwise"
 
 #define DOC_SB02OY "Construct extended Hamiltonian/symplectic matrix pairs for Riccati equations.\n" \
     "\n" \
@@ -17299,27 +8570,7 @@
     "Returns:\n" \
     "  For JOBB='B': (af, bf, rcond, info) - 2N-by-2N matrices, condition number\n" \
     "  For JOBB='G', DICO='C', JOBE='I': (af, info) - 2N-by-2N matrix only\n" \
-    "  For JOBB='G' otherwise: (af, bf, info) - 2N-by-2N matrices\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 3, 2\n" \
-    ">>> A = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> B = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> Q_half = np.random.randn(n, n)\n" \
-    ">>> Q = ((Q_half.T @ Q_half) + np.eye(n) * 2.0).astype(float, order='F')\n" \
-    ">>> R_half = np.random.randn(m, m)\n" \
-    ">>> R = (R_half.T @ R_half + np.eye(m) * 3.0).astype(float, order='F')\n" \
-    ">>> L = np.zeros((n, m), dtype=float, order='F')\n" \
-    ">>> E = np.eye(n, dtype=float, order='F')\n" \
-    ">>> from slicot import sb02oy\n" \
-    ">>> AF, BF, rcond, info = sb02oy(\n" \
-    "...     'O', 'D', 'B', 'N', 'U', 'Z', 'I',\n" \
-    "...     n, m, 0, A, B, Q, R, L, E, 0.0\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  For JOBB='G' otherwise: (af, bf, info) - 2N-by-2N matrices"
 
 #define DOC_SB02PD "Continuous-time algebraic Riccati equation solver using matrix sign function.\n" \
     "\n" \
@@ -17344,28 +8595,7 @@
     "  - ferr: Forward error bound (if job='A')\n" \
     "  - wr, wi: Real and imaginary parts of closed-loop eigenvalues (if job='A')\n" \
     "  - info: 0=success, 1=imaginary eigenvalues, 2=no convergence (approx computed),\n" \
-    "          3=singular system, 4=Schur reduction failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb02pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> q = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> g = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x, rcond, ferr, wr, wi, info = sb02pd(a, g, q, job='A', trana='N', uplo='U')\n" \
-    ">>> info\n" \
-    "0"
+    "          3=singular system, 4=Schur reduction failed"
 
 #define DOC_SB02QD "Estimate conditioning and error bound for continuous-time Riccati equation.\n" \
     "\n" \
@@ -17393,28 +8623,7 @@
     "  - ferr: Forward error bound estimate\n" \
     "  - t: Updated Schur form T\n" \
     "  - u: Updated orthogonal matrix U\n" \
-    "  - info: Exit code (0=success, >0=algorithm error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb02qd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> a = np.array([[0.0, 1.0],\n" \
-    "...     [0.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> q = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 2.0]], order='F', dtype=float)\n" \
-    ">>> g = np.array([[0.0, 0.0],\n" \
-    "...     [0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> x = np.array([[2.0, 1.0],\n" \
-    "...     [1.0, 2.0]], order='F', dtype=float)\n" \
-    ">>> t = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> u = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> sep, rcond, ferr, t_out, u_out, info = sb02qd(\n" \
-    "...     'B', 'N', 'N', 'U', 'O', a, t, u, g, q, x\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  - info: Exit code (0=success, >0=algorithm error)"
 
 #define DOC_SB02RD "Solve algebraic Riccati equation using Schur vector method.\n" \
     "\n" \
@@ -17448,35 +8657,7 @@
     "  - ferr: Forward error bound\n" \
     "  - wr, wi: Real and imaginary parts of eigenvalues (2*n,)\n" \
     "  - S: Ordered Schur form (2*n x 2*n)\n" \
-    "  - info: Exit code (0=success, >0=error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02rd\n" \
-    ">>> n = 2\n" \
-    ">>> A = np.array([[0.0, 1.0],\n" \
-    "...     [0.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> Q = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 2.0]], order='F', dtype=float)\n" \
-    ">>> G = np.array([[0.0, 0.0],\n" \
-    "...     [0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> X, sep, rcond, ferr, wr, wi, s, info = sb02rd(\n" \
-    "...     job='X',\n" \
-    "...     dico='C',\n" \
-    "...     hinv='D',\n" \
-    "...     trana='N',\n" \
-    "...     uplo='U',\n" \
-    "...     scal='N',\n" \
-    "...     sort='S',\n" \
-    "...     fact='N',\n" \
-    "...     lyapun='O',\n" \
-    "...     A=A,\n" \
-    "...     Q=Q,\n" \
-    "...     G=G\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  - info: Exit code (0=success, >0=error)"
 
 #define DOC_SB02RU "Construct Hamiltonian or symplectic matrix for Riccati equation.\n" \
     "\n" \
@@ -17498,23 +8679,7 @@
     "Returns:\n" \
     "  (s, rcond, pivotg, info): 2N-by-2N Hamiltonian/symplectic matrix,\n" \
     "                           condition number (discrete only), pivot growth,\n" \
-    "                           exit code (0=success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb02ru\n" \
-    ">>> n = 3\n" \
-    ">>> A = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> G = np.eye(n, dtype=float, order='F') * 0.5\n" \
-    ">>> Q = np.eye(n, dtype=float, order='F')\n" \
-    ">>> S, rcond, pivotg, info = sb02ru('C', 'D', 'N', 'U', A, G, Q)\n" \
-    ">>> S11 = S[:n, :n]\n" \
-    ">>> S12 = S[:n, n:]\n" \
-    ">>> S21 = S[n:, :n]\n" \
-    ">>> S22 = S[n:, n:]\n" \
-    ">>> info\n" \
-    "0"
+    "                           exit code (0=success)"
 
 #define DOC_SB02SD "Condition and error bound for discrete-time Riccati equation.\n" \
     "\n" \
@@ -17536,24 +8701,7 @@
     "  x (ndarray): N-by-N symmetric solution X (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (t, u, sepd, rcond, ferr, info): Updated T, U, separation, rcond, error, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb02sd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    "...     a[i, i] = 0.5 + 0.1 * i\n" \
-    ">>> t = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> g = np.eye(n, order='F', dtype=float) * 0.1\n" \
-    ">>> q = np.eye(n, order='F', dtype=float) * 0.5\n" \
-    ">>> x = np.eye(n, order='F', dtype=float) * 0.3\n" \
-    ">>> t_out, u_out, sepd, rcond, ferr, info = sb02sd(\n" \
-    "...     'C', 'N', 'N', 'U', 'O', n, a, t, u, g, q, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (t, u, sepd, rcond, ferr, info): Updated T, U, separation, rcond, error, exit code"
 
 #define DOC_SB03MD "Solve continuous or discrete Lyapunov equation.\n" \
     "\n" \
@@ -17572,26 +8720,7 @@
     "\n" \
     "Returns:\n" \
     "  (x, a, u, wr, wi, scale, sep, ferr, info):\n" \
-    "    Solution, Schur form, transformation, eigenvalues, scale, info\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03md\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.0, 1.0, 1.0],\n" \
-    "...     [1.0, 3.0, 0.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [25.0, 24.0, 15.0],\n" \
-    "...     [24.0, 32.0,  8.0],\n" \
-    "...     [15.0,  8.0, 40.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = sb03md('D', 'X', 'N', 'N', n, a.copy(order='F'),\n" \
-    "...     c.copy(order='F'))\n" \
-    ">>> x, a_out, u, wr, wi, scale, sep, ferr, info = result"
+    "    Solution, Schur form, transformation, eigenvalues, scale, info"
 
 #define DOC_SB03MU "Solve small discrete-time Sylvester equation.\n" \
     "\n" \
@@ -17607,19 +8736,7 @@
     "  b (ndarray): N1-by-N2 RHS matrix B (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (X, scale, xnorm, info): Solution X, scale factor, inf-norm, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03mu\n" \
-    ">>> tl = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> tr = np.array([[3.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> x, scale, xnorm, info = sb03mu(False, False, 1, tl, tr, b)\n" \
-    ">>> residual = tl @ x @ tr - x - scale * b\n" \
-    ">>> info\n" \
-    "0"
+    "  (X, scale, xnorm, info): Solution X, scale factor, inf-norm, exit code"
 
 #define DOC_SB03MV "Solve 2x2 discrete-time Lyapunov equation.\n" \
     "\n" \
@@ -17632,26 +8749,7 @@
     "  lupper (bool): If True, upper triangle. Default: True\n" \
     "\n" \
     "Returns:\n" \
-    "  (X, scale, xnorm, info): Solution X, scale factor, inf-norm, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03mv\n" \
-    ">>> T = np.array([\n" \
-    "...     [0.5, 0.1],\n" \
-    "...     [0.0, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [1.0, 0.2],\n" \
-    "...     [0.0, 0.5]  # Only upper triangle used\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> X, scale, xnorm, info = sb03mv(T, B, ltran=False, lupper=True)\n" \
-    ">>> X_sym = np.triu(X) + np.triu(X, 1).T\n" \
-    ">>> B_sym = np.triu(B) + np.triu(B, 1).T\n" \
-    ">>> residual = T.T @ X_sym @ T - X_sym - scale * B_sym\n" \
-    ">>> info\n" \
-    "0"
+    "  (X, scale, xnorm, info): Solution X, scale factor, inf-norm, exit code"
 
 #define DOC_SB03MW "Solve 2x2 continuous-time Lyapunov equation.\n" \
     "\n" \
@@ -17664,20 +8762,7 @@
     "  lupper (bool): If True, upper triangle. Default: True\n" \
     "\n" \
     "Returns:\n" \
-    "  (X, scale, xnorm, info): Solution X, scale factor, inf-norm, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb03mw\n" \
-    ">>> import numpy as np\n" \
-    ">>> t = np.array([[-2.0, 0.0], [1.0, -3.0]], order='F') # T is Upper in C (row 0: -2, 1; row 1: 0, -3) -> Wait, Fortran order.\n" \
-    ">>> t = np.array([[-2.0, 0.0], [1.0, -3.0]], order='F')\n" \
-    ">>> b = np.eye(2, order='F')\n" \
-    ">>> x, scale, xnorm, info = sb03mw(ltran=False, lupper=True, t=t, b=b)\n" \
-    ">>> x_full = np.triu(x) + np.triu(x, 1).T\n" \
-    ">>> res = t.T @ x_full + x_full @ t - scale * b\n" \
-    ">>> info\n" \
-    "0"
+    "  (X, scale, xnorm, info): Solution X, scale factor, inf-norm, exit code"
 
 #define DOC_SB03MX "Solve discrete-time Lyapunov for quasi-triangular A.\n" \
     "\n" \
@@ -17689,26 +8774,7 @@
     "  c (ndarray): Symmetric RHS C, overwritten with solution X (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (X, scale, info): Solution X, scale factor, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03mx\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.0, 0.0],\n" \
-    "...     [0.0, 0.3, 0.0],\n" \
-    "...     [0.0, 0.0, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.2, 0.1],\n" \
-    "...     [0.2, 2.0, 0.3],\n" \
-    "...     [0.1, 0.3, 1.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> n = 3\n" \
-    ">>> x, scale, info = sb03mx('N', a.copy(order='F'), c.copy(order='F'))\n" \
-    ">>> info\n" \
-    "0"
+    "  (X, scale, info): Solution X, scale factor, exit code"
 
 #define DOC_SB03MY "Solve continuous-time Lyapunov for quasi-triangular A.\n" \
     "\n" \
@@ -17720,26 +8786,7 @@
     "  c (ndarray): Symmetric RHS C, overwritten with solution X (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (X, scale, info): Solution X, scale factor, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03my\n" \
-    ">>> a = np.array([\n" \
-    "...     [-2.0, 0.0, 0.0],\n" \
-    "...     [ 0.0,-3.0, 0.0],\n" \
-    "...     [ 0.0, 0.0,-1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [4.0, 1.0, 0.5],\n" \
-    "...     [1.0, 3.0, 0.3],\n" \
-    "...     [0.5, 0.3, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> n = 3\n" \
-    ">>> x, scale, info = sb03my('N', a.copy(order='F'), c.copy(order='F'))\n" \
-    ">>> info\n" \
-    "0"
+    "  (X, scale, info): Solution X, scale factor, exit code"
 
 #define DOC_SB03OD "Solve stable Lyapunov equation for Cholesky factor.\n" \
     "\n" \
@@ -17764,48 +8811,71 @@
     "  - wr: Real parts of eigenvalues (n,)\n" \
     "  - wi: Imaginary parts of eigenvalues (n,)\n" \
     "  - scale: Scale factor (scale <= 1)\n" \
-    "  - info: Exit code (0=success, 1=nearly singular, 2/3=unstable)\n" \
+    "  - info: Exit code (0=success, 1=nearly singular, 2/3=unstable)"
+
+#define DOC_SB03OR "Solve real quasi-triangular Sylvester equation.\n" \
     "\n" \
-    "Examples:\n" \
+    "Solves for N-by-M matrix X (M = 1 or 2):\n" \
+    "  Continuous: op(S)'*X + X*op(A) = scale*C\n" \
+    "  Discrete:   op(S)'*X*op(A) - X = scale*C\n" \
     "\n" \
-    ">>> from slicot import sb03od\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m = 4, 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 37.0, -12.0, -12.0],\n" \
-    "...     [-1.0, -10.0, 0.0, 4.0],\n" \
-    "...     [2.0, -4.0, 7.0, -6.0],\n" \
-    "...     [2.0, 2.0, 7.0, -9.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> q = np.zeros((n, n), order='F', dtype=np.float64)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 2.5, 1.0, 3.5],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [-1.0, -2.5, -1.0, -1.5],\n" \
-    "...     [1.0, 2.5, 4.0, -5.5],\n" \
-    "...     [-1.0, -2.5, -4.0, 3.5]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> scale = ctypes.c_double(0.0)\n" \
-    ">>> wr = np.zeros(n, dtype=np.float64)\n" \
-    ">>> wi = np.zeros(n, dtype=np.float64)\n" \
-    ">>> ldwork = max(1, 4*n)\n" \
-    ">>> dwork = np.zeros(ldwork, dtype=np.float64)\n" \
-    ">>> info = ctypes.c_int(0)\n" \
-    ">>> ldb = max(n, m)\n" \
-    ">>> b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.float64)\n" \
-    ">>> b_padded[:m, :n] = b\n" \
-    ">>> sb03od(\n" \
-    "...     b\"C\", b\"N\", b\"N\", n, m,\n" \
-    "...     a.ctypes.data_as(ctypes.POINTER(ctypes.c_double)), n,\n" \
-    "...     q.ctypes.data_as(ctypes.POINTER(ctypes.c_double)), n,\n" \
-    "...     b_padded.ctypes.data_as(ctypes.POINTER(ctypes.c_double)), ldb,\n" \
-    "...     ctypes.byref(scale),\n" \
-    "...     wr.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),\n" \
-    "...     wi.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),\n" \
-    "...     dwork.ctypes.data_as(ctypes.POINTER(ctypes.c_double)), ldwork,\n" \
-    "...     ctypes.byref(info)\n" \
-    "...     )\n" \
-    ">>> u = np.triu(b_padded[:n, :n])"
+    "where S is N-by-N block upper triangular (real Schur form), A is M-by-M.\n" \
+    "Solution X overwrites C.\n" \
+    "\n" \
+    "Parameters:\n" \
+    "  discr (bool): True for discrete-time, False for continuous-time\n" \
+    "  ltrans (bool): True for op(K) = K', False for op(K) = K\n" \
+    "  n (int): Order of matrix S (>= 0)\n" \
+    "  m (int): Order of matrix A (1 or 2)\n" \
+    "  s (ndarray): N-by-N block upper triangular matrix (F-order)\n" \
+    "  a (ndarray): M-by-M matrix (F-order)\n" \
+    "  c (ndarray): N-by-M RHS matrix, overwritten with solution (F-order)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (scale, info):\n" \
+    "    scale: Scale factor (0 < scale <= 1)\n" \
+    "    info: 0=success, 1=perturbed to avoid overflow"
+
+#define DOC_SB03OS "Complex triangular Lyapunov solver for Cholesky factor.\n" \
+    "\n" \
+    "Solves for X = op(U)^H * op(U):\n" \
+    "  Continuous: op(S)^H*X + X*op(S) = -scale^2*op(R)^H*op(R)\n" \
+    "  Discrete:   op(S)^H*X*op(S) - X = -scale^2*op(R)^H*op(R)\n" \
+    "\n" \
+    "where S and R are complex N-by-N upper triangular matrices.\n" \
+    "\n" \
+    "Parameters:\n" \
+    "  discr (bool): True for discrete-time, False for continuous-time\n" \
+    "  ltrans (bool): True for op(K) = K^H, False for op(K) = K\n" \
+    "  n (int): Order of matrices (>= 0)\n" \
+    "  s (ndarray): Complex N-by-N upper triangular S, modified on exit (F-order)\n" \
+    "  r (ndarray): Complex N-by-N upper triangular R, overwritten with U (F-order)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (scale, info):\n" \
+    "    scale: Scale factor (0 < scale <= 1)\n" \
+    "    info: 0=success, 1=S not stable/convergent"
+
+#define DOC_SB03OT "Solve reduced Lyapunov equation for triangular factors.\n" \
+    "\n" \
+    "Solves for X = op(U)'*op(U):\n" \
+    "  Continuous: op(S)'*X + X*op(S) = -scale^2*op(R)'*op(R)\n" \
+    "  Discrete:   op(S)'*X*op(S) - X = -scale^2*op(R)'*op(R)\n" \
+    "\n" \
+    "where S is block upper triangular (real Schur form), R is upper triangular.\n" \
+    "Solution U overwrites R.\n" \
+    "\n" \
+    "Parameters:\n" \
+    "  discr (bool): True for discrete-time, False for continuous-time\n" \
+    "  ltrans (bool): True for op(K) = K', False for op(K) = K\n" \
+    "  n (int): Order of matrices (>= 0)\n" \
+    "  s (ndarray): N-by-N block upper triangular S, modified on exit (F-order)\n" \
+    "  r (ndarray): N-by-N upper triangular R, overwritten with U (F-order)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (scale, info):\n" \
+    "    scale: Scale factor (0 < scale <= 1)\n" \
+    "    info: 0=success, 1=S not stable/convergent, 2=singular equation"
 
 #define DOC_SB03OU "Solve Lyapunov equation for Cholesky factor.\n" \
     "\n" \
@@ -17820,21 +8890,7 @@
     "  b (ndarray): M-by-N (or N-by-M if ltrans) matrix B\n" \
     "\n" \
     "Returns:\n" \
-    "  (u, scale, info): Upper triangular Cholesky factor U, scale factor, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03ou\n" \
-    ">>> n = 3\n" \
-    ">>> m = 3\n" \
-    ">>> a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')\n" \
-    ">>> b = np.eye(m, n, dtype=float, order='F')\n" \
-    ">>> u, scale, info = sb03ou(False, False, a, b.copy(order='F'))\n" \
-    ">>> x = u.T @ u\n" \
-    ">>> residual = a.T @ x + x @ a + (scale**2) * (b.T @ b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (u, scale, info): Upper triangular Cholesky factor U, scale factor, exit code"
 
 #define DOC_SB03OV "Construct complex plane rotation for Lyapunov solver.\n" \
     "\n" \
@@ -17845,19 +8901,53 @@
     "  small (float): Threshold for unit matrix\n" \
     "\n" \
     "Returns:\n" \
-    "  (d, c_re, c_im, s, info): d, complex cosine, real sine, exit code\n" \
+    "  (d, c_re, c_im, s, info): d, complex cosine, real sine, exit code"
+
+#define DOC_SB03OY "Solve 2x2 Lyapunov equation for Cholesky factor.\n" \
     "\n" \
-    "Examples:\n" \
+    "Solves for Cholesky factor U of X where op(U)'*op(U) = X:\n" \
+    "  Continuous: op(S)'*X + X*op(S) = -ISGN*scale^2*op(R)'*op(R)\n" \
+    "  Discrete:   op(S)'*X*op(S) - X = -ISGN*scale^2*op(R)'*op(R)\n" \
     "\n" \
-    ">>> from slicot import sb03ov\n" \
-    ">>> import numpy as np\n" \
-    ">>> a_re, a_im = 3.0, 4.0\n" \
-    ">>> b = 5.0\n" \
-    ">>> small = 1e-15\n" \
-    ">>> d, c_re, c_im, s, info = sb03ov(a_re, a_im, b, small)\n" \
-    ">>> expected_d = np.sqrt(a_re**2 + a_im**2 + b**2)\n" \
-    ">>> info\n" \
-    "0"
+    "where S is 2x2 with complex conjugate eigenvalues, R is 2x2 upper triangular.\n" \
+    "\n" \
+    "Parameters:\n" \
+    "  discr (bool): True for discrete-time, False for continuous-time\n" \
+    "  ltrans (bool): True for op(K) = K', False for op(K) = K\n" \
+    "  isgn (int): Sign (+1 or -1)\n" \
+    "  s (ndarray): 2x2 matrix S, modified on exit (F-order)\n" \
+    "  r (ndarray): 2x2 upper triangular matrix R (F-order)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (a, scale, info):\n" \
+    "    a: 2x2 Cholesky factor U (upper triangular)\n" \
+    "    scale: Scale factor (0 < scale <= 1)\n" \
+    "    info: 0=success, 2=not stable/convergent, 3=singular, 4=real eigenvalues"
+
+#define DOC_SB03OZ "Complex Lyapunov equation solver for Cholesky factor.\n" \
+    "\n" \
+    "Solves for X = op(U)^H * op(U):\n" \
+    "  Continuous: op(A)^H*X + X*op(A) = -scale^2*op(B)^H*op(B)\n" \
+    "  Discrete:   op(A)^H*X*op(A) - X = -scale^2*op(B)^H*op(B)\n" \
+    "\n" \
+    "where A is N-by-N complex, op(B) is M-by-N complex.\n" \
+    "\n" \
+    "Parameters:\n" \
+    "  dico (str): 'C' continuous-time, 'D' discrete-time\n" \
+    "  fact (str): 'N' compute Schur form, 'F' Schur form supplied\n" \
+    "  trans (str): 'N' for op(K)=K, 'C' for op(K)=K^H\n" \
+    "  n (int): Order of matrix A (>= 0)\n" \
+    "  m (int): Rows of op(B) (>= 0)\n" \
+    "  a (ndarray): Complex N-by-N matrix (F-order)\n" \
+    "  q (ndarray): Complex N-by-N Schur vectors (F-order)\n" \
+    "  b (ndarray): Complex M-by-N matrix (F-order)\n" \
+    "  lzwork (int, optional): Complex workspace size (-1 for query)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (scale, w, info):\n" \
+    "    scale: Scale factor (0 < scale <= 1)\n" \
+    "    w: Complex eigenvalues of A (length N)\n" \
+    "    info: 0=success, 1=not stable/convergent, 2=Schur failed"
 
 #define DOC_SB03PD "Solve discrete-time Lyapunov equation with separation estimation.\n" \
     "\n" \
@@ -17874,27 +8964,7 @@
     "Returns:\n" \
     "  For job='X': (a, u, x, scale, wr, wi, info)\n" \
     "  For job='S': (a, u, None, scale, sepd, wr, wi, info)\n" \
-    "  For job='B': (a, u, x, scale, sepd, ferr, wr, wi, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03pd\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.1, 0.0],\n" \
-    "...     [0.0, 0.3, 0.2],\n" \
-    "...     [0.0, 0.0, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.2, 0.1],\n" \
-    "...     [0.2, 1.5, 0.3],\n" \
-    "...     [0.1, 0.3, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, u, x, scale, wr, wi, info = sb03pd('X', 'N', 'N', a.copy(order='F'), c.copy(order='F'))\n" \
-    ">>> residual = a.T @ x @ a - x - scale * c\n" \
-    ">>> info\n" \
-    "0"
+    "  For job='B': (a, u, x, scale, sepd, ferr, wr, wi, info)"
 
 #define DOC_SB03QD "Estimate conditioning and forward error bound for continuous-time Lyapunov.\n" \
     "\n" \
@@ -17922,30 +8992,7 @@
     "  ferr: Forward error bound\n" \
     "  t_out: Schur form of A\n" \
     "  u_out: Orthogonal transformation matrix\n" \
-    "  info: 0=success, 1..n=DGEES fail, n+1=near-common eigenvalues\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03qd\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.0, 1.0, 1.0],\n" \
-    "...     [1.0, 3.0, 0.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [25.0, 24.0, 15.0],\n" \
-    "...     [24.0, 32.0,  8.0],\n" \
-    "...     [15.0,  8.0, 40.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = sb03md('C', 'X', 'N', 'N', n, a.copy(order='F'), c.copy(order='F'))\n" \
-    ">>> x, t_out, u_out, wr, wi, scale, sep_md, ferr_md, info_md = result\n" \
-    ">>> sep, rcond, ferr, t_out2, u_out2, info = sb03qd(\n" \
-    "...     'B', 'F', 'N', 'U', 'O', scale, a, t_out, u_out, c, x\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  info: 0=success, 1..n=DGEES fail, n+1=near-common eigenvalues"
 
 #define DOC_SB03QX "Estimate forward error bound for continuous-time Lyapunov equation.\n" \
     "\n" \
@@ -17978,23 +9025,7 @@
     "  x (ndarray): Lyapunov solution matrix X (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (sep, thnorm, info): Separation, Theta norm, exit code (N+1=close eigenvalues)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03qy\n" \
-    ">>> n = 3\n" \
-    ">>> t = np.array([\n" \
-    "...     [-2.0, 0.0, 0.0],\n" \
-    "...     [ 0.0,-3.0, 0.0],\n" \
-    "...     [ 0.0, 0.0,-1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> x = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> sep, thnorm, info = sb03qy('S', 'N', 'R', t, u, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (sep, thnorm, info): Separation, Theta norm, exit code (N+1=close eigenvalues)"
 
 #define DOC_SB03RD "Solve continuous-time Lyapunov equation with separation estimation.\n" \
     "\n" \
@@ -18018,26 +9049,7 @@
     "  sep: Separation estimate (job='S' or 'B')\n" \
     "  ferr: Forward error bound (job='B')\n" \
     "  wr, wi: Real/imaginary eigenvalue parts (fact='N')\n" \
-    "  info: 0=success, -i=arg i invalid, 1..n=DGEES fail, n+1=singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03rd\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.5,  0.0],\n" \
-    "...     [ 0.0, -2.0,  0.3],\n" \
-    "...     [ 0.0,  0.0, -3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 2.0,  0.5,  0.1],\n" \
-    "...     [ 0.5,  3.0,  0.2],\n" \
-    "...     [ 0.1,  0.2,  4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, u, x, scale, sep, ferr, wr, wi, info = sb03rd('X', 'N', 'N', a, c)\n" \
-    ">>> info\n" \
-    "0"
+    "  info: 0=success, -i=arg i invalid, 1..n=DGEES fail, n+1=singular"
 
 #define DOC_SB03SD "Estimate conditioning and forward error for discrete-time Lyapunov.\n" \
     "\n" \
@@ -18064,34 +9076,7 @@
     "  sepd: Separation estimate sepd(op(A),op(A)')\n" \
     "  rcond: Reciprocal condition number estimate\n" \
     "  ferr: Forward error bound\n" \
-    "  info: 0=success, 1..n=DGEES fail, n+1=near-reciprocal eigenvalues\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.1, 0.05],\n" \
-    "...     [0.0, 0.6, 0.1],\n" \
-    "...     [0.0, 0.0, 0.7]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.5, 0.2],\n" \
-    "...     [0.5, 2.0, 0.5],\n" \
-    "...     [0.2, 0.5, 1.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> t = a.copy()\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> from slicot import sb03sd\n" \
-    ">>> a_work = a.copy(order='F')\n" \
-    ">>> c_work = c.copy(order='F')\n" \
-    ">>> result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)\n" \
-    ">>> x = result[2]\n" \
-    ">>> scale = result[5]\n" \
-    ">>> info = result[-1]\n" \
-    ">>> result = sb03sd('B', 'F', 'N', 'U', 'O', n, scale,\n" \
-    "...     a, t, u, c, x)\n" \
-    ">>> sepd, rcond, ferr, info = result"
+    "  info: 0=success, 1..n=DGEES fail, n+1=near-reciprocal eigenvalues"
 
 #define DOC_SB03SX "Estimate forward error for discrete-time Lyapunov solution.\n" \
     "\n" \
@@ -18108,24 +9093,7 @@
     "  r (ndarray): Cholesky factor of solution X (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (ferr, r, info): Forward error bound, modified R, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb03sx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> t = np.zeros((n, n), order='F', dtype=float)\n" \
-    "...     t[i, i] = 0.5 + 0.1 * i\n" \
-    "...     t[i, j] = np.random.randn() * 0.1\n" \
-    ">>> xanorm = 1.5\n" \
-    ">>> r = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> r = (r + r.T) / 2\n" \
-    ">>> r = np.triu(r)\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> ferr, r_out, info = sb03sx('N', 'U', 'R', n, xanorm, t, u, r)\n" \
-    ">>> info\n" \
-    "0"
+    "  (ferr, r, info): Forward error bound, modified R, exit code"
 
 #define DOC_SB03SY "Estimate separation and Theta norm for discrete-time Lyapunov.\n" \
     "\n" \
@@ -18141,21 +9109,7 @@
     "  xa (ndarray): Matrix X*op(A) or U'*X*U*op(T) (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (sepd, thnorm, info): Separation, Theta norm, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb03sy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> t = np.zeros((n, n), order='F', dtype=float)\n" \
-    "...     t[i, i] = 0.5 + 0.1 * i\n" \
-    "...     t[i, j] = np.random.randn() * 0.1\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> xa = np.eye(n, order='F', dtype=float)\n" \
-    ">>> sepd, thnorm, info = sb03sy('S', 'N', 'R', n, t, u, xa)\n" \
-    ">>> info\n" \
-    "0"
+    "  (sepd, thnorm, info): Separation, Theta norm, exit code"
 
 #define DOC_SB03TD "Solve continuous-time Lyapunov equation with conditioning/error bounds.\n" \
     "\n" \
@@ -18187,28 +9141,7 @@
     "  sep: Separation estimate sep(op(A),-op(A)')\n" \
     "  rcond: Reciprocal condition number (if job='C' or 'A')\n" \
     "  ferr: Forward error bound (if job='E' or 'A')\n" \
-    "  info: 0=success, -i=arg i invalid, 1..n=DGEES fail, n+1=close eigenvalues\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb03td\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.0, 1.0, 1.0],\n" \
-    "...     [1.0, 3.0, 0.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [25.0, 24.0, 15.0],\n" \
-    "...     [24.0, 32.0,  8.0],\n" \
-    "...     [15.0,  8.0, 40.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x, t, u, wr, wi, scale, sep, rcond, ferr, info = sb03td(\n" \
-    "...     'A', 'N', 'N', 'U', 'O', a, c\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  info: 0=success, -i=arg i invalid, 1..n=DGEES fail, n+1=close eigenvalues"
 
 #define DOC_SB03UD "Solve discrete-time Lyapunov equation with conditioning/error bounds.\n" \
     "\n" \
@@ -18238,29 +9171,7 @@
     "  rcond: Reciprocal condition number (if job='C' or 'A')\n" \
     "  ferr: Forward error bound (if job='E' or 'A')\n" \
     "  wr, wi: Eigenvalue real/imaginary parts (if fact='N')\n" \
-    "  info: 0=success, -i=arg i invalid, 1..n=DGEES fail, n+1=near-reciprocal\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb03ud\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.0, 1.0, 1.0],\n" \
-    "...     [1.0, 3.0, 0.0],\n" \
-    "...     [0.0, 0.0, 3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [25.0, 24.0, 15.0],\n" \
-    "...     [24.0, 32.0,  8.0],\n" \
-    "...     [15.0,  8.0, 40.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x, scale, sepd, rcond, ferr, wr, wi, info = sb03ud(\n" \
-    "...     job='A', fact='N', trana='N', uplo='U', lyapun='O',\n" \
-    "...     a=a, c=c\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  info: 0=success, -i=arg i invalid, 1..n=DGEES fail, n+1=near-reciprocal"
 
 #define DOC_SB04MD "Solve continuous-time Sylvester equation AX + XB = C (Hessenberg-Schur).\n" \
     "\n" \
@@ -18274,31 +9185,7 @@
     "  c (ndarray): N-by-M coefficient matrix C (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, z, info): Solution matrix X, orthogonal matrix Z, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04md\n" \
-    ">>> n = 3\n" \
-    ">>> m = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 1.0, 3.0],\n" \
-    "...     [0.0, 2.0, 1.0],\n" \
-    "...     [6.0, 1.0, 2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     [1.0, 6.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     [1.0, 4.0],\n" \
-    "...     [0.0, 5.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x, z, info = sb04md(a, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, z, info): Solution matrix X, orthogonal matrix Z, exit code"
 
 #define DOC_SB04MR "Solve linear system with compact storage (second subdiagonal zeros).\n" \
     "\n" \
@@ -18310,26 +9197,7 @@
     "  d (ndarray): Compact array (m*(m+1)/2 + 3*m elements, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (d, ipr, info): Updated d, solution indices, exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04mr\n" \
-    ">>> m = 2\n" \
-    ">>> d_len = m * (m + 1) // 2 + 3 * m  # 3 + 6 = 9\n" \
-    ">>> d = np.zeros(d_len, dtype=float, order='F')\n" \
-    ">>> d[0] = 2.0  # a11\n" \
-    ">>> d[1] = 1.0  # a12\n" \
-    ">>> d[2] = 1.0  # a21\n" \
-    ">>> d[3] = 3.0  # a22\n" \
-    ">>> d[7] = 5.0   # b1\n" \
-    ">>> d[8] = 10.0  # b2\n" \
-    ">>> d_out, ipr, info = sb04mr(m, d.copy())\n" \
-    ">>> x = np.zeros(m)\n" \
-    "...     x[i] = d_out[ipr[i] - 1]  # Convert 1-based to 0-based\n" \
-    ">>> info\n" \
-    "0"
+    "  (d, ipr, info): Updated d, solution indices, exit code (0=success, 1=singular)"
 
 #define DOC_SB04MW "Solve linear system with compact storage (upper Hessenberg).\n" \
     "\n" \
@@ -18341,26 +9209,7 @@
     "  d (ndarray): Compact array (m*(m+1)/2 + 2*m elements, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (d, ipr, info): Updated d, solution indices, exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04mw\n" \
-    ">>> m = 2\n" \
-    ">>> d_len = m * (m + 1) // 2 + 2 * m  # 3 + 4 = 7\n" \
-    ">>> d = np.zeros(d_len, dtype=float, order='F')\n" \
-    ">>> d[0] = 2.0\n" \
-    ">>> d[1] = 1.0\n" \
-    ">>> d[2] = 1.0\n" \
-    ">>> d[3] = 3.0\n" \
-    ">>> d[5] = 5.0   # b1 = 2*1 + 1*3 = 5\n" \
-    ">>> d[6] = 10.0  # b2 = 1*1 + 3*3 = 10\n" \
-    ">>> d_out, ipr, info = sb04mw(m, d.copy())\n" \
-    ">>> x = np.zeros(m)\n" \
-    "...     x[i] = d_out[ipr[i] - 1]\n" \
-    ">>> info\n" \
-    "0"
+    "  (d, ipr, info): Updated d, solution indices, exit code (0=success, 1=singular)"
 
 #define DOC_SB04ND "Solve continuous-time Sylvester equation AX + XB = C.\n" \
     "\n" \
@@ -18382,36 +9231,7 @@
     "  tol (float, optional): Tolerance for singularity test (default 0 = EPS)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, info): Solution matrix X and exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04nd\n" \
-    ">>> n = 5\n" \
-    ">>> m = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [17.0, 24.0,  1.0,  8.0, 15.0],\n" \
-    "...     [23.0,  5.0,  7.0, 14.0, 16.0],\n" \
-    "...     [ 0.0,  6.0, 13.0, 20.0, 22.0],\n" \
-    "...     [ 0.0,  0.0, 19.0, 21.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  2.0,  9.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [8.0, 1.0, 6.0],\n" \
-    "...     [0.0, 5.0, 7.0],\n" \
-    "...     [0.0, 9.0, 2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 62.0, -12.0, 26.0],\n" \
-    "...     [ 59.0, -10.0, 31.0],\n" \
-    "...     [ 70.0,  -6.0,  9.0],\n" \
-    "...     [ 35.0,  31.0, -7.0],\n" \
-    "...     [ 36.0, -15.0,  7.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x, info = sb04nd('B', 'U', 'U', a, b, c, tol=0.0)\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, info): Solution matrix X and exit code (0=success, 1=singular)"
 
 #define DOC_SB04NV "Construct right-hand sides for Sylvester solver (2 RHS case).\n" \
     "\n" \
@@ -18426,18 +9246,7 @@
     "  ab (ndarray): Matrix A or B depending on abschr (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  d (ndarray): Right-hand side vector (2*N or 2*M elements)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04nv\n" \
-    ">>> n = 3\n" \
-    ">>> m = 4\n" \
-    ">>> c = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> ab = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)\n" \
-    ">>> indx = 2\n" \
-    ">>> d = sb04nv('B', 'U', indx, c, ab)"
+    "  d (ndarray): Right-hand side vector (2*N or 2*M elements)"
 
 #define DOC_SB04NW "Construct right-hand side for Sylvester solver (1 RHS case).\n" \
     "\n" \
@@ -18452,18 +9261,7 @@
     "  ab (ndarray): Matrix A or B depending on abschr (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  d (ndarray): Right-hand side vector (N or M elements)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04nw\n" \
-    ">>> n = 3\n" \
-    ">>> m = 4\n" \
-    ">>> c = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> ab = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)\n" \
-    ">>> indx = 3\n" \
-    ">>> d = sb04nw('B', 'U', indx, c, ab)"
+    "  d (ndarray): Right-hand side vector (N or M elements)"
 
 #define DOC_SB04NX "Solve Hessenberg system with two offdiagonals and two RHS.\n" \
     "\n" \
@@ -18479,34 +9277,7 @@
     "  tol (float): Tolerance for singularity test\n" \
     "\n" \
     "Returns:\n" \
-    "  (d, info): Solution vector and exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04nx\n" \
-    ">>> m = 3\n" \
-    ">>> a = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)\n" \
-    "...     a[i + 1, i] = np.random.randn() * 0.5\n" \
-    "...     a[i, i] = 2.0 + i\n" \
-    ">>> lambd1 = 1.0\n" \
-    ">>> lambd2 = 0.1\n" \
-    ">>> lambd3 = -0.1\n" \
-    ">>> lambd4 = 1.5\n" \
-    ">>> d = np.random.randn(2 * m).astype(float, order='F')\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> d_result, info = sb04nx('R', 'U', a, d, lambd1, lambd2, lambd3, lambd4, tol)\n" \
-    ">>> h = np.zeros((2 * m, 2 * m), dtype=float, order='F')\n" \
-    "...     j2 = 2 * j\n" \
-    "...     ml = min(j + 2, m)\n" \
-    "...     h[2 * i, j2] = a[i, j]\n" \
-    "...     h[2 * i + 1, j2 + 1] = a[i, j]\n" \
-    "...     h[j2, j2] += lambd1\n" \
-    "...     h[j2 + 1, j2] = lambd3\n" \
-    "...     h[j2, j2 + 1] = lambd2\n" \
-    "...     h[j2 + 1, j2 + 1] += lambd4\n" \
-    ">>> info\n" \
-    "0"
+    "  (d, info): Solution vector and exit code (0=success, 1=singular)"
 
 #define DOC_SB04NY "Solve Hessenberg system with one offdiagonal and one RHS.\n" \
     "\n" \
@@ -18522,24 +9293,7 @@
     "  tol (float): Tolerance for singularity test\n" \
     "\n" \
     "Returns:\n" \
-    "  (d, info): Solution vector and exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04ny\n" \
-    ">>> m = 4\n" \
-    ">>> a = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)\n" \
-    "...     a[i + 1, i] = np.random.randn() * 0.5\n" \
-    "...     a[i, i] = 2.0 + i\n" \
-    ">>> lambda_val = 1.0\n" \
-    ">>> d = np.random.randn(m).astype(float, order='F')\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> d_result, info = sb04ny('R', 'U', a, d, lambda_val, tol)\n" \
-    ">>> h = a.copy()\n" \
-    "...     h[i, i] += lambda_val\n" \
-    ">>> info\n" \
-    "0"
+    "  (d, info): Solution vector and exit code (0=success, 1=singular)"
 
 #define DOC_SB04OD "Solve generalized Sylvester equations with separation estimation.\n" \
     "\n" \
@@ -18567,44 +9321,7 @@
     "    Modified matrices (Schur form), solution R in c, L in f,\n" \
     "    scale factor, Dif estimate, transformation matrices, exit code.\n" \
     "    P,Q for (A,D), U,V for (B,E); None if not computed.\n" \
-    "    info: 0=success, 1=Schur fail, 2=not quasi-triangular, 3=singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb04od\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 3, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.6, -3.1, 1.9],\n" \
-    "...     [-3.8, 4.2, 2.4],\n" \
-    "...     [0.5, 2.2, -4.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.1, 0.1],\n" \
-    "...     [-1.3, -3.1]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-2.0, 28.9],\n" \
-    "...     [-5.7, -11.8],\n" \
-    "...     [12.9, -31.7]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [2.5, 0.1, 1.7],\n" \
-    "...     [-2.5, 0.0, 0.9],\n" \
-    "...     [0.1, 5.1, -7.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [6.0, 2.4],\n" \
-    "...     [-3.6, 2.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> f = np.array([\n" \
-    "...     [0.5, 23.8],\n" \
-    "...     [-11.0, -10.4],\n" \
-    "...     [39.5, -74.8]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> (a_out, b_out, c_out, d_out, e_out, f_out,\n" \
-    "...     scale, dif, p, q, u, v, info) = sb04od(\n" \
-    "...     'R', 'N', 'D', a, b, c, d, e, f)"
+    "    info: 0=success, 1=Schur fail, 2=not quasi-triangular, 3=singular"
 
 #define DOC_SB04OW "Solve periodic Sylvester equation with matrices in periodic Schur form.\n" \
     "\n" \
@@ -18632,25 +9349,7 @@
     "    r: Solution matrix R (modified c)\n" \
     "    l: Solution matrix L (modified f)\n" \
     "    scale: Scaling factor (0 <= scale <= 1)\n" \
-    "    info: 0=success, >0=common eigenvalues in A*D and B*E\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb04ow\n" \
-    ">>> import numpy as np\n" \
-    ">>> m, n = 1, 1\n" \
-    ">>> a = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[3.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[4.0]], order='F', dtype=float)\n" \
-    ">>> e = np.array([[5.0]], order='F', dtype=float)\n" \
-    ">>> f = np.array([[2.0]], order='F', dtype=float)\n" \
-    ">>> c_in = c.copy()\n" \
-    ">>> f_in = f.copy()\n" \
-    ">>> r, l, scale, info = sb04ow(m, n, a, b, c, d, e, f)\n" \
-    ">>> res1, res2 = verify_periodic_sylvester(a, b, c_in, d, e, f_in, r, l, scale)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, >0=common eigenvalues in A*D and B*E"
 
 #define DOC_SB04PD "Solve continuous-time or discrete-time Sylvester equations.\n" \
     "\n" \
@@ -18682,33 +9381,31 @@
     "    b: Schur form of B (if factb='N')\n" \
     "    v: Schur vectors of B (None if factb='S')\n" \
     "    scale: Scale factor (0 < scale <= 1)\n" \
-    "    info: 0=success, <0=arg error, >0=algorithm error\n" \
+    "    info: 0=success, <0=arg error, >0=algorithm error"
+
+#define DOC_SB04PX "Solve 2x2 Sylvester equation.\n" \
     "\n" \
-    "Examples:\n" \
+    "Solves for N1-by-N2 matrix X (1 <= N1,N2 <= 2) in:\n" \
+    "  op(TL)*X*op(TR) + ISGN*X = SCALE*B\n" \
     "\n" \
-    ">>> from slicot import sb04pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 3\n" \
-    ">>> n = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 1.0, 3.0],\n" \
-    "...     [0.0, 2.0, 1.0],\n" \
-    "...     [6.0, 1.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     [1.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     [1.0, 4.0],\n" \
-    "...     [0.0, 5.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x, a_out, u, b_out, v, scale, info = sb04pd(\n" \
-    "...     'D', 'N', 'N', 'N', 'N', 1, a, b, c\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "where op(T) = T or T', ISGN = 1 or -1.\n" \
+    "\n" \
+    "Parameters:\n" \
+    "  ltranl (bool): True for op(TL) = TL', False for op(TL) = TL\n" \
+    "  ltranr (bool): True for op(TR) = TR', False for op(TR) = TR\n" \
+    "  isgn (int): Sign (+1 or -1)\n" \
+    "  n1 (int): Rows of TL and B (1 or 2)\n" \
+    "  n2 (int): Columns of TR and B (1 or 2)\n" \
+    "  tl (ndarray): N1-by-N1 matrix TL (F-order)\n" \
+    "  tr (ndarray): N2-by-N2 matrix TR (F-order)\n" \
+    "  b (ndarray): N1-by-N2 right-hand side matrix (F-order)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (scale, x, xnorm, info):\n" \
+    "    scale: Scale factor (0 < scale <= 1)\n" \
+    "    x: N1-by-N2 solution matrix\n" \
+    "    xnorm: Infinity norm of X\n" \
+    "    info: 0=success, 1=TL and TR have common/nearby eigenvalues"
 
 #define DOC_SB04PY "Solve discrete-time Sylvester equation with Schur matrices.\n" \
     "\n" \
@@ -18729,18 +9426,7 @@
     "Returns:\n" \
     "  (x, scale, info): Solution X, scale factor, exit code\n" \
     "  scale: Scale factor (0 < scale <= 1) to prevent overflow\n" \
-    "  info: 0=success, 1=A and -ISGN*B have almost reciprocal eigenvalues\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04py\n" \
-    ">>> a = np.array([[2.0, 0.0], [0.0, 3.0]], dtype=float, order='F')\n" \
-    ">>> b = np.array([[1.0, 0.0], [0.0, 2.0]], dtype=float, order='F')\n" \
-    ">>> c = np.array([[6.0, 10.0], [8.0, 14.0]], dtype=float, order='F')\n" \
-    ">>> x, scale, info = sb04py('N', 'N', 1, a, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "  info: 0=success, 1=A and -ISGN*B have almost reciprocal eigenvalues"
 
 #define DOC_SB04QD "Solve discrete-time Sylvester equation X + AXB = C (Hessenberg-Schur).\n" \
     "\n" \
@@ -18754,32 +9440,7 @@
     "  c (ndarray): N-by-M coefficient matrix C (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, z, info): Solution matrix X, orthogonal matrix Z, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04qd\n" \
-    ">>> n = 3\n" \
-    ">>> m = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0],\n" \
-    "...     [6.0, 7.0, 8.0],\n" \
-    "...     [9.0, 2.0, 3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [7.0, 2.0, 3.0],\n" \
-    "...     [2.0, 1.0, 2.0],\n" \
-    "...     [3.0, 4.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [271.0, 135.0, 147.0],\n" \
-    "...     [923.0, 494.0, 482.0],\n" \
-    "...     [578.0, 383.0, 287.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x, z, info = sb04qd(a, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, z, info): Solution matrix X, orthogonal matrix Z, exit code"
 
 #define DOC_SB04QR "Solve linear system with compact storage (third subdiagonal pattern).\n" \
     "\n" \
@@ -18791,40 +9452,7 @@
     "  d (ndarray): Compact array (m*m/2 + 4*m elements, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (d, ipr, info): Updated d, solution indices, exit code (0=success, 1=singular)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04qr\n" \
-    ">>> m = 4\n" \
-    ">>> d_len = m * m // 2 + 4 * m  # 8 + 16 = 24\n" \
-    ">>> d = np.zeros(d_len, dtype=float, order='F')\n" \
-    ">>> d[0] = 5.0   # a11\n" \
-    ">>> d[1] = 1.0   # a12\n" \
-    ">>> d[2] = 0.5   # a13\n" \
-    ">>> d[3] = 0.2   # a14\n" \
-    ">>> d[4] = 1.0   # a21\n" \
-    ">>> d[5] = 4.0   # a22\n" \
-    ">>> d[6] = 1.0   # a23\n" \
-    ">>> d[7] = 0.3   # a24\n" \
-    ">>> d[8] = 0.8   # a31\n" \
-    ">>> d[9] = 0.7   # a32\n" \
-    ">>> d[10] = 3.5  # a33\n" \
-    ">>> d[11] = 0.5  # a34\n" \
-    ">>> d[12] = 0.6  # a42\n" \
-    ">>> d[13] = 0.5  # a43\n" \
-    ">>> d[14] = 3.0  # a44\n" \
-    ">>> rhs_start = m * m // 2 + 3 * m\n" \
-    ">>> d[rhs_start] = 7.7\n" \
-    ">>> d[rhs_start + 1] = 6.3\n" \
-    ">>> d[rhs_start + 2] = 5.0\n" \
-    ">>> d[rhs_start + 3] = 3.6\n" \
-    ">>> d_out, ipr, info = sb04qr(m, d.copy())\n" \
-    ">>> x = np.zeros(m)\n" \
-    "...     x[i] = d_out[ipr[i] - 1]\n" \
-    ">>> info\n" \
-    "0"
+    "  (d, ipr, info): Updated d, solution indices, exit code (0=success, 1=singular)"
 
 #define DOC_SB04RD "Solve discrete-time Sylvester equation (Hessenberg-Schur method).\n" \
     "\n" \
@@ -18844,38 +9472,7 @@
     "\n" \
     "Returns:\n" \
     "  (x, info): Solution matrix X and exit code\n" \
-    "    info=0: success, info=1: nearly singular matrix encountered\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb04rd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 5\n" \
-    ">>> m = 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0, 5.0],\n" \
-    "...     [6.0, 7.0, 8.0, 9.0, 1.0],\n" \
-    "...     [0.0, 2.0, 3.0, 4.0, 5.0],\n" \
-    "...     [0.0, 0.0, 6.0, 7.0, 8.0],\n" \
-    "...     [0.0, 0.0, 0.0, 9.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0, 5.0],\n" \
-    "...     [0.0, 1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [0.0, 0.0, 1.0, 2.0, 3.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, -5.0],\n" \
-    "...     [0.0, 0.0, 0.0, 4.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [2.0, 4.0, 10.0, 40.0, 7.0],\n" \
-    "...     [6.0, 20.0, 40.0, 74.0, 38.0],\n" \
-    "...     [0.0, 2.0, 8.0, 36.0, 2.0],\n" \
-    "...     [0.0, 0.0, 6.0, 52.0, -9.0],\n" \
-    "...     [0.0, 0.0, 0.0, 13.0, -43.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x, info = sb04rd('B', 'U', 'U', a, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "    info=0: success, info=1: nearly singular matrix encountered"
 
 #define DOC_SB04RV "Construct RHS for quasi-Hessenberg Sylvester solver (2 RHS case).\n" \
     "\n" \
@@ -18895,21 +9492,7 @@
     "  ba (ndarray): Matrix B or A (the one not in ab) (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  d (ndarray): Right-hand side vector (2*n or 2*m elements, interleaved)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04rv\n" \
-    ">>> n = 3\n" \
-    ">>> m = 4\n" \
-    ">>> c = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> ab = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)  # M-by-M upper Hessenberg\n" \
-    ">>> ba = np.random.randn(n, n).astype(float, order='F')  # N-by-N\n" \
-    ">>> indx = 2\n" \
-    ">>> d = sb04rv('B', 'U', indx, c, ab, ba)\n" \
-    "...     dwork1 = c[:, :indx - 1] @ ab[:indx - 1, indx - 1]\n" \
-    "...     dwork2 = c[:, :indx - 1] @ ab[:indx - 1, indx]"
+    "  d (ndarray): Right-hand side vector (2*n or 2*m elements, interleaved)"
 
 #define DOC_SB04RW "Construct RHS for Hessenberg Sylvester solver (1 RHS case).\n" \
     "\n" \
@@ -18929,20 +9512,7 @@
     "  ba (ndarray): Matrix B or A (the one not in ab) (F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  d (ndarray): Right-hand side vector (n or m elements)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04rw\n" \
-    ">>> n = 3\n" \
-    ">>> m = 4\n" \
-    ">>> c = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> ab = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)  # M-by-M upper Hessenberg\n" \
-    ">>> ba = np.random.randn(n, n).astype(float, order='F')  # N-by-N\n" \
-    ">>> indx = 3\n" \
-    ">>> d = sb04rw('B', 'U', indx, c, ab, ba)\n" \
-    "...     dwork = c[:, :indx - 1] @ ab[:indx - 1, indx - 1]"
+    "  d (ndarray): Right-hand side vector (n or m elements)"
 
 #define DOC_SB04RX "Solve quasi-Hessenberg system with two right-hand sides.\n" \
     "\n" \
@@ -18966,26 +9536,7 @@
     "\n" \
     "Returns:\n" \
     "  (d, info): Solution vector (2*M elements) and exit code\n" \
-    "    info=0: success, info=1: system is (numerically) singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04rx\n" \
-    ">>> m = 4\n" \
-    ">>> a = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)  # Upper Hessenberg\n" \
-    ">>> lambd1 = 0.5\n" \
-    ">>> lambd2 = 0.2\n" \
-    ">>> lambd3 = -0.1\n" \
-    ">>> lambd4 = 0.8\n" \
-    ">>> d_init = np.random.randn(2 * m).astype(float, order='F')\n" \
-    ">>> d = d_init.copy()\n" \
-    ">>> tol = 1e-12\n" \
-    ">>> d_out, info = sb04rx('R', 'U', a, lambd1, lambd2, lambd3, lambd4, d, tol)\n" \
-    ">>> H = build_quasi_hessenberg_system(a, lambd1, lambd2, lambd3, lambd4, 'U')\n" \
-    ">>> d_reconstructed = H @ d_out\n" \
-    ">>> info\n" \
-    "0"
+    "    info=0: success, info=1: system is (numerically) singular"
 
 #define DOC_SB04RY "Solve Hessenberg system with one right-hand side.\n" \
     "\n" \
@@ -19002,23 +9553,7 @@
     "\n" \
     "Returns:\n" \
     "  (d, info): Solution vector (M elements) and exit code\n" \
-    "    info=0: success, info=1: system is (numerically) singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb04ry\n" \
-    ">>> m = 4\n" \
-    ">>> a = np.triu(np.random.randn(m, m).astype(float, order='F'), k=-1)  # Upper Hessenberg\n" \
-    ">>> lambd = 0.5\n" \
-    ">>> d_init = np.random.randn(m).astype(float, order='F')\n" \
-    ">>> d = d_init.copy()\n" \
-    ">>> tol = 1e-12\n" \
-    ">>> d_out, info = sb04ry('R', 'U', a, lambd, d, tol)\n" \
-    ">>> H = build_hessenberg_system(a, lambd, 'U')\n" \
-    ">>> d_reconstructed = H @ d_out\n" \
-    ">>> info\n" \
-    "0"
+    "    info=0: success, info=1: system is (numerically) singular"
 
 #define DOC_SB06ND "Minimum norm feedback matrix for deadbeat control.\n" \
     "\n" \
@@ -19037,40 +9572,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, u, f, info): Modified A (U'AU + U'BF), modified B (U'B),\n" \
-    "    modified U, deadbeat feedback matrix F, and exit code.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb06nd\n" \
-    ">>> n = 5\n" \
-    ">>> m = 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a_data = np.array([\n" \
-    "...     -17.0, 23.0, 34.0, 10.0, 11.0,\n" \
-    "...     24.0, -35.0, 26.0, 12.0, 18.0,\n" \
-    "...     41.0, 27.0, -13.0, 19.0, 25.0,\n" \
-    "...     68.0, 14.0, 20.0, -21.0, 52.0,\n" \
-    "...     15.0, 16.0, 22.0, 63.0, -29.0\n" \
-    "...     ], dtype=float)\n" \
-    ">>> a = a_data.reshape((n, n), order='F')\n" \
-    ">>> b_data = np.array([\n" \
-    "...     -31.0, 14.0,\n" \
-    "...     74.0, -69.0,\n" \
-    "...     -59.0, 16.0,\n" \
-    "...     16.0, -25.0,\n" \
-    "...     -25.0, 36.0\n" \
-    "...     ], dtype=float)\n" \
-    ">>> b = b_data.reshape((n, m), order='C')\n" \
-    ">>> b = np.asfortranarray(b)\n" \
-    ">>> result = ab01od('A', 'N', 'N', a, b, tol)\n" \
-    ">>> a_stair, b_stair, u_dummy, v_dummy, ncont, kmax, kstair, info_ab = result\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, b_out, u_out, f, info = sb06nd(n, m, kmax, a_stair, b_stair, kstair[:kmax], u)\n" \
-    ">>> eigvals = np.linalg.eigvals(a_out)\n" \
-    "...     err_msg=\"Closed-loop matrix is not nilpotent\")\n" \
-    ">>> info\n" \
-    "0"
+    "    modified U, deadbeat feedback matrix F, and exit code."
 
 #define DOC_SB08CD "Left coprime factorization with inner denominator.\n" \
     "\n" \
@@ -19089,39 +9591,7 @@
     "Returns:\n" \
     "  (nq, nr, br, dr, iwarn, info): Order of Q/R, order of minimal R,\n" \
     "    output injection matrix Z'*H (N-by-P), lower triangular V (P-by-P),\n" \
-    "    warning count, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,   0.0,    4.92,    0.492,   0.0,      0.0,    0.0],\n" \
-    "...     [-5.21,    -12.5,    0.0,     0.0,     0.0,      0.0,    0.0],\n" \
-    "...     [ 0.0,       3.33,  -3.33,    0.0,     0.0,      0.0,    0.0],\n" \
-    "...     [ 0.545,     0.0,    0.0,     0.0,     0.0545,   0.0,    0.0],\n" \
-    "...     [ 0.0,       0.0,    0.0,    -0.492,   0.004165, 0.0,    4.92],\n" \
-    "...     [ 0.0,       0.0,    0.0,     0.0,     0.521,  -12.5,    0.0],\n" \
-    "...     [ 0.0,       0.0,    0.0,     0.0,     0.0,      3.33,  -3.33],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.zeros((n, max(m, p)), order='F', dtype=float)\n" \
-    ">>> b[1, 0] = 12.5\n" \
-    ">>> b[5, 1] = 12.5\n" \
-    ">>> c = np.zeros((max(m, p), n), order='F', dtype=float)\n" \
-    ">>> c[0, 0] = 1.0\n" \
-    ">>> c[1, 3] = 1.0\n" \
-    ">>> c[2, 4] = 1.0\n" \
-    ">>> d = np.zeros((max(m, p), max(m, p)), order='F', dtype=float)\n" \
-    ">>> nq, nr, br, dr, iwarn, info = sb08cd('C', a, b, c, d, tol=tol)\n" \
-    ">>> aq = a[:nq, :nq]\n" \
-    ">>> eigvals = np.linalg.eigvals(aq)\n" \
-    ">>> ar = a[:nr, :nr]\n" \
-    ">>> ar_eigs = np.linalg.eigvals(ar)\n" \
-    ">>> ar_eigs_sorted = sorted(ar_eigs, key=lambda x: x.imag)\n" \
-    ">>> info\n" \
-    "0"
+    "    warning count, exit code"
 
 #define DOC_SB08DD "Right coprime factorization with inner denominator.\n" \
     "\n" \
@@ -19138,47 +9608,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, c, d, nq, nr, cr, dr, iwarn, info): Modified matrices, orders,\n" \
-    "    denominator matrices CR and DR, warning and exit codes\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb08dd\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200,  0.4920,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000,  0.0545,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000, -0.4920,  0.004165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.5210, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  3.3300, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [12.500,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  12.500],\n" \
-    "...     [0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,  1.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,  0.0000,  1.0000,  0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> a_out, b_out, c_out, d_out, nq, nr, cr, dr, iwarn, info = sb08dd(\n" \
-    "...     'C', a.copy(order='F'), b.copy(order='F'), c.copy(order='F'),\n" \
-    "...     d.copy(order='F'), tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    denominator matrices CR and DR, warning and exit codes"
 
 #define DOC_SB08ED "Left coprime factorization with prescribed stability degree.\n" \
     "\n" \
@@ -19204,51 +9634,7 @@
     "  (nq, nr, br, dr, iwarn, info):\n" \
     "    nq = order of factors Q and R, nr = order of minimal R,\n" \
     "    br = NQ-by-P output injection matrix Z'*H (first NR rows = BR of R),\n" \
-    "    dr = P-by-P identity matrix, iwarn = warning count, info = exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08ed\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200,   0.4920,  0.0000,   0.0000,  0.0000],\n" \
-    "...     [-5.2100,  -12.500,  0.0000,   0.0000,  0.0000,   0.0000,  0.0000],\n" \
-    "...     [ 0.0000,   3.3300, -3.3300,   0.0000,  0.0000,   0.0000,  0.0000],\n" \
-    "...     [ 0.5450,   0.0000,  0.0000,   0.0000,  0.0545,   0.0000,  0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,  -0.4920,  0.004165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,   0.0000,  0.5210,  -12.500,  0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000,   0.0000,  0.0000,   3.3300, -3.3300],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,   0.0000],\n" \
-    "...     [12.500,    0.0000],\n" \
-    "...     [ 0.0000,   0.0000],\n" \
-    "...     [ 0.0000,   0.0000],\n" \
-    "...     [ 0.0000,   0.0000],\n" \
-    "...     [ 0.0000,  12.500],\n" \
-    "...     [ 0.0000,   0.0000],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000,  0.0000,  0.0000,   0.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,   1.0000,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000,  0.0000,   0.0000,  1.0000,  0.0000,  0.0000],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> alpha = np.array([-1.0, -1.0], dtype=float)\n" \
-    ">>> tol = 1.0e-10\n" \
-    ">>> nq, nr, br, dr, iwarn, info = sb08ed(\n" \
-    "...     'C', a, b, c, d, alpha, tol\n" \
-    "...     )\n" \
-    ">>> eig_computed = np.linalg.eigvals(a[:nq, :nq])\n" \
-    ">>> )\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    dr = P-by-P identity matrix, iwarn = warning count, info = exit code"
 
 #define DOC_SB08FD "Right coprime factorization with prescribed stability degree.\n" \
     "\n" \
@@ -19275,50 +9661,7 @@
     "Returns:\n" \
     "  (a, b, c, cr, dr, nq, nr, iwarn, info): Modified A,B,C in Schur form,\n" \
     "    feedback matrix CR (M-by-N), identity DR (M-by-M),\n" \
-    "    order NQ, denominator order NR, warning count, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08fd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> alpha = np.array([-1.0, -1.0], dtype=float, order='F')\n" \
-    ">>> tol = 1e-10\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  0.0000,  4.9200,  0.4920,  0.0000,   0.0000,  0.0000],\n" \
-    "...     [-5.2100, -12.500,  0.0000,  0.0000,  0.0000,   0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  3.3300, -3.3300,  0.0000,  0.0000,   0.0000,  0.0000],\n" \
-    "...     [ 0.5450,  0.0000,  0.0000,  0.0000,  0.0545,   0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000, -0.4920,  0.004165, 0.0000,  4.9200],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.5210, -12.500,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000,   3.3300, -3.3300]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [12.500,   0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000,  0.0000],\n" \
-    "...     [ 0.0000, 12.500],\n" \
-    "...     [ 0.0000,  0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 0.0000, 0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000],\n" \
-    "...     [0.0000, 0.0000]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> aq, bq, cq, cr, dr, nq, nr, iwarn, info = sb08fd(\n" \
-    "...     'C', n, m, p, alpha, a, b, c, d, tol=tol\n" \
-    "...     )\n" \
-    ">>> eigs = np.linalg.eigvals(aq[:nq, :nq])\n" \
-    "...     lower_part = np.tril(aq[:nq, :nq], k=-2)\n" \
-    ">>> info\n" \
-    "0"
+    "    order NQ, denominator order NR, warning count, exit code"
 
 #define DOC_SB08GD "State-space representation from left coprime factorization.\n" \
     "\n" \
@@ -19343,45 +9686,7 @@
     "Returns:\n" \
     "  (a, b, c, d, dr, rcond, info): Modified A,B,C,D matrices, LU of DR,\n" \
     "    reciprocal condition number of DR, exit code\n" \
-    "    info=0: success, info=1: DR singular, info=2: DR numerically singular (warning)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08gd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 2, 1, 1\n" \
-    ">>> aqr = np.array([\n" \
-    "...     [-1.0, 0.5],\n" \
-    "...     [0.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> bq = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> cqr = np.array([\n" \
-    "...     [1.0, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> dq = np.array([\n" \
-    "...     [0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> br = np.array([\n" \
-    "...     [0.2],\n" \
-    "...     [0.1]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> dr = np.array([\n" \
-    "...     [2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a = aqr.copy(order='F')\n" \
-    ">>> b = bq.copy(order='F')\n" \
-    ">>> c = cqr.copy(order='F')\n" \
-    ">>> d = dq.copy(order='F')\n" \
-    ">>> a_out, b_out, c_out, d_out, dr_lu, rcond, info = sb08gd(\n" \
-    "...     a, b, c, d, br, dr\n" \
-    "...     )\n" \
-    ">>> dr_inv_cqr = np.linalg.solve(dr, cqr)\n" \
-    ">>> dr_inv_dq = np.linalg.solve(dr, dq)\n" \
-    ">>> info\n" \
-    "0"
+    "    info=0: success, info=1: DR singular, info=2: DR numerically singular (warning)"
 
 #define DOC_SB08HD "State-space representation from right coprime factorization.\n" \
     "\n" \
@@ -19406,29 +9711,7 @@
     "Returns:\n" \
     "  (rcond, info): Reciprocal condition number of DR, exit code.\n" \
     "    info=0: success, info=1: DR singular, info=2: DR numerically singular (warning)\n" \
-    "    Arrays a, b, c, d are modified in-place to contain G's matrices.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb08hd\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> dr = np.eye(m, dtype=float, order='F') + 0.1 * np.random.randn(m, m)\n" \
-    ">>> dr = np.asfortranarray(dr)\n" \
-    ">>> aqr = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> bqr = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> cq = np.random.randn(p, n).astype(float, order='F')\n" \
-    ">>> dq = np.random.randn(p, m).astype(float, order='F')\n" \
-    ">>> cr = np.random.randn(m, n).astype(float, order='F')\n" \
-    ">>> dr_inv = np.linalg.inv(dr)\n" \
-    ">>> a = aqr.copy(order='F')\n" \
-    ">>> b = bqr.copy(order='F')\n" \
-    ">>> c = cq.copy(order='F')\n" \
-    ">>> d = dq.copy(order='F')\n" \
-    ">>> dr_input = dr.copy(order='F')\n" \
-    ">>> rcond, info = sb08hd(a, b, c, d, cr, dr_input)\n" \
-    ">>> info\n" \
-    "0"
+    "    Arrays a, b, c, d are modified in-place to contain G's matrices."
 
 #define DOC_SB08MD "Spectral factorization of polynomials (continuous-time case).\n" \
     "\n" \
@@ -19450,17 +9733,7 @@
     "    b: Coefficients of B(s) = A(-s)*A(s) in increasing powers of s**2 (length DA+1)\n" \
     "    res: Accuracy estimate for E(s) coefficients\n" \
     "    info: 0=success, 1=all A(i)=0, 2=invalid B(s) for ACONA='B',\n" \
-    "          3=no convergence in 30 iterations, 4=last iterate unstable\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08md\n" \
-    ">>> import numpy as np\n" \
-    ">>> da = 3\n" \
-    ">>> a = np.array([8.0, -6.0, -3.0, 1.0], dtype=float)\n" \
-    ">>> e, b, res, info = sb08md('A', da, a)\n" \
-    ">>> info\n" \
-    "0"
+    "          3=no convergence in 30 iterations, 4=last iterate unstable"
 
 #define DOC_SB08MY "Compute B(s) = A(s) * A(-s) for spectral factorization.\n" \
     "\n" \
@@ -19474,15 +9747,7 @@
     "\n" \
     "Returns:\n" \
     "  (b, epsb): Coefficients of B(s) in powers of s**2 (length DA+1),\n" \
-    "    updated accuracy norm (3 * max_abs_sum * epsb)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08my\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([2.0], dtype=float, order='F')\n" \
-    ">>> epsb = np.finfo(float).eps\n" \
-    ">>> b, epsb_out = sb08my(a, epsb)"
+    "    updated accuracy norm (3 * max_abs_sum * epsb)"
 
 #define DOC_SB08ND "Spectral factorization of polynomials (discrete-time case).\n" \
     "\n" \
@@ -19503,17 +9768,7 @@
     "    b: Coefficients of B(z) = A(1/z)*A(z) as defined in equation (1) (length DA+1)\n" \
     "    res: Accuracy estimate for E(z) coefficients\n" \
     "    info: 0=success, 2=invalid B(z) for ACONA='B',\n" \
-    "          3=no convergence in 30 iterations, 4=last iterate unstable\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> da = 2\n" \
-    ">>> a = np.array([2.0, 4.5, 1.0], dtype=float)\n" \
-    ">>> e, b, res, info = sb08nd('A', da, a)\n" \
-    ">>> info\n" \
-    "0"
+    "          3=no convergence in 30 iterations, 4=last iterate unstable"
 
 #define DOC_SB08NY "Compute B(z) = A(1/z) * A(z) for discrete-time spectral factorization.\n" \
     "\n" \
@@ -19526,14 +9781,7 @@
     "\n" \
     "Returns:\n" \
     "  (b, epsb): Autocorrelation coefficients (length DA+1),\n" \
-    "    accuracy norm (3 * machine_eps * b[0])\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb08ny\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([3.0], dtype=float, order='F')\n" \
-    ">>> b, epsb = sb08ny(a)"
+    "    accuracy norm (3 * machine_eps * b[0])"
 
 #define DOC_SB09MD "Evaluate closeness of two multivariable sequences.\n" \
     "\n" \
@@ -19554,27 +9802,7 @@
     "\n" \
     "Returns:\n" \
     "  (ss, se, pre, info): Sum-of-squares matrix, quadratic error matrix,\n" \
-    "    percentage relative error matrix, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb09md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> nc = 2\n" \
-    ">>> nb = 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> h1 = np.array([\n" \
-    "...     [1.3373, 0.6618, -0.4062, 0.9299],\n" \
-    "...     [0.1205, -0.3372, 1.6120, 0.7429]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> h2 = np.array([\n" \
-    "...     [1.1480, 0.8843, -0.4616, 0.6028],\n" \
-    "...     [-0.1837, -0.4947, 1.4674, 0.9524]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ss, se, pre, info = sb09md(n, nc, nb, h1, h2, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    percentage relative error matrix, and exit code"
 
 #define DOC_SB10AD "H-infinity optimal n-state controller synthesis.\n" \
     "\n" \
@@ -19611,31 +9839,7 @@
     "\n" \
     "Returns:\n" \
     "  (ak, bk, ck, dk, ac, bc, cc, dc, gamma, rcond, info):\n" \
-    "    Controller K, closed-loop G, achieved gamma, condition numbers, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2       # State dimension\n" \
-    ">>> m = 2       # Total inputs: m1=1 external + m2=1 control\n" \
-    ">>> np_ = 2     # Total outputs: np1=1 performance + np2=1 measurement\n" \
-    ">>> ncon = 1    # Control inputs (m2)\n" \
-    ">>> nmeas = 1   # Measurements (np2)\n" \
-    ">>> A = np.array([[-1.0, 1.0],\n" \
-    "...     [0.0, -2.0]], dtype=float, order='F')\n" \
-    ">>> B = np.array([[1.0, 1.0],\n" \
-    "...     [0.0, 1.0]], dtype=float, order='F')\n" \
-    ">>> C = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 1.0]], dtype=float, order='F')\n" \
-    ">>> D = np.array([[0.0, 1.0],\n" \
-    "...     [1.0, 0.0]], dtype=float, order='F')\n" \
-    ">>> gamma = 5.0\n" \
-    ">>> gtol = 1e-6\n" \
-    ">>> actol = 0.0\n" \
-    ">>> job = 4\n" \
-    ">>> result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)\n" \
-    ">>> ak, bk, ck, dk, ac, bc, cc, dc, gamma_out, rcond, info = result"
+    "    Controller K, closed-loop G, achieved gamma, condition numbers, exit code"
 
 #define DOC_SB10DD "H-infinity (sub)optimal controller for discrete-time system.\n" \
     "\n" \
@@ -19659,52 +9863,7 @@
     "\n" \
     "Returns:\n" \
     "  (ak, bk, ck, dk, x, z, rcond, info): Controller matrices,\n" \
-    "    Riccati solutions, condition numbers, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb10dd\n" \
-    ">>> n = 6\n" \
-    ">>> m = 5\n" \
-    ">>> np_ = 5\n" \
-    ">>> ncon = 2\n" \
-    ">>> nmeas = 2\n" \
-    ">>> gamma = 111.294\n" \
-    ">>> tol = 1e-8\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.7,  0.0,  0.3,  0.0, -0.5, -0.1],\n" \
-    "...     [-0.6,  0.2, -0.4, -0.3,  0.0,  0.0],\n" \
-    "...     [-0.5,  0.7, -0.1,  0.0,  0.0, -0.8],\n" \
-    "...     [-0.7,  0.0,  0.0, -0.5, -1.0,  0.0],\n" \
-    "...     [ 0.0,  0.3,  0.6, -0.9,  0.1, -0.4],\n" \
-    "...     [ 0.5, -0.8,  0.0,  0.0,  0.2, -0.9]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [-1.0, -2.0, -2.0,  1.0,  0.0],\n" \
-    "...     [ 1.0,  0.0,  1.0, -2.0,  1.0],\n" \
-    "...     [-3.0, -4.0,  0.0,  2.0, -2.0],\n" \
-    "...     [ 1.0, -2.0,  1.0,  0.0, -1.0],\n" \
-    "...     [ 0.0,  1.0, -2.0,  0.0,  3.0],\n" \
-    "...     [ 1.0,  0.0,  3.0, -1.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 1.0, -1.0,  2.0, -2.0,  0.0, -3.0],\n" \
-    "...     [-3.0,  0.0,  1.0, -1.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  2.0,  0.0, -4.0,  0.0, -2.0],\n" \
-    "...     [ 1.0, -3.0,  0.0,  0.0,  3.0,  1.0],\n" \
-    "...     [ 0.0,  1.0, -2.0,  1.0,  0.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [ 1.0, -1.0, -2.0,  0.0,  0.0],\n" \
-    "...     [ 0.0,  1.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 2.0, -1.0, -3.0,  0.0,  1.0],\n" \
-    "...     [ 0.0,  1.0,  0.0,  1.0, -1.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ak, bk, ck, dk, x, z, rcond, info = sb10dd(n, m, np_, ncon, nmeas, gamma, a, b, c, d, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    Riccati solutions, condition numbers, exit code"
 
 #define DOC_SB10ED "H2 optimal n-state controller for discrete-time system.\n" \
     "\n" \
@@ -19742,59 +9901,7 @@
     "    [6]: Im2 + DKHAT*D22\n" \
     "  info: 0=success, 1-2=rank deficiency, 3-4=D12/D21 rank, 5=SVD,\n" \
     "    6=X-Riccati, 7=B2'*X*B2 not PD, 8=Y-Riccati, 9=C2*Y*C2' not PD,\n" \
-    "    10=Im2+DKHAT*D22 singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb10ed\n" \
-    ">>> n = 6\n" \
-    ">>> m = 5\n" \
-    ">>> np_ = 5\n" \
-    ">>> ncon = 2\n" \
-    ">>> nmeas = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.7,  0.0,  0.3,  0.0, -0.5, -0.1],\n" \
-    "...     [-0.6,  0.2, -0.4, -0.3,  0.0,  0.0],\n" \
-    "...     [-0.5,  0.7, -0.1,  0.0,  0.0, -0.8],\n" \
-    "...     [-0.7,  0.0,  0.0, -0.5, -1.0,  0.0],\n" \
-    "...     [ 0.0,  0.3,  0.6, -0.9,  0.1, -0.4],\n" \
-    "...     [ 0.5, -0.8,  0.0,  0.0,  0.2, -0.9]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> b = np.array([\n" \
-    "...     [-1.0, -2.0, -2.0,  1.0,  0.0],\n" \
-    "...     [ 1.0,  0.0,  1.0, -2.0,  1.0],\n" \
-    "...     [-3.0, -4.0,  0.0,  2.0, -2.0],\n" \
-    "...     [ 1.0, -2.0,  1.0,  0.0, -1.0],\n" \
-    "...     [ 0.0,  1.0, -2.0,  0.0,  3.0],\n" \
-    "...     [ 1.0,  0.0,  3.0, -1.0, -2.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 1.0, -1.0,  2.0, -2.0,  0.0, -3.0],\n" \
-    "...     [-3.0,  0.0,  1.0, -1.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  2.0,  0.0, -4.0,  0.0, -2.0],\n" \
-    "...     [ 1.0, -3.0,  0.0,  0.0,  3.0,  1.0],\n" \
-    "...     [ 0.0,  1.0, -2.0,  1.0,  0.0, -2.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> d = np.array([\n" \
-    "...     [ 1.0, -1.0, -2.0,  0.0,  0.0],\n" \
-    "...     [ 0.0,  1.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 2.0, -1.0, -3.0,  0.0,  1.0],\n" \
-    "...     [ 0.0,  1.0,  0.0,  1.0, -1.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0,  1.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> tol = 1e-8\n" \
-    ">>> ak, bk, ck, dk, rcond, info = sb10ed(\n" \
-    "...     n, m, np_, ncon, nmeas, a, b, c, d, tol\n" \
-    "...     )\n" \
-    "...     err_msg=\"AK values do not match HTML doc\")\n" \
-    "...     err_msg=\"BK values do not match HTML doc\")\n" \
-    "...     err_msg=\"CK values do not match HTML doc\")\n" \
-    "...     err_msg=\"DK values do not match HTML doc\")\n" \
-    "...     err_msg=\"RCOND(1) mismatch\")\n" \
-    "...     err_msg=\"RCOND(2) mismatch\")\n" \
-    ">>> info\n" \
-    "0"
+    "    10=Im2+DKHAT*D22 singular"
 
 #define DOC_SB10FD "H-infinity (sub)optimal controller for continuous-time system.\n" \
     "\n" \
@@ -19817,53 +9924,7 @@
     "  tol (float, optional): Tolerance for transformations. Default sqrt(eps).\n" \
     "\n" \
     "Returns:\n" \
-    "  (ak, bk, ck, dk, rcond, info): Controller matrices, condition numbers, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb10fd\n" \
-    ">>> n = 6\n" \
-    ">>> m = 5\n" \
-    ">>> np_dim = 5\n" \
-    ">>> ncon = 2\n" \
-    ">>> nmeas = 2\n" \
-    ">>> gamma = 15.0\n" \
-    ">>> tol = 1e-8\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  4.0,  5.0, -3.0, -2.0],\n" \
-    "...     [-2.0,  4.0, -7.0, -2.0,  0.0,  3.0],\n" \
-    "...     [-6.0,  9.0, -5.0,  0.0,  2.0, -1.0],\n" \
-    "...     [-8.0,  4.0,  7.0, -1.0, -3.0,  0.0],\n" \
-    "...     [ 2.0,  5.0,  8.0, -9.0,  1.0, -4.0],\n" \
-    "...     [ 3.0, -5.0,  8.0,  0.0,  2.0, -6.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [-3.0, -4.0, -2.0,  1.0,  0.0],\n" \
-    "...     [ 2.0,  0.0,  1.0, -5.0,  2.0],\n" \
-    "...     [-5.0, -7.0,  0.0,  7.0, -2.0],\n" \
-    "...     [ 4.0, -6.0,  1.0,  1.0, -2.0],\n" \
-    "...     [-3.0,  9.0, -8.0,  0.0,  5.0],\n" \
-    "...     [ 1.0, -2.0,  3.0, -6.0, -2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 1.0, -1.0,  2.0, -4.0,  0.0, -3.0],\n" \
-    "...     [-3.0,  0.0,  5.0, -1.0,  1.0,  1.0],\n" \
-    "...     [-7.0,  5.0,  0.0, -8.0,  2.0, -2.0],\n" \
-    "...     [ 9.0, -3.0,  4.0,  0.0,  3.0,  7.0],\n" \
-    "...     [ 0.0,  1.0, -2.0,  1.0, -6.0, -2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, -2.0, -3.0,  0.0,  0.0],\n" \
-    "...     [0.0,  4.0,  0.0,  1.0,  0.0],\n" \
-    "...     [5.0, -3.0, -4.0,  0.0,  1.0],\n" \
-    "...     [0.0,  1.0,  0.0,  1.0, -3.0],\n" \
-    "...     [0.0,  0.0,  1.0,  7.0,  1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> ak, bk, ck, dk, rcond, info = sb10fd(n, m, np_dim, ncon, nmeas, gamma,\n" \
-    "...     a, b, c, d, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  (ak, bk, ck, dk, rcond, info): Controller matrices, condition numbers, exit code"
 
 #define DOC_SB10HD "Compute H2 optimal n-state controller for continuous-time system.\n" \
     "\n" \
@@ -19890,51 +9951,7 @@
     "Returns:\n" \
     "  (ak, bk, ck, dk, rcond, info): Controller matrices, condition estimates, exit code\n" \
     "  rcond has 4 elements: control/measurement transform rcond, X/Y Riccati rcond\n" \
-    "  info: 0=success, 1=D12 rank, 2=D21 rank, 3=SVD, 4=X-Riccati, 5=Y-Riccati\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10hd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 6\n" \
-    ">>> m = 5\n" \
-    ">>> np_ = 5\n" \
-    ">>> ncon = 2\n" \
-    ">>> nmeas = 2\n" \
-    ">>> A = np.array([\n" \
-    "...     [-1.0,  0.0,  4.0,  5.0, -3.0, -2.0],\n" \
-    "...     [-2.0,  4.0, -7.0, -2.0,  0.0,  3.0],\n" \
-    "...     [-6.0,  9.0, -5.0,  0.0,  2.0, -1.0],\n" \
-    "...     [-8.0,  4.0,  7.0, -1.0, -3.0,  0.0],\n" \
-    "...     [ 2.0,  5.0,  8.0, -9.0,  1.0, -4.0],\n" \
-    "...     [ 3.0, -5.0,  8.0,  0.0,  2.0, -6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [-3.0, -4.0, -2.0,  1.0,  0.0],\n" \
-    "...     [ 2.0,  0.0,  1.0, -5.0,  2.0],\n" \
-    "...     [-5.0, -7.0,  0.0,  7.0, -2.0],\n" \
-    "...     [ 4.0, -6.0,  1.0,  1.0, -2.0],\n" \
-    "...     [-3.0,  9.0, -8.0,  0.0,  5.0],\n" \
-    "...     [ 1.0, -2.0,  3.0, -6.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> C = np.array([\n" \
-    "...     [ 1.0, -1.0,  2.0, -4.0,  0.0, -3.0],\n" \
-    "...     [-3.0,  0.0,  5.0, -1.0,  1.0,  1.0],\n" \
-    "...     [-7.0,  5.0,  0.0, -8.0,  2.0, -2.0],\n" \
-    "...     [ 9.0, -3.0,  4.0,  0.0,  3.0,  7.0],\n" \
-    "...     [ 0.0,  1.0, -2.0,  1.0, -6.0, -2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> D = np.array([\n" \
-    "...     [ 0.0,  0.0,  0.0, -4.0, -1.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  0.0,  1.0],\n" \
-    "...     [ 3.0,  1.0,  0.0,  1.0, -3.0],\n" \
-    "...     [-2.0,  0.0,  1.0,  7.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> tol = 1e-8\n" \
-    ">>> AK, BK, CK, DK, rcond, info = sb10hd(n, m, np_, ncon, nmeas, A, B, C, D, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "  info: 0=success, 1=D12 rank, 2=D21 rank, 3=SVD, 4=X-Riccati, 5=Y-Riccati"
 
 #define DOC_SB10ID "Positive feedback controller for loop shaping design.\n" \
     "\n" \
@@ -19956,43 +9973,7 @@
     "  nk: Controller order (nk <= n)\n" \
     "  rcond: [X-Riccati rcond, Z-Riccati rcond]\n" \
     "  info: 0=success, 1=X-Riccati, 2=Z-Riccati, 3=iteration,\n" \
-    "        4=Ip-D*Dk singular, 5=Im-Dk*D singular, 6=unstable\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10id\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, np_ = 6, 2, 3\n" \
-    ">>> factor = 1.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  4.0,  5.0, -3.0, -2.0],\n" \
-    "...     [-2.0,  4.0, -7.0, -2.0,  0.0,  3.0],\n" \
-    "...     [-6.0,  9.0, -5.0,  0.0,  2.0, -1.0],\n" \
-    "...     [-8.0,  4.0,  7.0, -1.0, -3.0,  0.0],\n" \
-    "...     [ 2.0,  5.0,  8.0, -9.0,  1.0, -4.0],\n" \
-    "...     [ 3.0, -5.0,  8.0,  0.0,  2.0, -6.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> b = np.array([\n" \
-    "...     [-3.0, -4.0],\n" \
-    "...     [ 2.0,  0.0],\n" \
-    "...     [-5.0, -7.0],\n" \
-    "...     [ 4.0, -6.0],\n" \
-    "...     [-3.0,  9.0],\n" \
-    "...     [ 1.0, -2.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 1.0, -1.0,  2.0, -4.0,  0.0, -3.0],\n" \
-    "...     [-3.0,  0.0,  5.0, -1.0,  1.0,  1.0],\n" \
-    "...     [-7.0,  5.0,  0.0, -8.0,  2.0, -2.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, -2.0],\n" \
-    "...     [0.0,  4.0],\n" \
-    "...     [5.0, -3.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> ak, bk, ck, dk, nk, rcond, info = sb10id(n, m, np_, a, b, c, d, factor)\n" \
-    ">>> info\n" \
-    "0"
+    "        4=Ip-D*Dk singular, 5=Im-Dk*D singular, 6=unstable"
 
 #define DOC_SB10JD "Convert descriptor state-space to regular state-space.\n" \
     "\n" \
@@ -20009,35 +9990,7 @@
     "  np (int, optional): Number of outputs\n" \
     "\n" \
     "Returns:\n" \
-    "  (ad, bd, cd, dd, nsys, info): Converted matrices, reduced order, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10jd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, np_ = 3, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.5, 0.2],\n" \
-    "...     [0.0, -2.0, 0.3],\n" \
-    "...     [0.0, 0.0, -3.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.5, 1.0],\n" \
-    "...     [0.0, 0.5]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> e = np.eye(n, order='F', dtype=np.float64)\n" \
-    ">>> ad, bd, cd, dd, nsys, info = sb10jd(a, b, c, d, e)\n" \
-    ">>> info\n" \
-    "0"
+    "  (ad, bd, cd, dd, nsys, info): Converted matrices, reduced order, exit code"
 
 #define DOC_SB10KD "Discrete-time loop shaping controller design.\n" \
     "\n" \
@@ -20059,37 +10012,7 @@
     "    reciprocal condition numbers array(4), and exit code\n" \
     "    info=0: success, 1: P-Riccati failed, 2: Q-Riccati failed,\n" \
     "    3: X-Riccati failed, 4: eigenvalue computation failed,\n" \
-    "    5: singular matrix, 6: closed-loop unstable\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb10kd\n" \
-    ">>> n, m, np_ = 6, 2, 2\n" \
-    ">>> factor = 1.1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.2, 0.0, 0.3, 0.0, -0.3, -0.1],\n" \
-    "...     [-0.3, 0.2, -0.4, -0.3, 0.0, 0.0],\n" \
-    "...     [-0.1, 0.1, -0.1, 0.0, 0.0, -0.3],\n" \
-    "...     [0.1, 0.0, 0.0, -0.1, -0.1, 0.0],\n" \
-    "...     [0.0, 0.3, 0.6, 0.2, 0.1, -0.4],\n" \
-    "...     [0.2, -0.4, 0.0, 0.0, 0.2, -0.2],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [-1.0, -2.0],\n" \
-    "...     [1.0, 3.0],\n" \
-    "...     [-3.0, -4.0],\n" \
-    "...     [1.0, -2.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 5.0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, -1.0, 2.0, -2.0, 0.0, -3.0],\n" \
-    "...     [-3.0, 0.0, 1.0, -1.0, 1.0, -1.0],\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> ak, bk, ck, dk, rcond, info = sb10kd(n, m, np_, a, b, c, factor)\n" \
-    ">>> info\n" \
-    "0"
+    "    5: singular matrix, 6: closed-loop unstable"
 
 #define DOC_SB10LD "Compute closed-loop system matrices.\n" \
     "\n" \
@@ -20117,36 +10040,7 @@
     "\n" \
     "Returns:\n" \
     "  (ac, bc, cc, dc, info): Closed-loop matrices and exit code\n" \
-    "    info=0: success, 1: I-D22*DK singular, 2: I-DK*D22 singular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10ld\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2      # State dimension\n" \
-    ">>> m = 2      # Total inputs (m1=1 external, m2=1 control)\n" \
-    ">>> np_ = 2    # Total outputs (np1=1 performance, np2=1 measurement)\n" \
-    ">>> ncon = 1   # Control inputs (m2)\n" \
-    ">>> nmeas = 1  # Measurements (np2)\n" \
-    ">>> m1 = m - ncon      # 1 external input\n" \
-    ">>> np1 = np_ - nmeas  # 1 performance output\n" \
-    ">>> A = np.array([[-1.0, 0.5],\n" \
-    "...     [0.0, -2.0]], dtype=float, order='F')\n" \
-    ">>> B = np.array([[1.0, 0.5],\n" \
-    "...     [0.0, 1.0]], dtype=float, order='F')\n" \
-    ">>> C = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 1.0]], dtype=float, order='F')\n" \
-    ">>> D = np.array([[0.0, 0.0],\n" \
-    "...     [0.0, 0.1]], dtype=float, order='F')\n" \
-    ">>> AK = np.array([[-3.0, 1.0],\n" \
-    "...     [0.5, -4.0]], dtype=float, order='F')\n" \
-    ">>> BK = np.array([[2.0],\n" \
-    "...     [1.0]], dtype=float, order='F')\n" \
-    ">>> CK = np.array([[1.0, 0.5]], dtype=float, order='F')\n" \
-    ">>> DK = np.array([[0.2]], dtype=float, order='F')\n" \
-    ">>> result = slicot.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)\n" \
-    ">>> ac, bc, cc, dc, info = result\n" \
-    ">>> n2 = 2 * n"
+    "    info=0: success, 1: I-D22*DK singular, 2: I-DK*D22 singular"
 
 #define DOC_SB10MD "D-step of D-K iteration for mu-synthesis (continuous-time).\n" \
     "\n" \
@@ -20171,33 +10065,7 @@
     "Returns:\n" \
     "  (totord, ad, bd, cd, dd, mju, f_value, info): Total order of D-scaling,\n" \
     "    state-space realization matrices, mu estimates, fitting function value,\n" \
-    "    and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb10md\n" \
-    ">>> nc = 2\n" \
-    ">>> mp = 2\n" \
-    ">>> lendat = 10\n" \
-    ">>> f = 0\n" \
-    ">>> ord_max = 2\n" \
-    ">>> mnb = 2\n" \
-    ">>> nblock = np.array([1, 1], dtype=np.int32)\n" \
-    ">>> itype = np.array([2, 2], dtype=np.int32)\n" \
-    ">>> qutol = 2.0\n" \
-    ">>> a = np.array([[-1.0, 0.5],\n" \
-    "...     [0.0, -2.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> c = np.array([[1.0, 0.0],\n" \
-    "...     [0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> d = np.array([[0.0, 0.0],\n" \
-    "...     [0.0, 0.0]], order='F', dtype=float)\n" \
-    ">>> omega = np.logspace(-1, 1, lendat)\n" \
-    ">>> (a_out, b_out, c_out, d_out, totord, ad, bd, cd, dd, mju, info\n" \
-    "...     ) = sb10md(nc, mp, lendat, f, ord_max, mnb, nblock, itype, qutol,\n" \
-    "...     a, b, c, d, omega)"
+    "    and exit code"
 
 #define DOC_SB10PD "Normalize system for H-infinity controller design.\n" \
     "\n" \
@@ -20218,50 +10086,7 @@
     "  tol (float, optional): Tolerance for rank tests. Default sqrt(eps).\n" \
     "\n" \
     "Returns:\n" \
-    "  (b, c, d, tu, ty, rcond, info): Transformed matrices, transforms, cond numbers, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb10pd\n" \
-    ">>> n = 2\n" \
-    ">>> m = 4      # m1=2 (disturbance), m2=2 (control)\n" \
-    ">>> np_ = 5    # np1=3 (performance), np2=2 (measurement)\n" \
-    ">>> ncon = 2   # m2\n" \
-    ">>> nmeas = 2  # np2\n" \
-    ">>> m1 = m - ncon    # 2\n" \
-    ">>> m2 = ncon        # 2\n" \
-    ">>> np1 = np_ - nmeas  # 3\n" \
-    ">>> np2 = nmeas        # 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.5],\n" \
-    "...     [0.0, -2.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5, 0.3, 0.2],\n" \
-    "...     [0.0, 0.2, 0.6, 0.4]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.5, 0.5],\n" \
-    "...     [0.3, 0.7],\n" \
-    "...     [0.2, 0.8]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.1, 0.2, 0.0, 0.0],\n" \
-    "...     [0.0, 0.1, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [1.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> tu = np.zeros((m2, m2), order='F', dtype=np.float64)\n" \
-    ">>> ty = np.zeros((np2, np2), order='F', dtype=np.float64)\n" \
-    ">>> b_out, c_out, d_out, tu_out, ty_out, rcond, info = sb10pd(\n" \
-    "...     n, m, np_, ncon, nmeas, a, b, c, d, tu, ty\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (b, c, d, tu, ty, rcond, info): Transformed matrices, transforms, cond numbers, exit code"
 
 #define DOC_SB10RD "Compute H-infinity controller from state feedback and output injection.\n" \
     "\n" \
@@ -20287,47 +10112,7 @@
     "  y (ndarray): Y-Riccati solution (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (ak, bk, ck, dk, info): Controller matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10rd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, np_, ncon, nmeas = 2, 3, 3, 1, 1\n" \
-    ">>> gamma = 10.0\n" \
-    ">>> a = np.array([[0.5, 0.1], [0.0, 0.4]], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.3, 0.2, 1.0],\n" \
-    "...     [0.1, 0.5, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.5, 1.0],\n" \
-    "...     [0.5, 0.5, 0.5]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0, 0.0, 0.1],\n" \
-    "...     [0.0, 0.0, 0.1],\n" \
-    "...     [0.1, 0.1, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> f = np.array([\n" \
-    "...     [-0.1, 0.0, 0.0],\n" \
-    "...     [0.0, -0.1, -0.2]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> h = np.array([\n" \
-    "...     [-0.1, 0.0],\n" \
-    "...     [0.0, -0.1]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> tu = np.array([[1.0]], dtype=np.float64, order='F')\n" \
-    ">>> ty = np.array([[1.0]], dtype=np.float64, order='F')\n" \
-    ">>> x = np.array([[0.1, 0.0], [0.0, 0.1]], dtype=np.float64, order='F')\n" \
-    ">>> y = np.array([[0.1, 0.0], [0.0, 0.1]], dtype=np.float64, order='F')\n" \
-    ">>> ak, bk, ck, dk, info = slicot.sb10rd(\n" \
-    "...     n, m, np_, ncon, nmeas, gamma,\n" \
-    "...     a, b, c, d, f, h, tu, ty, x, y\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (ak, bk, ck, dk, info): Controller matrices and exit code"
 
 #define DOC_SB10SD "H2 optimal controller for normalized discrete-time systems.\n" \
     "\n" \
@@ -20350,43 +10135,7 @@
     "Returns:\n" \
     "  (ak, bk, ck, dk, x, y, rcond, info): Controller matrices AK (n x n),\n" \
     "    BK (n x nmeas), CK (ncon x n), DK (ncon x nmeas), Riccati solutions\n" \
-    "    X and Y (n x n), condition estimates rcond(4), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb10sd\n" \
-    ">>> n = 2\n" \
-    ">>> m = 4\n" \
-    ">>> np_ = 5\n" \
-    ">>> ncon = 2\n" \
-    ">>> nmeas = 2\n" \
-    ">>> m1 = m - ncon      # 2\n" \
-    ">>> m2 = ncon          # 2\n" \
-    ">>> np1 = np_ - nmeas  # 3\n" \
-    ">>> np2 = nmeas        # 2\n" \
-    ">>> nd1 = np1 - m2     # 1\n" \
-    ">>> nd2 = m1 - np2     # 0\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.1],\n" \
-    "...     [0.0, 0.6]\n" \
-    "...     ], order='F', dtype=np.float64)\n" \
-    ">>> b = np.zeros((n, m), order='F', dtype=np.float64)\n" \
-    ">>> b[:, :m1] = np.array([[0.3, 0.1], [0.0, 0.2]])\n" \
-    ">>> b[:, m1:] = np.array([[0.4, 0.0], [0.0, 0.4]])\n" \
-    ">>> c = np.zeros((np_, n), order='F', dtype=np.float64)\n" \
-    ">>> c[:nd1, :] = np.array([[0.2, 0.3]])\n" \
-    ">>> c[nd1:np1, :] = np.array([[0, 0], [0, 0]])\n" \
-    ">>> c[np1:, :] = np.array([[0.5, 0.0], [0.0, 0.5]])\n" \
-    ">>> d = np.zeros((np_, m), order='F', dtype=np.float64)\n" \
-    ">>> d[:nd1, :m1] = np.array([[0.1, 0.05]])\n" \
-    ">>> d[nd1:np1, m1:] = np.array([[1, 0], [0, 1]])\n" \
-    ">>> d[np1:, :m1] = np.array([[1, 0], [0, 1]])\n" \
-    ">>> ak, bk, ck, dk, x, y, rcond, info = sb10sd(\n" \
-    "...     n, m, np_, ncon, nmeas, a, b, c, d\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    X and Y (n x n), condition estimates rcond(4), exit code"
 
 #define DOC_SB10TD "Transform H2 controller from normalized to original system.\n" \
     "\n" \
@@ -20420,28 +10169,31 @@
     "Returns:\n" \
     "  (ak, bk, ck, dk, rcond, info): Transformed controller matrices,\n" \
     "    reciprocal condition number of (I + DKHAT*D22), exit code\n" \
-    "    info=0: success, 1: (I + DKHAT*D22) singular or ill-conditioned\n" \
+    "    info=0: success, 1: (I + DKHAT*D22) singular or ill-conditioned"
+
+#define DOC_SB10UD "Normalize D12 and D21 for H2 controller design.\n" \
     "\n" \
-    "Examples:\n" \
+    "Reduces D12 and D21 matrices of a partitioned system to unit diagonal\n" \
+    "form and transforms B and C matrices for H2 optimal controller computation.\n" \
+    "Computes transformation matrices TU and TY.\n" \
     "\n" \
-    ">>> from slicot import sb10td\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, np_ = 2, 3, 3\n" \
-    ">>> ncon, nmeas = 1, 1\n" \
-    ">>> d = np.zeros((np_, m), dtype=np.float64, order='F')\n" \
-    ">>> d[np_ - nmeas:, m - ncon:] = 0.1\n" \
-    ">>> tu = np.eye(ncon, dtype=np.float64, order='F')\n" \
-    ">>> ty = np.eye(nmeas, dtype=np.float64, order='F')\n" \
-    ">>> ak_in = np.array([[0.5, 0.1], [0.0, 0.4]], dtype=np.float64, order='F')\n" \
-    ">>> bk_in = np.array([[0.2], [0.3]], dtype=np.float64, order='F')\n" \
-    ">>> ck_in = np.array([[0.1, 0.2]], dtype=np.float64, order='F')\n" \
-    ">>> dk_in = np.array([[0.05]], dtype=np.float64, order='F')\n" \
-    ">>> ak, bk, ck, dk, rcond, info = slicot.sb10td(\n" \
-    "...     n, m, np_, ncon, nmeas,\n" \
-    "...     d, tu, ty, ak_in, bk_in, ck_in, dk_in\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "Parameters:\n" \
+    "  n (int): State dimension (>= 0)\n" \
+    "  m (int): Total inputs (>= 0)\n" \
+    "  np (int): Total outputs (>= 0)\n" \
+    "  ncon (int): Control inputs M2 (0 <= NCON <= M)\n" \
+    "  nmeas (int): Measured outputs NP2 (0 <= NMEAS <= NP)\n" \
+    "  b (ndarray): N-by-M input matrix, modified on exit (F-order)\n" \
+    "  c (ndarray): NP-by-N output matrix, modified on exit (F-order)\n" \
+    "  d (ndarray): NP-by-M feedthrough matrix, modified on exit (F-order)\n" \
+    "  tol (float, optional): Tolerance for rank determination (default: eps)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (tu, ty, rcond, info):\n" \
+    "    tu: M2-by-M2 control input transformation\n" \
+    "    ty: NP2-by-NP2 measured output transformation\n" \
+    "    rcond: Reciprocal condition numbers [rcond_D12, rcond_D21]\n" \
+    "    info: 0=success, 1=D12 rank deficient, 2=D21 rank deficient, 3=both"
 
 #define DOC_SB10VD "Compute state feedback and output injection for H2 controller.\n" \
     "\n" \
@@ -20456,39 +10208,7 @@
     "\n" \
     "Returns:\n" \
     "  (f, h, x, y, xcond, ycond, info): State feedback F, output injection H,\n" \
-    "    X-Riccati solution, Y-Riccati solution, condition estimates, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10vd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, np_, ncon, nmeas = 6, 5, 5, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, -2.0, -6.0, -8.0,  2.0,  3.0],\n" \
-    "...     [ 0.0,  4.0,  9.0,  4.0,  5.0, -5.0],\n" \
-    "...     [ 4.0, -7.0, -5.0,  7.0,  8.0,  8.0],\n" \
-    "...     [ 5.0, -2.0,  0.0, -1.0, -9.0,  0.0],\n" \
-    "...     [-3.0,  0.0,  2.0, -3.0,  1.0,  2.0],\n" \
-    "...     [-2.0,  3.0, -1.0,  0.0, -4.0, -6.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [-3.0,  2.0, -5.0,  4.0, -3.0,  1.0],\n" \
-    "...     [-4.0,  0.0, -7.0, -6.0,  9.0, -2.0],\n" \
-    "...     [-2.0,  1.0,  0.0,  1.0, -8.0,  3.0],\n" \
-    "...     [ 1.0, -5.0,  7.0,  1.0,  0.0, -6.0],\n" \
-    "...     [ 0.0,  2.0, -2.0, -2.0,  5.0, -2.0]\n" \
-    "...     ], dtype=np.float64, order='F').T\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 1.0, -3.0, -7.0,  9.0,  0.0],\n" \
-    "...     [-1.0,  0.0,  5.0, -3.0,  1.0],\n" \
-    "...     [ 2.0,  5.0,  0.0,  4.0, -2.0],\n" \
-    "...     [-4.0, -1.0, -8.0,  0.0,  1.0],\n" \
-    "...     [ 0.0,  1.0,  2.0,  3.0, -6.0],\n" \
-    "...     [-3.0,  1.0, -2.0,  7.0, -2.0]\n" \
-    "...     ], dtype=np.float64, order='F').T\n" \
-    ">>> f, h, x, y, xcond, ycond, info = slicot.sb10vd(ncon, nmeas, a, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "    X-Riccati solution, Y-Riccati solution, condition estimates, exit code"
 
 #define DOC_SB10WD "Compute H2 optimal controller from state feedback and output injection.\n" \
     "\n" \
@@ -20517,73 +10237,9 @@
     "  ty (ndarray): Measurement transform TY (nmeas x nmeas, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (ak, bk, ck, dk, info): Controller matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10wd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2      # State order\n" \
-    ">>> m = 2      # Total inputs (M1 + M2)\n" \
-    ">>> np_ = 2    # Total outputs (NP1 + NP2)\n" \
-    ">>> ncon = 1   # Control inputs (M2)\n" \
-    ">>> nmeas = 1  # Measurements (NP2)\n" \
-    ">>> m1 = m - ncon      # = 1\n" \
-    ">>> m2 = ncon          # = 1\n" \
-    ">>> np1 = np_ - nmeas  # = 1\n" \
-    ">>> np2 = nmeas        # = 1\n" \
-    ">>> A = np.array([[-1.0, 0.5],\n" \
-    "...     [0.0, -2.0]], order='F', dtype=float)\n" \
-    ">>> B = np.array([[1.0, 0.5],\n" \
-    "...     [0.0, 1.0]], order='F', dtype=float)\n" \
-    ">>> C = np.array([[1.0, 0.0],\n" \
-    "...     [0.5, 1.0]], order='F', dtype=float)\n" \
-    ">>> D = np.array([[0.0, 0.1],\n" \
-    "...     [0.0, 0.2]], order='F', dtype=float)\n" \
-    ">>> F = np.array([[-0.5, -0.3]], order='F', dtype=float)\n" \
-    ">>> H = np.array([[0.4],\n" \
-    "...     [0.6]], order='F', dtype=float)\n" \
-    ">>> TU = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> TY = np.array([[1.0]], order='F', dtype=float)\n" \
-    ">>> B2 = B[:, m1:m]\n" \
-    ">>> C2 = C[np1:np_, :]\n" \
-    ">>> D22 = D[np1:np_, m1:m]\n" \
-    ">>> AK, BK, CK, DK, info = sb10wd(\n" \
-    "...     n, m, np_, ncon, nmeas,\n" \
-    "...     A, B, C, D, F, H, TU, TY\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (ak, bk, ck, dk, info): Controller matrices and exit code"
 
-#define DOC_SB10YD "SB10YD: Frequency response fitting\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10yd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n_points = 100\n" \
-    ">>> omega = np.linspace(0.1, 10.0, n_points)\n" \
-    ">>> rfrdat = np.zeros(n_points, dtype=float)\n" \
-    ">>> ifrdat = np.zeros(n_points, dtype=float)\n" \
-    "...     w = omega[i]\n" \
-    "...     denom = 1.0 + w * w\n" \
-    "...     rfrdat[i] = 1.0 / denom\n" \
-    "...     ifrdat[i] = -w / denom\n" \
-    ">>> n = 1\n" \
-    ">>> discfl = 0  # Continuous\n" \
-    ">>> flag = 1    # Stable minimum phase\n" \
-    ">>> tol = 0.0\n" \
-    ">>> A, B, C, D, N_out, info = sb10yd(discfl, flag, n, rfrdat, ifrdat, omega, tol)\n" \
-    ">>> self.assertEqual(info, 0)\n" \
-    ">>> self.assertEqual(N_out, 1)\n" \
-    ">>> eig_a = np.linalg.eigvals(A)\n" \
-    ">>> self.assertTrue(np.all(np.real(eig_a) < 0), \"A should be stable (negative eigenvalues)\")\n" \
-    "...     s = 1j * w_test\n" \
-    "...     resolvent = np.linalg.inv(s * np.eye(N_out) - A)\n" \
-    "...     h_val = C @ resolvent @ B + D\n" \
-    "...     expected = 1.0 / (1.0 + 1j * w_test)\n" \
-    ">>> info\n" \
-    "0"
+#define DOC_SB10YD "SB10YD: Frequency response fitting"
 
 #define DOC_SB10ZD "Positive feedback controller for discrete-time system (D != 0).\n" \
     "\n" \
@@ -20606,45 +10262,7 @@
     "  (ak, bk, ck, dk, rcond, info): Controller matrices (N-by-N, N-by-NP,\n" \
     "    M-by-N, M-by-NP), array of 6 reciprocal condition numbers, and exit code.\n" \
     "    info: 0=success, 1-2=Riccati failed, 3=iteration failed,\n" \
-    "    4-9=singular matrices, 10=closed-loop unstable\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10zd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 6\n" \
-    ">>> m = 2\n" \
-    ">>> np_ = 3\n" \
-    ">>> factor = 1.1\n" \
-    ">>> tol = 0.0\n" \
-    ">>> A = np.array([\n" \
-    "...     [ 0.2,  0.0,  3.0,  0.0, -0.3, -0.1],\n" \
-    "...     [-3.0,  0.2, -0.4, -0.3,  0.0,  0.0],\n" \
-    "...     [-0.1,  0.1, -1.0,  0.0,  0.0, -3.0],\n" \
-    "...     [ 1.0,  0.0,  0.0, -1.0, -1.0,  0.0],\n" \
-    "...     [ 0.0,  0.3,  0.6,  2.0,  0.1, -0.4],\n" \
-    "...     [ 0.2, -4.0,  0.0,  0.0,  0.2, -2.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> B = np.array([\n" \
-    "...     [-1.0, -2.0],\n" \
-    "...     [ 1.0,  3.0],\n" \
-    "...     [-3.0, -4.0],\n" \
-    "...     [ 1.0, -2.0],\n" \
-    "...     [ 0.0,  1.0],\n" \
-    "...     [ 1.0,  5.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> C = np.array([\n" \
-    "...     [ 1.0, -1.0,  2.0, -2.0,  0.0, -3.0],\n" \
-    "...     [-3.0,  0.0,  1.0, -1.0,  1.0, -1.0],\n" \
-    "...     [ 2.0,  4.0, -3.0,  0.0,  5.0,  1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> D = np.array([\n" \
-    "...     [10.0, -6.0],\n" \
-    "...     [-7.0,  8.0],\n" \
-    "...     [ 2.0, -4.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> result = slicot.sb10zd(n, m, np_, A, B, C, D, factor, tol)\n" \
-    ">>> ak, bk, ck, dk, rcond, info = result"
+    "    4-9=singular matrices, 10=closed-loop unstable"
 
 #define DOC_SB10ZP "Transform SISO system to stable and minimum phase.\n" \
     "\n" \
@@ -20662,22 +10280,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, c, d, n, info): Transformed system matrices, final order,\n" \
-    "    and exit code (0=success, <0=param error, >0=algorithm error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb10zp\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([[2.0, 1.0], [0.0, -1.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([1.0, 0.0], order='F', dtype=float)\n" \
-    ">>> c = np.array([1.0, 1.0], order='F', dtype=float)\n" \
-    ">>> d = np.array([2.0], order='F', dtype=float)\n" \
-    ">>> discfl = 0\n" \
-    ">>> a_out, b_out, c_out, d_out, n_out, info = sb10zp(discfl, a, b, c, d)\n" \
-    "...     err_msg=\"D should be preserved\")\n" \
-    "...     eigs = np.linalg.eigvals(a_out[:n_out, :n_out])\n" \
-    ">>> info\n" \
-    "0"
+    "    and exit code (0=success, <0=param error, >0=algorithm error)"
 
 #define DOC_SB16AD "Frequency-weighted controller reduction via balancing.\n" \
     "\n" \
@@ -20712,67 +10315,40 @@
     "Returns:\n" \
     "  (acr, bcr, ccr, dcr, ncr_out, ncs, hsvc, iwarn, info): Reduced controller,\n" \
     "    actual order, stable part order, Hankel SVs, warning, exit code.\n" \
-    "    info: 0=success, 1-7=algorithm errors\n" \
+    "    info: 0=success, 1-7=algorithm errors"
+
+#define DOC_SB16AY "Cholesky factors of frequency-weighted Grammians.\n" \
     "\n" \
-    "Examples:\n" \
+    "Computes Cholesky factors Su and Ru of controllability Grammian P=Su*Su'\n" \
+    "and observability Grammian Q=Ru'*Ru for frequency-weighted model reduction\n" \
+    "of a controller (Ac,Bc,Cc,Dc) for plant (A,B,C,D).\n" \
     "\n" \
-    ">>> from slicot import sb16ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 1, 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.0, 4.0],\n" \
-    "...     [0.0, 2.0, 0.0],\n" \
-    "...     [0.0, 0.0, -3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [1.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([[1.0, 1.0, 1.0]], dtype=float, order='F')\n" \
-    ">>> d = np.array([[0.0]], dtype=float, order='F')\n" \
-    ">>> nc = 3\n" \
-    ">>> ac = np.array([\n" \
-    "...     [-26.4000, 6.4023, 4.3868],\n" \
-    "...     [32.0000, 0.0, 0.0],\n" \
-    "...     [0.0, 8.0000, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> bc = np.array([\n" \
-    "...     [-16.0],\n" \
-    "...     [0.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> cc = np.array([[9.2994, 1.1624, 0.1090]], dtype=float, order='F')\n" \
-    ">>> dc = np.array([[0.0]], dtype=float, order='F')\n" \
-    ">>> ncr = 2\n" \
-    ">>> alpha = 0.0\n" \
-    ">>> tol1 = 0.1\n" \
-    ">>> tol2 = 0.0\n" \
-    ">>> (acr, bcr, ccr, dcr, ncr_out, ncs, hsvc, iwarn, info) = sb16ad(\n" \
-    "...     dico='C',\n" \
-    "...     jobc='S',\n" \
-    "...     jobo='S',\n" \
-    "...     jobmr='F',\n" \
-    "...     weight='I',\n" \
-    "...     equil='N',\n" \
-    "...     ordsel='F',\n" \
-    "...     n=n,\n" \
-    "...     m=m,\n" \
-    "...     p=p,\n" \
-    "...     nc=nc,\n" \
-    "...     ncr=ncr,\n" \
-    "...     alpha=alpha,\n" \
-    "...     a=a,\n" \
-    "...     b=b,\n" \
-    "...     c=c,\n" \
-    "...     d=d,\n" \
-    "...     ac=ac,\n" \
-    "...     bc=bc,\n" \
-    "...     cc=cc,\n" \
-    "...     dc=dc,\n" \
-    "...     tol1=tol1,\n" \
-    "...     tol2=tol2\n" \
-    "...     )"
+    "Parameters:\n" \
+    "  dico (str): 'C' continuous-time, 'D' discrete-time\n" \
+    "  jobc (str): 'S' standard Grammian, 'E' enhanced Grammian\n" \
+    "  jobo (str): 'S' standard Grammian, 'E' enhanced Grammian\n" \
+    "  weight (str): 'N' none, 'O' left (output), 'I' right (input), 'P' both\n" \
+    "  n (int): Plant state dimension (>= 0)\n" \
+    "  m (int): Plant inputs (>= 0)\n" \
+    "  p (int): Plant outputs (>= 0)\n" \
+    "  nc (int): Controller state dimension (>= 0)\n" \
+    "  ncs (int): Dimension of stable part (0 <= NCS <= NC)\n" \
+    "  a (ndarray): N-by-N plant state matrix (F-order)\n" \
+    "  b (ndarray): N-by-M plant input matrix (F-order)\n" \
+    "  c (ndarray): P-by-N plant output matrix (F-order)\n" \
+    "  d (ndarray): P-by-M plant feedthrough matrix (F-order)\n" \
+    "  ac (ndarray): NC-by-NC controller state matrix (F-order)\n" \
+    "  bc (ndarray): NC-by-P controller input matrix (F-order)\n" \
+    "  cc (ndarray): M-by-NC controller output matrix (F-order)\n" \
+    "  dc (ndarray): M-by-P controller feedthrough matrix (F-order)\n" \
+    "\n" \
+    "Returns:\n" \
+    "  (scalec, scaleo, s, r, info):\n" \
+    "    scalec: Scale factor for controllability Grammian\n" \
+    "    scaleo: Scale factor for observability Grammian\n" \
+    "    s: NCS-by-NCS Cholesky factor Su\n" \
+    "    r: NCS-by-NCS Cholesky factor Ru\n" \
+    "    info: 0=success, 1=Lyapunov failed, 2=not stable"
 
 #define DOC_SB16BD "Coprime factorization based state feedback controller reduction.\n" \
     "\n" \
@@ -20804,64 +10380,7 @@
     "  (ac, bc, cc, dc, hsv, ncr, iwarn, info): Reduced controller matrices,\n" \
     "    Hankel singular values, actual controller order, warning flag, exit code.\n" \
     "    info=0: success, 1: Schur of A+GC failed, 2: A+GC not stable,\n" \
-    "    3: HSV computation failed, 4: Schur of A+BF failed, 5: A+BF not stable.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb16bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 8, 1, 1\n" \
-    ">>> ncr_desired = 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -0.015, 0.765, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -0.765, -0.015, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -0.028, 1.41, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -1.41, -0.028, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.04, 1.85],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.85, -0.04]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.026],\n" \
-    "...     [-0.251],\n" \
-    "...     [0.033],\n" \
-    "...     [-0.886],\n" \
-    "...     [-4.017],\n" \
-    "...     [0.145],\n" \
-    "...     [3.604],\n" \
-    "...     [0.28]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [-0.996, -0.105, 0.261, 0.009, -0.001, -0.043, 0.002, -0.026]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> d = np.array([[0.0]], dtype=float, order='F')\n" \
-    ">>> f = np.array([\n" \
-    "...     [4.4721e-002, 6.6105e-001, 4.6986e-003, 3.6014e-001,\n" \
-    "...     1.0325e-001, -3.7541e-002, -4.2685e-002, 3.2873e-002]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> g = np.array([\n" \
-    "...     [4.1089e-001],\n" \
-    "...     [8.6846e-002],\n" \
-    "...     [3.8523e-004],\n" \
-    "...     [-3.6194e-003],\n" \
-    "...     [-8.8037e-003],\n" \
-    "...     [8.4205e-003],\n" \
-    "...     [1.2349e-003],\n" \
-    "...     [4.2632e-003]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> ac, bc, cc, dc, hsv, ncr_out, iwarn, info = sb16bd(\n" \
-    "...     'C', 'D', 'F', 'L', 'S', 'F', n, m, p, ncr_desired,\n" \
-    "...     a, b, c, d, f, g, 0.1, 0.0\n" \
-    "...     )\n" \
-    ">>> eig_actual = np.sort(np.linalg.eigvals(ac))\n" \
-    ">>> def transfer_function(ac_mat, bc_mat, cc_mat, dc_mat, s):\n" \
-    "...     n = ac_mat.shape[0]\n" \
-    "...     return cc_mat @ np.linalg.solve(s * np.eye(n) - ac_mat, bc_mat) + dc_mat\n" \
-    "...     s = 1j * omega\n" \
-    "...     tf_actual = transfer_function(ac, bc, cc, dc, s)\n" \
-    ">>> info\n" \
-    "0"
+    "    3: HSV computation failed, 4: Schur of A+BF failed, 5: A+BF not stable."
 
 #define DOC_SB16CD "Frequency-weighted coprime factorization controller reduction.\n" \
     "\n" \
@@ -20889,61 +10408,7 @@
     "    (in modified a, g, f), Hankel singular values, actual order, warning, exit code.\n" \
     "    iwarn=1: NCR > minimal order, =2: repeated singular values at cutoff.\n" \
     "    info=0: success, 1: eigenvalue failure, 2: A+GC unstable, 3: A+BF unstable,\n" \
-    "    4: obs Lyapunov singular, 5: ctrl Lyapunov singular, 6: HSV computation failed.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sb16cd\n" \
-    ">>> n, m, p = 8, 1, 1\n" \
-    ">>> ncr_in = 2\n" \
-    ">>> tol = 0.1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -0.015, 0.765, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -0.765, -0.015, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -0.028, 1.41, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -1.41, -0.028, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.04, 1.85],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.85, -0.04]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.026],\n" \
-    "...     [-0.251],\n" \
-    "...     [0.033],\n" \
-    "...     [-0.886],\n" \
-    "...     [-4.017],\n" \
-    "...     [0.145],\n" \
-    "...     [3.604],\n" \
-    "...     [0.280]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-0.996, -0.105, 0.261, 0.009, -0.001, -0.043, 0.002, -0.026]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([[0.0]], order='F', dtype=float)\n" \
-    ">>> f = np.array([\n" \
-    "...     [4.472135954999638e-002, 6.610515358414598e-001,\n" \
-    "...     4.698598960657579e-003, 3.601363251422058e-001,\n" \
-    "...     1.032530880771415e-001, -3.754055214487997e-002,\n" \
-    "...     -4.268536964759344e-002, 3.287284547842979e-002]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> g = np.array([\n" \
-    "...     [4.108939884667451e-001],\n" \
-    "...     [8.684600000000012e-002],\n" \
-    "...     [3.852317308197148e-004],\n" \
-    "...     [-3.619366874815911e-003],\n" \
-    "...     [-8.803722876359955e-003],\n" \
-    "...     [8.420521094001852e-003],\n" \
-    "...     [1.234944428038507e-003],\n" \
-    "...     [4.263205617645322e-003]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ac, bc, cc, hsv, ncr, iwarn, info = sb16cd(\n" \
-    "...     'C', 'D', 'F', 'R', 'F',\n" \
-    "...     a, b, c, d, f, g, ncr_in, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    4: obs Lyapunov singular, 5: ctrl Lyapunov singular, 6: HSV computation failed."
 
 #define DOC_SB16CY "Cholesky factors of Grammians for coprime factors of controller.\n" \
     "\n" \
@@ -20968,47 +10433,7 @@
     "    scaling factors, and exit code.\n" \
     "    info=0: success, 1: eigenvalue computation failed,\n" \
     "    2: A+GC not stable, 3: A+BF not stable,\n" \
-    "    4: observability Lyapunov singular, 5: controllability Lyapunov singular.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sb16cy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> A = np.array([\n" \
-    "...     [-2.0, 0.0, 0.0],\n" \
-    "...     [0.0, -3.0, 0.0],\n" \
-    "...     [0.0, 0.0, -4.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> B = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> C = np.array([\n" \
-    "...     [1.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> F = np.array([\n" \
-    "...     [-1.0, 0.5, 0.0],\n" \
-    "...     [0.0, -0.5, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> G = np.array([\n" \
-    "...     [0.5, -0.2],\n" \
-    "...     [-0.3, 0.4],\n" \
-    "...     [0.1, -0.1]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Acl_bf = A + B @ F\n" \
-    ">>> Acl_gc = A + G @ C\n" \
-    ">>> eig_bf = np.linalg.eigvals(Acl_bf)\n" \
-    ">>> eig_gc = np.linalg.eigvals(Acl_gc)\n" \
-    ">>> S, R, scalec, scaleo, info = sb16cy('C', 'L', n, m, p, A, B, C, F, G)\n" \
-    ">>> P = S @ S.T\n" \
-    ">>> Q = R.T @ R\n" \
-    ">>> res_P = Acl_bf @ P + P @ Acl_bf.T + scalec**2 * (B @ B.T)\n" \
-    ">>> res_Q = Acl_gc.T @ Q + Q @ Acl_gc + scaleo**2 * (F.T @ F)\n" \
-    ">>> info\n" \
-    "0"
+    "    4: observability Lyapunov singular, 5: controllability Lyapunov singular."
 
 #define DOC_SG02AD "Solve generalized algebraic Riccati equation for descriptor systems.\n" \
     "\n" \
@@ -21039,50 +10464,7 @@
     "  tol (float): Tolerance (<=0 uses eps)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, rcondu, alfar, alfai, beta, s, t, u, iwarn, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sg02ad\n" \
-    ">>> n = 2\n" \
-    ">>> m = 1\n" \
-    ">>> p = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> q = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r = np.array([\n" \
-    "...     [0.0],\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> l = np.zeros((n, m), order='F', dtype=float)\n" \
-    ">>> result = sg02ad(\n" \
-    "...     'C', 'B', 'B', 'U', 'Z', 'N', 'S', 'N',\n" \
-    "...     n, m, p,\n" \
-    "...     a.copy(order='F'),\n" \
-    "...     e.copy(order='F'),\n" \
-    "...     b.copy(order='F'),\n" \
-    "...     q.copy(order='F'),\n" \
-    "...     r.copy(order='F'),\n" \
-    "...     l.copy(order='F'),\n" \
-    "...     0.0\n" \
-    "...     )\n" \
-    ">>> x, rcondu, alfar, alfai, beta, s, t, u, iwarn, info = result"
+    "  (x, rcondu, alfar, alfai, beta, s, t, u, iwarn, info)"
 
 #define DOC_SG02CV "Compute residual matrix for Lyapunov equation.\n" \
     "\n" \
@@ -21109,21 +10491,7 @@
     "  (r, norms, info): Residual matrix R, Frobenius norms array, exit code.\n" \
     "    norms[0] = ||op(A)'*X*op(A)|| or ||op(A)'*X*op(E)|| depending on equation.\n" \
     "    norms[1] = ||op(E)'*X*op(E)|| (discrete, JOBE='G' only).\n" \
-    "    info=0: success, <0: parameter error.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg02cv\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = make_schur_form(n, 42)\n" \
-    ">>> x = make_symmetric(n, 43)\n" \
-    ">>> q = make_symmetric(n, 44)\n" \
-    ">>> r_in = np.triu(q.copy()).astype(float, order='F')\n" \
-    ">>> x_in = np.asfortranarray(x.copy())\n" \
-    ">>> r_out, norms, info = sg02cv('C', 'R', 'I', 'U', 'N', a, None, x_in, r_in)\n" \
-    ">>> info\n" \
-    "0"
+    "    info=0: success, <0: parameter error."
 
 #define DOC_SG02CW "Compute residual matrix for Riccati equation with line search.\n" \
     "\n" \
@@ -21166,43 +10534,7 @@
     "    c[i,j] = (A - G*X)[i,j] for continuous, (A - G*X*E^(-1)*A)[i,j] for discrete.\n" \
     "    norms[0] = ||R_low||_F / ||R_high||_F (residual / matrix norm).\n" \
     "    norms[1] = ||op(A)'*X*op(E)|| for continuous.\n" \
-    "    info=0: success, <0: parameter error.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sg02cw\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0],\n" \
-    "...     [ 0.0, -2.0,  0.0],\n" \
-    "...     [ 0.0,  0.0, -3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> g = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> q = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([\n" \
-    "...     [np.sqrt(2) - 1, 0.0, 0.0],\n" \
-    "...     [0.0, np.sqrt(5) - 2, 0.0],\n" \
-    "...     [0.0, 0.0, np.sqrt(10) - 3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r, c, norms, info = sg02cw(\n" \
-    "...     dico='C', job='A', jobe='I', flag='M', jobg='G',\n" \
-    "...     uplo='U', trans='N',\n" \
-    "...     n=n, m=0,\n" \
-    "...     a=a.copy(), e=None, g=g.copy(), x=x.copy(),\n" \
-    "...     f=None, k=None, xe=None, q=q.copy()\n" \
-    "...     )\n" \
-    ">>> r_full = np.triu(r) + np.triu(r, 1).T\n" \
-    ">>> info\n" \
-    "0"
+    "    info=0: success, <0: parameter error."
 
 #define DOC_SG02CX "Find line search parameter minimizing Riccati residual norm.\n" \
     "\n" \
@@ -21232,31 +10564,7 @@
     "Returns:\n" \
     "  (alpha, rnorm, iwarn, info): Optimal alpha in [0,2], residual norm,\n" \
     "    warning code (2 = no optimum in [0,2]), exit code.\n" \
-    "    info=0: success, <0: parameter error, 1: eigenproblem failed.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg02cx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> r = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.5, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> s = np.array([\n" \
-    "...     [0.3, 0.1],\n" \
-    "...     [0.1, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> g = np.array([\n" \
-    "...     [0.5, 0.2],\n" \
-    "...     [0.2, 0.8]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> alpha, rnorm, iwarn, info = sg02cx(\n" \
-    "...     jobe='I', flag='P', jobg='G', uplo='U', trans='N',\n" \
-    "...     n=n, m=0, e=np.empty((1, 1), order='F'), r=r, s=s, g=g\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info=0: success, <0: parameter error, 1: eigenproblem failed."
 
 #define DOC_SG02ND "Compute optimal gain matrix for discrete/continuous Riccati problems.\n" \
     "\n" \
@@ -21297,45 +10605,7 @@
     "    N-by-N product X*E or X*A, factorization info [2], reciprocal\n" \
     "    condition number, exit code.\n" \
     "    info=0: success, <0: parameter error, i: d[i]=0, m+1: singular,\n" \
-    "    m+2: eigenvalue failure, m+3: X indefinite.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sg02nd\n" \
-    ">>> n = 2\n" \
-    ">>> m = 1\n" \
-    ">>> p = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, -1.0],\n" \
-    "...     [1.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> r = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> k, h, xe, oufact, rcond, info = sg02nd(\n" \
-    "...     dico='D', jobe='I', job='K', jobx='N', fact='N',\n" \
-    "...     uplo='U', jobl='Z', trans='N',\n" \
-    "...     n=n, m=m, p=p,\n" \
-    "...     a=a.copy(order='F'),\n" \
-    "...     e=np.zeros((1, 1), order='F', dtype=float),\n" \
-    "...     b=b.copy(order='F'),\n" \
-    "...     r=r.copy(order='F'),\n" \
-    "...     ipiv=np.zeros(m, dtype=np.int32),\n" \
-    "...     l=np.zeros((1, 1), order='F', dtype=float),\n" \
-    "...     x=x.copy(order='F'),\n" \
-    "...     rnorm=0.0\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    m+2: eigenvalue failure, m+3: X indefinite."
 
 #define DOC_SG03AD "Solve generalized Lyapunov equation for descriptor systems.\n" \
     "\n" \
@@ -21359,35 +10629,7 @@
     "  z (ndarray, optional): Orthogonal Z (if FACT='F')\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, scale, sep, ferr, alphar, alphai, beta, a, e, q, z, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sg03ad\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [3.0, 1.0, 1.0],\n" \
-    "...     [1.0, 3.0, 0.0],\n" \
-    "...     [1.0, 0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 3.0, 0.0],\n" \
-    "...     [3.0, 2.0, 1.0],\n" \
-    "...     [1.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x = np.array([\n" \
-    "...     [-64.0, -73.0, -28.0],\n" \
-    "...     [  0.0, -70.0, -25.0],\n" \
-    "...     [  0.0,   0.0, -18.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = sg03ad(\n" \
-    "...     'C', 'B', 'N', 'N', 'U', n,\n" \
-    "...     a.copy(order='F'),\n" \
-    "...     e.copy(order='F'),\n" \
-    "...     x.copy(order='F')\n" \
-    "...     )\n" \
-    ">>> x_out, scale, sep, ferr, alphar, alphai, beta, a_out, e_out, q, z, info = result"
+    "  (x, scale, sep, ferr, alphar, alphai, beta, a, e, q, z, info)"
 
 #define DOC_SG03AX "Solve reduced generalized discrete-time Lyapunov equation.\n" \
     "\n" \
@@ -21401,30 +10643,7 @@
     "  x (ndarray): RHS matrix Y, overwritten with solution (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (X, scale, info): Solution X, scale factor, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sg03ax\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.0, 0.0],\n" \
-    "...     [0.0, 0.6, 0.0],\n" \
-    "...     [0.0, 0.0, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> y = np.array([\n" \
-    "...     [1.0, 0.2, 0.1],\n" \
-    "...     [0.2, 2.0, 0.3],\n" \
-    "...     [0.1, 0.3, 1.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x, scale, info = sg03ax('N', a.copy(order='F'), e.copy(order='F'), y.copy(order='F'))\n" \
-    ">>> info\n" \
-    "0"
+    "  (X, scale, info): Solution X, scale factor, exit code"
 
 #define DOC_SG03AY "Solve reduced generalized continuous-time Lyapunov equation.\n" \
     "\n" \
@@ -21438,33 +10657,7 @@
     "  x (ndarray): RHS matrix Y, overwritten with solution (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (X, scale, info): Solution X, scale factor, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import sg03ay\n" \
-    ">>> n = 3\n" \
-    ">>> A = np.array([\n" \
-    "...     [2.0, 0.5, 0.1],\n" \
-    "...     [0.0, 1.5, 0.3],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> E = np.array([\n" \
-    "...     [1.0, 0.2, 0.1],\n" \
-    "...     [0.0, 1.0, 0.15],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> Y = np.array([\n" \
-    "...     [1.0, 0.3, 0.2],\n" \
-    "...     [0.3, 0.8, 0.1],\n" \
-    "...     [0.2, 0.1, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> X, scale, info = sg03ay('N', A, E, Y.copy())\n" \
-    ">>> X_sym = (X + X.T) / 2  # Make symmetric\n" \
-    ">>> residual = A.T @ X_sym @ E + E.T @ X_sym @ A - scale * Y\n" \
-    ">>> info\n" \
-    "0"
+    "  (X, scale, info): Solution X, scale factor, exit code"
 
 #define DOC_SG03BD "Solve generalized Lyapunov equation for Cholesky factor.\n" \
     "\n" \
@@ -21479,40 +10672,7 @@
     "  b (ndarray): Matrix B (size depends on trans, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (u, scale, alphar, alphai, beta, info): Cholesky factor, scale, eigenvalues, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> m = 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  3.0, -4.0],\n" \
-    "...     [ 0.0,  5.0, -2.0],\n" \
-    "...     [-4.0,  4.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [2.0, 1.0, 3.0],\n" \
-    "...     [2.0, 0.0, 1.0],\n" \
-    "...     [4.0, 5.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [2.0, -1.0, 7.0],\n" \
-    "...     [0.0,  0.0,  0.0],\n" \
-    "...     [0.0,  0.0,  0.0]\n" \
-    "...     ], dtype=np.float64, order='F')  # Shape (3, 3)\n" \
-    ">>> expected_u = np.array([\n" \
-    "...     [1.6003, -0.4418, -0.1523],\n" \
-    "...     [0.0000,  0.6795, -0.2499],\n" \
-    "...     [0.0000,  0.0000,  0.2041]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_scale = 1.0\n" \
-    ">>> u, scale, alphar, alphai, beta, info = sg03bd('C', 'N', 'N', n, m, a, e, b)\n" \
-    ">>> x = u.T @ u\n" \
-    ">>> residual = np.linalg.norm(lhs - rhs) / max(np.linalg.norm(lhs), np.linalg.norm(rhs))\n" \
-    ">>> info\n" \
-    "0"
+    "  (u, scale, alphar, alphai, beta, info): Cholesky factor, scale, eigenvalues, exit code"
 
 #define DOC_SG03BR "Compute complex Givens rotation in real arithmetic.\n" \
     "\n" \
@@ -21523,20 +10683,7 @@
     "  yi (float): Imaginary part of Y\n" \
     "\n" \
     "Returns:\n" \
-    "  (c, sr, si, zr, zi): Givens rotation parameters and result\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03br\n" \
-    ">>> import numpy as np\n" \
-    ">>> xr, xi = 3.0, 4.0  # X = 3 + 4i\n" \
-    ">>> yr, yi = 1.0, 2.0  # Y = 1 + 2i\n" \
-    ">>> c, sr, si, zr, zi = sg03br(xr, xi, yr, yi)\n" \
-    ">>> zr_computed = c * xr + sr * yr - si * yi\n" \
-    ">>> zi_computed = c * xi + si * yr + sr * yi\n" \
-    ">>> result_r = -sr * xr - si * xi + c * yr\n" \
-    ">>> result_i = si * xr - sr * xi + c * yi\n" \
-    ">>> norm = c**2 + sr**2 + si**2"
+    "  (c, sr, si, zr, zi): Givens rotation parameters and result"
 
 #define DOC_SG03BS "Solve generalized discrete-time Lyapunov equation (complex Hammarling).\n" \
     "\n" \
@@ -21555,33 +10702,7 @@
     "\n" \
     "Returns:\n" \
     "  (u, scale, info): Cholesky factor U, scale factor, exit code\n" \
-    "  info=0: success, info=3: not d-stable, info=4: ZSTEIN failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bs\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.3+0.1j, 0.1+0.05j, 0.05+0.02j],\n" \
-    "...     [0.0, 0.2-0.1j, 0.08+0.03j],\n" \
-    "...     [0.0, 0.0, 0.15+0.05j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0+0j, 0.1+0.02j, 0.05+0.01j],\n" \
-    "...     [0.0, 1.0+0j, 0.08+0.02j],\n" \
-    "...     [0.0, 0.0, 1.0+0j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.5, 0.2+0.1j, 0.1+0.05j],\n" \
-    "...     [0.0, 0.3, 0.15+0.08j],\n" \
-    "...     [0.0, 0.0, 0.25]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> u, scale, info = sg03bs('N', a, e, b)\n" \
-    ">>> x = u.conj().T @ u\n" \
-    ">>> residual = np.linalg.norm(lhs - rhs) / max(np.linalg.norm(lhs), np.linalg.norm(rhs))\n" \
-    ">>> info\n" \
-    "0"
+    "  info=0: success, info=3: not d-stable, info=4: ZSTEIN failed"
 
 #define DOC_SG03BT "Solve generalized continuous-time Lyapunov equation (complex Hammarling).\n" \
     "\n" \
@@ -21600,33 +10721,7 @@
     "\n" \
     "Returns:\n" \
     "  (u, scale, info): Cholesky factor U, scale factor, exit code\n" \
-    "  info=0: success, info=3: not c-stable\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bt\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.5+0.1j, 0.1+0.05j, 0.05+0.02j],\n" \
-    "...     [0.0, -0.3-0.1j, 0.08+0.03j],\n" \
-    "...     [0.0, 0.0, -0.2+0.05j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0+0j, 0.1+0.02j, 0.05+0.01j],\n" \
-    "...     [0.0, 1.0+0j, 0.08+0.02j],\n" \
-    "...     [0.0, 0.0, 1.0+0j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.5, 0.2+0.1j, 0.1+0.05j],\n" \
-    "...     [0.0, 0.3, 0.15+0.08j],\n" \
-    "...     [0.0, 0.0, 0.25]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> u, scale, info = sg03bt('N', a, e, b)\n" \
-    ">>> x = u.conj().T @ u\n" \
-    ">>> residual = np.linalg.norm(lhs - rhs) / max(np.linalg.norm(lhs), np.linalg.norm(rhs), 1e-15)\n" \
-    ">>> info\n" \
-    "0"
+    "  info=0: success, info=3: not c-stable"
 
 #define DOC_SG03BU "Solve generalized discrete-time Lyapunov equation for Cholesky factor.\n" \
     "\n" \
@@ -21637,20 +10732,7 @@
     "  b (ndarray): Upper triangular matrix B (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (u, scale, info): Cholesky factor U, scale factor, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bu\n" \
-    ">>> import numpy as np\n" \
-    ">>> trans = 'N'\n" \
-    ">>> n = 1\n" \
-    ">>> a = np.array([[0.5]], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([[1.0]], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([[1.0]], dtype=np.float64, order='F')\n" \
-    ">>> u, scale, info = sg03bu(trans, a, e, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (u, scale, info): Cholesky factor U, scale factor, exit code"
 
 #define DOC_SG03BV "Solve generalized continuous-time Lyapunov equation for Cholesky factor.\n" \
     "\n" \
@@ -21661,20 +10743,7 @@
     "  b (ndarray): Upper triangular matrix B (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (u, scale, info): Cholesky factor U, scale factor, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bv\n" \
-    ">>> import numpy as np\n" \
-    ">>> trans = 'N'\n" \
-    ">>> n = 1\n" \
-    ">>> a = np.array([[-1.0]], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([[1.0]], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([[1.0]], dtype=np.float64, order='F')\n" \
-    ">>> u, scale, info = sg03bv(trans, a, e, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (u, scale, info): Cholesky factor U, scale factor, exit code"
 
 #define DOC_SG03BW "Solve generalized Sylvester equation for small systems.\n" \
     "\n" \
@@ -21687,25 +10756,7 @@
     "  x (ndarray): Right-hand side Y, overwritten with solution (m x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, scale, info): Solution matrix, scale factor, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bw\n" \
-    ">>> import numpy as np\n" \
-    ">>> trans = 'N'\n" \
-    ">>> m, n = 2, 1\n" \
-    ">>> a = np.array([[2.0, 1.0],\n" \
-    "...     [0.0, 3.0]], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([[1.0, 0.5],\n" \
-    "...     [0.0, 1.0]], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([[4.0]], dtype=np.float64, order='F')\n" \
-    ">>> d = np.array([[2.0]], dtype=np.float64, order='F')\n" \
-    ">>> x = np.array([[1.0],\n" \
-    "...     [2.0]], dtype=np.float64, order='F')\n" \
-    ">>> x_out, scale, info = sg03bw(trans, a, e, c, d, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, scale, info): Solution matrix, scale factor, and exit code"
 
 #define DOC_SG03BX "Solve 2x2 generalized Lyapunov equation.\n" \
     "\n" \
@@ -21717,29 +10768,7 @@
     "  b (ndarray): Upper triangular matrix B (2 x 2, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (u, scale, m1, m2, info): Cholesky factor, scale, auxiliary matrices, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bx\n" \
-    ">>> import numpy as np\n" \
-    ">>> dico = 'C'\n" \
-    ">>> trans = 'N'\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 2.0],\n" \
-    "...     [-2.0, -1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, 0.5]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> u, scale, m1, m2, info = sg03bx(dico, trans, a, e, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (u, scale, m1, m2, info): Cholesky factor, scale, auxiliary matrices, exit code"
 
 #define DOC_SG03BY "Compute complex Givens rotation in real arithmetic.\n" \
     "\n" \
@@ -21761,17 +10790,7 @@
     "  yi (float): Imaginary part of second complex input\n" \
     "\n" \
     "Returns:\n" \
-    "  (cr, ci, sr, si, z): Givens rotation parameters and result norm\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03by\n" \
-    ">>> import numpy as np\n" \
-    ">>> xr, xi = 3.0, 0.0\n" \
-    ">>> yr, yi = 4.0, 0.0\n" \
-    ">>> cr, ci, sr, si, z = sg03by(xr, xi, yr, yi)\n" \
-    ">>> expected_z = np.sqrt(xr**2 + yr**2)\n" \
-    ">>> result_z, result_zero = apply_givens_rotation(cr, ci, sr, si, xr, xi, yr, yi)"
+    "  (cr, ci, sr, si, z): Givens rotation parameters and result norm"
 
 #define DOC_SG03BZ "Solve stable generalized continuous/discrete-time Lyapunov equation (complex).\n" \
     "\n" \
@@ -21802,34 +10821,7 @@
     "  (u, scale, alpha, beta, info): Cholesky factor U, scale factor,\n" \
     "    eigenvalue numerators, eigenvalue denominators, exit code\n" \
     "  info=0: success, info=4: ZGGES failed, info=5: not c-stable,\n" \
-    "  info=6: not d-stable, info=7: ZSTEIN failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import sg03bz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.5+0.1j, 0.2+0.05j, 0.1+0.02j],\n" \
-    "...     [0.1-0.05j, -0.4-0.1j, 0.15+0.03j],\n" \
-    "...     [0.05+0.02j, 0.08-0.04j, -0.3+0.05j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0+0j, 0.1+0.02j, 0.05+0.01j],\n" \
-    "...     [0.0, 1.0+0j, 0.08+0.02j],\n" \
-    "...     [0.0, 0.0, 1.0+0j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.5, 0.2+0.1j, 0.1+0.05j],\n" \
-    "...     [0.0, 0.3, 0.15+0.08j]\n" \
-    "...     ], dtype=complex, order='F')\n" \
-    ">>> q = np.zeros((n, n), dtype=complex, order='F')\n" \
-    ">>> z = np.zeros((n, n), dtype=complex, order='F')\n" \
-    ">>> u, scale, _alpha, _beta, info = sg03bz('C', 'N', 'N', a, e, q, z, b)\n" \
-    ">>> x = u.conj().T @ u\n" \
-    ">>> residual = np.linalg.norm(lhs - rhs) / max(np.linalg.norm(lhs), np.linalg.norm(rhs), 1e-15)\n" \
-    ">>> info\n" \
-    "0"
+    "  info=6: not d-stable, info=7: ZSTEIN failed"
 
 #define DOC_TB01ID "Balance system matrices (A,B,C) using diagonal similarity.\n" \
     "\n" \
@@ -21844,38 +10836,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, c, maxred, scale, info): Balanced matrices,\n" \
-    "    norm ratio, scale factors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb01id\n" \
-    ">>> n, m, p = 5, 2, 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0, 0.0, 0.0],\n" \
-    "...     [-1.58e6, -1.257e3, 0.0, 0.0, 0.0],\n" \
-    "...     [3.541e14, 0.0, -1.434e3, 0.0, -5.33e11],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, -1.863e4, -1.482]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [1.103e2, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 8.333e-3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [6.664e-1, 0.0, -6.2e-13, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -1.0e-3, 1.896e6, 1.508e2]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> maxred_in = 0.0  # Use default 10.0\n" \
-    ">>> a_out, b_out, c_out, maxred_out, scale, info = tb01id('A', a, b, c, maxred_in)\n" \
-    ">>> info\n" \
-    "0"
+    "    norm ratio, scale factors, exit code"
 
 #define DOC_TB01IZ "Balance complex system matrices (A,B,C) using diagonal similarity.\n" \
     "\n" \
@@ -21890,46 +10851,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, c, maxred, scale, info): Balanced matrices,\n" \
-    "    norm ratio, scale factors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01iz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 5, 2, 5\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0+0.0j, 1.0e3+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [-1.58e6+0.0j, -1.257e3+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [3.541e14+0.0j, 0.0+0.0j, -1.434e3+0.0j, 0.0+0.0j, -5.33e11+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 1.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, -1.863e4+0.0j, -1.482+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [1.103e2+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 8.333e-3+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 1.0+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, 0.0+0.0j, 1.0+0.0j, 0.0+0.0j],\n" \
-    "...     [6.664e-1+0.0j, 0.0+0.0j, -6.2e-13+0.0j, 0.0+0.0j, 0.0+0.0j],\n" \
-    "...     [0.0+0.0j, 0.0+0.0j, -1.0e-3+0.0j, 1.896e6+0.0j, 1.508e2+0.0j]\n" \
-    "...     ], order='F', dtype=complex)\n" \
-    ">>> a_bal, b_bal, c_bal, maxred_out, scale, info = tb01iz('A', a, b, c, 0.0)\n" \
-    ">>> d = np.diag(scale)\n" \
-    ">>> d_inv = np.diag(1.0 / scale)\n" \
-    ">>> a_reconstructed = d @ a_bal @ d_inv\n" \
-    ">>> b_reconstructed = d @ b_bal\n" \
-    ">>> c_reconstructed = c_bal @ d_inv\n" \
-    ">>> eig_bal = np.linalg.eigvals(a_bal)\n" \
-    "...     sorted(np.abs(eig_bal)),\n" \
-    "...     rtol=1e-10\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    norm ratio, scale factors, exit code"
 
 #define DOC_TB01KD "Stable/unstable decomposition of state-space system.\n" \
     "\n" \
@@ -21945,41 +10867,7 @@
     "  c (ndarray): Output matrix (p x n)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, ndim, u, wr, wi, info): Block-diagonal A, transformed B/C, counts, eigenvalues\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb01kd\n" \
-    ">>> n, m, p = 5, 2, 3\n" \
-    ">>> alpha = -1.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  4.9200, -4.9200,       0,       0],\n" \
-    "...     [-1.387944, -3.3300,       0,       0,       0],\n" \
-    "...     [   0.5450,       0,       0, -0.5450,       0],\n" \
-    "...     [        0,       0,  4.9200, -0.04165, 4.9200],\n" \
-    "...     [        0,       0,       0, -1.387944, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0,    0.0],\n" \
-    "...     [3.3300, 0.0],\n" \
-    "...     [0.0,    0.0],\n" \
-    "...     [0.0,    0.0],\n" \
-    "...     [0.0, 3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, c_out, ndim, u, wr, wi, info = tb01kd(\n" \
-    "...     'C', 'U', 'G', alpha, a.copy(order='F'), b.copy(order='F'), c.copy(order='F')\n" \
-    "...     )\n" \
-    ">>> expected_wr = np.array([-0.7483, -0.7483, -1.6858, -1.6858, -1.8751])\n" \
-    ">>> expected_wi = np.array([2.9940, -2.9940, 2.0311, -2.0311, 0.0])\n" \
-    ">>> eig_computed = sorted(zip(wr, wi), key=lambda x: (x[0], -abs(x[1])))\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, ndim, u, wr, wi, info): Block-diagonal A, transformed B/C, counts, eigenvalues"
 
 #define DOC_TB01KX "Block-diagonalize state-space system with Schur form input.\n" \
     "\n" \
@@ -21996,37 +10884,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, c, u, v, info): Block-diagonal A, transformed B/C/U, inverse V, exit code\n" \
-    "  info=0: success, info=1: Sylvester equation failed (close eigenvalues)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb01kx\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> ndim = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.5, 0.3, 0.2],\n" \
-    "...     [ 0.0, -2.0, 0.4, 0.1],\n" \
-    "...     [ 0.0, 0.0, 1.0, 0.6],\n" \
-    "...     [ 0.0, 0.0, 0.0, 2.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.5, 1.0],\n" \
-    "...     [0.3, 0.2],\n" \
-    "...     [0.2, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.5, 0.3],\n" \
-    "...     [0.0, 1.0, 0.2, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> u = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, b_out, c_out, u_out, v_out, info = tb01kx(\n" \
-    "...     ndim, a.copy(order='F'), b.copy(order='F'), c.copy(order='F'), u.copy(order='F')\n" \
-    "...     )\n" \
-    ">>> eig_after = np.sort(np.linalg.eigvals(a_out).real)\n" \
-    ">>> info\n" \
-    "0"
+    "  info=0: success, info=1: Sylvester equation failed (close eigenvalues)"
 
 #define DOC_TB01LD "Reduce state matrix to ordered Schur form.\n" \
     "\n" \
@@ -22042,41 +10900,7 @@
     "  c (ndarray): Output matrix (p x n)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, ndim, u, wr, wi, info): Transformed matrices, counts, eigenvalues\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb01ld\n" \
-    ">>> n, m, p = 5, 2, 3\n" \
-    ">>> alpha = -1.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  4.9200, -4.9200,       0,       0],\n" \
-    "...     [-1.387944, -3.3300,       0,       0,       0],\n" \
-    "...     [   0.5450,       0,       0, -0.5450,       0],\n" \
-    "...     [        0,       0,  4.9200, -0.04165, 4.9200],\n" \
-    "...     [        0,       0,       0, -1.387944, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0,    0.0],\n" \
-    "...     [3.3300, 0.0],\n" \
-    "...     [0.0,    0.0],\n" \
-    "...     [0.0,    0.0],\n" \
-    "...     [0.0, 3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, c_out, ndim, u, wr, wi, info = tb01ld(\n" \
-    "...     'C', 'U', 'G', alpha, a.copy(order='F'), b.copy(order='F'), c.copy(order='F')\n" \
-    "...     )\n" \
-    ">>> expected_wr = np.array([-0.7483, -0.7483, -1.6858, -1.6858, -1.8751])\n" \
-    ">>> expected_wi = np.array([2.9940, -2.9940, 2.0311, -2.0311, 0.0])\n" \
-    ">>> eig_computed = sorted(zip(wr, wi), key=lambda x: (x[0], -abs(x[1])))\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, ndim, u, wr, wi, info): Transformed matrices, counts, eigenvalues"
 
 #define DOC_TB01MD "Reduce (B,A) to upper/lower controller Hessenberg form.\n" \
     "\n" \
@@ -22092,33 +10916,7 @@
     "  u (ndarray, optional): Transformation matrix (n x n), required if jobu='U'\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, u, info): Transformed A=U'AU, B=U'B, transformation U, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb01md\n" \
-    ">>> a = np.array([\n" \
-    "...     [35.0,  1.0,  6.0, 26.0, 19.0, 24.0],\n" \
-    "...     [ 3.0, 32.0,  7.0, 21.0, 23.0, 25.0],\n" \
-    "...     [31.0,  9.0,  2.0, 22.0, 27.0, 20.0],\n" \
-    "...     [ 8.0, 28.0, 33.0, 17.0, 10.0, 15.0],\n" \
-    "...     [30.0,  5.0, 34.0, 12.0, 14.0, 16.0],\n" \
-    "...     [ 4.0, 36.0, 29.0, 13.0, 18.0, 11.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [  1.0,  5.0, 11.0],\n" \
-    "...     [ -1.0,  4.0, 11.0],\n" \
-    "...     [ -5.0,  1.0,  9.0],\n" \
-    "...     [-11.0, -4.0,  5.0],\n" \
-    "...     [-19.0,-11.0, -1.0],\n" \
-    "...     [-29.0,-20.0, -9.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> n, m = 6, 3\n" \
-    ">>> a_out, b_out, u_out, info = tb01md('I', 'U', a, b)\n" \
-    ">>> eig_after = np.linalg.eigvals(a_out)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, u, info): Transformed A=U'AU, B=U'B, transformation U, exit code"
 
 #define DOC_TB01ND "Reduce (A,C) to upper/lower observer Hessenberg form.\n" \
     "\n" \
@@ -22134,28 +10932,7 @@
     "  u (ndarray, optional): Transformation matrix (n x n), required if jobu='U'\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, c, u, info): Transformed A=U'AU, C=CU, transformation U, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb01nd\n" \
-    ">>> a = np.array([\n" \
-    "...     [15.0, 20.0,  4.0,  5.0,  5.0],\n" \
-    "...     [21.0,  1.0,  1.0,  6.0, 11.0],\n" \
-    "...     [-3.0,  2.0,  7.0, 12.0, 17.0],\n" \
-    "...     [ 3.0,  8.0, 13.0, 13.0, -7.0],\n" \
-    "...     [ 9.0,  9.0, 14.0, -6.0, -1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [ 7.0, -1.0,  3.0, -6.0, -3.0],\n" \
-    "...     [ 4.0,  5.0,  6.0, -2.0, -3.0],\n" \
-    "...     [ 9.0,  8.0,  5.0,  2.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> n, p = 5, 3\n" \
-    ">>> a_out, c_out, u_out, info = tb01nd('N', 'U', a, c)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, c, u, info): Transformed A=U'AU, C=CU, transformation U, exit code"
 
 #define DOC_TB01PD "Compute minimal realization of state-space system.\n" \
     "\n" \
@@ -22177,26 +10954,7 @@
     "    - c: Reduced output matrix\n" \
     "    - nr: Order of reduced system\n" \
     "    - nblk: Staircase block structure\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 1, 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a_out, b_out, c_out, nr, iwork_out, info = tb01pd('M', 'N', a, b, c, tol)\n" \
-    ">>> ar = a_out[:nr, :nr]\n" \
-    ">>> br = b_out[:nr, :]\n" \
-    ">>> cr = c_out[:, :nr]\n" \
-    ">>> d_red = np.zeros((p, m), dtype=float)\n" \
-    "...     h_red = d_red.copy()\n" \
-    "...     else:\n" \
-    "...     a_k_red = np.linalg.matrix_power(ar, k - 1)\n" \
-    "...     h_red = cr @ a_k_red @ br\n" \
-    "...     err_msg=f\"Markov param h({k}) mismatch\")\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_TB01PX "Compute minimal/controllable/observable realization (variant).\n" \
     "\n" \
@@ -22230,51 +10988,7 @@
     "        [2]: Number of nonzero subdiagonals of Ar\n" \
     "        [3]: Number of blocks in staircase form\n" \
     "    - iwork: Block dimensions (infred[3] elements)\n" \
-    "    - info: Exit code (0 = success)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01px\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 1, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0,  2.0,  0.0],\n" \
-    "...     [4.0, -1.0,  0.0],\n" \
-    "...     [0.0,  0.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0,  1.0, -1.0],\n" \
-    "...     [0.0,  0.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_nr = 3\n" \
-    ">>> expected_infred = [-1, -1, 2, 0]\n" \
-    ">>> expected_a = np.array([\n" \
-    "...     [1.0,  2.0,  0.0],\n" \
-    "...     [4.0, -1.0,  0.0],\n" \
-    "...     [0.0,  0.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_c = np.array([\n" \
-    "...     [0.0,  1.0, -1.0],\n" \
-    "...     [0.0,  0.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(\n" \
-    "...     'M', 'N', n, m, p, a, b, c, tol=0.0)\n" \
-    "...     f\"infred[{i}]={infred[i]}, expected {expected_infred[i]}\"\n" \
-    "...     a_out[:nr, :nr], expected_a, rtol=1e-3, atol=1e-4)\n" \
-    "...     b_out[:nr, :m], expected_b, rtol=1e-3, atol=1e-4)\n" \
-    "...     c_out[:p, :nr], expected_c, rtol=1e-3, atol=1e-4)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0 = success)"
 
 #define DOC_TB01TD "Balance state-space (A,B,C,D) by permutations and scalings.\n" \
     "\n" \
@@ -22297,43 +11011,7 @@
     "    - scstat: State transformation info (n elements)\n" \
     "    - scin: Input scalings (m elements)\n" \
     "    - scout: Output scalings (p elements)\n" \
-    "    - info: Exit code (0 = success, <0 = invalid parameter)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb01td\n" \
-    ">>> n, m, p = 5, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [  0.0,   0.0,   1.0,   4.0,   5.0],\n" \
-    "...     [ 50.0,  10.0,   1.0,   0.0,   0.0],\n" \
-    "...     [  0.0,   0.0,  90.0,  10.0,   0.0],\n" \
-    "...     [  0.0,   1.0,   1.0,   1.0,   1.0],\n" \
-    "...     [100.0,   0.0,   0.0,   0.0,  70.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0,   0.0],\n" \
-    "...     [2.0,  20.0],\n" \
-    "...     [0.0, 100.0],\n" \
-    "...     [1.0,   1.0],\n" \
-    "...     [2.0,   0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [1.0, 1.0, 0.0, 2.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> low, igh, scstat, scin, scout, info = tb01td(n, m, p, a, b, c, d)\n" \
-    ">>> eig_bal = np.linalg.eigvals(a)\n" \
-    ">>> I = np.eye(n)\n" \
-    "...     sI_minus_A_bal = s * I - a\n" \
-    "...     G_bal_raw = c @ np.linalg.solve(sI_minus_A_bal, b) + d\n" \
-    "...     G_reconstructed = np.diag(1.0 / scout) @ G_bal_raw @ np.diag(scin)\n" \
-    ">>> info\n" \
-    "0"
+    "    - info: Exit code (0 = success, <0 = invalid parameter)"
 
 #define DOC_TB01TY "Balance rows/columns of a matrix block using integer powers of BASE.\n" \
     "\n" \
@@ -22350,30 +11028,7 @@
     "  x (ndarray): Matrix to balance (F-order), modified in-place\n" \
     "\n" \
     "Returns:\n" \
-    "  (x, bvect, info): Balanced matrix, scale factors, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01ty\n" \
-    ">>> import numpy as np\n" \
-    ">>> nrow = 3\n" \
-    ">>> ncol = 2\n" \
-    ">>> ioff = 0\n" \
-    ">>> joff = 0\n" \
-    ">>> size = 1.0\n" \
-    ">>> mode = 1  # Column balance\n" \
-    ">>> x = np.array([\n" \
-    "...     [0.001, 100.0],\n" \
-    "...     [0.002, 200.0],\n" \
-    "...     [0.003, 300.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)\n" \
-    ">>> base = 2.0\n" \
-    "...     sf = bvect[joff + j]\n" \
-    "...     log_sf = np.log(sf) / np.log(base)\n" \
-    "...     col_norm = np.sum(np.abs(x_out[:, joff + j]))\n" \
-    ">>> info\n" \
-    "0"
+    "  (x, bvect, info): Balanced matrix, scale factors, exit code"
 
 #define DOC_TB01UD "Reduce state-space system to controllability staircase form.\n" \
     "\n" \
@@ -22391,54 +11046,7 @@
     "  tol (float, optional): Tolerance for rank determination (default: 0.0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, ncont, indcon, nblk, z, tau, info): Transformed system and metadata\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01ud\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0],\n" \
-    "...     [-2.0, -2.0, -2.0],\n" \
-    "...     [-1.0,  0.0, -3.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 2.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 2.0, 1.0],\n" \
-    "...     [1.0, 0.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_ncont = 2\n" \
-    ">>> expected_indcon = 1\n" \
-    ">>> expected_nblk = [2]\n" \
-    ">>> expected_acont = np.array([\n" \
-    "...     [-3.0000,  2.2361],\n" \
-    "...     [ 0.0000, -1.0000]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_bcont = np.array([\n" \
-    "...     [ 0.0000, -2.2361],\n" \
-    "...     [ 1.0000,  0.0000]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_ccont = np.array([\n" \
-    "...     [-2.2361,  0.0000],\n" \
-    "...     [ 0.0000,  1.0000]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_z = np.array([\n" \
-    "...     [ 0.0000,  1.0000,  0.0000],\n" \
-    "...     [-0.8944,  0.0000, -0.4472],\n" \
-    "...     [-0.4472,  0.0000,  0.8944]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(\n" \
-    "...     'I', n, m, p, a, b, c, tol=0.0)\n" \
-    "...     a_out[:ncont, :ncont], expected_acont, rtol=1e-3, atol=1e-4)\n" \
-    "...     b_out[:ncont, :], expected_bcont, rtol=1e-3, atol=1e-4)\n" \
-    "...     c_out[:, :ncont], expected_ccont, rtol=1e-3, atol=1e-4)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, ncont, indcon, nblk, z, tau, info): Transformed system and metadata"
 
 #define DOC_TB01UX "Reduce state-space system to observability staircase form.\n" \
     "\n" \
@@ -22457,27 +11065,7 @@
     "  tol (float, optional): Tolerance for rank determination (default: 0.0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, nobsv, nlblck, ctau, z, info): Transformed system and metadata\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01ux\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [0, 1, 0],\n" \
-    "...     [0, 0, 1],\n" \
-    "...     [-1, -2, -3]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.random.randn(n, m).astype(np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1, 0, 0],\n" \
-    "...     [0, 1, 0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(\n" \
-    "...     'I', n, m, p, a, b, c, tol=0.0)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, nobsv, nlblck, ctau, z, info): Transformed system and metadata"
 
 #define DOC_TB01UY "Controllable realization for M1+M2 input system.\n" \
     "\n" \
@@ -22500,54 +11088,7 @@
     "  (a, b, c, ncont, indcon, nblk, z, tau, info): Transformed system and metadata\n" \
     "    ncont: Controllable subsystem order\n" \
     "    indcon: Controllability index (always even)\n" \
-    "    nblk: Block dimensions (2*n array, INDCON/2 odd+even pairs)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01uy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m1, m2, p = 3, 1, 1, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0],\n" \
-    "...     [-2.0, -2.0, -2.0],\n" \
-    "...     [-1.0,  0.0, -3.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 2.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 2.0, 1.0],\n" \
-    "...     [1.0, 0.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_ncont = 2\n" \
-    ">>> expected_indcon = 2\n" \
-    ">>> expected_nblk = [1, 1]\n" \
-    ">>> expected_acont = np.array([\n" \
-    "...     [-1.0000,  0.0000],\n" \
-    "...     [ 2.2361, -3.0000]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_bcont = np.array([\n" \
-    "...     [1.0000,  0.0000],\n" \
-    "...     [0.0000, -2.2361]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_ccont = np.array([\n" \
-    "...     [0.0000, -2.2361],\n" \
-    "...     [1.0000,  0.0000]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_z = np.array([\n" \
-    "...     [ 1.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.0000, -0.8944, -0.4472],\n" \
-    "...     [ 0.0000, -0.4472,  0.8944]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(\n" \
-    "...     'I', n, m1, m2, p, a, b, c, tol=0.0)\n" \
-    "...     a_out[:ncont, :ncont], expected_acont, rtol=1e-3, atol=1e-4)\n" \
-    "...     b_out[:ncont, :], expected_bcont, rtol=1e-3, atol=1e-4)\n" \
-    "...     c_out[:, :ncont], expected_ccont, rtol=1e-3, atol=1e-4)\n" \
-    ">>> info\n" \
-    "0"
+    "    nblk: Block dimensions (2*n array, INDCON/2 odd+even pairs)"
 
 #define DOC_TB01VD "Convert discrete-time system to output normal form.\n" \
     "\n" \
@@ -22567,33 +11108,7 @@
     "\n" \
     "Returns:\n" \
     "  (theta, a, b, c, scale, info): Parameter vector, transformed matrices, scale factor, exit code\n" \
-    "  info=0: success, info=1: Lyapunov scale=0, info=2: unstable A, info=3: QR failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01vd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, l = 2, 1, 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.1],\n" \
-    "...     [0.0, 0.3]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x0 = np.array([0.1, 0.2], dtype=float)\n" \
-    ">>> theta, a_out, b_out, c_out, scale, info = tb01vd(\n" \
-    "...     n, m, l, a, b, c, d, x0, apply='N'\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  info=0: success, info=1: Lyapunov scale=0, info=2: unstable A, info=3: QR failed"
 
 #define DOC_TB01VY "Convert output normal form to state-space representation.\n" \
     "\n" \
@@ -22605,32 +11120,7 @@
     "  apply (str, optional): 'A' = apply bijective mapping, 'N' = no mapping (default)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, d, x0, info): State-space matrices, initial state, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01vy\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> m = 1\n" \
-    ">>> l = 2\n" \
-    ">>> theta = np.array([\n" \
-    "...     0.1, 0.2, 0.3, 0.4,\n" \
-    "...     0.5, 0.6,\n" \
-    "...     0.7, 0.8,\n" \
-    "...     0.9, 1.0\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='N')\n" \
-    ">>> eig_a = np.linalg.eigvals(a)\n" \
-    ">>> t = np.arange(10)\n" \
-    ">>> u_seq = np.zeros((len(t), m))\n" \
-    ">>> u_seq[0, 0] = 1.0  # Impulse at t=0\n" \
-    ">>> x_k = x0.copy()\n" \
-    ">>> y_out = np.zeros((len(t), l))\n" \
-    "...     y_out[k, :] = (c @ x_k + d @ u_seq[k, :]).flatten()\n" \
-    "...     x_k = a @ x_k + b @ u_seq[k, :]\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, d, x0, info): State-space matrices, initial state, exit code"
 
 #define DOC_TB01WD "Reduce state matrix to real Schur form via orthogonal transformation.\n" \
     "\n" \
@@ -22643,64 +11133,7 @@
     "  c (ndarray): Output matrix (p x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, u, wr, wi, info): Transformed system, Schur vectors, eigenvalues, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01wd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 5, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,    4.9200,   -4.9200,         0,         0],\n" \
-    "...     [-1.387944,   -3.3300,         0,         0,         0],\n" \
-    "...     [   0.5450,         0,         0,   -0.5450,         0],\n" \
-    "...     [        0,         0,    4.9200,  -0.04165,    4.9200],\n" \
-    "...     [        0,         0,         0, -1.387944,   -3.3300]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [       0,         0],\n" \
-    "...     [  3.3300,         0],\n" \
-    "...     [       0,         0],\n" \
-    "...     [       0,         0],\n" \
-    "...     [       0,    3.3300]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_wr = np.array([-0.7483, -0.7483, -1.6858, -1.6858, -1.8751])\n" \
-    ">>> expected_wi = np.array([2.9940, -2.9940, 2.0311, -2.0311, 0.0])\n" \
-    ">>> expected_a = np.array([\n" \
-    "...     [-0.7483,  -8.6406,   0.0000,   0.0000,   1.1745],\n" \
-    "...     [ 1.0374,  -0.7483,   0.0000,   0.0000,  -2.1164],\n" \
-    "...     [ 0.0000,   0.0000,  -1.6858,   5.5669,   0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  -0.7411,  -1.6858,   0.0000],\n" \
-    "...     [ 0.0000,   0.0000,   0.0000,   0.0000,  -1.8751]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_b = np.array([\n" \
-    "...     [-0.5543,   0.5543],\n" \
-    "...     [-1.6786,   1.6786],\n" \
-    "...     [-0.8621,  -0.8621],\n" \
-    "...     [ 2.1912,   2.1912],\n" \
-    "...     [-1.5555,   1.5555]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_c = np.array([\n" \
-    "...     [ 0.6864,  -0.0987,   0.6580,   0.2589,  -0.1381],\n" \
-    "...     [-0.0471,   0.6873,   0.0000,   0.0000,  -0.7249],\n" \
-    "...     [-0.6864,   0.0987,   0.6580,   0.2589,   0.1381]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_u = np.array([\n" \
-    "...     [ 0.6864,  -0.0987,   0.6580,   0.2589,  -0.1381],\n" \
-    "...     [-0.1665,  -0.5041,  -0.2589,   0.6580,  -0.4671],\n" \
-    "...     [-0.0471,   0.6873,   0.0000,   0.0000,  -0.7249],\n" \
-    "...     [-0.6864,   0.0987,   0.6580,   0.2589,   0.1381],\n" \
-    "...     [ 0.1665,   0.5041,  -0.2589,   0.6580,   0.4671]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, b_out, c_out, u, wr, wi, info = slicot.tb01wd(n, m, p, a, b, c)\n" \
-    ">>> u_orth = u.T @ u\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, u, wr, wi, info): Transformed system, Schur vectors, eigenvalues, exit code"
 
 #define DOC_TB01WX "Reduce state matrix to upper Hessenberg form via orthogonal similarity.\n" \
     "\n" \
@@ -22718,35 +11151,7 @@
     "  ldwork (int, optional): Workspace size (-1 for query, default: automatic)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, u, dwork, info): Hessenberg A, transformed B and C, transformation U, workspace, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01wx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 5, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [-0.04165,  4.9200, -4.9200,  0.0000,  0.0000],\n" \
-    "...     [-1.387944, -3.3300,  0.0000,  0.0000,  0.0000],\n" \
-    "...     [ 0.5450,   0.0000,  0.0000, -0.5450,  0.0000],\n" \
-    "...     [ 0.0000,   0.0000,  4.9200, -0.04165,  4.9200],\n" \
-    "...     [ 0.0000,   0.0000,  0.0000, -1.387944, -3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [3.3300,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  0.0000],\n" \
-    "...     [0.0000,  3.3300]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_hess, b_trans, c_trans, u, dwork, info = tb01wx('I', n, m, p, a, b, c)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, u, dwork, info): Hessenberg A, transformed B and C, transformation U, workspace, exit code"
 
 #define DOC_TB01XD "Special similarity transformation of dual state-space system.\n" \
     "\n" \
@@ -22766,19 +11171,7 @@
     "  d (ndarray): Feedthrough matrix (max(m,p) x max(m,p), F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, d, info): Transformed matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01xd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> kl = n - 1\n" \
-    ">>> ku = n - 1\n" \
-    ">>> a_out, b_out, c_out, d_out, info = tb01xd('D', n, m, p, kl, ku, a, b, c, d)\n" \
-    ">>> P = create_permutation_matrix(n)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, d, info): Transformed matrices and exit code"
 
 #define DOC_TB01XZ "Special similarity transformation of dual state-space system (complex).\n" \
     "\n" \
@@ -22799,19 +11192,7 @@
     "  d (ndarray): Complex feedthrough matrix (max(m,p) x max(m,p), F-order, dtype=complex)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, d, info): Transformed complex matrices and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01xz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> kl = n - 1\n" \
-    ">>> ku = n - 1\n" \
-    ">>> a_out, b_out, c_out, d_out, info = tb01xz('D', n, m, p, kl, ku, a, b, c, d)\n" \
-    ">>> P = create_permutation_matrix(n)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, d, info): Transformed complex matrices and exit code"
 
 #define DOC_TB01ZD "Controllable realization for single-input system.\n" \
     "\n" \
@@ -22828,27 +11209,7 @@
     "  tol (float, optional): Tolerance for controllability (default: 0.0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, ncont, z, tau, info): Transformed system and metadata\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb01zd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, p = 3, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0],\n" \
-    "...     [-1.0, -2.0, -3.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([0.0, 0.0, 1.0], dtype=np.float64)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(\n" \
-    "...     'I', n, p, a, b, c, tol=0.0)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, b, c, ncont, z, tau, info): Transformed system and metadata"
 
 #define DOC_TB03AD "Convert state-space to polynomial matrix fraction.\n" \
     "\n" \
@@ -22868,52 +11229,7 @@
     "  tol (float): Tolerance for rank decisions (default 0.0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, b, c, nr, index, pcoeff, qcoeff, vcoeff, iwork, info)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb03ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 1, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 0.0],\n" \
-    "...     [4.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 1.0, -1.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_nr = 3\n" \
-    ">>> expected_index = np.array([3], dtype=np.int32)\n" \
-    ">>> expected_amin = np.array([\n" \
-    "...     [1.0000, -1.4142, 0.0000],\n" \
-    "...     [-2.8284, -1.0000, 2.8284],\n" \
-    "...     [0.0000, 1.4142, 1.0000]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> expected_pcoeff = np.array([0.1768, -0.1768, -1.5910, 1.5910],\n" \
-    "...     dtype=np.float64)\n" \
-    ">>> expected_qcoeff_row1 = np.array([0.0000, -0.1768, 0.7071, 0.8839],\n" \
-    "...     dtype=np.float64)\n" \
-    ">>> expected_qcoeff_row2 = np.array([0.1768, 0.0000, -1.5910, 0.0000],\n" \
-    "...     dtype=np.float64)\n" \
-    ">>> result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)\n" \
-    ">>> a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result\n" \
-    ">>> actual_eigs = np.sort(np.linalg.eigvals(a_out[:nr, :nr]).real)\n" \
-    ">>> expected_eigs = np.sort(np.linalg.eigvals(expected_amin).real)\n" \
-    ">>> kpcoef = max(index[:m]) + 1\n" \
-    "...     pcoeff[0, 0, :kpcoef], expected_pcoeff, rtol=1e-3, atol=1e-4)\n" \
-    "...     qcoeff[0, 0, :kpcoef], expected_qcoeff_row1, rtol=1e-3, atol=1e-4)\n" \
-    "...     qcoeff[1, 0, :kpcoef], expected_qcoeff_row2, rtol=1e-3, atol=1e-4)"
+    "  (a, b, c, nr, index, pcoeff, qcoeff, vcoeff, iwork, info)"
 
 #define DOC_TB03AY "Compute polynomial matrix V(s) block by block.\n" \
     "\n" \
@@ -22927,32 +11243,7 @@
     "  pcoeff (ndarray): P(s) coefficient array (workspace)\n" \
     "\n" \
     "Returns:\n" \
-    "  (vcoeff, pcoeff, info): Modified arrays and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb03ay\n" \
-    ">>> import numpy as np\n" \
-    ">>> nr = 1\n" \
-    ">>> indblk = 1\n" \
-    ">>> nblk = np.array([1], dtype=np.int32)\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 1.0],\n" \
-    "...     [0.0, 3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> lda = 2\n" \
-    ">>> ldvco1 = 1\n" \
-    ">>> ldvco2 = nr\n" \
-    ">>> ldpco1 = 1\n" \
-    ">>> ldpco2 = 1\n" \
-    ">>> vcoeff = np.zeros((ldvco1, ldvco2, indblk + 1), dtype=float, order='F')\n" \
-    ">>> vcoeff[0, 0, indblk] = 1.0\n" \
-    ">>> pcoeff = np.zeros((ldpco1, ldpco2, indblk + 1), dtype=float, order='F')\n" \
-    ">>> vcoeff_out, pcoeff_out, info = tb03ay(\n" \
-    "...     nr, a, nblk, vcoeff, pcoeff\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (vcoeff, pcoeff, info): Modified arrays and exit code"
 
 #define DOC_TB04AD "Convert state-space to transfer function representation.\n" \
     "\n" \
@@ -22976,42 +11267,7 @@
     "    index: Degrees of denominator polynomials\n" \
     "    dcoeff: Denominator polynomial coefficients\n" \
     "    ucoeff: Numerator polynomial coefficients\n" \
-    "    info: 0=success\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb04ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0],\n" \
-    "...     [ 0.0, -2.0,  0.0],\n" \
-    "...     [ 0.0,  0.0, -3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0,  1.0],\n" \
-    "...     [ 1.0,  1.0],\n" \
-    "...     [-1.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, b_out, c_out, d_out, nr, index, dcoeff, ucoeff, info = tb04ad('R', a, b, c, d)\n" \
-    "...     s = 1j * omega\n" \
-    "...     eye = np.eye(n)\n" \
-    "...     t_direct = c @ np.linalg.solve(s * eye - a, b) + d\n" \
-    "...     t_poly = np.zeros((p, m), dtype=complex)\n" \
-    "...     deg = index[i]\n" \
-    "...     den_val = sum(dcoeff[i, k] * s**(deg - k) for k in range(deg + 1))\n" \
-    "...     num_val = sum(ucoeff[i, j, k] * s**(deg - k) for k in range(deg + 1))\n" \
-    "...     t_poly[i, j] = num_val / den_val\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success"
 
 #define DOC_TB04BD "Transfer function matrix via pole-zero method.\n" \
     "\n" \
@@ -23039,39 +11295,7 @@
     "    igd: Denominator degrees (p x m, int32)\n" \
     "    gn: Numerator coefficients (p*m*md,)\n" \
     "    gd: Denominator coefficients (p*m*md,)\n" \
-    "    info: 0=success, 1=QR failed for zeros, 2=QR failed for poles\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb04bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> md = n + 1\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0],\n" \
-    "...     [ 0.0, -2.0,  0.0],\n" \
-    "...     [ 0.0,  0.0, -3.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [-1.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> ign, igd, gn, gd, info = tb04bd('D', 'I', 'N', n, m, p, md, a, b, c, d, tol=1e-10)\n" \
-    ">>> idx = 0  # (i=0, j=0) -> index = ((0)*p + 0)*md = 0\n" \
-    ">>> idx = 1 * md  # (i=1, j=0) -> index = ((0)*p + 1)*md = md\n" \
-    ">>> idx = p * md  # (i=0, j=1) -> index = ((1)*p + 0)*md = p*md\n" \
-    ">>> idx = (p + 1) * md  # (i=1, j=1) -> index = ((1)*p + 1)*md = (p+1)*md\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=QR failed for zeros, 2=QR failed for poles"
 
 #define DOC_TB04BV "Separate strictly proper part from constant part of transfer function matrix.\n" \
     "\n" \
@@ -23094,20 +11318,7 @@
     "    ign: Updated numerator degrees of G0\n" \
     "    gn: Updated numerator coefficients of G0\n" \
     "    d: Feedthrough matrix D (p x m)\n" \
-    "    info: 0=success, 1=not proper, 2=null denominator\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb04bv\n" \
-    ">>> import numpy as np\n" \
-    ">>> p, m, md = 1, 1, 2\n" \
-    ">>> ign = np.array([[1]], order='F', dtype=np.int32)\n" \
-    ">>> igd = np.array([[1]], order='F', dtype=np.int32)\n" \
-    ">>> gn = np.array([5.0, 1.0], order='F', dtype=float)\n" \
-    ">>> gd = np.array([3.0, 1.0], order='F', dtype=float)\n" \
-    ">>> ign_out, gn_out, d, info = tb04bv('I', p, m, md, ign, igd, gn, gd)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=not proper, 2=null denominator"
 
 #define DOC_TB04BW "Add real matrix D to rational matrix G (G + D).\n" \
     "\n" \
@@ -23132,21 +11343,7 @@
     "  (ign, gn, info):\n" \
     "    ign: Updated numerator degrees of G + D\n" \
     "    gn: Updated numerator coefficients of G + D\n" \
-    "    info: 0=success, -i=parameter i invalid\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb04bw\n" \
-    ">>> import numpy as np\n" \
-    ">>> p, m, md = 1, 1, 2\n" \
-    ">>> ign = np.array([[1]], dtype=np.int32, order='F')\n" \
-    ">>> igd = np.array([[1]], dtype=np.int32, order='F')\n" \
-    ">>> gn = np.array([1.0, 2.0], dtype=np.float64, order='F')\n" \
-    ">>> gd = np.array([1.0, 1.0], dtype=np.float64, order='F')\n" \
-    ">>> d = np.array([[3.0]], dtype=np.float64, order='F')\n" \
-    ">>> ign_out, gn_out, info = tb04bw('I', p, m, md, ign, igd, gn, gd, d)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, -i=parameter i invalid"
 
 #define DOC_TB04BX "Compute gain of SISO system from state-space, poles, and zeros.\n" \
     "\n" \
@@ -23173,23 +11370,7 @@
     "  zi (ndarray): Imaginary parts of zeros (iz,)\n" \
     "\n" \
     "Returns:\n" \
-    "  gain (float): Computed gain of the linear system\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tb04bx\n" \
-    ">>> ip = 1\n" \
-    ">>> iz = 0\n" \
-    ">>> a = np.array([[-1.0]], order='F', dtype=float)\n" \
-    ">>> b = np.array([1.0], dtype=float)\n" \
-    ">>> c = np.array([2.0], dtype=float)\n" \
-    ">>> d = 0.0\n" \
-    ">>> pr = np.array([-1.0], dtype=float)\n" \
-    ">>> pi = np.array([0.0], dtype=float)\n" \
-    ">>> zr = np.array([], dtype=float)\n" \
-    ">>> zi = np.array([], dtype=float)\n" \
-    ">>> gain = tb04bx(ip, iz, a, b, c, d, pr, pi, zr, zi)"
+    "  gain (float): Computed gain of the linear system"
 
 #define DOC_TB04CD "State-space to minimal pole-zero-gain form.\n" \
     "\n" \
@@ -23216,41 +11397,7 @@
     "    polesr: Real parts of poles (p*m*npz,)\n" \
     "    polesi: Imaginary parts of poles (p*m*npz,)\n" \
     "    gains: Gain of each element (p x m)\n" \
-    "    info: 0=success, 1=QR failed for zeros, 2=QR failed for poles\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb04cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 2, 2\n" \
-    ">>> npz = n\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0],\n" \
-    "...     [ 0.0, -2.0,  0.0],\n" \
-    "...     [ 0.0,  0.0, -3.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 0.0,  1.0],\n" \
-    "...     [ 1.0,  1.0],\n" \
-    "...     [-1.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 1.0, 1.0],\n" \
-    "...     [1.0, 1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> nz, np_arr, zerosr, zerosi, polesr, polesi, gains, info = tb04cd(\n" \
-    "...     'D', 'N', a, b, c, d, npz, tol=0.0\n" \
-    "...     )\n" \
-    ">>> idx_11 = 0  # ((1-1)*2 + 1-1)*3 = 0\n" \
-    ">>> zeros_11 = np.sort(zerosr[idx_11:idx_11+nz[0, 0]])\n" \
-    ">>> zeros_11_imag = np.sort(np.abs(zerosi[idx_11:idx_11+nz[0, 0]]))\n" \
-    ">>> poles_11 = np.sort(polesr[idx_11:idx_11+np_arr[0, 0]])\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0=success, 1=QR failed for zeros, 2=QR failed for poles"
 
 #define DOC_TB05AD "Frequency response matrix of state-space system.\n" \
     "\n" \
@@ -23266,37 +11413,7 @@
     "\n" \
     "Returns:\n" \
     "  (g, rcond, evre, evim, hinvb, info): Frequency response G(freq),\n" \
-    "    condition estimate, eigenvalues (real/imag), H^(-1)*B, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tb05ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 3, 1, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 0.0],\n" \
-    "...     [4.0, -1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.0],\n" \
-    "...     [1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, -1.0],\n" \
-    "...     [0.0, 0.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> freq = 0.0 + 0.5j\n" \
-    ">>> g, rcond, evre, evim, hinvb, info = tb05ad(\n" \
-    "...     'A', 'G', a, b, c, freq\n" \
-    "...     )\n" \
-    ">>> eig_computed = evre + 1j * evim\n" \
-    "...     sorted(eig_computed.real),\n" \
-    "...     rtol=1e-13\n" \
-    ">>> )\n" \
-    ">>> info\n" \
-    "0"
+    "    condition estimate, eigenvalues (real/imag), H^(-1)*B, exit code"
 
 #define DOC_TC01OD "Find dual polynomial matrix representation.\n" \
     "\n" \
@@ -23312,28 +11429,7 @@
     "  qcoeff (ndarray): Numerator polynomial coefficients (max(m,p) x max(m,p) x indlim, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (pcoeff, qcoeff, info): Transposed coefficient matrices, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tc01od\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 2\n" \
-    ">>> p = 2\n" \
-    ">>> indlim = 3\n" \
-    ">>> pcoeff = np.zeros((p, p, indlim), dtype=float, order='F')\n" \
-    ">>> pcoeff[0, 0, :] = [2.0, 3.0, 1.0]\n" \
-    ">>> pcoeff[0, 1, :] = [4.0, -1.0, -1.0]\n" \
-    ">>> pcoeff[1, 0, :] = [5.0, 7.0, -6.0]\n" \
-    ">>> pcoeff[1, 1, :] = [3.0, 2.0, 2.0]\n" \
-    ">>> qcoeff = np.zeros((p, m, indlim), dtype=float, order='F')\n" \
-    ">>> qcoeff[0, 0, :] = [6.0, -1.0, 5.0]\n" \
-    ">>> qcoeff[0, 1, :] = [1.0, 7.0, 5.0]\n" \
-    ">>> qcoeff[1, 0, :] = [1.0, 1.0, 1.0]\n" \
-    ">>> qcoeff[1, 1, :] = [4.0, 1.0, -1.0]\n" \
-    ">>> pcoeff_out, qcoeff_out, info = tc01od('L', m, p, pcoeff, qcoeff)\n" \
-    ">>> info\n" \
-    "0"
+    "  (pcoeff, qcoeff, info): Transposed coefficient matrices, exit code"
 
 #define DOC_TC04AD "Convert polynomial matrix representation to state-space.\n" \
     "\n" \
@@ -23355,27 +11451,7 @@
     "Returns:\n" \
     "  (n, rcond, a, b, c, d, info): State order, condition number,\n" \
     "    state-space matrices (A n-by-n, B n-by-m, C p-by-n, D p-by-m), exit code\n" \
-    "    info=1 means P(s) is not row/column proper\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tc04ad\n" \
-    ">>> m, p = 2, 2\n" \
-    ">>> index = np.array([2, 2], dtype=np.int32)\n" \
-    ">>> pcoeff = np.zeros((p, p, 3), order='F', dtype=float)\n" \
-    ">>> pcoeff[0, 0, :] = [2.0, 3.0, 1.0]\n" \
-    ">>> pcoeff[0, 1, :] = [4.0, -1.0, -1.0]\n" \
-    ">>> pcoeff[1, 0, :] = [5.0, 7.0, -6.0]\n" \
-    ">>> pcoeff[1, 1, :] = [3.0, 2.0, 2.0]\n" \
-    ">>> qcoeff = np.zeros((p, m, 3), order='F', dtype=float)\n" \
-    ">>> qcoeff[0, 0, :] = [6.0, -1.0, 5.0]\n" \
-    ">>> qcoeff[0, 1, :] = [1.0, 7.0, 5.0]\n" \
-    ">>> qcoeff[1, 0, :] = [1.0, 1.0, 1.0]\n" \
-    ">>> qcoeff[1, 1, :] = [4.0, 1.0, -1.0]\n" \
-    ">>> n, rcond, a, b, c, d, info = tc04ad('L', m, p, index, pcoeff, qcoeff)\n" \
-    ">>> info\n" \
-    "0"
+    "    info=1 means P(s) is not row/column proper"
 
 #define DOC_TC05AD "Evaluate transfer matrix at complex frequency.\n" \
     "\n" \
@@ -23398,33 +11474,7 @@
     "Returns:\n" \
     "  (rcond, cfreqr, info): Reciprocal condition of P(SVAL),\n" \
     "    complex frequency response matrix (p x m), exit code.\n" \
-    "    info=1 means P(SVAL) is exactly or nearly singular.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tc05ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> m = 2\n" \
-    ">>> p = 2\n" \
-    ">>> sval = complex(0.0, 0.5)\n" \
-    ">>> index = np.array([2, 2], dtype=np.int32)\n" \
-    ">>> pcoeff = np.zeros((2, 2, 3), dtype=np.float64, order='F')\n" \
-    ">>> pcoeff[0, 0, :] = [2.0, 3.0, 1.0]\n" \
-    ">>> pcoeff[0, 1, :] = [4.0, -1.0, -1.0]\n" \
-    ">>> pcoeff[1, 0, :] = [5.0, 7.0, -6.0]\n" \
-    ">>> pcoeff[1, 1, :] = [3.0, 2.0, 2.0]\n" \
-    ">>> qcoeff = np.zeros((2, 2, 3), dtype=np.float64, order='F')\n" \
-    ">>> qcoeff[0, 0, :] = [6.0, -1.0, 5.0]\n" \
-    ">>> qcoeff[0, 1, :] = [1.0, 7.0, 5.0]\n" \
-    ">>> qcoeff[1, 0, :] = [1.0, 1.0, 1.0]\n" \
-    ">>> qcoeff[1, 1, :] = [4.0, 1.0, -1.0]\n" \
-    ">>> rcond, cfreqr, info = tc05ad('L', m, p, sval, index, pcoeff, qcoeff)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [complex(-0.25, -0.33), complex(0.26, -0.45)],\n" \
-    "...     [complex(-1.48, 0.35), complex(-2.25, -1.11)]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> info\n" \
-    "0"
+    "    info=1 means P(SVAL) is exactly or nearly singular."
 
 #define DOC_TD03AD "Polynomial matrix representation for proper transfer matrix.\n" \
     "\n" \
@@ -23460,31 +11510,7 @@
     "    qcoeff (ndarray): Numerator matrix Q(s) coefficients\n" \
     "    vcoeff (ndarray): Intermediate matrix V(s) coefficients\n" \
     "    iwork (ndarray): Diagonal block orders of A\n" \
-    "    info (int): Exit code, 0 = success\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import td03ad\n" \
-    ">>> m, p = 2, 2\n" \
-    ">>> rowcol = 'R'\n" \
-    ">>> leri = 'L'\n" \
-    ">>> equil = 'N'\n" \
-    ">>> tol = 0.0\n" \
-    ">>> indexd = np.array([3, 3], dtype=np.int32)\n" \
-    ">>> kdcoef = 4\n" \
-    ">>> dcoeff = np.array([\n" \
-    "...     [1.0, 6.0, 11.0, 6.0],\n" \
-    "...     [1.0, 6.0, 11.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ucoeff = np.zeros((p, m, kdcoef), order='F', dtype=float)\n" \
-    ">>> ucoeff[0, 0, :] = [1.0, 6.0, 12.0, 7.0]\n" \
-    ">>> ucoeff[0, 1, :] = [0.0, 1.0, 4.0, 3.0]\n" \
-    ">>> ucoeff[1, 0, :] = [0.0, 0.0, 1.0, 1.0]\n" \
-    ">>> ucoeff[1, 1, :] = [1.0, 8.0, 20.0, 15.0]\n" \
-    ">>> (nr, a, b, c, d, indexp, pcoeff, qcoeff, vcoeff, iwork, info) = td03ad(\n" \
-    "...     rowcol, leri, equil, m, p, indexd, dcoeff, ucoeff, tol\n" \
-    "...     )"
+    "    info (int): Exit code, 0 = success"
 
 #define DOC_TD03AY "Calculate state-space from polynomial row vectors over diagonal denominators.\n" \
     "\n" \
@@ -23501,21 +11527,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, b, c, d, info): State-space matrices, exit code.\n" \
-    "    info > 0 means row info has near-zero leading coefficient.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import td03ay\n" \
-    ">>> mwork, pwork = 1, 1\n" \
-    ">>> n = 1\n" \
-    ">>> index = np.array([1], dtype=np.int32)\n" \
-    ">>> dcoeff = np.array([[1.0, 3.0]], order='F', dtype=float)\n" \
-    ">>> ucoeff = np.zeros((1, 1, 2), order='F', dtype=float)\n" \
-    ">>> ucoeff[0, 0, :] = [2.0, 1.0]\n" \
-    ">>> a, b, c, d, info = td03ay(mwork, pwork, index, dcoeff, ucoeff, n)\n" \
-    ">>> info\n" \
-    "0"
+    "    info > 0 means row info has near-zero leading coefficient."
 
 #define DOC_TD04AD "Minimal state-space representation from transfer function.\n" \
     "\n" \
@@ -23537,29 +11549,7 @@
     "\n" \
     "Returns:\n" \
     "  (nr, a, b, c, d, info): Minimal order, state-space matrices, exit code.\n" \
-    "    info > 0 means row info has near-zero leading coefficient.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import td04ad\n" \
-    ">>> m, p = 2, 2\n" \
-    ">>> rowcol = 'R'\n" \
-    ">>> tol = 0.0\n" \
-    ">>> index = np.array([3, 3], dtype=np.int32)\n" \
-    ">>> kdcoef = 4\n" \
-    ">>> dcoeff = np.array([\n" \
-    "...     [1.0, 6.0, 11.0, 6.0],\n" \
-    "...     [1.0, 6.0, 11.0, 6.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> ucoeff = np.zeros((p, m, kdcoef), order='F', dtype=float)\n" \
-    ">>> ucoeff[0, 0, :] = [1.0, 6.0, 12.0, 7.0]\n" \
-    ">>> ucoeff[0, 1, :] = [0.0, 1.0, 4.0, 3.0]\n" \
-    ">>> ucoeff[1, 0, :] = [0.0, 0.0, 1.0, 1.0]\n" \
-    ">>> ucoeff[1, 1, :] = [1.0, 8.0, 20.0, 15.0]\n" \
-    ">>> nr, a, b, c, d, info = td04ad(rowcol, m, p, index, dcoeff, ucoeff, tol)\n" \
-    ">>> info\n" \
-    "0"
+    "    info > 0 means row info has near-zero leading coefficient."
 
 #define DOC_TD05AD "Evaluate transfer function G(jW) at specified frequency.\n" \
     "\n" \
@@ -23583,20 +11573,7 @@
     "  (valr, vali, info): Output values and exit code.\n" \
     "    For OUTPUT='C': valr = Re(G), vali = Im(G)\n" \
     "    For OUTPUT='P': valr = magnitude in dB, vali = phase in degrees\n" \
-    "    info=1 means W is a pole or all A coefficients are zero.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import td05ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> np1 = 6  # Denominator order + 1\n" \
-    ">>> mp1 = 4  # Numerator order + 1\n" \
-    ">>> w = 1.0\n" \
-    ">>> a = np.array([1.0, 1.0, 0.0, 0.0, 2.0, 1.0], dtype=float)\n" \
-    ">>> b = np.array([6.0, 2.0, 3.0, 1.0], dtype=float)\n" \
-    ">>> valr, vali, info = td05ad('R', 'C', np1, mp1, w, a, b)\n" \
-    ">>> info\n" \
-    "0"
+    "    info=1 means W is a pole or all A coefficients are zero."
 
 #define DOC_TF01MD "Output response sequence of discrete-time state-space system.\n" \
     "\n" \
@@ -23611,46 +11588,7 @@
     "  x (ndarray): Initial state vector (n,), modified in-place\n" \
     "\n" \
     "Returns:\n" \
-    "  (y, x_final, info): Output sequence (p x ny), final state, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01md\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p, ny = 3, 2, 2, 10\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0000, 1.0000, 0.0000],\n" \
-    "...     [-0.0700, 0.8000, 0.0000],\n" \
-    "...     [0.0150, -0.1500, 0.5000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0000, -1.0000],\n" \
-    "...     [2.0000, -0.1000],\n" \
-    "...     [1.0000, 1.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0000, 0.0000, 1.0000],\n" \
-    "...     [1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0000, 0.0000],\n" \
-    "...     [0.5000, 0.5000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x0 = np.array([1.0000, 1.0000, 1.0000], dtype=float)\n" \
-    ">>> u = np.array([\n" \
-    "...     [-0.6922, 0.3081, 2.0039, -0.9942, -1.5734, 0.4118, -0.9344, 0.8988, -0.0701, 0.0],\n" \
-    "...     [-1.4934, -2.7726, 0.2614, 1.8957, 1.5639, -1.4893, 1.2506, 0.2951, -0.9160, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> u_flat = np.array([\n" \
-    "...     -0.6922, -1.4934, 0.3081, -2.7726, 2.0039,\n" \
-    "...     0.2614, -0.9160, -0.6030, 1.2556, 0.2951,\n" \
-    "...     -1.5734, 1.5639, -0.9942, 1.8957, 0.8988,\n" \
-    "...     0.4118, -1.4893, -0.9344, 1.2506, -0.0701\n" \
-    "...     ], dtype=float)\n" \
-    ">>> u = u_flat.reshape((m, ny), order='F')\n" \
-    ">>> y, x_final, info = tf01md(a, b, c, d, u, x0.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  (y, x_final, info): Output sequence (p x ny), final state, exit code"
 
 #define DOC_TF01MX "Output sequence of linear time-invariant open-loop system.\n" \
     "\n" \
@@ -23664,36 +11602,7 @@
     "  x (ndarray): Initial state vector (n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (y, x, info): Output sequence, final state, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01mx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> m = 1\n" \
-    ">>> p = 1\n" \
-    ">>> ny = 3\n" \
-    ">>> s = np.array([\n" \
-    "...     [0.5, 0.1, 1.0],\n" \
-    "...     [0.0, 0.8, 0.5],\n" \
-    "...     [1.0, 0.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a = s[:n, :n].copy(order='F')\n" \
-    ">>> b = s[:n, n:].copy(order='F')\n" \
-    ">>> c = s[n:, :n].copy(order='F')\n" \
-    ">>> d = s[n:, n:].copy(order='F')\n" \
-    ">>> u = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.5],\n" \
-    "...     [0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x0 = np.array([1.0, 0.5], dtype=float, order='F')\n" \
-    ">>> x = x0.copy()\n" \
-    ">>> y, x_final, info = tf01mx(n, m, p, ny, s, u, x)\n" \
-    ">>> y_reference = np.array([[1.0], [1.55], [1.365]], dtype=float)\n" \
-    ">>> info\n" \
-    "0"
+    "  (y, x, info): Output sequence, final state, exit code"
 
 #define DOC_TF01MY "Output sequence of discrete-time state-space system (variant).\n" \
     "\n" \
@@ -23712,39 +11621,7 @@
     "  x (ndarray): Initial state vector (n,), modified in-place\n" \
     "\n" \
     "Returns:\n" \
-    "  (y, x_final, info): Output sequence (ny x p), final state, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01my\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 2\n" \
-    ">>> m = 1\n" \
-    ">>> p = 1\n" \
-    ">>> ny = 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.5, 0.1],\n" \
-    "...     [0.0, 0.8]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.5]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> u = np.array([\n" \
-    "...     [1.0],\n" \
-    "...     [0.5],\n" \
-    "...     [0.0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> x = np.array([1.0, 0.5], dtype=float, order='F')\n" \
-    ">>> y, x_out, info = tf01my(a, b, c, d, u, x)\n" \
-    ">>> info\n" \
-    "0"
+    "  (y, x_final, info): Output sequence (ny x p), final state, exit code"
 
 #define DOC_TF01ND "Output response sequence with Hessenberg state matrix.\n" \
     "\n" \
@@ -23764,42 +11641,7 @@
     "  x (ndarray): Initial state vector (n,), modified in-place\n" \
     "\n" \
     "Returns:\n" \
-    "  (y, x_final, info): Output sequence (p x ny), final state, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01nd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p, ny = 3, 2, 2, 10\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0000, 1.0000, 0.0000],\n" \
-    "...     [-0.0700, 0.8000, 0.0000],\n" \
-    "...     [0.0000, -0.1500, 0.5000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0000, -1.0000],\n" \
-    "...     [2.0000, -0.1000],\n" \
-    "...     [1.0000, 1.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0000, 0.0000, 1.0000],\n" \
-    "...     [1.0000, 0.0000, 0.0000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0000, 0.0000],\n" \
-    "...     [0.5000, 0.5000]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> x0 = np.array([1.0000, 1.0000, 1.0000], dtype=float)\n" \
-    ">>> u_flat = np.array([\n" \
-    "...     -0.6922, -1.4934, 0.3081, -2.7726, 2.0039,\n" \
-    "...     0.2614, -0.9160, -0.6030, 1.2556, 0.2951,\n" \
-    "...     -1.5734, 1.5639, -0.9942, 1.8957, 0.8988,\n" \
-    "...     0.4118, -1.4893, -0.9344, 1.2506, -0.0701\n" \
-    "...     ], dtype=float)\n" \
-    ">>> u = u_flat.reshape((m, ny), order='F')\n" \
-    ">>> y, x_final, info = tf01nd('U', a, b, c, d, u, x0.copy())\n" \
-    ">>> info\n" \
-    "0"
+    "  (y, x_final, info): Output sequence (p x ny), final state, exit code"
 
 #define DOC_TF01OD "Block Hankel expansion of multivariable parameter sequence.\n" \
     "\n" \
@@ -23817,24 +11659,7 @@
     "  nc (int): Number of block columns in T (nc >= 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (t, info): Block Hankel matrix (NH1*NR x NH2*NC), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01od\n" \
-    ">>> import numpy as np\n" \
-    ">>> nh1, nh2, nr, nc = 2, 2, 3, 3\n" \
-    ">>> h_flat = np.array([\n" \
-    "...     1.0647, -0.4282, -0.4922, -1.2072,\n" \
-    "...     -0.3043, 0.6883, -0.0926, 0.7167,\n" \
-    "...     -0.1844, -0.8507, 0.4441, -0.0478,\n" \
-    "...     0.7195, 0.0500, -0.3955, 0.5674,\n" \
-    "...     1.3387, -0.2801, 0.1073, -0.5315\n" \
-    "...     ], dtype=float)\n" \
-    ">>> h = h_flat.reshape((nh1, (nr + nc - 1) * nh2), order='F')\n" \
-    ">>> t, info = tf01od(h, nr, nc)\n" \
-    ">>> info\n" \
-    "0"
+    "  (t, info): Block Hankel matrix (NH1*NR x NH2*NC), exit code"
 
 #define DOC_TF01PD "Block Toeplitz expansion of multivariable parameter sequence.\n" \
     "\n" \
@@ -23852,24 +11677,7 @@
     "  nc (int): Number of block columns in T (nc >= 0)\n" \
     "\n" \
     "Returns:\n" \
-    "  (t, info): Block Toeplitz matrix (NH1*NR x NH2*NC), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01pd\n" \
-    ">>> import numpy as np\n" \
-    ">>> nh1, nh2, nr, nc = 2, 2, 3, 3\n" \
-    ">>> h_flat = np.array([\n" \
-    "...     1.0647, -0.4282, -0.4922, -1.2072,\n" \
-    "...     -0.3043, 0.6883, -0.0926, 0.7167,\n" \
-    "...     -0.1844, -0.8507, 0.4441, -0.0478,\n" \
-    "...     0.7195, 0.0500, -0.3955, 0.5674,\n" \
-    "...     1.3387, -0.2801, 0.1073, -0.5315\n" \
-    "...     ], dtype=float)\n" \
-    ">>> h = h_flat.reshape((nh1, (nr + nc - 1) * nh2), order='F')\n" \
-    ">>> t, info = tf01pd(h, nr, nc)\n" \
-    ">>> info\n" \
-    "0"
+    "  (t, info): Block Toeplitz matrix (NH1*NR x NH2*NC), exit code"
 
 #define DOC_TF01QD "Markov parameters from transfer function matrix.\n" \
     "\n" \
@@ -23892,23 +11700,7 @@
     "  ma (ndarray): Numerator coefficients, float64\n" \
     "\n" \
     "Returns:\n" \
-    "  (h, info): Markov parameters (nc x n*nb), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01qd\n" \
-    ">>> import numpy as np\n" \
-    ">>> nc = 2  # outputs\n" \
-    ">>> nb = 2  # inputs\n" \
-    ">>> n = 8   # Markov parameters to compute\n" \
-    ">>> iord = np.array([2, 1, 3, 4], dtype=np.int32)\n" \
-    ">>> ma = np.array([1.0, -0.5, 1.0, 0.5, -0.4, 0.3, 1.0, 0.5, -0.5, 0.0],\n" \
-    "...     dtype=float)\n" \
-    ">>> ar = np.array([0.6, -0.2, -0.8, 0.8, 0.4, 0.1, -0.8, 0.6, 0.0, -0.2],\n" \
-    "...     dtype=float)\n" \
-    ">>> h, info = tf01qd(nc, nb, n, iord, ar, ma)\n" \
-    ">>> info\n" \
-    "0"
+    "  (h, info): Markov parameters (nc x n*nb), exit code"
 
 #define DOC_TF01RD "Compute Markov parameters from state-space representation.\n" \
     "\n" \
@@ -23922,31 +11714,7 @@
     "  n (int): Number of Markov parameters to compute\n" \
     "\n" \
     "Returns:\n" \
-    "  (h, info): Markov parameters (nc x n*nb), exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tf01rd\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [0.0, 1.0, 0.0],\n" \
-    "...     [-0.07, 0.8, 0.0],\n" \
-    "...     [0.015, -0.15, 0.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [0.0, -1.0],\n" \
-    "...     [2.0, -0.1],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [0.0, 0.0, 1.0],\n" \
-    "...     [1.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> n = 5  # Number of Markov parameters\n" \
-    ">>> h, info = tf01rd(a, b, c, n)\n" \
-    ">>> nb = 2\n" \
-    ">>> info\n" \
-    "0"
+    "  (h, info): Markov parameters (nc x n*nb), exit code"
 
 #define DOC_TG01AD "Balance the matrices of a descriptor system pencil.\n" \
     "\n" \
@@ -23963,42 +11731,7 @@
     "  c (ndarray): State/output matrix (p x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, b, c, lscale, rscale, info): Balanced system and scaling factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01ad\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> job = 'A'\n" \
-    ">>> thresh = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,    0.0,    0.0,   0.003],\n" \
-    "...     [ 0.0,    0.0,    0.1,   0.02 ],\n" \
-    "...     [100.0,  10.0,    0.0,   0.4  ],\n" \
-    "...     [ 0.0,    0.0,    0.0,   0.0  ]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [  1.0,  0.2,   0.0,  0.0 ],\n" \
-    "...     [  0.0,  1.0,   0.0,  0.01],\n" \
-    "...     [300.0, 90.0,   6.0,  0.3 ],\n" \
-    "...     [  0.0,  0.0,  20.0,  0.0 ]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [   10.0,     0.0],\n" \
-    "...     [    0.0,     0.0],\n" \
-    "...     [    0.0,  1000.0],\n" \
-    "...     [10000.0, 10000.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [-0.1,   0.0,   0.001,  0.0   ],\n" \
-    "...     [ 0.0,  0.01, -0.001,  0.0001]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, lscale, rscale, info = tg01ad(\n" \
-    "...     job, l, n, m, p, thresh, a, e, b, c\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, b, c, lscale, rscale, info): Balanced system and scaling factors"
 
 #define DOC_TG01AZ "Balance the matrices of a complex descriptor system pencil.\n" \
     "\n" \
@@ -24019,42 +11752,7 @@
     "  c (ndarray): Complex state/output matrix (p x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, b, c, lscale, rscale, info): Balanced system and scaling factors\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01az\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> job = 'A'\n" \
-    ">>> thresh = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [  -1.0+0j,    0.0+0j,    0.0+0j,  0.003+0j],\n" \
-    "...     [   0.0+0j,    0.0+0j,    0.1+0j,   0.02+0j],\n" \
-    "...     [ 100.0+0j,   10.0+0j,    0.0+0j,    0.4+0j],\n" \
-    "...     [   0.0+0j,    0.0+0j,    0.0+0j,    0.0+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [   1.0+0j,   0.2+0j,    0.0+0j,   0.0+0j],\n" \
-    "...     [   0.0+0j,   1.0+0j,    0.0+0j,  0.01+0j],\n" \
-    "...     [ 300.0+0j,  90.0+0j,    6.0+0j,   0.3+0j],\n" \
-    "...     [   0.0+0j,   0.0+0j,   20.0+0j,   0.0+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [    10.0+0j,      0.0+0j],\n" \
-    "...     [     0.0+0j,      0.0+0j],\n" \
-    "...     [     0.0+0j,   1000.0+0j],\n" \
-    "...     [ 10000.0+0j,  10000.0+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [-0.1+0j,   0.0+0j,   0.001+0j,    0.0+0j],\n" \
-    "...     [ 0.0+0j,  0.01+0j,  -0.001+0j, 0.0001+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, lscale, rscale, info = tg01az(\n" \
-    "...     job, l, n, m, p, thresh, a, e, b, c\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, b, c, lscale, rscale, info): Balanced system and scaling factors"
 
 #define DOC_TG01BD "Reduce descriptor system to generalized Hessenberg form.\n" \
     "\n" \
@@ -24072,24 +11770,7 @@
     "  z (ndarray): Orthogonal matrix Z (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, b, c, q, z, info): Transformed system in Hessenberg form\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01bd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> e = np.eye(n, order='F', dtype=float)\n" \
-    ">>> b = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> c = np.random.randn(p, n).astype(float, order='F')\n" \
-    ">>> q = np.eye(n, order='F', dtype=float)\n" \
-    ">>> z = np.eye(n, order='F', dtype=float)\n" \
-    ">>> a_out, e_out, b_out, c_out, q_out, z_out, info = tg01bd(\n" \
-    "...     'G', 'I', 'I', 1, n, a, e, b, c, q, z\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, b, c, q, z, info): Transformed system in Hessenberg form"
 
 #define DOC_TG01CD "Reduce descriptor system pair (A-lambda E, B) to QR-coordinate form.\n" \
     "\n" \
@@ -24103,34 +11784,7 @@
     "  q (ndarray, optional): Input Q for compq='U' (l x l, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, b, q, info): Transformed system with Q'*E upper trapezoidal\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01cd\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m = 4, 4, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0],\n" \
-    "...     [ 1.0,  1.0,  0.0,  4.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [3.0, 9.0, 6.0, 3.0],\n" \
-    "...     [0.0, 0.0, 2.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, e_out, b_out, q_out, info = tg01cd('I', a, e, b)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, b, q, info): Transformed system with Q'*E upper trapezoidal"
 
 #define DOC_TG01DD "Orthogonal reduction of descriptor system (C,A-lambda E) to RQ-coordinate form.\n" \
     "\n" \
@@ -24144,32 +11798,7 @@
     "  z (ndarray, optional): Input Z for compz='U' (n x n, F-order)\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, c, z, info): Transformed system with E*Z upper trapezoidal\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01dd\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, p = 4, 4, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0],\n" \
-    "...     [ 1.0,  1.0,  0.0,  4.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [ 1.0,  2.0,  0.0,  0.0],\n" \
-    "...     [ 0.0,  1.0,  0.0,  1.0],\n" \
-    "...     [ 3.0,  9.0,  6.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  2.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  1.0, -1.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, e_out, c_out, z_out, info = tg01dd('I', a, e, c)\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, c, z, info): Transformed system with E*Z upper trapezoidal"
 
 #define DOC_TG01ED "Orthogonal reduction of descriptor system to SVD coordinate form.\n" \
     "\n" \
@@ -24187,40 +11816,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, b, c, q, z, ranke, rnka22, info):\n" \
-    "    Transformed matrices, orthogonal Q and Z, ranks of E and A22, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01ed\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0],\n" \
-    "...     [ 1.0,  1.0,  0.0,  4.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [ 1.0,  2.0,  0.0,  0.0],\n" \
-    "...     [ 0.0,  1.0,  0.0,  1.0],\n" \
-    "...     [ 3.0,  9.0,  6.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  2.0,  0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 1.0,  0.0],\n" \
-    "...     [ 0.0,  0.0],\n" \
-    "...     [ 0.0,  1.0],\n" \
-    "...     [ 1.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  1.0, -1.0,  1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> a_out, e_out, b_out, c_out, q_out, z_out, ranke, rnka22, info = tg01ed(\n" \
-    "...     'R', a, e, b, c, 0.0\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Transformed matrices, orthogonal Q and Z, ranks of E and A22, exit code"
 
 #define DOC_TG01FD "Orthogonal reduction of descriptor system to SVD-like form.\n" \
     "\n" \
@@ -24239,44 +11835,7 @@
     "  tol (float): Tolerance for rank determination\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, b, c, q, z, ranke, rnka22, info): Transformed system and ranks\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01fd\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> compq = 'I'\n" \
-    ">>> compz = 'I'\n" \
-    ">>> joba = 'R'\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0],\n" \
-    "...     [ 1.0,  1.0,  0.0,  4.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0,  2.0,  0.0,  0.0],\n" \
-    "...     [0.0,  1.0,  0.0,  1.0],\n" \
-    "...     [3.0,  9.0,  6.0,  3.0],\n" \
-    "...     [0.0,  0.0,  2.0,  0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0,  0.0],\n" \
-    "...     [0.0,  0.0],\n" \
-    "...     [0.0,  1.0],\n" \
-    "...     [1.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  1.0, -1.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, ranke, rnka22, info = tg01fd(\n" \
-    "...     compq, compz, joba, l, n, m, p, a, e, b, c, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, b, c, q, z, ranke, rnka22, info): Transformed system and ranks"
 
 #define DOC_TG01FZ "Unitary reduction of complex descriptor system to SVD-like form.\n" \
     "\n" \
@@ -24299,41 +11858,7 @@
     "  tol (float): Tolerance for rank determination\n" \
     "\n" \
     "Returns:\n" \
-    "  (a, e, b, c, q, z, ranke, rnka22, info): Transformed system and ranks\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01fz\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1+0j,  0+0j,  0+0j,  3+0j],\n" \
-    "...     [ 0+0j,  0+0j,  1+0j,  2+0j],\n" \
-    "...     [ 1+0j,  1+0j,  0+0j,  4+0j],\n" \
-    "...     [ 0+0j,  0+0j,  0+0j,  0+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1+0j, 2+0j, 0+0j, 0+0j],\n" \
-    "...     [0+0j, 1+0j, 0+0j, 1+0j],\n" \
-    "...     [3+0j, 9+0j, 6+0j, 3+0j],\n" \
-    "...     [0+0j, 0+0j, 2+0j, 0+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1+0j, 0+0j],\n" \
-    "...     [0+0j, 0+0j],\n" \
-    "...     [0+0j, 1+0j],\n" \
-    "...     [1+0j, 1+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1+0j, 0+0j, 1+0j, 0+0j],\n" \
-    "...     [ 0+0j, 1+0j,-1+0j, 1+0j]\n" \
-    "...     ], dtype=np.complex128, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, ranke, rnka22, info = tg01fz(\n" \
-    "...     'I', 'I', 'R', l, n, m, p, a, e, b, c, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "  (a, e, b, c, q, z, ranke, rnka22, info): Transformed system and ranks"
 
 #define DOC_TG01GD "Reduced descriptor representation without non-dynamic modes.\n" \
     "\n" \
@@ -24356,46 +11881,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, b, c, d, lr, nr, ranke, infred, info):\n" \
-    "    Reduced system (LR x NR), rank of E, reduction info, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01gd\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> jobs = 'D'\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0],\n" \
-    "...     [ 1.0,  1.0,  0.0,  4.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0,  2.0,  0.0,  0.0],\n" \
-    "...     [0.0,  1.0,  0.0,  1.0],\n" \
-    "...     [3.0,  9.0,  6.0,  3.0],\n" \
-    "...     [0.0,  0.0,  2.0,  0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0,  0.0],\n" \
-    "...     [0.0,  0.0],\n" \
-    "...     [0.0,  1.0],\n" \
-    "...     [1.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  1.0, -1.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> d = np.array([\n" \
-    "...     [1.0,  0.0],\n" \
-    "...     [1.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, d_out, lr, nr, ranke, infred, info = tg01gd(\n" \
-    "...     jobs, l, n, m, p, a, e, b, c, d, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    Reduced system (LR x NR), rank of E, reduction info, exit code"
 
 #define DOC_TG01HD "Orthogonal reduction of descriptor system to controllability staircase form.\n" \
     "\n" \
@@ -24423,55 +11909,7 @@
     "  (a, e, b, c, q, z, ncont, niucon, nrblck, rtau, info):\n" \
     "    Transformed Q'*A*Z, Q'*E*Z, Q'*B, C*Z, orthogonal matrices Q and Z,\n" \
     "    controllable order NCONT, uncontrollable infinite eigenvalue count NIUCON,\n" \
-    "    number of staircase blocks NRBLCK, block sizes RTAU, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01hd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 7, 3, 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [2.0, 0.0, 2.0, 0.0, -1.0, 3.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0, 0.0,  1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0,  0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 2.0, 0.0, -1.0, 3.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0,  0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 1.0, 0.0, 0.0,  1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0,  0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [0.0, 0.0, 1.0, 0.0,  0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0,  0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0, -1.0, 0.0, 0.0],\n" \
-    "...     [1.0, 3.0, 0.0, 2.0,  0.0, 0.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [2.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [1.0, 2.0, 3.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0,  0.0, 0.0, 1.0,  0.0, 0.0, 1.0],\n" \
-    "...     [0.0, -1.0, 1.0, 0.0, -1.0, 1.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> result = tg01hd('C', 'I', 'I', n, m, p, a, e, b, c, tol)\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, ncont, niucon, nrblck, rtau, info = result\n" \
-    "...     err_msg=\"RTAU should be [2,1]\")\n" \
-    ">>> q_check = q.T @ q\n" \
-    ">>> z_check = z.T @ z\n" \
-    "...     err_msg=\"Q should be orthogonal\")\n" \
-    "...     err_msg=\"Z should be orthogonal\")\n" \
-    ">>> b_uncontrollable = b_out[ncont:, :]\n" \
-    "...     rtol=1e-10, atol=1e-10,\n" \
-    "...     err_msg=\"Uncontrollable part of B should be zero\")"
+    "    number of staircase blocks NRBLCK, block sizes RTAU, and exit code"
 
 #define DOC_TG01HU "Orthogonal reduction to multi-input controllability staircase form.\n" \
     "\n" \
@@ -24501,47 +11939,7 @@
     "  (a, e, b, c, q, z, nr, nrblck, rtau, info):\n" \
     "    Transformed system, orthogonal matrices Q and Z,\n" \
     "    controllable order NR, number of staircase blocks,\n" \
-    "    block sizes RTAU, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01hu\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m1, m2, p = 4, 4, 1, 1, 2\n" \
-    ">>> n1 = 4\n" \
-    ">>> lbe = 0\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [0.5, 1.0, 2.5, 3.0],\n" \
-    "...     [0.0, 0.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [2.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 3.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 2.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, nr, nrblck, rtau, info = tg01hu(\n" \
-    "...     'I', 'I', l, n, m1, m2, p, n1, lbe, a, e, b, c, tol\n" \
-    "...     )\n" \
-    ">>> q_check = q.T @ q\n" \
-    ">>> z_check = z.T @ z\n" \
-    "...     err_msg=\"Q should be orthogonal\")\n" \
-    "...     err_msg=\"Z should be orthogonal\")\n" \
-    ">>> info\n" \
-    "0"
+    "    block sizes RTAU, and exit code"
 
 #define DOC_TG01HX "Orthogonal reduction to controllability staircase form.\n" \
     "\n" \
@@ -24568,47 +11966,7 @@
     "  (a, e, b, c, q, z, nr, nrblck, rtau, info):\n" \
     "    Transformed system, orthogonal matrices Q and Z,\n" \
     "    controllable order NR, number of staircase blocks,\n" \
-    "    block sizes RTAU, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01hx\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> n1 = 4\n" \
-    ">>> lbe = 0\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [0.5, 1.0, 2.5, 3.0],\n" \
-    "...     [0.0, 0.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [2.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 3.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 2.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, nr, nrblck, rtau, info = tg01hx(\n" \
-    "...     'I', 'I', l, n, m, p, n1, lbe, a, e, b, c, tol\n" \
-    "...     )\n" \
-    ">>> q_check = q.T @ q\n" \
-    ">>> z_check = z.T @ z\n" \
-    "...     err_msg=\"Q should be orthogonal\")\n" \
-    "...     err_msg=\"Z should be orthogonal\")\n" \
-    ">>> info\n" \
-    "0"
+    "    block sizes RTAU, and exit code"
 
 #define DOC_TG01HY "Blocked version of orthogonal reduction to controllability staircase form.\n" \
     "\n" \
@@ -24636,47 +11994,7 @@
     "  (a, e, b, c, q, z, nr, nrblck, rtau, info):\n" \
     "    Transformed system, orthogonal matrices Q and Z,\n" \
     "    controllable order NR, number of staircase blocks,\n" \
-    "    block sizes RTAU, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01hy\n" \
-    ">>> import numpy as np\n" \
-    ">>> l, n, m, p = 4, 4, 2, 2\n" \
-    ">>> n1 = 4\n" \
-    ">>> lbe = 0\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [0.5, 1.0, 2.5, 3.0],\n" \
-    "...     [0.0, 0.0, 2.0, 1.0],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [2.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 3.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 2.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, nr, nrblck, rtau, info = tg01hy(\n" \
-    "...     'I', 'I', l, n, m, p, n1, lbe, a, e, b, c, tol\n" \
-    "...     )\n" \
-    ">>> q_check = q.T @ q\n" \
-    ">>> z_check = z.T @ z\n" \
-    "...     err_msg=\"Q should be orthogonal\")\n" \
-    "...     err_msg=\"Z should be orthogonal\")\n" \
-    ">>> info\n" \
-    "0"
+    "    block sizes RTAU, and exit code"
 
 #define DOC_TG01ID "Orthogonal reduction of descriptor system to observability staircase form.\n" \
     "\n" \
@@ -24705,50 +12023,7 @@
     "  (a, e, b, c, q, z, nobsv, niuobs, nlblck, ctau, info):\n" \
     "    Transformed Q'*A*Z, Q'*E*Z, Q'*B, C*Z, orthogonal matrices Q and Z,\n" \
     "    observable order NOBSV, unobservable infinite eigenvalue count NIUOBS,\n" \
-    "    number of staircase blocks NLBLCK, block sizes CTAU, and exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01id\n" \
-    ">>> n, m, p = 7, 2, 3\n" \
-    ">>> a = np.array([\n" \
-    "...     [2, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 1, 0, 0, 0, 1, 0],\n" \
-    "...     [2, 0, 0, 2, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 1, 0, 1],\n" \
-    "...     [-1, 1, 0, -1, 0, 1, 0],\n" \
-    "...     [3, 0, 0, 3, 0, 0, 0],\n" \
-    "...     [1, 0, 1, 1, 1, 0, 1]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [0, 0, 0, 0, 0, 0, 1],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 3],\n" \
-    "...     [1, 0, 0, 0, 0, 1, 0],\n" \
-    "...     [0, 0, 0, 0, 1, 0, 2],\n" \
-    "...     [0, 0, 0, 0, 0, -1, 0],\n" \
-    "...     [0, 1, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 1, 0, 0, 0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1, 0],\n" \
-    "...     [0, -1],\n" \
-    "...     [0, 1],\n" \
-    "...     [1, 0],\n" \
-    "...     [0, -1],\n" \
-    "...     [0, 1],\n" \
-    "...     [1, 0]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [2, 0, 0, 0, 0, 0, 1],\n" \
-    "...     [1, 0, 0, 0, 0, 0, 2],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 3]\n" \
-    "...     ], dtype=float, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, nobsv, niuobs, nlblck, ctau, info = tg01id(\n" \
-    "...     'O', 'I', 'I', a, e, b, c, 0.0\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    number of staircase blocks NLBLCK, block sizes CTAU, and exit code"
 
 #define DOC_TG01JD "Find irreducible descriptor representation.\n" \
     "\n" \
@@ -24777,66 +12052,7 @@
     "  (a, e, b, c, nr, infred, iwork, info):\n" \
     "    Reduced Ar, Er, Br, Cr matrices; reduced order NR;\n" \
     "    INFRED array (phase reductions in [0-3], A/E sub-diagonals in [4-5],\n" \
-    "    block count in [6]); IWORK with block dimensions; exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01jd\n" \
-    ">>> n, m, p = 9, 2, 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-2, -3,  0,  0,  0,  0,  0,  0,  0],\n" \
-    "...     [ 1,  0,  0,  0,  0,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0, -2, -3,  0,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0,  1,  0,  0,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  1,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  1,  0,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  0,  1,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  0,  0,  1,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  0,  0,  0,  1],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 1, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 1, 0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 1,  0],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [ 0,  1],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [-1,  0],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [ 0, -1],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [ 0,  0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1, 0, 1, -3, 0, 1, 0, 2, 0],\n" \
-    "...     [0, 1, 1,  3, 0, 1, 0, 0, 1],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = tg01jd('I', 'R', 'N', a, e, b, c, tol)\n" \
-    ">>> a_r, e_r, b_r, c_r, nr, infred, iwork, info = result\n" \
-    ">>> a_red = a_r[:nr, :nr]\n" \
-    ">>> e_red = e_r[:nr, :nr]\n" \
-    ">>> b_red = b_r[:nr, :m]\n" \
-    ">>> c_red = c_r[:p, :nr]\n" \
-    ">>> test_freqs = [1.0, 2.0 + 1j, -0.5 + 2j, 0.1j, 5.0]\n" \
-    "...     try:\n" \
-    "...     except np.linalg.LinAlgError:\n" \
-    "...     continue\n" \
-    "...     try:\n" \
-    "...     G_red = c_red @ np.linalg.solve(s * e_red - a_red, b_red)\n" \
-    "...     except np.linalg.LinAlgError:\n" \
-    "...     continue\n" \
-    "...     err_msg=f\"Transfer function mismatch at s={s}\")"
+    "    block count in [6]); IWORK with block dimensions; exit code"
 
 #define DOC_TG01JY "Find irreducible descriptor representation with singularity check.\n" \
     "\n" \
@@ -24870,66 +12086,7 @@
     "  (a, e, b, c, nr, infred, iwork, info):\n" \
     "    Reduced Ar, Er, Br, Cr matrices; reduced order NR;\n" \
     "    INFRED array (phase reductions in [0-3], A/E sub-diagonals in [4-5],\n" \
-    "    block count in [6]); IWORK with block dimensions; exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01jy\n" \
-    ">>> n, m, p = 9, 2, 2\n" \
-    ">>> tol = np.array([0.0, 0.0, 0.0], dtype=float)\n" \
-    ">>> a = np.array([\n" \
-    "...     [-2, -3,  0,  0,  0,  0,  0,  0,  0],\n" \
-    "...     [ 1,  0,  0,  0,  0,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0, -2, -3,  0,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0,  1,  0,  0,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  1,  0,  0,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  1,  0,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  0,  1,  0,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  0,  0,  1,  0],\n" \
-    "...     [ 0,  0,  0,  0,  0,  0,  0,  0,  1],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 1, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 1, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 1, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 1, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 1, 0, 0],\n" \
-    "...     [0, 0, 0, 0, 0, 0, 0, 1, 0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [ 1,  0],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [ 0,  1],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [-1,  0],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [ 0, -1],\n" \
-    "...     [ 0,  0],\n" \
-    "...     [ 0,  0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1, 0, 1, -3, 0, 1, 0, 2, 0],\n" \
-    "...     [0, 1, 1,  3, 0, 1, 0, 0, 1],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = tg01jy('I', 'R', 'N', 'N', 'N', a, e, b, c, tol)\n" \
-    ">>> a_r, e_r, b_r, c_r, nr, infred, iwork, info = result\n" \
-    ">>> a_red = a_r[:nr, :nr]\n" \
-    ">>> e_red = e_r[:nr, :nr]\n" \
-    ">>> b_red = b_r[:nr, :m]\n" \
-    ">>> c_red = c_r[:p, :nr]\n" \
-    ">>> test_freqs = [1.0, 2.0 + 1j, -0.5 + 2j, 0.1j, 5.0]\n" \
-    "...     try:\n" \
-    "...     except np.linalg.LinAlgError:\n" \
-    "...     continue\n" \
-    "...     try:\n" \
-    "...     G_red = c_red @ np.linalg.solve(s * e_red - a_red, b_red)\n" \
-    "...     except np.linalg.LinAlgError:\n" \
-    "...     continue\n" \
-    "...     err_msg=f\"Transfer function mismatch at s={s}\")"
+    "    block count in [6]); IWORK with block dimensions; exit code"
 
 #define DOC_TG01KD "Orthogonal equivalence transformation of SISO descriptor system.\n" \
     "\n" \
@@ -24953,28 +12110,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, b, c, q, z, info):\n" \
-    "    Transformed Q'*A*Z, Q'*E*Z, Q'*B, C*Z, orthogonal Q and Z, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01kd\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> e = np.triu(np.random.randn(n, n)).astype(np.float64, order='F')\n" \
-    "...     e[i, i] = abs(e[i, i]) + 1.0\n" \
-    ">>> a = np.random.randn(n, n).astype(np.float64, order='F')\n" \
-    ">>> b = np.random.randn(n).astype(np.float64, order='F')\n" \
-    ">>> c = np.random.randn(n).astype(np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, info = tg01kd('U', 'C', 'I', 'I', a, e, b, c)\n" \
-    "...     err_msg=\"b_out should have zeros in elements 2..N\")\n" \
-    "...     f\"E_out[{i},{j}]={e_out[i,j]} should be zero (upper triangular)\"\n" \
-    "...     err_msg=\"Q should be orthogonal\")\n" \
-    "...     err_msg=\"Z should be orthogonal\")\n" \
-    "...     err_msg=\"A_out should equal Q'*A*Z\")\n" \
-    "...     err_msg=\"E_out should equal Q'*E*Z\")\n" \
-    "...     err_msg=\"b_out should equal Q'*b\")\n" \
-    ">>> info\n" \
-    "0"
+    "    Transformed Q'*A*Z, Q'*E*Z, Q'*B, C*Z, orthogonal Q and Z, exit code"
 
 #define DOC_TG01KZ "Complex unitary equivalence transformation of SISO descriptor system.\n" \
     "\n" \
@@ -25001,24 +12137,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, b, c, q, z, info):\n" \
-    "    Transformed Q'*A*Z, Q'*E*Z, Q'*B, C*Z, unitary Q and Z, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01kz\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> a = (np.random.randn(n, n) + 1j * np.random.randn(n, n)).astype(np.complex128, order='F')\n" \
-    ">>> b = (np.random.randn(n) + 1j * np.random.randn(n)).astype(np.complex128, order='F')\n" \
-    ">>> c = (np.random.randn(n) + 1j * np.random.randn(n)).astype(np.complex128, order='F')\n" \
-    ">>> e = np.eye(n, dtype=np.complex128, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q_out, z_out, info = tg01kz(\n" \
-    "...     'I', 'C', 'I', 'I', a, e, b, c, incc=1\n" \
-    "...     )\n" \
-    ">>> q_unitary = q_out.conj().T @ q_out\n" \
-    ">>> z_unitary = z_out.conj().T @ z_out\n" \
-    ">>> info\n" \
-    "0"
+    "    Transformed Q'*A*Z, Q'*E*Z, Q'*B, C*Z, unitary Q and Z, exit code"
 
 #define DOC_TG01LD "Finite-infinite decomposition of descriptor system.\n" \
     "\n" \
@@ -25052,45 +12171,7 @@
     "    Transformed Q'*A*Z, Q'*E*Z, Q'*B, C*Z, orthogonal Q and Z,\n" \
     "    NF = number of finite eigenvalues, ND = non-dynamic infinite count,\n" \
     "    NIBLCK = number of infinite blocks minus one, IBLCK = block dimensions,\n" \
-    "    INFO = 0 success, 1 = pencil not regular\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01ld\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> tol = 0.0\n" \
-    ">>> job = 'F'\n" \
-    ">>> joba = 'N'\n" \
-    ">>> compq = 'I'\n" \
-    ">>> compz = 'I'\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0,  0.0,  0.0,  3.0],\n" \
-    "...     [ 0.0,  0.0,  1.0,  2.0],\n" \
-    "...     [ 1.0,  1.0,  0.0,  4.0],\n" \
-    "...     [ 0.0,  0.0,  0.0,  0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0,  2.0,  0.0,  0.0],\n" \
-    "...     [0.0,  1.0,  0.0,  1.0],\n" \
-    "...     [3.0,  9.0,  6.0,  3.0],\n" \
-    "...     [0.0,  0.0,  2.0,  0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0,  0.0],\n" \
-    "...     [0.0,  0.0],\n" \
-    "...     [0.0,  1.0],\n" \
-    "...     [1.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0,  0.0,  1.0,  0.0],\n" \
-    "...     [ 0.0,  1.0, -1.0,  1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, nf, nd, niblck, iblck, info = tg01ld(\n" \
-    "...     job, joba, compq, compz, n, m, p, a, e, b, c, tol\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    INFO = 0 success, 1 = pencil not regular"
 
 #define DOC_TG01LY "Finite-infinite decomposition of structured descriptor system.\n" \
     "\n" \
@@ -25118,56 +12199,7 @@
     "    NF = number of finite eigenvalues,\n" \
     "    NIBLCK = number of infinite blocks,\n" \
     "    IBLCK = block dimensions array,\n" \
-    "    INFO = 0 success, 1 = pencil not regular, <0 = param error\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01ly\n" \
-    ">>> n = 4\n" \
-    ">>> m = 2\n" \
-    ">>> p = 2\n" \
-    ">>> ranke = 2\n" \
-    ">>> rnka22 = 1\n" \
-    ">>> a = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> a[0, 0] = 1.0\n" \
-    ">>> a[0, 1] = 2.0\n" \
-    ">>> a[0, 2] = 0.5\n" \
-    ">>> a[0, 3] = 0.3\n" \
-    ">>> a[1, 0] = 0.0\n" \
-    ">>> a[1, 1] = 3.0\n" \
-    ">>> a[1, 2] = 0.7\n" \
-    ">>> a[1, 3] = 0.2\n" \
-    ">>> a[2, 0] = 0.1\n" \
-    ">>> a[2, 1] = 0.0\n" \
-    ">>> a[2, 2] = 2.0\n" \
-    ">>> a[2, 3] = 0.4\n" \
-    ">>> a[3, 0] = 0.5\n" \
-    ">>> a[3, 1] = 0.0\n" \
-    ">>> a[3, 2] = 0.0\n" \
-    ">>> a[3, 3] = 0.0\n" \
-    ">>> e = np.zeros((n, n), order='F', dtype=float)\n" \
-    ">>> e[0, 0] = 1.0\n" \
-    ">>> e[0, 1] = 0.5\n" \
-    ">>> e[1, 1] = 2.0\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.5],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.3, 0.2],\n" \
-    "...     [0.1, 0.4]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 0.5, 0.2],\n" \
-    "...     [0.0, 1.0, 0.3, 0.1]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> compq = True\n" \
-    ">>> compz = True\n" \
-    ">>> q = np.eye(n, order='F', dtype=float)\n" \
-    ">>> z = np.eye(n, order='F', dtype=float)\n" \
-    ">>> result = tg01ly(compq, compz, ranke, rnka22, a, e, b, c, q, z)\n" \
-    ">>> a_out, e_out, b_out, c_out, q_out, z_out, nf, niblck, iblck, info = result\n" \
-    ">>> qtq = q_out.T @ q_out\n" \
-    ">>> ztz = z_out.T @ z_out"
+    "    INFO = 0 success, 1 = pencil not regular, <0 = param error"
 
 #define DOC_TG01MD "Finite-infinite generalized real Schur form decomposition.\n" \
     "\n" \
@@ -25204,41 +12236,7 @@
     "    ND = non-dynamic infinite eigenvalue count;\n" \
     "    NIBLCK = number of infinite blocks minus one;\n" \
     "    IBLCK = block dimensions;\n" \
-    "    INFO = 0 success, 1 = pencil not regular, 2 = QZ failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01md\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.0, 0.0, 3.0],\n" \
-    "...     [0.0, 0.0, 1.0, 2.0],\n" \
-    "...     [1.0, 1.0, 0.0, 4.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [3.0, 9.0, 6.0, 3.0],\n" \
-    "...     [0.0, 0.0, 2.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, -1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = tg01md('F', n, m, p, a, e, b, c, 0.0)\n" \
-    ">>> a_out, e_out, b_out, c_out, alphar, alphai, beta, q, z, nf, nd, niblck, iblck, info = result\n" \
-    ">>> eig_computed = []\n" \
-    "...     eig_computed.append(complex(alphar[j], alphai[j]) / beta[j])\n" \
-    ">>> eig_computed = np.array([e.real for e in eig_computed])\n" \
-    ">>> eig_computed_sorted = np.sort(eig_computed)"
+    "    INFO = 0 success, 1 = pencil not regular, 2 = QZ failed"
 
 #define DOC_TG01ND "Finite-infinite block-diagonal decomposition of descriptor system.\n" \
     "\n" \
@@ -25278,46 +12276,7 @@
     "    ND = non-dynamic infinite eigenvalue count;\n" \
     "    NIBLCK = number of infinite blocks minus one;\n" \
     "    IBLCK = block dimensions;\n" \
-    "    INFO = 0 success, 1 = not regular, 2 = QZ failed, 3 = Sylvester failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01nd\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.0, 0.0, 3.0],\n" \
-    "...     [0.0, 0.0, 1.0, 2.0],\n" \
-    "...     [1.0, 1.0, 0.0, 4.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [3.0, 9.0, 6.0, 3.0],\n" \
-    "...     [0.0, 0.0, 2.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, -1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = tg01nd('F', 'D', n, m, p, a, e, b, c, 0.0)\n" \
-    ">>> (a_out, e_out, b_out, c_out, alphar, alphai, beta,\n" \
-    "...     q, z, nf, nd, niblck, iblck, info) = result\n" \
-    "...     err_msg=\"A off-diagonal block should be zero\")\n" \
-    "...     err_msg=\"A off-diagonal block should be zero\")\n" \
-    "...     err_msg=\"E off-diagonal block should be zero\")\n" \
-    "...     err_msg=\"E off-diagonal block should be zero\")\n" \
-    ">>> eig_computed = []\n" \
-    "...     eig_computed.append(complex(alphar[j], alphai[j]) / beta[j])\n" \
-    ">>> eig_computed = np.array([e.real for e in eig_computed])\n" \
-    ">>> eig_computed_sorted = np.sort(eig_computed)"
+    "    INFO = 0 success, 1 = not regular, 2 = QZ failed, 3 = Sylvester failed"
 
 #define DOC_TG01NX "Block-diagonal decomposition of descriptor system in generalized Schur form.\n" \
     "\n" \
@@ -25342,46 +12301,7 @@
     "\n" \
     "Returns:\n" \
     "  (a, e, b, c, q, z, info):\n" \
-    "    Block-diagonal A and E, transformed B and C, updated Q and Z, exit code\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01nx\n" \
-    ">>> import numpy as np\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> ndim = 2\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 0.5, 0.3, 0.2],\n" \
-    "...     [0.0, 2.0, 0.4, 0.1],\n" \
-    "...     [0.0, 0.0, 3.0, 0.6],\n" \
-    "...     [0.0, 0.0, 0.0, 4.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 0.2, 0.1, 0.1],\n" \
-    "...     [0.0, 1.0, 0.2, 0.05],\n" \
-    "...     [0.0, 0.0, 1.0, 0.3],\n" \
-    "...     [0.0, 0.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [0.5, 0.5],\n" \
-    "...     [0.0, 0.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> c = np.array([\n" \
-    "...     [1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0]\n" \
-    "...     ], dtype=np.float64, order='F')\n" \
-    ">>> q = np.eye(n, dtype=np.float64, order='F')\n" \
-    ">>> z = np.eye(n, dtype=np.float64, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q_out, z_out, info = tg01nx(\n" \
-    "...     'D', n, m, p, ndim, a, e, b, c, q, z\n" \
-    "...     )\n" \
-    ">>> tol = 1e-14\n" \
-    "...     atol=tol, err_msg=\"A12 block should be zero\")\n" \
-    "...     atol=tol, err_msg=\"E12 block should be zero\")\n" \
-    ">>> info\n" \
-    "0"
+    "    Block-diagonal A and E, transformed B and C, updated Q and Z, exit code"
 
 #define DOC_TG01OA "Orthogonal equivalence transformation of SISO descriptor system.\n" \
     "\n" \
@@ -25403,30 +12323,7 @@
     "  (dcba, e, info):\n" \
     "    dcba: Transformed [D C*Z; Q'*B Q'*A*Z]\n" \
     "    e: Transformed Q'*E*Z (if JOBE='U')\n" \
-    "    info: 0 = success, <0 = invalid parameter\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01oa\n" \
-    ">>> n = 3\n" \
-    ">>> d = 0.5\n" \
-    ">>> c = np.array([1.0, 2.0, 3.0], dtype=float)\n" \
-    ">>> b = np.array([1.0, 2.0, 3.0], dtype=float)\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> dcba = np.zeros((n + 1, n + 1), dtype=float, order='F')\n" \
-    ">>> dcba[0, 0] = d\n" \
-    ">>> dcba[0, 1:] = c\n" \
-    ">>> dcba[1:, 0] = b\n" \
-    ">>> dcba[1:, 1:] = a\n" \
-    ">>> e = np.zeros((1, 1), dtype=float, order='F')\n" \
-    ">>> dcba_out, e_out, info = tg01oa('I', dcba, e)\n" \
-    ">>> b_transformed = dcba_out[1:, 0]\n" \
-    ">>> b_norm_trans = np.linalg.norm(b_transformed)\n" \
-    ">>> a_trans = dcba_out[1:, 1:]\n" \
-    ">>> eig_trans = np.sort(np.linalg.eigvals(a_trans))\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0 = success, <0 = invalid parameter"
 
 #define DOC_TG01OB "Complex SISO descriptor system unitary equivalence transformation.\n" \
     "\n" \
@@ -25448,29 +12345,7 @@
     "Returns:\n" \
     "  (dcba, e, info):\n" \
     "    Transformed [D C*Z; Q'*B Q'*A*Z], transformed Q'*E*Z, exit code.\n" \
-    "    D is unchanged. Q'*B has only first element nonzero.\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import tg01ob\n" \
-    ">>> import numpy as np\n" \
-    ">>> n = 4\n" \
-    ">>> n1 = n + 1\n" \
-    ">>> a = (np.random.randn(n, n) + 1j * np.random.randn(n, n)).astype(np.complex128, order='F')\n" \
-    ">>> b = (np.random.randn(n, 1) + 1j * np.random.randn(n, 1)).astype(np.complex128, order='F')\n" \
-    ">>> c = (np.random.randn(1, n) + 1j * np.random.randn(1, n)).astype(np.complex128, order='F')\n" \
-    ">>> d = (np.random.randn(1, 1) + 1j * np.random.randn(1, 1)).astype(np.complex128, order='F')\n" \
-    ">>> dcba = np.zeros((n1, n1), dtype=np.complex128, order='F')\n" \
-    ">>> dcba[0, 0] = d[0, 0]\n" \
-    ">>> dcba[0, 1:] = c[0, :]\n" \
-    ">>> dcba[1:, 0] = b[:, 0]\n" \
-    ">>> dcba[1:, 1:] = a\n" \
-    ">>> e = np.eye(n, dtype=np.complex128, order='F')\n" \
-    ">>> dcba_out, e_out, info = tg01ob('I', dcba, e)\n" \
-    ">>> b_out = dcba_out[1:, 0]\n" \
-    "...     err_msg=\"B should have only first element nonzero\")\n" \
-    ">>> info\n" \
-    "0"
+    "    D is unchanged. Q'*B has only first element nonzero."
 
 #define DOC_TG01OD "Reduce SISO descriptor system so feedthrough has large magnitude.\n" \
     "\n" \
@@ -25498,26 +12373,7 @@
     "    e: Leading nz x nz contains reduced e (if JOBE='G')\n" \
     "    nz: Order of reduced system\n" \
     "    g: Gain of reduced system\n" \
-    "    info: 0 = success, <0 = invalid parameter\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01od\n" \
-    ">>> n = 3\n" \
-    ">>> d = 1e-10\n" \
-    ">>> c = np.array([1.0, 2.0, 3.0], dtype=float)\n" \
-    ">>> b = np.array([1.0, 2.0, 3.0], dtype=float)\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> dcba = np.zeros((n + 1, n + 1), dtype=float, order='F')\n" \
-    ">>> dcba[0, 0] = d\n" \
-    ">>> dcba[0, 1:] = c\n" \
-    ">>> dcba[1:, 0] = b\n" \
-    ">>> dcba[1:, 1:] = a\n" \
-    ">>> e = np.zeros((1, 1), dtype=float, order='F')\n" \
-    ">>> dcba_out, e_out, nz, g, info = tg01od('I', dcba, e, 0.0)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0 = success, <0 = invalid parameter"
 
 #define DOC_TG01OZ "Reduce complex SISO descriptor system so feedthrough has large magnitude.\n" \
     "\n" \
@@ -25545,27 +12401,7 @@
     "    e: Leading nz x nz contains reduced e (if JOBE='G')\n" \
     "    nz: Order of reduced system\n" \
     "    g: Complex gain of reduced system\n" \
-    "    info: 0 = success, <0 = invalid parameter\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01oz\n" \
-    ">>> n = 4\n" \
-    ">>> n1 = n + 1\n" \
-    ">>> a = (np.random.randn(n, n) + 1j * np.random.randn(n, n)).astype(np.complex128, order='F')\n" \
-    ">>> b = (np.random.randn(n, 1) + 1j * np.random.randn(n, 1)).astype(np.complex128, order='F')\n" \
-    ">>> c = (np.random.randn(1, n) + 1j * np.random.randn(1, n)).astype(np.complex128, order='F')\n" \
-    ">>> d = 0.0 + 0.0j\n" \
-    ">>> dcba = np.zeros((n1, n1), dtype=np.complex128, order='F')\n" \
-    ">>> dcba[0, 0] = d\n" \
-    ">>> dcba[0, 1:] = c[0, :]\n" \
-    ">>> dcba[1:, 0] = b[:, 0]\n" \
-    ">>> dcba[1:, 1:] = a\n" \
-    ">>> e = np.eye(n, dtype=np.complex128, order='F')\n" \
-    ">>> dcba_out, e_out, nz, g, info = tg01oz('I', dcba, e, 0.0)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0 = success, <0 = invalid parameter"
 
 #define DOC_TG01PD "Bi-domain spectral splitting of a subpencil of a descriptor system.\n" \
     "\n" \
@@ -25611,39 +12447,7 @@
     "    alphar: Real parts of generalized eigenvalues\n" \
     "    alphai: Imaginary parts of generalized eigenvalues\n" \
     "    beta: Denominators of generalized eigenvalues\n" \
-    "    info: 0 = success, <0 = invalid param, 1 = QZ failed, 2 = ordering failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01pd\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> nlow, nsup = 1, 4\n" \
-    ">>> alpha = -1e-7\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1,  0,  0,  3],\n" \
-    "...     [ 0,  0,  1,  2],\n" \
-    "...     [ 1,  1,  0,  4],\n" \
-    "...     [ 0,  0,  0,  0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1, 2, 0, 0],\n" \
-    "...     [0, 1, 0, 1],\n" \
-    "...     [3, 9, 6, 3],\n" \
-    "...     [0, 0, 2, 0],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1, 0],\n" \
-    "...     [0, 0],\n" \
-    "...     [0, 1],\n" \
-    "...     [1, 1],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1, 0,  1, 0],\n" \
-    "...     [ 0, 1, -1, 1],\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = tg01pd('C', 'S', 'G', 'I', 'I', n, m, p, nlow, nsup, alpha, a, e, b, c)\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, ndim, alphar, alphai, beta, info = result"
+    "    info: 0 = success, <0 = invalid param, 1 = QZ failed, 2 = ordering failed"
 
 #define DOC_TG01QD "Three-domain spectral splitting of a descriptor system.\n" \
     "\n" \
@@ -25691,47 +12495,7 @@
     "    iblck: Block dimensions for infinite part\n" \
     "    q, z: Orthogonal transformation matrices\n" \
     "    alphar, alphai, beta: Generalized eigenvalues\n" \
-    "    info: 0 = success, <0 = invalid param, 1 = not regular, 2 = QZ failed, 3 = ordering failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01qd\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> dico = 'C'\n" \
-    ">>> stdom = 'S'\n" \
-    ">>> jobfi = 'F'\n" \
-    ">>> alpha = -1.0e-7\n" \
-    ">>> tol = 0.0\n" \
-    ">>> a = np.array([\n" \
-    "...     [-1.0, 0.0, 0.0, 3.0],\n" \
-    "...     [0.0, 0.0, 1.0, 2.0],\n" \
-    "...     [1.0, 1.0, 0.0, 4.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> e = np.array([\n" \
-    "...     [1.0, 2.0, 0.0, 0.0],\n" \
-    "...     [0.0, 1.0, 0.0, 1.0],\n" \
-    "...     [3.0, 9.0, 6.0, 3.0],\n" \
-    "...     [0.0, 0.0, 2.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> b = np.array([\n" \
-    "...     [1.0, 0.0],\n" \
-    "...     [0.0, 0.0],\n" \
-    "...     [0.0, 1.0],\n" \
-    "...     [1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> c = np.array([\n" \
-    "...     [-1.0, 0.0, 1.0, 0.0],\n" \
-    "...     [0.0, 1.0, -1.0, 1.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> result = tg01qd(dico, stdom, jobfi, n, m, p, alpha, a, e, b, c, tol)\n" \
-    ">>> a_out, e_out, b_out, c_out, n1, n2, n3, nd, niblck, iblck, \\\n" \
-    "...     q, z, alphar, alphai, beta, info = result\n" \
-    ">>> nf = n1 + n2\n" \
-    ">>> eig_computed = []\n" \
-    "...     eig_computed.append(complex(alphar[j], alphai[j]) / beta[j])\n" \
-    ">>> eig_computed_real = sorted([e.real for e in eig_computed if abs(e.imag) < 1e-6])"
+    "    info: 0 = success, <0 = invalid param, 1 = not regular, 2 = QZ failed, 3 = ordering failed"
 
 #define DOC_TG01WD "Reduce descriptor system to generalized real Schur form.\n" \
     "\n" \
@@ -25767,23 +12531,7 @@
     "    alphar: Real parts of generalized eigenvalues (size N)\n" \
     "    alphai: Imaginary parts of generalized eigenvalues (size N)\n" \
     "    beta: Denominators of generalized eigenvalues (size N)\n" \
-    "    info: 0 = success, <0 = invalid param -i, >0 = QZ algorithm failed\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import tg01wd\n" \
-    ">>> n, m, p = 4, 2, 2\n" \
-    ">>> a = np.random.randn(n, n).astype(float, order='F')\n" \
-    ">>> e = np.eye(n, order='F', dtype=float) + 0.1 * np.random.randn(n, n)\n" \
-    ">>> e = e.astype(float, order='F')\n" \
-    ">>> b = np.random.randn(n, m).astype(float, order='F')\n" \
-    ">>> c = np.random.randn(p, n).astype(float, order='F')\n" \
-    ">>> a_out, e_out, b_out, c_out, q, z, alphar, alphai, beta, info = tg01wd(\n" \
-    "...     n, m, p, a, e, b, c\n" \
-    "...     )\n" \
-    ">>> info\n" \
-    "0"
+    "    info: 0 = success, <0 = invalid param -i, >0 = QZ algorithm failed"
 
 #define DOC_UD01BD "Read/copy coefficients of a matrix polynomial.\n" \
     "\n" \
@@ -25805,39 +12553,7 @@
     "Returns:\n" \
     "  (p, info):\n" \
     "    p: 3D array (mp, np, dp+1) where p[:,:,k] = P(k), coefficient of s^k\n" \
-    "    info: Exit code (0=success, -1=mp<1, -2=np<1, -3=dp<0)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ud01bd\n" \
-    ">>> mp, np_dim, dp = 4, 3, 2\n" \
-    ">>> p0 = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 2.0, 4.0],\n" \
-    "...     [0.0, 4.0, 8.0],\n" \
-    "...     [0.0, 6.0, 12.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> p1 = np.array([\n" \
-    "...     [0.0, 1.0, 2.0],\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [2.0, 0.0, 0.0],\n" \
-    "...     [3.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> p2 = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> data = np.concatenate([\n" \
-    "...     p0.flatten(order='C'),  # row-by-row\n" \
-    "...     p1.flatten(order='C'),\n" \
-    "...     p2.flatten(order='C')\n" \
-    "...     ])\n" \
-    ">>> p, info = ud01bd(mp, np_dim, dp, data)\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, -1=mp<1, -2=np<1, -3=dp<0)"
 
 #define DOC_UD01CD "Read sparse matrix polynomial coefficients.\n" \
     "\n" \
@@ -25866,20 +12582,7 @@
     "          -1 = mp < 1\n" \
     "          -2 = np < 1\n" \
     "          -3 = dp < 0\n" \
-    "          1 = warning: some indices/degrees out of bounds (skipped)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ud01cd\n" \
-    ">>> mp, np_dim, dp = 4, 3, 2\n" \
-    ">>> rows = np.array([1, 2, 3, 4], dtype=np.int32)\n" \
-    ">>> cols = np.array([1, 2, 3, 1], dtype=np.int32)\n" \
-    ">>> degrees = np.array([1, 2, 2, 0], dtype=np.int32)\n" \
-    ">>> coeffs = np.array([1.0, 1.0, 2.0, 0.0, 1.0, 0.0, 3.0, 1.0, 4.0], dtype=float)\n" \
-    ">>> p, info = ud01cd(mp, np_dim, dp, rows, cols, degrees, coeffs)\n" \
-    ">>> info\n" \
-    "0"
+    "          1 = warning: some indices/degrees out of bounds (skipped)"
 
 #define DOC_UD01DD "Read/construct a sparse matrix from COO format.\n" \
     "\n" \
@@ -25904,27 +12607,7 @@
     "          0 = success\n" \
     "          -1 = m < 0\n" \
     "          -2 = n < 0\n" \
-    "          1 = warning: some indices were out of bounds (skipped)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ud01dd\n" \
-    ">>> m, n = 6, 5\n" \
-    ">>> rows = np.array([1, 6, 2, 6, 3, 6, 4, 6, 5, 6], dtype=np.int32)\n" \
-    ">>> cols = np.array([1, 1, 2, 2, 3, 3, 4, 4, 5, 5], dtype=np.int32)\n" \
-    ">>> vals = np.array([-1.1, 1.5, -2.2, 2.5, -3.3, 3.5, -4.4, 4.5, -5.5, 5.5])\n" \
-    ">>> a, info = ud01dd(m, n, rows, cols, vals)\n" \
-    ">>> expected = np.array([\n" \
-    "...     [-1.1, 0.0, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, -2.2, 0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, -3.3, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, -4.4, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0, 0.0, -5.5],\n" \
-    "...     [1.5, 2.5, 3.5, 4.5, 5.5]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> info\n" \
-    "0"
+    "          1 = warning: some indices were out of bounds (skipped)"
 
 #define DOC_UD01MD "Print an M-by-N real matrix row by row.\n" \
     "\n" \
@@ -25947,24 +12630,7 @@
     "          -2 = n < 1\n" \
     "          -3 = l < 1 or l > 5\n" \
     "          -6 = lda < m\n" \
-    "          -100 = output buffer too small\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ud01md\n" \
-    ">>> m, n, l = 4, 4, 4\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0, 2.0, 3.0, 4.0],\n" \
-    "...     [5.0, 6.0, 7.0, 8.0],\n" \
-    "...     [9.0, 10.0, 11.0, 12.0],\n" \
-    "...     [13.0, 14.0, 15.0, 16.0]\n" \
-    "...     ], order='F', dtype=float)\n" \
-    ">>> text = 'Matrix A'\n" \
-    ">>> result, info = ud01md(m, n, l, a, text)\n" \
-    ">>> lines = result.strip().split('\\n')\n" \
-    ">>> info\n" \
-    "0"
+    "          -100 = output buffer too small"
 
 #define DOC_UD01MZ "Print an M-by-N complex matrix row by row.\n" \
     "\n" \
@@ -25986,20 +12652,7 @@
     "          -2 = n < 1\n" \
     "          -3 = l < 1 or l > 3\n" \
     "          -5 = lda < m\n" \
-    "          -6 = output buffer too small\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> from slicot import ud01mz\n" \
-    ">>> import numpy as np\n" \
-    ">>> a = np.array([\n" \
-    "...     [1.0 + 2.0j, 3.0 + 4.0j],\n" \
-    "...     [5.0 - 1.0j, -2.0 + 0.5j]\n" \
-    "...     ], order='F', dtype=np.complex128)\n" \
-    ">>> text = \"Test Matrix A\"\n" \
-    ">>> result, info = ud01mz(a, text, l=1)\n" \
-    ">>> info\n" \
-    "0"
+    "          -6 = output buffer too small"
 
 #define DOC_UD01ND "Print the coefficient matrices of a matrix polynomial.\n" \
     "\n" \
@@ -26030,36 +12683,7 @@
     "          -4 = l < 1 or l > 5\n" \
     "          -6 = ldp1 < mp\n" \
     "          -7 = ldp2 < np\n" \
-    "          -100 = output buffer too small\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ud01nd\n" \
-    ">>> mp, np_dim, dp, l = 4, 3, 2, 5\n" \
-    ">>> p = np.zeros((mp, np_dim, dp + 1), order='F', dtype=float)\n" \
-    ">>> p[:, :, 0] = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 2.0, 4.0],\n" \
-    "...     [0.0, 4.0, 8.0],\n" \
-    "...     [0.0, 6.0, 12.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> p[:, :, 1] = np.array([\n" \
-    "...     [0.0, 1.0, 2.0],\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [2.0, 0.0, 0.0],\n" \
-    "...     [3.0, 0.0, 0.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> p[:, :, 2] = np.array([\n" \
-    "...     [1.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0],\n" \
-    "...     [0.0, 0.0, 0.0]\n" \
-    "...     ], order='F')\n" \
-    ">>> text = 'P'\n" \
-    ">>> result, info = ud01nd(mp, np_dim, dp, l, p, text)\n" \
-    ">>> info\n" \
-    "0"
+    "          -100 = output buffer too small"
 
 #define DOC_UE01MD "Get machine-specific parameters for SLICOT routines.\n" \
     "\n" \
@@ -26081,17 +12705,7 @@
     "  n3 (int): Third problem dimension\n" \
     "\n" \
     "Returns:\n" \
-    "  result (int): The parameter value according to ISPEC, or -1 for invalid ISPEC\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import ue01md\n" \
-    ">>> ispec = 1\n" \
-    ">>> name = \"MB04SB\"\n" \
-    ">>> opts = \"\"\n" \
-    ">>> n1, n2, n3 = 100, 100, -1\n" \
-    ">>> result = ue01md(ispec, name, opts, n1, n2, n3)"
+    "  result (int): The parameter value according to ISPEC, or -1 for invalid ISPEC"
 
 #define DOC_ZGEGS "Compute generalized Schur form for complex matrix pair.\n" \
     "\n" \
@@ -26120,24 +12734,7 @@
     "    beta: Eigenvalue denominators from diag(T) (n,)\n" \
     "    vsl: Left Schur vectors Q (n x n) if jobvsl='V', else empty\n" \
     "    vsr: Right Schur vectors Z (n x n) if jobvsr='V', else empty\n" \
-    "    info: Exit code (0=success, <0=param error, 1..N=QZ failed, >N=LAPACK error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import zgegs\n" \
-    ">>> n = 2\n" \
-    ">>> a = (np.random.randn(n, n) + 1j * np.random.randn(n, n)).astype(\n" \
-    "...     np.complex128, order=\"F\"\n" \
-    "...     )\n" \
-    ">>> b = (np.random.randn(n, n) + 1j * np.random.randn(n, n)).astype(\n" \
-    "...     np.complex128, order=\"F\"\n" \
-    "...     )\n" \
-    ">>> s, t, alpha, beta, vsl, vsr, info = zgegs(\"V\", \"V\", a, b)\n" \
-    ">>> a_reconstructed = vsl @ s @ vsr.conj().T\n" \
-    ">>> b_reconstructed = vsl @ t @ vsr.conj().T\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0=param error, 1..N=QZ failed, >N=LAPACK error)"
 
 #define DOC_ZGEGV "Compute generalized eigenvalues and eigenvectors for complex matrix pair.\n" \
     "\n" \
@@ -26163,22 +12760,6 @@
     "    beta: Complex eigenvalue denominators (n,)\n" \
     "    vl: Left eigenvectors (n x n) if jobvl='V', else empty\n" \
     "    vr: Right eigenvectors (n x n) if jobvr='V', else empty\n" \
-    "    info: Exit code (0=success, <0=param error, 1..N=QZ failed, >N=LAPACK error)\n" \
-    "\n" \
-    "Examples:\n" \
-    "\n" \
-    ">>> import numpy as np\n" \
-    ">>> from slicot import zgegv\n" \
-    ">>> n = 2\n" \
-    ">>> a = (np.random.randn(n, n) + 1j * np.random.randn(n, n)).astype(\n" \
-    "...     np.complex128, order=\"F\"\n" \
-    "...     )\n" \
-    ">>> b = np.eye(n, dtype=np.complex128, order=\"F\")\n" \
-    ">>> alpha, beta, vl, vr, info = zgegv(\"N\", \"N\", a, b)\n" \
-    ">>> eigs_computed = []\n" \
-    "...     eigs_computed.append(alpha[i] / beta[i])\n" \
-    ">>> eigs_computed = np.array(sorted(eigs_computed, key=lambda x: (x.real, x.imag)))\n" \
-    ">>> info\n" \
-    "0"
+    "    info: Exit code (0=success, <0=param error, 1..N=QZ failed, >N=LAPACK error)"
 
 #endif /* SLICOT_DOCSTRINGS_H */

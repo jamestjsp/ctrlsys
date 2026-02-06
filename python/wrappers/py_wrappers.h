@@ -229,6 +229,7 @@ extern PyObject* py_mb02uw(PyObject* self, PyObject* args);
 extern PyObject* py_mb02vd(PyObject* self, PyObject* args);
 extern PyObject* py_mb02wd(PyObject* self, PyObject* args);
 extern PyObject* py_mb02yd(PyObject* self, PyObject* args);
+extern PyObject* py_mb02xd(PyObject* self, PyObject* args);
 
 /* MB03 family */
 extern PyObject* py_mb03ab(PyObject* self, PyObject* args);
@@ -524,9 +525,17 @@ extern PyObject* slicot_sb10yd(PyObject* self, PyObject* args);
 extern PyObject* slicot_sb10md(PyObject* self, PyObject* args);
 extern PyObject* py_sb06nd(PyObject* self, PyObject* args, PyObject* kwargs);
 extern PyObject* py_sb16ad(PyObject* self, PyObject* args, PyObject* kwargs);
+extern PyObject* py_sb16ay(PyObject* self, PyObject* args, PyObject* kwargs);
 extern PyObject* py_sb16bd(PyObject* self, PyObject* args);
 extern PyObject* py_sb16cd(PyObject* self, PyObject* args, PyObject* kwargs);
 extern PyObject* py_sb16cy(PyObject* self, PyObject* args);
+extern PyObject* py_sb04px(PyObject* self, PyObject* args);
+extern PyObject* py_sb03oy(PyObject* self, PyObject* args);
+extern PyObject* py_sb03or(PyObject* self, PyObject* args);
+extern PyObject* py_sb03os(PyObject* self, PyObject* args);
+extern PyObject* py_sb03ot(PyObject* self, PyObject* args);
+extern PyObject* py_sb03oz(PyObject* self, PyObject* args, PyObject* kwargs);
+extern PyObject* py_sb10ud(PyObject* self, PyObject* args, PyObject* kwargs);
 
 /* SG family */
 extern PyObject* py_sg02ad(PyObject* self, PyObject* args);

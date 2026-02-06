@@ -1,59 +1,46 @@
-# SLICOT
+# slicot.c
 
-[![PyPI version](https://img.shields.io/pypi/v/slicot)](https://pypi.org/project/slicot/)
-[![Build Status](https://github.com/jamestjsp/slicot/actions/workflows/test.yml/badge.svg)](https://github.com/jamestjsp/slicot/actions)
-[![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE)
+C11 translation of SLICOT (Subroutine Library In Control Theory) from Fortran77.
 
-Python bindings for **SLICOT** (Subroutine Library In COntrol Theory) - numerical routines for control systems analysis and design. This is a low-level API primarily targeting AI agents and higher-level libraries.
-
-## Installation
-
-```bash
-pip install slicot
-```
-
-## Features
-
-- **600+ routines** for control systems
-- **State-space methods**: Riccati, Lyapunov, pole placement
-- **Model reduction**: Balance & Truncate, Hankel-norm
-- **System identification**: MOESP, N4SID
-- **NumPy integration**: Column-major arrays
-
-## Usage
-
-While you can use this library directly, it's recommended to access it through AI coding agents that understand control theory conventions and SLICOT's API patterns.
-
-For agent skills (Claude Code, Cursor, etc.), see [control-skills](https://github.com/jamestjsp/control-skills).
+**Based on:** [SLICOT-Reference](https://github.com/SLICOT/SLICOT-Reference) (BSD 3-Clause License)
+**License:** BSD 3-Clause (see [LICENSE](LICENSE))
 
 ## Quick Start
 
-```python
-import numpy as np
-import slicot
+```bash
+# Install with uv
+uv pip install ".[test]"
 
-# Controllability analysis
-A = np.array([[1, 2], [3, 4]], order='F')
-B = np.array([[1], [0]], order='F')
-
-a_out, b_out, ncont, z, tau, info = slicot.ab01md('I', A, B.flatten(), 0.0)
-print(f"Controllable dimension: {ncont}")
+# Run tests
+.venv/bin/pytest tests/python/ -v
 ```
 
-## Column-Major Arrays
+## Translation Status
 
-SLICOT uses Fortran conventions:
+**552/627 routines translated (88%)**
 
-```python
-A = np.array([[1, 2], [3, 4]], order='F')  # Required!
-```
+| Family | Translated |
+|--------|------------|
+| AB | 55 |
+| MB | 229 |
+| SB | 113 |
+| MA | 37 |
+| MC | 19 |
+| IB | 16 |
+| Others | 83 |
+
+513 test files covering translated routines.
+
+## Features
+
+- Column-major storage (Fortran-compatible)
+- Python bindings (NumPy arrays)
+- TDD workflow (RED→GREEN→REFACTOR)
+
+## Docs
+
+- **[CLAUDE.md](CLAUDE.md)** - Development workflow & translation patterns
 
 ## Contributions
 
 I don't accept direct contributions. Issues and PRs are welcome for illustration, but won't be merged directly. An AI agent reviews submissions and independently decides whether/how to address them. Bug reports appreciated.
-
-## License
-
-This project (C11 translation and Python bindings) is BSD-3-Clause. See [LICENSE](LICENSE).
-
-The original SLICOT library is copyright © 1996-2025 The SLICOT Team, maintained by [NICONET e.V.](https://www.slicot.org/), and licensed under BSD-3-Clause. See [LICENSE-SLICOT](LICENSE-SLICOT).

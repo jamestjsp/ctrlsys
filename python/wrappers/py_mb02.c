@@ -4070,3 +4070,68 @@ PyObject* py_mb02nd_full(PyObject* self, PyObject* args)
 
     return Py_BuildValue("OidOOii", x_array, rank, theta, q_array, inul_list, iwarn, info);
 }
+
+
+/* Python wrapper for mb02xd (standard form only, FORM='S') */
+PyObject* py_mb02xd(PyObject* self, PyObject* args) {
+    const char *stor_str, *uplo_str;
+    int m, n, nrhs;
+    PyObject *a_obj, *b_obj;
+
+    if (!PyArg_ParseTuple(args, "ssiiiOO", &stor_str, &uplo_str,
+                          &m, &n, &nrhs, &a_obj, &b_obj)) {
+        return NULL;
+    }
+
+    PyArrayObject *a_array = (PyArrayObject*)PyArray_FROM_OTF(
+        a_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (a_array == NULL) return NULL;
+
+    PyArrayObject *b_array = (PyArrayObject*)PyArray_FROM_OTF(
+        b_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (b_array == NULL) {
+        Py_DECREF(a_array);
+        return NULL;
+    }
+
+    i32 lda = m > 1 ? m : 1;
+    i32 ldb = n > 1 ? n : 1;
+    i32 ldata = n > 1 ? n : 1;
+
+    bool full = (toupper((unsigned char)stor_str[0]) == 'F');
+    i32 ata_size = full ? (n * n) : (n * (n + 1) / 2);
+    if (ata_size < 1) ata_size = 1;
+
+    npy_intp ata_dims[2] = {n > 0 ? n : 1, n > 0 ? n : 1};
+    npy_intp ata_strides[2] = {sizeof(f64), ldata * sizeof(f64)};
+    PyObject *ata_array = PyArray_New(&PyArray_Type, 2, ata_dims, NPY_DOUBLE,
+                                      ata_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (ata_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        return PyErr_NoMemory();
+    }
+
+    i32 lipar = 0;
+    i32 ldpar = 0;
+    i32 ldwork = 1;
+    f64 dwork_val = 0.0;
+    i32 info = 0;
+
+    mb02xd("S", stor_str, uplo_str, NULL,
+           &m, &n, &nrhs, NULL, &lipar, NULL, &ldpar,
+           (f64*)PyArray_DATA(a_array), &lda,
+           (f64*)PyArray_DATA(b_array), &ldb,
+           (f64*)PyArray_DATA((PyArrayObject*)ata_array), &ldata,
+           &dwork_val, &ldwork, &info);
+
+    PyArray_ResolveWritebackIfCopy(b_array);
+
+    PyObject *result = Py_BuildValue("OOi", b_array, ata_array, info);
+
+    Py_DECREF(a_array);
+    Py_DECREF(b_array);
+    Py_DECREF(ata_array);
+
+    return result;
+}

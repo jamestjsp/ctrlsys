@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  # Fast check on direct pushes to main only (not PRs)
+  quick-test:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/devcontainers/cpp:ubuntu
+    name: Quick Test (Release)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            libblas-dev \
+            liblapack-dev \
+            gfortran \
+            ninja-build \
+            python3-dev
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Setup venv and build
+        run: |
+          uv venv venv
+          . venv/bin/activate
+          uv pip install ".[test]"
+
+      - name: Run tests
+        run: |
+          . venv/bin/activate
+          pytest tests/python/ -v -n auto --reruns 2 --only-rerun "worker .* crashed"
+
+  # Thorough checks on PR/manual trigger only
+  full-test:
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/devcontainers/cpp:ubuntu
+    name: Full Test (ASAN)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            libblas-dev \
+            liblapack-dev \
+            gfortran \
+            ninja-build \
+            python3-dev
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Setup venv
+        run: |
+          uv venv venv
+          . venv/bin/activate
+          uv pip install ".[test]"
+
+      - name: Build with sanitizers
+        run: |
+          . venv/bin/activate
+          meson setup build -Db_sanitize=address,undefined -Db_lundef=false --buildtype=debug
+          meson compile -C build
+          uv pip install . --reinstall --no-deps
+
+      - name: Run tests
+        run: |
+          . venv/bin/activate
+          export LD_PRELOAD=$(gcc -print-file-name=libasan.so)
+          pytest tests/python/ -v -n auto --reruns 2 --only-rerun "worker .* crashed"
+        env:
+          ASAN_OPTIONS: detect_leaks=0:symbolize=1:abort_on_error=1:verify_asan_link_order=0
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1

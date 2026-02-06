@@ -12281,3 +12281,706 @@ PyObject* py_sb16cd(PyObject* self, PyObject* args, PyObject* kwargs) {
 
     return result;
 }
+
+
+/* Python wrapper for sb04px */
+PyObject* py_sb04px(PyObject* self, PyObject* args) {
+    int ltranl_int, ltranr_int, isgn, n1, n2;
+    PyObject *tl_obj, *tr_obj, *b_obj;
+
+    if (!PyArg_ParseTuple(args, "ppiiiOOO",
+                          &ltranl_int, &ltranr_int, &isgn, &n1, &n2,
+                          &tl_obj, &tr_obj, &b_obj)) {
+        return NULL;
+    }
+
+    bool ltranl = (bool)ltranl_int;
+    bool ltranr = (bool)ltranr_int;
+
+    PyArrayObject *tl_array = (PyArrayObject*)PyArray_FROM_OTF(
+        tl_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (tl_array == NULL) return NULL;
+
+    PyArrayObject *tr_array = (PyArrayObject*)PyArray_FROM_OTF(
+        tr_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (tr_array == NULL) {
+        Py_DECREF(tl_array);
+        return NULL;
+    }
+
+    PyArrayObject *b_array = (PyArrayObject*)PyArray_FROM_OTF(
+        b_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (b_array == NULL) {
+        Py_DECREF(tl_array);
+        Py_DECREF(tr_array);
+        return NULL;
+    }
+
+    i32 ldtl = n1 > 1 ? n1 : 1;
+    i32 ldtr = n2 > 1 ? n2 : 1;
+    i32 ldb = n1 > 1 ? n1 : 1;
+    i32 ldx = n1 > 1 ? n1 : 1;
+
+    npy_intp x_dims[2] = {n1 > 0 ? n1 : 1, n2 > 0 ? n2 : 1};
+    npy_intp x_strides[2] = {sizeof(f64), ldx * sizeof(f64)};
+    PyObject *x_array = PyArray_New(&PyArray_Type, 2, x_dims, NPY_DOUBLE,
+                                    x_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (x_array == NULL) {
+        Py_DECREF(tl_array);
+        Py_DECREF(tr_array);
+        Py_DECREF(b_array);
+        return PyErr_NoMemory();
+    }
+
+    f64 scale = 0.0, xnorm = 0.0;
+    i32 info = 0;
+
+    sb04px(ltranl, ltranr, (i32)isgn, (i32)n1, (i32)n2,
+           (f64*)PyArray_DATA(tl_array), ldtl,
+           (f64*)PyArray_DATA(tr_array), ldtr,
+           (f64*)PyArray_DATA(b_array), ldb,
+           &scale,
+           (f64*)PyArray_DATA((PyArrayObject*)x_array), ldx,
+           &xnorm, &info);
+
+    Py_DECREF(tl_array);
+    Py_DECREF(tr_array);
+    Py_DECREF(b_array);
+
+    return Py_BuildValue("dOdi", scale, x_array, xnorm, info);
+}
+
+
+/* Python wrapper for sb03oy */
+PyObject* py_sb03oy(PyObject* self, PyObject* args) {
+    int discr_int, ltrans_int, isgn;
+    PyObject *s_obj, *r_obj;
+
+    if (!PyArg_ParseTuple(args, "ppiOO", &discr_int, &ltrans_int, &isgn, &s_obj, &r_obj)) {
+        return NULL;
+    }
+
+    bool discr = (bool)discr_int;
+    bool ltrans = (bool)ltrans_int;
+
+    PyArrayObject *s_array = (PyArrayObject*)PyArray_FROM_OTF(
+        s_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (s_array == NULL) return NULL;
+
+    PyArrayObject *r_array = (PyArrayObject*)PyArray_FROM_OTF(
+        r_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (r_array == NULL) {
+        Py_DECREF(s_array);
+        return NULL;
+    }
+
+    npy_intp a_dims[2] = {2, 2};
+    npy_intp a_strides[2] = {sizeof(f64), 2 * sizeof(f64)};
+    PyObject *a_array = PyArray_New(&PyArray_Type, 2, a_dims, NPY_DOUBLE,
+                                    a_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (a_array == NULL) {
+        Py_DECREF(s_array);
+        Py_DECREF(r_array);
+        return PyErr_NoMemory();
+    }
+
+    f64 scale = 0.0;
+    i32 info = 0;
+
+    sb03oy(discr, ltrans, (i32)isgn,
+           (f64*)PyArray_DATA(s_array), 2,
+           (f64*)PyArray_DATA(r_array), 2,
+           (f64*)PyArray_DATA((PyArrayObject*)a_array), 2,
+           &scale, &info);
+
+    PyArray_ResolveWritebackIfCopy(s_array);
+    PyArray_ResolveWritebackIfCopy(r_array);
+
+    PyObject *result = Py_BuildValue("OOOdi", s_array, r_array, a_array, scale, info);
+
+    Py_DECREF(s_array);
+    Py_DECREF(r_array);
+    Py_DECREF(a_array);
+
+    return result;
+}
+
+
+/* Python wrapper for sb03or */
+PyObject* py_sb03or(PyObject* self, PyObject* args) {
+    int discr_int, ltrans_int, n, m;
+    PyObject *s_obj, *a_obj, *c_obj;
+
+    if (!PyArg_ParseTuple(args, "ppiiOOO", &discr_int, &ltrans_int, &n, &m,
+                          &s_obj, &a_obj, &c_obj)) {
+        return NULL;
+    }
+
+    bool discr = (bool)discr_int;
+    bool ltrans = (bool)ltrans_int;
+
+    PyArrayObject *s_array = (PyArrayObject*)PyArray_FROM_OTF(
+        s_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (s_array == NULL) return NULL;
+
+    PyArrayObject *a_array = (PyArrayObject*)PyArray_FROM_OTF(
+        a_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (a_array == NULL) {
+        Py_DECREF(s_array);
+        return NULL;
+    }
+
+    PyArrayObject *c_array = (PyArrayObject*)PyArray_FROM_OTF(
+        c_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (c_array == NULL) {
+        Py_DECREF(s_array);
+        Py_DECREF(a_array);
+        return NULL;
+    }
+
+    i32 lds = n > 1 ? n : 1;
+    i32 lda = m;
+    i32 ldc = n > 1 ? n : 1;
+
+    f64 scale = 0.0;
+    i32 info = 0;
+
+    sb03or(discr, ltrans, (i32)n, (i32)m,
+           (f64*)PyArray_DATA(s_array), lds,
+           (f64*)PyArray_DATA(a_array), lda,
+           (f64*)PyArray_DATA(c_array), ldc,
+           &scale, &info);
+
+    PyArray_ResolveWritebackIfCopy(c_array);
+
+    PyObject *result = Py_BuildValue("Odi", c_array, scale, info);
+
+    Py_DECREF(s_array);
+    Py_DECREF(a_array);
+    Py_DECREF(c_array);
+
+    return result;
+}
+
+
+/* Python wrapper for sb03os */
+PyObject* py_sb03os(PyObject* self, PyObject* args) {
+    int discr_int, ltrans_int, n;
+    PyObject *s_obj, *r_obj;
+
+    if (!PyArg_ParseTuple(args, "ppiOO", &discr_int, &ltrans_int, &n, &s_obj, &r_obj)) {
+        return NULL;
+    }
+
+    bool discr = (bool)discr_int;
+    bool ltrans = (bool)ltrans_int;
+
+    PyArrayObject *s_array = (PyArrayObject*)PyArray_FROM_OTF(
+        s_obj, NPY_COMPLEX128, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (s_array == NULL) return NULL;
+
+    PyArrayObject *r_array = (PyArrayObject*)PyArray_FROM_OTF(
+        r_obj, NPY_COMPLEX128, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (r_array == NULL) {
+        Py_DECREF(s_array);
+        return NULL;
+    }
+
+    i32 lds = n > 1 ? n : 1;
+    i32 ldr = n > 1 ? n : 1;
+    i32 ldwork = n > 1 ? n : 1;
+    i32 lzwork = n > 1 ? 3*n - 2 : 1;
+
+    f64 *dwork = (f64*)PyMem_Calloc(ldwork, sizeof(f64));
+    c128 *zwork = (c128*)PyMem_Calloc(lzwork, sizeof(c128));
+    if (dwork == NULL || zwork == NULL) {
+        PyMem_Free(dwork);
+        PyMem_Free(zwork);
+        Py_DECREF(s_array);
+        Py_DECREF(r_array);
+        return PyErr_NoMemory();
+    }
+
+    f64 scale = 0.0;
+    i32 info = 0;
+
+    sb03os(discr, ltrans, (i32)n,
+           (c128*)PyArray_DATA(s_array), lds,
+           (c128*)PyArray_DATA(r_array), ldr,
+           &scale, dwork, zwork, &info);
+
+    PyMem_Free(dwork);
+    PyMem_Free(zwork);
+
+    PyArray_ResolveWritebackIfCopy(s_array);
+    PyArray_ResolveWritebackIfCopy(r_array);
+
+    PyObject *result = Py_BuildValue("OOdi", s_array, r_array, scale, info);
+
+    Py_DECREF(s_array);
+    Py_DECREF(r_array);
+
+    return result;
+}
+
+
+/* Python wrapper for sb03ot */
+PyObject* py_sb03ot(PyObject* self, PyObject* args) {
+    int discr_int, ltrans_int, n;
+    PyObject *s_obj, *r_obj;
+
+    if (!PyArg_ParseTuple(args, "ppiOO", &discr_int, &ltrans_int, &n, &s_obj, &r_obj)) {
+        return NULL;
+    }
+
+    bool discr = (bool)discr_int;
+    bool ltrans = (bool)ltrans_int;
+
+    PyArrayObject *s_array = (PyArrayObject*)PyArray_FROM_OTF(
+        s_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (s_array == NULL) return NULL;
+
+    PyArrayObject *r_array = (PyArrayObject*)PyArray_FROM_OTF(
+        r_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (r_array == NULL) {
+        Py_DECREF(s_array);
+        return NULL;
+    }
+
+    i32 lds = n > 1 ? n : 1;
+    i32 ldr = n > 1 ? n : 1;
+    i32 ldwork = 4 * n;
+    if (ldwork < 1) ldwork = 1;
+
+    f64 *dwork = (f64*)PyMem_Calloc(ldwork, sizeof(f64));
+    if (dwork == NULL) {
+        Py_DECREF(s_array);
+        Py_DECREF(r_array);
+        return PyErr_NoMemory();
+    }
+
+    f64 scale = 0.0;
+    i32 info = 0;
+
+    sb03ot(discr, ltrans, (i32)n,
+           (f64*)PyArray_DATA(s_array), lds,
+           (f64*)PyArray_DATA(r_array), ldr,
+           &scale, dwork, &info);
+
+    PyMem_Free(dwork);
+
+    PyArray_ResolveWritebackIfCopy(s_array);
+    PyArray_ResolveWritebackIfCopy(r_array);
+
+    PyObject *result = Py_BuildValue("OOdi", s_array, r_array, scale, info);
+
+    Py_DECREF(s_array);
+    Py_DECREF(r_array);
+
+    return result;
+}
+
+
+/* Python wrapper for sb03oz */
+PyObject* py_sb03oz(PyObject* self, PyObject* args, PyObject* kwargs) {
+    static char *kwlist[] = {"dico", "fact", "trans", "a", "q", "b", NULL};
+    const char *dico_str, *fact_str, *trans_str;
+    PyObject *a_obj, *q_obj, *b_obj;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "sssOOO", kwlist,
+                                      &dico_str, &fact_str, &trans_str,
+                                      &a_obj, &q_obj, &b_obj)) {
+        return NULL;
+    }
+
+    PyArrayObject *a_array = (PyArrayObject*)PyArray_FROM_OTF(
+        a_obj, NPY_COMPLEX128, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (a_array == NULL) return NULL;
+
+    PyArrayObject *q_array = (PyArrayObject*)PyArray_FROM_OTF(
+        q_obj, NPY_COMPLEX128, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (q_array == NULL) {
+        Py_DECREF(a_array);
+        return NULL;
+    }
+
+    PyArrayObject *b_array = (PyArrayObject*)PyArray_FROM_OTF(
+        b_obj, NPY_COMPLEX128, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (b_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(q_array);
+        return NULL;
+    }
+
+    i32 n = (i32)PyArray_DIM(a_array, 0);
+    i32 m = (i32)PyArray_DIM(b_array, 0);
+    i32 lda = n > 1 ? n : 1;
+    i32 ldq = n > 1 ? n : 1;
+    i32 ldb = m > 1 ? m : 1;
+
+    i32 ldwork = 3 * n + 8;
+    i32 lzwork = n * (n + m);
+
+    f64 *dwork = (f64*)PyMem_Calloc(ldwork, sizeof(f64));
+    c128 *zwork = (c128*)PyMem_Calloc(lzwork, sizeof(c128));
+    if (dwork == NULL || zwork == NULL) {
+        PyMem_Free(dwork);
+        PyMem_Free(zwork);
+        Py_DECREF(a_array);
+        Py_DECREF(q_array);
+        Py_DECREF(b_array);
+        return PyErr_NoMemory();
+    }
+
+    npy_intp w_dims[1] = {n > 0 ? n : 1};
+    PyObject *w_array = PyArray_SimpleNew(1, w_dims, NPY_COMPLEX128);
+    if (w_array == NULL) {
+        PyMem_Free(dwork);
+        PyMem_Free(zwork);
+        Py_DECREF(a_array);
+        Py_DECREF(q_array);
+        Py_DECREF(b_array);
+        return PyErr_NoMemory();
+    }
+
+    f64 scale = 0.0;
+    i32 info = 0;
+
+    sb03oz(dico_str, fact_str, trans_str, n, m,
+           (c128*)PyArray_DATA(a_array), lda,
+           (c128*)PyArray_DATA(q_array), ldq,
+           (c128*)PyArray_DATA(b_array), ldb,
+           &scale,
+           (c128*)PyArray_DATA((PyArrayObject*)w_array),
+           dwork, zwork, lzwork, &info);
+
+    PyMem_Free(dwork);
+    PyMem_Free(zwork);
+
+    PyArray_ResolveWritebackIfCopy(a_array);
+    PyArray_ResolveWritebackIfCopy(q_array);
+    PyArray_ResolveWritebackIfCopy(b_array);
+
+    PyObject *result = Py_BuildValue("OOOdOi", a_array, q_array, b_array, scale, w_array, info);
+
+    Py_DECREF(a_array);
+    Py_DECREF(q_array);
+    Py_DECREF(b_array);
+    Py_DECREF(w_array);
+
+    return result;
+}
+
+
+/* Python wrapper for sb10ud */
+PyObject* py_sb10ud(PyObject* self, PyObject* args, PyObject* kwargs) {
+    static char *kwlist[] = {"n", "m", "np", "ncon", "nmeas", "b", "c", "d", "tol", NULL};
+    int n, m, np_val, ncon, nmeas;
+    PyObject *b_obj, *c_obj, *d_obj;
+    double tol = 0.0;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "iiiiiOOO|d", kwlist,
+                                      &n, &m, &np_val, &ncon, &nmeas,
+                                      &b_obj, &c_obj, &d_obj, &tol)) {
+        return NULL;
+    }
+
+    PyArrayObject *b_array = (PyArrayObject*)PyArray_FROM_OTF(
+        b_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (b_array == NULL) return NULL;
+
+    PyArrayObject *c_array = (PyArrayObject*)PyArray_FROM_OTF(
+        c_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (c_array == NULL) {
+        Py_DECREF(b_array);
+        return NULL;
+    }
+
+    PyArrayObject *d_array = (PyArrayObject*)PyArray_FROM_OTF(
+        d_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
+    if (d_array == NULL) {
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        return NULL;
+    }
+
+    i32 ldb = n > 1 ? n : 1;
+    i32 ldc = np_val > 1 ? np_val : 1;
+    i32 ldd = np_val > 1 ? np_val : 1;
+    i32 ldtu = ncon > 1 ? ncon : 1;
+    i32 ldty = nmeas > 1 ? nmeas : 1;
+
+    npy_intp tu_dims[2] = {ncon > 0 ? ncon : 1, ncon > 0 ? ncon : 1};
+    npy_intp tu_strides[2] = {sizeof(f64), ldtu * sizeof(f64)};
+    PyObject *tu_array = PyArray_New(&PyArray_Type, 2, tu_dims, NPY_DOUBLE,
+                                     tu_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (tu_array == NULL) {
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        return PyErr_NoMemory();
+    }
+
+    npy_intp ty_dims[2] = {nmeas > 0 ? nmeas : 1, nmeas > 0 ? nmeas : 1};
+    npy_intp ty_strides[2] = {sizeof(f64), ldty * sizeof(f64)};
+    PyObject *ty_array = PyArray_New(&PyArray_Type, 2, ty_dims, NPY_DOUBLE,
+                                     ty_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (ty_array == NULL) {
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(tu_array);
+        return PyErr_NoMemory();
+    }
+
+    i32 m1 = m - ncon;
+    i32 m2 = ncon;
+    i32 np1 = np_val - nmeas;
+    i32 np2 = nmeas;
+    i32 q = m1 > m2 ? m1 : m2;
+    q = q > np1 ? q : np1;
+    q = q > np2 ? q : np2;
+    if (q < 1) q = 1;
+    i32 max_n_5 = n > 5 ? n : 5;
+    i32 ldwork = q * (q + max_n_5 + 1);
+    if (ldwork < 1) ldwork = 1;
+
+    f64 *dwork = (f64*)PyMem_Calloc(ldwork, sizeof(f64));
+    f64 rcond[2] = {0.0, 0.0};
+    if (dwork == NULL) {
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(tu_array);
+        Py_DECREF(ty_array);
+        return PyErr_NoMemory();
+    }
+
+    i32 info = 0;
+
+    sb10ud((i32)n, (i32)m, (i32)np_val, (i32)ncon, (i32)nmeas,
+           (f64*)PyArray_DATA(b_array), ldb,
+           (f64*)PyArray_DATA(c_array), ldc,
+           (f64*)PyArray_DATA(d_array), ldd,
+           (f64*)PyArray_DATA((PyArrayObject*)tu_array), ldtu,
+           (f64*)PyArray_DATA((PyArrayObject*)ty_array), ldty,
+           rcond, tol, dwork, ldwork, &info);
+
+    PyMem_Free(dwork);
+
+    PyArray_ResolveWritebackIfCopy(b_array);
+    PyArray_ResolveWritebackIfCopy(c_array);
+    PyArray_ResolveWritebackIfCopy(d_array);
+
+    npy_intp rcond_dims[1] = {2};
+    PyObject *rcond_array = PyArray_SimpleNew(1, rcond_dims, NPY_DOUBLE);
+    memcpy(PyArray_DATA((PyArrayObject*)rcond_array), rcond, 2 * sizeof(f64));
+
+    PyObject *result = Py_BuildValue("OOOOOOi",
+                                      b_array, c_array, d_array, tu_array, ty_array, rcond_array, info);
+
+    Py_DECREF(b_array);
+    Py_DECREF(c_array);
+    Py_DECREF(d_array);
+    Py_DECREF(tu_array);
+    Py_DECREF(ty_array);
+    Py_DECREF(rcond_array);
+
+    return result;
+}
+
+
+/* Python wrapper for sb16ay */
+PyObject* py_sb16ay(PyObject* self, PyObject* args, PyObject* kwargs) {
+    static char *kwlist[] = {"dico", "jobc", "jobo", "weight",
+                             "n", "m", "p", "nc", "ncs",
+                             "a", "b", "c", "d", "ac", "bc", "cc", "dc", NULL};
+    const char *dico_str, *jobc_str, *jobo_str, *weight_str;
+    int n, m, p, nc, ncs;
+    PyObject *a_obj, *b_obj, *c_obj, *d_obj, *ac_obj, *bc_obj, *cc_obj, *dc_obj;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "ssssiiiiiOOOOOOOO", kwlist,
+                                      &dico_str, &jobc_str, &jobo_str, &weight_str,
+                                      &n, &m, &p, &nc, &ncs,
+                                      &a_obj, &b_obj, &c_obj, &d_obj,
+                                      &ac_obj, &bc_obj, &cc_obj, &dc_obj)) {
+        return NULL;
+    }
+
+    PyArrayObject *a_array = (PyArrayObject*)PyArray_FROM_OTF(
+        a_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (a_array == NULL) return NULL;
+
+    PyArrayObject *b_array = (PyArrayObject*)PyArray_FROM_OTF(
+        b_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (b_array == NULL) {
+        Py_DECREF(a_array);
+        return NULL;
+    }
+
+    PyArrayObject *c_array = (PyArrayObject*)PyArray_FROM_OTF(
+        c_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (c_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        return NULL;
+    }
+
+    PyArrayObject *d_array = (PyArrayObject*)PyArray_FROM_OTF(
+        d_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (d_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        return NULL;
+    }
+
+    PyArrayObject *ac_array = (PyArrayObject*)PyArray_FROM_OTF(
+        ac_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (ac_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        return NULL;
+    }
+
+    PyArrayObject *bc_array = (PyArrayObject*)PyArray_FROM_OTF(
+        bc_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (bc_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(ac_array);
+        return NULL;
+    }
+
+    PyArrayObject *cc_array = (PyArrayObject*)PyArray_FROM_OTF(
+        cc_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (cc_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(ac_array);
+        Py_DECREF(bc_array);
+        return NULL;
+    }
+
+    PyArrayObject *dc_array = (PyArrayObject*)PyArray_FROM_OTF(
+        dc_obj, NPY_DOUBLE, NPY_ARRAY_IN_FARRAY);
+    if (dc_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(ac_array);
+        Py_DECREF(bc_array);
+        Py_DECREF(cc_array);
+        return NULL;
+    }
+
+    i32 lda = n > 1 ? n : 1;
+    i32 ldb = n > 1 ? n : 1;
+    i32 ldc = p > 1 ? p : 1;
+    i32 ldd = p > 1 ? p : 1;
+    i32 ldac = nc > 1 ? nc : 1;
+    i32 ldbc = nc > 1 ? nc : 1;
+    i32 ldcc = m > 1 ? m : 1;
+    i32 lddc = m > 1 ? m : 1;
+    i32 lds = nc > 1 ? nc : 1;
+    i32 ldr = nc > 1 ? nc : 1;
+
+    npy_intp s_dims[2] = {nc > 0 ? nc : 1, nc > 0 ? nc : 1};
+    npy_intp s_strides[2] = {sizeof(f64), lds * sizeof(f64)};
+    PyObject *s_array = PyArray_New(&PyArray_Type, 2, s_dims, NPY_DOUBLE,
+                                    s_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (s_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(ac_array);
+        Py_DECREF(bc_array);
+        Py_DECREF(cc_array);
+        Py_DECREF(dc_array);
+        return PyErr_NoMemory();
+    }
+
+    npy_intp r_dims[2] = {nc > 0 ? nc : 1, nc > 0 ? nc : 1};
+    npy_intp r_strides[2] = {sizeof(f64), ldr * sizeof(f64)};
+    PyObject *r_array = PyArray_New(&PyArray_Type, 2, r_dims, NPY_DOUBLE,
+                                    r_strides, NULL, 0, NPY_ARRAY_FARRAY, NULL);
+    if (r_array == NULL) {
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(ac_array);
+        Py_DECREF(bc_array);
+        Py_DECREF(cc_array);
+        Py_DECREF(dc_array);
+        Py_DECREF(s_array);
+        return PyErr_NoMemory();
+    }
+
+    i32 nn = n + nc + m + p;
+    i32 max_nn_mp = nn > (m + p) ? nn : (m + p);
+    i32 ldwork = nn * (nn + 2 * max_nn_mp) + max_nn_mp * max_nn_mp;
+    if (ldwork < 1) ldwork = 1;
+
+    i32 *iwork = (i32*)PyMem_Calloc(nn > 1 ? nn : 1, sizeof(i32));
+    f64 *dwork = (f64*)PyMem_Calloc(ldwork, sizeof(f64));
+    if (iwork == NULL || dwork == NULL) {
+        PyMem_Free(iwork);
+        PyMem_Free(dwork);
+        Py_DECREF(a_array);
+        Py_DECREF(b_array);
+        Py_DECREF(c_array);
+        Py_DECREF(d_array);
+        Py_DECREF(ac_array);
+        Py_DECREF(bc_array);
+        Py_DECREF(cc_array);
+        Py_DECREF(dc_array);
+        Py_DECREF(s_array);
+        Py_DECREF(r_array);
+        return PyErr_NoMemory();
+    }
+
+    f64 scalec = 1.0, scaleo = 1.0;
+    i32 info = 0;
+
+    sb16ay(dico_str, jobc_str, jobo_str, weight_str,
+           (i32)n, (i32)m, (i32)p, (i32)nc, (i32)ncs,
+           (f64*)PyArray_DATA(a_array), lda,
+           (f64*)PyArray_DATA(b_array), ldb,
+           (f64*)PyArray_DATA(c_array), ldc,
+           (f64*)PyArray_DATA(d_array), ldd,
+           (f64*)PyArray_DATA(ac_array), ldac,
+           (f64*)PyArray_DATA(bc_array), ldbc,
+           (f64*)PyArray_DATA(cc_array), ldcc,
+           (f64*)PyArray_DATA(dc_array), lddc,
+           &scalec, &scaleo,
+           (f64*)PyArray_DATA((PyArrayObject*)s_array), lds,
+           (f64*)PyArray_DATA((PyArrayObject*)r_array), ldr,
+           iwork, dwork, ldwork, &info);
+
+    PyMem_Free(iwork);
+    PyMem_Free(dwork);
+
+    PyObject *result = Py_BuildValue("ddOOi", scalec, scaleo, s_array, r_array, info);
+
+    Py_DECREF(a_array);
+    Py_DECREF(b_array);
+    Py_DECREF(c_array);
+    Py_DECREF(d_array);
+    Py_DECREF(ac_array);
+    Py_DECREF(bc_array);
+    Py_DECREF(cc_array);
+    Py_DECREF(dc_array);
+    Py_DECREF(s_array);
+    Py_DECREF(r_array);
+
+    return result;
+}

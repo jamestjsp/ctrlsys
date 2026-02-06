@@ -1,0 +1,68 @@
+"""
+Python bindings for SLICOT C library.
+"""
+from ._slicot import (
+    ab01md, ab01nd, ab01od, ab04md, ab05md, ab05nd, ab05od, ab05pd, ab05qd, ab05rd, ab05sd,
+    ab07md, ab07nd, ab08md, ab08mz, ab08nd, ab08nw, ab08nx, ab08ny, ab08nz, ab8nxz, ab09ad, ab09ax, ab09bd, ab09bx, ab09cd, ab09cx, ab09dd, ab09ed, ab09fd, ab09gd, ab09hd, ab09hx, ab09hy, ab09id, ab09ix, ab09iy, ab09jd, ab09jv, ab09jw, ab09jx, ab09kd, ab09kx, ab09md, ab09nd, ab13ad, ab13bd, ab13cd, ab13dd, ab13dx, ab13ed, ab13fd, ab13hd, ab13id, ab13md,
+    ag07bd, ag08bd, ag08by, ag08bz, ag8byz,
+    bb01ad, bb02ad, bb03ad, bb04ad,
+    bd01ad, bd02ad,
+    de01od, de01pd, df01md, dg01md, dg01nd, dg01od, dk01md, fb01qd, fb01rd, fb01sd, fb01td, fb01vd, fd01ad,
+    ib01ad, ib01bd, ib01cd, ib01md, ib01nd, ib01od, ib01oy, ib01pd,
+    ib01qd, ib01rd, ib03ad, ib03bd,
+    ma01ad, ma01bd, ma01bz, ma01cd, ma01dd, ma01dz, ma02ad, ma02az, ma02bd, ma02bz, ma02cd, ma02cz, ma02dd, ma02ed, ma02es, ma02ez, ma02gd, ma02gz, ma02hd, ma02hz, ma02iz, ma02jd, ma02jz, ma02md, ma02mz, ma02nz, ma02od, ma02oz, ma02pd, ma02pz, ma02rd, ma02sd,
+    mb01kd, mb01ld, mb01md, mb01nd, mb01oc, mb01od, mb01oe, mb01oh, mb01oo, mb01os, mb01ot, mb01pd, mb01qd, mb01rb, mb01rd, mb01rh, mb01rt, mb01ru, mb01rw, mb01rx, mb01ry, mb01sd, mb01ss, mb01td, mb01ud, mb01uw, mb01ux, mb01uy, mb01uz, mb01wd, mb01xd, mb01xy, mb01yd, mb01zd,
+    mb02cd, mb02dd, mb02cu, mb02cv, mb02cx, mb02cy, mb02ed, mb02fd, mb02gd, mb02hd, mb02id, mb02jd, mb02jx, mb02kd, mb02md, mb02nd, mb02ny, mb02od, mb02pd, mb02qd, mb02rd, mb02rz, mb02sd, mb02td, mb02sz, mb02tz, mb02ud, mb02uu, mb02uv, mb02uw, mb02vd, mb02wd, mb02xd, mb02yd,
+    mb03ab, mb03ad, mb03ae, mb03ag, mb03ah, mb03ai, mb03ba, mb03bc, mb03bd, mb03be, mb03bf, mb03bg, mb03bz, mb03cd, mb03cz, mb03dd, mb03dz, mb03ed, mb03fd, mb03fz, mb03gd, mb03gz, mb03hd, mb03hz, mb03id, mb03iz, mb03jd, mb03jp, mb03jz, mb3jzp, mb3lzp, mb03ld, mb03lf, mb03lp, mb03lz, mb03ka, mb03kb, mb03kc, mb03kd, mb03ke, mb03md, mb03od, mb03oy, mb03pd, mb03py, mb03qd, mb03qg, mb03qv, mb03qw, mb03qx, mb03qy, mb03rd, mb03rw, mb03rx, mb03ry, mb03rz, mb03sd, mb03td, mb03ts, mb3oyz, mb3pyz, mb03ud, mb03vd, mb03vw, mb03vy, mb03wa, mb03za, mb03zd, mb03wd, mb03wx, mb03xd, mb03xp, mb03xs, mb03xu, mb03xz, mb03ya, mb03yd, mb03yt,
+    mb04az, mb04ad, mb04bd, mb04bp, mb04bz, mb04cd, mb04db, mb04dd, mb04di, mb04dl, mb04dp, mb04ds, mb04dy, mb04dz, mb04ed, mb04fd, mb04fp, mb04gd, mb04hd, mb04id, mb04iy, mb04iz, mb04jd, mb04kd, mb04ld, mb04md, mb04pa, mb04pu, mb04pb, mb04nd, mb04ny, mb04od, mb04ow, mb04ox, mb04oy, mb04py, mb04qb, mb04qc, mb04qf, mb04qu, mb04qs, mb04rb, mb04rd, mb04rs, mb04rt, mb04ru, mb04rv, mb04rw, mb04rz, mb04su, mb04tb, mb04ts, mb04tt, mb04tu, mb04tv, mb04tw, mb04ty, mb04tx, mb04vd, mb04vx, mb04ud, mb04wd, mb04wp, mb04wr, mb04wu, mb04xd, mb04xy, mb04yd, mb04yw, mb04zd, mb4dbz, mb4dlz, mb4dpz,
+    mb05md, mb05my, mb05nd, mb05od, mb05oy,
+    mc01md, mc01nd, mc01od, mc01pd, mc01py, mc01qd, mc01rd, mc01sd, mc01sw, mc01sx, mc01sy, mc01td, mc01vd, mc01wd, mc01xd, mc03md, mc03nd, mc03nx, mc03ny,
+    md03ba, md03bb, md03bd, md03bf, md03by,
+    nf01ay, nf01br, nf01bs, nf01by,
+    sb01bd, sb01bx, sb01by, sb01dd, sb01fy, sb01md, sb06nd,
+    sb02cx, sb02mr, sb02ms, sb02mv, sb02mw, sb02ou, sb02ov, sb02ow, sb02ox, sb02md, sb02mt, sb02mu, sb02mx, sb02nd, sb02od, sb02oy, sb02pd, sb02qd, sb02rd, sb02ru, sb02sd, sb10dd, sb10ed, sb10fd,
+    sb03md, sb03mu, sb03mv, sb03mw, sb03mx, sb03my, sb03od, sb03or, sb03os, sb03ot, sb03ou, sb03ov, sb03oy, sb03oz, sb03pd, sb03qd, sb03qx, sb03qy, sb03rd, sb03sd, sb03sx, sb03sy, sb03td, sb03ud,
+    sb04md, sb04mr, sb04mw, sb04nd, sb04nv, sb04nw, sb04nx, sb04ny, sb04od, sb04ow, sb04pd, sb04px, sb04py, sb04qd, sb04qr, sb04rd, sb04rv, sb04rw, sb04rx, sb04ry, sb08cd, sb08dd, sb08ed, sb08fd, sb08gd, sb08hd, sb08md, sb08my, sb08nd, sb08ny, sb09md, sb10ad, sb10hd, sb10id, sb10jd, sb10kd, sb10ld, sb10md, sb10pd, sb10rd, sb10sd, sb10td, sb10ud, sb10vd, sb10wd, sb10yd, sb10zd, sb10zp, sb16ad, sb16ay, sb16bd, sb16cd, sb16cy,
+    sg02ad, sg02cv, sg02cw, sg02cx, sg02nd, sg03ad, sg03ax, sg03ay, sg03bd, sg03br, sg03bs, sg03bt, sg03bu, sg03bv, sg03bw, sg03bx, sg03by, sg03bz,
+    tb01id, tb01iz, tb01kd, tb01kx, tb01ld, tb01md, tb01nd, tb01pd, tb01px, tb01td, tb01ty, tb01ud, tb01ux, tb01uy, tb01vd, tb01vy, tb01wd, tb01wx, tb01xd, tb01xz, tb01zd, tb03ad, tb03ay, tb04ad, tb04bd, tb04bv, tb04bw, tb04bx, tb04cd, tb05ad,
+    tc01od, tc04ad, tc05ad, td03ad, td03ay, td04ad, td05ad,
+    tf01md, tf01mx, tf01my, tf01nd, tf01od, tf01pd, tf01qd, tf01rd,
+    tg01ad, tg01az, tg01bd, tg01cd, tg01dd, tg01ed, tg01fd, tg01fz, tg01gd, tg01hd, tg01hu, tg01hx, tg01hy, tg01id, tg01jd, tg01jy, tg01kd, tg01kz, tg01ld, tg01ly, tg01md, tg01nd, tg01nx, tg01oa, tg01ob, tg01od, tg01oz, tg01pd, tg01qd, tg01wd,
+    ud01bd, ud01cd, ud01dd, ud01md, ud01mz, ud01nd,
+    ue01md,
+    dlatzm, dgegv, zgegs, zgegv
+)
+
+__all__ = [
+    'ab01md', 'ab01nd', 'ab01od', 'ab04md', 'ab05md', 'ab05nd', 'ab05od', 'ab05pd', 'ab05qd', 'ab05rd', 'ab05sd',
+    'ab07md', 'ab07nd', 'ab08md', 'ab08mz', 'ab08nd', 'ab08nw', 'ab08nx', 'ab08ny', 'ab08nz', 'ab8nxz', 'ab09ad', 'ab09ax', 'ab09bd', 'ab09bx', 'ab09cd', 'ab09cx', 'ab09dd', 'ab09ed', 'ab09fd', 'ab09gd', 'ab09hd', 'ab09hx', 'ab09hy', 'ab09id', 'ab09ix', 'ab09iy', 'ab09jd', 'ab09jv', 'ab09jw', 'ab09jx', 'ab09kd', 'ab09kx', 'ab09md', 'ab09nd', 'ab13ad', 'ab13bd', 'ab13cd', 'ab13dd', 'ab13dx', 'ab13ed', 'ab13fd', 'ab13hd', 'ab13id', 'ab13md',
+    'ag07bd', 'ag08bd', 'ag08by', 'ag08bz', 'ag8byz',
+    'bb01ad', 'bb02ad', 'bb03ad', 'bb04ad',
+    'bd01ad', 'bd02ad',
+    'de01od', 'de01pd', 'df01md', 'dg01md', 'dg01nd', 'dg01od', 'dk01md', 'fb01qd', 'fb01rd', 'fb01sd', 'fb01td', 'fb01vd', 'fd01ad',
+    'ib01ad', 'ib01bd', 'ib01cd', 'ib01md', 'ib01nd', 'ib01od', 'ib01oy', 'ib01pd',
+    'ib01qd', 'ib01rd', 'ib03ad', 'ib03bd',
+    'ma01ad', 'ma01bd', 'ma01bz', 'ma01cd', 'ma01dd', 'ma01dz', 'ma02ad', 'ma02az', 'ma02bd', 'ma02bz', 'ma02cd', 'ma02cz', 'ma02dd', 'ma02ed', 'ma02es', 'ma02ez', 'ma02gd', 'ma02gz', 'ma02hd', 'ma02hz', 'ma02iz', 'ma02jd', 'ma02jz', 'ma02md', 'ma02mz', 'ma02nz', 'ma02od', 'ma02oz', 'ma02pd', 'ma02pz', 'ma02rd', 'ma02sd',
+    'mb01kd', 'mb01ld', 'mb01md', 'mb01nd', 'mb01oc', 'mb01od', 'mb01oe', 'mb01oh', 'mb01oo', 'mb01os', 'mb01ot', 'mb01pd', 'mb01qd', 'mb01rb', 'mb01rd', 'mb01rh', 'mb01rt', 'mb01ru', 'mb01rw', 'mb01rx', 'mb01ry', 'mb01sd', 'mb01ss', 'mb01td', 'mb01ud', 'mb01uw', 'mb01ux', 'mb01uy', 'mb01uz', 'mb01wd', 'mb01xd', 'mb01xy', 'mb01yd', 'mb01zd',
+    'mb02cd', 'mb02dd', 'mb02cu', 'mb02cv', 'mb02cx', 'mb02cy', 'mb02ed', 'mb02fd', 'mb02gd', 'mb02hd', 'mb02id', 'mb02jd', 'mb02jx', 'mb02kd', 'mb02md', 'mb02nd', 'mb02ny', 'mb02od', 'mb02pd', 'mb02qd', 'mb02rd', 'mb02rz', 'mb02sd', 'mb02td', 'mb02sz', 'mb02tz', 'mb02ud', 'mb02uu', 'mb02uv', 'mb02uw', 'mb02vd', 'mb02wd', 'mb02xd', 'mb02yd',
+    'mb03ab', 'mb03ad', 'mb03ae', 'mb03ag', 'mb03ah', 'mb03ai', 'mb03ba', 'mb03bc', 'mb03bd', 'mb03be', 'mb03bf', 'mb03bg', 'mb03bz', 'mb03cd', 'mb03cz', 'mb03dd', 'mb03dz', 'mb03ed', 'mb03fd', 'mb03fz', 'mb03gd', 'mb03gz', 'mb03hd', 'mb03hz', 'mb03id', 'mb03iz', 'mb03jd', 'mb03jp', 'mb03jz', 'mb3jzp', 'mb3lzp', 'mb03ld', 'mb03lp', 'mb03lz', 'mb03ka', 'mb03kb', 'mb03kc', 'mb03kd', 'mb03ke', 'mb03md', 'mb03od', 'mb03oy', 'mb03pd', 'mb03py', 'mb03qd', 'mb03qg', 'mb03qv', 'mb03qw', 'mb03qx', 'mb03qy', 'mb03rd', 'mb03rw', 'mb03rx', 'mb03ry', 'mb03rz', 'mb03sd', 'mb03td', 'mb03ts', 'mb3oyz', 'mb3pyz', 'mb03ud', 'mb03vd', 'mb03vw', 'mb03vy', 'mb03wa', 'mb03za', 'mb03zd', 'mb03wd', 'mb03wx', 'mb03xd', 'mb03xp', 'mb03xs', 'mb03xu', 'mb03xz', 'mb03ya', 'mb03yd', 'mb03yt',
+    'mb04az', 'mb04ad', 'mb04bd', 'mb04bp', 'mb04bz', 'mb04cd', 'mb04db', 'mb04dd', 'mb04di', 'mb04dl', 'mb04dp', 'mb04ds', 'mb04dy', 'mb04dz', 'mb04ed', 'mb04fd', 'mb04fp', 'mb04gd', 'mb04hd', 'mb04id', 'mb04iy', 'mb04iz', 'mb04jd', 'mb04kd', 'mb04ld', 'mb04md', 'mb04pa', 'mb04pu', 'mb04pb', 'mb04nd', 'mb04ny', 'mb04od', 'mb04ow', 'mb04ox', 'mb04oy', 'mb04py', 'mb04qb', 'mb04qc', 'mb04qf', 'mb04qu', 'mb04qs', 'mb04rb', 'mb04rd', 'mb04rs', 'mb04rt', 'mb04ru', 'mb04rv', 'mb04rw', 'mb04rz', 'mb04su', 'mb04tb', 'mb04ts', 'mb04tt', 'mb04tu', 'mb04tv', 'mb04tw', 'mb04ty', 'mb04tx', 'mb04vd', 'mb04vx', 'mb04ud', 'mb04wu', 'mb04wd', 'mb04wp', 'mb04wr', 'mb04xd', 'mb04xy', 'mb04yd', 'mb04yw', 'mb04zd', 'mb4dbz', 'mb4dlz', 'mb4dpz',
+    'mb05md', 'mb05my', 'mb05nd', 'mb05od', 'mb05oy',
+    'mc01md', 'mc01nd', 'mc01od', 'mc01pd', 'mc01py', 'mc01qd', 'mc01rd', 'mc01sd', 'mc01sw', 'mc01sx', 'mc01sy', 'mc01td', 'mc01vd', 'mc01wd', 'mc01xd', 'mc03md', 'mc03nd', 'mc03nx', 'mc03ny',
+    'md03ba', 'md03bb', 'md03bd', 'md03bf', 'md03by',
+    'nf01ay', 'nf01br', 'nf01bs', 'nf01by',
+    'sb01bd', 'sb01bx', 'sb01by', 'sb01dd', 'sb01fy', 'sb01md', 'sb06nd',
+    'sb02cx', 'sb02mr', 'sb02ms', 'sb02mv', 'sb02mw', 'sb02ou', 'sb02ov', 'sb02ow', 'sb02ox', 'sb02md', 'sb02mt', 'sb02mu', 'sb02mx', 'sb02nd', 'sb02od', 'sb02oy', 'sb02pd', 'sb02qd', 'sb02rd', 'sb02ru', 'sb02sd', 'sb10dd', 'sb10ed', 'sb10fd',
+    'sb03md', 'sb03mu', 'sb03mv', 'sb03mw', 'sb03mx', 'sb03my', 'sb03od', 'sb03or', 'sb03os', 'sb03ot', 'sb03ou', 'sb03ov', 'sb03oy', 'sb03oz', 'sb03pd', 'sb03qd', 'sb03qx', 'sb03qy', 'sb03rd', 'sb03sd', 'sb03sx', 'sb03sy', 'sb03td', 'sb03ud',
+    'sb04md', 'sb04mr', 'sb04mw', 'sb04nd', 'sb04nv', 'sb04nw', 'sb04nx', 'sb04ny', 'sb04od', 'sb04ow', 'sb04pd', 'sb04px', 'sb04py', 'sb04qd', 'sb04qr', 'sb04rd', 'sb04rv', 'sb04rw', 'sb04rx', 'sb04ry', 'sb08cd', 'sb08dd', 'sb08ed', 'sb08fd', 'sb08gd', 'sb08hd', 'sb08md', 'sb08my', 'sb08nd', 'sb08ny', 'sb09md', 'sb10ad', 'sb10hd', 'sb10id', 'sb10jd', 'sb10kd', 'sb10ld', 'sb10md', 'sb10pd', 'sb10rd', 'sb10sd', 'sb10td', 'sb10ud', 'sb10vd', 'sb10wd', 'sb10yd', 'sb10zd', 'sb10zp', 'sb16ad', 'sb16ay', 'sb16bd', 'sb16cd', 'sb16cy',
+    'sg02ad', 'sg02cv', 'sg02cw', 'sg02cx', 'sg02nd', 'sg03ad', 'sg03ax', 'sg03ay', 'sg03bd', 'sg03br', 'sg03bs', 'sg03bt', 'sg03bu', 'sg03bv', 'sg03bw', 'sg03bx', 'sg03by', 'sg03bz',
+    'tb01id', 'tb01iz', 'tb01kd', 'tb01kx', 'tb01ld', 'tb01md', 'tb01nd', 'tb01pd', 'tb01px', 'tb01td', 'tb01ty', 'tb01ud', 'tb01ux', 'tb01uy', 'tb01vd', 'tb01vy', 'tb01wd', 'tb01wx', 'tb01xd', 'tb01xz', 'tb01zd', 'tb03ad', 'tb03ay', 'tb04ad', 'tb04bd', 'tb04bv', 'tb04bw', 'tb04bx', 'tb04cd', 'tb05ad',
+    'tc01od', 'tc04ad', 'tc05ad', 'td03ad', 'td03ay', 'td04ad', 'td05ad',
+    'tf01md', 'tf01mx', 'tf01my', 'tf01nd', 'tf01od', 'tf01pd', 'tf01qd', 'tf01rd',
+    'tg01ad', 'tg01az', 'tg01bd', 'tg01cd', 'tg01dd', 'tg01ed', 'tg01fd', 'tg01fz', 'tg01gd', 'tg01hd', 'tg01hu', 'tg01hx', 'tg01hy', 'tg01id', 'tg01jd', 'tg01jy', 'tg01kd', 'tg01kz', 'tg01ld', 'tg01ly', 'tg01md', 'tg01nd', 'tg01nx', 'tg01oa', 'tg01ob', 'tg01od', 'tg01oz', 'tg01pd', 'tg01qd', 'tg01wd',
+    'ud01bd', 'ud01cd', 'ud01dd', 'ud01md', 'ud01mz', 'ud01nd',
+    'ue01md',
+    'dlatzm', 'dgegv', 'zgegs', 'zgegv'
+]
+
+__version__ = '0.1.0'
