@@ -70,7 +70,7 @@ jobs:
           CIBW_ENVIRONMENT_WINDOWS: PKG_CONFIG_PATH=C:/openblas
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >-
             powershell -Command "$libdir = Get-Content 'C:/openblas/libdir.txt'; delvewheel repair -w {dest_dir} {wheel} --add-path $libdir"
-          CIBW_TEST_REQUIRES: pytest pytest-timeout scipy
+          CIBW_TEST_REQUIRES: pytest pytest-xdist pytest-timeout scipy
           CIBW_TEST_COMMAND: pytest {project}/tests/python/test_ab01md.py -v --timeout=60
           CIBW_TEST_SKIP: "*-manylinux* *-musllinux*"
           CIBW_TEST_COMMAND_WINDOWS: pytest {project}/tests/python/test_ab01md.py {project}/tests/python/test_ma01bz.py -v --timeout=60
@@ -94,13 +94,13 @@ jobs:
 
       - name: Install deps
         run: |
-          uv pip install --system scipy-openblas32
+          uv pip install --system --break-system-packages scipy-openblas32
           mkdir -p /tmp/openblas
           python -c "import scipy_openblas32 as sc; open('/tmp/openblas/openblas.pc','w').write(sc.get_pkg_config())"
 
       - name: Build sdist
         run: |
-          uv pip install --system build
+          uv pip install --system --break-system-packages build
           PKG_CONFIG_PATH=/tmp/openblas python -m build --sdist
 
       - uses: actions/upload-artifact@v4

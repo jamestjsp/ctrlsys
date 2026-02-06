@@ -36,14 +36,21 @@ else
 endif
 
 if lapack_opt == 'auto'
-  # LAPACK often bundled with BLAS
   lapack_dep = dependency('lapack', required: false)
   if not lapack_dep.found() and host_machine.system() == 'darwin'
-    # Accelerate includes LAPACK
     lapack_dep = dependency('Accelerate', required: false)
   endif
   if not lapack_dep.found()
-    lapack_dep = cc.find_library('lapack', required: true)
+    # Check if BLAS bundles LAPACK (e.g., OpenBLAS) BEFORE trying system liblapack.
+    # On musllinux, system liblapack depends on system openblas which conflicts
+    # with scipy-openblas32 at link time. Test all naming conventions since
+    # convention detection hasn't run yet.
+    if cc.has_function('dgesv_', dependencies: [blas_dep]) or cc.has_function('dgesv', dependencies: [blas_dep]) or cc.has_function('DGESV', dependencies: [blas_dep])
+      lapack_dep = blas_dep
+      message('LAPACK bundled in BLAS library')
+    else
+      lapack_dep = cc.find_library('lapack', required: true)
+    endif
   endif
 else
   lapack_dep = dependency(lapack_opt, required: true)
