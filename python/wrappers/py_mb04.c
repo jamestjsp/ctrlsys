@@ -5510,7 +5510,7 @@ PyObject* py_mb04rs(PyObject* self, PyObject* args) {
     f64 *f_data = (f64*)PyArray_DATA(f_array);
 
     i32 liwork = m + n + 2;
-    i32 *iwork = (i32*)calloc(liwork > 0 ? liwork : 1, sizeof(i32));
+    i32 *iwork = (i32*)PyMem_Calloc(liwork > 0 ? liwork : 1, sizeof(i32));
     if (iwork == NULL) {
         Py_DECREF(a_array);
         Py_DECREF(b_array);
@@ -5528,7 +5528,7 @@ PyObject* py_mb04rs(PyObject* self, PyObject* args) {
     mb04rs(m, n, pmax, a_data, lda, b_data, ldb, c_data, ldc,
            d_data, ldd, e_data, lde, f_data, ldf, &scale, iwork, &info);
 
-    free(iwork);
+    PyMem_Free(iwork);
 
     PyArray_ResolveWritebackIfCopy(c_array);
     PyArray_ResolveWritebackIfCopy(f_array);
@@ -6871,7 +6871,7 @@ PyObject* py_mb04rt(PyObject* self, PyObject* args) {
     f64 *f_data = (f64*)PyArray_DATA(f_array);
 
     i32 liwork = 2 * (m + n) + 6;
-    i32 *iwork = (i32*)calloc(liwork > 0 ? liwork : 1, sizeof(i32));
+    i32 *iwork = (i32*)PyMem_Calloc(liwork > 0 ? liwork : 1, sizeof(i32));
     if (iwork == NULL) {
         Py_DECREF(a_array);
         Py_DECREF(b_array);
@@ -6889,7 +6889,7 @@ PyObject* py_mb04rt(PyObject* self, PyObject* args) {
     mb04rt(m, n, pmax, a_data, lda, b_data, ldb, c_data, ldc,
            d_data, ldd, e_data, lde, f_data, ldf, &scale, iwork, &info);
 
-    free(iwork);
+    PyMem_Free(iwork);
 
     PyArray_ResolveWritebackIfCopy(c_array);
     PyArray_ResolveWritebackIfCopy(f_array);

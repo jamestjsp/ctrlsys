@@ -630,3 +630,68 @@ def test_tall_system():
 
     assert info == 0
     assert nr <= n
+
+
+def test_pr_matches_normal_rank():
+    """
+    Verify PR (normal rank) from AB08NY matches AB08MD for the same system.
+    """
+    from slicot import ab08md
+
+    np.random.seed(900)
+    n, m, p = 4, 2, 3
+
+    a = np.random.randn(n, n).astype(float, order='F')
+    a -= 2.0 * np.eye(n)
+    b = np.random.randn(n, m).astype(float, order='F')
+    c = np.random.randn(p, n).astype(float, order='F')
+    d = np.random.randn(p, m).astype(float, order='F')
+
+    rank, info_md = ab08md('N', n, m, p, a.copy(order='F'), b.copy(order='F'),
+                           c.copy(order='F'), d.copy(order='F'))
+    assert info_md == 0
+
+    abcd = np.zeros((n + p, m + n), dtype=float, order='F')
+    abcd[:n, :m] = b
+    abcd[:n, m:] = a
+    abcd[n:, :m] = d
+    abcd[n:, m:] = c
+
+    result = ab08ny(first=True, n=n, m=m, p=p, svlmax=0.0,
+                    abcd=abcd.copy(order='F'), ninfz=0, tol=1e-10)
+    abcd_out, ninfz_out, nr, pr, dinfz, nkronl, infz, kronl, info = result
+    assert info == 0
+    assert pr == rank
+
+
+def test_infinite_zero_multiplicity_strictly_proper():
+    """
+    For a strictly proper system (D=0), verify infinite zeros are detected
+    and NINFZ = sum(i * INFZ(i)).
+    """
+    n, m, p = 3, 2, 2
+
+    a = np.array([[-1.0, 0.0, 0.0],
+                  [0.0, -2.0, 0.0],
+                  [0.0, 0.0, -3.0]], order='F', dtype=float)
+    b = np.array([[1.0, 0.0],
+                  [0.0, 1.0],
+                  [0.0, 0.0]], order='F', dtype=float)
+    c = np.array([[1.0, 0.0, 0.0],
+                  [0.0, 1.0, 0.0]], order='F', dtype=float)
+    d = np.zeros((p, m), dtype=float, order='F')
+
+    abcd = np.zeros((n + p, m + n), dtype=float, order='F')
+    abcd[:n, :m] = b
+    abcd[:n, m:] = a
+    abcd[n:, :m] = d
+    abcd[n:, m:] = c
+
+    result = ab08ny(first=True, n=n, m=m, p=p, svlmax=0.0,
+                    abcd=abcd.copy(order='F'), ninfz=0, tol=1e-10)
+    abcd_out, ninfz_out, nr, pr, dinfz, nkronl, infz, kronl, info = result
+
+    assert info == 0
+    assert ninfz_out > 0
+    computed_ninfz = sum((i + 1) * infz[i] for i in range(dinfz)) if dinfz > 0 else 0
+    assert ninfz_out == computed_ninfz

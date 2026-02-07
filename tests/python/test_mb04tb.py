@@ -7,6 +7,7 @@ Uses numpy only - no scipy.
 """
 
 import numpy as np
+from slicot import mb04tb, mb04wr
 
 
 def test_mb04tb_n5_basic():
@@ -15,8 +16,6 @@ def test_mb04tb_n5_basic():
 
     Test data from SLICOT HTML documentation.
     """
-    from slicot import mb04tb
-
     n = 5
 
     A = np.array([
@@ -51,6 +50,10 @@ def test_mb04tb_n5_basic():
         [0.4756, 0.6499, 1.0158, 0.2004, 1.2188]
     ], order='F', dtype=float)
 
+    A_orig = A.copy()
+    B_orig = B.copy()
+    G_orig = G.copy()
+    Q_orig = Q.copy()
     ilo = 1
 
     A_out, B_out, G_out, Q_out, csl, csr, taul, taur, info = mb04tb(
@@ -63,10 +66,33 @@ def test_mb04tb_n5_basic():
     assert B_out.shape == (n, n)
     assert G_out.shape == (n, n)
     assert Q_out.shape == (n, n)
-    assert csl.shape[0] == 2 * n
-    assert csr.shape[0] == 2 * (n - 1)
-    assert taul.shape[0] == n
-    assert taur.shape[0] == n - 1
+
+    q1_u = A_out.copy()
+    q2_u = Q_out.copy()
+    u1, u2, info_u = mb04wr('U', 'N', n, ilo, q1_u, q2_u, csl, taul)
+    assert info_u == 0
+
+    q1_v = B_out.copy()
+    q2_v = Q_out.copy()
+    v1, v2, info_v = mb04wr('V', 'N', n, ilo, q1_v, q2_v, csr, taur)
+    assert info_v == 0
+
+    U = np.block([[u1, u2], [-u2, u1]])
+    V = np.block([[v1.T, v2.T], [-v2.T, v1.T]])
+
+    np.testing.assert_allclose(U.T @ U, np.eye(2*n), atol=1e-12)
+    np.testing.assert_allclose(V.T @ V, np.eye(2*n), atol=1e-12)
+
+    R11 = np.triu(A_out)
+    R12 = G_out.copy()
+    R22_hess = np.tril(B_out, 1)
+    Q_zero = np.zeros((n, n))
+    R = np.block([[R11, R12], [Q_zero, R22_hess]])
+
+    H = np.block([[A_orig, G_orig], [Q_orig, B_orig]])
+    residual = np.linalg.norm(H @ V - U @ R, 'fro')
+    h_norm = np.linalg.norm(H, 'fro')
+    assert residual / h_norm < 1e-12
 
 
 def test_mb04tb_quick_return_n_zero():

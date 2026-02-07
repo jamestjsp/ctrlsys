@@ -31,6 +31,9 @@ def test_mb02cu_column_oriented_basic():
     assert a2_out.shape == (k, p - k)
     assert b_out.shape == (k, q)
 
+    np.testing.assert_allclose(np.triu(a1_out, 1), 0.0, atol=1e-12)
+    assert np.all(np.diag(a1_out) > 0)
+
 
 def test_mb02cu_row_oriented_basic():
     """
@@ -60,6 +63,9 @@ def test_mb02cu_row_oriented_basic():
     assert a1_out.shape == (k, k)
     assert a2_out.shape == (p - k, k)
     assert b_out.shape == (q, k)
+
+    np.testing.assert_allclose(np.tril(a1_out, -1), 0.0, atol=1e-12)
+    assert np.all(np.diag(a1_out) > 0)
 
 
 def test_mb02cu_deficient_basic():

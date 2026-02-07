@@ -216,3 +216,15 @@ def test_mb03ba_larger_k():
 
     assert_array_equal(amap, expected)
     assert_array_equal(qmap, expected)
+
+
+def test_mb03ba_bijection_property():
+    from slicot import mb03ba
+
+    for k in range(2, 7):
+        for h in range(1, k + 1):
+            for sign in [1, -1]:
+                s = np.array([sign if i == h - 1 else 1 for i in range(k)], dtype=np.int32, order='F')
+                smult, amap, qmap = mb03ba(k, h, s)
+                assert set(amap) == set(range(1, k + 1))
+                assert set(qmap) == set(range(1, k + 1))

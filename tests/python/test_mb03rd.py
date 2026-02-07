@@ -18,6 +18,7 @@ Random seed: 42, 123, 456 (for reproducibility)
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose
+from numpy.linalg import solve
 
 
 def test_mb03rd_html_doc_example():
@@ -274,12 +275,8 @@ def test_mb03rd_transformation_correctness():
 
     This is the fundamental correctness property of similarity transformations.
     The transformation X should satisfy: X^(-1) @ A @ X = A_out
-
-    This test uses clustered eigenvalues that trigger actual block-diagonalization,
-    which exercises the transformation accumulation code path.
     """
     from slicot import mb03rd
-    from numpy.linalg import solve
 
     n = 5
     aschur = np.array([
@@ -300,5 +297,6 @@ def test_mb03rd_transformation_correctness():
     assert info == 0
     assert nblcks == 2
 
+    # This is the critical check - the transformation should be correct
     result = solve(Xout, aschur) @ Xout
     assert_allclose(result, Aout, rtol=1e-10, atol=1e-10)

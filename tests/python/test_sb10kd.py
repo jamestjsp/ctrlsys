@@ -180,9 +180,9 @@ class TestSB10KD:
 
     def test_optimal_controller_factor_one(self):
         """
-        Test with FACTOR close to 1.0.
+        Test with FACTOR=1.0 (optimal controller).
 
-        Uses factor=1.1 for numerical robustness across BLAS implementations.
+        Uses smaller system for faster computation.
         Random seed: 123 (for reproducibility)
         """
         from slicot import sb10kd
@@ -190,7 +190,7 @@ class TestSB10KD:
         np.random.seed(123)
 
         n, m, np_ = 3, 1, 1
-        factor = 1.1
+        factor = 1.0
 
         # Create stable discrete-time plant (eigenvalues inside unit circle)
         # Use diagonal dominant matrix for stability

@@ -7,6 +7,20 @@ Uses numpy only.
 import numpy as np
 
 
+def _reconstruct_hessenberg_lu(h_out, ipiv):
+    """Reconstruct H from Hessenberg LU factorization H = P*L*U."""
+    n = h_out.shape[0]
+    rec = h_out.copy()
+    for j in range(n - 2, -1, -1):
+        mult = rec[j + 1, j]
+        rec[j + 1, j + 1:] += mult * rec[j, j + 1:]
+        rec[j + 1, j] = mult * rec[j, j]
+        jp = ipiv[j] - 1
+        if jp != j:
+            rec[j, j:], rec[jp, j:] = rec[jp, j:].copy(), rec[j, j:].copy()
+    return rec
+
+
 def test_mb02sd_basic():
     """
     Test MB02SD with a basic upper Hessenberg matrix.
@@ -31,6 +45,8 @@ def test_mb02sd_basic():
     assert h_out.shape == (n, n)
     assert ipiv.shape == (n,)
 
+    np.testing.assert_allclose(_reconstruct_hessenberg_lu(h_out, ipiv), h_orig, atol=1e-12)
+
 
 def test_mb02sd_n3():
     """
@@ -48,6 +64,7 @@ def test_mb02sd_n3():
         [4.0, 5.0, 2.0],
         [0.0, 3.0, 1.0]
     ], order='F', dtype=float)
+    h_orig = h.copy()
 
     h_out, ipiv, info = mb02sd(n, h)
 
@@ -55,18 +72,7 @@ def test_mb02sd_n3():
     assert h_out.shape == (n, n)
     assert ipiv.shape == (n,)
 
-    p = np.eye(n)
-    for i in range(n):
-        if ipiv[i] != i + 1:
-            p[[i, ipiv[i] - 1]] = p[[ipiv[i] - 1, i]]
-
-    l = np.eye(n)
-    u = np.triu(h_out)
-
-    for i in range(n - 1):
-        l[i + 1, i] = h_out[i + 1, i]
-
-    reconstructed = p @ l @ u
+    np.testing.assert_allclose(_reconstruct_hessenberg_lu(h_out, ipiv), h_orig, atol=1e-12)
 
 
 def test_mb02sd_singular():

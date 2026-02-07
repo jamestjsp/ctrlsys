@@ -132,6 +132,53 @@ class TestAB09NDBasic:
         assert_allclose(dr[:p, :m], dr_expected, rtol=1e-3, atol=1e-4)
 
 
+class TestAB09NDMIMO:
+    """MIMO SPA model reduction tests."""
+
+    def test_mimo_spa_reduction(self):
+        """
+        MIMO: 6-state, 2-input, 3-output SPA reduction.
+        Verify HSV ordering, stability, and correct dimensions.
+        """
+        n, m, p = 6, 2, 3
+
+        a = np.array([
+            [-1.0,  0.5,  0.0,  0.0,  0.0,  0.0],
+            [ 0.0, -2.0,  0.3,  0.0,  0.0,  0.0],
+            [ 0.0,  0.0, -3.0,  0.1,  0.0,  0.0],
+            [ 0.0,  0.0,  0.0, -4.0,  0.2,  0.0],
+            [ 0.0,  0.0,  0.0,  0.0, -5.0,  0.1],
+            [ 0.0,  0.0,  0.0,  0.0,  0.0, -6.0]
+        ], order='F', dtype=float)
+
+        np.random.seed(200)
+        b = np.asfortranarray(np.random.randn(n, m))
+        c = np.asfortranarray(np.random.randn(p, n))
+        d = np.zeros((p, m), order='F', dtype=float)
+
+        ar, br, cr, dr, nr, ns, hsv, iwarn, info = ab09nd(
+            'C', 'B', 'N', 'A', n, m, p, 0, 0.0,
+            a.copy(order='F'), b.copy(order='F'),
+            c.copy(order='F'), d.copy(order='F'),
+            0.0, 0.0
+        )
+
+        assert info == 0
+        assert ns == n
+        assert nr <= n
+        assert nr > 0
+
+        for i in range(ns - 1):
+            assert hsv[i] >= hsv[i + 1] - 1e-14, \
+                f"HSV not decreasing: HSV[{i}]={hsv[i]} < HSV[{i+1}]={hsv[i+1]}"
+
+        eigs = np.linalg.eigvals(ar[:nr, :nr])
+        assert all(e.real < 0 for e in eigs), f"Reduced system unstable: {eigs}"
+
+        assert br[:nr, :m].shape == (nr, m)
+        assert cr[:p, :nr].shape == (p, nr)
+
+
 class TestAB09NDEdgeCases:
     """Edge case tests."""
 

@@ -143,26 +143,46 @@ def test_sb02ms_modulus_property():
         assert_equal(result, True, f"Expected unstable for r={r}, theta={theta}")
 
 
-def test_sb02ms_complement_sb02mv():
-    """
-    Mathematical property: SB02MS and SB02MV are complements.
+def test_sb02ms_complement_sb02mw():
+    from slicot import sb02ms, sb02mw
 
-    SB02MS selects |lambda| >= 1 (unstable discrete-time)
-    SB02MV selects |lambda| < 1 (stable discrete-time)
-    """
+    test_cases = [
+        (0.0, 0.0),
+        (1.0, 0.0),
+        (0.0, 1.0),
+        (0.5, 0.0),
+        (2.0, 0.0),
+        (0.6, 0.6),
+        (0.8, 0.8),
+        (-0.5, 0.8),
+    ]
+
+    for reig, ieig in test_cases:
+        result_ms = sb02ms(reig, ieig)
+        result_mw = sb02mw(reig, ieig)
+        assert_equal(result_ms != result_mw, True,
+                     f"Complement failed for reig={reig}, ieig={ieig}")
+
+
+def test_sb02ms_independent_criterion():
     from slicot import sb02ms
 
     test_cases = [
-        (0.0, 0.0, False),    # Origin: stable
-        (1.0, 0.0, True),     # On unit circle: unstable
-        (0.0, 1.0, True),     # On unit circle: unstable
-        (0.5, 0.0, False),    # Inside: stable
-        (2.0, 0.0, True),     # Outside: unstable
-        (0.6, 0.6, False),    # Inside: stable (|0.6+0.6i| = 0.848...)
-        (0.8, 0.8, True),     # Outside: unstable (|0.8+0.8i| = 1.131...)
+        (0.0, 0.0),
+        (1.0, 0.0),
+        (0.0, 1.0),
+        (-1.0, 0.0),
+        (0.5, 0.0),
+        (2.0, 0.0),
+        (0.6, 0.6),
+        (0.8, 0.8),
+        (0.3, 0.4),
+        (-1.5, 0.5),
+        (np.sqrt(0.5), np.sqrt(0.5)),
     ]
 
-    for reig, ieig, expected_unstable in test_cases:
+    for reig, ieig in test_cases:
         result = sb02ms(reig, ieig)
-        assert_equal(result, expected_unstable,
-                    f"Failed for reig={reig}, ieig={ieig}")
+        expected = np.hypot(reig, ieig) >= 1.0
+        assert_equal(result, expected,
+                     f"Mismatch for ({reig},{ieig}): got {result}, expected {expected}")

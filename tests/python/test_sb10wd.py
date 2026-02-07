@@ -312,6 +312,55 @@ class TestSB10WDMathematical:
         np.testing.assert_allclose(BK, BK_expected, rtol=1e-14)
 
 
+class TestSB10WDMIMO:
+    """MIMO tests for SB10WD."""
+
+    def test_mimo_ncon2_nmeas2(self):
+        """Test MIMO system with ncon=2, nmeas=2, formula verification."""
+        np.random.seed(444)
+
+        n = 4
+        m = 5
+        np_ = 5
+        ncon = 2
+        nmeas = 2
+        m1 = m - ncon
+        np1 = np_ - nmeas
+
+        A = np.array([[-1, 0.1, 0, 0],
+                       [0, -2, 0.1, 0],
+                       [0, 0, -3, 0.1],
+                       [0, 0, 0, -4]], dtype=float, order='F')
+
+        B = np.random.randn(n, m).astype(float, order='F')
+        C = np.random.randn(np_, n).astype(float, order='F')
+        D = np.random.randn(np_, m).astype(float, order='F')
+        F = np.random.randn(ncon, n).astype(float, order='F')
+        H = np.random.randn(n, nmeas).astype(float, order='F')
+        TU = np.random.randn(ncon, ncon).astype(float, order='F')
+        TY = np.random.randn(nmeas, nmeas).astype(float, order='F')
+
+        B2 = B[:, m1:m]
+        C2 = C[np1:np_, :]
+        D22 = D[np1:np_, m1:m]
+
+        AK_expected = A + H @ C2 + B2 @ F + H @ D22 @ F
+        BK_expected = -H @ TY
+        CK_expected = TU @ F
+        DK_expected = np.zeros((ncon, nmeas), order='F', dtype=float)
+
+        AK, BK, CK, DK, info = sb10wd(
+            n, m, np_, ncon, nmeas,
+            A, B, C, D, F, H, TU, TY
+        )
+
+        assert info == 0
+        np.testing.assert_allclose(AK, AK_expected, rtol=1e-14)
+        np.testing.assert_allclose(BK, BK_expected, rtol=1e-14)
+        np.testing.assert_allclose(CK, CK_expected, rtol=1e-14)
+        np.testing.assert_allclose(DK, DK_expected, rtol=1e-14, atol=1e-15)
+
+
 class TestSB10WDErrors:
     """Error handling tests for SB10WD."""
 

@@ -275,6 +275,37 @@ class TestAB13ADMathematicalProperties:
             assert hsv[i] >= -1e-15, f"HSV[{i}]={hsv[i]} must be non-negative"
 
 
+class TestAB13ADMIMO:
+    """Larger MIMO Hankel-norm tests."""
+
+    def test_larger_mimo_system(self):
+        """
+        Larger MIMO: 8-state, 3-input, 4-output system.
+        Verify HSV ordering and Hankel-norm = max HSV.
+        """
+        from slicot import ab13ad
+
+        n, m, p = 8, 3, 4
+        alpha = 0.0
+
+        a = np.diag([-0.5, -1.0, -1.5, -2.0, -3.0, -4.0, -5.0, -6.0]).astype(float, order='F')
+
+        np.random.seed(314)
+        b = np.asfortranarray(np.random.randn(n, m))
+        c = np.asfortranarray(np.random.randn(p, n))
+
+        hankel_norm, ns, hsv, info = ab13ad('C', 'N', n, m, p, alpha, a, b, c)
+
+        assert info == 0
+        assert ns == n
+
+        assert_allclose(hankel_norm, hsv[0], rtol=1e-14)
+
+        for i in range(ns - 1):
+            assert hsv[i] >= hsv[i + 1] - 1e-14, \
+                f"HSV[{i}]={hsv[i]} < HSV[{i+1}]={hsv[i+1]}"
+
+
 class TestAB13ADWithEquilibration:
     """Tests with equilibration (scaling)."""
 

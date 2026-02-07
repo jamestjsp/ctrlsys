@@ -324,7 +324,6 @@ def test_mb04rt_residual_property():
     np.testing.assert_allclose(residual2, 0.0, atol=1e-12)
 
 
-@pytest.mark.skip(reason="Flaky crash under parallel execution - needs investigation")
 def test_mb04rt_matches_mb04rs():
     """
     Verify MB04RT produces same result as MB04RS (unblocked).

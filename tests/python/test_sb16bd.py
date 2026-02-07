@@ -316,6 +316,65 @@ class TestSB16BDEdgeCases:
         assert dc.shape == (m, p)
 
 
+class TestSB16BDMIMO:
+    """MIMO controller reduction tests."""
+
+    def test_mimo_left_coprime_reduction(self):
+        """
+        MIMO system: 4-state, 2 inputs, 2 outputs.
+        Left coprime factorization with balancing-free B&T.
+        """
+        n, m, p = 4, 2, 2
+
+        a = np.array([
+            [-1.0,  0.5,  0.0,  0.0],
+            [ 0.0, -2.0,  0.3,  0.0],
+            [ 0.0,  0.0, -3.0,  0.1],
+            [ 0.0,  0.0,  0.0, -4.0]
+        ], dtype=float, order='F')
+
+        b = np.array([
+            [1.0, 0.0],
+            [0.5, 1.0],
+            [0.0, 0.5],
+            [0.2, 0.3]
+        ], dtype=float, order='F')
+
+        c = np.array([
+            [1.0, 0.5, 0.0, 0.0],
+            [0.0, 1.0, 0.5, 0.2]
+        ], dtype=float, order='F')
+
+        d = np.zeros((p, m), dtype=float, order='F')
+
+        f = np.array([
+            [-0.5, -0.3, -0.1,  0.0],
+            [ 0.0, -0.4, -0.2, -0.1]
+        ], dtype=float, order='F')
+
+        g = np.array([
+            [-0.3,  0.0],
+            [-0.2, -0.3],
+            [-0.1, -0.2],
+            [ 0.0, -0.1]
+        ], dtype=float, order='F')
+
+        ac, bc, cc, dc, hsv, ncr_out, iwarn, info = sb16bd(
+            'C', 'Z', 'F', 'L', 'N', 'A', n, m, p, 0,
+            a, b, c, d, f, g, 0.01, 0.0
+        )
+
+        assert info == 0
+        assert ncr_out <= n
+        assert ac.shape == (ncr_out, ncr_out)
+        assert bc.shape == (ncr_out, p)
+        assert cc.shape == (m, ncr_out)
+        assert dc.shape == (m, p)
+
+        for i in range(len(hsv) - 1):
+            assert hsv[i] >= hsv[i + 1] - 1e-14, "HSV not decreasing"
+
+
 class TestSB16BDErrorHandling:
     """Error handling tests."""
 

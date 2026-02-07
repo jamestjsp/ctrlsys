@@ -149,12 +149,18 @@ def test_html_doc_example_full_system():
     )
 
     assert info == 0
-    # Verify basic structural constraints - rank should equal min(m, p)
     assert rank == min(m, p)
-    # No right Kronecker indices for this system
     assert nkror == 0
-    # Should have left Kronecker indices
     assert nkrol >= 1
+
+    # From HTML doc: finite zeros at 2.0 and -1.0
+    for z in [2.0+0j, -1.0+0j]:
+        sys_mat = np.block([
+            [a - z * np.eye(n, dtype=np.complex128), b],
+            [c, d]
+        ])
+        actual_rank = np.linalg.matrix_rank(sys_mat, tol=1e-8)
+        assert actual_rank < n + min(m, p)
 
 
 """Tests for equilibration (balancing) option."""
@@ -241,7 +247,8 @@ def test_siso_system():
     )
 
     assert info == 0
-    # SISO system with D=0 can have transmission zeros
+    assert rank == 1
+    assert nu == 0
 
 def test_square_system_with_d_nonzero():
     """
@@ -275,7 +282,19 @@ def test_square_system_with_d_nonzero():
     )
 
     assert info == 0
-    assert rank == min(m, p)  # Full normal rank
+    assert rank == min(m, p)
+
+    if nu > 0:
+        af_nu = af[:nu, :nu].copy()
+        bf_nu = bf[:nu, :nu].copy()
+        zeros = np.linalg.eigvals(np.linalg.solve(bf_nu, af_nu))
+        for z in zeros:
+            sys_mat = np.block([
+                [a - z * np.eye(n, dtype=np.complex128), b],
+                [c, d]
+            ])
+            actual_rank = np.linalg.matrix_rank(sys_mat, tol=1e-8)
+            assert actual_rank < n + min(m, p)
 
 
 """
@@ -368,14 +387,12 @@ def test_kronecker_indices_sum():
 
     assert info == 0
 
-    # Structural invariant relation: nu + sum of all indices = n
     sum_kronr = sum(kronr[:nkror]) if nkror > 0 else 0
     sum_kronl = sum(kronl[:nkrol]) if nkrol > 0 else 0
     sum_infz = sum(infz[i] * (i + 1) for i in range(dinfz)) if dinfz > 0 else 0
 
-    # From structural theory: nu + nkror + nkrol + ninfz accounts for state dimension
-    # Specifically: sum of all Kronecker indices + nu + orders of infinite zeros = n
-    # This is a consistency check
+    # Structural identity: nu + sum_kronr + sum_kronl + sum_infz = n
+    assert nu + sum_kronr + sum_kronl + sum_infz == n
 
 
 """Tests with complex-valued matrices."""
@@ -403,6 +420,8 @@ def test_purely_imaginary_eigenvalues():
     )
 
     assert info == 0
+    assert rank == 1
+    assert nu == 0
 
 def test_complex_system_matrices():
     """
@@ -439,6 +458,19 @@ def test_complex_system_matrices():
     )
 
     assert info == 0
+    assert rank == min(m, p)
+
+    if nu > 0:
+        af_nu = af[:nu, :nu].copy()
+        bf_nu = bf[:nu, :nu].copy()
+        zeros = np.linalg.eigvals(np.linalg.solve(bf_nu, af_nu))
+        for z in zeros:
+            sys_mat = np.block([
+                [a - z * np.eye(n, dtype=np.complex128), b],
+                [c, d]
+            ])
+            actual_rank = np.linalg.matrix_rank(sys_mat, tol=1e-8)
+            assert actual_rank < n + min(m, p)
 
 
 """Error handling tests."""

@@ -265,5 +265,58 @@ class TestSB10ZD:
         np.testing.assert_allclose(rcond, [1.0, 1.0, 1.0, 1.0, 1.0, 1.0], rtol=1e-14)
 
 
+    def test_mimo_discrete_positive_feedback(self):
+        """
+        MIMO test: 3 inputs, 2 outputs discrete positive feedback controller.
+        """
+        n = 4
+        m = 3
+        np_ = 2
+        factor = 1.2
+        tol = 0.0
+
+        A = np.array([
+            [ 0.3,  0.1,  0.0,  0.0],
+            [ 0.0,  0.4,  0.1,  0.0],
+            [ 0.0,  0.0,  0.2, -0.1],
+            [-0.1,  0.0,  0.0,  0.5]
+        ], dtype=float, order='F')
+
+        B = np.array([
+            [ 1.0,  0.0,  0.5],
+            [ 0.5,  1.0,  0.0],
+            [ 0.0,  0.5,  1.0],
+            [ 0.2,  0.3,  0.4]
+        ], dtype=float, order='F')
+
+        C = np.array([
+            [ 1.0,  0.5,  0.0,  0.2],
+            [ 0.0,  1.0,  0.5,  0.3]
+        ], dtype=float, order='F')
+
+        D = np.array([
+            [ 3.0, -0.5,  0.2],
+            [-0.3,  2.5,  0.1]
+        ], dtype=float, order='F')
+
+        result = slicot.sb10zd(n, m, np_, A, B, C, D, factor, tol)
+        ak, bk, ck, dk, rcond, info = result
+
+        assert info == 0, f"SB10ZD failed with info={info}"
+
+        assert ak.shape == (n, n)
+        assert bk.shape == (n, np_)
+        assert ck.shape == (m, n)
+        assert dk.shape == (m, np_)
+
+        assert np.isfinite(ak).all()
+        assert np.isfinite(bk).all()
+        assert np.isfinite(ck).all()
+        assert np.isfinite(dk).all()
+
+        for i, rc in enumerate(rcond):
+            assert 0 < rc <= 1.0 or rc == 0.0, f"RCOND({i+1})={rc} out of range"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

@@ -72,8 +72,7 @@ void sg03bw(
                 me = m;
                 mb = 1;
             } else {
-                // Check for 2x2 quasitriangular block (ensure ma+1 is within bounds)
-                if (ma + 1 < m && a[(ma + 1 - 1) + (ma - 1) * lda] != zero) {
+                if (a[ma + (ma - 1) * lda] != zero) {
                     me = ma + 1;
                     mb = 2;
                 } else {

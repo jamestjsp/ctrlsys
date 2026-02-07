@@ -98,26 +98,44 @@ def test_sb02mr_imaginary_symmetry():
 
 
 def test_sb02mr_complement_sb02mv():
-    """
-    Mathematical property: SB02MR and SB02MV are complements.
+    from slicot import sb02mr, sb02mv
 
-    For any eigenvalue, exactly one of sb02mr or sb02mv should return True
-    (assuming sb02mv selects stable eigenvalues with Re < 0).
+    test_cases = [
+        (0.0, 1.0),
+        (1.0, 0.0),
+        (-1.0, 0.0),
+        (0.5, -2.0),
+        (-0.5, 2.0),
+        (0.0, 0.0),
+        (1e-15, 0.0),
+        (-1e-15, 0.0),
+    ]
 
-    Note: This test doesn't actually call sb02mv, just verifies the expected
-    complementary behavior based on the documented semantics.
-    """
+    for reig, ieig in test_cases:
+        result_mr = sb02mr(reig, ieig)
+        result_mv = sb02mv(reig, ieig)
+        assert_equal(result_mr != result_mv, True,
+                     f"Complement failed for reig={reig}, ieig={ieig}")
+
+
+def test_sb02mr_independent_criterion():
     from slicot import sb02mr
 
     test_cases = [
-        (0.0, 1.0, True),   # On boundary: unstable
-        (1.0, 0.0, True),   # Positive: unstable
-        (-1.0, 0.0, False), # Negative: stable
-        (0.5, -2.0, True),  # Positive: unstable
-        (-0.5, 2.0, False), # Negative: stable
+        (0.0, 1.0),
+        (1.0, 0.0),
+        (-1.0, 0.0),
+        (0.5, -2.0),
+        (-0.5, 2.0),
+        (0.0, 0.0),
+        (1e-15, 0.0),
+        (-1e-15, 0.0),
+        (100.0, -50.0),
+        (-100.0, 50.0),
     ]
 
-    for reig, ieig, expected_unstable in test_cases:
+    for reig, ieig in test_cases:
         result = sb02mr(reig, ieig)
-        assert_equal(result, expected_unstable,
-                    f"Failed for reig={reig}, ieig={ieig}")
+        expected = reig >= 0.0
+        assert_equal(result, expected,
+                     f"Mismatch for reig={reig}: got {result}, expected {expected}")

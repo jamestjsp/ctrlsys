@@ -298,6 +298,115 @@ class TestSB10PDTransformationProperties:
         assert abs(tu_det) > 1e-10, "TU should be nonsingular"
         assert abs(ty_det) > 1e-10, "TY should be nonsingular"
 
+    def test_d12_normalization(self):
+        """Verify transformed D12 has [0; I_m2] structure."""
+        from slicot import sb10pd
+
+        n = 3
+        m = 4
+        np_ = 5
+        ncon = 2
+        nmeas = 2
+
+        m1 = m - ncon
+        np1 = np_ - nmeas
+
+        a = np.diag([-1.0, -2.0, -3.0]).astype(np.float64, order='F')
+
+        b = np.array([
+            [1.0, 0.5, 0.3, 0.2],
+            [0.0, 0.2, 0.6, 0.4],
+            [0.1, 0.3, 0.5, 0.7]
+        ], order='F', dtype=np.float64)
+
+        c = np.array([
+            [1.0, 0.0, 0.1],
+            [0.0, 1.0, 0.2],
+            [0.5, 0.5, 0.3],
+            [0.3, 0.7, 0.1],
+            [0.2, 0.8, 0.4]
+        ], order='F', dtype=np.float64)
+
+        d = np.array([
+            [0.1, 0.2, 0.0, 0.0],
+            [0.0, 0.1, 0.0, 1.0],
+            [0.0, 0.0, 1.0, 0.0],
+            [1.0, 0.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0, 0.0]
+        ], order='F', dtype=np.float64)
+
+        tu = np.zeros((ncon, ncon), order='F', dtype=np.float64)
+        ty = np.zeros((nmeas, nmeas), order='F', dtype=np.float64)
+
+        b_out, c_out, d_out, tu_out, ty_out, rcond, info = sb10pd(
+            n, m, np_, ncon, nmeas, a, b, c, d, tu, ty
+        )
+
+        assert info == 0
+        d12_out = d_out[:np1, m1:]
+        np.testing.assert_allclose(d12_out[:np1 - ncon, :], 0, atol=1e-10)
+        bottom = d12_out[np1 - ncon:, :]
+        np.testing.assert_allclose(bottom @ bottom.T, np.eye(ncon), atol=1e-10)
+
+    def test_mimo_larger(self):
+        """Test MIMO system with n=4, ncon=2, nmeas=2."""
+        from slicot import sb10pd
+
+        n = 4
+        m = 5
+        np_ = 6
+        ncon = 2
+        nmeas = 2
+        m1 = m - ncon
+        np1 = np_ - nmeas
+
+        a = np.diag([-1.0, -2.0, -3.0, -4.0]).astype(np.float64, order='F')
+        a[0, 1] = 0.1
+
+        b = np.zeros((n, m), order='F', dtype=np.float64)
+        b[:, :m1] = np.array([
+            [1.0, 0.5, 0.1],
+            [0.0, 1.0, 0.2],
+            [0.2, 0.0, 1.0],
+            [0.1, 0.3, 0.0]
+        ])
+        b[:, m1:] = np.array([
+            [0.3, 0.1],
+            [0.5, 0.2],
+            [0.1, 0.4],
+            [0.2, 0.6]
+        ])
+
+        c = np.zeros((np_, n), order='F', dtype=np.float64)
+        c[:np1, :] = np.array([
+            [1.0, 0.0, 0.1, 0.0],
+            [0.0, 1.0, 0.0, 0.1],
+            [0.2, 0.3, 1.0, 0.0],
+            [0.0, 0.1, 0.2, 1.0]
+        ])
+        c[np1:, :] = np.array([
+            [0.5, 0.3, 0.1, 0.2],
+            [0.1, 0.4, 0.2, 0.5]
+        ])
+
+        d = np.zeros((np_, m), order='F', dtype=np.float64)
+        d[np1 - ncon, m1:] = [1.0, 0.0]
+        d[np1 - 1, m1:] = [0.0, 1.0]
+        d[np1:, :m1] = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]
+
+        tu = np.zeros((ncon, ncon), order='F', dtype=np.float64)
+        ty = np.zeros((nmeas, nmeas), order='F', dtype=np.float64)
+
+        b_out, c_out, d_out, tu_out, ty_out, rcond, info = sb10pd(
+            n, m, np_, ncon, nmeas, a, b, c, d, tu, ty
+        )
+
+        assert info == 0
+        assert rcond[0] > 1e-10
+        assert rcond[1] > 1e-10
+        assert abs(np.linalg.det(tu_out)) > 1e-10
+        assert abs(np.linalg.det(ty_out)) > 1e-10
+
 
 class TestSB10PDEdgeCases:
     """Edge cases and boundary conditions."""

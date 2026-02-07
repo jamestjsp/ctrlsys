@@ -24,15 +24,21 @@ def test_mb02yd_basic_full_rank():
     qtb = np.array([1.0, 2.0, 3.0], dtype=np.float64)
 
     # Expected: solve R*z = Q'*b, D*z = 0 (augmented system)
+    r_orig = r.copy()
     x, rank, info = mb02yd('N', n, r, ipvt, diag, qtb, 0, 0.0)
 
     assert info == 0
     assert rank == n
     assert x.shape == (n,)
-
-    # x should be finite and reasonable
     assert np.all(np.isfinite(x))
     assert np.linalg.norm(x) < 100.0
+
+    z = x[ipvt - 1]
+    D_perm = np.diag(diag[ipvt - 1])
+    A_aug = np.vstack([r_orig, D_perm])
+    b_aug = np.concatenate([qtb, np.zeros(n)])
+    z_ref, _, _, _ = np.linalg.lstsq(A_aug, b_aug, rcond=None)
+    np.testing.assert_allclose(z, z_ref, atol=1e-10)
 
 
 def test_mb02yd_with_condition_estimation():

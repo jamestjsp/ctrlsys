@@ -36,6 +36,42 @@ def test_mb02cy_basic_row():
     assert a_out.shape == (p, n)
     assert b_out.shape == (q, n)
 
+    assert np.all(np.isfinite(a_out))
+    assert np.all(np.isfinite(b_out))
+    assert not np.allclose(a_out, a_orig) or not np.allclose(b_out, b_orig)
+
+
+def test_mb02cy_jnorm_preservation():
+    np.random.seed(99)
+    from slicot import mb02cx, mb02cy
+
+    p = 4
+    q = 2
+    k = 3
+    n = 5
+
+    a_first = np.triu(np.random.randn(p, k)).astype(float, order='F')
+    for i in range(min(p, k)):
+        a_first[i, i] = np.abs(a_first[i, i]) + 5.0
+    b_first = 0.1 * np.random.randn(q, k).astype(float, order='F')
+
+    a_cx_out, b_cx_out, cs, info_cx = mb02cx('R', p, q, k, a_first.copy(), b_first.copy())
+    assert info_cx == 0
+
+    a_extra = np.random.randn(p, n).astype(float, order='F')
+    b_extra = np.random.randn(q, n).astype(float, order='F')
+    a_extra_orig = a_extra.copy()
+    b_extra_orig = b_extra.copy()
+
+    a_out, b_out, info = mb02cy('R', 'N', p, q, n, k, a_extra.copy(), b_extra.copy(),
+                                 b_cx_out.copy(), cs.copy())
+    assert info == 0
+
+    for j in range(n):
+        jnorm_before = np.dot(a_extra_orig[:k, j], a_extra_orig[:k, j]) - np.dot(b_extra_orig[:, j], b_extra_orig[:, j])
+        jnorm_after = np.dot(a_out[:k, j], a_out[:k, j]) - np.dot(b_out[:, j], b_out[:, j])
+        np.testing.assert_allclose(jnorm_after, jnorm_before, atol=1e-8)
+
 
 def test_mb02cy_basic_column():
     """
@@ -66,6 +102,8 @@ def test_mb02cy_basic_column():
     assert info == 0
     assert a_out.shape == (n, p)
     assert b_out.shape == (n, q)
+    assert np.all(np.isfinite(a_out))
+    assert np.all(np.isfinite(b_out))
 
 
 def test_mb02cy_triangular_structure():
@@ -97,6 +135,8 @@ def test_mb02cy_triangular_structure():
     assert info == 0
     assert a_out.shape == (p, n)
     assert b_out.shape == (q, n)
+    assert np.all(np.isfinite(a_out))
+    assert np.all(np.isfinite(b_out))
 
 
 def test_mb02cy_edge_case_q_zero():

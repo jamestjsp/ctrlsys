@@ -444,3 +444,42 @@ class TestAB09JXErrorHandling:
 
         with pytest.raises((ValueError, RuntimeError)):
             ab09jx('C', 'S', 'G', n, 0.0, er, ei, ed, -0.1)
+
+
+class TestAB09JXNumpyCrossCheck:
+    """Cross-check AB09JX results against numpy eigenvalue classification."""
+
+    @pytest.mark.parametrize("dico,stdom,alpha,er,ei,ed", [
+        ('C', 'S', 0.0, [-1.0, -2.0, -3.0], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0]),
+        ('C', 'S', 0.0, [-1.0, 1.0, -3.0], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0]),
+        ('C', 'U', 0.0, [1.0, 2.0, 3.0], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0]),
+        ('D', 'S', 1.0, [0.5, 0.3, -0.4], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0]),
+        ('D', 'S', 1.0, [0.5, 1.5, -0.4], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0]),
+        ('D', 'U', 1.0, [1.5, 2.0, 3.0], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0]),
+        ('C', 'S', -1.0, [-1.5, -2.5, -3.5], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0]),
+        ('C', 'S', 0.0, [-1.0, -1.0, -3.0], [2.0, -2.0, 0.0], [1.0, 1.0, 1.0]),
+        ('D', 'S', 1.0, [0.3, 0.3, -0.2], [0.4, -0.4, 0.0], [1.0, 1.0, 1.0]),
+    ])
+    def test_eigenvalue_domain_matches_numpy(self, dico, stdom, alpha, er, ei, ed):
+        er_arr = np.array(er, order='F', dtype=float)
+        ei_arr = np.array(ei, order='F', dtype=float)
+        ed_arr = np.array(ed, order='F', dtype=float)
+        n = len(er)
+
+        eigvals = (er_arr + 1j * ei_arr) / ed_arr
+
+        if dico == 'C' and stdom == 'S':
+            all_in_domain = np.all(np.real(eigvals) < alpha)
+        elif dico == 'C' and stdom == 'U':
+            all_in_domain = np.all(np.real(eigvals) > alpha)
+        elif dico == 'D' and stdom == 'S':
+            all_in_domain = np.all(np.abs(eigvals) < alpha)
+        else:
+            all_in_domain = np.all(np.abs(eigvals) > alpha)
+
+        info = ab09jx(dico, stdom, 'S', n, alpha, er_arr, ei_arr, ed_arr, 1e-10)
+
+        if all_in_domain:
+            assert info == 0
+        else:
+            assert info == 1

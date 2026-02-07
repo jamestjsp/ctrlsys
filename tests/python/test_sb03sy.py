@@ -37,6 +37,10 @@ def test_sb03sy_separation_only():
     assert info >= 0
     assert sepd > 0.0
 
+    kron_op = np.kron(t.T, t.T) - np.eye(n * n)
+    true_sepd = np.linalg.svd(kron_op, compute_uv=False)[-1]
+    assert sepd <= true_sepd * n + 1e-10
+
 
 def test_sb03sy_theta_only():
     """
@@ -61,6 +65,7 @@ def test_sb03sy_theta_only():
 
     assert info >= 0
     assert thnorm >= 0.0
+    assert thnorm < 1e10
 
 
 def test_sb03sy_both():
@@ -87,6 +92,10 @@ def test_sb03sy_both():
     assert sepd > 0.0
     assert thnorm >= 0.0
 
+    sepd2, _, info2 = sb03sy('S', 'N', 'R', n, t, u, xa)
+    assert info2 >= 0
+    np.testing.assert_allclose(sepd, sepd2, rtol=1e-10)
+
 
 def test_sb03sy_trans():
     """
@@ -110,6 +119,10 @@ def test_sb03sy_trans():
 
     assert info >= 0
     assert sepd > 0.0
+
+    kron_op = np.kron(t, t) - np.eye(n * n)
+    true_sepd = np.linalg.svd(kron_op, compute_uv=False)[-1]
+    assert sepd <= true_sepd * n + 1e-10
 
 
 def test_sb03sy_original_mode():
@@ -137,6 +150,29 @@ def test_sb03sy_original_mode():
     assert info >= 0
     assert sepd > 0.0
     assert thnorm >= 0.0
+    assert thnorm < 1e10
+
+
+def test_sb03sy_known_problem():
+    n = 4
+    diag_vals = np.array([0.5, 0.6, 0.7, 0.3])
+    t = np.diag(diag_vals).astype(float, order='F')
+    u = np.eye(n, order='F', dtype=float)
+
+    x = np.eye(n, dtype=float)
+    # XA = U'*X*U*op(T) = X*T for LYAPUN='R', TRANA='N'
+    xa = np.asfortranarray(x @ t)
+
+    sepd, thnorm, info = sb03sy('B', 'N', 'R', n, t, u, xa)
+
+    assert info >= 0
+    assert sepd > 0.0
+    assert thnorm >= 0.0
+
+    kron_op = np.kron(t.T, t.T) - np.eye(n * n)
+    true_sepd = np.linalg.svd(kron_op, compute_uv=False)[-1]
+    assert sepd <= true_sepd * n + 1e-10
+    assert sepd >= true_sepd / n - 1e-10
 
 
 def test_sb03sy_n_zero():

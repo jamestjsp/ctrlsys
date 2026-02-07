@@ -156,7 +156,9 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
                     SLC_DSCAL(&int4, &scale1, ui, &int1);
                 }
 
-                SLC_DLASET("U", &int2, &int2, &zero, &one, m3, &int4);
+                i32 kb2 = 2 * kb;
+
+                SLC_DLASET("U", &kb2, &kb2, &zero, &one, m3, &int4);
                 SLC_DSYRK("U", "N", &kb, &kb, &mone, m2, &int2, &one, m3, &int4);
 
                 SLC_DGEMM("N", "T", &kb, &kb, &kb, &mone, m2, &int2, m1, &int2,
@@ -164,8 +166,6 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
 
                 SLC_DSYRK("U", "N", &kb, &kb, &mone, m1, &int2, &one,
                          &m3[kb + kb * int4], &int4);
-
-                i32 kb2 = 2 * kb;
                 f64 abstol = two * uflt;
                 SLC_DSYEVX("V", "V", "U", &kb2, m3, &int4, &half, &two, &int1,
                           &int4, &abstol, &m, m3ew, m3c, &int4, rw, &int32,
@@ -183,9 +183,9 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
                          &lda, ui, &int2, &zero, &dwork[wpt], &ldws);
 
                 for (i = 0; i < nkh; i++) {
-                    i32 mini = (i + 1 < nkh) ? i + 1 : nkh;
+                    i32 mini = (i + 2 < nkh) ? i + 2 : nkh;
                     SLC_DGEMV("T", &mini, &kb, &one, &dwork[uiipt], &ldws,
-                             &a[(kh + 1) * lda + kh + i + 1], &int1, &one,
+                             &a[(kh + i + 1) * lda + kh + 1], &int1, &one,
                              &dwork[wpt + i], &ldws);
                 }
 
@@ -309,7 +309,9 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
                     SLC_DSCAL(&int4, &scale1, ui, &int1);
                 }
 
-                SLC_DLASET("U", &int2, &int2, &zero, &one, m3, &int4);
+                i32 kb2 = 2 * kb;
+
+                SLC_DLASET("U", &kb2, &kb2, &zero, &one, m3, &int4);
                 SLC_DSYRK("U", "T", &kb, &kb, &mone, m2, &int2, &one, m3, &int4);
 
                 SLC_DGEMM("T", "N", &kb, &kb, &kb, &mone, m2, &int2, m1, &int2,
@@ -317,8 +319,6 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
 
                 SLC_DSYRK("U", "T", &kb, &kb, &mone, m1, &int2, &one,
                          &m3[kb + kb * int4], &int4);
-
-                i32 kb2 = 2 * kb;
                 f64 abstol = two * uflt;
                 SLC_DSYEVX("V", "V", "U", &kb2, m3, &int4, &half, &two, &int1,
                           &int4, &abstol, &m, m3ew, m3c, &int4, rw, &int32,
@@ -337,7 +337,7 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
 
                 for (i = 0; i < kl; i++) {
                     i32 mini = (kl - i + 1 < kl) ? kl - i + 1 : kl;
-                    i32 maxi = (i > 0) ? i : 0;
+                    i32 maxi = (i > 1) ? i - 1 : 0;
                     i32 uiipt_adj = (i >= 1) ? uiipt + i - 1 : uiipt;
                     SLC_DGEMV("T", &mini, &kb, &one, &dwork[uiipt_adj], &ldws,
                              &a[maxi * lda + i], &lda, &one,
@@ -355,7 +355,7 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
                         SLC_DLARTG(&x, &t, &c, &s, &r);
                         b[i * ldb + i] = r;
                         if (i > 0) {
-                            SLC_DROT(&i, b, &int1, &dwork[l], &int1, &c, &s);
+                            SLC_DROT(&i, &b[i * ldb], &int1, &dwork[l], &int1, &c, &s);
                         }
                     }
                     l += ldws;
@@ -364,7 +364,7 @@ void sg03bu(const char* trans, const i32 n, const f64* a, const i32 lda,
                 for (i = 0; i < kl; i++) {
                     if (b[i * ldb + i] < zero) {
                         i32 ip1 = i + 1;
-                        SLC_DSCAL(&ip1, &mone, b, &int1);
+                        SLC_DSCAL(&ip1, &mone, &b[i * ldb], &int1);
                     }
                 }
 

@@ -207,6 +207,60 @@ class TestSB10EDBasic:
 class TestSB10EDControllerProperties:
     """Test controller output properties."""
 
+    def test_controller_finite(self):
+        """Verify controller matrices are all finite."""
+        from slicot import sb10ed
+
+        n = 6
+        m = 5
+        np_ = 5
+        ncon = 2
+        nmeas = 2
+
+        a = np.array([
+            [-0.7,  0.0,  0.3,  0.0, -0.5, -0.1],
+            [-0.6,  0.2, -0.4, -0.3,  0.0,  0.0],
+            [-0.5,  0.7, -0.1,  0.0,  0.0, -0.8],
+            [-0.7,  0.0,  0.0, -0.5, -1.0,  0.0],
+            [ 0.0,  0.3,  0.6, -0.9,  0.1, -0.4],
+            [ 0.5, -0.8,  0.0,  0.0,  0.2, -0.9]
+        ], order='F', dtype=np.float64)
+
+        b = np.array([
+            [-1.0, -2.0, -2.0,  1.0,  0.0],
+            [ 1.0,  0.0,  1.0, -2.0,  1.0],
+            [-3.0, -4.0,  0.0,  2.0, -2.0],
+            [ 1.0, -2.0,  1.0,  0.0, -1.0],
+            [ 0.0,  1.0, -2.0,  0.0,  3.0],
+            [ 1.0,  0.0,  3.0, -1.0, -2.0]
+        ], order='F', dtype=np.float64)
+
+        c = np.array([
+            [ 1.0, -1.0,  2.0, -2.0,  0.0, -3.0],
+            [-3.0,  0.0,  1.0, -1.0,  1.0,  0.0],
+            [ 0.0,  2.0,  0.0, -4.0,  0.0, -2.0],
+            [ 1.0, -3.0,  0.0,  0.0,  3.0,  1.0],
+            [ 0.0,  1.0, -2.0,  1.0,  0.0, -2.0]
+        ], order='F', dtype=np.float64)
+
+        d = np.array([
+            [ 1.0, -1.0, -2.0,  0.0,  0.0],
+            [ 0.0,  1.0,  0.0,  1.0,  0.0],
+            [ 2.0, -1.0, -3.0,  0.0,  1.0],
+            [ 0.0,  1.0,  0.0,  1.0, -1.0],
+            [ 0.0,  0.0,  1.0,  2.0,  1.0]
+        ], order='F', dtype=np.float64)
+
+        ak, bk, ck, dk, rcond, info = sb10ed(
+            n, m, np_, ncon, nmeas, a, b, c, d
+        )
+
+        assert info == 0
+        assert np.isfinite(ak).all()
+        assert np.isfinite(bk).all()
+        assert np.isfinite(ck).all()
+        assert np.isfinite(dk).all()
+
     def test_rcond_values_valid(self):
         """
         Verify all RCOND values are valid condition number estimates.
@@ -266,6 +320,61 @@ class TestSB10EDControllerProperties:
         for i in range(7):
             assert rcond[i] > 0, f"RCOND({i+1}) must be positive, got {rcond[i]}"
             assert rcond[i] <= 1.0 + 1e-14, f"RCOND({i+1}) must be <= 1, got {rcond[i]}"
+
+    def test_mimo_simple(self):
+        """Test MIMO discrete-time system with ncon=2, nmeas=2."""
+        from slicot import sb10ed
+
+        n = 4
+        m = 5
+        np_ = 5
+        ncon = 2
+        nmeas = 2
+        m1 = m - ncon
+        np1 = np_ - nmeas
+
+        a = np.diag([0.3, -0.2, 0.4, -0.1]).astype(np.float64, order='F')
+        a[0, 1] = 0.1
+
+        b = np.zeros((n, m), order='F', dtype=np.float64)
+        b[:, :m1] = np.array([
+            [0.3, 0.1, 0.0],
+            [0.0, 0.2, 0.1],
+            [0.1, 0.0, 0.3],
+            [0.0, 0.1, 0.0]
+        ])
+        b[:, m1:] = np.array([
+            [0.4, 0.0],
+            [0.0, 0.3],
+            [0.1, 0.2],
+            [0.2, 0.1]
+        ])
+
+        c = np.zeros((np_, n), order='F', dtype=np.float64)
+        c[:np1, :] = np.array([
+            [0.2, 0.1, 0.0, 0.0],
+            [0.0, 0.3, 0.1, 0.0],
+            [0.0, 0.0, 0.2, 0.1]
+        ])
+        c[np1:, :] = np.array([
+            [0.5, 0.0, 0.2, 0.0],
+            [0.0, 0.4, 0.0, 0.3]
+        ])
+
+        d = np.zeros((np_, m), order='F', dtype=np.float64)
+        d[np1 - ncon, m1:] = [1.0, 0.0]
+        d[np1 - 1, m1:] = [0.0, 1.0]
+        d[np1:, :m1] = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]
+
+        ak, bk, ck, dk, rcond, info = sb10ed(
+            n, m, np_, ncon, nmeas, a, b, c, d
+        )
+
+        assert info == 0
+        assert ak.shape == (n, n)
+        assert bk.shape == (n, nmeas)
+        assert ck.shape == (ncon, n)
+        assert dk.shape == (ncon, nmeas)
 
 
 class TestSB10EDQuickReturn:

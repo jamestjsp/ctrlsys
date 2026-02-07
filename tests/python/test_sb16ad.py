@@ -338,6 +338,95 @@ class TestSB16ADEdgeCases:
         assert ncs == 0
 
 
+class TestSB16ADMIMO:
+    """MIMO controller reduction tests."""
+
+    def test_mimo_controller_reduction(self):
+        """
+        MIMO system: 4-state open-loop, 2 inputs, 2 outputs.
+        Reduce a 4th-order MIMO controller to 2nd order.
+        """
+        n, m, p = 4, 2, 2
+
+        a = np.array([
+            [-1.0,  0.5,  0.0,  0.0],
+            [ 0.0, -2.0,  0.3,  0.0],
+            [ 0.0,  0.0, -3.0,  0.1],
+            [ 0.0,  0.0,  0.0, -4.0]
+        ], dtype=float, order='F')
+
+        b = np.array([
+            [1.0, 0.0],
+            [0.5, 1.0],
+            [0.0, 0.5],
+            [0.2, 0.3]
+        ], dtype=float, order='F')
+
+        c = np.array([
+            [1.0, 0.5, 0.0, 0.0],
+            [0.0, 1.0, 0.5, 0.2]
+        ], dtype=float, order='F')
+
+        d = np.zeros((p, m), dtype=float, order='F')
+
+        nc = 4
+        ac = np.array([
+            [-5.0,  1.0,  0.0,  0.0],
+            [-2.0, -6.0,  1.0,  0.0],
+            [ 0.0, -1.0, -7.0,  0.5],
+            [ 0.0,  0.0, -0.5, -8.0]
+        ], dtype=float, order='F')
+
+        bc = np.array([
+            [2.0, 0.0],
+            [0.0, 2.0],
+            [1.0, 1.0],
+            [0.5, 0.5]
+        ], dtype=float, order='F')
+
+        cc = np.array([
+            [1.0, 0.5, 0.2, 0.1],
+            [0.0, 1.0, 0.5, 0.2]
+        ], dtype=float, order='F')
+
+        dc = np.zeros((m, p), dtype=float, order='F')
+
+        ncr = 2
+
+        (acr, bcr, ccr, dcr, ncr_out, ncs, hsvc, iwarn, info) = sb16ad(
+            dico='C',
+            jobc='S',
+            jobo='S',
+            jobmr='B',
+            weight='N',
+            equil='N',
+            ordsel='F',
+            n=n,
+            m=m,
+            p=p,
+            nc=nc,
+            ncr=ncr,
+            alpha=0.0,
+            a=a,
+            b=b,
+            c=c,
+            d=d,
+            ac=ac,
+            bc=bc,
+            cc=cc,
+            dc=dc,
+            tol1=0.0,
+            tol2=0.0
+        )
+
+        assert info == 0, f"sb16ad returned info={info}"
+        assert ncr_out == 2
+        assert ncs == nc
+
+        for i in range(ncs - 1):
+            assert hsvc[i] >= hsvc[i + 1] - 1e-14, "HSV not decreasing"
+
+
 class TestSB16ADErrorHandling:
     """Test error handling."""
 

@@ -417,6 +417,41 @@ class TestSG02CXMathematicalProperties:
         assert info == 0
         assert rnorm <= initial_norm + 1e-10
 
+    def test_optimal_alpha_reduces_norm(self):
+        """
+        Verify that rnorm at optimal alpha is <= rnorm at alpha=0 and alpha=2.
+
+        The line search should find a value at least as good as the boundaries.
+        """
+        n = 3
+
+        r = np.array([
+            [2.0, 0.5, 0.2],
+            [0.5, 1.5, 0.3],
+            [0.2, 0.3, 1.0]
+        ], order='F', dtype=float)
+
+        s = np.array([
+            [0.3, 0.1, 0.05],
+            [0.1, 0.25, 0.08],
+            [0.05, 0.08, 0.2]
+        ], order='F', dtype=float)
+
+        g = np.array([
+            [0.8, 0.2, 0.1],
+            [0.2, 0.6, 0.15],
+            [0.1, 0.15, 0.5]
+        ], order='F', dtype=float)
+
+        alpha, rnorm, iwarn, info = sg02cx(
+            jobe='I', flag='P', jobg='G', uplo='U', trans='N',
+            n=n, m=0, e=np.empty((1, 1), order='F'), r=r, s=s, g=g
+        )
+
+        assert info == 0
+        norm_at_0 = np.linalg.norm(r, 'fro')
+        assert rnorm <= norm_at_0 + 1e-10
+
     def test_alpha_at_boundary_gives_consistent_norm(self):
         """
         Test that alpha=0 or alpha=2 give correct boundary behavior.

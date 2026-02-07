@@ -303,7 +303,7 @@ void sg03bv(const char* trans, const i32 n, const f64* a, const i32 lda,
                         SLC_DLARTG(&x, &t, &c, &s, &r);
                         b[i + i * ldb] = r;
                         if (i > 0) {
-                            SLC_DROT(&i, b, &int1, &dwork[l], &int1, &c, &s);
+                            SLC_DROT(&i, &b[i * ldb], &int1, &dwork[l], &int1, &c, &s);
                         }
                     }
                     l += ldws;

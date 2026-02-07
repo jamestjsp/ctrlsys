@@ -3,6 +3,18 @@ import pytest
 from slicot import mb04id
 
 
+def _build_q_from_qr(a_out, tau, n, m):
+    """Build orthogonal Q from packed Householder reflectors."""
+    k = min(n, m)
+    Q = np.eye(n)
+    for i in range(k):
+        v = np.zeros(n)
+        v[i] = 1.0
+        v[i+1:] = a_out[i+1:, i]
+        Q = Q @ (np.eye(n) - tau[i] * np.outer(v, v))
+    return Q
+
+
 def test_mb04id_basic():
     """
     Validate basic QR factorization with lower-left zero triangle.
@@ -28,19 +40,11 @@ def test_mb04id_basic():
     assert a_out.shape == (n, m)
     assert tau.shape == (min(n, m),)
 
-    # Verify QR properties using NumPy's QR as reference
-    # For a matrix with lower-left zeros, standard QR should give similar R
-    q_ref, r_ref = np.linalg.qr(a_orig)
-
-    # Extract R from MB04ID output
-    r = np.triu(a_out[:min(n, m), :])
-
-    # R matrices should match (up to signs)
-    # Check that R has similar structure (upper triangular)
-    assert np.allclose(np.tril(r, -1), 0.0, atol=1e-14)
-
-    # Verify R diagonal elements are non-zero for full-rank matrix
-    assert np.all(np.abs(np.diag(r)) > 1e-10)
+    Q = _build_q_from_qr(a_out, tau, n, m)
+    R = np.zeros((n, m))
+    R[:min(n, m), :] = np.triu(a_out[:min(n, m), :])
+    np.testing.assert_allclose(Q @ R, a_orig, atol=1e-12)
+    np.testing.assert_allclose(Q.T @ Q, np.eye(n), atol=1e-14)
 
 
 def test_mb04id_with_b_matrix():
@@ -109,14 +113,16 @@ def test_mb04id_square_matrix():
     a[5, 0] = 0.0
     a[5, 1] = 0.0
 
+    a_orig = a.copy()
     a_out, tau, info = mb04id(n, m, p, a)
 
     assert info == 0
     assert tau.shape == (n,)
 
-    # Extract R (should be upper triangular for square matrix)
-    r = np.triu(a_out)
-    assert np.allclose(np.tril(r, -1), 0.0, atol=1e-14)
+    Q = _build_q_from_qr(a_out, tau, n, m)
+    R = np.triu(a_out)
+    np.testing.assert_allclose(Q @ R, a_orig, atol=1e-12)
+    np.testing.assert_allclose(Q.T @ Q, np.eye(n), atol=1e-14)
 
 
 def test_mb04id_tall_matrix():

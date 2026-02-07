@@ -48,9 +48,10 @@ def test_ib01pd_moesp_all_matrices():
         assert c.shape == (l, n)
         assert b.shape == (n, m)
         assert d.shape == (l, m)
-
-        eig_a = np.linalg.eigvals(a)
-        assert eig_a.dtype == complex or eig_a.dtype == float
+        assert np.all(np.isfinite(a))
+        assert np.all(np.isfinite(b))
+        assert np.all(np.isfinite(c))
+        assert np.all(np.isfinite(d))
 
 
 def test_ib01pd_n4sid_all_matrices():
@@ -88,6 +89,8 @@ def test_ib01pd_n4sid_all_matrices():
         assert c.shape == (l, n)
         assert b.shape == (n, m)
         assert d.shape == (l, m)
+        assert np.all(np.isfinite(a))
+        assert np.all(np.isfinite(c))
 
 
 def test_ib01pd_ac_only():
@@ -122,6 +125,8 @@ def test_ib01pd_ac_only():
     if info == 0:
         assert a.shape == (n, n)
         assert c.shape == (l, n)
+        assert np.all(np.isfinite(a))
+        assert np.all(np.isfinite(c))
 
 
 def test_ib01pd_bd_only():
@@ -160,6 +165,8 @@ def test_ib01pd_bd_only():
     if info == 0:
         assert b.shape == (n, m)
         assert d.shape == (l, m)
+        assert np.all(np.isfinite(b))
+        assert np.all(np.isfinite(d))
 
 
 def test_ib01pd_with_covariance():
@@ -196,6 +203,10 @@ def test_ib01pd_with_covariance():
         assert ry.shape == (l, l)
         assert s.shape == (n, l)
         assert o.shape == (l * nobr, n)
+        q_eigs = np.linalg.eigvalsh(q)
+        assert np.all(q_eigs >= -1e-10)
+        ry_eigs = np.linalg.eigvalsh(ry)
+        assert np.all(ry_eigs >= -1e-10)
 
 
 def test_ib01pd_m_zero():
@@ -230,6 +241,7 @@ def test_ib01pd_m_zero():
     if info == 0:
         assert a.shape == (n, n)
         assert c.shape == (l, n)
+        assert np.all(np.isfinite(a))
 
 
 def test_ib01pd_larger_system():
@@ -266,6 +278,10 @@ def test_ib01pd_larger_system():
         assert c.shape == (l, n)
         assert b.shape == (n, m)
         assert d.shape == (l, m)
+        assert np.all(np.isfinite(a))
+        assert np.all(np.isfinite(b))
+        assert np.all(np.isfinite(c))
+        assert np.all(np.isfinite(d))
 
 
 def test_ib01pd_error_invalid_meth():

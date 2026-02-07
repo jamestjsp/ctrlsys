@@ -144,27 +144,45 @@ def test_sb02mw_modulus_property():
 
 
 def test_sb02mw_complement_sb02ms():
-    """
-    Mathematical property: SB02MW and SB02MS are complements.
-
-    For any eigenvalue, exactly one of SB02MW and SB02MS returns True.
-    - SB02MW returns True for stable (|lambda| < 1)
-    - SB02MS returns True for unstable (|lambda| >= 1)
-    """
     from slicot import sb02mw, sb02ms
 
     test_cases = [
-        (0.0, 0.0),     # Origin: stable
-        (1.0, 0.0),     # On unit circle: unstable
-        (0.0, 1.0),     # On unit circle: unstable
-        (0.5, 0.0),     # Inside: stable
-        (2.0, 0.0),     # Outside: unstable
-        (0.6, 0.6),     # Inside: stable (|0.6+0.6i| = 0.848...)
-        (0.8, 0.8),     # Outside: unstable (|0.8+0.8i| = 1.131...)
+        (0.0, 0.0),
+        (1.0, 0.0),
+        (0.0, 1.0),
+        (0.5, 0.0),
+        (2.0, 0.0),
+        (0.6, 0.6),
+        (0.8, 0.8),
+        (-0.5, 0.8),
     ]
 
     for reig, ieig in test_cases:
         result_mw = sb02mw(reig, ieig)
         result_ms = sb02ms(reig, ieig)
         assert_equal(result_mw != result_ms, True,
-                    f"Complement property failed for reig={reig}, ieig={ieig}")
+                     f"Complement failed for reig={reig}, ieig={ieig}")
+
+
+def test_sb02mw_independent_criterion():
+    from slicot import sb02mw
+
+    test_cases = [
+        (0.0, 0.0),
+        (1.0, 0.0),
+        (0.0, 1.0),
+        (-1.0, 0.0),
+        (0.5, 0.0),
+        (2.0, 0.0),
+        (0.6, 0.6),
+        (0.8, 0.8),
+        (0.3, 0.4),
+        (-1.5, 0.5),
+        (np.sqrt(0.5), np.sqrt(0.5)),
+    ]
+
+    for reig, ieig in test_cases:
+        result = sb02mw(reig, ieig)
+        expected = np.hypot(reig, ieig) < 1.0
+        assert_equal(result, expected,
+                     f"Mismatch for ({reig},{ieig}): got {result}, expected {expected}")

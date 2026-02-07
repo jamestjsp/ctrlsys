@@ -3,6 +3,18 @@ import pytest
 from slicot import mb04jd
 
 
+def _build_q_from_lq(a_out, tau, n, m):
+    """Build orthogonal Q from packed LQ Householder reflectors."""
+    k = min(n, m)
+    Q = np.eye(m)
+    for i in range(k):
+        v = np.zeros(m)
+        v[i] = 1.0
+        v[i+1:] = a_out[i, i+1:]
+        Q = (np.eye(m) - tau[i] * np.outer(v, v)) @ Q
+    return Q
+
+
 def test_mb04jd_basic():
     """
     Validate basic LQ factorization with upper-right zero triangle.
@@ -27,15 +39,12 @@ def test_mb04jd_basic():
     assert a_out.shape == (n, m)
     assert tau.shape == (min(n, m),)
 
-    # Extract L from output (lower trapezoidal part)
-    l_mat = np.tril(a_out[:, :min(n, m)])
-
-    # Verify L has lower triangular structure
-    assert np.allclose(np.triu(l_mat, 1), 0.0, atol=1e-14)
-
-    # Verify L diagonal elements are non-zero for full-rank matrix
-    diag_size = min(n, m)
-    assert np.all(np.abs(np.diag(l_mat[:diag_size, :diag_size])) > 1e-10)
+    k = min(n, m)
+    Q = _build_q_from_lq(a_out, tau, n, m)
+    L = np.zeros((n, m))
+    L[:, :k] = np.tril(a_out[:, :k])
+    np.testing.assert_allclose(L @ Q, a_orig, atol=1e-12)
+    np.testing.assert_allclose(Q @ Q.T, np.eye(m), atol=1e-14)
 
 
 def test_mb04jd_with_b_matrix():
@@ -106,14 +115,16 @@ def test_mb04jd_square_matrix():
     a[0, 5] = 0.0
     a[1, 5] = 0.0
 
+    a_orig = a.copy()
     a_out, tau, info = mb04jd(n, m, p, a)
 
     assert info == 0
     assert tau.shape == (n,)
 
-    # Extract L (should be lower triangular for square matrix)
-    l_mat = np.tril(a_out)
-    assert np.allclose(np.triu(l_mat, 1), 0.0, atol=1e-14)
+    Q = _build_q_from_lq(a_out, tau, n, m)
+    L = np.tril(a_out)
+    np.testing.assert_allclose(L @ Q, a_orig, atol=1e-12)
+    np.testing.assert_allclose(Q @ Q.T, np.eye(m), atol=1e-14)
 
 
 def test_mb04jd_wide_matrix():

@@ -207,6 +207,54 @@ def test_sb02sd_reduced():
     assert info >= 0
 
 
+def test_sb02sd_with_actual_riccati_solution():
+    """
+    Test sb02sd with an actual discrete Riccati solution from sb02od.
+
+    Solves the discrete Riccati equation and verifies the residual.
+    """
+    from slicot import sb02od
+    n = 3
+    m = 2
+
+    a = np.array([
+        [0.9, 0.1, 0.0],
+        [0.0, 0.8, 0.1],
+        [0.0, 0.0, 0.7]
+    ], order='F', dtype=float)
+
+    b = np.array([
+        [1.0, 0.0],
+        [0.0, 1.0],
+        [0.5, 0.5]
+    ], order='F', dtype=float)
+
+    q = np.eye(n, order='F', dtype=float)
+    r = np.eye(m, order='F', dtype=float)
+    l = np.zeros((n, m), order='F', dtype=float)
+
+    od_result = sb02od('D', 'B', 'N', 'U', 'Z', 'S', n, m, n, a, b, q, r, l, 0.0)
+    x = od_result[0]
+    info = od_result[-1]
+    assert info == 0
+
+    g = b @ np.linalg.solve(r, b.T)
+    residual = a.T @ x @ np.linalg.solve(np.eye(n) + g @ x, a) + q - x
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
+
+    t_in = np.zeros((n, n), order='F', dtype=float)
+    u_in = np.eye(n, order='F', dtype=float)
+
+    t_out, u_out, sepd, rcond_out, ferr, info = sb02sd(
+        'B', 'N', 'N', 'U', 'O', n, a, t_in, u_in,
+        np.asfortranarray(g), q.copy(order='F'), x.copy(order='F'))
+
+    assert info >= 0
+    assert sepd > 0
+    assert 0 < rcond_out <= 1
+    assert ferr >= 0
+
+
 def test_sb02sd_n_zero():
     """
     Test quick return for n=0

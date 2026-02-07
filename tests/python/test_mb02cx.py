@@ -22,12 +22,16 @@ def test_mb02cx_basic_row():
 
     from slicot import mb02cx
 
+    a_orig = a.copy()
     a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())
 
     assert info == 0
     assert a_out.shape == (p, k)
     assert b_out.shape == (q, k)
     assert cs.shape[0] >= 2 * k + min(k, q)
+
+    np.testing.assert_allclose(np.tril(a_out[:k, :k], -1), 0.0, atol=1e-12)
+    assert np.all(np.diag(a_out[:k, :k]) > 0)
 
 
 def test_mb02cx_basic_column():
@@ -56,6 +60,9 @@ def test_mb02cx_basic_column():
     assert a_out.shape == (k, p)
     assert b_out.shape == (k, q)
     assert cs.shape[0] >= 2 * k + min(k, q)
+
+    np.testing.assert_allclose(np.triu(a_out[:k, :k], 1), 0.0, atol=1e-12)
+    assert np.all(np.diag(a_out[:k, :k]) > 0)
 
 
 def test_mb02cx_cs_contains_valid_rotation_params():

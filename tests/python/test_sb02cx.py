@@ -125,11 +125,6 @@ def test_sb02cx_involution():
 
 
 def test_sb02cx_symmetry():
-    """
-    Mathematical property: sign of real part matters for result.
-
-    sb02cx(reig, ieig) == sb02cx(-reig, ieig) due to ABS(REIG).
-    """
     from slicot import sb02cx
 
     test_cases = [
@@ -143,3 +138,29 @@ def test_sb02cx_symmetry():
         result_neg = sb02cx(-reig, ieig)
         assert_equal(result_pos, result_neg,
                     f"Symmetry failed for reig={reig}")
+
+
+def test_sb02cx_independent_criterion():
+    from slicot import sb02cx
+
+    tol = 100.0 * DLAMCH_EPS
+    test_cases = [
+        (0.0, 1.0),
+        (0.0, 0.0),
+        (TOL * 0.5, 2.0),
+        (-TOL * 0.5, 2.0),
+        (TOL, 1.0),
+        (1.0, 0.5),
+        (-0.1, 3.0),
+        (100.0, 0.0),
+        (1e-16, 7.0),
+        (-1e-16, -3.0),
+        (TOL * 0.99, 0.0),
+        (TOL * 1.01, 0.0),
+    ]
+
+    for reig, ieig in test_cases:
+        result = sb02cx(reig, ieig)
+        expected = abs(reig) < tol
+        assert_equal(result, expected,
+                     f"Mismatch for reig={reig}: got {result}, expected {expected}")

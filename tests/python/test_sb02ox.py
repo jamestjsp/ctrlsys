@@ -145,6 +145,9 @@ def test_sb02ox_mathematical_property():
         assert result == expected, \
             f"sb02ox({alphar}, {alphai}, {beta}) = {result}, expected {expected}"
 
+        assert result == (alphar**2 + alphai**2 < beta**2), \
+            f"modulus squared test failed for ({alphar}, {alphai}, {beta})"
+
 
 def test_sb02ox_sb02ov_complement():
     """

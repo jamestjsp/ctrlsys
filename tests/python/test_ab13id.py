@@ -81,9 +81,11 @@ def test_ab13id_html_example_improper():
     )
 
     assert info == 0
-    assert is_proper == False  # System is improper
+    assert is_proper == False
     assert nr == 7
     assert ranke == 5
+
+    assert ranke < nr
 
 
 def test_ab13id_proper_system():
@@ -118,9 +120,15 @@ def test_ab13id_proper_system():
     )
 
     assert info == 0
-    assert is_proper == True  # System is proper when E is invertible
+    assert is_proper == True
     assert nr == n
-    assert ranke == n  # E = I has full rank
+    assert ranke == n
+
+    assert np.linalg.matrix_rank(e) == n
+
+    gain_large_w = np.linalg.norm(
+        c @ np.linalg.solve(1j * 1e6 * e - a, b))
+    assert gain_large_w < 1e-3
 
 
 def test_ab13id_zero_dimensions():
@@ -200,7 +208,8 @@ def test_ab13id_remove_all_eigenvalues():
     )
 
     assert info == 0
-    assert is_proper == True  # Standard state-space is proper
+    assert is_proper == True
+    assert ranke == nr
 
 
 def test_ab13id_with_scaling():

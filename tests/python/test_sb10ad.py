@@ -272,6 +272,54 @@ class TestSB10AD:
         max_real = np.max(eigenvalues.real)
         assert max_real < 0, f"Closed-loop not stable: max(Re(eig(AC))) = {max_real}"
 
+    def test_mimo_ncon2_nmeas2(self):
+        """Test MIMO system with ncon=2, nmeas=2."""
+        n = 4
+        m = 4       # m1=2, m2=2
+        np_ = 4     # np1=2, np2=2
+        ncon = 2
+        nmeas = 2
+
+        a = np.array([[-1, 0.1, 0, 0],
+                       [0, -2, 0.1, 0],
+                       [0, 0, -3, 0.1],
+                       [0, 0, 0, -4]], dtype=float, order='F')
+
+        b = np.array([[1, 0, 1, 0],
+                       [0, 1, 0, 0],
+                       [0, 0, 0, 1],
+                       [0, 0, 1, 0]], dtype=float, order='F')
+
+        c = np.array([[1, 0, 0, 0],
+                       [0, 0, 1, 0],
+                       [0, 1, 0, 0],
+                       [0, 0, 0, 1]], dtype=float, order='F')
+
+        d = np.array([[0, 0, 0, 1],
+                       [0, 0, 1, 0],
+                       [1, 0, 0, 0],
+                       [0, 1, 0, 0]], dtype=float, order='F')
+
+        gamma = 10.0
+        gtol = 1e-4
+        actol = 0.0
+        job = 4
+
+        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, a, b, c, d, gamma, gtol, actol)
+        ak, bk, ck, dk, ac, bc, cc, dc, gamma_out, rcond, info = result
+
+        assert info == 0, f"SB10AD MIMO failed with info={info}"
+
+        assert ak.shape == (n, n)
+        assert bk.shape == (n, nmeas)
+        assert ck.shape == (ncon, n)
+        assert dk.shape == (ncon, nmeas)
+
+        eig_cl = np.linalg.eigvals(ac)
+        assert np.all(eig_cl.real < 0), f"Closed-loop not stable: {eig_cl}"
+
+        assert np.all(rcond >= 0) and np.all(rcond <= 1)
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

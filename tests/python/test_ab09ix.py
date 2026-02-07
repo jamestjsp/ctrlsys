@@ -94,6 +94,11 @@ class TestAB09IXBasic:
         for i in range(n - 1):
             assert hsv[i] >= hsv[i + 1]
 
+        if nr > 0:
+            ar_red = ar[:nr, :nr]
+            eigvals = np.linalg.eigvals(ar_red)
+            assert np.all(np.real(eigvals) < 0)
+
     def test_balancing_free_bt_continuous(self):
         """
         Test balancing-free square-root B&T for continuous-time system.
@@ -153,6 +158,11 @@ class TestAB09IXBasic:
         assert nr <= n
         for i in range(n - 1):
             assert hsv[i] >= hsv[i + 1]
+
+        if nr > 0:
+            ar_red = ar[:nr, :nr]
+            eigvals = np.linalg.eigvals(ar_red)
+            assert np.all(np.real(eigvals) < 0)
 
     def test_spa_discrete_time(self):
         """
@@ -217,6 +227,11 @@ class TestAB09IXBasic:
         assert info == 0
         assert nr >= 0
         assert nr <= n
+
+        if nr > 0:
+            ar_red = ar[:nr, :nr]
+            eigvals = np.linalg.eigvals(ar_red)
+            assert np.all(np.abs(eigvals) < 1.0)
 
 
 class TestAB09IXMathematicalProperties:
@@ -351,6 +366,10 @@ class TestAB09IXEdgeCases:
         ti = np.eye(n, order='F', dtype=float)
         t = np.eye(n, order='F', dtype=float)
 
+        a_orig = a.copy(order='F')
+        b_orig = b.copy(order='F')
+        c_orig = c.copy(order='F')
+
         ar, br, cr, dr, ti_out, t_out, nr, nminr, hsv, iwarn, info = ab09ix(
             'C', 'S', 'N', 'F', n, m, p, 0, 1.0, 1.0,
             a, b, c, d, ti, t, 0.0, 0.0
@@ -358,6 +377,9 @@ class TestAB09IXEdgeCases:
 
         assert info == 0
         assert nr == 0
+
+        dc_gain_orig = -c_orig @ np.linalg.solve(a_orig, b_orig)
+        np.testing.assert_allclose(dr[:p, :m], dc_gain_orig, atol=1e-6)
 
     def test_single_state(self):
         """

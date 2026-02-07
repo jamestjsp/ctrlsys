@@ -13,6 +13,7 @@ def test_sg03bu_1x1_basic():
     a = np.array([[0.5]], dtype=np.float64, order='F')
     e = np.array([[1.0]], dtype=np.float64, order='F')
     b = np.array([[1.0]], dtype=np.float64, order='F')
+    b_orig = b.copy()
 
     u, scale, info = sg03bu(trans, a, e, b)
 
@@ -20,6 +21,10 @@ def test_sg03bu_1x1_basic():
     assert 0.0 < scale <= 1.0
     assert u.shape == (1, 1)
     assert u[0, 0] >= 0.0
+
+    x = u.T @ u
+    residual = a.T @ x @ a - e.T @ x @ e + scale**2 * b_orig.T @ b_orig
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bu_2x2_basic():
@@ -38,22 +43,24 @@ def test_sg03bu_2x2_basic():
         [0.0, 1.0]
     ], dtype=np.float64, order='F')
 
-    # B upper triangular with non-negative diagonal
     b = np.array([
         [1.0, 0.5],
         [0.0, 1.0]
     ], dtype=np.float64, order='F')
+    b_orig = b.copy()
 
     u, scale, info = sg03bu(trans, a, e, b)
 
     assert info == 0
     assert 0.0 < scale <= 1.0
     assert u.shape == (2, 2)
-    # U upper triangular
     assert u[1, 0] == 0.0
-    # Main diagonal non-negative
     assert u[0, 0] >= 0.0
     assert u[1, 1] >= 0.0
+
+    x = u.T @ u
+    residual = a.T @ x @ a - e.T @ x @ e + scale**2 * b_orig.T @ b_orig
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bu_2x2_complex():
@@ -77,6 +84,7 @@ def test_sg03bu_2x2_complex():
         [0.8, 0.2],
         [0.0, 0.8]
     ], dtype=np.float64, order='F')
+    b_orig = b.copy()
 
     u, scale, info = sg03bu(trans, a, e, b)
 
@@ -86,6 +94,10 @@ def test_sg03bu_2x2_complex():
     assert u[1, 0] == 0.0
     assert u[0, 0] >= 0.0
     assert u[1, 1] >= 0.0
+
+    x = u.T @ u
+    residual = a.T @ x @ a - e.T @ x @ e + scale**2 * b_orig.T @ b_orig
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bu_3x3_mixed():
@@ -111,19 +123,22 @@ def test_sg03bu_3x3_mixed():
         [0.0, 0.9, 0.1],
         [0.0, 0.0, 0.9]
     ], dtype=np.float64, order='F')
+    b_orig = b.copy()
 
     u, scale, info = sg03bu(trans, a, e, b)
 
     assert info == 0
     assert 0.0 < scale <= 1.0
     assert u.shape == (3, 3)
-    # U upper triangular
     assert u[1, 0] == 0.0
     assert u[2, 0] == 0.0
     assert u[2, 1] == 0.0
-    # Main diagonal non-negative
     for i in range(3):
         assert u[i, i] >= 0.0
+
+    x = u.T @ u
+    residual = a.T @ x @ a - e.T @ x @ e + scale**2 * b_orig.T @ b_orig
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bu_transposed():
@@ -145,6 +160,7 @@ def test_sg03bu_transposed():
         [0.8, 0.2],
         [0.0, 0.7]
     ], dtype=np.float64, order='F')
+    b_orig = b.copy()
 
     u, scale, info = sg03bu(trans, a, e, b)
 
@@ -152,6 +168,10 @@ def test_sg03bu_transposed():
     assert 0.0 < scale <= 1.0
     assert u.shape == (2, 2)
     assert u[1, 0] == 0.0
+
+    x = u @ u.T
+    residual = a @ x @ a.T - e @ x @ e.T + scale**2 * b_orig @ b_orig.T
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bu_error_unstable():
@@ -235,16 +255,19 @@ def test_sg03bu_4x4_recursive():
         [0.0, 0.0, 0.9, 0.1],
         [0.0, 0.0, 0.0, 0.9]
     ], dtype=np.float64, order='F')
+    b_orig = b.copy()
 
     u, scale, info = sg03bu(trans, a, e, b)
 
     assert info == 0
     assert 0.0 < scale <= 1.0
     assert u.shape == (4, 4)
-    # U upper triangular
     for i in range(4):
         for j in range(i):
             assert u[i, j] == 0.0
-    # Main diagonal non-negative
     for i in range(4):
         assert u[i, i] >= 0.0
+
+    x = u.T @ u
+    residual = a.T @ x @ a - e.T @ x @ e + scale**2 * b_orig.T @ b_orig
+    np.testing.assert_allclose(residual, 0, atol=1e-10)

@@ -248,6 +248,60 @@ class TestSB10TDEdgeCases:
         assert dk.shape == (ncon, nmeas)
 
 
+class TestSB10TDMIMO:
+    """MIMO tests for SB10TD."""
+
+    def test_mimo_ncon2_nmeas2(self):
+        """Test MIMO transformation with ncon=2, nmeas=2."""
+        np.random.seed(333)
+
+        n, m, np_ = 4, 6, 6
+        ncon, nmeas = 2, 2
+
+        d = np.zeros((np_, m), dtype=np.float64, order='F')
+        d22 = np.random.randn(nmeas, ncon).astype(np.float64) * 0.05
+        d[np_ - nmeas:, m - ncon:] = d22
+
+        tu = np.eye(ncon, dtype=np.float64, order='F') * 1.5
+        ty = np.eye(nmeas, dtype=np.float64, order='F') * 0.8
+
+        ak_in = np.diag([-1.0, -2.0, -3.0, -4.0]).astype(np.float64, order='F')
+        bk_in = np.random.randn(n, nmeas).astype(np.float64, order='F') * 0.2
+        ck_in = np.random.randn(ncon, n).astype(np.float64, order='F') * 0.2
+        dk_in = np.random.randn(ncon, nmeas).astype(np.float64, order='F') * 0.1
+
+        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+            n, m, np_, ncon, nmeas,
+            d, tu, ty,
+            ak_in.copy(order='F'), bk_in.copy(order='F'),
+            ck_in.copy(order='F'), dk_in.copy(order='F')
+        )
+
+        assert info == 0
+        assert ak.shape == (n, n)
+        assert bk.shape == (n, nmeas)
+        assert ck.shape == (ncon, n)
+        assert dk.shape == (ncon, nmeas)
+        assert rcond > 0.0
+
+        bkhat = bk_in @ ty
+        ckhat = tu @ ck_in
+        dkhat = tu @ dk_in @ ty
+
+        Im2_plus_dkhat_d22 = np.eye(ncon) + dkhat @ d22
+        ck_expected = np.linalg.solve(Im2_plus_dkhat_d22, ckhat)
+        dk_expected = np.linalg.solve(Im2_plus_dkhat_d22, dkhat)
+
+        temp = bkhat @ d22
+        ak_expected = ak_in - temp @ ck_expected
+        bk_expected = bkhat - temp @ dk_expected
+
+        np.testing.assert_allclose(ak, ak_expected, rtol=1e-12, atol=1e-13)
+        np.testing.assert_allclose(bk, bk_expected, rtol=1e-12, atol=1e-13)
+        np.testing.assert_allclose(ck, ck_expected, rtol=1e-12, atol=1e-13)
+        np.testing.assert_allclose(dk, dk_expected, rtol=1e-12, atol=1e-13)
+
+
 class TestSB10TDErrorHandling:
     """Error handling tests for SB10TD."""
 

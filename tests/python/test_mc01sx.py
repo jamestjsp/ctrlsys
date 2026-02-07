@@ -127,3 +127,16 @@ def test_mc01sx_first_only_nonzero():
     v = mc01sx(e, mant)
 
     assert v == 0
+
+
+def test_mc01sx_matches_numpy():
+    from slicot import mc01sx
+
+    e = np.array([3, -7, 15, 0, -2, 8], dtype=np.int32)
+    mant = np.array([1.5, 0.0, 2.3, 0.0, -0.5, 1.0], dtype=np.float64)
+
+    v = mc01sx(e, mant)
+
+    active = e[mant != 0.0]
+    expected = int(active.max() - active.min())
+    assert v == expected

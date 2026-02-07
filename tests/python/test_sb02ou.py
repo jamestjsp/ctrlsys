@@ -129,3 +129,6 @@ def test_sb02ou_mathematical_property():
 
         assert result == expected, \
             f"sb02ou({alphar}, {alphai}, {beta}) = {result}, expected {expected}"
+
+        assert result == (alphar * beta > 0), \
+            f"product sign test failed for ({alphar}, {beta})"

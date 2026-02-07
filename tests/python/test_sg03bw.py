@@ -21,20 +21,17 @@ def test_sg03bw_basic_n1():
     c = np.array([[4.0]], dtype=np.float64, order='F')
     d = np.array([[2.0]], dtype=np.float64, order='F')
 
-    # Right-hand side Y (will be overwritten with solution X)
-    x = np.array([[1.0],
+    y = np.array([[1.0],
                   [2.0]], dtype=np.float64, order='F')
 
-    x_out, scale, info = sg03bw(trans, a, e, c, d, x)
+    x_out, scale, info = sg03bw(trans, a, e, c, d, y.copy(order='F'))
 
-    # Check success
     assert info == 0, f"SG03BW failed with info={info}"
-
-    # Scale should be positive
     assert 0 < scale <= 1.0, f"Invalid scale={scale}"
-
-    # Solution should be finite
     assert np.all(np.isfinite(x_out))
+
+    residual = a.T @ x_out @ c + e.T @ x_out @ d - scale * y
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bw_basic_n2():
@@ -56,14 +53,17 @@ def test_sg03bw_basic_n2():
     d = np.array([[0.5, 0.0],
                   [0.0, 0.5]], dtype=np.float64, order='F')
 
-    x = np.array([[1.0, 0.5],
+    y = np.array([[1.0, 0.5],
                   [0.5, 1.0]], dtype=np.float64, order='F')
 
-    x_out, scale, info = sg03bw(trans, a, e, c, d, x)
+    x_out, scale, info = sg03bw(trans, a, e, c, d, y.copy(order='F'))
 
     assert info == 0, f"SG03BW failed with info={info}"
     assert 0 < scale <= 1.0, f"Invalid scale={scale}"
     assert np.all(np.isfinite(x_out))
+
+    residual = a.T @ x_out @ c + e.T @ x_out @ d - scale * y
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bw_transposed():
@@ -80,14 +80,17 @@ def test_sg03bw_transposed():
     c = np.array([[2.0]], dtype=np.float64, order='F')
     d = np.array([[1.0]], dtype=np.float64, order='F')
 
-    x = np.array([[1.0],
+    y = np.array([[1.0],
                   [1.0]], dtype=np.float64, order='F')
 
-    x_out, scale, info = sg03bw(trans, a, e, c, d, x)
+    x_out, scale, info = sg03bw(trans, a, e, c, d, y.copy(order='F'))
 
     assert info == 0, f"SG03BW failed with info={info}"
     assert 0 < scale <= 1.0, f"Invalid scale={scale}"
     assert np.all(np.isfinite(x_out))
+
+    residual = a @ x_out @ c.T + e @ x_out @ d.T - scale * y
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bw_m1_quick_return():
@@ -161,13 +164,11 @@ def test_sg03bw_nearly_singular():
     c = np.array([[1.0]], dtype=np.float64, order='F')
     d = np.array([[1.0]], dtype=np.float64, order='F')
 
-    x = np.array([[1.0],
+    y = np.array([[1.0],
                   [1.0]], dtype=np.float64, order='F')
 
-    x_out, scale, info = sg03bw(trans, a, e, c, d, x)
+    x_out, scale, info = sg03bw(trans, a, e, c, d, y.copy(order='F'))
 
-    # May return INFO=1 for near singularity
-    # But should still produce a finite result
     assert info >= 0, f"Unexpected error: info={info}"
     assert np.all(np.isfinite(x_out))
     assert 0 < scale <= 1.0
@@ -183,24 +184,18 @@ def test_sg03bw_identity_matrices():
     c = np.array([[2.0]], dtype=np.float64, order='F')
     d = np.array([[3.0]], dtype=np.float64, order='F')
 
-    # Y = [1, 2, 3]^T
-    x = np.array([[1.0],
+    y = np.array([[1.0],
                   [2.0],
                   [3.0]], dtype=np.float64, order='F')
 
-    x_out, scale, info = sg03bw(trans, a, e, c, d, x)
+    x_out, scale, info = sg03bw(trans, a, e, c, d, y.copy(order='F'))
 
     assert info == 0, f"SG03BW failed with info={info}"
     assert scale > 0, f"Invalid scale={scale}"
-
-    # For identity matrices: (A^T + E^T) * X * (C + D) = (I + I) * X * (C + D)
-    # = 2X * (C+D) = SCALE * Y
-    # So X should be proportional to Y / (2*(C+D))
-    expected_factor = scale / (2.0 * (c[0, 0] + d[0, 0]))
-    expected_x = x * expected_factor / scale
-
-    # Solution should have correct structure (may be scaled)
     assert np.all(np.isfinite(x_out))
+
+    residual = a.T @ x_out @ c + e.T @ x_out @ d - scale * y
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bw_quasitriangular_boundary_m3():
@@ -225,15 +220,18 @@ def test_sg03bw_quasitriangular_boundary_m3():
     c = np.array([[1.0]], dtype=np.float64, order='F')
     d = np.array([[1.0]], dtype=np.float64, order='F')
 
-    x = np.array([[1.0],
+    y = np.array([[1.0],
                   [2.0],
                   [3.0]], dtype=np.float64, order='F')
 
-    x_out, scale, info = sg03bw(trans, a, e, c, d, x)
+    x_out, scale, info = sg03bw(trans, a, e, c, d, y.copy(order='F'))
 
     assert info == 0, f"SG03BW failed with info={info}"
     assert 0 < scale <= 1.0, f"Invalid scale={scale}"
     assert np.all(np.isfinite(x_out))
+
+    residual = a.T @ x_out @ c + e.T @ x_out @ d - scale * y
+    np.testing.assert_allclose(residual, 0, atol=1e-10)
 
 
 def test_sg03bw_quasitriangular_boundary_m4():
@@ -255,13 +253,16 @@ def test_sg03bw_quasitriangular_boundary_m4():
     c = np.array([[2.0]], dtype=np.float64, order='F')
     d = np.array([[1.5]], dtype=np.float64, order='F')
 
-    x = np.array([[1.0],
+    y = np.array([[1.0],
                   [2.0],
                   [3.0],
                   [4.0]], dtype=np.float64, order='F')
 
-    x_out, scale, info = sg03bw(trans, a, e, c, d, x)
+    x_out, scale, info = sg03bw(trans, a, e, c, d, y.copy(order='F'))
 
     assert info == 0, f"SG03BW failed with info={info}"
     assert 0 < scale <= 1.0, f"Invalid scale={scale}"
     assert np.all(np.isfinite(x_out))
+
+    residual = a @ x_out @ c.T + e @ x_out @ d.T - scale * y
+    np.testing.assert_allclose(residual, 0, atol=1e-10)

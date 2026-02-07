@@ -82,6 +82,10 @@ def test_mb03xd_eigenvalues_only():
     assert wr.shape == (n,)
     assert wi.shape == (n,)
 
+    if info == 0:
+        assert np.all(np.isfinite(wr))
+        assert np.all(np.isfinite(wi))
+
 
 def test_mb03xd_schur_form():
     """
@@ -95,21 +99,34 @@ def test_mb03xd_schur_form():
     n = 3
 
     A = np.random.randn(n, n).astype(float, order='F')
-    QG = np.random.randn(n, n + 1).astype(float, order='F')
 
+    Q_sym = np.random.randn(n, n)
+    Q_sym = (Q_sym + Q_sym.T) / 2
+    G_sym = np.random.randn(n, n)
+    G_sym = (G_sym + G_sym.T) / 2
+
+    QG = np.zeros((n, n + 1), order='F')
     for i in range(n):
-        for j in range(i + 1, n):
-            QG[i, j] = QG[j, i]
-        for j in range(i + 1, n):
-            QG[i, j + 1] = QG[j, i + 1]
+        for j in range(i + 1):
+            QG[i, j] = Q_sym[i, j]
+        for j in range(i, n):
+            QG[i, j + 1] = G_sym[i, j]
+
+    H = np.block([[A, G_sym], [Q_sym, -A.T]])
+    eigs_np = np.sort_complex(np.linalg.eigvals(H))
 
     S, T, QG_out, U1, U2, V1, V2, wr, wi, ilo, scale, info = mb03xd(
-        'N', 'S', 'N', 'N', n, A, QG
+        'N', 'S', 'N', 'N', n, A.copy(), QG.copy()
     )
 
     assert info >= 0
     assert S.shape == (n, n)
     assert T.shape == (n, n)
+
+    if info == 0:
+        eigs_slicot = np.array([complex(wr[i], wi[i]) for i in range(n)])
+        eigs_all = np.sort_complex(np.concatenate([eigs_slicot, -eigs_slicot]))
+        np.testing.assert_allclose(eigs_all, eigs_np, atol=1e-8)
 
 
 def test_mb03xd_quick_return_n_zero():

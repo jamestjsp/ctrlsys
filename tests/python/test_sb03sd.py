@@ -65,11 +65,14 @@ class TestSB03SDBasic:
         from slicot import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
-        result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
-        x = result[2]
-        scale = result[5]
-        info = result[-1]
+        md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
+        x = md_result[0]
+        scale = md_result[5]
+        info = md_result[-1]
         assert info == 0 or info == n + 1
+
+        residual = a.T @ x @ a - x - scale * c
+        np.testing.assert_allclose(residual, 0, atol=1e-10)
 
         result = sb03sd('B', 'F', 'N', 'U', 'O', n, scale,
                         a, t, u, c, x)
@@ -101,6 +104,9 @@ class TestSB03SDBasic:
 
         x = solve_diagonal_discrete_lyapunov(a_diag, c)
         x = np.asfortranarray(x)
+
+        residual = a.T @ x @ a - x - c
+        np.testing.assert_allclose(residual, 0, atol=1e-10)
 
         t = a.copy()
         u = np.eye(n, order='F', dtype=float)
@@ -138,11 +144,14 @@ class TestSB03SDBasic:
         from slicot import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
-        result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
-        x = result[2]
-        scale = result[5]
-        info = result[-1]
+        md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
+        x = md_result[0]
+        scale = md_result[5]
+        info = md_result[-1]
         assert info == 0 or info == n + 1
+
+        residual = a.T @ x @ a - x - scale * c
+        np.testing.assert_allclose(residual, 0, atol=1e-10)
 
         t = a.copy()
         u = np.eye(n, order='F', dtype=float)
@@ -221,6 +230,9 @@ class TestSB03SDTranspose:
         x = solve_diagonal_discrete_lyapunov(a_diag, c)
         x = np.asfortranarray(x)
 
+        residual = a.T @ x @ a - x - c
+        np.testing.assert_allclose(residual, 0, atol=1e-10)
+
         t = a.copy()
         u = np.eye(n, order='F', dtype=float)
 
@@ -258,11 +270,14 @@ class TestSB03SDNoFact:
         from slicot import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
-        result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
-        x = result[2]
-        scale = result[5]
-        info = result[-1]
+        md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
+        x = md_result[0]
+        scale = md_result[5]
+        info = md_result[-1]
         assert info == 0 or info == n + 1
+
+        residual = a.T @ x @ a - x - scale * c
+        np.testing.assert_allclose(residual, 0, atol=1e-10)
 
         t = np.zeros((n, n), order='F', dtype=float)
         u = np.zeros((n, n), order='F', dtype=float)
@@ -341,11 +356,14 @@ class TestSB03SDLyapun:
         from slicot import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
-        result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
-        x = result[2]
-        scale = result[5]
-        info = result[-1]
+        md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
+        x = md_result[0]
+        scale = md_result[5]
+        info = md_result[-1]
         assert info == 0 or info == n + 1
+
+        residual = a.T @ x @ a - x - scale * c
+        np.testing.assert_allclose(residual, 0, atol=1e-10)
 
         t = a.copy()
         u = np.eye(n, order='F', dtype=float)

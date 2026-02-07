@@ -309,3 +309,138 @@ def test_larger_blocks():
     )
 
     assert info == 0
+
+
+def test_polynomial_evaluation_scalar_blocks():
+    """
+    For scalar blocks [1,1,1], verify that evaluating the output V(s)
+    at a test point gives finite, non-trivial values.
+    """
+    nblk = np.array([1, 1, 1], dtype=np.int32)
+    nr = 3
+    indblk = 3
+
+    a = np.array([
+        [1.0, 2.0, 0.0],
+        [0.0, 3.0, 4.0],
+        [0.0, 0.0, 5.0]
+    ], dtype=float, order='F')
+
+    vcoeff = np.zeros((1, nr, indblk + 1), dtype=float, order='F')
+    vcoeff[0, nr - 1, indblk] = 1.0
+
+    pcoeff = np.zeros((1, 1, indblk + 1), dtype=float, order='F')
+
+    vcoeff_out, pcoeff_out, info = tb03ay(
+        nr, a, nblk, vcoeff, pcoeff
+    )
+    assert info == 0
+
+    for s in [2.0, -1.0, 7.0]:
+        v_at_s = np.zeros(nr)
+        for j in range(nr):
+            for k in range(indblk + 1):
+                v_at_s[j] += vcoeff_out[0, j, k] * s**(indblk - k)
+
+        assert np.any(np.abs(v_at_s) > 1e-15)
+        assert np.all(np.isfinite(v_at_s))
+
+        p_at_s = 0.0
+        for k in range(indblk + 1):
+            p_at_s += pcoeff_out[0, 0, k] * s**(indblk - k)
+
+        lhs = v_at_s @ (s * np.eye(nr) - a)
+        np.testing.assert_allclose(lhs[0], p_at_s, atol=1e-10)
+        np.testing.assert_allclose(lhs[1:], 0.0, atol=1e-10)
+
+
+def test_tb03ay_vcoeff_times_sI_minus_A():
+    nblk = np.array([1, 1], dtype=np.int32)
+    nr = 2
+    indblk = 2
+
+    a11, a12, a22 = 2.0, 3.0, 5.0
+    a = np.array([
+        [a11, a12],
+        [0.0, a22]
+    ], dtype=float, order='F')
+
+    vcoeff = np.zeros((1, nr, indblk + 1), dtype=float, order='F')
+    vcoeff[0, nr - 1, indblk] = 1.0
+
+    pcoeff = np.zeros((1, 1, indblk + 1), dtype=float, order='F')
+
+    vcoeff_out, pcoeff_out, info = tb03ay(nr, a, nblk, vcoeff, pcoeff)
+    assert info == 0
+
+    for s in [1.0, 3.0, 10.0, -3.0]:
+        v_s = np.zeros(nr)
+        for j in range(nr):
+            for k in range(indblk + 1):
+                v_s[j] += vcoeff_out[0, j, k] * s**(indblk - k)
+
+        sI_A = s * np.eye(nr) - a
+        lhs = v_s @ sI_A
+
+        p_s = 0.0
+        for k in range(indblk + 1):
+            p_s += pcoeff_out[0, 0, k] * s**(indblk - k)
+
+        np.testing.assert_allclose(lhs[0], p_s, atol=1e-10)
+        np.testing.assert_allclose(lhs[1], 0.0, atol=1e-10)
+
+
+def test_pcoeff_output_structure():
+    """
+    Verify pcoeff output has non-zero content after TB03AY call.
+    """
+    nblk = np.array([1, 1], dtype=np.int32)
+    nr = 2
+    indblk = 2
+
+    a = np.array([
+        [2.0, 3.0],
+        [0.0, 5.0]
+    ], dtype=float, order='F')
+
+    vcoeff = np.zeros((1, nr, indblk + 1), dtype=float, order='F')
+    vcoeff[0, nr - 1, indblk] = 1.0
+
+    pcoeff = np.zeros((1, 1, indblk + 1), dtype=float, order='F')
+
+    vcoeff_out, pcoeff_out, info = tb03ay(
+        nr, a, nblk, vcoeff, pcoeff
+    )
+    assert info == 0
+
+    has_nonzero_p = np.any(np.abs(pcoeff_out) > 1e-15)
+    assert has_nonzero_p
+
+
+def test_vcoeff_polynomial_degree():
+    """
+    For INDBLK blocks, V(s) coefficients should all be finite.
+    """
+    nblk = np.array([1, 1, 1], dtype=np.int32)
+    nr = 3
+    indblk = 3
+
+    a = np.array([
+        [1.0, 1.0, 0.0],
+        [0.0, 2.0, 1.0],
+        [0.0, 0.0, 3.0]
+    ], dtype=float, order='F')
+
+    vcoeff = np.zeros((1, nr, indblk + 1), dtype=float, order='F')
+    vcoeff[0, nr - 1, indblk] = 1.0
+
+    pcoeff = np.zeros((1, 1, indblk + 1), dtype=float, order='F')
+
+    vcoeff_out, pcoeff_out, info = tb03ay(
+        nr, a, nblk, vcoeff, pcoeff
+    )
+    assert info == 0
+
+    for j in range(nr):
+        coeffs = [vcoeff_out[0, j, k] for k in range(indblk + 1)]
+        assert np.all(np.isfinite(coeffs))

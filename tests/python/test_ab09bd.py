@@ -307,6 +307,49 @@ class TestAB09BDWarnings:
             assert iwarn == 1, f"Expected iwarn=1 when nr < nr_desired, got {iwarn}"
 
 
+class TestAB09BDMIMO:
+    """MIMO model reduction tests."""
+
+    def test_mimo_reduction_with_hsv_ordering(self):
+        """
+        MIMO: 6-state, 2-input, 3-output system reduction.
+        Verify HSV ordering and reduced system stability.
+        """
+        n, m, p = 6, 2, 3
+
+        a = np.array([
+            [-1.0,  0.5,  0.0,  0.0,  0.0,  0.0],
+            [ 0.0, -2.0,  0.3,  0.0,  0.0,  0.0],
+            [ 0.0,  0.0, -3.0,  0.1,  0.0,  0.0],
+            [ 0.0,  0.0,  0.0, -4.0,  0.2,  0.0],
+            [ 0.0,  0.0,  0.0,  0.0, -5.0,  0.1],
+            [ 0.0,  0.0,  0.0,  0.0,  0.0, -6.0]
+        ], dtype=float, order='F')
+
+        np.random.seed(100)
+        b = np.asfortranarray(np.random.randn(n, m))
+        c = np.asfortranarray(np.random.randn(p, n))
+        d = np.zeros((p, m), order='F', dtype=float)
+
+        ar, br, cr, dr, nr, hsv, iwarn, info = ab09bd(
+            'C', 'B', 'N', 'A', n, m, p, 0, a, b, c, d, 0.0, 0.0
+        )
+
+        assert info == 0
+        assert nr <= n
+        assert nr > 0
+
+        for i in range(n - 1):
+            assert hsv[i] >= hsv[i + 1] - 1e-14, \
+                f"HSV not decreasing: HSV[{i}]={hsv[i]} < HSV[{i+1}]={hsv[i+1]}"
+
+        eigs = np.linalg.eigvals(ar[:nr, :nr])
+        assert all(e.real < 0 for e in eigs), f"Reduced system unstable: {eigs}"
+
+        assert br[:nr, :].shape == (nr, m)
+        assert cr[:, :nr].shape == (p, nr)
+
+
 class TestAB09BDMathematicalProperties:
     """Mathematical property validation tests."""
 

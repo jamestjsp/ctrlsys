@@ -29,6 +29,8 @@ def test_ib01od_tol_positive():
     assert info == 0
     assert iwarn == 0
     assert n == 5  # sv[0:5] >= 0.5, sv[5] < 0.5
+    assert np.all(sv >= 0)
+    assert np.all(sv[:-1] >= sv[1:])
 
 
 def test_ib01od_tol_zero():
@@ -48,9 +50,9 @@ def test_ib01od_tol_zero():
 
     assert info == 0
     assert iwarn == 0
-    # Default TOL = 4 * eps * 1.0 ~ 8.9e-16, so n should be around 3
-    assert n >= 1  # At least one significant SV
+    assert n >= 1
     assert n <= nobr
+    assert np.all(sv[:n] > 0)
 
 
 def test_ib01od_tol_negative():
@@ -73,6 +75,10 @@ def test_ib01od_tol_negative():
     assert info == 0
     assert iwarn == 0
     assert n == 3  # Largest gap after sv[2]
+    gap_at_n = np.log10(sv[n-1]) - np.log10(sv[n])
+    for i in range(nobr * l - 1):
+        if i != n - 1 and sv[i+1] > 0:
+            assert gap_at_n >= np.log10(sv[i]) - np.log10(sv[i+1]) - 1e-10
 
 
 def test_ib01od_all_zero_singular_values():
@@ -264,3 +270,4 @@ def test_ib01od_large_system():
 
     assert info == 0
     assert n == 10  # Gap at position 10
+    assert np.all(sv[:n] > sv[n])

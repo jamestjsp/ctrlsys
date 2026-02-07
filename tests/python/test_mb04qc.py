@@ -36,12 +36,17 @@ def test_mb04qc_basic():
     A_orig = A.copy()
     B_orig = B.copy()
 
+    A_copy = A.copy()
+    B_copy = B.copy()
     A_out, B_out = mb04qc(
-        'Z', 'N', 'N', 'N', 'F', 'C', 'C', m, n, k, V, W, rs, t, A.copy(), B.copy()
+        'Z', 'N', 'N', 'N', 'F', 'C', 'C', m, n, k, V, W, rs, t, A_copy, B_copy
     )
 
     assert A_out.shape == (m, n)
     assert B_out.shape == (m, n)
+
+    np.testing.assert_allclose(A_out, A_orig, atol=1e-12)
+    np.testing.assert_allclose(B_out, B_orig, atol=1e-12)
 
 
 def test_mb04qc_transpose_q():
@@ -282,6 +287,8 @@ def test_mb04qc_with_mb04qf():
 
     A = np.random.randn(m, n).astype(float, order='F')
     B = np.random.randn(m, n).astype(float, order='F')
+    A_orig = A.copy()
+    B_orig = B.copy()
 
     A_out, B_out = mb04qc(
         'Z', 'N', 'N', 'N', 'F', 'C', 'C', m, n, k, V, W, rs, t, A.copy(), B.copy()
@@ -289,3 +296,9 @@ def test_mb04qc_with_mb04qf():
 
     assert A_out.shape == (m, n)
     assert B_out.shape == (m, n)
+
+    A_round, B_round = mb04qc(
+        'Z', 'N', 'N', 'T', 'F', 'C', 'C', m, n, k, V, W, rs, t, A_out.copy(), B_out.copy()
+    )
+    np.testing.assert_allclose(A_round, A_orig, atol=1e-12)
+    np.testing.assert_allclose(B_round, B_orig, atol=1e-12)

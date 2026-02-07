@@ -318,10 +318,18 @@ def test_higher_order_system():
     d = (np.random.randn(p, m) + 1j * np.random.randn(p, m)).astype(
         np.complex128, order='F')
 
-    rank, info = ab08mz('N', n, m, p, a, b, c, d)
+    rank, info = ab08mz('N', n, m, p, a.copy(order='F'), b.copy(order='F'),
+                        c.copy(order='F'), d.copy(order='F'))
 
     assert info == 0
     assert 0 <= rank <= min(m, p)
+
+    max_numerical_rank = 0
+    for omega in [0.01, 0.1, 1.0, 10.0, 100.0]:
+        G = c @ np.linalg.solve(1j * omega * np.eye(n) - a, b) + d
+        sv = np.linalg.svd(G, compute_uv=False)
+        max_numerical_rank = max(max_numerical_rank, int(np.sum(sv > 1e-10)))
+    assert rank == max_numerical_rank
 
 
 """Tests for tolerance parameter."""
@@ -352,6 +360,8 @@ def test_custom_tolerance():
 
     assert info1 == 0
     assert info2 == 0
+    assert rank1 == min(m, p)
+    assert rank2 == min(m, p)
 
 
 """Tests validating mathematical properties of the normal rank."""
@@ -441,6 +451,60 @@ def test_full_rank_d_gives_full_normal_rank():
 
     assert info == 0
     assert rank == min(m, p)
+
+
+def test_rank_via_complex_transfer_function_svd():
+    """
+    Verify normal rank by evaluating G(jw) = C*(jwI-A)^{-1}*B + D
+    at random frequencies for complex system.
+    """
+    n, m, p = 3, 2, 2
+
+    a = np.array([[-1.0+0.5j, 0.5+0j, 0.0],
+                  [0.0, -2.0+0.3j, 0.3+0j],
+                  [0.0, 0.0, -3.0-0.2j]], order='F', dtype=np.complex128)
+    b = np.array([[1.0+0j, 0.0],
+                  [0.0, 1.0+0.1j],
+                  [0.5+0j, 0.5+0j]], order='F', dtype=np.complex128)
+    c = np.array([[1.0+0j, 0.0, 1.0-0.1j],
+                  [0.0, 1.0+0j, 0.0]], order='F', dtype=np.complex128)
+    d = np.array([[0.1+0.1j, 0.0],
+                  [0.0, 0.2-0.1j]], order='F', dtype=np.complex128)
+
+    rank, info = ab08mz('N', n, m, p, a.copy(order='F'), b.copy(order='F'),
+                        c.copy(order='F'), d.copy(order='F'))
+    assert info == 0
+
+    max_numerical_rank = 0
+    for omega in [0.1, 1.0, 10.0, 100.0]:
+        sI_A = 1j * omega * np.eye(n) - a
+        G = c @ np.linalg.solve(sI_A, b) + d
+        sv = np.linalg.svd(G, compute_uv=False)
+        numerical_rank = np.sum(sv > 1e-10)
+        max_numerical_rank = max(max_numerical_rank, numerical_rank)
+
+    assert rank == max_numerical_rank
+
+
+def test_complex_rank_deficient_via_svd():
+    """
+    Verify rank-deficient complex system via SVD of G(jw).
+    """
+    n, m, p = 1, 1, 2
+    a = np.array([[-1.0+0.5j]], order='F', dtype=np.complex128)
+    b = np.array([[1.0+0j]], order='F', dtype=np.complex128)
+    c = np.array([[1.0+0j], [1.0+0j]], order='F', dtype=np.complex128)
+    d = np.array([[0.0+0j], [0.0+0j]], order='F', dtype=np.complex128)
+
+    rank, info = ab08mz('N', n, m, p, a.copy(order='F'), b.copy(order='F'),
+                        c.copy(order='F'), d.copy(order='F'))
+    assert info == 0
+    assert rank == 1
+
+    for omega in [0.5, 5.0, 50.0]:
+        G = c @ np.linalg.solve(1j * omega * np.eye(n) - a, b) + d
+        sv = np.linalg.svd(G, compute_uv=False)
+        assert np.sum(sv > 1e-10) == 1
 
 
 """Error handling tests."""

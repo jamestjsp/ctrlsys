@@ -25,7 +25,9 @@ def test_ib01oy_basic():
     n_out, info = ib01oy(ns, nmax, n, sv)
 
     assert info == 0
-    assert n_out == 5  # Accepted as-is since n <= nmax
+    assert n_out == 5
+    assert 0 <= n_out <= nmax
+    assert np.all(sv[:-1] >= sv[1:])
 
 
 def test_ib01oy_n_equals_nmax():
@@ -41,6 +43,7 @@ def test_ib01oy_n_equals_nmax():
 
     assert info == 0
     assert n_out == 7
+    assert 0 <= n_out <= nmax
 
 
 def test_ib01oy_n_zero():
@@ -76,6 +79,8 @@ def test_ib01oy_singular_values_descending():
 
     assert info == 0
     assert n_out == 4
+    assert 0 <= n_out <= nmax
+    assert np.all(np.diff(sv) <= 1e-15)
 
 
 def test_ib01oy_error_ns_nonpositive():
@@ -187,3 +192,4 @@ def test_ib01oy_large_system():
 
     assert info == 0
     assert n_out == 50
+    assert 0 <= n_out <= nmax

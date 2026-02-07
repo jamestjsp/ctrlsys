@@ -126,6 +126,9 @@ def test_sb02ov_mathematical_property():
         assert result == expected, \
             f"sb02ov({alphar}, {alphai}, {beta}) = {result}, expected {expected}"
 
+        assert result == (alphar**2 + alphai**2 >= beta**2), \
+            f"modulus squared test failed for ({alphar}, {alphai}, {beta})"
+
 
 def test_sb02ov_zero_eigenvalue():
     """

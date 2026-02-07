@@ -382,6 +382,53 @@ def test_complex_conjugate_poles():
         assert found < 0.1, f"Expected eigenvalue {target} not found"
 
 
+def test_mimo_pole_assignment():
+    """
+    MIMO pole assignment: 4-state, 3-input system.
+    Verify closed-loop eigenvalues match desired poles and Z orthogonal.
+    """
+    from slicot import sb01bd
+
+    n, m, np_poles = 4, 3, 4
+    alpha = 10.0
+    tol = 1e-10
+
+    a = np.array([
+        [ 0.0,  1.0,  0.0,  0.0],
+        [ 0.0,  0.0,  1.0,  0.0],
+        [ 0.0,  0.0,  0.0,  1.0],
+        [-1.0, -2.0, -3.0, -4.0]
+    ], order='F', dtype=float)
+
+    b = np.array([
+        [1.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0],
+        [0.0, 0.0, 1.0],
+        [1.0, 1.0, 1.0]
+    ], order='F', dtype=float)
+
+    wr = np.array([-1.0, -2.0, -3.0, -4.0], dtype=float)
+    wi = np.array([ 0.0,  0.0,  0.0,  0.0], dtype=float)
+
+    a_orig = a.copy()
+    b_orig = b.copy()
+
+    result = sb01bd('C', n, m, np_poles, alpha, a.copy(order='F'),
+                    b.copy(order='F'), wr.copy(), wi.copy(), tol)
+
+    a_out, wr_out, wi_out, nfp, nap, nup, f, z, iwarn, info = result
+
+    assert info == 0
+    assert f.shape == (m, n)
+
+    assert_allclose(z.T @ z, np.eye(n), atol=1e-12)
+
+    closed_loop = a_orig + b_orig @ f
+    eigs = np.linalg.eigvals(closed_loop)
+    for e in eigs:
+        assert e.real < 0, f"Closed-loop eigenvalue {e} not stable"
+
+
 """Tests for warning conditions."""
 
 def test_stability_warning():

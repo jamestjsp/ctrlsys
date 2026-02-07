@@ -68,6 +68,18 @@ def test_ag8byz_basic_first_call():
     assert nr <= n, f"NR should be <= N, got NR={nr}, N={n}"
     assert pr <= p, f"PR should be <= P, got PR={pr}, P={p}"
 
+    if nr > 0:
+        er = e_out[:nr, :nr]
+        assert np.allclose(er, np.triu(er)), "Er must be upper triangular"
+        assert abs(np.linalg.det(er)) > 1e-10, "Er must be nonsingular"
+
+    if pr > 0 and pr <= m:
+        dr = abcd_out[nr:nr+pr, :m]
+        assert np.linalg.matrix_rank(dr, tol=1e-10) == pr
+
+    computed_ninfz = sum(infz[i] * (i + 1) for i in range(dinfz))
+    assert computed_ninfz == ninfz
+
 
 def test_ag8byz_zero_d_matrix():
     """
@@ -113,6 +125,10 @@ def test_ag8byz_zero_d_matrix():
     abcd_out, e_out, nr, pr, ninfz, dinfz, nkronl, infz, kronl, info = result
 
     assert info == 0
+    if nr > 0:
+        er = e_out[:nr, :nr]
+        assert np.allclose(er, np.triu(er))
+        assert abs(np.linalg.det(er)) > 1e-10
 
 
 def test_ag8byz_identity_e():
@@ -163,6 +179,10 @@ def test_ag8byz_identity_e():
     assert info == 0
     assert pr >= 0
     assert pr <= p
+    if nr > 0:
+        er = e_out[:nr, :nr]
+        assert np.allclose(er, np.triu(er))
+        assert abs(np.linalg.det(er)) > 1e-10
 
 
 def test_ag8byz_p_zero():
@@ -305,6 +325,12 @@ def test_ag8byz_first_false():
     assert info == 0
     assert ninfz == 0
     assert dinfz == 0
+    if nr > 0:
+        er = e_out[:nr, :nr]
+        assert np.allclose(er, np.triu(er))
+    if pr > 0 and pr <= m:
+        dr = abcd_out[nr:nr+pr, :m]
+        assert np.linalg.matrix_rank(dr, tol=1e-10) == pr
 
 
 def test_ag8byz_kronecker_structure():
@@ -359,6 +385,9 @@ def test_ag8byz_kronecker_structure():
 
     total_kronl = sum(kronl[i] * i for i in range(nkronl))
     assert total_kronl >= 0
+    if nr > 0:
+        er = e_out[:nr, :nr]
+        assert np.allclose(er, np.triu(er))
 
 
 def test_ag8byz_infinite_zeros():
@@ -450,6 +479,11 @@ def test_ag8byz_svlmax_threshold():
     abcd_out, e_out, nr, pr, ninfz, dinfz, nkronl, infz, kronl, info = result
 
     assert info == 0
+    if nr > 0:
+        er = e_out[:nr, :nr]
+        assert np.allclose(er, np.triu(er))
+    computed_ninfz = sum(infz[i] * (i + 1) for i in range(dinfz))
+    assert computed_ninfz == ninfz
 
 
 def test_ag8byz_complex_eigenvalues():
@@ -500,6 +534,11 @@ def test_ag8byz_complex_eigenvalues():
     assert info == 0
     assert abcd_out.dtype == np.complex128
     assert e_out.dtype == np.complex128
+    if nr > 0:
+        er = e_out[:nr, :nr]
+        assert np.allclose(er, np.triu(er))
+    computed_ninfz = sum(infz[i] * (i + 1) for i in range(dinfz))
+    assert computed_ninfz == ninfz
 
 
 if __name__ == '__main__':

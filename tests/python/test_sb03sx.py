@@ -38,6 +38,7 @@ def test_sb03sx_basic_notrans():
 
     assert info >= 0
     assert ferr >= 0.0
+    assert ferr < 1e6
 
 
 def test_sb03sx_trans():
@@ -67,6 +68,7 @@ def test_sb03sx_trans():
 
     assert info >= 0
     assert ferr >= 0.0
+    assert ferr < 1e6
 
 
 def test_sb03sx_original_mode():
@@ -97,6 +99,28 @@ def test_sb03sx_original_mode():
 
     assert info >= 0
     assert ferr >= 0.0
+    assert ferr < 1e6
+
+
+def test_sb03sx_known_solution():
+    n = 4
+    diag_vals = np.array([0.5, 0.6, 0.7, 0.3])
+    t = np.diag(diag_vals).astype(float, order='F')
+    u = np.eye(n, order='F', dtype=float)
+
+    x = np.eye(n, dtype=float)
+    c = t.T @ x @ t - x
+    xanorm = np.max(np.abs(x))
+
+    residual = t.T @ x @ t - x - c
+    r = np.asfortranarray(np.abs(residual) + 1e-15 * xanorm * np.ones((n, n)))
+    r = np.triu(r)
+
+    ferr, r_out, info = sb03sx('N', 'U', 'R', n, xanorm, t, u, r)
+
+    assert info >= 0
+    assert ferr >= 0.0
+    assert ferr < 1.0
 
 
 def test_sb03sx_n_zero():

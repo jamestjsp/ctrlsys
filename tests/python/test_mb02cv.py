@@ -546,9 +546,12 @@ class TestMB02CVNumericalAccuracy:
         assert not np.allclose(f1_out, f1_orig) or not np.allclose(g_out, g_orig), \
             "Transformation should modify at least F1 or G"
 
-        assert np.all(np.isfinite(f1_out)), "F1 output should be finite"
-        assert np.all(np.isfinite(f2_out)), "F2 output should be finite"
-        assert np.all(np.isfinite(g_out)), "G output should be finite"
+        assert np.all(np.isfinite(f1_out))
+        assert np.all(np.isfinite(f2_out))
+        assert np.all(np.isfinite(g_out))
+
+        assert np.linalg.norm(f1_out) < 1e6
+        assert np.linalg.norm(g_out) < 1e6
 
     def test_typeg_c_output_finite(self):
         """

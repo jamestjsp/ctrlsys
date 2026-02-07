@@ -24,7 +24,9 @@ void sg03bx(
 {
     const f64 one = 1.0, two = 2.0, zero = 0.0, safety = 1.0e2;
 
-    bool istrns, iscont;
+    bool istrns, iscont, estd = false;
+    f64 estd_cl = 1.0, estd_sl = 0.0;
+    f64 estd_bcg = 1.0, estd_bsg = 0.0;
     i32 ct, int1 = 1, int2 = 2;
     f64 a11, a12, a21, a22, ai11, ai12, ai21, ai22;
     f64 alpha, ar11, ar12, ar21, ar22, b11, b12i, b12r;
@@ -121,6 +123,32 @@ lab10:
         as[2] = t * c - s * sr;
         as[3] = w * c - v * sr;
 
+        // B' = B * Right^T, then QR to restore upper triangular
+        // Right^T = [[c, -sr], [sr, c]]
+        {
+            f64 b11_new = br11 * c + br12 * sr;
+            f64 b12_new = -br11 * sr + br12 * c;
+            f64 b21_new = br22 * sr;
+            f64 b22_new = br22 * c;
+            f64 cg, sg, r_val;
+            SLC_DLARTG(&b11_new, &b21_new, &cg, &sg, &r_val);
+            br11 = r_val;
+            br12 = cg * b12_new + sg * b22_new;
+            br22 = -sg * b12_new + cg * b22_new;
+            if (br22 < zero) {
+                br22 = -br22;
+                br12 = -br12;
+                cg = -cg;
+                sg = -sg;
+            }
+            estd_bcg = cg;
+            estd_bsg = sg;
+        }
+
+        estd = true;
+        estd_cl = cl;
+        estd_sl = sl;
+
         es[0] = e11;
         es[1] = zero;
         es[2] = zero;
@@ -129,6 +157,7 @@ lab10:
             es[3] = -e22;
             as[2] = -as[2];
             as[3] = -as[3];
+            br12 = -br12;
         } else {
             es[3] = e22;
         }
@@ -564,6 +593,49 @@ lab10:
     m2[1] = zero;
     m2[0 + ldm2] = cqb * v + cqbi * w - m2r22 * (srqb * cqu - siqb * cqui);
     m2[1 + ldm2] = srqb * v + siqb * w + m2r22 * (cqb * cqu - cqbi * cqui);
+
+    // Back-transform through E standardization rotation.
+    // U_orig = QR(U_std * Left), M1_orig = Qg*M1*Qg^T, M2_orig = Q_br^T*M2*Qg^T
+    // where Qg is the Givens from QR(U_std * Left).
+    if (estd) {
+        f64 u11 = u[0], u12 = u[0 + ldu], u22 = u[1 + ldu];
+        f64 t11 = u11 * estd_cl - u12 * estd_sl;
+        f64 t12 = u11 * estd_sl + u12 * estd_cl;
+        f64 t21 = -u22 * estd_sl;
+        f64 t22 = u22 * estd_cl;
+        f64 cg, sg, r_val;
+        SLC_DLARTG(&t11, &t21, &cg, &sg, &r_val);
+        u[0] = r_val;
+        u[0 + ldu] = cg * t12 + sg * t22;
+        u[1 + ldu] = -sg * t12 + cg * t22;
+        if (u[1 + ldu] < zero) {
+            u[1 + ldu] = -u[1 + ldu];
+            u[0 + ldu] = -u[0 + ldu];
+            cg = -cg;
+            sg = -sg;
+        }
+        u[1] = zero;
+
+        f64 g11 = m1[0], g12 = m1[0 + ldm1], g21 = m1[1], g22 = m1[1 + ldm1];
+        f64 r11 = cg * g11 + sg * g21;
+        f64 r12 = cg * g12 + sg * g22;
+        f64 r21 = -sg * g11 + cg * g21;
+        f64 r22 = -sg * g12 + cg * g22;
+        m1[0]          = r11 * cg + r12 * sg;
+        m1[0 + ldm1]   = -r11 * sg + r12 * cg;
+        m1[1]          = r21 * cg + r22 * sg;
+        m1[1 + ldm1]   = -r21 * sg + r22 * cg;
+
+        g11 = m2[0]; g12 = m2[0 + ldm2]; g21 = m2[1]; g22 = m2[1 + ldm2];
+        r11 = estd_bcg * g11 - estd_bsg * g21;
+        r12 = estd_bcg * g12 - estd_bsg * g22;
+        r21 = estd_bsg * g11 + estd_bcg * g21;
+        r22 = estd_bsg * g12 + estd_bcg * g22;
+        m2[0]          = r11 * cg + r12 * sg;
+        m2[0 + ldm2]   = -r11 * sg + r12 * cg;
+        m2[1]          = r21 * cg + r22 * sg;
+        m2[1 + ldm2]   = -r21 * sg + r22 * cg;
+    }
 
     if (istrns) {
         v = u[0];

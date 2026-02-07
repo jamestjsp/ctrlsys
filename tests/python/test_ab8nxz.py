@@ -42,6 +42,12 @@ def test_ab8nxz_basic_system():
     assert nu >= 0
     assert ninfz >= 0
 
+    if mu > 0 and nu >= 0:
+        d_prime = abcd_out[nu:nu+mu, :m]
+        if d_prime.size > 0:
+            sv = np.linalg.svd(d_prime, compute_uv=False)
+            assert np.sum(sv > 1e-8) == mu, f"D' not full row rank: sv={sv}"
+
 
 def test_ab8nxz_mimo_system():
     """Test AB8NXZ with MIMO system.
@@ -73,6 +79,12 @@ def test_ab8nxz_mimo_system():
     assert info == 0
     assert mu >= 0
     assert nu >= 0
+
+    if mu > 0:
+        d_prime = abcd_out[nu:nu+mu, :m]
+        if d_prime.size > 0:
+            sv = np.linalg.svd(d_prime, compute_uv=False)
+            assert np.sum(sv > 1e-8) == mu, f"D' not full row rank: sv={sv}"
 
 
 def test_ab8nxz_zero_d_matrix():
@@ -278,6 +290,48 @@ def test_ab8nxz_larger_system():
     assert mu >= 0
     assert nu >= 0
     assert nu <= n
+
+    if mu > 0:
+        d_prime = abcd_out[nu:nu+mu, :m]
+        if d_prime.size > 0:
+            sv = np.linalg.svd(d_prime, compute_uv=False)
+            assert np.sum(sv > 1e-8) == mu, f"D' not full row rank: sv={sv}"
+
+
+def test_ab8nxz_transmission_zeros_match_real():
+    from slicot import ab08nx
+
+    np.random.seed(999)
+    n, m, p = 4, 2, 2
+
+    A_r = np.random.randn(n, n)
+    B_r = np.random.randn(n, m)
+    C_r = np.random.randn(p, n)
+    D_r = np.random.randn(p, m)
+
+    abcd_r = np.zeros((n + p, m + n), dtype=float, order='F')
+    abcd_r[:n, :m] = B_r
+    abcd_r[:n, m:] = A_r
+    abcd_r[n:, :m] = D_r
+    abcd_r[n:, m:] = C_r
+
+    res_r = ab08nx(n=n, m=m, p=p, ro=p, sigma=0, svlmax=0.0,
+                   abcd=abcd_r.copy(order='F'), ninfz=0, tol=1e-10)
+    _, _, _, _, mu_r, nu_r, _, _, _, info_r = res_r
+
+    abcd_c = np.zeros((n + p, m + n), dtype=complex, order='F')
+    abcd_c[:n, :m] = B_r + 0j
+    abcd_c[:n, m:] = A_r + 0j
+    abcd_c[n:, :m] = D_r + 0j
+    abcd_c[n:, m:] = C_r + 0j
+
+    res_c = ab8nxz(n, m, p, p, 0, 0.0, abcd_c.copy(), 1e-10)
+    _, _, _, mu_c, nu_c, _, _, _, info_c = res_c
+
+    assert info_r == 0
+    assert info_c == 0
+    assert mu_c == mu_r, f"Normal rank mismatch: complex={mu_c}, real={mu_r}"
+    assert nu_c == nu_r, f"Reduced dim mismatch: complex={nu_c}, real={nu_r}"
 
 
 if __name__ == '__main__':

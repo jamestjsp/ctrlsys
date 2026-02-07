@@ -598,3 +598,65 @@ def test_transmission_zero_count():
 
     assert info == 0
     assert nu <= n
+
+
+def test_reduced_d_full_row_rank():
+    """
+    Verify that the reduced D' matrix has full row rank.
+    """
+    np.random.seed(700)
+    n, m, p = 4, 2, 3
+
+    a = np.random.randn(n, n).astype(float, order='F')
+    b = np.random.randn(n, m).astype(float, order='F')
+    c = np.random.randn(p, n).astype(float, order='F')
+    d = np.random.randn(p, m).astype(float, order='F')
+
+    abcd = np.zeros((n + p, m + n), dtype=float, order='F')
+    abcd[:n, :m] = b
+    abcd[:n, m:] = a
+    abcd[n:, :m] = d
+    abcd[n:, m:] = c
+
+    result = ab08nx(n=n, m=m, p=p, ro=p, sigma=0, svlmax=0.0,
+                    abcd=abcd.copy(order='F'), ninfz=0, tol=1e-10)
+    abcd_out, ro_out, sigma_out, ninfz_out, mu, nu, nkrol, infz, kronl, info = result
+    assert info == 0
+
+    if mu > 0:
+        d_prime = abcd_out[nu:nu+mu, :m]
+        if d_prime.size > 0:
+            sv = np.linalg.svd(d_prime, compute_uv=False)
+            assert np.sum(sv > 1e-8) == mu
+
+
+def test_normal_rank_matches_ab08md():
+    """
+    Verify that the normal rank (mu) from AB08NX matches AB08MD.
+    """
+    from slicot import ab08md
+
+    np.random.seed(800)
+    n, m, p = 4, 2, 2
+
+    a = np.random.randn(n, n).astype(float, order='F')
+    a -= 2.0 * np.eye(n)
+    b = np.random.randn(n, m).astype(float, order='F')
+    c = np.random.randn(p, n).astype(float, order='F')
+    d = np.random.randn(p, m).astype(float, order='F')
+
+    rank, info_md = ab08md('N', n, m, p, a.copy(order='F'), b.copy(order='F'),
+                           c.copy(order='F'), d.copy(order='F'))
+    assert info_md == 0
+
+    abcd = np.zeros((n + p, m + n), dtype=float, order='F')
+    abcd[:n, :m] = b
+    abcd[:n, m:] = a
+    abcd[n:, :m] = d
+    abcd[n:, m:] = c
+
+    result = ab08nx(n=n, m=m, p=p, ro=p, sigma=0, svlmax=0.0,
+                    abcd=abcd.copy(order='F'), ninfz=0, tol=1e-10)
+    _, _, _, _, mu, nu, _, _, _, info = result
+    assert info == 0
+    assert mu == rank

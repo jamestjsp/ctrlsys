@@ -57,7 +57,7 @@ def test_mb03yt_complex_eigenvalues():
 
 def test_mb03yt_rotation_orthogonality():
     """
-    Test that rotation matrices are orthogonal.
+    Test that rotation matrices are orthogonal and reconstruct A_out, B_out.
     """
     np.random.seed(42)
     a = np.random.randn(2, 2).astype(float, order='F')
@@ -66,10 +66,21 @@ def test_mb03yt_rotation_orthogonality():
         [0.0, np.random.randn()]
     ], order='F', dtype=float)
 
+    a_orig = a.copy()
+    b_orig = b.copy()
+
     a_out, b_out, alphar, alphai, beta, csl, snl, csr, snr = mb03yt(a, b)
 
     assert abs(csl**2 + snl**2 - 1.0) < 1e-14, "Left rotation not orthogonal"
     assert abs(csr**2 + snr**2 - 1.0) < 1e-14, "Right rotation not orthogonal"
+
+    Ql = np.array([[csl, snl], [-snl, csl]])
+    Qr = np.array([[csr, -snr], [snr, csr]])
+    np.testing.assert_allclose(Ql @ a_orig @ Qr, a_out, atol=1e-12)
+
+    Ql_b = np.array([[csr, snr], [-snr, csr]])
+    Qr_b = np.array([[csl, -snl], [snl, csl]])
+    np.testing.assert_allclose(Ql_b @ b_orig @ Qr_b, b_out, atol=1e-12)
 
 
 def test_mb03yt_diagonal_b():

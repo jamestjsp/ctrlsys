@@ -260,6 +260,49 @@ def test_tb01id_job_c():
     np.testing.assert_allclose(c_out, c_reconstructed, rtol=1e-14)
 
 
+def test_tb01id_mimo_balancing():
+    """
+    MIMO system balancing: 5-state, 3-input, 4-output.
+    Verify eigenvalue preservation and transformation properties.
+    """
+    from slicot import tb01id
+
+    np.random.seed(700)
+    n, m, p = 5, 3, 4
+
+    a = np.array([
+        [1.0, 1e4, 0.0, 0.0, 0.0],
+        [1e-4, 1.0, 1e3, 0.0, 0.0],
+        [0.0, 1e-3, 1.0, 1e2, 0.0],
+        [0.0, 0.0, 1e-2, 1.0, 1e1],
+        [0.0, 0.0, 0.0, 1e-1, 1.0]
+    ], order='F', dtype=float)
+
+    b = np.asfortranarray(np.random.randn(n, m))
+    c = np.asfortranarray(np.random.randn(p, n))
+
+    a_orig = a.copy()
+    b_orig = b.copy()
+    c_orig = c.copy()
+
+    eig_before = np.linalg.eigvals(a_orig)
+
+    a_out, b_out, c_out, maxred_out, scale, info = tb01id('A', a.copy(), b.copy(), c.copy(), 0.0)
+
+    assert info == 0
+
+    eig_after = np.linalg.eigvals(a_out)
+    eig_before_sorted = np.sort(np.abs(eig_before))
+    eig_after_sorted = np.sort(np.abs(eig_after))
+    np.testing.assert_allclose(eig_before_sorted, eig_after_sorted, rtol=1e-8, atol=1e-14)
+
+    d = np.diag(scale)
+    d_inv = np.diag(1.0 / scale)
+    np.testing.assert_allclose(a_out, d_inv @ a_orig @ d, rtol=1e-14)
+    np.testing.assert_allclose(b_out, d_inv @ b_orig, rtol=1e-14)
+    np.testing.assert_allclose(c_out, c_orig @ d, rtol=1e-14)
+
+
 def test_tb01id_n_zero():
     """
     Test edge case: n=0 (empty system).

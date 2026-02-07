@@ -29,18 +29,28 @@ def test_ab13dd_n1_continuous_withd():
     E = np.asfortranarray([[1.0]])
     B = np.asfortranarray([[1.0]])
     C = np.asfortranarray([[1.0]])
-    D = np.asfortranarray([[0.5]])  # nonzero D
+    D = np.asfortranarray([[0.5]])
     fpeak_in = np.asfortranarray([0.0, 1.0])
 
     result = ab13dd('C', 'I', 'N', 'D', n, m, p, fpeak_in, A, E, B, C, D, 0.0)
     gpeak, fpeak, info = result
     assert info == 0
 
+    # G(jw) = C*(jwI-A)^{-1}*B + D = 1/(jw+1) + 0.5
+    # |G(jw)|^2 = |0.5 + 1/(jw+1)|^2 = |0.5 + (1-jw)/(1+w^2)|^2
+    # DC gain |G(0)| = 1+0.5 = 1.5, verify norm >= DC gain
+    assert gpeak[0] >= 1.5 - 1e-6
+
+    omegas = np.linspace(0, 100, 10000)
+    gains = np.abs(1.0 / (1j * omegas + 1.0) + 0.5)
+    expected_peak = np.max(gains)
+    assert gpeak[0] == pytest.approx(expected_peak, rel=0.01)
+
 
 def test_ab13dd_n1_discrete():
     """Single-state discrete system"""
     n, m, p = 1, 1, 1
-    A = np.asfortranarray([[0.5]])  # stable discrete pole
+    A = np.asfortranarray([[0.5]])
     E = np.asfortranarray([[1.0]])
     B = np.asfortranarray([[1.0]])
     C = np.asfortranarray([[1.0]])
@@ -50,6 +60,12 @@ def test_ab13dd_n1_discrete():
     result = ab13dd('D', 'I', 'N', 'Z', n, m, p, fpeak_in, A, E, B, C, D, 1e-9)
     gpeak, fpeak, info = result
     assert info == 0
+
+    # G(e^{jw}) = 1/(e^{jw} - 0.5), max |G| at w=0: 1/(1-0.5)=2
+    thetas = np.linspace(0, np.pi, 10000)
+    gains = np.abs(1.0 / (np.exp(1j * thetas) - 0.5))
+    expected_peak = np.max(gains)
+    assert gpeak[0] == pytest.approx(expected_peak, rel=0.01)
 
 
 if __name__ == "__main__":
