@@ -356,7 +356,6 @@ void sb03ot(
                         SLC_DAXPY(&ksize, &alpha, &dwork[k1], &inc, dwork, &inc);
                     }
 
-                    i32 zero_const = 0;
                     mb04od("F", ksize, 0, 1, &r[(k+1) + (k+1)*ldr], ldr, dwork, 1,
                            dwork, 1, dwork, 1, &dwork[k2], &dwork[k1]);
                 }

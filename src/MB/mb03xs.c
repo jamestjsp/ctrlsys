@@ -20,7 +20,6 @@ void mb03xs(const char *jobu, i32 n, f64 *a, i32 lda,
             f64 *dwork, i32 ldwork, i32 *info) {
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
-    const f64 NEG_ONE = -1.0;
 
     bool compu = (jobu[0] == 'U' || jobu[0] == 'u');
     bool lquery = (ldwork == -1);

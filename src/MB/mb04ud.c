@@ -87,7 +87,6 @@ void mb04ud(const char *jobq_str, const char *jobz_str, const i32 m, const i32 n
         }
 
         if (emxnrm <= toler) {
-            i32 mnk_idx = mnk - 1;  // 0-based
             SLC_DLASET("Full", &mnk, &k, &zero, &zero, e, &lde);
             lzero = true;
             *ranke = n - k;

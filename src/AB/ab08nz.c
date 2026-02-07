@@ -135,7 +135,6 @@ i32 slicot_ab08nz(char equil, i32 n, i32 m, i32 p, c128* a, i32 lda,
     }
 
     i32 wrkopt = 1;
-    i32 one = 1;
 
     SLC_ZLACPY("Full", &nn, &mm, b, &ldb, bf, &ldbf);
     if (pp > 0) {

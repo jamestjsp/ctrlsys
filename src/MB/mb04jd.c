@@ -49,7 +49,6 @@ void mb04jd(i32 n, i32 m, i32 p, i32 l, f64 *a, i32 lda, f64 *b, i32 ldb,
         return;
     }
 
-    i32 int1 = 1;
     f64 wrkopt = (n > 1) ? (f64)(n - 1) : one;
     if ((f64)l > wrkopt) wrkopt = (f64)l;
 

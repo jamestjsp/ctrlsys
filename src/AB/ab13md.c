@@ -387,7 +387,6 @@ i32 ab13md(
 
         SLC_ZCOPY(&n2, &zwork[iz4], &one_int, &zwork[iz6 + (k-1)*n2], &one_int);
 
-        i32 mm1 = m - 1;
         SLC_DCOPY(&n, &dwork[iw6], &one_int, &dwork[iw8 + (k-1)*n], &one_int);
 
         for (i = 0; i < n; i++) {

@@ -64,7 +64,6 @@ void ib01py(const char *meth, const char *job, i32 nobr, i32 n, i32 m, i32 l,
         i32 minwrk = 2 * l;
         if (lnobr > minwrk) minwrk = lnobr;
         if (l + mnobr > minwrk) minwrk = l + mnobr;
-        i32 maxwrk = minwrk;
 
         if (m > 0 && withb) {
             if (4 * lnobr + 1 > minwrk) minwrk = 4 * lnobr + 1;
@@ -128,13 +127,11 @@ void ib01py(const char *meth, const char *job, i32 nobr, i32 n, i32 m, i32 l,
     SLC_DLACPY("Full", &l, &m, k, &ldk, h, &ldh);
 
     for (i32 i = 0; i < nobr - 1; i++) {
-        i32 l_copy = l;
         i32 lnobr_li1 = lnobr - l * (i + 1);
         SLC_DLACPY("Upper", &l, &lnobr_li1, &r[l * i + l * i * ldr], &ldr,
                    &r[l * (i + 1) + l * (i + 1) * ldr], &ldr);
 
         i32 lnobr_lip1 = lnobr - l * (i + 2);
-        f64 dum = 0.0;
         mb04od("Full", l, lnobr_lip1, nrowml, &r[l * (i + 1) + l * (i + 1) * ldr], ldr,
                &ul[l * i * ldul], ldul, &r[l * (i + 1) + l * (i + 2) * ldr], ldr,
                &ul[l * (i + 1) * ldul], ldul, &dwork[itau], &dwork[jwork]);

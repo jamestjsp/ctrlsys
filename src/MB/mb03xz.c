@@ -108,37 +108,7 @@ void mb03xz(const char *balanc, const char *job, const char *jobu, i32 n,
     }
 
     if (n > 0) {
-        i32 ia, iqg_ofs, iu1_ofs, iu2_ofs, iwrk;
-
-        if (wants) {
-            ia = 0;
-        } else {
-            ia = 2;
-        }
-        iqg_ofs = ia + nn2;
-
-        if (wantu) {
-            iu1_ofs = iqg_ofs + nn2 + n2;
-            iu2_ofs = iu1_ofs + nn2;
-            iwrk = iu2_ofs + nn2;
-        } else {
-            iu1_ofs = iqg_ofs;
-            iu2_ofs = iqg_ofs;
-            iwrk = iqg_ofs + nn2 + n2;
-        }
-
         i32 optzw = minzw;
-        i32 nb = 2;
-        if (wants) {
-            i32 lwork_query = -1;
-            c128 work_query;
-            i32 qr_info;
-            SLC_ZGEQRF(&n2, &n2, zwork, &n2, zwork, &work_query, &lwork_query, &qr_info);
-            i32 opt_qr = (i32)creal(work_query);
-            if (opt_qr / n2 > 2) {
-                nb = opt_qr / n2;
-            }
-        }
 
         if (lquery) {
             i32 mb03xs_info;

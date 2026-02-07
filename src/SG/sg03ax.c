@@ -81,7 +81,6 @@ void sg03ax(
 
             if (kl > 0) {
                 for (i32 i = kl; i <= kh; i++) {
-                    i32 one = 1;
                     for (i32 j = 0; j < kl; j++) {
                         x[i + j*ldx] = x[j + i*ldx];
                     }

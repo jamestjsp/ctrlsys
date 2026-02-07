@@ -70,7 +70,6 @@ void mb02fd(const char* typet, i32 k, i32 n, i32 p, i32 s,
 
     i32 maxwrk = 1;
     i32 ierr = 0;
-    i32 int1 = 1;
 
     if (isrow) {
         i32 st, countr, startr;

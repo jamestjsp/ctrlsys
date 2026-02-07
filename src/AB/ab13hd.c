@@ -18,7 +18,6 @@
 
 static inline i32 max_i32(i32 a, i32 b) { return a > b ? a : b; }
 static inline i32 min_i32(i32 a, i32 b) { return a < b ? a : b; }
-static inline f64 max_f64(f64 a, f64 b) { return a > b ? a : b; }
 static inline f64 min_f64(f64 a, f64 b) { return a < b ? a : b; }
 
 void ab13hd(const char *dico, const char *jobe, const char *equil,
@@ -49,7 +48,6 @@ void ab13hd(const char *dico, const char *jobe, const char *equil,
     bool lquery = (ldwork == -1) || (lzwork == -1);
 
     i32 minpm = min_i32(p, m);
-    i32 maxpm = max_i32(p, m);
 
     *iwarn = 0;
     *info = 0;

@@ -185,7 +185,6 @@ void mb03xd(const char *balanc, const char *job, const char *jobu,
         }
     }
 
-    i32 ilo_c = *ilo - 1;
     i32 ldwork_rem = ldwork - pdw;
 
     if (!wantu && !wantv) {

@@ -2921,8 +2921,6 @@ PyObject* py_tb01uy(PyObject* self, PyObject* args, PyObject* kwargs) {
         return NULL;
     }
 
-    i32 m = m1 + m2;
-
     PyArrayObject *a_array = (PyArrayObject*)PyArray_FROM_OTF(
         a_obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY);
     if (!a_array) return NULL;
@@ -2948,7 +2946,6 @@ PyObject* py_tb01uy(PyObject* self, PyObject* args, PyObject* kwargs) {
     i32 ldz = (jobz == 'I' || jobz == 'F') ? (n > 0 ? n : 1) : 1;
 
     i32 n_alloc = n > 0 ? n : 1;
-    i32 m_alloc = m > 0 ? m : 1;
     i32 max_m1_m2 = m1 > m2 ? m1 : m2;
     if (max_m1_m2 < 1) max_m1_m2 = 1;
 

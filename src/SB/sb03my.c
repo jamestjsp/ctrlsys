@@ -364,7 +364,6 @@ void sb03my(
                     vec[0] = c[k1 + l1*ldc] - (dot1 + dot3);
                     vec[1] = c[k2 + l1*ldc] - (dot2 + dot4);
 
-                    bool bfalse = false;
                     i32 ibfalse = 0;
                     f64 negall = -a[l1 + l1*lda];
                     SLC_DLALN2(&ibfalse, (i32[]){2}, (i32[]){1}, &smin, (f64[]){ONE},
@@ -399,7 +398,6 @@ void sb03my(
                     vec[0] = c[k1 + l1*ldc] - (dot1 + dot3);
                     vec[1] = c[k1 + l2*ldc] - (dot2 + dot4);
 
-                    bool bfalse = false;
                     i32 ibfalse = 0;
                     f64 negakk = -a[k1 + k1*lda];
                     SLC_DLALN2(&ibfalse, (i32[]){2}, (i32[]){1}, &smin, (f64[]){ONE},
@@ -448,8 +446,6 @@ void sb03my(
                             x[2] = x[1];
                         }
                     } else {
-                        bool bfalse = false;
-                        bool btrue = true;
                         i32 ibfalse = 0;
                         i32 ibtrue = 1;
                         SLC_DLASY2(&ibfalse, &ibtrue, (i32[]){1}, (i32[]){2}, (i32[]){2},

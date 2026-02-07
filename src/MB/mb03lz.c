@@ -343,8 +343,6 @@ void mb03lz(const char *compq, const char *orth, i32 n,
         }
     }
 
-    i32 iq2 = 0;
-    i32 iev = 4;
     i32 iq_z = 8;
     i32 iwrk_z = iq_z + 4 * (n - 1);
 
@@ -555,7 +553,6 @@ void mb03lz(const char *compq, const char *orth, i32 n,
 
     if (svd) {
         i32 lzwork_svd = lzwork;
-        i32 ldwork_svd = ldwork - (iwrk_z);
         SLC_ZGESVD("O", "N", &n, neig, q, &ldq, dwork,
                    zwork, &(i32){1}, zwork, &(i32){1}, zwork, &lzwork_svd,
                    &dwork[iwrk_z], info);

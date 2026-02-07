@@ -88,7 +88,6 @@ i32 slicot_ab08mz(char equil, i32 n, i32 m, i32 p, c128* a, i32 lda,
         iwork[i] = 0;
     }
 
-    i32 one = 1;
     i32 n_int = n, m_int = m, p_int = p;
     i32 ldnp = np;
 

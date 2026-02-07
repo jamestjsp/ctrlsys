@@ -611,7 +611,11 @@ static struct PyModuleDef slicotmodule = {
     "_slicot",
     "SLICOT C library Python bindings",
     -1,
-    SlicotMethods
+    SlicotMethods,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 PyMODINIT_FUNC PyInit__slicot(void) {

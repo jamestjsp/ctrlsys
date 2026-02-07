@@ -190,7 +190,7 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
     iwork[2 * k + 4] = 1;
     iwork[2 * k + 5] = -1;
 
-    i32 iwork_out, kschur_out;
+    i32 iwork_out;
     mb03ba(k, kschur, &iwork[2 * k], &iwork_out, iwork, &iwork[k]);
 
     f64 dum = ZERO;
@@ -753,7 +753,6 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
                 SLC_DLACPY("F", &n, &dim1, &dwork[itmp], &n, &q3[(m1 + ib1) * ldq3], &ldq3);
             }
         } else {
-            i32 itmp = iwrk_ed + n;
             f64 tmp2_local, tmp3_local;
 
             SLC_DCOPY(&nr, &a[ib1 * lda], &int1, &dwork[iwrk_ed], &int1);

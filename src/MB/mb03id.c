@@ -726,11 +726,10 @@ void mb03id(const char *compq, const char *compu, i32 n, f64 *a, i32 lda,
                       &dwork[itmp3], &dim1, &ONE, &b[ir + ir * ldb], &ldb);
 
             /* Update F by transformations from left */
-            i32 info_rx;
-            info_rx = slicot_mb01rx('L', 'U', 'T', dim1, dim1, ZERO, ONE, &dwork[itmp1], dim1,
-                                   &dwork[iqlori], sdim, &f[ir + ir * ldf], ldf);
-            info_rx = slicot_mb01rx('L', 'U', 'T', dim1, dim1, ONE, ONE, &dwork[itmp1], dim1,
-                                   &dwork[iqupri], sdim, &dwork[itmp2], dim1);
+            slicot_mb01rx('L', 'U', 'T', dim1, dim1, ZERO, ONE, &dwork[itmp1], dim1,
+                         &dwork[iqlori], sdim, &f[ir + ir * ldf], ldf);
+            slicot_mb01rx('L', 'U', 'T', dim1, dim1, ONE, ONE, &dwork[itmp1], dim1,
+                         &dwork[iqupri], sdim, &dwork[itmp2], dim1);
             SLC_DLACPY("Upper", &dim1, &dim1, &dwork[itmp1], &dim1, &f[ir + ir * ldf], &ldf);
 
             if (lcmpq) {

@@ -54,12 +54,10 @@ void mb02vd(
         if (tran) {
             ma02gd(m, b, ldb, 1, n, ipiv, 1);
 
-            i32 one = 1;
             f64 alpha = ONE;
             SLC_DTRSM("Right", "Lower", "Transpose", "Unit", &m, &n, &alpha, a, &lda, b, &ldb);
             SLC_DTRSM("Right", "Upper", "Transpose", "NonUnit", &m, &n, &alpha, a, &lda, b, &ldb);
         } else {
-            i32 one = 1;
             f64 alpha = ONE;
             SLC_DTRSM("Right", "Upper", "NoTranspose", "NonUnit", &m, &n, &alpha, a, &lda, b, &ldb);
             SLC_DTRSM("Right", "Lower", "NoTranspose", "Unit", &m, &n, &alpha, a, &lda, b, &ldb);

@@ -18,8 +18,6 @@ void tb03ad(const char* leri, const char* equil, i32 n, i32 m, i32 p,
 
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
-    const i32 int1 = 1;
-
     *info = 0;
 
     char leri_char = (*leri == 'l' || *leri == 'L') ? 'L' :

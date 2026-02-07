@@ -16,7 +16,7 @@ void mb01rb(const char* side_str, const char* uplo_str, const char* trans_str,
     const i32 n2p = 128;
     const i32 nbs = 48;
 
-    i32 i, ib, j, jb, mn, mx, n1, n2, nb, nbmin, nx;
+    i32 i, ib, j, jb, mn, mx, n1, n2, nb, nbmin = 2, nx;
     bool lside, ltrans, luplo;
     f64 d[1];
     char side = side_str[0];

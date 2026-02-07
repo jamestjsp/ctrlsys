@@ -13,7 +13,6 @@ void mb01ru(const char* uplo, const char* trans, i32 m, i32 n,
     const f64 one = 1.0;
     const f64 two = 2.0;
     const f64 half = 0.5;
-    i32 int1 = 1;
 
     char uplo_c = (char)toupper((unsigned char)uplo[0]);
     char trans_c = (char)toupper((unsigned char)trans[0]);

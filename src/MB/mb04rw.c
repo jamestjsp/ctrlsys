@@ -89,9 +89,7 @@ void mb04rw(i32 m, i32 n, f64 pmax,
 
             // Convert to 0-based indices for C array access
             i32 is_c = is - 1;
-            i32 ie_c = ie - 1;
             i32 js_c = js - 1;
-            i32 je_c = je - 1;
 
             mb04rv(mb_blk, nb_blk, pmax,
                    &a[is_c + is_c*lda], lda, &b[js_c + js_c*ldb], ldb,

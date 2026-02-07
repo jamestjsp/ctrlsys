@@ -158,7 +158,7 @@ void tb01uy(const char* jobz, i32 n, i32 m1, i32 m2, i32 p,
     jb2 = imin(m1, m - 1);
 
     while (1) {
-        i32 ncrt_i = ncrt, mcrt_i = mcrt;
+        i32 ncrt_i = ncrt;
         mb03oy(ncrt, mcrt, &b[iqr + jqr * ldb], ldb, toldef, fnrm, &rank, sval, iwork, &tau[itau], dwork, info);
 
         if (rank == 0) {

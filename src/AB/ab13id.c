@@ -40,7 +40,7 @@ bool ab13id(
     f64 prec, svlmax, thresh, toldef;
     f64 dum[2];
     f64 tolv[3];
-    i32 int1 = 1, intn, intmn;
+    i32 int1 = 1, intmn;
     char systyp;
 
     *info = 0;
@@ -128,13 +128,12 @@ bool ab13id(
         if (lquery) {
             if (lredc) {
                 i32 nr_tmp, infred_tmp[7];
-                intn = n;
                 tg01jy("I", &systyp, "N", cksing, restor, n, m, p,
                        a, lda, e, lde, b, ldb, c, ldc,
                        &nr_tmp, infred_tmp, tol, iwork, dwork, -1, info);
                 maxwrk = max_i32(maxwrk, (i32)dwork[0]);
             }
-            intn = n; intmn = -1;
+            intmn = -1;
             mb03od("Q", n, n, e, lde, iwork, zero, zero, dwork, ranke,
                    &dwork[n], &dwork[n + 3], -1, info);
             maxwrk = max_i32(maxwrk, (i32)dum[0] + n + 3);

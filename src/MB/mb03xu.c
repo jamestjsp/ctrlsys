@@ -577,7 +577,6 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             i32 nmi = n - i - 1;
             i32 im1 = i;
             i32 ip1 = i + 1;
-            i32 kn = k + n;
             f64 negtauq = -tauq;
 
             // Update XQ
@@ -689,7 +688,6 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             i32 nmi = n - i - 1;
             i32 im1 = i;
             i32 ip1 = i + 1;
-            i32 kn = k + n;
             f64 negtauq = -tauq;
 
             // Update XQ
@@ -800,7 +798,6 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             i32 nmi = n - i - 1;
             i32 im1 = i;
             i32 ip1 = i + 1;
-            i32 kn = k + n;
             f64 negtauq = -tauq;
 
             // Update XQ

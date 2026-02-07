@@ -78,7 +78,6 @@ void sb02md(
     bool discr = (dico == 'D');
     bool lscal = (scal == 'G');
     bool lsort = (sort == 'S');
-    bool luplo = (uplo == 'U');
     bool lhinv = false;
 
     if (discr) {
@@ -165,7 +164,6 @@ void sb02md(
 
     typedef int (*SelectFn)(const f64*, const f64*);
     SelectFn select_fn;
-    i32 nrot;
     i32 sdim;
 
     if (!discr) {

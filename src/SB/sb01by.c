@@ -29,7 +29,7 @@ void sb01by(
     i32 ir, j;
     f64 absr, b1, b2, b21, c, c0, c1, c11, c12, c21, c22, c3, c4;
     f64 cs, cu, cv, dc0, dc2, dc3, diffr, r, rn, s12, s21, sig;
-    f64 sn, su, sv, tau1, tau2, temp, wi, wi1, wr, wr1, x, y, z;
+    f64 sn, su, sv, tau1, tau2, wi, wi1, wr, wr1, x, y, z;
 
     *info = 0;
 
@@ -62,7 +62,6 @@ void sb01by(
         b21 = b[1];
         b2 = ZERO;
     } else {
-        i32 two = 2;
         i32 nm1 = n - 1;
         i32 m_val = m;
 
@@ -185,7 +184,6 @@ void sb01by(
 
     if (m > n) {
         i32 mn = m - n;
-        i32 one = 1;
         SLC_DLASET("Full", &mn, &n, &ZERO, &ZERO, &f[n], &m);
     }
 

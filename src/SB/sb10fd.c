@@ -100,8 +100,6 @@ void sb10fd(
                    ((n_max_np1 * m1) > (5*np2) ? (n_max_np1 * m1) : (5*np2)) :
                    ((3*np2 + m1) > (5*np2) ? (3*np2 + m1) : (5*np2)));
 
-        i32 n_m = n > m ? n : m;
-        i32 n_np = n > np ? n : np;
         i32 inner5_1 = 10*n*n + 12*n + 5;
         i32 inner5_2a = n*m > inner5_1 ? n*m : inner5_1;
         i32 inner5_2b = n*np > inner5_1 ? n*np : inner5_1;

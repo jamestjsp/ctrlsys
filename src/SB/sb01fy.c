@@ -36,7 +36,6 @@ void sb01fy(
 
     if (n == 1) {
         if (m > 1) {
-            i32 mm1 = m - 1;
             SLC_DLARFG(&m, &f[0], &f[1], &ldf, &temp);
         }
         r11 = fabs(f[0]);
@@ -87,7 +86,6 @@ void sb01fy(
         u[0 + 1*2] = r12;
         u[1 + 1*2] = r22;
 
-        i32 two = 2;
         i32 isgn = -1;
         sb03oy(discr, false, isgn, at, 2, u, 2, dummy, 2, &scale, info);
 

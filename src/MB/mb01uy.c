@@ -22,7 +22,6 @@ void mb01uy(
 )
 {
     const f64 zero = 0.0;
-    const f64 one = 1.0;
     const i32 inc1 = 1;
 
     bool lside, luplo, ltran;

@@ -23,7 +23,6 @@ void mb04pa(const bool lham, const i32 n, const i32 k, const i32 nb,
     i32 nb1, nb2;
     f64 aki, alpha, c, s, tauq, temp, ttemp;
     i32 int1 = 1;
-    i32 info_local;
     i32 dim_temp;
 
     if (n + k <= 0) {
@@ -39,7 +38,6 @@ void mb04pa(const bool lham, const i32 n, const i32 k, const i32 nb,
             i32 fi = i + 1;  // Fortran 1-based i
 
             alpha = qg[(k + fi) + (fi - 1) * ldqg];
-            i32 n_mi = n - fi;
             i32 min_i2n = (fi + 2 - 1 < n - 1) ? fi + 2 - 1 : n - 1;
             dim_temp = n - fi;
             SLC_DLARFG(&dim_temp, &alpha, &qg[(k + min_i2n + 1) + (fi - 1) * ldqg], &int1, &tauq);
@@ -410,7 +408,6 @@ void mb04pa(const bool lham, const i32 n, const i32 k, const i32 nb,
             i32 fi = i + 1;
 
             alpha = qg[(k + fi) + (fi - 1) * ldqg];
-            i32 n_mi = n - fi;
             i32 min_i2n = (fi + 2 - 1 < n - 1) ? fi + 2 - 1 : n - 1;
             dim_temp = n - fi;
             SLC_DLARFG(&dim_temp, &alpha, &qg[(k + min_i2n + 1) + (fi - 1) * ldqg], &int1, &tauq);

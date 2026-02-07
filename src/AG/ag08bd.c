@@ -52,7 +52,6 @@ void ag08bd(const char* equil, i32 l, i32 n, i32 m, i32 p,
     } else if (tol >= ONE) {
         *info = -27;
     } else {
-        i32 i0 = min_i32(l + p, m + n);
         i32 i1 = min_i32(l, n);
         i32 ii = min_i32(m, p);
         i32 ldw = labcd2 + max_i32(1, 5 * ldabcd);
@@ -63,9 +62,6 @@ void ag08bd(const char* equil, i32 l, i32 n, i32 m, i32 p,
         if (lquery) {
             i32 wrkopt = ldw;
 
-            sl_int l_int = l, n_int = n, m_int = m, p_int = p;
-            sl_int lda_int = lda, lde_int = lde, ldb_int = ldb, ldc_int = ldc;
-            sl_int ldq_int = 1, ldz_int = 1;
             sl_int nn = 0, n2 = 0;
             sl_int qinfo = 0;
             sl_int lwork_query = -1;
@@ -145,8 +141,8 @@ void ag08bd(const char* equil, i32 l, i32 n, i32 m, i32 p,
     i32 mm = m + n2;
     i32 pp = p + (l - nn);
 
-    sl_int l_int = l, p_int = p, m_int = m, n_int = n;
-    sl_int nn_int = nn, n2_int = n2, mm_int = mm, pp_int = pp;
+    sl_int l_int = l, p_int = p, m_int = m;
+    sl_int nn_int = nn, n2_int = n2;
     sl_int lda_int = lda, ldc_int = ldc, ldb_int = ldb, ldd_int = ldd;
     sl_int ldabcd_int = ldabcd;
 

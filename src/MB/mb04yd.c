@@ -131,13 +131,9 @@ void mb04yd(const char *jobu, const char *jobv, const i32 m, const i32 n,
     }
 
     if (ljobui) {
-        i32 int0 = 0;
-        i32 int1 = 1;
         SLC_DLASET("Full", &m, &p, &ZERO, &ONE, u, &ldu);
     }
     if (ljobvi) {
-        i32 int0 = 0;
-        i32 int1 = 1;
         SLC_DLASET("Full", &n, &p, &ZERO, &ONE, v, &ldv);
     }
 

@@ -79,7 +79,6 @@ void sb03qy(
     i32 itmp = nn;  // 0-based offset for second workspace partition
     char tranat = notrna ? 'T' : 'N';
 
-    i32 int1 = 1;
     i32 kase = 0;
     i32 isave[3] = {0, 0, 0};
     f64 est, scale;

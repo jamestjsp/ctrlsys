@@ -334,7 +334,6 @@ void mb03vw(
     }
 
     // Reduce A_1 to upper Hessenberg form
-    f64 dum = ZERO;
     lindq = false;
     i32 int1 = 1;
 

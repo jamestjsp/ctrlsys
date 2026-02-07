@@ -231,7 +231,6 @@ void ab08nw(const char* equil, i32 n, i32 m, i32 p, f64* a, i32 lda,
                    &ldabcd_int, e, &lde_int);
     } else {
         sl_int nu_int = nu;
-        sl_int mu_int = mu;
         sl_int lde_int = lde;
 
         SLC_DLACPY("Full", &nu_int, &nu_int, &dwork[kabcd + mu * ldabcd],

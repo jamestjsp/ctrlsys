@@ -152,7 +152,6 @@ void ab08nd(const char* equil, i32 n, i32 m, i32 p, f64* a, i32 lda,
         SLC_DLACPY("Full", &pp_sl, &mm_sl, d, &ldd_sl, &bf[nn], &ldbf_sl);
     }
     if (nn > 0) {
-        sl_int mm1_sl = mm + 1;
         SLC_DLACPY("Full", &nn_sl, &nn_sl, a, &lda_sl, &bf[(mm)*ldbf], &ldbf_sl);
         if (pp > 0) {
             SLC_DLACPY("Full", &pp_sl, &nn_sl, c, &ldc_sl, &bf[(mm)*ldbf + nn], &ldbf_sl);
@@ -185,9 +184,7 @@ void ab08nd(const char* equil, i32 n, i32 m, i32 p, f64* a, i32 lda,
     i32 numu = *nu + mu;
     if (numu != 0) {
         i32 mnu = mm + *nu;
-        i32 numu1 = numu + 1;
-
-        sl_int mnu_sl = mnu, one = 1, neg_one = -1;
+        sl_int mnu_sl = mnu, neg_one = -1;
         for (i32 i = 0; i < numu; i++) {
             SLC_DCOPY(&mnu_sl, &bf[i], &ldbf_sl, &af[(numu - 1 - i) * ldaf], &neg_one);
         }

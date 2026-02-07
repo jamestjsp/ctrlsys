@@ -19,8 +19,6 @@ void ib01px(const char *job, i32 nobr, i32 n, i32 m, i32 l,
     i32 mnobr = m * nobr;
     i32 lnobr = l * nobr;
     i32 ldun2 = lnobr - l;
-    i32 lp1 = l + 1;
-    i32 np1 = n + 1;
     i32 npl = n + l;
 
     *iwarn = 0;

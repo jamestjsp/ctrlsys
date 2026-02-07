@@ -38,7 +38,7 @@ void nf01be(i32 *iflag, i32 nsmp, i32 n, i32 *ipar, i32 lipar,
             i32 *nfevl, f64 *e, f64 *j, i32 *ldj, 
             f64 *dwork, i32 ldwork, i32 *info)
 {
-    f64 zero = 0.0, one = 1.0, neg_one = -1.0;
+    f64 zero = 0.0, neg_one = -1.0;
     i32 inc = 1;
     i32 nz, nn;
     f64 err;

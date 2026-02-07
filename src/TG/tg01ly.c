@@ -35,7 +35,7 @@ void tg01ly(
     i32 int1 = 1;
 
     bool first, lquery;
-    i32 i, i0, i1, icol, ipiv, irow, itau, j, jwork1, jwork2, k;
+    i32 i, i0, i1, icol, ipiv, irow, itau, j, jwork1, k;
     i32 mm1, n1, nd, nr, rank, ro, ro1, sigma, wrkopt, minwrk;
     f64 co, rcond, si, svlmax, t, toldef;
     f64 dum[1], sval[3];
@@ -215,7 +215,6 @@ void tg01ly(
     first = true;
     itau = 0;
     jwork1 = itau + nd;
-    jwork2 = jwork1 + 1;
     dum[0] = zero;
 
 label_60:

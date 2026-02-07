@@ -23,7 +23,7 @@ void mb02jx(const char* job, const i32 k, const i32 l, const i32 m,
 {
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
-    i32 int1 = 1, int0 = 0;
+    i32 int1 = 1;
 
     i32 cpcol, gap, i, ierr, j, jj, jwork, kk, len, mk;
     i32 nzc, pdp, pdq, pdw, pnq, pnr, pp, ppr, pt, rdef;

@@ -39,7 +39,6 @@ void mb02pd(
 {
     const f64 zero = 0.0;
     const f64 one = 1.0;
-    const i32 int1 = 1;
 
     char fact = toupper((unsigned char)fact_str[0]);
     char trans = toupper((unsigned char)trans_str[0]);

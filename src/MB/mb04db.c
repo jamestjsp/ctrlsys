@@ -19,9 +19,7 @@ void mb04db(const char *job, const char *sgn, i32 n, i32 ilo,
     bool lscal = (j == 'S' || j == 's' || j == 'B' || j == 'b');
     bool lsgn = (s == 'N' || s == 'n');
 
-    f64 one = 1.0;
     f64 neg_one = -1.0;
-    i32 int1 = 1;
 
     *info = 0;
 

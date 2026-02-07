@@ -18,8 +18,6 @@ void tb01vd(const char* apply, i32 n, i32 m, i32 l, f64* a, i32 lda,
     const f64 two = 2.0;
     const f64 half = 0.5;
     const i32 int1 = 1;
-    const i32 int0 = 0;
-
     i32 i, j, k, in, ca, ia, it, iu, iwr, iwi, jwork, itau, ir, iq;
     i32 ldt, ldca, wrkopt;
     f64 piby2, ri, ti;

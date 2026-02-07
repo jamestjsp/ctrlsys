@@ -96,8 +96,6 @@ void sb03od(
             minwrk = 4*n;
         }
         
-        bool smallm = (6*m <= 7*n);
-        
         if (lquery) {
             i32 wrkopt = minwrk;
             if (nofact) {

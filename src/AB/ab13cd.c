@@ -16,8 +16,6 @@
 
 static inline i32 max_i32(i32 a, i32 b) { return a > b ? a : b; }
 static inline i32 min_i32(i32 a, i32 b) { return a < b ? a : b; }
-static inline f64 max_f64(f64 a, f64 b) { return a > b ? a : b; }
-
 static int select_stable(const f64* reig, const f64* ieig) {
     (void)ieig;
     return *reig < 0.0;

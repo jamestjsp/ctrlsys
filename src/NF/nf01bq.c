@@ -33,7 +33,6 @@ void nf01bq(const char *cond, i32 n, const i32 *ipar, i32 lipar, f64 *r, i32 ldr
 {
     /* Local variables */
     i32 bn, bsm, bsn, i, ib, ibsn, is, itr, itc, j, jw, k, kf, l, nc, nths, st;
-    f64 qtbpj;
     bool econd;
     i32 inc_1 = 1;
     f64 zero = 0.0;

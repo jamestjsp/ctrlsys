@@ -30,7 +30,6 @@ void tg01gd(
     i32 k, k1, kwa, kwb, kwc, kwe, kwr, ls, lwrmin;
     i32 ns, rnka22, wrkopt;
     f64 dum[1];
-    i32 int1 = 1;
     i32 max1l = (1 > l) ? 1 : l;
     i32 max1p = (1 > p) ? 1 : p;
     i32 ln = (l < n) ? l : n;

@@ -8,9 +8,7 @@ void mb4dbz(const char *job, const char *sgn, i32 n, i32 ilo,
             const f64 *lscale, const f64 *rscale, i32 m,
             c128 *v1, i32 ldv1, c128 *v2, i32 ldv2, i32 *info) {
 
-    const c128 CONE = 1.0 + 0.0*I;
     const c128 NEG_ONE = -1.0 + 0.0*I;
-    const i32 INT1 = 1;
 
     bool lperm = (*job == 'P' || *job == 'p' || *job == 'B' || *job == 'b');
     bool lscal = (*job == 'S' || *job == 's' || *job == 'B' || *job == 'b');

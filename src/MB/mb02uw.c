@@ -54,7 +54,6 @@ void mb02uw(const bool ltrans, const i32 n, const i32 m, const f64* par,
             *iwarn = 1;
         }
 
-        i32 int1 = 1;
         i32 ldb_i = ldb;
         i32 idx = SLC_IDAMAX(&m, b, &ldb_i);
         bnorm = fabs(b[idx - 1]);

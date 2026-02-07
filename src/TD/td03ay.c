@@ -35,8 +35,6 @@ void td03ay(
     i32 i, ia, ibias, indcur, ja, jmax1, k;
     f64 absdia, absdmx, bignum, diag, smlnum, umax1, temp;
 
-    i32 int1 = 1;
-
     *info = 0;
 
     SLC_DLASET("U", &n, &n, &ZERO, &ZERO, a, &lda);

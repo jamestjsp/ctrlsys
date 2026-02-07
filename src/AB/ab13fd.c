@@ -103,9 +103,7 @@ void ab13fd(
         dwork[igf] = sigma;
         dwork[igf + n] = -sigma;
 
-        f64 dummy = ZERO;
         i32 int1 = 1;
-        i32 int0 = 0;
         for (i32 i = 1; i < n; i++) {
             dwork[igf + i] = ZERO;
         }

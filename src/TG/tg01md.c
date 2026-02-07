@@ -31,7 +31,6 @@ void tg01md(
     i32 i, ihi, ilo, minwrk, nbc, nc, nr, wrkopt;
     f64 dum[1];
     i32 int1 = 1;
-    i32 int0 = 0;
     i32 tg01ld_info;
 
     *info = 0;

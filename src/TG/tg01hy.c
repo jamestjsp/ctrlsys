@@ -33,7 +33,7 @@ void tg01hy(
     i32 j, jb, k, kb, lb, maxwrk, minwrk, mn, nb, nf, ni, nr1, nx, rank, sr, tauim1;
     f64 c1, c2, co, rcond, s1, s2, si, smax, smaxpr, smin, sminpr, svma, svmr, t, tolz, tt;
 
-    i32 int1 = 1, int0 = 0;
+    i32 int1 = 1;
 
     if (compq[0] == 'N' || compq[0] == 'n') {
         ilq = false;

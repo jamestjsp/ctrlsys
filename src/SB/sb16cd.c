@@ -135,7 +135,6 @@ void sb16cd(
     i32 kw_opt = (i32)dwork[kw] + kw;
     if (kw_opt > wrkopt) wrkopt = kw_opt;
 
-    i32 int1 = 1;
     f64 dbl0 = 0.0;
     f64 dbl1 = 1.0;
 

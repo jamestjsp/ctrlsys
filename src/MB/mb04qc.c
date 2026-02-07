@@ -20,7 +20,7 @@ void mb04qc(
     f64 dbl0 = 0.0, dbl1 = 1.0;
     bool la1b1, lcolv, lcolw, ltra, ltrb, ltrq;
     f64 fact;
-    i32 itemp, nk, nmk, km1;
+    i32 nk, nmk, km1;
     i32 pr1, pr2, pr3, ps1, ps2, ps3;
     i32 pt11, pt12, pt13, pt21, pt22, pt23, pt31, pt32, pt33;
     i32 pdw1, pdw2, pdw3, pdw4, pdw5, pdw6, pdw7, pdw8, pdw9;

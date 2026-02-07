@@ -32,7 +32,7 @@ void sg03bx(
     f64 alpha, ar11, ar12, ar21, ar22, b11, b12i, b12r;
     f64 betai, betar, bi11, bi12, bi21, bi22, bignum;
     f64 br11, br12, br21, br22, c, cl, cq, cqb, cqbi;
-    f64 cqu, cqui, cz, e11, e12, e22, ei12, ei21, er11;
+    f64 cqu, cqui = 0.0, cz, e11, e12, e22, ei12, ei21, er11;
     f64 er12, er22, eps, lami, lamr, li, lr, m1i12;
     f64 m1r12, m2i12, m2r12, m2r22, m2s, mi, mr, mx, p;
     f64 s, scale1, scale2, si, siq, siqb, siqu, siz, sl;

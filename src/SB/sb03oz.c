@@ -101,8 +101,6 @@ void sb03oz(
             minwrk = 2*n + extra;
         }
 
-        bool smallm = (6*m <= 7*n);
-
         if (lquery) {
             i32 wrkopt = minwrk;
             if (nofact) {

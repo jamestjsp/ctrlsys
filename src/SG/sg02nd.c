@@ -55,8 +55,6 @@ void sg02nd(
     const f64 ONE = 1.0;
     const f64 TWO = 2.0;
     const i32 int1 = 1;
-    const i32 int0 = 0;
-
     char dico = toupper((unsigned char)dico_str[0]);
     char jobe = toupper((unsigned char)jobe_str[0]);
     char job = toupper((unsigned char)job_str[0]);

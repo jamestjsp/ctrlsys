@@ -39,7 +39,7 @@ void ab09id(
     const f64 zero = 0.0;
 
     bool discr, bta, spa, scale, fixord, leftw, rightw, frwght;
-    i32 ierr, iwarnl, kbr, kbv, kbw, kcr, kcv, kcw, kdr, kdv;
+    i32 iwarnl, kbr, kbv, kbw, kcr, kcv, kcw, kdr, kdv;
     i32 ki, kl, kt, kti, ku, kw, lcf, ldw, lw, nmr;
     i32 nn, nnq, nnr, nnv, nnw, nra, nu, nu1, nvr, nwr, ppv, wrkopt;
     f64 alpwrk, maxred, scalec, scaleo;

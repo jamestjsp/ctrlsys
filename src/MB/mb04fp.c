@@ -487,9 +487,6 @@ void mb04fp(const char *job, const char *compq, i32 n,
         ic = 0;
         jc = 2 * (m - k - 1);
         for (i32 j = m - 1; j >= k + 2; j--) {
-            i32 mj1 = (j + 1 < m) ? j + 1 : m - 1;
-            i32 mj2 = mj1 + 1;
-
             f64 co_inner, si_inner, tmp1_inner;
             SLC_DLARTG(&b[(j - 1) + k * ldb], &b[j + k * ldb], &co_inner, &si_inner, &tmp1_inner);
             dwork[ic] = co_inner;

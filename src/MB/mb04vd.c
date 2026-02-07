@@ -14,7 +14,6 @@ void mb04vd(const char *mode, const char *jobq, const char *jobz,
             f64 tol, i32 *iwork, i32 *info) {
     const f64 zero = 0.0;
     const f64 one = 1.0;
-    i32 int1 = 1;
 
     *info = 0;
     bool lmodeb = (mode[0] == 'B' || mode[0] == 'b');

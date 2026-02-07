@@ -33,7 +33,7 @@ void mb03kb(const char* compq, const i32* whichq, const bool ws,
     i32 j2, j3, j4, l, ldwke, ltau, ltau1, ltau2, ltt, minwrk, mn, nd, nd2;
     i32 tau, tau1, tau1p1, tau2, tau2p1, tt, v, v1, v2, vloc, vloc1, vloc2, w, we;
     i32 a_idx, b_idx, c_idx;
-    f64 dnrm, dtau1, dtau2, eps, scaloc, smlnum, strong, tauloc, thresh;
+    f64 dnrm, dtau1, dtau2, eps = 0.0, scaloc, smlnum = 0.0, strong, tauloc, thresh;
     f64 tmp, tmp1, tmp2, v_1, v_2, v_3, w_2, w_3, x_11, x_12, x_21, x_22;
     f64 taus[2], temp[16], tempm1[16];
 

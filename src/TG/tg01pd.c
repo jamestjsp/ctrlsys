@@ -31,7 +31,7 @@ void tg01pd(
 
     bool discr, ljobg, lquery;
     i32 icompq, icompz, lw, minwrk, nb, nbc, nc, nr, sdim, wrkopt;
-    i32 int1 = 1, max_mp;
+    i32 max_mp;
 
     if (compq[0] == 'I' || compq[0] == 'i') {
         icompq = 1;

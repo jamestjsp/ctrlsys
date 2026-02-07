@@ -32,7 +32,6 @@ void tg01qd(
     bool discr, lquery, order, redif, stab;
     i32 i, lw, minwrk, nb, nbc, nc, ndim, nf, ni, nlow, nr, nsup, wrkopt;
     f64 dum[1];
-    i32 int1 = 1;
     i32 neg1 = -1;
     i32 tg01md_info, mb03qg_info;
 

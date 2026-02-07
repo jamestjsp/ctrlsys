@@ -328,7 +328,6 @@ void mb03bz(const char *job, const char *compq, i32 k, i32 n, i32 ilo, i32 ihi,
         goto L400;
 
     L170:
-        jdef = jdef;
         {
             c128 *a1 = &a[0];
             for (i32 j = jlo; j < jdef; j++) {
@@ -488,7 +487,6 @@ void mb03bz(const char *job, const char *compq, i32 k, i32 n, i32 ilo, i32 ihi,
         goto L440;
 
     L320:
-        jdef = jdef;
         {
             if (jdef > (ilast - jlo + 1) / 2) {
                 c128 *aldef = &a[ldef * lda12];

@@ -6,7 +6,6 @@ void mb02rd(const char *trans, i32 n, i32 nrhs, const f64 *h, i32 ldh,
             const i32 *ipiv, f64 *b, i32 ldb, i32 *info)
 {
     i32 j, jp;
-    i32 int1 = 1;
     f64 one = 1.0;
     char trans_upper = (char)toupper((unsigned char)trans[0]);
     int notran = (trans_upper == 'N');

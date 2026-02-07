@@ -57,7 +57,6 @@ void mb01od(const char* uplo_str, const char* trans_str, i32 n,
     if (beta == zero) {
         if (alpha == zero) {
             const char* uplo_ptr = luplo ? "U" : "L";
-            i32 izero = 0;
             SLC_DLASET(uplo_ptr, &n, &n, &zero, &zero, r, &ldr);
         } else if (alpha != one) {
             const char* uplo_ptr = luplo ? "U" : "L";

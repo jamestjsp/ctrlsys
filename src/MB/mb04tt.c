@@ -19,7 +19,6 @@ void mb04tt(bool updatq, bool updatz, i32 m, i32 n,
     const f64 ZERO = 0.0;
 
     i32 int1 = 1;
-    i32 int0 = 0;
 
     *rank = 0;
     if (m <= 0 || n <= 0) {

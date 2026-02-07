@@ -49,8 +49,6 @@ void mb02xd(
     i32 lda = *lda_ptr;
     i32 ldb = *ldb_ptr;
     i32 ldata = *ldata_ptr;
-    i32 ldwork = *ldwork_ptr;
-
     bool mat = (form == 'S');
     bool full = (stor == 'F');
     bool upper = (uplo == 'U');

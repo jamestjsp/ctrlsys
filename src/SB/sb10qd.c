@@ -47,8 +47,6 @@ void sb10qd(
     const f64 zero = 0.0;
     const f64 one = 1.0;
     const f64 negone = -1.0;
-    i32 int1 = 1;
-
     i32 m1 = m - ncon;
     i32 m2 = ncon;
     i32 np1 = np - nmeas;

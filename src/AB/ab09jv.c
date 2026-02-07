@@ -48,8 +48,8 @@ void ab09jv(
     bool unitev = (jobev[0] == 'I' || jobev[0] == 'i');
     bool stabck = (stbchk[0] == 'C' || stbchk[0] == 'c');
 
-    f64 alpha, dif, scale, tolinf, work;
-    i32 ia, ierr, kq, kz, kar, kai, kb, kw, kc, kf, ke;
+    f64 alpha, dif, scale = 1.0, tolinf, work;
+    i32 ierr, kq, kz, kar, kai, kb, kw, kc, kf, ke;
     i32 ldw, ldwn, lw, sdim;
     i32 bwork[1];
     char stdom;

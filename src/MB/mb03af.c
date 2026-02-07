@@ -24,7 +24,7 @@ void mb03af(const char *shft, i32 k, i32 n, const i32 *amap, const i32 *s,
     i32 ai = amap[k - 1] - 1;
     const f64 *a_slice = a + ai * ldas;
 
-    f64 temp, dum;
+    f64 temp;
     f64 alpha, beta, gamma, delta, epsil, eta, theta, zeta;
     f64 c1_v, s1_v, c2_v, s2_v;
     f64 c2r, s2r, c3, s3, c3r, s3r, c4, s4, c4r, s4r;
@@ -72,7 +72,6 @@ void mb03af(const char *shft, i32 k, i32 n, const i32 *amap, const i32 *s,
 
     ai = amap[k - 1] - 1;
     a_slice = a + ai * ldas;
-    f64 a_11 = a_slice[0];
     f64 a_nn = a_slice[(n - 1) + (n - 1) * lda1];
     alpha = s2_v * a_nn - c1_v * c2_v;
     beta = -s1_v * c2_v;

@@ -92,7 +92,7 @@ void bb02ad(const char* def, const i32* nr, f64* dpar, i32* ipar,
             f64* r, const i32 ldr, f64* s, const i32 lds,
             f64* x, const i32 ldx, f64* dwork, const i32 ldwork, i32* info)
 {
-    i32 i, j, isymm;
+    i32 i, isymm;
     i32 nsymm, msymm, psymm, qdimm, rdimm;
     f64 temp, alpha, beta;
     char ident[5] = "0000";

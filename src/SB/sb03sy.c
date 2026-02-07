@@ -12,7 +12,6 @@ void sb03sy(const char* job, const char* trana, const char* lyapun, i32 n,
     const f64 zero = 0.0;
     const f64 one = 1.0;
     const f64 half = 0.5;
-    i32 int1 = 1;
     i32 nn = n * n;
 
     char job_c = (char)toupper((unsigned char)job[0]);

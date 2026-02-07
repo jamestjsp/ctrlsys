@@ -106,7 +106,6 @@ void sg03ay(const char* trans, i32 n, const f64* a, i32 lda,
                     i32 k = ll - 1;
                     i32 lhkl1 = lh - kl + 1;
                     i32 lhkh1 = lh - kh + 1;
-                    i32 inc1 = 1;
                     i32 two = 2;
 
                     SLC_DGEMM("N", "N", &nrows, &ncols, &k, &one,
@@ -516,7 +515,6 @@ void sg03ay(const char* trans, i32 n, const f64* a, i32 lda,
                     i32 ncols = lb;
                     i32 llkl = ll - kl;
                     i32 two = 2;
-                    i32 inc1 = 1;
 
                     SLC_DGEMM("N", "N", &nrows, &ncols, &nrows, &one,
                               &a[(kl - 1) + (kl - 1) * lda], &lda,

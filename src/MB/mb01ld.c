@@ -15,7 +15,6 @@ void mb01ld(const char* uplo_str, const char* trans_str, i32 m, i32 n,
 {
     const f64 zero = 0.0;
     const f64 one = 1.0;
-    const f64 neg_one = -1.0;
     i32 int1 = 1;
 
     char uplo = uplo_str[0];

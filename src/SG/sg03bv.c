@@ -23,7 +23,7 @@ void sg03bv(const char* trans, const i32 n, const f64* a, const i32 lda,
     f64 m1[4], m2[4], tm[4], ui[4];
 
     f64 bignum, c, delta1, eps, r, s, scale1, smlnum, sqtwo, t, x;
-    i32 i, info1, j, kb, kh, kl, kl1, l, ldws, uiipt, wpt, ypt;
+    i32 i, info1, j, kb, kh, kl, l, ldws, uiipt, wpt, ypt;
     bool notrns;
 
     const i32 int0 = 0;
@@ -218,7 +218,6 @@ void sg03bv(const char* trans, const i32 n, const f64* a, const i32 lda,
                     kb = 2;
                 }
             }
-            kl1 = kl - 1;
 
             if (kb == 1) {
                 delta1 = -a[kl * lda + kl];

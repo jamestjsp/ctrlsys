@@ -21,7 +21,7 @@ void mb02nd(i32 m, i32 n, i32 l, i32* rank, f64* theta,
 
     i32 i, i1, ifail, ihoush, ij, ioff, itaup, itauq;
     i32 iwarm, j, j1, jf, jv, jwork, k, kf, kj, ldf, lw;
-    i32 mc, minwrk, mj, mnl, n1, nj, nl, p, wrkopt;
+    i32 mc, minwrk, mj, mnl, nj, nl, p, wrkopt;
     f64 cs, eps, first, fnorm, hh, inprod, rcond, sn, temp;
     bool lfirst, lquery, sufwrk, useqr;
     f64 dummy[2];
@@ -133,7 +133,6 @@ void mb02nd(i32 m, i32 n, i32 l, i32* rank, f64* theta,
     }
 
     wrkopt = 2;
-    n1 = n + 1;
 
     eps = SLC_DLAMCH("P");
     lfirst = true;

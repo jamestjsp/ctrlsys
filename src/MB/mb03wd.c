@@ -131,7 +131,6 @@ void mb03wd(const char* job, const char* compz, i32 n, i32 p, i32 ilo, i32 ihi,
         }
 
         i32 nhh = nh;
-        i32 int1 = 1;
         f64 norm = SLC_DLANTR("1", "U", "N", &nhh, &nhh,
                               &hj[(ilo - 1) + (ilo - 1) * ldh1], &ldh1, dwork);
         dwork[dw_idx] = s * norm;
@@ -240,7 +239,6 @@ void mb03wd(const char* job, const char* compz, i32 n, i32 p, i32 ilo, i32 ihi,
                 f64 tst1 = fabs(hh11) + fabs(hh22);
                 if (tst1 == zero) {
                     i32 len = i - l + 1;
-                    i32 int1 = 1;
                     tst1 = SLC_DLANHS("1", &len, &h[l + l * ldh1], &ldh1, dwork);
                 }
 
@@ -268,7 +266,6 @@ void mb03wd(const char* job, const char* compz, i32 n, i32 p, i32 ilo, i32 ihi,
                     f64 tst1 = fabs(h1_lm1_lm1) + fabs(h1_l_l);
                     if (tst1 == zero) {
                         i32 len = i - l + 1;
-                        i32 int1 = 1;
                         tst1 = SLC_DLANHS("1", &len, &h[l + l * ldh1], &ldh1, dwork);
                     }
 

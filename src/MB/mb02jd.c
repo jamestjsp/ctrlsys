@@ -198,7 +198,6 @@ void mb02jd(const char* job, const i32 k, const i32 l, const i32 m,
         pdw = m * k * m * k;
         if (n > 1) {
             i32 nm1 = n - 1;
-            i32 lp1 = l + 1;
             i32 ldw_remain2 = ldwork - pdw;
             mb02kd("R", "T", k, l, m, nm1, m * k, ONE, ZERO,
                    (f64*)tc, ldtc, (f64*)tr, ldtr, dwork, m * k, &r[l], ldr, &dwork[pdw], ldw_remain2, &ierr);
@@ -289,7 +288,6 @@ void mb02jd(const char* job, const i32 k, const i32 l, const i32 m,
             SLC_DLASET("A", &k, &k, &ZERO, &ONE, &dwork[pdq], &mk);
             SLC_DLASET("A", &m1k, &k, &ZERO, &ZERO, &dwork[pdq + k], &mk);
             SLC_DLACPY("A", &mk, &l, q, &ldq, &dwork[pnq], &mk);
-            i32 mkk = m * k * k;
             SLC_DLASET("A", &mk, &k, &ZERO, &ZERO, &dwork[pnq + m * l * k], &mk);
         } else {
             pdw = (2 * k + l) * nm1l + 1;

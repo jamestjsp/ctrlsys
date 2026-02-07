@@ -130,13 +130,6 @@ void mb03bd(const char *job, const char *defl, const char *compq,
         macpar[4] = base;
     }
 
-    i32 ziter;
-    if (k >= (i32)(log(macpar[1]) / log(ulp))) {
-        ziter = -1;
-    } else {
-        ziter = 0;
-    }
-
     for (i32 i = 2 * k; i < 2 * k + n; i++) {
         iwork[i] = 0;
     }
@@ -147,7 +140,6 @@ void mb03bd(const char *job, const char *defl, const char *compq,
         i32 aind = iwork[mapa + i] - 1;
         f64 *a_slice = a + aind * ldas;
         char norm = 'F';
-        i32 one = 1;
         dwork[i] = SLC_DLANHS(&norm, &in_sz, &a_slice[(ilo - 1) + (ilo - 1) * lda1], &lda1, dwork);
 
         i32 j = 0;
@@ -318,7 +310,6 @@ void mb03bd(const char *job, const char *defl, const char *compq,
         }
 
         f64 cs1, sn1, cs2, sn2;
-        char shft = 'D';
 
         // Special case: 2x2 block
         if (ifirst + 1 == ilast) {
@@ -863,7 +854,6 @@ void mb03bd(const char *job, const char *defl, const char *compq,
             a_h[j + (j - 2) * lda1] = ZERO;
         }
 
-    final_step:
         aind = iwork[mapa] - 1;
         a_h = a + aind * ldas;
         {
@@ -1291,7 +1281,6 @@ void mb03bd(const char *job, const char *defl, const char *compq,
         iiter = 0;
         continue;
 
-    deflate_double:
 #ifdef MB03BD_DEBUG
         fprintf(stderr, "MB03BD: deflate_double at ilast=%d\n", ilast);
 #endif

@@ -407,7 +407,6 @@ void mb04hd(const char *compq1, const char *compq2,
         i32 sdim = 2 * dim1;
 
         i32 iauple = 0;
-        i32 ialole = iauple + dim1;
         i32 iaupri = dim1 * sdim;
         i32 ialori = iaupri + dim1;
         i32 ibuple = sdim * sdim;
@@ -583,7 +582,6 @@ void mb04hd(const char *compq1, const char *compq2,
 
             f64 tmp2 = a[m1 + ib1 + ib1 * lda];
             f64 tmp3 = a[ib1 + (m1 + ib1) * lda];
-            i32 m1_minus_ib1 = m1 - ib1;
             if (m1 > ib1 + 1) {
                 i32 m1_minus_ib1_minus_1 = m1 - ib1 - 1;
                 SLC_DCOPY(&m1_minus_ib1_minus_1, &a[ib1 + (ib1 + 1) * lda], &lda, &a[m1 + ib1 + (ib1 + 1) * lda], &lda);

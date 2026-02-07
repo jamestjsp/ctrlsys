@@ -23,7 +23,7 @@ void mb03lf(const char *compq, const char *compu, const char *orth,
             bool *bwork, i32 *iwarn, i32 *info)
 {
     const f64 ZERO = 0.0, ONE = 1.0, TWO = 2.0;
-    i32 int1 = 1, intn;
+    i32 int1 = 1;
 
     char compq_c = (char)toupper((unsigned char)compq[0]);
     char compu_c = (char)toupper((unsigned char)compu[0]);

@@ -5,8 +5,6 @@
 void mb02sd(i32 n, f64 *h, i32 ldh, i32 *ipiv, i32 *info)
 {
     i32 j, jp;
-    i32 int1 = 1;
-    f64 temp;
 
     *info = 0;
 

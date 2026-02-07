@@ -98,7 +98,6 @@ void tb01zd(const char* jobz, i32 n, i32 p,
     itau = 0;
     if (fbnorm > toldef) {
         if (n > 1) {
-            i32 n_m1 = n - 1;
             SLC_DLARFG(&n, b, &b[1], &int1, &h);
 
             b1 = b[0];

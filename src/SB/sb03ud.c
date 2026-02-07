@@ -53,8 +53,6 @@ void sb03ud(
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
     const f64 HALF = 0.5;
-    i32 int1 = 1;
-
     char job_c = (char)toupper((unsigned char)job[0]);
     char fact_c = (char)toupper((unsigned char)fact[0]);
     char trana_c = (char)toupper((unsigned char)trana[0]);

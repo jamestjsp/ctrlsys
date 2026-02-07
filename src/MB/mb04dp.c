@@ -28,7 +28,6 @@ void mb04dp(const char *job, i32 n, f64 thresh, f64 *a, i32 lda,
     f64 nhs, ns, ns0, nss, pgamma, prod, rab, ratio;
     f64 sfmax, sfmin, sum, t, ta, tc, td, te, th, th0;
     f64 ths, tv, tw;
-    f64 dum = ONE;
     i32 int1 = 1;
     f64 neg_one = -ONE;
 
@@ -460,7 +459,6 @@ void mb04dp(const char *job, i32 n, f64 thresh, f64 *a, i32 lda,
     beta = ZERO;
 
     for (k = 0; k < iter; k++) {
-        i32 six_n = 6 * n;
         for (i = 0; i < 6 * n; i++) dwork[i] = ZERO;
         for (i = 0; i < nr; i++) {
             lscale[*ilo - 1 + i] = ZERO;

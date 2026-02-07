@@ -41,7 +41,7 @@ void nf01bp(const char *cond, i32 n, const i32 *ipar, i32 lipar, f64 *r, i32 ldr
     f64 dmino, dwarf, dxnorm, fp, gnorm, parc, parl, paru, sum, temp, toldef;
     bool badrk, econd, ncond, sing, ucond;
     char condl[2] = {0, 0};
-    i32 inc_0 = 0, inc_1 = 1;
+    i32 inc_1 = 1;
 
     econd = (cond[0] == 'E' || cond[0] == 'e');
     ncond = (cond[0] == 'N' || cond[0] == 'n');

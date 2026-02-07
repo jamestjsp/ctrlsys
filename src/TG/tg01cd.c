@@ -68,7 +68,6 @@ void tg01cd(const char *compq, i32 l, i32 n, i32 m,
     }
 
     i32 ierr;
-    i32 itau = 0;
     i32 iwrk = ln;
     i32 lwork_avail = ldwork - ln;
 

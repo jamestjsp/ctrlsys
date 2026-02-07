@@ -16,7 +16,6 @@ void nf01bb(i32 *iflag, i32 nfun, i32 lx, i32 *ipar, i32 lipar,
             i32 *nfevl, f64 *e, f64 *j, i32 *ldj, f64 *jte,
             f64 *dwork, i32 ldwork, i32 *info)
 {
-    const f64 ONE = 1.0;
     const f64 MINUS_ONE = -1.0;
     i32 int1 = 1;
 

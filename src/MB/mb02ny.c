@@ -11,7 +11,6 @@ void mb02ny(const bool updatu, const bool updatv, const i32 m, const i32 n,
             const i32 i_idx, const i32 k, f64* q, f64* e, f64* u, const i32 ldu,
             f64* v, const i32 ldv, f64* dwork)
 {
-    i32 int1 = 1;
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
 

@@ -165,7 +165,6 @@ void slicot_ib01rd(
     i32 ias = ia + nn;
     i32 itau = ia;
 
-    f64 dum = 0.0;
     i32 int1 = 1;
     f64 dbl0 = 0.0, dbl1 = 1.0, dblm1 = -1.0;
     i32 ierr;

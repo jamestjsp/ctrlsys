@@ -57,7 +57,6 @@ void mb02ed(const char* typet, i32 k, i32 n, i32 nrhs,
     i32 starth = startt + 3 * k;
     i32 ierr = 0;
 
-    i32 int1 = 1;
     i32 nk = n * k;
 
     if (isrow) {

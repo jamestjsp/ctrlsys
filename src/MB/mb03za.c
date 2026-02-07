@@ -146,11 +146,9 @@ void mb03za(const char* compc, const char* compu, const char* compv,
                     ks++;
                     i32 ifst = k;
                     i32 ilst = ks - 1;
-                    i32 nbl = 1;
                     if (ilst > 0) {
                         if (a[ilst + (ilst-1)*lda] != ZERO) {
                             ilst--;
-                            nbl = 2;
                         }
                     }
 

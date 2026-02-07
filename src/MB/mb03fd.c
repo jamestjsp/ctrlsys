@@ -12,7 +12,6 @@ void mb03fd(i32 n, f64 prec, f64 *a, i32 lda, f64 *b, i32 ldb,
             f64 *dwork, i32 ldwork, i32 *info) {
 
     const f64 zero = 0.0, one = 1.0;
-    i32 int1 = 1;
 
     *info = 0;
 

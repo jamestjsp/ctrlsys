@@ -260,7 +260,6 @@ f64 ab13dx(const char *dico, const char *jobe, const char *jobd,
     SLC_ZGEMM("N", "N", &p, &m, &n, &z_one, &zwork[icc], &p,
               &zwork[icb], &n, &z_upd, &zwork[icd], &p);
 
-    i32 rwork_len = 5 * minpm;
     SLC_ZGESVD("N", "N", &p, &m, &zwork[icd], &p,
                &dwork[is], zwork, &p, zwork, &m,
                &zwork[icwk], &lzwork, &dwork[iwrk], &ierr);

@@ -540,7 +540,6 @@ void slicot_ib01qd(
         i32 jwork = isv + ncol;
         i32 rank;
         i32 ldw_query = ldwork - jwork;
-        f64 mone = -1.0;
         SLC_DGELSS(&ncol, &ncol, &int1, &dwork[inir], &ldr, &dwork[inih], &ldr,
                    &dwork[isv], &toll, &rank, &dwork[jwork], &ldw_query, &ierr);
 

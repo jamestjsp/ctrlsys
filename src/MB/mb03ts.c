@@ -279,7 +279,6 @@ void mb03ts(bool isham, bool wantu, i32 n, f64 *a, i32 lda, f64 *g, i32 ldg,
                 SLC_DLARFX("Right", &j1m1, &three, v, &tau, &g[0 + j1c*ldg], &ldg, dwork);
                 SLC_DSYMV("Upper", &three, &tau, &g[j1c + j1c*ldg], &ldg, v, &int1, &ZERO, dwork, &int1);
                 temp = -HALF * tau * SLC_DDOT(&three, dwork, &int1, v, &int1);
-                f64 one_val = ONE;
                 SLC_DAXPY(&three, &temp, v, &int1, dwork, &int1);
                 f64 neg_one = -ONE;
                 SLC_DSYR2("Upper", &three, &neg_one, v, &int1, dwork, &int1, &g[j1c + j1c*ldg], &ldg);

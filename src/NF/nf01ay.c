@@ -41,7 +41,7 @@ void nf01ay(i32 nsmp, i32 nz, i32 l, const i32 *ipar, i32 lipar,
             f64 *y, i32 ldy, f64 *dwork, i32 ldwork, i32 *info)
 {
     /* Local variables */
-    i32 i, ib, j, k, ldwb, lj, lk, m, mf, nn, nv, ws;
+    i32 i, ib, j, k, ldwb, lk, m, mf, nn, nv, ws;
     f64 bignum, df, smlnum, tmp;
     bool last;
     

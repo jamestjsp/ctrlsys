@@ -290,8 +290,6 @@ void sb03qd(
         char tranat = notrna ? 'T' : 'N';
         char tranat_str[2] = {tranat, '\0'};
         char uplo_str[2] = {uplo_c, '\0'};
-        char trana_str[2] = {trana_c, '\0'};
-
         if (update) {
             SLC_DLACPY(uplo, &n, &n, c, &ldc, &dwork[ires], &n);
             f64 neg_scale = -scale;

@@ -99,7 +99,6 @@ void sb02pd(
         if (lquery) {
             i32 info2;
             i32 lw_neg1 = -1;
-            i32 int1 = 1;
 
             SLC_DSYTRF(uplo, &n2, dwork, &n2, iwork, dwork, &lw_neg1, &info2);
             lwamax = (i32)dwork[0];
@@ -361,7 +360,6 @@ L240:
         }
     }
 
-    char uplo_str[2] = {uplo_c, '\0'};
     ma02ed(uplo_c, n2, dwork, n2);
 
     for (i32 j = 0; j < n2; j++) {

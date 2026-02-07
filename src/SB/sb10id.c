@@ -67,8 +67,6 @@ void sb10id(
     const f64 zero = 0.0;
     const f64 one = 1.0;
     const f64 mone = -1.0;
-    const i32 int1 = 1;
-
     *info = 0;
 
     i32 maxn1 = n > 1 ? n : 1;

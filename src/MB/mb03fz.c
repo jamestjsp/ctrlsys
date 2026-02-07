@@ -41,9 +41,8 @@ void mb03fz(const char *compq, const char *compu, const char *orth, i32 n,
         mindw = 1;
         minzw = 1;
     } else {
-        i32 i_coef, j_coef;
+        i32 j_coef;
         if (!lcmpu) {
-            i_coef = 10;
             if (!lcmpq) {
                 j_coef = 13;
                 minzw = 1;
@@ -52,7 +51,6 @@ void mb03fz(const char *compq, const char *compu, const char *orth, i32 n,
                 minzw = 4 * n2 + 28;
             }
         } else {
-            i_coef = 12;
             j_coef = 18;
             if (lcmpq) {
                 minzw = 4 * n2 + 28;
@@ -60,7 +58,6 @@ void mb03fz(const char *compq, const char *compu, const char *orth, i32 n,
                 minzw = 3 * n2 + 28;
             }
         }
-        i32 mindb = i_coef * nn + n;
         i32 max_6n_27 = (6 * n > 27) ? 6 * n : 27;
         mindw = j_coef * nn + n + max_6n_27;
     }
@@ -471,7 +468,6 @@ void mb03fz(const char *compq, const char *compu, const char *orth, i32 n,
         f64 nrmb_local = cabs(b[j_idx + j_idx * ldb]) + cabs(b[(j_idx + 1) + (j_idx + 1) * ldb]);
         if (cabs(b[(j_idx + 1) + j_idx * ldb]) > nrmb_local * eps) {
             i32 nc = (j2 - j_idx - 2 > 0) ? j2 - j_idx - 2 : 0;
-            i32 j3 = (j2 - j1 < j_idx) ? j2 - j1 : j_idx;
             i32 jm1 = (j_idx > 0) ? j_idx : 1;
             i32 jp2 = (j_idx + 2 < n) ? j_idx + 2 : n;
             i32 nj1 = (n - j_idx - 1 > 0) ? n - j_idx - 1 : 1;

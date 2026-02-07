@@ -42,7 +42,6 @@ void mb04dl(const char *job, const i32 n, const f64 thresh, f64 *a, const i32 ld
     f64 dum;
 
     i32 int0 = 0, int1 = 1;
-    f64 dbl0 = 0.0, dbl1 = 1.0;
 
     *info = 0;
     *iwarn = 0;

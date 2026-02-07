@@ -356,7 +356,6 @@ void sb02qd(
         }
 
         char uplo_str[2] = {uplo_c, '\0'};
-        char tranat_str[2] = {tranat, '\0'};
         SLC_DLACPY(uplo_str, &n, &n, g, &ldg, &dwork[iabs], &n);
         mb01ru(&uplo_c, &tranat, n, n, ONE, sig, &dwork[ires], n, x, ldx,
                &dwork[iabs], n, &dwork[itmp], nn, &info2);
@@ -405,7 +404,6 @@ void sb02qd(
                 }
             }
 
-            char tranat_str[2] = {tranat, '\0'};
             mb01ud("L", &tranat, n, n, epsn, &dwork[iabs], n,
                    &dwork[ixbs], n, &dwork[itmp], n, &info2);
 

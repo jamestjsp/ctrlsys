@@ -130,7 +130,6 @@ void sb01bd(
     }
 
     // Order Schur form to separate "good" eigenvalues
-    const char* stdom = discr ? "S" : "S";  // Stable = inside/left
     mb03qd(dico, "Stable", "Update", n, 1, n, alpha, a, lda, z, ldz, nfp, dwork, info);
     if (*info != 0) {
         return;
@@ -308,7 +307,6 @@ void sb01bd(
 
             // Compute feedback Fi
             i32 ierr;
-            i32 lda2 = 2;
             sb01by(ib, m, s_val, p_val, a2, &dwork[kg], &dwork[kfi], toler, &dwork[kw2], &ierr);
 
             if (ierr != 0) {

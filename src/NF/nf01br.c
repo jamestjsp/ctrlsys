@@ -39,7 +39,7 @@ void nf01br(const char *cond, const char *uplo, const char *trans, i32 n,
             i32 ldwork, i32 *info)
 {
     /* Local variables */
-    i32 bn, bsm, bsn, i, i1, j, k, l, nc, nths, rank, st, jwork;
+    i32 bn, bsm, bsn, i, i1, j, k, l, nc, nths, rank, st;
     f64 toldef, dum[3];
     bool econd, ncond, lower, tranr, full;
     char transl[2] = {0, 0}, uplol[2] = {0, 0};

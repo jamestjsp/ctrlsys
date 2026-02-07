@@ -256,7 +256,6 @@ void ag8byz(bool first, i32 n, i32 m, i32 p, f64 svlmax,
                     abcd[(j) * ldabcd + irow] = CZERO;
 
                     sl_int irow_int = irow;
-                    sl_int k_plus_1 = k + 1;
                     sl_int one = 1;
                     sl_int lde_int = lde;
                     sl_int ldabcd_int = ldabcd;

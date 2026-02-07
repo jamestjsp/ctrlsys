@@ -43,8 +43,6 @@ void mb03wa(
 
     i32 int1 = 1;
     i32 int2 = 2;
-    f64 done = 1.0;
-    f64 dzero = 0.0;
     f64 dneone = -1.0;
 
     *info = 0;
@@ -137,7 +135,6 @@ void mb03wa(
 
         return;
     } else {
-        i32 n1p1 = n1 + 1;
         SLC_DLACPY("Full", &n1, &n2, &t[0 + n1 * LDST], &LDST, li, &LDST);
         SLC_DLACPY("Full", &n1, &n2, &s[0 + n1 * LDST], &LDST, &ir[n2 + n1 * LDST], &LDST);
         sb04ow(n1, n2, s, LDST, &s[n1 + n1 * LDST], LDST,

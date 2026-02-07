@@ -59,7 +59,7 @@ void ab08ny(bool first, i32 n, i32 m, i32 p, f64 svlmax,
             i32 wrkopt = jwork;
 
             if (m > 0) {
-                sl_int p_int = p, mpm_int = mpm, m_minus_1 = m - 1;
+                sl_int p_int = p, mpm_int = mpm;
                 sl_int n_int = n, ldabcd_int = ldabcd;
                 sl_int lwork_query = -1;
                 sl_int info_query = 0;

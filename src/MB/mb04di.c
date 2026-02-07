@@ -7,9 +7,7 @@ void mb04di(const char *job, const char *sgn, i32 n, i32 ilo,
             const f64 *scale, i32 m, f64 *v1, i32 ldv1,
             f64 *v2, i32 ldv2, i32 *info) {
 
-    const f64 ONE = 1.0;
     const f64 NEG_ONE = -1.0;
-    const i32 INT1 = 1;
 
     bool lperm = (*job == 'P' || *job == 'p' || *job == 'B' || *job == 'b');
     bool lscal = (*job == 'S' || *job == 's' || *job == 'B' || *job == 'b');

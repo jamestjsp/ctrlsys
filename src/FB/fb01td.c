@@ -25,7 +25,7 @@ void fb01td(const char* jobx, const char* multrc,
             f64* dwork, i32 ldwork,
             i32* info)
 {
-    const f64 zero = 0.0, one = 1.0, two = 2.0;
+    const f64 one = 1.0, two = 2.0;
 
     i32 np = n + p;
     i32 nm = n + m;

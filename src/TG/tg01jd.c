@@ -21,7 +21,7 @@ void tg01jd(
     i32* info
 )
 {
-    const f64 one = 1.0, zero = 0.0;
+    const f64 one = 1.0;
 
     bool done1, done2, done3, fincon, finobs, infcon, infobs, lequil;
     bool ljobc, ljobir, ljobo, lspace, lsysp, lsysr, lsyss;

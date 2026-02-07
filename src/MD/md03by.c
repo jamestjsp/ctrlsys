@@ -49,9 +49,6 @@ void md03by(
 
     i32 int0 = 0;
     i32 int1 = 1;
-    f64 dbl0 = 0.0;
-    f64 dbl1 = 1.0;
-
     econd = lsame(*cond, 'E');
     ncond = lsame(*cond, 'N');
     ucond = lsame(*cond, 'U');

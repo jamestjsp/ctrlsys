@@ -26,12 +26,10 @@ void mb04az(const char *job, const char *compq, const char *compu,
             c128 *zwork, i32 lzwork, bool *bwork, i32 *info) {
 
     const f64 ZERO = 0.0;
-    const f64 ONE = 1.0;
     const f64 FOUR = 4.0;
     const f64 MONE = -1.0;
     const c128 CZERO = 0.0 + 0.0*I;
     const c128 CONE = 1.0 + 0.0*I;
-    const c128 CIMAG = 0.0 + 1.0*I;
     const c128 MCIMAG = 0.0 - 1.0*I;
 
     char job_upper = (char)toupper((unsigned char)job[0]);
@@ -401,8 +399,6 @@ void mb04az(const char *job, const char *compq, const char *compu,
         if (cabs(b[(j + 1) + j * ldb]) > nrmb * eps) {
 
             i32 nc = (j2 - j - 2 > 0) ? j2 - j - 2 : 0;
-            i32 j3 = ((j2 - j1 + 1) < j) ? (j2 - j1 + 1) : j;
-            i32 jm1 = (j > 0) ? j : 1;
             i32 jp2 = (j + 2 < n) ? j + 2 : n;
             i32 nj1 = (n - j - 2 > 0) ? n - j - 2 : 1;
 
@@ -480,7 +476,6 @@ void mb04az(const char *job, const char *compq, const char *compu,
 
             c128 tmp = fg[(j + 1) + j * ldfg];
             fg[(j + 1) + j * ldfg] = -fg[j + (j + 1) * ldfg];
-            i32 jp1 = j + 1;
             i32 jp2_dim = j + 2;
             SLC_ZGEMM("N", "N", &jp2_dim, &two, &two, &CONE, &fg[0 + j * ldfg], &ldfg,
                       &zwork[iq2_idx], &two, &CZERO, &zwork[iwrk_zw_idx], &jp2_dim);

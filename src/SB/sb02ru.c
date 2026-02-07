@@ -162,8 +162,6 @@ void sb02ru(
 
         i32 info_loc;
         f64 rcond;
-        char equed = 'N';
-
         SLC_DLACPY("F", &n, &n, a, &lda, s, &lds);
 
         SLC_DGETRF(&n, &n, s, &lds, iwork, &info_loc);

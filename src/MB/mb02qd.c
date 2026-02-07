@@ -46,7 +46,7 @@ void mb02qd(
     bool leasts, permut;
     i32 i, iascl, ibscl, j, k, maxwrk, minwrk, mn;
     f64 anrm, bignum, bnrm, smlnum, t1, t2;
-    i32 int0 = 0, int1 = 1;
+    i32 int0 = 0;
     sl_int info_lapack;
 
     mn = min_i32(m, n);

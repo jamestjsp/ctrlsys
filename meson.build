@@ -11,6 +11,14 @@ project('slicot_c', 'c',
 
 cc = meson.get_compiler('c')
 
+warning_flags = ['-Wno-unused-parameter']
+if cc.has_argument('-Wno-cast-function-type-mismatch')
+  warning_flags += ['-Wno-cast-function-type-mismatch']
+elif cc.has_argument('-Wno-cast-function-type')
+  warning_flags += ['-Wno-cast-function-type']
+endif
+add_project_arguments(warning_flags, language: 'c')
+
 # BLAS/LAPACK dependency with fallback chain
 blas_opt = get_option('blas')
 lapack_opt = get_option('lapack')

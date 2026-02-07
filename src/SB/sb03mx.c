@@ -456,7 +456,6 @@ void sb03mx(
                     vec[0] = c[k1 + l1*ldc] - (sum1 + t1 * a[l1 + l1*lda]);
                     vec[1] = c[k2 + l1*ldc] - (sum2 + t2 * a[l1 + l1*lda]);
 
-                    bool bfalse = false;
                     i32 ibfalse = 0;
                     f64 al11 = a[l1 + l1*lda];
                     SLC_DLALN2(&ibfalse, (i32[]){2}, (i32[]){1}, &smin, &al11,
@@ -501,7 +500,6 @@ void sb03mx(
                     vec[0] = c[k1 + l1*ldc] - (sum1 + p11*a[l1 + l1*lda] + p12*a[l1 + l2*lda]);
                     vec[1] = c[k1 + l2*ldc] - (sum2 + p11*a[l2 + l1*lda] + p12*a[l2 + l2*lda]);
 
-                    bool bfalse = false;
                     i32 ibfalse = 0;
                     f64 akk = a[k1 + k1*lda];
                     SLC_DLALN2(&ibfalse, (i32[]){2}, (i32[]){1}, &smin, &akk,

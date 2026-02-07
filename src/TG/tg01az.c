@@ -30,7 +30,7 @@ void tg01az(
     const f64 sclfac = 10.0, three = 3.0;
 
     bool withb, withc;
-    i32 i, icab, ir, irab, it, j, jc, kount, kw1, kw2, kw3, kw4, kw5;
+    i32 i, ir, it, j, jc, kount, kw1, kw2, kw3, kw4, kw5;
     i32 lcab, lrab, lsfmax, lsfmin, nrp2;
     f64 alpha, basl, beta, cab, cmax, coef, coef2, coef5, cor;
     f64 ew, ewc, gamma, pgamma, rab, sfmax, sfmin, sum, t, ta, tb, tc, te;

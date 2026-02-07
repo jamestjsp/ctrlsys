@@ -170,7 +170,6 @@ void mb03lp(const char *compq, const char *orth, i32 n,
             ic2 = m / 4 + 1;
         }
         ib = 2 * ic2;
-        ic2 = ic2;
 
         mb04bp("Triangularize", cmpq, cmpq, n, a, lda, de, ldde,
                b, ldb, fg, ldfg, &dwork[iq1], n, &dwork[iq2], n,

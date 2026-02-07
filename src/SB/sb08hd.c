@@ -32,8 +32,6 @@ void sb08hd(
     const f64 MINUS_ONE = -1.0;
 
     f64 drnorm, rcond;
-    i32 i;
-    i32 one = 1;
     i32 max_n_1 = (n > 1) ? n : 1;
     i32 max_p_1 = (p > 1) ? p : 1;
     i32 max_m_1 = (m > 1) ? m : 1;

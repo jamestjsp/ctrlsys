@@ -22,7 +22,6 @@ void mb03qg(const char *dico, const char *stdom, const char *jobu, const char *j
     f64 alphai[2], alphar[2], beta[2];
     f64 tlambd, tole, x;
 
-    i32 int1 = 1;
     i32 maxn = (n > 1) ? n : 1;
 
     *info = 0;

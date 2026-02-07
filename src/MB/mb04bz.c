@@ -27,12 +27,10 @@ void mb04bz(const char *job, const char *compq, i32 n,
             c128 *zwork, i32 lzwork, bool *bwork, i32 *info) {
 
     const f64 ZERO = 0.0;
-    const f64 ONE = 1.0;
     const f64 THREE = 3.0;
     const f64 MONE = -1.0;
     const c128 CZERO = 0.0 + 0.0*I;
     const c128 CONE = 1.0 + 0.0*I;
-    const c128 CIMAG = 0.0 + 1.0*I;
     const c128 MCIMAG = 0.0 - 1.0*I;
 
     char job_upper = (char)toupper((unsigned char)job[0]);

@@ -304,7 +304,6 @@ void sb02od(
 
         if (lscl) {
             if (discr) {
-                f64 mrnorm = -rnorm;
                 SLC_DLASCL("G", &int0, &int0, &scale, &rnorm, &n, &n, &s[np1], &lds, &info1);
                 SLC_DLASCL("G", &int0, &int0, &rnorm, &scale, &n, &n, &t[np1*ldt], &ldt, &info1);
             } else {

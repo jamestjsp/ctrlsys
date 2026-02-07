@@ -231,7 +231,6 @@ void sb02nd(
             SLC_DPOTRF(&uplo, &n, x, &ldx, info);
 
             if (*info == 0) {
-                i32 jw = 1;
                 oufact[1] = 1;
                 const char* trl = luplou ? nt : tr;
                 SLC_DTRMM("L", &uplo, trl, "N", &n, &m, &one, x, &ldx, b, &ldb);
@@ -305,7 +304,6 @@ void sb02nd(
                 ma02ed(nuplo, m, r, ldr);
             }
         } else {
-            i32 jw = 1;
         }
 
         if (!lfactu) {

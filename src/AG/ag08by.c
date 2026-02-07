@@ -32,7 +32,6 @@ void ag08by(bool first, i32 n, i32 m, i32 p, f64 svlmax,
     i32 rank, ro, ro1, sigma, taui, wrkopt;
     f64 c, c1, c2, rcond, s, s1, s2, smax, smaxpr;
     f64 smin, sminpr, t, tolz, tt;
-    f64 dum = ZERO;
     f64 sval[3];
 
     lquery = (ldwork == -1);
@@ -255,7 +254,6 @@ void ag08by(bool first, i32 n, i32 m, i32 p, f64 svlmax,
                     abcd[(j) * ldabcd + irow] = ZERO;
 
                     sl_int irow_int = irow;
-                    sl_int k_plus_1 = k + 1;
                     sl_int one = 1;
                     sl_int lde_int = lde;
                     sl_int ldabcd_int = ldabcd;

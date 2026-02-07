@@ -93,7 +93,6 @@ void ab01md(const char* jobz, i32 n, f64* a, i32 lda, f64* b, i32* ncont,
     if (fbnorm > toldef) {
         if (n > 1) {
             f64 h;
-            i32 nm1 = n - 1;
             SLC_DLARFG(&n, &b[0], &b[1], &int1, &h);
 
             b1 = b[0];

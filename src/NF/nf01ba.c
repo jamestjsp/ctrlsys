@@ -18,7 +18,6 @@ void nf01ba(i32 *iflag, i32 nsmp, i32 n, i32 *ipar, i32 lipar,
             f64 *dwork, i32 ldwork, i32 *info)
 {
     const f64 ZERO = 0.0;
-    const f64 ONE = 1.0;
     const f64 MINUS_ONE = -1.0;
     i32 int1 = 1;
 
@@ -47,7 +46,6 @@ void nf01ba(i32 *iflag, i32 nsmp, i32 n, i32 *ipar, i32 lipar,
          * IPAR[1], IPAR[2] must have the same content as for IFLAG = 1.
          * Workspace: need 0. */
         i32 nz = ipar[1];
-        i32 nn = ipar[2];
         i32 lipar_local = lipar - 2;
 
         nf01by("C", nsmp, nz, 1, &ipar[2], lipar_local, x, n, z, ldz,

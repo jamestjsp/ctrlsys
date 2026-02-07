@@ -35,7 +35,7 @@ void mb03jd(const char* compq, const i32 n, f64* a, const i32 lda,
     f64 a2, d1, d2, d3, f2, nrma, nrmb, prec, q11, q12, q21, q22, tmp, tol;
     f64 par[2];
 
-    i32 int0 = 0, int1 = 1;
+    i32 int1 = 1;
     f64 dbl0 = 0.0, dbl1 = 1.0, neg1 = -1.0;
 
     m = n / 2;

@@ -8,7 +8,6 @@ void mb01vd(const char *trana, const char *tranb, i32 ma, i32 na, i32 mb, i32 nb
 {
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
-    const f64 SPARST = 0.8;
 
     bool transa = (trana[0] == 'T' || trana[0] == 't' || trana[0] == 'C' || trana[0] == 'c');
     bool transb = (tranb[0] == 'T' || tranb[0] == 't' || tranb[0] == 'C' || tranb[0] == 'c');
@@ -55,15 +54,6 @@ void mb01vd(const char *trana, const char *tranb, i32 ma, i32 na, i32 mb, i32 nb
         }
         return;
     }
-
-    i32 nz = 0;
-    for (i32 j = 0; j < na; j++) {
-        for (i32 i = 0; i < ma; i++) {
-            f64 aij = transa ? a[j + i * lda] : a[i + j * lda];
-            if (aij == ZERO) nz++;
-        }
-    }
-    bool sparse = (f64)nz / (f64)(ma * na) >= SPARST;
 
     i32 jc = 0;
 

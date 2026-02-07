@@ -219,7 +219,6 @@ void sb01dd(
                     }
                 }
 
-                sl_int m_blas2 = m, nc_sl = nc, mr_sl2 = mr, mr1_sl2 = mr1, n_sl2 = n;
                 sl_int ldwork_sub = ldwork - iwrk + 1;
                 mb02qd("FreeElements", "NoPermuting", mr, mr1, nc, toldef, svlmxa,
                        &dwork[irmx - 1], m, &dwork[nr1 - 1], n, &y[*count - 1],
@@ -338,7 +337,7 @@ void sb01dd(
             }
         }
 
-        sl_int m1_sl = m1, nc_sl = nc, n_sl2 = n;
+        sl_int nc_sl = nc;
         sl_int ldwork_sub = ldwork - iwrk + 1;
         mb02qd("FreeElements", "NoPermuting", m1, m, nc, toldef, svlmxb,
                &dwork[irmx - 1], m, &g[(l - 1) * ldg], ldg, &y[*count - 1],
@@ -388,7 +387,6 @@ void sb01dd(
             *count += mi;
 
             f64 tau;
-            sl_int mi_minus1 = mi - 1;
             SLC_DLARFG(&mi_sl, dwork, &dwork[1], &int1, &tau);
             dwork[0] = ONE;
 

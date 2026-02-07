@@ -97,9 +97,9 @@ void bb01ad(const char* def, const i32* nr, f64* dpar, i32* ipar,
             f64* q, const i32 ldq, f64* x, const i32 ldx,
             f64* dwork, const i32 ldwork, i32* info)
 {
-    i32 i, j, k, l, isymm, pos;
+    i32 i, j, l, isymm;
     i32 nsymm, msymm, psymm, gdimm, qdimm;
-    f64 temp, ttemp, sum, appind, b1, b2, c1, c2;
+    f64 temp, ttemp, appind, b1, b2, c1, c2;
     char ident[5] = "0000";
     i32 int1 = 1;
     f64 dbl0 = ZERO, dbl1 = ONE, dblm1 = -ONE;

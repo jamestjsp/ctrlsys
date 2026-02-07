@@ -119,8 +119,6 @@ void sb03rd(
         lwa = (i32)dwork[0];
     }
 
-    i32 ierr = 0;
-
     if (!wantsp) {
         char uplo = 'U';
         i32 nn = n;
