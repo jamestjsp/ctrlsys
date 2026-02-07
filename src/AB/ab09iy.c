@@ -40,6 +40,7 @@ void ab09iy(
 {
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
+    const f64 NEGONE = -1.0;
 
     bool discr = (dico[0] == 'D' || dico[0] == 'd');
     bool leftw = (weight[0] == 'L' || weight[0] == 'l' ||
@@ -73,10 +74,10 @@ void ab09iy(
     if (!(dico[0] == 'C' || dico[0] == 'c' || discr)) {
         *info = -1;
     } else if (!(jobc[0] == 'S' || jobc[0] == 's' ||
-                 jobc[0] == 'N' || jobc[0] == 'n')) {
+                 jobc[0] == 'E' || jobc[0] == 'e')) {
         *info = -2;
     } else if (!(jobo[0] == 'S' || jobo[0] == 's' ||
-                 jobo[0] == 'N' || jobo[0] == 'n')) {
+                 jobo[0] == 'E' || jobo[0] == 'e')) {
         *info = -3;
     } else if (!(frwght || weight[0] == 'N' || weight[0] == 'n')) {
         *info = -4;
@@ -201,6 +202,53 @@ void ab09iy(
             }
         }
 
+        if ((jobo[0] == 'E' || jobo[0] == 'e') && alphao < ONE) {
+            // Form Y = -A'*(R'*R)-(R'*R)*A if DICO = 'C', or
+            //      Y = -A'*(R'*R)*A+(R'*R) if DICO = 'D'.
+            SLC_DLACPY("Upper", &n, &n, r, &ldr, &dwork[ku], &n);
+            mb01wd(dico, "U", "N", "H", n, NEGONE, ZERO, r, ldr,
+                   (f64*)&dwork[kaw + nnv * nv + nv], nnv, &dwork[ku], n, &ierr);
+
+            // Eigendecomposition of Y: Y = Z*Sigma*Z'
+            ku = n;
+            SLC_DSYEV("V", "U", &n, r, &ldr, dwork, &dwork[ku],
+                      &(i32){ldwork - n}, &ierr);
+            if (ierr > 0) {
+                *info = 3;
+                return;
+            }
+            work = work > (dwork[ku] + (f64)n) ? work : (dwork[ku] + (f64)n);
+
+            // Partition Sigma = (Sigma1, Sigma2) with Sigma1 <= 0, Sigma2 > 0
+            f64 abs_d1 = fabs(dwork[0]);
+            f64 abs_dn = fabs(dwork[n - 1]);
+            f64 tol = (abs_d1 > abs_dn ? abs_d1 : abs_dn) * SLC_DLAMCH("E");
+
+            // Form Cbar = [ sqrt(Sigma2)*Z2' ]
+            i32 pcbar = 0;
+            for (i32 j = 0; j < n; j++) {
+                if (dwork[j] > tol) {
+                    f64 sqval = sqrt(dwork[j]);
+                    SLC_DSCAL(&n, &sqval, &r[j * ldr], &int1);
+                    SLC_DCOPY(&n, &r[j * ldr], &int1, &dwork[ku + pcbar], &n);
+                    pcbar++;
+                }
+            }
+
+            // Solve Lyapunov for Cholesky factor R of Q = R'*R
+            ktau = ku + n * n;
+            kw = ktau + n;
+
+            sb03ou(discr, false, n, pcbar, a, lda, &dwork[ku], n,
+                   &dwork[ktau], r, ldr, &t, &dwork[kw], ldwork - kw, &ierr);
+            if (ierr != 0) {
+                *info = 1;
+                return;
+            }
+            *scaleo *= t;
+            work = work > (dwork[kw] + (f64)(kw)) ? work : (dwork[kw] + (f64)(kw));
+        }
+
     } else {
         i32 ku = 0;
         i32 ktau = ku + p * n;
@@ -268,6 +316,55 @@ void ab09iy(
                     }
                 }
             }
+        }
+
+        if ((jobc[0] == 'E' || jobc[0] == 'e') && alphac < ONE) {
+            // Form X = -A*(S*S')-( S*S')*A' if DICO = 'C', or
+            //      X = -A*(S*S')*A'+(S*S') if DICO = 'D'.
+            SLC_DLACPY("Upper", &n, &n, s, &lds, &dwork[ku], &n);
+            mb01wd(dico, "U", "T", "H", n, NEGONE, ZERO, s, lds,
+                   (f64*)&dwork[kaw], nnw, &dwork[ku], n, &ierr);
+
+            // Eigendecomposition of X: X = Z*Sigma*Z'
+            ku = n;
+            SLC_DSYEV("V", "U", &n, s, &lds, dwork, &dwork[ku],
+                      &(i32){ldwork - n}, &ierr);
+            if (ierr > 0) {
+                *info = 3;
+                return;
+            }
+            work = work > (dwork[ku] + (f64)n) ? work : (dwork[ku] + (f64)n);
+
+            // Partition Sigma = (Sigma1, Sigma2) with Sigma1 <= 0, Sigma2 > 0
+            f64 abs_d1 = fabs(dwork[0]);
+            f64 abs_dn = fabs(dwork[n - 1]);
+            f64 tol = (abs_d1 > abs_dn ? abs_d1 : abs_dn) * SLC_DLAMCH("E");
+
+            // Form Bbar = [ Z2*sqrt(Sigma2) ]
+            i32 mbbar = 0;
+            i32 idx = ku;
+            for (i32 j = 0; j < n; j++) {
+                if (dwork[j] > tol) {
+                    mbbar++;
+                    f64 sqval = sqrt(dwork[j]);
+                    SLC_DSCAL(&n, &sqval, &s[j * lds], &int1);
+                    SLC_DCOPY(&n, &s[j * lds], &int1, &dwork[idx], &int1);
+                    idx += n;
+                }
+            }
+
+            // Solve Lyapunov for Cholesky factor S of P = S*S'
+            ktau = ku + mbbar * n;
+            kw = ktau + n;
+
+            sb03ou(discr, true, n, mbbar, a, lda, &dwork[ku], n,
+                   &dwork[ktau], s, lds, &t, &dwork[kw], ldwork - kw, &ierr);
+            if (ierr != 0) {
+                *info = 2;
+                return;
+            }
+            *scalec *= t;
+            work = work > (dwork[kw] + (f64)(kw)) ? work : (dwork[kw] + (f64)(kw));
         }
 
     } else {

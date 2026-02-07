@@ -7,7 +7,6 @@
 #ifndef SLICOT_BLAS_H
 #define SLICOT_BLAS_H
 
-#include "slicot_config.h"
 #include "slicot_types.h"
 #include <stdbool.h>
 
@@ -31,11 +30,9 @@
 extern "C" {
 #endif
 
-/* Symbol mangling macros - defined by Meson configuration */
+/* Symbol mangling macros - defined by CMake configuration */
 #ifndef SLC_FC_FUNC
-  #if defined(SLC_FC_SCIPY_OPENBLAS)
-    #define SLC_FC_FUNC(lc, UC) scipy_##lc##_
-  #elif defined(SLC_FC_LOWER_US)
+  #if defined(SLC_FC_LOWER_US)
     #define SLC_FC_FUNC(lc, UC) lc##_
   #elif defined(SLC_FC_LOWER)
     #define SLC_FC_FUNC(lc, UC) lc
@@ -196,6 +193,23 @@ void SLC_FC_FUNC(dgesvx, DGESVX)(const char* fact, const char* trans,
 void SLC_FC_FUNC(dgecon, DGECON)(const char* norm, const int* n, const f64* a,
                                   const int* lda, const f64* anorm, f64* rcond,
                                   f64* work, int* iwork, int* info);
+
+void SLC_FC_FUNC(dgeequ, DGEEQU)(const int* m, const int* n, const f64* a,
+                                  const int* lda, f64* r, f64* c,
+                                  f64* rowcnd, f64* colcnd, f64* amax,
+                                  int* info);
+
+void SLC_FC_FUNC(dgerfs, DGERFS)(const char* trans, const int* n, const int* nrhs,
+                                  const f64* a, const int* lda, const f64* af,
+                                  const int* ldaf, const int* ipiv, const f64* b,
+                                  const int* ldb, f64* x, const int* ldx,
+                                  f64* ferr, f64* berr, f64* work, int* iwork,
+                                  int* info);
+
+void SLC_FC_FUNC(dlaqge, DLAQGE)(const int* m, const int* n, f64* a,
+                                  const int* lda, const f64* r, const f64* c,
+                                  const f64* rowcnd, const f64* colcnd,
+                                  const f64* amax, char* equed);
 
 void SLC_FC_FUNC(dpotrf, DPOTRF)(const char* uplo, const int* n, f64* a,
                                   const int* lda, int* info);
@@ -990,6 +1004,8 @@ void SLC_FC_FUNC(ztgevc, ZTGEVC)(const char* side, const char* howmny,
                                   const int* mm, int* m, c128* work,
                                   f64* rwork, int* info);
 
+void SLC_FC_FUNC(dlasrt, DLASRT)(const char* id, const int* n, f64* d, int* info);
+
 #undef int
 
 /* Convenience macros for calling BLAS/LAPACK */
@@ -1028,6 +1044,9 @@ void SLC_FC_FUNC(ztgevc, ZTGEVC)(const char* side, const char* howmny,
 #define SLC_DGESV    SLC_FC_FUNC(dgesv, DGESV)
 #define SLC_DGESVX   SLC_FC_FUNC(dgesvx, DGESVX)
 #define SLC_DGECON   SLC_FC_FUNC(dgecon, DGECON)
+#define SLC_DGEEQU   SLC_FC_FUNC(dgeequ, DGEEQU)
+#define SLC_DGERFS   SLC_FC_FUNC(dgerfs, DGERFS)
+#define SLC_DLAQGE   SLC_FC_FUNC(dlaqge, DLAQGE)
 #define SLC_DPOTRF   SLC_FC_FUNC(dpotrf, DPOTRF)
 #define SLC_DPOSV    SLC_FC_FUNC(dposv, DPOSV)
 #define SLC_DPPTRF   SLC_FC_FUNC(dpptrf, DPPTRF)

@@ -225,6 +225,7 @@ void mb03bd(const char *job, const char *defl, const char *compq,
 
         // Test 2: Deflation in triangular matrices with index 1 (s[aind] == sinv)
         i32 ldef = 0;
+        i32 jdef_val = 0;
         for (i32 l = 1; l < k; l++) {
             i32 aind_l = iwork[mapa + l] - 1;
             if (s[aind_l] == sinv) {
@@ -251,6 +252,7 @@ void mb03bd(const char *job, const char *defl, const char *compq,
                     if (fabs(a[(jt - 1) + (jt - 1) * lda1 + aind_l * ldas]) <= tol) {
                         a[(jt - 1) + (jt - 1) * lda1 + aind_l * ldas] = ZERO;
                         ldef = l + 1;
+                        jdef_val = jt;
                         goto case_ii;
                     }
                 }
@@ -284,6 +286,7 @@ void mb03bd(const char *job, const char *defl, const char *compq,
                     if (fabs(a[(jt - 1) + (jt - 1) * lda1 + aind_l * ldas]) <= tol) {
                         a[(jt - 1) + (jt - 1) * lda1 + aind_l * ldas] = ZERO;
                         ldef = l + 1;
+                        jdef_val = jt;
                         goto case_iii;
                     }
                 }
@@ -1242,28 +1245,336 @@ void mb03bd(const char *job, const char *defl, const char *compq,
 
     case_iii:
         // Case III: Deflation in triangular matrix with index -1 (s[aind] != sinv)
-        // For now, just deflate the single eigenvalue at ilast
-        // TODO: Full implementation of zero chasing
         {
-            i32 jdef = ilast;
-            for (i32 jt = ilast; jt >= jlo; jt--) {
-                i32 aind_l = iwork[mapa + ldef - 1] - 1;
-                if (fabs(a[(jt - 1) + (jt - 1) * lda1 + aind_l * ldas]) <= tol) {
-                    jdef = jt;
-                    break;
+            i32 jdef = jdef_val;
+            i32 j_c3 = jdef;
+
+            if (jdef > (ilast - jlo + 1) / 2) {
+                // Chase the zero downwards to the last position
+                for (i32 j1 = jdef; j1 <= ilast - 1; j1++) {
+                    j_c3 = j1;
+                    aind = iwork[mapa + ldef - 1] - 1;
+                    f64 temp = a[(j_c3 - 1) + j_c3 * lda1 + aind * ldas];
+                    f64 cs_t, sn_t;
+                    SLC_DLARTG(&temp, &a[j_c3 + j_c3 * lda1 + aind * ldas], &cs_t, &sn_t,
+                               &a[(j_c3 - 1) + j_c3 * lda1 + aind * ldas]);
+                    a[j_c3 + j_c3 * lda1 + aind * ldas] = ZERO;
+                    i32 len = ilastm - j_c3 - 1;
+                    if (len > 0) {
+                        SLC_DROT(&len, &a[(j_c3 - 1) + (j_c3 + 1) * lda1 + aind * ldas], &lda1,
+                                 &a[j_c3 + (j_c3 + 1) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                    }
+                    i32 lm = ldef % k + 1;
+                    i32 qi = -1;
+                    if (lcmpq) {
+                        qi = iwork[mapq + lm - 1] - 1;
+                    } else if (lparq) {
+                        qi = qind[iwork[mapq + lm - 1] - 1];
+                        qi = (qi < 0 ? -qi : qi) - 1;
+                    }
+                    if (qi >= 0) {
+                        f64 *q_slice = q + qi * ldqs;
+                        SLC_DROT(&n, &q_slice[(j_c3 - 1) * ldq1], &(i32){1},
+                                 &q_slice[j_c3 * ldq1], &(i32){1}, &cs_t, &sn_t);
+                    }
+                    for (i32 lc = 1; lc <= k - 1; lc++) {
+                        aind = iwork[mapa + lm - 1] - 1;
+                        if (lm == 1) {
+                            // Hessenberg factor
+                            len = ilastm - j_c3 + 2;
+                            SLC_DROT(&len, &a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas], &lda1,
+                                     &a[j_c3 + (j_c3 - 2) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                            temp = a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas];
+                            f64 neg = -a[j_c3 + (j_c3 - 2) * lda1 + aind * ldas];
+                            SLC_DLARTG(&temp, &neg, &cs_t, &sn_t,
+                                       &a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas]);
+                            a[j_c3 + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                            len = j_c3 - ifrstm + 1;
+                            SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                                     &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                            j_c3 = j_c3 - 1;
+                        } else if (s[aind] == sinv) {
+                            len = ilastm - j_c3 + 1;
+                            SLC_DROT(&len, &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas], &lda1,
+                                     &a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                            temp = a[j_c3 + j_c3 * lda1 + aind * ldas];
+                            f64 neg = -a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas];
+                            SLC_DLARTG(&temp, &neg, &cs_t, &sn_t,
+                                       &a[j_c3 + j_c3 * lda1 + aind * ldas]);
+                            a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas] = ZERO;
+                            len = j_c3 - ifrstm + 1;
+                            SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1},
+                                     &a[(ifrstm - 1) + j_c3 * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                        } else {
+                            len = j_c3 - ifrstm + 2;
+                            SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1},
+                                     &a[(ifrstm - 1) + j_c3 * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                            temp = a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas];
+                            SLC_DLARTG(&temp, &a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas], &cs_t, &sn_t,
+                                       &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas]);
+                            a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas] = ZERO;
+                            len = ilastm - j_c3;
+                            if (len > 0) {
+                                SLC_DROT(&len, &a[(j_c3 - 1) + j_c3 * lda1 + aind * ldas], &lda1,
+                                         &a[j_c3 + j_c3 * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                            }
+                        }
+                        lm = lm % k + 1;
+                        qi = -1;
+                        if (lcmpq) {
+                            qi = iwork[mapq + lm - 1] - 1;
+                        } else if (lparq) {
+                            qi = qind[iwork[mapq + lm - 1] - 1];
+                            qi = (qi < 0 ? -qi : qi) - 1;
+                        }
+                        if (qi >= 0) {
+                            f64 *q_slice = q + qi * ldqs;
+                            SLC_DROT(&n, &q_slice[(j_c3 - 1) * ldq1], &(i32){1},
+                                     &q_slice[j_c3 * ldq1], &(i32){1}, &cs_t, &sn_t);
+                        }
+                    }
+                    aind = iwork[mapa + ldef - 1] - 1;
+                    i32 len2 = j_c3 - ifrstm + 1;
+                    SLC_DROT(&len2, &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1},
+                             &a[(ifrstm - 1) + j_c3 * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                }
+
+                // Deflate the last element in the Hessenberg matrix
+                aind = iwork[mapa] - 1;
+                j_c3 = ilast;
+                f64 temp = a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas];
+                f64 neg = -a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas];
+                f64 cs_t, sn_t;
+                SLC_DLARTG(&temp, &neg, &cs_t, &sn_t,
+                           &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas]);
+                a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                i32 len = j_c3 - ifrstm;
+                if (len > 0) {
+                    SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                             &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                }
+                i32 qi = -1;
+                if (lcmpq) {
+                    qi = iwork[mapq + 1] - 1;
+                } else if (lparq) {
+                    qi = qind[iwork[mapq + 1] - 1];
+                    qi = (qi < 0 ? -qi : qi) - 1;
+                }
+                if (qi >= 0) {
+                    f64 *q_slice = q + qi * ldqs;
+                    SLC_DROT(&n, &q_slice[(j_c3 - 2) * ldq1], &(i32){1},
+                             &q_slice[(j_c3 - 1) * ldq1], &(i32){1}, &cs_t, &sn_t);
+                }
+                for (i32 lc = 2; lc <= ldef - 1; lc++) {
+                    aind = iwork[mapa + lc - 1] - 1;
+                    if (s[aind] != sinv) {
+                        len = j_c3 + 1 - ifrstm;
+                        SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                                 &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                        temp = a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas];
+                        SLC_DLARTG(&temp, &a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas], &cs_t, &sn_t,
+                                   &a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas]);
+                        a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                        len = ilastm - j_c3 + 1;
+                        SLC_DROT(&len, &a[(j_c3 - 2) + (j_c3 - 1) * lda1 + aind * ldas], &lda1,
+                                 &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                    } else {
+                        len = ilastm - j_c3 + 2;
+                        SLC_DROT(&len, &a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas], &lda1,
+                                 &a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                        temp = a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas];
+                        neg = -a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas];
+                        SLC_DLARTG(&temp, &neg, &cs_t, &sn_t,
+                                   &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas]);
+                        a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                        len = j_c3 - ifrstm;
+                        if (len > 0) {
+                            SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                                     &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                        }
+                    }
+                    i32 lm = lc + 1;
+                    qi = -1;
+                    if (lcmpq) {
+                        qi = iwork[mapq + lm - 1] - 1;
+                    } else if (lparq) {
+                        qi = qind[iwork[mapq + lm - 1] - 1];
+                        qi = (qi < 0 ? -qi : qi) - 1;
+                    }
+                    if (qi >= 0) {
+                        f64 *q_slice = q + qi * ldqs;
+                        SLC_DROT(&n, &q_slice[(j_c3 - 2) * ldq1], &(i32){1},
+                                 &q_slice[(j_c3 - 1) * ldq1], &(i32){1}, &cs_t, &sn_t);
+                    }
+                }
+                aind = iwork[mapa + ldef - 1] - 1;
+                len = j_c3 + 1 - ifrstm;
+                SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                         &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+            } else {
+                // Chase the zero upwards to the first position
+                for (i32 j1 = jdef; j1 >= jlo + 1; j1--) {
+                    j_c3 = j1;
+                    aind = iwork[mapa + ldef - 1] - 1;
+                    f64 temp = a[(j_c3 - 2) + (j_c3 - 1) * lda1 + aind * ldas];
+                    f64 neg = -a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas];
+                    f64 cs_t, sn_t;
+                    SLC_DLARTG(&temp, &neg, &cs_t, &sn_t,
+                               &a[(j_c3 - 2) + (j_c3 - 1) * lda1 + aind * ldas]);
+                    a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                    i32 len = j_c3 - ifrstm - 1;
+                    if (len > 0) {
+                        SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                                 &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                    }
+                    i32 qi = -1;
+                    if (lcmpq) {
+                        qi = iwork[mapq + ldef - 1] - 1;
+                    } else if (lparq) {
+                        qi = qind[iwork[mapq + ldef - 1] - 1];
+                        qi = (qi < 0 ? -qi : qi) - 1;
+                    }
+                    if (qi >= 0) {
+                        f64 *q_slice = q + qi * ldqs;
+                        SLC_DROT(&n, &q_slice[(j_c3 - 2) * ldq1], &(i32){1},
+                                 &q_slice[(j_c3 - 1) * ldq1], &(i32){1}, &cs_t, &sn_t);
+                    }
+                    i32 lm = ldef - 1;
+                    for (i32 lc = 1; lc <= k - 1; lc++) {
+                        aind = iwork[mapa + lm - 1] - 1;
+                        if (lm == 1) {
+                            // Hessenberg factor
+                            len = j_c3 - ifrstm + 2;
+                            SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                                     &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                            temp = a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas];
+                            SLC_DLARTG(&temp, &a[j_c3 + (j_c3 - 2) * lda1 + aind * ldas], &cs_t, &sn_t,
+                                       &a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas]);
+                            a[j_c3 + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                            len = ilastm - j_c3 + 1;
+                            SLC_DROT(&len, &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas], &lda1,
+                                     &a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                            j_c3 = j_c3 + 1;
+                        } else if (s[aind] != sinv) {
+                            len = ilastm - j_c3 + 2;
+                            SLC_DROT(&len, &a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas], &lda1,
+                                     &a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                            temp = a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas];
+                            neg = -a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas];
+                            SLC_DLARTG(&temp, &neg, &cs_t, &sn_t,
+                                       &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas]);
+                            a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                            len = j_c3 - ifrstm;
+                            if (len > 0) {
+                                SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                                         &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                            }
+                        } else {
+                            len = j_c3 - ifrstm + 1;
+                            SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 2) * lda1 + aind * ldas], &(i32){1},
+                                     &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                            temp = a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas];
+                            SLC_DLARTG(&temp, &a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas], &cs_t, &sn_t,
+                                       &a[(j_c3 - 2) + (j_c3 - 2) * lda1 + aind * ldas]);
+                            a[(j_c3 - 1) + (j_c3 - 2) * lda1 + aind * ldas] = ZERO;
+                            len = ilastm - j_c3 + 1;
+                            SLC_DROT(&len, &a[(j_c3 - 2) + (j_c3 - 1) * lda1 + aind * ldas], &lda1,
+                                     &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                        }
+                        qi = -1;
+                        if (lcmpq) {
+                            qi = iwork[mapq + lm - 1] - 1;
+                        } else if (lparq) {
+                            qi = qind[iwork[mapq + lm - 1] - 1];
+                            qi = (qi < 0 ? -qi : qi) - 1;
+                        }
+                        if (qi >= 0) {
+                            f64 *q_slice = q + qi * ldqs;
+                            SLC_DROT(&n, &q_slice[(j_c3 - 2) * ldq1], &(i32){1},
+                                     &q_slice[(j_c3 - 1) * ldq1], &(i32){1}, &cs_t, &sn_t);
+                        }
+                        lm = lm - 1;
+                        if (lm <= 0) lm = k;
+                    }
+                    aind = iwork[mapa + ldef - 1] - 1;
+                    len = ilastm - j_c3 + 1;
+                    SLC_DROT(&len, &a[(j_c3 - 2) + (j_c3 - 1) * lda1 + aind * ldas], &lda1,
+                             &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                }
+
+                // Deflate the first element in the Hessenberg matrix
+                aind = iwork[mapa] - 1;
+                j_c3 = jlo;
+                f64 temp = a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas];
+                f64 cs_t, sn_t;
+                SLC_DLARTG(&temp, &a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas], &cs_t, &sn_t,
+                           &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas]);
+                a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas] = ZERO;
+                i32 len = ilastm - j_c3;
+                if (len > 0) {
+                    SLC_DROT(&len, &a[(j_c3 - 1) + j_c3 * lda1 + aind * ldas], &lda1,
+                             &a[j_c3 + j_c3 * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                }
+                i32 qi = -1;
+                if (lcmpq) {
+                    qi = iwork[mapq] - 1;
+                } else if (lparq) {
+                    qi = qind[iwork[mapq] - 1];
+                    qi = (qi < 0 ? -qi : qi) - 1;
+                }
+                if (qi >= 0) {
+                    f64 *q_slice = q + qi * ldqs;
+                    SLC_DROT(&n, &q_slice[(j_c3 - 1) * ldq1], &(i32){1},
+                             &q_slice[j_c3 * ldq1], &(i32){1}, &cs_t, &sn_t);
+                }
+                for (i32 lc = k; lc >= ldef + 1; lc--) {
+                    aind = iwork[mapa + lc - 1] - 1;
+                    if (s[aind] == sinv) {
+                        len = j_c3 + 2 - ifrstm;
+                        SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1},
+                                 &a[(ifrstm - 1) + j_c3 * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                        temp = a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas];
+                        SLC_DLARTG(&temp, &a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas], &cs_t, &sn_t,
+                                   &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas]);
+                        a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas] = ZERO;
+                        len = ilastm - j_c3;
+                        if (len > 0) {
+                            SLC_DROT(&len, &a[(j_c3 - 1) + j_c3 * lda1 + aind * ldas], &lda1,
+                                     &a[j_c3 + j_c3 * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                        }
+                    } else {
+                        len = ilastm - j_c3 + 1;
+                        SLC_DROT(&len, &a[(j_c3 - 1) + (j_c3 - 1) * lda1 + aind * ldas], &lda1,
+                                 &a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
+                        temp = a[j_c3 + j_c3 * lda1 + aind * ldas];
+                        f64 neg = -a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas];
+                        SLC_DLARTG(&temp, &neg, &cs_t, &sn_t,
+                                   &a[j_c3 + j_c3 * lda1 + aind * ldas]);
+                        a[j_c3 + (j_c3 - 1) * lda1 + aind * ldas] = ZERO;
+                        len = j_c3 + 1 - ifrstm;
+                        SLC_DROT(&len, &a[(ifrstm - 1) + (j_c3 - 1) * lda1 + aind * ldas], &(i32){1},
+                                 &a[(ifrstm - 1) + j_c3 * lda1 + aind * ldas], &(i32){1}, &cs_t, &sn_t);
+                    }
+                    qi = -1;
+                    if (lcmpq) {
+                        qi = iwork[mapq + lc - 1] - 1;
+                    } else if (lparq) {
+                        qi = qind[iwork[mapq + lc - 1] - 1];
+                        qi = (qi < 0 ? -qi : qi) - 1;
+                    }
+                    if (qi >= 0) {
+                        f64 *q_slice = q + qi * ldqs;
+                        SLC_DROT(&n, &q_slice[(j_c3 - 1) * ldq1], &(i32){1},
+                                 &q_slice[j_c3 * ldq1], &(i32){1}, &cs_t, &sn_t);
+                    }
+                }
+                aind = iwork[mapa + ldef - 1] - 1;
+                len = ilastm - j_c3;
+                if (len > 0) {
+                    SLC_DROT(&len, &a[(j_c3 - 1) + j_c3 * lda1 + aind * ldas], &lda1,
+                             &a[j_c3 + j_c3 * lda1 + aind * ldas], &lda1, &cs_t, &sn_t);
                 }
             }
-            // Simple fallback: compute eigenvalue at deflated position
-            ma01bd(base, lgbas, k, s, &a[(jdef - 1) + (jdef - 1) * lda1], ldas,
-                   &alphar[jdef - 1], &beta[jdef - 1], &scal[jdef - 1]);
-            alphai[jdef - 1] = ZERO;
-            if (jdef == ilast) {
-                ilast--;
-                if (ilast < ilo) {
-                    goto converged;
-                }
-            }
-            iiter = 0;
         }
         continue;
 

@@ -386,3 +386,64 @@ def test_mb04rb_matches_mb04ru():
     eig_after_sorted = np.sort(eig_after.real)
 
     np.testing.assert_allclose(eig_original_sorted, eig_after_sorted, rtol=1e-10, atol=1e-12)
+
+
+def _make_skew_hamiltonian_test(n, seed):
+    """Helper: create random skew-Hamiltonian and verify eigenvalue preservation."""
+    np.random.seed(seed)
+    a = np.random.randn(n, n).astype(float, order='F')
+    qg = np.zeros((n, n + 1), order='F', dtype=float)
+
+    for j in range(n):
+        for ii in range(j + 1, n):
+            qg[ii, j] = np.random.randn()
+    for j in range(1, n + 1):
+        for ii in range(j - 1):
+            qg[ii, j] = np.random.randn()
+
+    q_lower = qg[:, :n].copy()
+    g_upper = qg[:, 1:].copy()
+    w_before = build_skew_hamiltonian(a.copy(), q_lower, g_upper)
+    eig_before = np.sort(np.linalg.eigvals(w_before).real)
+
+    a_out, qg_out, cs, tau, info = mb04rb(n, 1, a.copy(), qg.copy())
+    assert info == 0
+
+    a_hess = a_out.copy()
+    for j in range(n - 2):
+        for ii in range(j + 2, n):
+            a_hess[ii, j] = 0.0
+
+    g_out_upper = qg_out[:, 1:].copy()
+    g_out = np.triu(g_out_upper, 1) - np.triu(g_out_upper, 1).T
+
+    w_after = np.zeros((2 * n, 2 * n), dtype=float, order='F')
+    w_after[:n, :n] = a_hess
+    w_after[n:, n:] = a_hess.T
+    w_after[:n, n:] = g_out
+
+    eig_after = np.sort(np.linalg.eigvals(w_after).real)
+
+    np.testing.assert_allclose(eig_before, eig_after, rtol=1e-10, atol=1e-12)
+
+    for ii in range(n - 1):
+        c = cs[2 * ii]
+        s = cs[2 * ii + 1]
+        np.testing.assert_allclose(c * c + s * s, 1.0, rtol=1e-14)
+
+
+@pytest.mark.parametrize("n", [12, 16, 20])
+def test_mb04rb_eigenvalue_preservation_large(n):
+    """Eigenvalue preservation for larger matrices exercising blocked path.
+
+    Random seed: 600 + n (for reproducibility)
+    """
+    _make_skew_hamiltonian_test(n, 600 + n)
+
+
+def test_mb04rb_eigenvalue_preservation_n10():
+    """Eigenvalue preservation for n=10.
+
+    Random seed: 700 (for reproducibility)
+    """
+    _make_skew_hamiltonian_test(10, 700)

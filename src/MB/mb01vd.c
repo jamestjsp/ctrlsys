@@ -8,6 +8,7 @@ void mb01vd(const char *trana, const char *tranb, i32 ma, i32 na, i32 mb, i32 nb
 {
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
+    const f64 SPARST = 0.8;
 
     bool transa = (trana[0] == 'T' || trana[0] == 't' || trana[0] == 'C' || trana[0] == 'c');
     bool transb = (tranb[0] == 'T' || tranb[0] == 't' || tranb[0] == 'C' || tranb[0] == 'c');
@@ -55,78 +56,818 @@ void mb01vd(const char *trana, const char *tranb, i32 ma, i32 na, i32 mb, i32 nb
         return;
     }
 
+    f64 dum = ZERO;
+    i32 nz = 0;
+    i32 int1 = 1;
+    i32 int0 = 0;
+
+    for (i32 j = 0; j < na; j++) {
+        for (i32 i = 0; i < ma; i++) {
+            f64 aij = transa ? a[j + i * lda] : a[i + j * lda];
+            if (aij == ZERO) nz++;
+        }
+    }
+    bool sparse = (f64)nz / (f64)(ma * na) >= SPARST;
+
     i32 jc = 0;
 
     if (!transa && !transb) {
-        for (i32 j = 0; j < na; j++) {
-            for (i32 k = 0; k < nb; k++) {
-                i32 ic = 0;
-                for (i32 i = 0; i < ma; i++) {
-                    f64 aij = alpha * a[i + j * lda];
-                    for (i32 l = 0; l < mb; l++) {
-                        if (beta == ZERO) {
-                            c[ic + l + jc * ldc] = aij * b[l + k * ldb];
-                        } else {
-                            c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+
+        if (beta == ZERO) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else if (aij == ONE) {
+                                    SLC_DCOPY(&mb, &b[k * ldb], &int1, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
                         }
                     }
-                    ic += mb;
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
                 }
-                jc++;
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else if (beta == ONE) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
             }
         }
+
     } else if (transa && !transb) {
-        for (i32 j = 0; j < na; j++) {
-            for (i32 k = 0; k < nb; k++) {
-                i32 ic = 0;
-                for (i32 i = 0; i < ma; i++) {
-                    f64 aij = alpha * a[j + i * lda];
-                    for (i32 l = 0; l < mb; l++) {
-                        if (beta == ZERO) {
-                            c[ic + l + jc * ldc] = aij * b[l + k * ldb];
-                        } else {
-                            c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+
+        if (beta == ZERO) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else if (aij == ONE) {
+                                    SLC_DCOPY(&mb, &b[k * ldb], &int1, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
                         }
                     }
-                    ic += mb;
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
                 }
-                jc++;
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else if (beta == ONE) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[l + k * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
             }
         }
+
     } else if (!transa && transb) {
-        for (i32 j = 0; j < na; j++) {
-            for (i32 k = 0; k < nb; k++) {
-                i32 ic = 0;
-                for (i32 i = 0; i < ma; i++) {
-                    f64 aij = alpha * a[i + j * lda];
-                    for (i32 l = 0; l < mb; l++) {
-                        if (beta == ZERO) {
-                            c[ic + l + jc * ldc] = aij * b[k + l * ldb];
-                        } else {
-                            c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+
+        if (beta == ZERO) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else if (aij == ONE) {
+                                    SLC_DCOPY(&mb, &b[k + 0 * ldb], &ldb, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
                         }
                     }
-                    ic += mb;
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
                 }
-                jc++;
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else if (beta == ONE) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[i + j * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
             }
         }
+
     } else {
-        for (i32 j = 0; j < na; j++) {
-            for (i32 k = 0; k < nb; k++) {
-                i32 ic = 0;
-                for (i32 i = 0; i < ma; i++) {
-                    f64 aij = alpha * a[j + i * lda];
-                    for (i32 l = 0; l < mb; l++) {
-                        if (beta == ZERO) {
-                            c[ic + l + jc * ldc] = aij * b[k + l * ldb];
-                        } else {
-                            c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+
+        if (beta == ZERO) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else if (aij == ONE) {
+                                    SLC_DCOPY(&mb, &b[k + 0 * ldb], &ldb, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
                         }
                     }
-                    ic += mb;
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
                 }
-                jc++;
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DCOPY(&mb, &dum, &int0, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else if (beta == ONE) {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                if (aij != ZERO) {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] += aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            }
+        } else {
+            if (alpha == ONE) {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
+            } else {
+                if (sparse) {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                if (aij == ZERO) {
+                                    SLC_DSCAL(&mb, &beta, &c[ic + jc * ldc], &int1);
+                                } else {
+                                    for (i32 l = 0; l < mb; l++)
+                                        c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                }
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                } else {
+                    for (i32 j = 0; j < na; j++) {
+                        for (i32 k = 0; k < nb; k++) {
+                            i32 ic = 0;
+                            for (i32 i = 0; i < ma; i++) {
+                                f64 aij = alpha * a[j + i * lda];
+                                for (i32 l = 0; l < mb; l++)
+                                    c[ic + l + jc * ldc] = beta * c[ic + l + jc * ldc] + aij * b[k + l * ldb];
+                                ic += mb;
+                            }
+                            jc++;
+                        }
+                    }
+                }
             }
         }
     }

@@ -188,7 +188,7 @@ void mb03yd(bool wantt, bool wantq, bool wantz, i32 n, i32 ilo, i32 ihi,
 
                 v[0] = ONE;
                 i32 len_rows = ((k + 2 < i) ? (k + 2) : i) - i1 + 1;
-                SLC_DLARFX("R", &len_rows, &nr, v, &tauv, &a[i1 + k * lda], &lda, dwork);
+                SLC_DLARFX("R", &len_rows, &nr, v, &tauv, &b[i1 + k * ldb], &ldb, dwork);
 
                 for (i32 ii = 0; ii < nr; ii++) {
                     w[ii] = b[k + ii + k * ldb];

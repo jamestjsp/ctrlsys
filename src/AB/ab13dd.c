@@ -280,6 +280,40 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
         maxwrk = max_i32((i32)dwork[iwrk] + iwrk, maxwrk);
 
         if (ilascl) {
+            for (i32 i = 0; i < n; i++) {
+                if (dwork[ii_local + i] != zero) {
+                    if ((dwork[ir + i] / safmax) > (anrmto / anrm) ||
+                        (safmin / dwork[ir + i]) > (anrm / anrmto)) {
+                        f64 tm = fabs(dwork[ia + i * n + i + 1] / dwork[ir + i]);
+                        dwork[ibt + i] *= tm;
+                        dwork[ir + i] *= tm;
+                        dwork[ii_local + i] *= tm;
+                    } else if ((dwork[ii_local + i] / safmax) > (anrmto / anrm) ||
+                               (safmin / dwork[ii_local + i]) > (anrm / anrmto)) {
+                        f64 tm = fabs(dwork[ia + (i + 1) * (n + 1)] / dwork[ii_local + i]);
+                        dwork[ibt + i] *= tm;
+                        dwork[ir + i] *= tm;
+                        dwork[ii_local + i] *= tm;
+                    }
+                }
+            }
+        }
+
+        if (ilescl) {
+            for (i32 i = 0; i < n; i++) {
+                if (dwork[ii_local + i] != zero) {
+                    if ((dwork[ibt + i] / safmax) > (enrmto / enrm) ||
+                        (safmin / dwork[ibt + i]) > (enrm / enrmto)) {
+                        f64 tm = fabs(dwork[ie + i * n + i + 1] / dwork[ibt + i]);
+                        dwork[ibt + i] *= tm;
+                        dwork[ir + i] *= tm;
+                        dwork[ii_local + i] *= tm;
+                    }
+                }
+            }
+        }
+
+        if (ilascl) {
             SLC_DLASCL("H", &(i32){0}, &(i32){0}, &anrmto, &anrm, &n, &n,
                        &dwork[ia], &n, &ierr);
             SLC_DLASCL("G", &(i32){0}, &(i32){0}, &anrmto, &anrm, &n, &one_i,
@@ -594,17 +628,21 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
         gamma = (one + tol) * gammal;
         usepen = fulle || discr;
 
+        bool use_withd = false;
         if (!usepen && withd) {
-            f64 rcond_val;
-            if (m != p) {
-                rcond_val = one - (dwork[is] / gamma) * (dwork[is] / gamma);
-            } else if (minpm > 1) {
-                rcond_val = (gamma * gamma - dwork[is] * dwork[is]) /
-                            (gamma * gamma - dwork[is + p - 1] * dwork[is + p - 1]);
-            } else {
-                rcond_val = gamma * gamma - dwork[is] * dwork[is];
+            if (dwork[is] > eps * gamma) {
+                f64 rcond_val;
+                if (m != p) {
+                    rcond_val = one - (dwork[is] / gamma) * (dwork[is] / gamma);
+                } else if (minpm > 1) {
+                    rcond_val = (gamma * gamma - dwork[is] * dwork[is]) /
+                                (gamma * gamma - dwork[is + p - 1] * dwork[is + p - 1]);
+                } else {
+                    rcond_val = gamma * gamma - dwork[is] * dwork[is];
+                }
+                usepen = (rcond_val < rtol);
+                if (!usepen) use_withd = true;
             }
-            usepen = (rcond_val < rtol);
         }
 
         if (usepen) {
@@ -899,52 +937,36 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 gpeak[1] = one;
                 goto done;
             }
-        } else if (!withd) {
-            f64 *qg = &dwork[iwrk];
-            i32 ldqg = n;
-            i32 nqg = n + 1;
+        } else if (!withd || !use_withd) {
+            i32 ih = ibt;
+            i32 ih12 = ih + nn;
+            i32 isl_nwd = ih12 + nn + n;
 
-            for (i32 j = 0; j < n; j++) {
-                for (i32 i = 0; i < n; i++) {
-                    qg[i + j * ldqg] = zero;
-                }
-            }
-            for (i32 j = 0; j < n; j++) {
-                qg[j + n * ldqg] = zero;
-            }
+            SLC_DLACPY("F", &n, &n, a, &lda, &dwork[ih], &n);
 
-            f64 *bbt = &dwork[iwrk + n * nqg];
-            f64 *cct = &dwork[iwrk + n * nqg + nn];
+            f64 neg_inv_gamma = -one / gamma;
+            f64 pos_inv_gamma = one / gamma;
+            f64 zero_d = 0.0;
+            SLC_DSYRK("L", "T", &n, &p, &neg_inv_gamma, c, &ldc,
+                      &zero_d, &dwork[ih12], &n);
+            SLC_DSYRK("U", "N", &n, &m, &pos_inv_gamma, b, &ldb,
+                      &zero_d, &dwork[ih12 + n], &n);
 
-            f64 one_d = 1.0, zero_d = 0.0;
-            SLC_DSYRK("L", "N", &n, &m, &one_d, b, &ldb, &zero_d, bbt, &n);
-            SLC_DSYRK("L", "T", &n, &p, &one_d, c, &ldc, &zero_d, cct, &n);
-
-            for (i32 j = 0; j < n; j++) {
-                for (i32 i = j; i < n; i++) {
-                    qg[i + j * ldqg] = -cct[i + j * n] / gamma;
-                    qg[j + (n + i) * ldqg] = bbt[i + j * n] / gamma;
-                }
-            }
-
-            i32 iwrk2 = iwrk + n * nqg + 2 * nn;
-            f64 *t_work = &dwork[iwrk2];
+            iwrk = isl_nwd + nn;
             i32 ldt_work = (n > 1) ? n : 1;
-            iwrk2 += nn;
-            f64 *scale_arr = &dwork[iwrk2];
-            iwrk2 += n;
             f64 *wr = &dwork[ir];
             f64 *wi = &dwork[ii_local];
 
-            mb03xd("B", "E", "N", "N", n, &dwork[ia], n, qg, ldqg,
-                   t_work, ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
-                   wr, wi, &ilo, scale_arr,
-                   &dwork[iwrk2], ldwork - iwrk2, &ierr);
+            mb03xd("B", "E", "N", "N", n, &dwork[ih], n, &dwork[ih12], n,
+                   &dwork[isl_nwd], ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
+                   wr, wi, &ilo, &dwork[iwrk],
+                   &dwork[iwrk + n], ldwork - iwrk - n, &ierr);
 
             if (ierr > 0) {
                 usepen = true;
                 continue;
             }
+            maxwrk = max_i32((i32)dwork[iwrk] + iwrk + n - 1, maxwrk);
 
             wmax = zero;
             for (i32 i = 0; i < n; i++) {
@@ -1050,75 +1072,70 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 goto done;
             }
         } else {
-            f64 *bv = &dwork[ibv];
-            f64 *cu = &dwork[icu];
+            i32 ih = ibt;
+            i32 ih12 = ih + nn;
+            i32 isl = ih12 + nn + n;
 
-            i32 iwrk2 = iwrk;
-            f64 *h11 = &dwork[iwrk2];
-            i32 ldh = n2;
-            iwrk2 += 4 * nn;
-            f64 *qg = &dwork[iwrk2];
-            i32 ldqg = n2;
-            iwrk2 += n2 * (n2 + 1);
-
-            for (i32 j = 0; j < n2; j++) {
-                for (i32 i = 0; i < n2; i++) {
-                    h11[i + j * ldh] = zero;
-                }
+            for (i32 i = 0; i < minpm; i++) {
+                dwork[isl + i] = one / sqrt(gamma * gamma - dwork[is + i] * dwork[is + i]);
             }
-            for (i32 j = 0; j <= n2; j++) {
-                for (i32 i = 0; i < n2; i++) {
-                    qg[i + j * ldqg] = zero;
+
+            if (m < p) {
+                dwork[isl + m] = one / gamma;
+                for (i32 i = 0; i < p - m - 1; i++) {
+                    dwork[isl + m + 1 + i] = dwork[isl + m];
                 }
             }
 
-            for (i32 i = 0; i < n; i++) {
-                for (i32 j = 0; j < n; j++) {
-                    h11[i + j * ldh] = dwork[ia + i + j * n];
-                    h11[(n + i) + (n + j) * ldh] = -dwork[ia + j + i * n];
+            i32 isc = isl + max_i32(m, p);
+            SLC_DLACPY("F", &n, &p, &dwork[icu], &n, &dwork[isc], &n);
+            mb01sd('C', n, p, &dwork[isc], n, dwork, &dwork[isl]);
+
+            i32 isb = isc + p * n;
+            SLC_DLACPY("F", &n, &m, &dwork[ibv], &n, &dwork[isb], &n);
+            mb01sd('C', n, minpm, &dwork[isb], n, dwork, &dwork[is]);
+
+            mb01sd('C', n, minpm, &dwork[isb], n, dwork, &dwork[isl]);
+
+            f64 one_d = 1.0, zero_d = 0.0;
+            SLC_DLACPY("F", &n, &n, a, &lda, &dwork[ih], &n);
+            SLC_DGEMM("N", "T", &n, &n, &minpm, &one_d,
+                      &dwork[isb], &n, &dwork[isc], &n, &one_d,
+                      &dwork[ih], &n);
+
+            if (p < m) {
+                dwork[isl + p] = one / gamma;
+                for (i32 i = 0; i < m - p - 1; i++) {
+                    dwork[isl + p + 1 + i] = dwork[isl + p];
                 }
             }
+            SLC_DLACPY("F", &n, &m, &dwork[ibv], &n, &dwork[isb], &n);
+            mb01sd('C', n, m, &dwork[isb], n, dwork, &dwork[isl]);
 
-            f64 g2 = gamma * gamma;
-            f64 factor;
+            f64 mgamma = -gamma;
+            SLC_DSYRK("L", "N", &n, &p, &mgamma, &dwork[isc], &n,
+                      &zero_d, &dwork[ih12], &n);
+            SLC_DSYRK("U", "N", &n, &m, &gamma, &dwork[isb], &n,
+                      &zero_d, &dwork[ih12 + n], &n);
 
-            for (i32 k = 0; k < minpm; k++) {
-                f64 sk = dwork[is + k];
-                factor = sk / (g2 - sk * sk);
-                for (i32 i = 0; i < n; i++) {
-                    for (i32 j = i; j < n; j++) {
-                        f64 val = factor * bv[i + k * n] * bv[j + k * n];
-                        qg[j + (n + i) * ldqg] += val;
-                    }
-                }
-                for (i32 i = 0; i < n; i++) {
-                    for (i32 j = i; j < n; j++) {
-                        f64 val = factor * cu[i + k * n] * cu[j + k * n];
-                        qg[i + j * ldqg] -= val;
-                    }
-                }
-            }
-
-            f64 *t_work = &dwork[iwrk2];
-            i32 ldt_work = (n2 > 1) ? n2 : 1;
-            iwrk2 += n2 * n2;
-            f64 *scale_arr2 = &dwork[iwrk2];
-            iwrk2 += n2;
+            iwrk = isl + nn;
+            i32 ldt_work = (n > 1) ? n : 1;
             f64 *wr = &dwork[ir];
             f64 *wi = &dwork[ii_local];
 
-            mb03xd("B", "E", "N", "N", n2, h11, ldh, qg, ldqg,
-                   t_work, ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
-                   wr, wi, &ilo, scale_arr2,
-                   &dwork[iwrk2], ldwork - iwrk2, &ierr);
+            mb03xd("B", "E", "N", "N", n, &dwork[ih], n, &dwork[ih12], n,
+                   &dwork[isl], ldt_work, NULL, 1, NULL, 1, NULL, 1, NULL, 1,
+                   wr, wi, &ilo, &dwork[iwrk],
+                   &dwork[iwrk + n], ldwork - iwrk - n, &ierr);
 
             if (ierr > 0) {
                 usepen = true;
                 continue;
             }
+            maxwrk = max_i32((i32)dwork[iwrk] + iwrk + n - 1, maxwrk);
 
             wmax = zero;
-            for (i32 i = 0; i < n2; i++) {
+            for (i32 i = 0; i < n; i++) {
                 f64 tm = hypot(wr[i], wi[i]);
                 wmax = max_f64(wmax, tm);
             }
@@ -1126,7 +1143,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
             i32 nei = 0;
             f64 tol_thresh = toler * sqrt(hundrd + wmax);
 
-            for (i32 i = 0; i < n2; i++) {
+            for (i32 i = 0; i < n; i++) {
                 f64 tm = fabs(wr[i]);
                 if (tm <= tol_thresh) {
                     wr[nei] = wr[i];
@@ -1185,7 +1202,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 }
             }
 
-            i32 iwrk3 = iwrk + lw;
+            iwrk = ir + lw;
             f64 gammas = gammal;
 
             for (i32 i = 0; i < lw - 1; i++) {
@@ -1194,10 +1211,10 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 f64 test_gamma = ab13dx(dico, jobe, jobd, n, m, p, omega,
                                         &dwork[ia], n, &dwork[ie], n,
                                         &dwork[ib_local], n, &dwork[ic_local], p,
-                                        &dwork[id], p, iwork, &dwork[iwrk3],
-                                        ldwork - iwrk3, cwork, lcwork, &ierr);
+                                        &dwork[id], p, iwork, &dwork[iwrk],
+                                        ldwork - iwrk, cwork, lcwork, &ierr);
                 maxcwk = max_i32((i32)creal(cwork[0]), maxcwk);
-                maxwrk = max_i32((i32)dwork[iwrk3] + iwrk3, maxwrk);
+                maxwrk = max_i32((i32)dwork[iwrk] + iwrk, maxwrk);
                 if (ierr >= 1 && ierr <= n) {
                     gpeak[0] = one;
                     fpeak[0] = omega;

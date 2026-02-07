@@ -8548,7 +8548,6 @@ PyObject* py_ab13hd(PyObject* self, PyObject* args) {
     i32 minpm = (p < m) ? p : m;
     i32 maxpm = (p > m) ? p : m;
     i32 pm = p + m;
-    i32 nn = n * n;
 
     i32 liwork;
     if (minpm == 0 || n == 0) {
@@ -8562,11 +8561,32 @@ PyObject* py_ab13hd(PyObject* self, PyObject* args) {
     }
     liwork = (liwork > 1) ? liwork : 1;
 
-    i32 ldwork = 15 * nn + p * p + m * m + (6 * n + 3) * (p + m) + 4 * p * m + n * m + 22 * n + 7 * minpm;
-    if (ldwork < 1) ldwork = 1;
+    i32 query_sz = (n > 2) ? n : 2;
+    f64 *dwork_query = (f64*)calloc(query_sz, sizeof(f64));
+    c128 *zwork_query = (c128*)calloc(2, sizeof(c128));
+    if (dwork_query == NULL || zwork_query == NULL) {
+        if (dwork_query) free(dwork_query);
+        if (zwork_query) free(zwork_query);
+        Py_DECREF(fpeak_array); Py_DECREF(a_array); Py_DECREF(e_array);
+        Py_DECREF(b_array); Py_DECREF(c_array); Py_DECREF(d_array);
+        Py_DECREF(tol_array);
+        PyErr_NoMemory();
+        return NULL;
+    }
+    i32 info_query = 0;
+    i32 nr_query = n;
+    i32 iwarn_query = 0;
+    ab13hd(dico, jobe, equil, jobd, ckprop, reduce, poles,
+           n, m, p, ranke, fpeak_data, a_data, lda, e_data, lde,
+           b_data, ldb, c_data, ldc, d_data, ldd, &nr_query, gpeak, tol_data,
+           NULL, dwork_query, -1, zwork_query, -1, NULL, &iwarn_query, &info_query);
 
-    i32 lzwork = (n + m) * (n + p) + 2 * minpm + maxpm;
+    i32 ldwork = (i32)dwork_query[0];
+    if (ldwork < 1) ldwork = 1;
+    i32 lzwork = (i32)creal(zwork_query[0]);
     if (lzwork < 1) lzwork = 1;
+    free(dwork_query);
+    free(zwork_query);
 
     i32 *iwork = (i32*)PyMem_Calloc(liwork, sizeof(i32));
     f64 *dwork = (f64*)calloc(ldwork, sizeof(f64));
@@ -8589,6 +8609,7 @@ PyObject* py_ab13hd(PyObject* self, PyObject* args) {
         return NULL;
     }
 
+    nr = n;
     ab13hd(dico, jobe, equil, jobd, ckprop, reduce, poles,
            n, m, p, ranke, fpeak_data, a_data, lda, e_data, lde,
            b_data, ldb, c_data, ldc, d_data, ldd, &nr, gpeak, tol_data,

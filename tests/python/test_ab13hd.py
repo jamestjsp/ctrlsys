@@ -125,7 +125,7 @@ def test_ab13hd_descriptor():
     """
     Test AB13HD with general descriptor system (JOBE='G').
 
-    Note: JOBE='G' not yet implemented in C translation - returns info=-2.
+    G(s) = C*(s*E-A)^(-1)*B with E near-identity, A stable diagonal.
     Random seed: 456 (for reproducibility)
     """
     from slicot import ab13hd
@@ -155,11 +155,12 @@ def test_ab13hd_descriptor():
         n, m, p, n, fpeak, a, e, b, c, d, tol
     )
 
-    assert info == -2
+    assert info >= 0
+    assert gpeak[0] > 0
 
 
 def test_ab13hd_n0():
-    """Test AB13HD with n=0 (quick return). Returns gpeak=0."""
+    """Test AB13HD with n=0 (quick return). G(s)=D, norm=sigma_max(D)."""
     from slicot import ab13hd
 
     n, m, p = 0, 1, 1
@@ -179,7 +180,7 @@ def test_ab13hd_n0():
     )
 
     assert info == 0
-    np.testing.assert_allclose(gpeak[0], 0.0, atol=1e-14)
+    np.testing.assert_allclose(gpeak[0], 1.0, atol=1e-14)
 
 
 def test_ab13hd_m0_p0():
@@ -334,7 +335,6 @@ def test_ab13hd_compressed_e():
     """
     Test AB13HD with compressed descriptor matrix (JOBE='C').
 
-    Note: JOBE='C' not yet implemented in C translation - returns info=-2.
     Random seed: 777 (for reproducibility)
     """
     from slicot import ab13hd
@@ -366,7 +366,8 @@ def test_ab13hd_compressed_e():
         n, m, p, ranke, fpeak, a, e, b, c, d, tol
     )
 
-    assert info == -2
+    assert info >= 0
+    assert gpeak[0] > 0
 
 
 def test_ab13hd_hinf_norm_mimo():
@@ -407,3 +408,120 @@ def test_ab13hd_hinf_norm_mimo():
     assert info >= 0
     assert gpeak[0] > 0
     assert gpeak[1] >= 0
+
+
+def test_ab13hd_continuous_frequency_validation():
+    """
+    Validate H-inf norm by computing sigma_max(G(j*w)) at peak frequency.
+
+    Random seed: 100 (for reproducibility)
+    """
+    from slicot import ab13hd
+
+    np.random.seed(100)
+    n, m, p = 3, 1, 1
+
+    a = np.array([
+        [-1.0, 0.5, 0.0],
+        [0.0, -2.0, 0.3],
+        [0.0, 0.0, -3.0]
+    ], order='F', dtype=float)
+
+    e = np.eye(n, order='F', dtype=float)
+    b = np.array([[1.0], [0.5], [0.2]], order='F', dtype=float)
+    c = np.array([[1.0, 0.5, 0.3]], order='F', dtype=float)
+    d = np.array([[0.0]], order='F', dtype=float)
+
+    fpeak = np.array([0.0, 1.0], order='F', dtype=float)
+    tol = np.array([1e-10, -1.0], order='F', dtype=float)
+
+    gpeak, fpeak_out, nr, iwarn, info = ab13hd(
+        'C', 'I', 'N', 'Z', 'N', 'N', 'A',
+        n, m, p, 0, fpeak, a, e, b, c, d, tol
+    )
+
+    assert info == 0
+    omega_peak = fpeak_out[0] / fpeak_out[1]
+    G_peak = c @ np.linalg.solve(1j * omega_peak * e - a, b) + d
+    sigma_peak = np.linalg.svd(G_peak, compute_uv=False)[0]
+    np.testing.assert_allclose(gpeak[0] / gpeak[1], sigma_peak, rtol=1e-6)
+
+
+def test_ab13hd_descriptor_vs_standard():
+    """
+    Cross-validate descriptor (JOBE='G', E=I) against standard (JOBE='I').
+
+    Both should give the same H-inf norm for E=identity.
+    """
+    from slicot import ab13hd
+
+    n, m, p = 3, 1, 1
+    a = np.array([
+        [-1.0, 0.1, 0.0],
+        [0.0, -2.0, 0.1],
+        [0.0, 0.0, -3.0]
+    ], order='F', dtype=float)
+    e = np.eye(n, order='F', dtype=float)
+    b = np.array([[1.0], [1.0], [1.0]], order='F', dtype=float)
+    c = np.array([[1.0, 1.0, 1.0]], order='F', dtype=float)
+    d = np.array([[0.0]], order='F', dtype=float)
+
+    fpeak_i = np.array([0.0, 1.0], order='F', dtype=float)
+    tol = np.array([1e-10, -1.0], order='F', dtype=float)
+    gpeak_i, _, _, _, info_i = ab13hd(
+        'C', 'I', 'N', 'Z', 'N', 'N', 'A',
+        n, m, p, 0, fpeak_i, a.copy(order='F'), e.copy(order='F'),
+        b.copy(order='F'), c.copy(order='F'), d.copy(order='F'), tol.copy()
+    )
+
+    fpeak_g = np.array([0.0, 1.0], order='F', dtype=float)
+    tol2 = np.array([1e-10, -1.0], order='F', dtype=float)
+    gpeak_g, _, _, _, info_g = ab13hd(
+        'C', 'G', 'N', 'Z', 'N', 'N', 'A',
+        n, m, p, n, fpeak_g, a.copy(order='F'), e.copy(order='F'),
+        b.copy(order='F'), c.copy(order='F'), d.copy(order='F'), tol2.copy()
+    )
+
+    assert info_i == 0
+    assert info_g >= 0
+    np.testing.assert_allclose(
+        gpeak_i[0] / gpeak_i[1], gpeak_g[0] / gpeak_g[1], rtol=1e-4
+    )
+
+
+def test_ab13hd_discrete_frequency_validation():
+    """
+    Validate discrete-time H-inf norm at peak frequency.
+
+    For discrete-time: G(z) = C*(z*E - A)^(-1)*B + D, z = exp(j*theta).
+    Random seed: 200 (for reproducibility)
+    """
+    from slicot import ab13hd
+
+    np.random.seed(200)
+    n, m, p = 2, 1, 1
+
+    a = np.array([
+        [0.5, 0.1],
+        [0.0, 0.3]
+    ], order='F', dtype=float)
+
+    e = np.eye(n, order='F', dtype=float)
+    b = np.array([[1.0], [0.5]], order='F', dtype=float)
+    c = np.array([[1.0, 0.5]], order='F', dtype=float)
+    d = np.array([[0.1]], order='F', dtype=float)
+
+    fpeak = np.array([0.0, 1.0], order='F', dtype=float)
+    tol = np.array([1e-10, -1.0], order='F', dtype=float)
+
+    gpeak, fpeak_out, nr, iwarn, info = ab13hd(
+        'D', 'I', 'N', 'D', 'N', 'N', 'A',
+        n, m, p, 0, fpeak, a, e, b, c, d, tol
+    )
+
+    assert info == 0
+    omega_peak = fpeak_out[0] / fpeak_out[1]
+    z = np.exp(1j * omega_peak)
+    G_peak = c @ np.linalg.solve(z * e - a, b) + d
+    sigma_peak = np.linalg.svd(G_peak, compute_uv=False)[0]
+    np.testing.assert_allclose(gpeak[0] / gpeak[1], sigma_peak, rtol=1e-4)

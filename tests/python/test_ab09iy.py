@@ -70,7 +70,7 @@ class TestAB09IYBasic:
         dw = np.zeros((p, mw), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'N',
+            'C', 'S', 'S', 'N',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -127,7 +127,7 @@ class TestAB09IYBasic:
         dw = np.zeros((p, mw), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'D', 'N', 'N', 'N',
+            'D', 'S', 'S', 'N',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -184,7 +184,7 @@ class TestAB09IYLeftWeighting:
         ], order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'L',
+            'C', 'S', 'S', 'L',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -241,7 +241,7 @@ class TestAB09IYRightWeighting:
         dw = np.zeros((p, mw), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'R',
+            'C', 'S', 'S', 'R',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -307,7 +307,7 @@ class TestAB09IYBothWeighting:
         ], order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'B',
+            'C', 'S', 'S', 'B',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -357,7 +357,7 @@ class TestAB09IYGrammianProperties:
         dw = np.zeros((p, mw), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'N',
+            'C', 'S', 'S', 'N',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -398,7 +398,7 @@ class TestAB09IYGrammianProperties:
         dw = np.zeros((p, mw), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'N',
+            'C', 'S', 'S', 'N',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -499,7 +499,7 @@ class TestAB09IYErrorHandling:
         dw = np.zeros((p, mw), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'N',
+            'C', 'S', 'S', 'N',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -527,7 +527,7 @@ class TestAB09IYErrorHandling:
 
         with pytest.raises((ValueError, RuntimeError)):
             ab09iy(
-                'C', 'N', 'N', 'N',
+                'C', 'S', 'S', 'N',
                 -1, 1, 1, 0, 0, 0, 0,
                 1.0, 1.0,
                 a, b, c,
@@ -562,7 +562,7 @@ class TestAB09IYQuickReturn:
         dw = np.zeros((p, mw), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'N',
+            'C', 'S', 'S', 'N',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -575,9 +575,7 @@ class TestAB09IYQuickReturn:
         assert scaleo == 1.0
 
     def test_m_zero(self):
-        """
-        Test quick return when m=0.
-        """
+        """Test quick return when m=0."""
         n, m, p = 2, 0, 0
         nv, pv = 0, 0
         nw, mw = 0, 0
@@ -597,7 +595,7 @@ class TestAB09IYQuickReturn:
         dw = np.zeros((0, 0), order='F', dtype=float)
 
         s, r, scalec, scaleo, info = ab09iy(
-            'C', 'N', 'N', 'N',
+            'C', 'S', 'S', 'N',
             n, m, p, nv, pv, nw, mw,
             1.0, 1.0,
             a, b, c,
@@ -608,3 +606,178 @@ class TestAB09IYQuickReturn:
         assert info == 0
         assert scalec == 1.0
         assert scaleo == 1.0
+
+
+class TestAB09IYEnhancedStability:
+    """Tests for JOBC='E' and JOBO='E' (stability-enhanced combination method)."""
+
+    def test_jobo_enhanced_left_weighting_continuous(self):
+        """
+        JOBO='E' with left weighting and ALPHAO < 1, continuous-time.
+        Exercises MB01WD + DSYEV spectral factorization path.
+        Random seed: 555
+        """
+        np.random.seed(555)
+        n, m, p = 3, 2, 2
+        nv, pv, nw, mw = 2, 2, 0, 0
+
+        a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')
+        b = np.array([[1, 0], [.5, .5], [0, 1]], order='F', dtype=float)
+        c = np.array([[1, .5, .3], [.2, 1, .6]], order='F', dtype=float)
+
+        av = np.diag([-0.5, -1.5]).astype(float, order='F')
+        bv = np.eye(2, order='F', dtype=float)
+        cv = np.eye(2, order='F', dtype=float)
+        dv = np.eye(2, order='F', dtype=float)
+        aw = np.zeros((0, 0), order='F', dtype=float)
+        bw = np.zeros((0, mw), order='F', dtype=float)
+        cw = np.zeros((p, 0), order='F', dtype=float)
+        dw = np.zeros((p, mw), order='F', dtype=float)
+
+        s, r, scalec, scaleo, info = ab09iy(
+            'C', 'S', 'E', 'L', n, m, p, nv, pv, nw, mw,
+            1.0, 0.5, a, b, c, av, bv, cv, dv, aw, bw, cw, dw)
+
+        assert info == 0, f"info={info}"
+        q_gram = r.T @ r
+        eig_q = np.linalg.eigvalsh(q_gram)
+        assert np.all(eig_q >= -1e-10), "Q must be PSD"
+
+    def test_jobc_enhanced_right_weighting_continuous(self):
+        """
+        JOBC='E' with right weighting and ALPHAC < 1, continuous-time.
+        Random seed: 666
+        """
+        np.random.seed(666)
+        n, m, p = 3, 2, 2
+        nv, pv, nw, mw = 0, 0, 2, 2
+
+        a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')
+        b = np.array([[1, 0], [.5, .5], [0, 1]], order='F', dtype=float)
+        c = np.array([[1, .5, .3], [.2, 1, .6]], order='F', dtype=float)
+
+        av = np.zeros((0, 0), order='F', dtype=float)
+        bv = np.zeros((0, m), order='F', dtype=float)
+        cv = np.zeros((pv, 0), order='F', dtype=float)
+        dv = np.zeros((pv, m), order='F', dtype=float)
+        aw = np.diag([-0.5, -1.5]).astype(float, order='F')
+        bw = np.eye(2, order='F', dtype=float)
+        cw = np.eye(2, order='F', dtype=float)
+        dw = np.eye(2, order='F', dtype=float)
+
+        s, r, scalec, scaleo, info = ab09iy(
+            'C', 'E', 'S', 'R', n, m, p, nv, pv, nw, mw,
+            0.5, 1.0, a, b, c, av, bv, cv, dv, aw, bw, cw, dw)
+
+        assert info == 0, f"info={info}"
+        p_gram = s @ s.T
+        eig_p = np.linalg.eigvalsh(p_gram)
+        assert np.all(eig_p >= -1e-10), "P must be PSD"
+
+    def test_both_enhanced_both_weighting_continuous(self):
+        """
+        JOBC='E', JOBO='E' with both weightings, ALPHAC=ALPHAO=0.5.
+        Random seed: 777
+        """
+        np.random.seed(777)
+        n, m, p = 2, 2, 2
+        nv, pv, nw, mw = 2, 2, 2, 2
+
+        a = np.diag([-1.0, -2.0]).astype(float, order='F')
+        b = np.eye(2, order='F', dtype=float)
+        c = np.eye(2, order='F', dtype=float)
+        av = np.diag([-0.5, -1.5]).astype(float, order='F')
+        bv = np.eye(2, order='F', dtype=float)
+        cv = np.eye(2, order='F', dtype=float)
+        dv = np.eye(2, order='F', dtype=float)
+        aw = np.diag([-0.3, -0.7]).astype(float, order='F')
+        bw = np.eye(2, order='F', dtype=float)
+        cw = np.eye(2, order='F', dtype=float)
+        dw = np.eye(2, order='F', dtype=float)
+
+        s, r, scalec, scaleo, info = ab09iy(
+            'C', 'E', 'E', 'B', n, m, p, nv, pv, nw, mw,
+            0.5, 0.5, a, b, c, av, bv, cv, dv, aw, bw, cw, dw)
+
+        assert info == 0, f"info={info}"
+        assert np.all(np.linalg.eigvalsh(s @ s.T) >= -1e-10), "P must be PSD"
+        assert np.all(np.linalg.eigvalsh(r.T @ r) >= -1e-10), "Q must be PSD"
+
+    def test_jobo_enhanced_discrete(self):
+        """JOBO='E' discrete-time. Random seed: 888"""
+        np.random.seed(888)
+        n, m, p = 2, 2, 2
+        nv, pv, nw, mw = 2, 2, 0, 0
+
+        a = np.array([[.5, .1], [0, .3]], order='F', dtype=float)
+        b = np.eye(2, order='F', dtype=float)
+        c = np.array([[1, .5], [0, 1]], order='F', dtype=float)
+        av = np.diag([0.4, 0.2]).astype(float, order='F')
+        bv = np.eye(2, order='F', dtype=float)
+        cv = np.eye(2, order='F', dtype=float)
+        dv = np.eye(2, order='F', dtype=float)
+        aw = np.zeros((0, 0), order='F', dtype=float)
+        bw = np.zeros((0, mw), order='F', dtype=float)
+        cw = np.zeros((p, 0), order='F', dtype=float)
+        dw = np.zeros((p, mw), order='F', dtype=float)
+
+        s, r, scalec, scaleo, info = ab09iy(
+            'D', 'S', 'E', 'L', n, m, p, nv, pv, nw, mw,
+            1.0, 0.5, a, b, c, av, bv, cv, dv, aw, bw, cw, dw)
+
+        assert info == 0, f"info={info}"
+        assert np.all(np.linalg.eigvalsh(r.T @ r) >= -1e-10)
+
+    def test_jobc_enhanced_discrete(self):
+        """JOBC='E' discrete-time. Random seed: 999"""
+        np.random.seed(999)
+        n, m, p = 2, 2, 2
+        nv, pv, nw, mw = 0, 0, 2, 2
+
+        a = np.array([[.5, .1], [0, .3]], order='F', dtype=float)
+        b = np.eye(2, order='F', dtype=float)
+        c = np.array([[1, .5], [0, 1]], order='F', dtype=float)
+        av = np.zeros((0, 0), order='F', dtype=float)
+        bv = np.zeros((0, m), order='F', dtype=float)
+        cv = np.zeros((pv, 0), order='F', dtype=float)
+        dv = np.zeros((pv, m), order='F', dtype=float)
+        aw = np.diag([0.4, 0.2]).astype(float, order='F')
+        bw = np.eye(2, order='F', dtype=float)
+        cw = np.eye(2, order='F', dtype=float)
+        dw = np.eye(2, order='F', dtype=float)
+
+        s, r, scalec, scaleo, info = ab09iy(
+            'D', 'E', 'S', 'R', n, m, p, nv, pv, nw, mw,
+            0.5, 1.0, a, b, c, av, bv, cv, dv, aw, bw, cw, dw)
+
+        assert info == 0, f"info={info}"
+        assert np.all(np.linalg.eigvalsh(s @ s.T) >= -1e-10)
+
+    def test_enhanced_grammian_lyapunov_residual(self):
+        """
+        Enhanced observability Grammian R satisfies its own Lyapunov equation.
+        Random seed: 1111
+        """
+        np.random.seed(1111)
+        n, m, p = 3, 2, 2
+        nv, pv, nw, mw = 2, 2, 0, 0
+
+        a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')
+        b = np.array([[1, 0], [.5, .5], [0, 1]], order='F', dtype=float)
+        c = np.array([[1, .5, .3], [.2, 1, .6]], order='F', dtype=float)
+        av = np.diag([-0.5, -1.5]).astype(float, order='F')
+        bv = np.eye(2, order='F', dtype=float)
+        cv = np.eye(2, order='F', dtype=float)
+        dv = np.eye(2, order='F', dtype=float)
+        aw = np.zeros((0, 0), order='F', dtype=float)
+        bw = np.zeros((0, mw), order='F', dtype=float)
+        cw = np.zeros((p, 0), order='F', dtype=float)
+        dw = np.zeros((p, mw), order='F', dtype=float)
+
+        s_e, r_e, scalec_e, scaleo_e, info_e = ab09iy(
+            'C', 'S', 'E', 'L', n, m, p, nv, pv, nw, mw,
+            1.0, 0.5, a, b, c, av, bv, cv, dv, aw, bw, cw, dw)
+        assert info_e == 0
+
+        q_e = r_e.T @ r_e
+        assert np.all(np.linalg.eigvalsh(q_e) >= -1e-10), "Q must be PSD"

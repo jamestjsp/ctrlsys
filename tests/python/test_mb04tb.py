@@ -226,3 +226,116 @@ def test_mb04tb_invalid_ilo():
     )
 
     assert info == -4
+
+
+def test_mb04tb_n20_blocked():
+    """
+    Test MB04TB with N=20 to exercise blocked algorithm path.
+
+    Validates H = U * R * V^T decomposition with mathematical residual check.
+    Random seed: 42 (for reproducibility)
+    """
+    np.random.seed(42)
+    n = 20
+    ilo = 1
+
+    A = np.random.randn(n, n).astype(float, order='F')
+    G_upper = np.random.randn(n, n)
+    G = (G_upper + G_upper.T).astype(float, order='F')
+    Q_upper = np.random.randn(n, n)
+    Q = (Q_upper + Q_upper.T).astype(float, order='F')
+    B = -A.T.copy(order='F')
+
+    A_orig = A.copy()
+    B_orig = B.copy()
+    G_orig = G.copy()
+    Q_orig = Q.copy()
+
+    A_out, B_out, G_out, Q_out, csl, csr, taul, taur, info = mb04tb(
+        'N', 'N', n, ilo, A, B, G, Q
+    )
+
+    assert info == 0
+
+    q1_u = A_out.copy()
+    q2_u = Q_out.copy()
+    u1, u2, info_u = mb04wr('U', 'N', n, ilo, q1_u, q2_u, csl, taul)
+    assert info_u == 0
+
+    q1_v = B_out.copy()
+    q2_v = Q_out.copy()
+    v1, v2, info_v = mb04wr('V', 'N', n, ilo, q1_v, q2_v, csr, taur)
+    assert info_v == 0
+
+    U = np.block([[u1, u2], [-u2, u1]])
+    V = np.block([[v1.T, v2.T], [-v2.T, v1.T]])
+
+    np.testing.assert_allclose(U.T @ U, np.eye(2*n), atol=1e-10)
+    np.testing.assert_allclose(V.T @ V, np.eye(2*n), atol=1e-10)
+
+    R11 = np.triu(A_out)
+    R12 = G_out.copy()
+    R22_hess = np.tril(B_out, 1)
+    Q_zero = np.zeros((n, n))
+    R = np.block([[R11, R12], [Q_zero, R22_hess]])
+
+    H = np.block([[A_orig, G_orig], [Q_orig, B_orig]])
+    residual = np.linalg.norm(H @ V - U @ R, 'fro')
+    h_norm = np.linalg.norm(H, 'fro')
+    assert residual / h_norm < 1e-10
+
+
+def test_mb04tb_hamiltonian_property():
+    """
+    Validate Hamiltonian structure: J * H is symmetric where J = [[0, I], [-I, 0]].
+
+    Random seed: 123 (for reproducibility)
+    """
+    np.random.seed(123)
+    n = 8
+
+    A = np.random.randn(n, n).astype(float, order='F')
+    G_upper = np.random.randn(n, n)
+    G = (G_upper + G_upper.T).astype(float, order='F')
+    Q_upper = np.random.randn(n, n)
+    Q = (Q_upper + Q_upper.T).astype(float, order='F')
+    B = -A.T.copy(order='F')
+
+    H = np.block([[A, G], [Q, B]])
+    J = np.block([[np.zeros((n, n)), np.eye(n)], [-np.eye(n), np.zeros((n, n))]])
+    JH = J @ H
+    np.testing.assert_allclose(JH, JH.T, atol=1e-14)
+
+    A_orig = A.copy()
+    B_orig = B.copy()
+    G_orig = G.copy()
+    Q_orig = Q.copy()
+
+    A_out, B_out, G_out, Q_out, csl, csr, taul, taur, info = mb04tb(
+        'N', 'N', n, 1, A, B, G, Q
+    )
+    assert info == 0
+
+    q1_u = A_out.copy()
+    q2_u = Q_out.copy()
+    u1, u2, info_u = mb04wr('U', 'N', n, 1, q1_u, q2_u, csl, taul)
+    assert info_u == 0
+
+    q1_v = B_out.copy()
+    q2_v = Q_out.copy()
+    v1, v2, info_v = mb04wr('V', 'N', n, 1, q1_v, q2_v, csr, taur)
+    assert info_v == 0
+
+    U = np.block([[u1, u2], [-u2, u1]])
+    V = np.block([[v1.T, v2.T], [-v2.T, v1.T]])
+
+    R11 = np.triu(A_out)
+    R12 = G_out.copy()
+    R22_hess = np.tril(B_out, 1)
+    Q_zero = np.zeros((n, n))
+    R = np.block([[R11, R12], [Q_zero, R22_hess]])
+
+    H_orig = np.block([[A_orig, G_orig], [Q_orig, B_orig]])
+    residual = np.linalg.norm(H_orig @ V - U @ R, 'fro')
+    h_norm = np.linalg.norm(H_orig, 'fro')
+    assert residual / h_norm < 1e-12

@@ -22,6 +22,7 @@ void mb01uy(
 )
 {
     const f64 zero = 0.0;
+    const f64 one = 1.0;
     const i32 inc1 = 1;
 
     bool lside, luplo, ltran;
@@ -103,13 +104,150 @@ void mb01uy(
         SLC_DLACPY("A", &m, &n, a, &lda, dwork, &m);
         SLC_DTRMM(side, uplo, trans, "N", &m, &n, &alpha, t, &ldt, dwork, &m);
         SLC_DLACPY("A", &m, &n, dwork, &m, t, &ldt);
+    } else if (nb > 1) {
+        // BLAS 3 loop path - blocked algorithm with panels of size NB
+        const char *uploc, *tranc;
+        char uploc_buf[2] = {0};
+
+        if (ltran) {
+            ma02ed(*uplo, k, t, ldt);
+            if (luplo) {
+                uploc = "L";
+            } else {
+                uploc = "U";
+            }
+            tranc = "N";
+            luplo = !luplo;
+            ltran = !ltran;
+        } else {
+            uploc_buf[0] = *uplo;
+            uploc = uploc_buf;
+            tranc = trans;
+        }
+
+        i32 bl = k / nb;
+        if (bl < 1) bl = 1;
+        i32 j = (k < nb * bl) ? k : nb * bl;
+
+        if (lside) {
+            if (luplo) {
+                // Upper triangular, left side: compute last rows first
+                i32 nr, ii;
+                if (j == m) {
+                    nr = nb;
+                    ii = m - nb;  // 0-based
+                    bl = bl - 1;
+                } else {
+                    nr = m - j;
+                    ii = j;  // 0-based
+                }
+                SLC_DLACPY("A", &nr, &n, &a[ii], &lda, dwork, &nr);
+                SLC_DTRMM("L", uploc, tranc, "N", &nr, &n, &alpha,
+                          &t[ii + ii*ldt], &ldt, dwork, &nr);
+                SLC_DLACPY("A", &nr, &n, dwork, &nr, &t[ii], &ldt);
+
+                for (i32 i = 0; i < bl; i++) {
+                    i32 ij = ii;
+                    ii = ii - nb;
+                    SLC_DLACPY("A", &nb, &n, &a[ii], &lda, dwork, &nb);
+                    SLC_DTRMM("L", uploc, tranc, "N", &nb, &n,
+                              &alpha, &t[ii + ii*ldt], &ldt, dwork, &nb);
+                    i32 gemm_k = m - ij;
+                    SLC_DGEMM(tranc, "N", &nb, &n, &gemm_k, &alpha,
+                              &t[ii + ij*ldt], &ldt, &a[ij], &lda,
+                              &one, dwork, &nb);
+                    SLC_DLACPY("A", &nb, &n, dwork, &nb, &t[ii], &ldt);
+                }
+            } else {
+                // Lower triangular, left side: compute first rows first
+                i32 nr, ii;
+                if (j == m) {
+                    nr = nb;
+                    bl = bl - 1;
+                } else {
+                    nr = m - j;
+                }
+                SLC_DLACPY("A", &nr, &n, a, &lda, dwork, &nr);
+                SLC_DTRMM("L", uploc, tranc, "N", &nr, &n, &alpha,
+                          t, &ldt, dwork, &nr);
+                SLC_DLACPY("A", &nr, &n, dwork, &nr, t, &ldt);
+                ii = nr;  // 0-based: next panel starts here
+
+                for (i32 i = 0; i < bl; i++) {
+                    SLC_DLACPY("A", &nb, &n, &a[ii], &lda, dwork, &nb);
+                    SLC_DTRMM("L", uploc, tranc, "N", &nb, &n,
+                              &alpha, &t[ii + ii*ldt], &ldt, dwork, &nb);
+                    i32 gemm_k = ii;
+                    SLC_DGEMM(tranc, "N", &nb, &n, &gemm_k, &alpha,
+                              &t[ii], &ldt, a, &lda, &one, dwork, &nb);
+                    SLC_DLACPY("A", &nb, &n, dwork, &nb, &t[ii], &ldt);
+                    ii = ii + nb;
+                }
+            }
+        } else {
+            if (luplo) {
+                // Upper triangular, right side: compute first columns first
+                i32 nc, ii;
+                ii = 0;
+                if (j == n) {
+                    nc = nb;
+                    bl = bl - 1;
+                } else {
+                    nc = n - j;
+                }
+                SLC_DLACPY("A", &m, &nc, a, &lda, dwork, &m);
+                SLC_DTRMM("R", uploc, tranc, "N", &m, &nc, &alpha,
+                          t, &ldt, dwork, &m);
+                SLC_DLACPY("A", &m, &nc, dwork, &m, t, &ldt);
+                ii = ii + nc;
+
+                for (i32 i = 0; i < bl; i++) {
+                    i32 ij = ii;  // 0-based: ii already 0-based
+                    SLC_DLACPY("A", &m, &nb, &a[ii*lda], &lda, dwork, &m);
+                    SLC_DTRMM("R", uploc, tranc, "N", &m, &nb,
+                              &alpha, &t[ii + ii*ldt], &ldt, dwork, &m);
+                    i32 gemm_k = ij;
+                    SLC_DGEMM(tranc, "N", &m, &nb, &gemm_k, &alpha,
+                              a, &lda, &t[ii*ldt], &ldt, &one, dwork, &m);
+                    SLC_DLACPY("A", &m, &nb, dwork, &m, &t[ii*ldt], &ldt);
+                    ii = ii + nb;
+                }
+            } else {
+                // Lower triangular, right side: compute last columns first
+                i32 nc, ii;
+                if (j == n) {
+                    nc = nb;
+                    ii = n - nb;  // 0-based
+                    bl = bl - 1;
+                } else {
+                    nc = n - j;
+                    ii = j;  // 0-based
+                }
+                SLC_DLACPY("A", &m, &nc, &a[ii*lda], &lda, dwork, &m);
+                SLC_DTRMM("R", uploc, tranc, "N", &m, &nc, &alpha,
+                          &t[ii + ii*ldt], &ldt, dwork, &m);
+                SLC_DLACPY("A", &m, &nc, dwork, &m, &t[ii*ldt], &ldt);
+
+                for (i32 i = 0; i < bl; i++) {
+                    i32 ij = ii;
+                    ii = ii - nb;
+                    SLC_DLACPY("A", &m, &nb, &a[ii*lda], &lda, dwork, &m);
+                    SLC_DTRMM("R", uploc, tranc, "N", &m, &nb,
+                              &alpha, &t[ii + ii*ldt], &ldt, dwork, &m);
+                    SLC_DGEMM(tranc, "N", &m, &nb, &nc, &alpha,
+                              &a[ij*lda], &lda, &t[ij + ii*ldt], &ldt,
+                              &one, dwork, &m);
+                    SLC_DLACPY("A", &m, &nb, dwork, &m, &t[ii*ldt], &ldt);
+                    nc = nc + nb;
+                }
+            }
+        }
     } else {
         // BLAS 2 path - minimal workspace
-        // Fill in T by symmetry, then use DGEMV
-        bool upnt = luplo && !ltran;  // upper, no-trans
-        bool lotr = ltran && !luplo;  // trans, lower
-        bool uptr = luplo && ltran;   // upper, trans
-        bool lont = !luplo && !ltran; // lower, no-trans
+        bool upnt = luplo && !ltran;
+        bool lotr = ltran && !luplo;
+        bool uptr = luplo && ltran;
+        bool lont = !luplo && !ltran;
 
         if (luplo || lotr) {
             ma02ed(*uplo, k, t, ldt);
@@ -117,7 +255,6 @@ void mb01uy(
 
         if (lside) {
             if (upnt || lotr) {
-                // T(i,:) = alpha * T(i:m,i)' * A(i:m,:)
                 for (i32 i = 0; i < m; i++) {
                     i32 len = m - i;
                     SLC_DCOPY(&len, &t[i + i*ldt], &inc1, dwork, &inc1);
@@ -125,7 +262,6 @@ void mb01uy(
                               dwork, &inc1, &zero, &t[i], &ldt);
                 }
             } else if (uptr || lont) {
-                // T(i,:) = alpha * T(0:i,i)' * A(0:i,:)
                 for (i32 i = 0; i < m; i++) {
                     i32 len = i + 1;
                     SLC_DCOPY(&len, &t[i], &ldt, dwork, &inc1);
@@ -135,7 +271,6 @@ void mb01uy(
             }
         } else {
             if (upnt || lotr) {
-                // T(:,i) = alpha * A(:,0:i) * T(0:i,i)
                 for (i32 i = 0; i < n; i++) {
                     i32 len = i + 1;
                     SLC_DCOPY(&len, &t[i*ldt], &inc1, dwork, &inc1);
@@ -143,7 +278,6 @@ void mb01uy(
                               dwork, &inc1, &zero, &t[i*ldt], &inc1);
                 }
             } else if (uptr || lont) {
-                // T(:,i) = alpha * A(:,i:n) * T(i:n,i)
                 for (i32 i = 0; i < n; i++) {
                     i32 len = n - i;
                     SLC_DCOPY(&len, &t[i + i*ldt], &inc1, dwork, &inc1);
