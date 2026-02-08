@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.18] - 2026-02-08
+
+### Changed
+
+- CI: consolidated 5 workflow files into 3 — eliminated redundant test runs on push
+- CI: split publish pipeline into fast/slow phases — x86_64/macOS/Windows wheels on PyPI in ~12min, aarch64 follows ~90min later
+- CI: CodeQL moved to weekly schedule only (was per-push)
+
+### Added
+
+- Documentation badge and link in README and PyPI metadata
+
 ## [1.0.15] - 2026-02-07
 
 ### Added
