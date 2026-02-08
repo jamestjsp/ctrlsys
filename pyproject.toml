@@ -26,6 +26,7 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/jamestjsp/slicot"
+Documentation = "https://slicot.readthedocs.io/en/latest/"
 Repository = "https://github.com/jamestjsp/slicot"
 
 [project.optional-dependencies]

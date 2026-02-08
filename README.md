@@ -2,6 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/slicot)](https://pypi.org/project/slicot/)
 [![Build Status](https://github.com/jamestjsp/slicot/actions/workflows/test.yml/badge.svg)](https://github.com/jamestjsp/slicot/actions)
+[![Documentation](https://readthedocs.org/projects/slicot/badge/?version=latest)](https://slicot.readthedocs.io/en/latest/)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE)
 
 Python bindings for **SLICOT** (Subroutine Library In COntrol Theory) - numerical routines for control systems analysis and design. This is a low-level API primarily targeting AI agents and higher-level libraries.
