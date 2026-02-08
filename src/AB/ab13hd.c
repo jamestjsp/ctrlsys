@@ -923,7 +923,9 @@ void ab13hd(const char *dico, const char *jobe, const char *equil,
 
             if (sdim1 < *nr) {
                 i32 idum[1];
-                SLC_DTGSEN(&(i32){0}, &(i32){1}, &(i32){1}, bwork, nr,
+                int iselect[*nr];
+                for (i32 i = 0; i < *nr; i++) iselect[i] = (int)bwork[i];
+                SLC_DTGSEN(&(i32){0}, &(i32){1}, &(i32){1}, iselect, nr,
                            &dwork[ia], &n, &dwork[ie], &n, &dwork[ir], &dwork[ii],
                            &dwork[ibt], &dwork[iq], nr, &dwork[iz], nr, &sdim,
                            &cnd, &cnd, &(f64){ZERO}, &dwork[iwrk], &(i32){ldwork - iwrk},
