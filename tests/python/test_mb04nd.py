@@ -78,7 +78,7 @@ def test_mb04nd_basic_full():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
     assert len(tau) == n
     assert np.all(np.isfinite(r_work))
@@ -115,7 +115,7 @@ def test_mb04nd_upper_triangular():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('U', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('U', n, m, p, r_work, a_work, b_work, c_work)
 
     assert len(tau) == n
     for i in range(n):
@@ -146,7 +146,7 @@ def test_mb04nd_orthogonality():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
     q = np.eye(n + p, dtype=float)
     for i in range(n - 1, -1, -1):
@@ -189,7 +189,7 @@ def test_mb04nd_n_zero():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
     assert len(tau) == 0
     np.testing.assert_array_equal(c_work, c_orig)
@@ -218,7 +218,7 @@ def test_mb04nd_p_zero():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
     assert len(tau) == n
     np.testing.assert_array_equal(r_work, r_orig)
@@ -248,7 +248,7 @@ def test_mb04nd_m_zero():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
     assert len(tau) == n
     for i in range(n):
@@ -278,7 +278,7 @@ def test_mb04nd_large_matrix():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
     assert len(tau) == n
     for i in range(n):
@@ -313,7 +313,7 @@ def test_mb04nd_n_greater_p():
 
     from ctrlsys import _slicot
 
-    tau = _ctrlsys.mb04nd('U', n, m, p, r_work, a_work, b_work, c_work)
+    tau = _slicot.mb04nd('U', n, m, p, r_work, a_work, b_work, c_work)
 
     assert len(tau) == n
     for i in range(n):

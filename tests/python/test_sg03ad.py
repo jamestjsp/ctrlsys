@@ -384,7 +384,7 @@ def test_eigenvalue_computation():
     for i in range(n):
         if abs(beta[i]) > 1e-14:
             eig = (alphar[i] + 1j * alphai[i]) / beta[i]
-            eigs_ctrlsys.append(eig)
+            eigs_slicot.append(eig)
 
     eigs_slicot_remaining = list(eigs_slicot)
     for e1 in eigs_numpy:
