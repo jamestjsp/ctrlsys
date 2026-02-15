@@ -172,7 +172,7 @@ Ilhan Polat (@ilayn, SciPy maintainer) made notable contributions:
 - **Approach:** C11 translation of SLICOT from Fortran 77, with Python bindings
 - **Stats:** 600+ routines, v1.0.18, BSD-3-Clause
 - **Build system:** Meson + meson-python (PEP 517)
-- **Key advantage:** `pip install slicot` - no Fortran compiler needed
+- **Key advantage:** `pip install ctrlsys` - no Fortran compiler needed
 
 ### PR #1200: "Replace slycot with slicot" (Jan 31 - Feb 6, 2026)
 

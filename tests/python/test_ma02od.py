@@ -15,7 +15,7 @@ For skew-Hamiltonian (SKEW='S'): H = [A, D; E, -A'] with D=-D', E=-E' (diagonal 
 
 import numpy as np
 import pytest
-from slicot import ma02od
+from ctrlsys import ma02od
 
 
 class TestMA02ODBasic:

@@ -35,7 +35,7 @@ def test_sb04rw_abschr_b_upper():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04rw
+    from ctrlsys import sb04rw
 
     np.random.seed(42)
     n = 3
@@ -75,7 +75,7 @@ def test_sb04rw_abschr_a_upper():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04rw
+    from ctrlsys import sb04rw
 
     np.random.seed(123)
     n = 4
@@ -114,7 +114,7 @@ def test_sb04rw_lower_hessenberg_b():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04rw
+    from ctrlsys import sb04rw
 
     np.random.seed(456)
     n = 3
@@ -147,7 +147,7 @@ def test_sb04rw_lower_hessenberg_a():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04rw
+    from ctrlsys import sb04rw
 
     np.random.seed(789)
     n = 5
@@ -181,7 +181,7 @@ def test_sb04rw_first_index():
     For ABSCHR='B', UL='U', indx=1 means no prior columns to process.
     Random seed: 101 (for reproducibility)
     """
-    from slicot import sb04rw
+    from ctrlsys import sb04rw
 
     np.random.seed(101)
     n = 3
@@ -208,7 +208,7 @@ def test_sb04rw_last_index():
     For ABSCHR='B', UL='U', tests full accumulation path.
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb04rw
+    from ctrlsys import sb04rw
 
     np.random.seed(202)
     n = 3
@@ -237,7 +237,7 @@ def test_sb04rw_identity_ba():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import sb04rw
+    from ctrlsys import sb04rw
 
     np.random.seed(303)
     n = 3

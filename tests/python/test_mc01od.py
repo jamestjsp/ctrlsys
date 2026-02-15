@@ -32,7 +32,7 @@ def test_mc01od_basic_html_example():
       p[4] = 1.4000 - 2.6000j
       p[5] = 1.0000 + 0.0000j
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([1.1, 0.6, -2.0, -0.8, -0.3], order='F', dtype=float)
     imz = np.array([0.9, -0.7, 0.3, 2.5, -0.4], order='F', dtype=float)
@@ -58,7 +58,7 @@ def test_mc01od_single_real_zero():
     P(x) = (x - 3)
     Coefficients: p[0] = -3, p[1] = 1 (both real)
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([3.0], order='F', dtype=float)
     imz = np.array([0.0], order='F', dtype=float)
@@ -81,7 +81,7 @@ def test_mc01od_single_complex_zero():
     P(x) = (x - (2 + 3j)) = x + (-2 - 3j)
     Coefficients: p[0] = -2 - 3j, p[1] = 1 + 0j
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([2.0], order='F', dtype=float)
     imz = np.array([3.0], order='F', dtype=float)
@@ -104,7 +104,7 @@ def test_mc01od_two_real_zeros():
     P(x) = (x - 1)(x - 2) = x^2 - 3x + 2
     Coefficients: [2, -3, 1]
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([1.0, 2.0], order='F', dtype=float)
     imz = np.array([0.0, 0.0], order='F', dtype=float)
@@ -132,7 +132,7 @@ def test_mc01od_two_complex_zeros():
 
     Coefficients: [(-1+5j), (-3-4j), (1+0j)]
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([1.0, 2.0], order='F', dtype=float)
     imz = np.array([1.0, 3.0], order='F', dtype=float)
@@ -154,7 +154,7 @@ def test_mc01od_zero_degree():
     No zeros, P(x) = 1
     REP = [1.0], IMP = [0.0]
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([], order='F', dtype=float)
     imz = np.array([], order='F', dtype=float)
@@ -177,7 +177,7 @@ def test_mc01od_pure_imaginary_zeros():
 
     Coefficients: [(-2+0j), (0-3j), (1+0j)]
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([0.0, 0.0], order='F', dtype=float)
     imz = np.array([1.0, 2.0], order='F', dtype=float)
@@ -202,7 +202,7 @@ def test_mc01od_conjugate_pair():
 
     All imaginary coefficients should be zero.
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     rez = np.array([1.0, 1.0], order='F', dtype=float)
     imz = np.array([2.0, -2.0], order='F', dtype=float)
@@ -225,7 +225,7 @@ def test_mc01od_polynomial_evaluation_property():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     np.random.seed(42)
 
@@ -254,7 +254,7 @@ def test_mc01od_numpy_poly_validation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     np.random.seed(123)
 
@@ -283,7 +283,7 @@ def test_mc01od_leading_coefficient_unity():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     np.random.seed(789)
 
@@ -307,7 +307,7 @@ def test_mc01od_vieta_sum_of_roots():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mc01od
+    from ctrlsys import mc01od
 
     np.random.seed(456)
 

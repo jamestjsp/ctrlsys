@@ -28,7 +28,7 @@ def test_bb03ad_example_4_1():
       N=5, M=1, E=identity
       A, B, Y, X matrices as shown in Program Results
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)
@@ -89,7 +89,7 @@ def test_bb03ad_example_4_1_default():
 
     Default: IPAR(1)=10, DPAR(1)=1.5, DPAR(2)=1.5.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([0.0, 0.0], dtype=np.float64)
@@ -115,7 +115,7 @@ def test_bb03ad_example_4_2():
     Uses DPAR(1)=lambda<0, DPAR(2)=s>1 as parameters.
     Default: lambda=-0.5, s=1.5, n=10.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 2], dtype=np.int32)
     dpar = np.array([-0.5, 1.5], dtype=np.float64)
@@ -139,7 +139,7 @@ def test_bb03ad_example_4_3():
     Default: IPAR(1)=10, DPAR(1)=10.
     Has E matrix, solution X provided.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 3], dtype=np.int32)
     dpar = np.array([10.0, 0.0], dtype=np.float64)
@@ -164,7 +164,7 @@ def test_bb03ad_example_4_4():
     Uses IPAR(1)=q to define n=3*q.
     Default: q=10, t=1.5.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 4], dtype=np.int32)
     dpar = np.array([1.5, 0.0], dtype=np.float64)
@@ -192,7 +192,7 @@ def test_bb03ad_lyapunov_residual():
     The solution X should satisfy this equation.
     Uses Example 4.1 which has known solution.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)
@@ -220,7 +220,7 @@ def test_bb03ad_y_from_b():
 
     For examples with vec[5]=True (B provided), the RHS Y = -B^T B.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)
@@ -246,7 +246,7 @@ def test_bb03ad_solution_symmetry():
 
     For Lyapunov equations, the solution matrix X should be symmetric.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)
@@ -268,7 +268,7 @@ def test_bb03ad_y_symmetry():
 
     The right-hand side Y should be symmetric.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)
@@ -289,7 +289,7 @@ def test_bb03ad_invalid_group():
 
     Only NR(1)=4 is supported in BB03AD.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([1, 1], dtype=np.int32)
     dpar = np.array([0.0, 0.0], dtype=np.float64)
@@ -305,7 +305,7 @@ def test_bb03ad_invalid_example():
     """
     Test error handling for invalid NR(2) parameter.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 10], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)
@@ -323,7 +323,7 @@ def test_bb03ad_invalid_dpar_4_1():
 
     r > 1 and s > 1 are required.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([0.5, 1.5], dtype=np.float64)
@@ -341,7 +341,7 @@ def test_bb03ad_invalid_ipar():
 
     IPAR(1) must be >= 2 for Examples 4.1, 4.2, 4.3.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)
@@ -360,7 +360,7 @@ def test_bb03ad_example_4_3_e_structure():
     E should be lower triangular with specific structure:
     E(i,j) = 2^(-t) for i > j, E(i,i) = 1.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 3], dtype=np.int32)
     dpar = np.array([10.0, 0.0], dtype=np.float64)
@@ -381,7 +381,7 @@ def test_bb03ad_note_string():
     """
     Test that NOTE string is returned correctly.
     """
-    from slicot import bb03ad
+    from ctrlsys import bb03ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.5, 1.5], dtype=np.float64)

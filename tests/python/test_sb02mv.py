@@ -15,7 +15,7 @@ from numpy.testing import assert_equal
 
 def test_sb02mv_stable_negative():
     """Negative real part eigenvalues are stable (return True)."""
-    from slicot import sb02mv
+    from ctrlsys import sb02mv
 
     result = sb02mv(-1.0, 0.0)
     assert_equal(result, True)
@@ -29,7 +29,7 @@ def test_sb02mv_stable_negative():
 
 def test_sb02mv_unstable_positive():
     """Positive real part eigenvalues are unstable (return False)."""
-    from slicot import sb02mv
+    from ctrlsys import sb02mv
 
     result = sb02mv(1.0, 0.0)
     assert_equal(result, False)
@@ -46,7 +46,7 @@ def test_sb02mv_unstable_zero():
 
     Purely imaginary eigenvalues on stability boundary are NOT selected.
     """
-    from slicot import sb02mv
+    from ctrlsys import sb02mv
 
     result = sb02mv(0.0, 1.0)
     assert_equal(result, False)
@@ -63,7 +63,7 @@ def test_sb02mv_boundary_small():
 
     Ensures strict < 0 comparison works correctly.
     """
-    from slicot import sb02mv
+    from ctrlsys import sb02mv
 
     eps = np.finfo(float).eps
 
@@ -80,7 +80,7 @@ def test_sb02mv_imaginary_symmetry():
 
     sb02mv(reig, ieig) == sb02mv(reig, -ieig) for all values.
     """
-    from slicot import sb02mv
+    from ctrlsys import sb02mv
 
     test_cases = [
         (0.0, 1.0),
@@ -98,7 +98,7 @@ def test_sb02mv_imaginary_symmetry():
 
 
 def test_sb02mv_complement_sb02mr():
-    from slicot import sb02mv, sb02mr
+    from ctrlsys import sb02mv, sb02mr
 
     test_cases = [
         (0.0, 1.0),
@@ -119,7 +119,7 @@ def test_sb02mv_complement_sb02mr():
 
 
 def test_sb02mv_independent_criterion():
-    from slicot import sb02mv
+    from ctrlsys import sb02mv
 
     test_cases = [
         (0.0, 1.0),

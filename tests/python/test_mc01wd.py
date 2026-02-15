@@ -7,7 +7,7 @@ where B(x) = u1 + u2*x + x^2.
 
 import numpy as np
 import pytest
-from slicot import mc01wd
+from ctrlsys import mc01wd
 
 
 def test_mc01wd_html_example():

@@ -15,7 +15,7 @@ def test_mb02uv_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     np.random.seed(42)
     n = 4
@@ -41,7 +41,7 @@ def test_mb02uv_reconstruct():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     np.random.seed(123)
     n = 3
@@ -87,7 +87,7 @@ def test_mb02uv_singular():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     np.random.seed(456)
     n = 3
@@ -107,7 +107,7 @@ def test_mb02uv_identity():
     """
     Validate factorization of identity matrix.
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     n = 4
     a = np.eye(n, order='F', dtype=float)
@@ -123,7 +123,7 @@ def test_mb02uv_permutation_indices():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     np.random.seed(789)
     n = 5
@@ -142,7 +142,7 @@ def test_mb02uv_1x1():
     """
     Validate edge case: 1x1 matrix.
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     n = 1
     a = np.array([[5.0]], order='F', dtype=float)
@@ -159,7 +159,7 @@ def test_mb02uv_2x2():
     """
     Validate 2x2 case with explicit check.
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     n = 2
     a = np.array([
@@ -203,7 +203,7 @@ def test_mb02uv_random_larger():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb02uv
+    from ctrlsys import mb02uv
 
     np.random.seed(111)
     n = 8

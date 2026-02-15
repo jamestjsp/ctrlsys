@@ -7,7 +7,7 @@ with two separate input matrices B1 and B2.
 """
 import pytest
 import numpy as np
-from slicot import tg01hu
+from ctrlsys import tg01hu
 
 
 def test_tg01hu_basic():

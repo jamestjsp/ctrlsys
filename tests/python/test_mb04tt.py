@@ -24,7 +24,7 @@ def test_mb04tt_basic():
     ISTAIR encodes boundary positions: +j = corner, -j = boundary not corner.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(42)
     m, n = 3, 5
@@ -71,7 +71,7 @@ def test_mb04tt_rank_deficient():
     When Aj columns are linearly dependent, rank < min(mj, nj).
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(123)
     m, n = 3, 4
@@ -112,7 +112,7 @@ def test_mb04tt_no_update_q_z():
     Q and Z should not be modified.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(456)
     m, n = 3, 4
@@ -147,7 +147,7 @@ def test_mb04tt_full_rank_3x3():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(789)
     m, n = 3, 5
@@ -187,7 +187,7 @@ def test_mb04tt_boundary_type_changes():
 
     Random seed: 321 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(321)
     m, n = 4, 5
@@ -231,7 +231,7 @@ def test_mb04tt_zero_dimensions():
 
     Should return immediately with rank=0.
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     A = np.array([[]], order='F', dtype=float).reshape(0, 3)
     E = np.array([[]], order='F', dtype=float).reshape(0, 3)
@@ -254,7 +254,7 @@ def test_mb04tt_single_column_aj():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(111)
     m, n = 3, 4
@@ -296,7 +296,7 @@ def test_mb04tt_submatrix_offset():
     Only the submatrix A(IFIRA:M, IFICA:IFICA+NCA-1) is processed.
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(222)
     m, n = 5, 6
@@ -337,7 +337,7 @@ def test_mb04tt_orthogonal_transformation_property():
     Q'*Q = I, Z'*Z = I, and transformations preserve matrix relationships.
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(333)
     m, n = 4, 5
@@ -381,7 +381,7 @@ def test_mb04tt_tolerance_effect():
     Elements <= TOL should be treated as zero.
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb04tt
+    from ctrlsys import mb04tt
 
     np.random.seed(444)
     m, n = 3, 4

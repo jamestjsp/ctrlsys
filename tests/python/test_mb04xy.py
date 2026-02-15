@@ -25,7 +25,7 @@ def test_mb04xy_basic():
     v_orig = v.copy()
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('A', 'A', m, n, x, taup, tauq, u, v, inul)
 
@@ -56,7 +56,7 @@ def test_mb04xy_selective_columns():
 
     inul = np.array([True, False, True, False, False], dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('A', 'N', m, n, x, taup, tauq, u, None, inul)
 
@@ -82,7 +82,7 @@ def test_mb04xy_jobu_s():
     u_orig = u.copy()
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('S', 'N', m, n, x, taup, tauq, u, None, inul)
 
@@ -109,7 +109,7 @@ def test_mb04xy_jobv_s():
     v_orig = v.copy()
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('N', 'S', m, n, x, taup, tauq, None, v, inul)
 
@@ -133,7 +133,7 @@ def test_mb04xy_no_transform():
 
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('N', 'N', m, n, x, taup, tauq, None, None, inul)
 
@@ -162,7 +162,7 @@ def test_mb04xy_wide_matrix():
     v_orig = v.copy()
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('A', 'A', m, n, x, taup, tauq, u, v, inul)
 
@@ -193,7 +193,7 @@ def test_mb04xy_tall_matrix():
     v_orig = v.copy()
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('A', 'A', m, n, x, taup, tauq, u, v, inul)
 
@@ -206,7 +206,7 @@ def test_mb04xy_zero_dimensions():
     """
     Test MB04XY with zero dimensions (quick return).
     """
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     x = np.zeros((1, 1), dtype=float, order='F')
     taup = np.zeros(0, dtype=float)
@@ -222,7 +222,7 @@ def test_mb04xy_invalid_jobu():
     """
     Test MB04XY with invalid JOBU parameter.
     """
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     m, n = 3, 3
     x = np.eye(m, n, dtype=float, order='F')
@@ -239,7 +239,7 @@ def test_mb04xy_invalid_jobv():
     """
     Test MB04XY with invalid JOBV parameter.
     """
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     m, n = 3, 3
     x = np.eye(m, n, dtype=float, order='F')
@@ -272,7 +272,7 @@ def test_mb04xy_x_restored():
     u = np.eye(m, dtype=float, order='F')
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('A', 'N', m, n, x, taup, tauq, u, None, inul)
 
@@ -309,7 +309,7 @@ def test_mb04xy_single_householder():
     u = np.eye(m, dtype=float, order='F')
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('A', 'N', m, n, x, taup, tauq, u, None, inul)
 
@@ -354,7 +354,7 @@ def test_mb04xy_householder_properties():
     u = np.eye(m, dtype=float, order='F')
     inul = np.ones(max(m, n), dtype=bool)
 
-    from slicot import mb04xy
+    from ctrlsys import mb04xy
 
     u_out, v_out, info = mb04xy('A', 'N', m, n, x, taup, tauq, u, None, inul)
 

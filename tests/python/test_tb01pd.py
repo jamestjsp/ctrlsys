@@ -8,7 +8,7 @@ The matrix Ar is in upper block Hessenberg form.
 
 import numpy as np
 import pytest
-from slicot import tb01pd
+from ctrlsys import tb01pd
 
 
 """Basic functionality tests from HTML documentation example."""

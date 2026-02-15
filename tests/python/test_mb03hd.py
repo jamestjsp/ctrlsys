@@ -20,7 +20,7 @@ def test_mb03hd_n2_basic():
     Q rotates to exchange eigenvalues.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03hd
+    from ctrlsys import mb03hd
 
     n = 2
     b = np.array([
@@ -46,7 +46,7 @@ def test_mb03hd_n2_orthogonality():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03hd
+    from ctrlsys import mb03hd
 
     np.random.seed(123)
 
@@ -77,7 +77,7 @@ def test_mb03hd_n4_basic():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03hd
+    from ctrlsys import mb03hd
 
     n = 4
 
@@ -108,7 +108,7 @@ def test_mb03hd_n4_orthogonality():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03hd
+    from ctrlsys import mb03hd
 
     np.random.seed(789)
 
@@ -148,7 +148,7 @@ def test_mb03hd_n4_singular_warning():
 
     Random seed: 1001 (for reproducibility)
     """
-    from slicot import mb03hd
+    from ctrlsys import mb03hd
 
     n = 4
 
@@ -178,7 +178,7 @@ def test_mb03hd_n2_givens_structure():
 
     Random seed: 2002 (for reproducibility)
     """
-    from slicot import mb03hd
+    from ctrlsys import mb03hd
 
     n = 2
 
@@ -211,7 +211,7 @@ def test_mb03hd_n4_determinant():
 
     Random seed: 3003 (for reproducibility)
     """
-    from slicot import mb03hd
+    from ctrlsys import mb03hd
 
     np.random.seed(3003)
 

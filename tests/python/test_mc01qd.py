@@ -24,7 +24,7 @@ def test_mc01qd_basic_html_example():
     RQ array layout: [R(x) coefficients | Q(x) coefficients]
     = [1.0, 0.0, 1.0, 3.0, 1.0]
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     a = np.array([2.0, 2.0, -1.0, 2.0, 1.0], order='F', dtype=float)
     b = np.array([1.0, -1.0, 1.0], order='F', dtype=float)
@@ -46,7 +46,7 @@ def test_mc01qd_polynomial_division_property():
     Uses numpy.polynomial.polynomial to verify the relationship holds.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     np.random.seed(42)
 
@@ -80,7 +80,7 @@ def test_mc01qd_degree_a_less_than_b():
     A(x) = 1 + 2*x (degree 1)
     B(x) = 1 + x + x^2 (degree 2)
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     a = np.array([1.0, 2.0], order='F', dtype=float)
     b = np.array([1.0, 1.0, 1.0], order='F', dtype=float)
@@ -104,7 +104,7 @@ def test_mc01qd_constant_divisor():
     Q(x) = A(x)/2 = 1 + 2*x + 3*x^2
     R(x) = 0 (empty, since degree < 0)
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     a = np.array([2.0, 4.0, 6.0], order='F', dtype=float)
     b = np.array([2.0], order='F', dtype=float)
@@ -128,7 +128,7 @@ def test_mc01qd_leading_zeros_in_b():
 
     IWARN should be 1 (degree reduced from 2 to 1).
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     a = np.array([1.0, 3.0, 2.0], order='F', dtype=float)
     b = np.array([1.0, 1.0, 0.0], order='F', dtype=float)
@@ -146,7 +146,7 @@ def test_mc01qd_zero_divisor_error():
 
     If all B coefficients are zero, INFO = 1.
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     a = np.array([1.0, 2.0, 3.0], order='F', dtype=float)
     b = np.array([0.0, 0.0], order='F', dtype=float)
@@ -162,7 +162,7 @@ def test_mc01qd_zero_numerator():
 
     Q(x) = 0 and R(x) = 0.
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     a = np.array([], order='F', dtype=float)
     b = np.array([1.0, 1.0], order='F', dtype=float)
@@ -183,7 +183,7 @@ def test_mc01qd_exact_division():
     Q(x) = x^2 + x + 1 (coefficients: 1, 1, 1)
     R(x) = 0 (coefficient: 0)
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     a = np.array([-1.0, 0.0, 0.0, 1.0], order='F', dtype=float)
     b = np.array([-1.0, 1.0], order='F', dtype=float)
@@ -210,7 +210,7 @@ def test_mc01qd_random_division_validation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mc01qd
+    from ctrlsys import mc01qd
 
     np.random.seed(123)
 

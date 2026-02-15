@@ -9,7 +9,7 @@ MB02ID solves:
 
 import numpy as np
 import pytest
-from slicot import mb02id
+from ctrlsys import mb02id
 
 
 class TestMB02IDBasic:

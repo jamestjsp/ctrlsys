@@ -18,7 +18,7 @@ def test_mb03rw_basic_sylvester():
     Mathematical verification: The solution X must satisfy -A @ X + X @ B = C
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     np.random.seed(42)
     m, n = 3, 3
@@ -59,7 +59,7 @@ def test_mb03rw_scalar_case():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     m, n = 1, 1
 
@@ -85,7 +85,7 @@ def test_mb03rw_different_sizes():
     Mathematical verification: -A @ X + X @ B = C
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     np.random.seed(456)
     m, n = 2, 3
@@ -124,7 +124,7 @@ def test_mb03rw_pmax_exceeded():
 
     Use nearly identical eigenvalues in A and B to cause large X.
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     m, n = 2, 2
 
@@ -154,7 +154,7 @@ def test_mb03rw_m_zero():
     """
     Test quick return when M=0.
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     m, n = 0, 3
 
@@ -177,7 +177,7 @@ def test_mb03rw_n_zero():
     """
     Test quick return when N=0.
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     m, n = 3, 0
 
@@ -202,7 +202,7 @@ def test_mb03rw_well_conditioned():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     np.random.seed(456)
     m, n = 3, 3
@@ -233,7 +233,7 @@ def test_mb03rw_sylvester_identity():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03rw
+    from ctrlsys import mb03rw
 
     np.random.seed(789)
     m, n = 4, 5

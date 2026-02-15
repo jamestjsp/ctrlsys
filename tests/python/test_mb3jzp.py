@@ -8,7 +8,7 @@ while keeping triangular form. Panel version with blocked updates for large N.
 import numpy as np
 import pytest
 
-from slicot import mb3jzp
+from ctrlsys import mb3jzp
 
 
 class TestMB3JZPBasic:
@@ -233,7 +233,7 @@ class TestMB3JZPMathematicalProperties:
         Random seed: 999 (for reproducibility)
         """
         np.random.seed(999)
-        from slicot import mb03jz
+        from ctrlsys import mb03jz
 
         m = 3
         n = 2 * m

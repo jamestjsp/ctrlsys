@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from slicot import mb02yd
+from ctrlsys import mb02yd
 
 
 def test_mb02yd_basic_full_rank():

@@ -14,7 +14,7 @@ import numpy as np
 import pytest
 
 try:
-    from slicot import tf01my
+    from ctrlsys import tf01my
 except ImportError:
     pytest.skip("tf01my not available", allow_module_level=True)
 

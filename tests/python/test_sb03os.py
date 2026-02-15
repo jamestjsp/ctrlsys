@@ -10,7 +10,7 @@ U is the upper triangular Cholesky factor (overwrites R).
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 def make_stable_continuous_complex(n, seed=42):

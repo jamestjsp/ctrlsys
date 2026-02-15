@@ -8,7 +8,7 @@ Singular Value Decomposition (PSVD) approach.
 import numpy as np
 import pytest
 
-from slicot import mb02nd
+from ctrlsys import mb02nd
 
 
 class TestMB02NDBasic:

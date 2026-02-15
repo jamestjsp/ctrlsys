@@ -23,7 +23,7 @@ def test_mb03fz_basic():
     - N=4, COMPQ='C', COMPU='C', ORTH='P'
     - 4x4 complex Z, 2x2 complex B, 2x3 complex FG packed
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     n = 4
     m = n // 2
@@ -67,7 +67,7 @@ def test_mb03fz_eigenvalues_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     np.random.seed(42)
 
@@ -106,7 +106,7 @@ def test_mb03fz_deflating_subspace():
     Validates that Q is orthonormal: Q' @ Q = I.
     Note: Q has shape (2n, 2n) but orthonormal basis is in leading (n, neig) part.
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     np.random.seed(123)
 
@@ -147,7 +147,7 @@ def test_mb03fz_companion_subspace():
     Random seed: 456 (for reproducibility)
     Validates that U is orthonormal: U' @ U = I.
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     np.random.seed(456)
 
@@ -182,7 +182,7 @@ def test_mb03fz_zero_dimension():
     """
     Test quick return with N=0.
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     n = 0
 
@@ -201,7 +201,7 @@ def test_mb03fz_invalid_n_odd():
     """
     Test error handling for odd N (N must be even).
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     n = 3
 
@@ -222,7 +222,7 @@ def test_mb03fz_svd_orthogonalization():
     Random seed: 789 (for reproducibility)
     Note: Q has shape (2n, 2n), U has shape (n, 2n), orthonormal bases in leading (n, neig).
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     np.random.seed(789)
 
@@ -264,7 +264,7 @@ def test_mb03fz_eigenvalue_structure():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     np.random.seed(999)
 
@@ -313,7 +313,7 @@ def test_mb03fz_output_matrices_structure():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03fz
+    from ctrlsys import mb03fz
 
     np.random.seed(111)
 

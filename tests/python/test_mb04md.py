@@ -7,7 +7,7 @@ diagonal similarity transformations applied iteratively.
 
 import numpy as np
 import pytest
-from slicot import mb04md
+from ctrlsys import mb04md
 
 
 def test_mb04md_html_example():

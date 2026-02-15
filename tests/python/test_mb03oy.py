@@ -4,7 +4,7 @@ pytest tests for MB03OY - Rank determination via incremental condition estimatio
 """
 import pytest
 import numpy as np
-from slicot import mb03oy
+from ctrlsys import mb03oy
 
 
 def test_mb03oy_rank_deficient_matrix():

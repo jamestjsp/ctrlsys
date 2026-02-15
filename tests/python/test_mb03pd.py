@@ -11,7 +11,7 @@ JOBRQ = 'N': Assume RQ factorization already done
 """
 import numpy as np
 import pytest
-from slicot import mb03pd
+from ctrlsys import mb03pd
 
 
 def test_html_doc_example():

@@ -32,7 +32,7 @@ def solve_diagonal_lyapunov(t_diag, c):
 
 def test_sb03qx_import():
     """Verify sb03qx can be imported."""
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
     assert callable(sb03qx)
 
 
@@ -44,7 +44,7 @@ def test_sb03qx_small_system_reduced():
     The Lyapunov equation T'*X + X*T = C has known solution properties.
     For diagonal T: X[i,j] = C[i,j] / (T[i,i] + T[j,j])
     """
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 3
 
@@ -82,7 +82,7 @@ def test_sb03qx_small_system_original():
     Uses upper triangular T (already in Schur form) with U=I.
     For TRANA='N': T^T * X + X * T = C
     """
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 3
 
@@ -122,7 +122,7 @@ def test_sb03qx_transpose_mode():
     For TRANA='T' and diagonal T: T * X + X * T = C
     Solution: X[i,j] = C[i,j] / (T[i,i] + T[j,j])
     """
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 3
 
@@ -157,7 +157,7 @@ def test_sb03qx_lower_triangle():
 
     For TRANA='N': T^T * X + X * T = C
     """
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 3
 
@@ -188,7 +188,7 @@ def test_sb03qx_lower_triangle():
 
 def test_sb03qx_zero_dimension():
     """Test quick return for n=0."""
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 0
     t = np.array([[]], dtype=float, order='F').reshape(0, 0)
@@ -204,7 +204,7 @@ def test_sb03qx_zero_dimension():
 
 def test_sb03qx_zero_xanorm():
     """Test quick return for xanorm=0 (zero solution)."""
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 2
     t = np.diag(np.array([-1.0, -2.0], dtype=float, order='F'))
@@ -228,7 +228,7 @@ def test_sb03qx_2x2_block():
 
     T = [[-1, 2], [-2, -1]] has eigenvalues -1 +/- 2i
     """
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 2
 
@@ -260,7 +260,7 @@ def test_sb03qx_r_symmetrized():
     The routine fills in the remaining triangle of R.
     For TRANA='N': T^T * X + X * T = C
     """
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 3
 
@@ -296,7 +296,7 @@ def test_sb03qx_ill_conditioned():
     When T and -T' have close eigenvalues, INFO = N+1 may be returned.
     For TRANA='N': T^T * X + X * T = C
     """
-    from slicot import sb03qx
+    from ctrlsys import sb03qx
 
     n = 2
 

@@ -21,7 +21,7 @@ def test_sb04qd_html_doc_example():
     Data from SB04QD.html Program Data/Results.
     N=3, M=3
     """
-    from slicot import sb04qd
+    from ctrlsys import sb04qd
 
     n = 3
     m = 3
@@ -69,7 +69,7 @@ def test_sb04qd_residual_property():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04qd
+    from ctrlsys import sb04qd
 
     np.random.seed(42)
     n = 4
@@ -99,7 +99,7 @@ def test_sb04qd_square_system():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04qd
+    from ctrlsys import sb04qd
 
     np.random.seed(123)
     n = 3
@@ -132,7 +132,7 @@ def test_sb04qd_1x1():
 
     X + AXB = C => x + a*x*b = c => x*(1 + a*b) = c => x = c / (1 + a*b)
     """
-    from slicot import sb04qd
+    from ctrlsys import sb04qd
 
     a = np.array([[2.0]], dtype=float, order='F')
     b = np.array([[3.0]], dtype=float, order='F')
@@ -150,7 +150,7 @@ def test_sb04qd_empty_dimensions():
     """
     Test with zero dimensions (quick return case).
     """
-    from slicot import sb04qd
+    from ctrlsys import sb04qd
 
     # N=0, M=2
     a = np.zeros((0, 0), dtype=float, order='F')
@@ -168,7 +168,7 @@ def test_sb04qd_n_larger_than_m():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04qd
+    from ctrlsys import sb04qd
 
     np.random.seed(456)
     n = 5
@@ -197,7 +197,7 @@ def test_sb04qd_m_larger_than_n():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04qd
+    from ctrlsys import sb04qd
 
     np.random.seed(789)
     n = 2

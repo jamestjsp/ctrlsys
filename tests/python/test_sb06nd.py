@@ -19,7 +19,7 @@ def test_sb06nd_html_doc_example():
     Input: 5x5 state matrix A, 5x2 input matrix B from HTML doc.
     Validates that result is nilpotent (all eigenvalues = 0).
     """
-    from slicot import ab01od, sb06nd
+    from ctrlsys import ab01od, sb06nd
 
     n = 5
     m = 2
@@ -76,7 +76,7 @@ def test_sb06nd_nilpotent_property():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab01od, sb06nd
+    from ctrlsys import ab01od, sb06nd
 
     np.random.seed(42)
 
@@ -120,7 +120,7 @@ def test_sb06nd_simple_siso():
 
     Uses AB01OD to get proper staircase form.
     """
-    from slicot import ab01od, sb06nd
+    from ctrlsys import ab01od, sb06nd
 
     n = 2
     m = 1
@@ -157,7 +157,7 @@ def test_sb06nd_simple_siso():
 
 def test_sb06nd_quick_return_n_zero():
     """Test quick return when n=0."""
-    from slicot import sb06nd
+    from ctrlsys import sb06nd
 
     n = 0
     m = 2
@@ -176,7 +176,7 @@ def test_sb06nd_quick_return_n_zero():
 
 def test_sb06nd_quick_return_m_zero():
     """Test quick return when m=0."""
-    from slicot import sb06nd
+    from ctrlsys import sb06nd
 
     n = 3
     m = 0
@@ -195,7 +195,7 @@ def test_sb06nd_quick_return_m_zero():
 
 def test_sb06nd_invalid_n():
     """Test error handling for invalid n < 0."""
-    from slicot import sb06nd
+    from ctrlsys import sb06nd
 
     n = -1
     m = 2
@@ -212,7 +212,7 @@ def test_sb06nd_invalid_n():
 
 def test_sb06nd_invalid_m():
     """Test error handling for invalid m < 0."""
-    from slicot import sb06nd
+    from ctrlsys import sb06nd
 
     n = 2
     m = -1
@@ -229,7 +229,7 @@ def test_sb06nd_invalid_m():
 
 def test_sb06nd_invalid_kmax():
     """Test error handling for invalid kmax > n."""
-    from slicot import sb06nd
+    from ctrlsys import sb06nd
 
     n = 2
     m = 1

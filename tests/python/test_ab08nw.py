@@ -10,7 +10,7 @@ Unlike AB08ND, this routine outputs E matrix (from Af-lambda*Ef) instead of Bf.
 
 import numpy as np
 import pytest
-from slicot import ab08nw
+from ctrlsys import ab08nw
 
 
 def test_html_doc_example():

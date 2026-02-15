@@ -11,7 +11,7 @@ block column by block column.
 
 import numpy as np
 import pytest
-from slicot import mb02gd
+from ctrlsys import mb02gd
 
 
 class TestMB02GDBasic:

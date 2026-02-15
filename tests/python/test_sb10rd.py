@@ -3,7 +3,7 @@ Tests for SB10RD - H-infinity controller from F and H matrices.
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 class TestSB10RDBasic:

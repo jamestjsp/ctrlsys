@@ -25,7 +25,7 @@ def test_ab04md_continuous_to_discrete():
     C = [[0.0, 2.8284], [-2.8284, 0.0]]
     D = [[-1.0, 0.0], [0.0, -3.0]]
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     # Input matrices (column-major order)
     # Note: Fortran reads column-by-column from data file:
@@ -68,7 +68,7 @@ def test_ab04md_discrete_to_continuous():
 
     Random seed: 42 (not used, deterministic test)
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     # Start with discrete-time system (output from previous test)
     # Use exact sqrt(2) values for precision
@@ -109,7 +109,7 @@ def test_ab04md_roundtrip():
     Mathematical property: bilinear transformation is invertible.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     np.random.seed(42)
     n, m, p = 3, 2, 2
@@ -151,7 +151,7 @@ def test_ab04md_eigenvalue_mapping():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     np.random.seed(123)
     n, m, p = 4, 1, 1
@@ -190,7 +190,7 @@ def test_ab04md_transfer_function_equivalence():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     np.random.seed(456)
     n, m, p = 2, 1, 1
@@ -238,7 +238,7 @@ def test_ab04md_zero_dimension():
 
     Should return immediately with info=0.
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     # N=0 system (static gain only)
     m, p = 2, 2
@@ -265,7 +265,7 @@ def test_ab04md_custom_alpha_beta():
     The transformation should scale correctly with different parameters.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     np.random.seed(789)
     n, m, p = 2, 1, 1
@@ -298,7 +298,7 @@ def test_ab04md_error_invalid_type():
     """
     Test error handling for invalid TYPE parameter.
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     a = np.array([[1.0]], order='F', dtype=float)
     b = np.array([[1.0]], order='F', dtype=float)
@@ -313,7 +313,7 @@ def test_ab04md_error_zero_alpha():
     """
     Test error handling for alpha=0.
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     a = np.array([[1.0]], order='F', dtype=float)
     b = np.array([[1.0]], order='F', dtype=float)
@@ -328,7 +328,7 @@ def test_ab04md_error_zero_beta():
     """
     Test error handling for beta=0.
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     a = np.array([[1.0]], order='F', dtype=float)
     b = np.array([[1.0]], order='F', dtype=float)
@@ -345,7 +345,7 @@ def test_ab04md_singular_matrix_discrete_to_continuous():
 
     If A has eigenvalue -alpha, the transformation fails.
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     alpha = 1.0
     # A has eigenvalue -1, so (alpha*I + A) = (I + A) is singular
@@ -366,7 +366,7 @@ def test_ab04md_singular_matrix_continuous_to_discrete():
 
     If A has eigenvalue beta, the transformation fails.
     """
-    from slicot import ab04md
+    from ctrlsys import ab04md
 
     beta = 1.0
     # A has eigenvalue 1, so (beta*I - A) = (I - A) is singular

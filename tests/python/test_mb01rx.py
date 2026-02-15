@@ -15,7 +15,7 @@ def test_mb01rx_side_left_uplo_upper_trans_no():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(42)
     m, n = 3, 2
@@ -60,7 +60,7 @@ def test_mb01rx_side_left_uplo_lower_trans_yes():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(123)
     m, n = 3, 4
@@ -106,7 +106,7 @@ def test_mb01rx_side_right_uplo_upper_trans_no():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(456)
     m, n = 3, 2
@@ -148,7 +148,7 @@ def test_mb01rx_side_right_uplo_lower_trans_yes():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(789)
     m, n = 4, 3
@@ -191,7 +191,7 @@ def test_mb01rx_alpha_zero():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(999)
     m, n = 3, 2
@@ -230,7 +230,7 @@ def test_mb01rx_beta_zero():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(111)
     m, n = 3, 2
@@ -263,7 +263,7 @@ def test_mb01rx_alpha_beta_zero():
     """
     Test special case: alpha=0, beta=0 -> R = 0 (upper triangle).
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = 3, 2
     alpha, beta = 0.0, 0.0
@@ -292,7 +292,7 @@ def test_mb01rx_alpha_beta_zero():
 
 def test_mb01rx_error_invalid_side():
     """Test error handling: invalid SIDE parameter."""
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = 3, 2
     r = np.eye(m, order='F', dtype=float)
@@ -305,7 +305,7 @@ def test_mb01rx_error_invalid_side():
 
 def test_mb01rx_error_invalid_uplo():
     """Test error handling: invalid UPLO parameter."""
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = 3, 2
     r = np.eye(m, order='F', dtype=float)
@@ -318,7 +318,7 @@ def test_mb01rx_error_invalid_uplo():
 
 def test_mb01rx_error_invalid_trans():
     """Test error handling: invalid TRANS parameter."""
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = 3, 2
     r = np.eye(m, order='F', dtype=float)
@@ -331,7 +331,7 @@ def test_mb01rx_error_invalid_trans():
 
 def test_mb01rx_error_m_negative():
     """Test error handling: M < 0."""
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = -1, 2
     r = np.eye(1, order='F', dtype=float)
@@ -344,7 +344,7 @@ def test_mb01rx_error_m_negative():
 
 def test_mb01rx_error_n_negative():
     """Test error handling: N < 0."""
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = 3, -1
     r = np.eye(m, order='F', dtype=float)
@@ -365,7 +365,7 @@ def test_mb01rx_property_symmetry():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(222)
     m, n = 4, 3
@@ -403,7 +403,7 @@ def test_mb01rx_property_scale_equivalence():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     np.random.seed(333)
     m, n = 3, 2
@@ -427,7 +427,7 @@ def test_mb01rx_property_scale_equivalence():
 
 def test_mb01rx_edge_case_m_zero():
     """Test edge case: M=0 (empty matrix)."""
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = 0, 2
     r = np.zeros((1, 1), order='F', dtype=float)
@@ -440,7 +440,7 @@ def test_mb01rx_edge_case_m_zero():
 
 def test_mb01rx_edge_case_n_zero():
     """Test edge case: N=0 (R = alpha*R)."""
-    from slicot import mb01rx
+    from ctrlsys import mb01rx
 
     m, n = 3, 0
     alpha = 2.5

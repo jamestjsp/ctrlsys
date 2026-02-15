@@ -30,7 +30,7 @@ def test_discrete_time_html_example():
     So F = 1/(R+1) * [2, -1]
     With R=0: F = [2, -1]
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     n, m = 2, 1
     p = 0
@@ -64,7 +64,7 @@ def test_continuous_time_basic():
     R = I, X = I, B = [[1, 0], [0, 1]]
     Then F = I^(-1) * I * I = I
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(42)
     n, m = 2, 2
@@ -98,7 +98,7 @@ def test_discrete_feedback_formula():
 
     Tests that the linear system (R + B'XB) * F = B'XA + L' holds.
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(123)
     n, m = 3, 2
@@ -138,7 +138,7 @@ def test_continuous_feedback_formula():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(456)
     n, m = 4, 2
@@ -178,7 +178,7 @@ def test_zero_cross_term_l():
 
     For discrete-time with L=0: F = (R + B'XB)^(-1) * B'XA
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(789)
     n, m = 2, 2
@@ -220,7 +220,7 @@ def test_single_input():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(111)
     n, m = 3, 1
@@ -257,7 +257,7 @@ def test_lower_triangular_uplo_l():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(222)
     n, m = 2, 2
@@ -301,7 +301,7 @@ def test_cholesky_factored_r_continuous():
 
     R given as Cholesky factor: R_chol where R = R_chol' * R_chol
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(333)
     n, m = 3, 2
@@ -339,7 +339,7 @@ def test_d_factor_discrete():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(444)
     n, m = 2, 2
@@ -381,7 +381,7 @@ def test_d_factor_discrete():
 
 def test_invalid_dico():
     """Test invalid DICO parameter."""
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     n, m = 2, 1
     p = 0
@@ -398,7 +398,7 @@ def test_invalid_dico():
 
 def test_invalid_uplo():
     """Test invalid UPLO parameter."""
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     n, m = 2, 1
     p = 0
@@ -419,7 +419,7 @@ def test_singular_coefficient_matrix():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(555)
     n, m = 2, 2
@@ -448,7 +448,7 @@ def test_identity_matrices():
     With A=I, B=I, R=I, X=I, L=0 (discrete):
     F = (I + I)^(-1) * I = 0.5 * I
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     n, m = 2, 2
     p = 0
@@ -475,7 +475,7 @@ def test_larger_system():
 
     Random seed: 666 (for reproducibility)
     """
-    from slicot import sb02nd
+    from ctrlsys import sb02nd
 
     np.random.seed(666)
     n, m = 5, 3

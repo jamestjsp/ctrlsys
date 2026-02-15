@@ -9,7 +9,7 @@ H is an upper Hessenberg matrix, and op(H) is H or H'.
 
 import numpy as np
 import pytest
-from slicot import mb01rh
+from ctrlsys import mb01rh
 
 
 def make_upper_hessenberg(a):

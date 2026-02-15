@@ -6,7 +6,7 @@ standard Schur form (split if real eigenvalues, standardize if complex).
 """
 import numpy as np
 import pytest
-from slicot import mb03qy
+from ctrlsys import mb03qy
 
 
 """Basic functionality tests."""

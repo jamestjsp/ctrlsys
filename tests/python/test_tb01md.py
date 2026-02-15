@@ -13,7 +13,7 @@ def test_tb01md_upper_hessenberg_html_example():
     Validates mathematical properties rather than exact values since
     Householder reflector signs can differ between implementations.
     """
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     # Input A: 6x6 matrix from SLICOT HTML doc
     a = np.array([
@@ -78,7 +78,7 @@ def test_tb01md_lower_hessenberg():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     np.random.seed(42)
     n, m = 4, 2
@@ -123,7 +123,7 @@ def test_tb01md_accumulate_u():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     np.random.seed(123)
     n, m = 5, 2
@@ -170,7 +170,7 @@ def test_tb01md_eigenvalue_preservation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     np.random.seed(456)
     n, m = 6, 3
@@ -202,7 +202,7 @@ def test_tb01md_m_geq_n():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     np.random.seed(789)
     n, m = 3, 5  # m > n
@@ -226,7 +226,7 @@ def test_tb01md_m_geq_n():
 
 def test_tb01md_n_zero():
     """Test edge case with N=0."""
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     a = np.empty((0, 0), order='F', dtype=float)
     b = np.empty((0, 2), order='F', dtype=float)
@@ -240,7 +240,7 @@ def test_tb01md_n_zero():
 
 def test_tb01md_m_zero():
     """Test edge case with M=0 - A should be unchanged."""
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     np.random.seed(111)
     n = 4
@@ -260,7 +260,7 @@ def test_tb01md_m_zero():
 
 def test_tb01md_invalid_jobu():
     """Test error handling for invalid JOBU parameter."""
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     a = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)
     b = np.array([[1.0], [2.0]], order='F', dtype=float)
@@ -271,7 +271,7 @@ def test_tb01md_invalid_jobu():
 
 def test_tb01md_invalid_uplo():
     """Test error handling for invalid UPLO parameter."""
-    from slicot import tb01md
+    from ctrlsys import tb01md
 
     a = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)
     b = np.array([[1.0], [2.0]], order='F', dtype=float)

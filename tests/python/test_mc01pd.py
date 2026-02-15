@@ -18,7 +18,7 @@ def test_mc01pd_basic_html_example():
     Expected coefficients (increasing powers of x):
     p[0] = -20.0, p[1] = 14.0, p[2] = -24.0, p[3] = 15.0, p[4] = -4.0, p[5] = 1.0
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     k = 5
     rez = np.array([0.0, 0.0, 2.0, 1.0, 1.0], order='F', dtype=float)
@@ -41,7 +41,7 @@ def test_mc01pd_single_real_zero():
     P(x) = (x - 3) = -3 + x
     Coefficients: [-3, 1]
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([3.0], order='F', dtype=float)
     imz = np.array([0.0], order='F', dtype=float)
@@ -61,7 +61,7 @@ def test_mc01pd_two_real_zeros():
     P(x) = (x - 1)(x - 2) = 2 - 3*x + x^2
     Coefficients: [2, -3, 1]
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([1.0, 2.0], order='F', dtype=float)
     imz = np.array([0.0, 0.0], order='F', dtype=float)
@@ -81,7 +81,7 @@ def test_mc01pd_complex_conjugate_pair():
     P(x) = (x - (1+2i))(x - (1-2i)) = x^2 - 2x + 5
     Coefficients: [5, -2, 1]
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([1.0, 1.0], order='F', dtype=float)
     imz = np.array([2.0, -2.0], order='F', dtype=float)
@@ -99,7 +99,7 @@ def test_mc01pd_zero_degree():
 
     No zeros, P(x) = 1
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([], order='F', dtype=float)
     imz = np.array([], order='F', dtype=float)
@@ -119,7 +119,7 @@ def test_mc01pd_imaginary_zeros():
     P(x) = (x - i)(x + i) = x^2 + 1
     Coefficients: [1, 0, 1]
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([0.0, 0.0], order='F', dtype=float)
     imz = np.array([1.0, -1.0], order='F', dtype=float)
@@ -137,7 +137,7 @@ def test_mc01pd_error_unpaired_complex():
 
     If last zero is complex (IMZ != 0), it has no pair -> error.
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([1.0], order='F', dtype=float)
     imz = np.array([2.0], order='F', dtype=float)
@@ -154,7 +154,7 @@ def test_mc01pd_error_wrong_conjugate():
     Zeros: (1, 2i), (2, -2i) - not conjugates
     Should return INFO = 2.
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([1.0, 2.0], order='F', dtype=float)
     imz = np.array([2.0, -2.0], order='F', dtype=float)
@@ -179,7 +179,7 @@ def test_mc01pd_mixed_real_complex():
     (x + 1)(x^2 - 2x + 2) = x^3 - 2x^2 + 2x + x^2 - 2x + 2
                           = x^3 - x^2 + 2
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([-1.0, 1.0, 1.0], order='F', dtype=float)
     imz = np.array([0.0, 1.0, -1.0], order='F', dtype=float)
@@ -200,7 +200,7 @@ def test_mc01pd_numpy_roots_validation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     np.random.seed(42)
 
@@ -227,7 +227,7 @@ def test_mc01pd_complex_roots_validation():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01pd
+    from ctrlsys import mc01pd
 
     rez = np.array([1.0, 1.0, -3.0], order='F', dtype=float)
     imz = np.array([2.0, -2.0, 0.0], order='F', dtype=float)

@@ -21,7 +21,7 @@ Mode combinations:
 
 import numpy as np
 import pytest
-from slicot import ib01cd
+from ctrlsys import ib01cd
 
 
 def create_stable_system(n, m, l, seed=42):

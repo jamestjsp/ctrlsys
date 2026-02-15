@@ -24,7 +24,7 @@ class TestTG01IDBasic:
         System: N=7, M=2, P=3 with JOBOBS='O' (separate finite/infinite unobservable)
         Expected: NOBSV=3, NIUOBS=1, NLBLCK=2, CTAU=[2,1]
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         n, m, p = 7, 2, 3
 
@@ -99,7 +99,7 @@ class TestTG01IDMathematicalProperties:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(42)
         n, m, p = 4, 2, 2
@@ -139,7 +139,7 @@ class TestTG01IDMathematicalProperties:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(123)
         n, m, p = 5, 2, 2
@@ -175,7 +175,7 @@ class TestTG01IDMathematicalProperties:
         The generalized eigenvalues of (A,E) should be preserved.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(456)
         n, m, p = 4, 1, 2
@@ -219,7 +219,7 @@ class TestTG01IDModes:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(789)
         n, m, p = 4, 2, 2
@@ -247,7 +247,7 @@ class TestTG01IDModes:
 
         Random seed: 101 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(101)
         n, m, p = 4, 2, 2
@@ -279,7 +279,7 @@ class TestTG01IDCompModes:
 
         Random seed: 202 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(202)
         n, m, p = 4, 2, 2
@@ -306,7 +306,7 @@ class TestTG01IDEdgeCases:
 
     def test_n_zero(self):
         """Test with N=0 (empty system)."""
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         a = np.array([], dtype=float, order='F').reshape(0, 0)
         e = np.array([], dtype=float, order='F').reshape(0, 0)
@@ -326,7 +326,7 @@ class TestTG01IDEdgeCases:
 
         Random seed: 303 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(303)
         n, m, p = 3, 2, 0
@@ -350,7 +350,7 @@ class TestTG01IDEdgeCases:
 
         Random seed: 404 (for reproducibility)
         """
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         np.random.seed(404)
         n, m, p = 3, 0, 2
@@ -375,7 +375,7 @@ class TestTG01IDErrorHandling:
 
     def test_invalid_jobobs(self):
         """Test with invalid JOBOBS parameter."""
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         a = np.array([[1.0]], order='F')
         e = np.array([[1.0]], order='F')
@@ -390,7 +390,7 @@ class TestTG01IDErrorHandling:
 
     def test_invalid_compq(self):
         """Test with invalid COMPQ parameter."""
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         a = np.array([[1.0]], order='F')
         e = np.array([[1.0]], order='F')
@@ -405,7 +405,7 @@ class TestTG01IDErrorHandling:
 
     def test_invalid_compz(self):
         """Test with invalid COMPZ parameter."""
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         a = np.array([[1.0]], order='F')
         e = np.array([[1.0]], order='F')
@@ -420,7 +420,7 @@ class TestTG01IDErrorHandling:
 
     def test_invalid_tol(self):
         """Test with invalid TOL parameter (>= 1)."""
-        from slicot import tg01id
+        from ctrlsys import tg01id
 
         a = np.array([[1.0]], order='F')
         e = np.array([[1.0]], order='F')

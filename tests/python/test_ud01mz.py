@@ -6,7 +6,7 @@ UD01MZ prints an M-by-N complex matrix row by row with 7 significant figures.
 
 import numpy as np
 import pytest
-from slicot import ud01mz
+from ctrlsys import ud01mz
 
 
 class TestUD01MZBasic:

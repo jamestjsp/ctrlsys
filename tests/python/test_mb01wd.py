@@ -10,7 +10,7 @@ where R and result are symmetric, T is triangular, A is general or Hessenberg.
 
 import numpy as np
 import pytest
-from slicot import mb01wd
+from ctrlsys import mb01wd
 
 
 class TestMB01WDContinuous:

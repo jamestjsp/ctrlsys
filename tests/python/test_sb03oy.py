@@ -8,7 +8,7 @@ SB03OY solves for the Cholesky factor U of X, where op(U)'*op(U) = X, either:
 where S is 2x2 with complex conjugate eigenvalues, R is 2x2 upper triangular.
 """
 import numpy as np
-import slicot
+import ctrlsys
 
 
 def make_stable_continuous_2x2(alpha, omega):

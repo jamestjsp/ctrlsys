@@ -9,7 +9,7 @@ where R is symmetric, H is upper Hessenberg, E is upper triangular.
 
 import numpy as np
 import pytest
-from slicot import mb01oe
+from ctrlsys import mb01oe
 
 
 def make_upper_hessenberg(a):

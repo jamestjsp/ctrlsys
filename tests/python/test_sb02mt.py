@@ -32,7 +32,7 @@ def test_sb02mt_basic_cholesky():
     R_inv = np.linalg.inv(R)
     G_expected = B @ R_inv @ B.T
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     R_copy = R.copy()
     B_copy = B.copy()
@@ -81,7 +81,7 @@ def test_sb02mt_with_coupling_matrix_L():
     Q_bar_expected = Q - L @ R_inv @ L.T
     G_expected = B @ R_inv @ B.T
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     A_copy = A.copy()
     B_copy = B.copy()
@@ -121,7 +121,7 @@ def test_sb02mt_lower_triangle():
     R_inv = np.linalg.inv(R)
     G_expected = B @ R_inv @ B.T
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     R_copy = R.copy()
     B_copy = B.copy()
@@ -158,7 +158,7 @@ def test_sb02mt_indefinite_R():
     R_inv = np.linalg.inv(R)
     G_expected = B @ R_inv @ B.T
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     R_copy = R.copy()
     B_copy = B.copy()
@@ -197,7 +197,7 @@ def test_sb02mt_precomputed_cholesky():
     R_inv = np.linalg.inv(R)
     G_expected = B @ R_inv @ B.T
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     R_chol_copy = R_chol.copy()
     B_copy = B.copy()
@@ -241,7 +241,7 @@ def test_sb02mt_no_G_computation():
     A_bar_expected = A - B @ R_inv @ L.T
     Q_bar_expected = Q - L @ R_inv @ L.T
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     A_copy = A.copy()
     B_copy = B.copy()
@@ -271,7 +271,7 @@ def test_sb02mt_zero_M():
     R = np.zeros((1, 1), dtype=float, order='F')
     G = np.zeros((n, n), dtype=float, order='F')
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     G_out, oufact, info = sb02mt(
         'G', 'Z', 'N', 'U',
@@ -298,7 +298,7 @@ def test_sb02mt_symmetric_property():
     R_half = np.random.randn(m, m)
     R = (R_half.T @ R_half + np.eye(m) * 3.0).astype(float, order='F')
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     R_copy = R.copy()
     B_copy = B.copy()
@@ -327,7 +327,7 @@ def test_sb02mt_singular_R_error():
     R = np.array([[1.0, 2.0],
                   [2.0, 4.0]], dtype=float, order='F')
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     R_copy = R.copy()
     B_copy = B.copy()
@@ -351,7 +351,7 @@ def test_sb02mt_error_invalid_jobg():
     R = np.eye(m, dtype=float, order='F')
     G = np.zeros((n, n), dtype=float, order='F')
 
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     with pytest.raises(ValueError, match="[Pp]arameter"):
         sb02mt('X', 'Z', 'N', 'U', n, m, None, B, None, R, None, G)
@@ -361,7 +361,7 @@ def test_sb02mt_error_negative_n():
     """
     Test SB02MT error handling: negative N.
     """
-    from slicot import sb02mt
+    from ctrlsys import sb02mt
 
     B = np.zeros((1, 1), dtype=float, order='F')
     R = np.eye(1, dtype=float, order='F')

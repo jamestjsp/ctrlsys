@@ -9,7 +9,7 @@ References:
 """
 import numpy as np
 import pytest
-from slicot import fb01vd
+from ctrlsys import fb01vd
 
 
 class TestFB01VDHtmlDocExample:

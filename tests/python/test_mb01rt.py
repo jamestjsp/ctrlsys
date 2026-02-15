@@ -9,7 +9,7 @@ and op(E) = E or E'.
 
 import numpy as np
 import pytest
-from slicot import mb01rt
+from ctrlsys import mb01rt
 
 
 def make_upper_triangular(a):

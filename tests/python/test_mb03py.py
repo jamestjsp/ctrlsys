@@ -8,7 +8,7 @@ estimated condition number less than 1/RCOND.
 """
 import numpy as np
 import pytest
-from slicot import mb03py
+from ctrlsys import mb03py
 
 
 """Basic functionality tests for mb03py."""

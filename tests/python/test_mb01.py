@@ -5,7 +5,7 @@ SPDX-License-Identifier: BSD-3-Clause
 """
 import numpy as np
 import pytest
-from slicot import (
+from ctrlsys import (
     mb01pd, mb01qd, mb01rb, mb01rd, mb01ru, mb01rw, mb01rx, mb01ry,
     mb01sd, mb01td, mb01ud, mb01uy, mb01kd, mb01ld, mb01md, mb01nd
 )

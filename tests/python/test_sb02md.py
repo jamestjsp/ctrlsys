@@ -32,7 +32,7 @@ def test_sb02md_html_doc_example():
     Expected output (RCOND ~0.31):
         X = [2, 1; 1, 2]
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 2
 
@@ -79,7 +79,7 @@ def test_sb02md_continuous_riccati_residual():
     Random seed: 42 (for reproducibility)
     """
     np.random.seed(42)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 4
 
@@ -113,7 +113,7 @@ def test_sb02md_solution_symmetry():
     Random seed: 123 (for reproducibility)
     """
     np.random.seed(123)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 
@@ -144,7 +144,7 @@ def test_sb02md_solution_positive_semidefinite():
     Random seed: 456 (for reproducibility)
     """
     np.random.seed(456)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 4
 
@@ -176,7 +176,7 @@ def test_sb02md_closed_loop_eigenvalues():
     Random seed: 789 (for reproducibility)
     """
     np.random.seed(789)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 
@@ -225,7 +225,7 @@ def test_sb02md_discrete_time_riccati():
     Random seed: 111 (for reproducibility)
     """
     np.random.seed(111)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 
@@ -260,7 +260,7 @@ def test_sb02md_discrete_time_hinv_i():
     Random seed: 222 (for reproducibility)
     """
     np.random.seed(222)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 
@@ -289,7 +289,7 @@ def test_sb02md_scaling():
     Random seed: 333 (for reproducibility)
     """
     np.random.seed(333)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 
@@ -321,7 +321,7 @@ def test_sb02md_lower_triangle():
     Random seed: 444 (for reproducibility)
     """
     np.random.seed(444)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 
@@ -355,7 +355,7 @@ def test_sb02md_unstable_sort():
     Random seed: 555 (for reproducibility)
     """
     np.random.seed(555)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 
@@ -384,7 +384,7 @@ def test_sb02md_n_zero():
     """
     Test SB02MD quick return for n=0.
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 0
 
@@ -405,7 +405,7 @@ def test_sb02md_error_singular_u11():
     This occurs when the system doesn't have a unique stabilizing solution.
     For zero matrices, Hamiltonian has no stable eigenvalues (info=4).
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 2
 
@@ -422,7 +422,7 @@ def test_sb02md_error_invalid_dico():
     """
     Test SB02MD error handling: invalid DICO parameter.
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 2
     A = np.eye(n, dtype=float, order='F')
@@ -437,7 +437,7 @@ def test_sb02md_error_invalid_hinv():
     """
     Test SB02MD error handling: invalid HINV parameter.
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 2
     A = np.eye(n, dtype=float, order='F')
@@ -452,7 +452,7 @@ def test_sb02md_error_invalid_uplo():
     """
     Test SB02MD error handling: invalid UPLO parameter.
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 2
     A = np.eye(n, dtype=float, order='F')
@@ -467,7 +467,7 @@ def test_sb02md_error_invalid_scal():
     """
     Test SB02MD error handling: invalid SCAL parameter.
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 2
     A = np.eye(n, dtype=float, order='F')
@@ -482,7 +482,7 @@ def test_sb02md_error_invalid_sort():
     """
     Test SB02MD error handling: invalid SORT parameter.
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 2
     A = np.eye(n, dtype=float, order='F')
@@ -497,7 +497,7 @@ def test_sb02md_error_negative_n():
     """
     Test SB02MD error handling: negative N.
     """
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     A = np.eye(1, dtype=float, order='F')
     G = np.eye(1, dtype=float, order='F')
@@ -519,7 +519,7 @@ def test_sb02md_schur_form_structure():
     Random seed: 666 (for reproducibility)
     """
     np.random.seed(666)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 4
 
@@ -553,7 +553,7 @@ def test_sb02md_orthogonal_transformation():
     Random seed: 777 (for reproducibility)
     """
     np.random.seed(777)
-    from slicot import sb02md
+    from ctrlsys import sb02md
 
     n = 3
 

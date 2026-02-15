@@ -22,7 +22,7 @@ def test_ab13md_single_complex_block():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     np.random.seed(42)
     n = 4
@@ -49,7 +49,7 @@ def test_ab13md_single_real_block():
     When NBLOCK = [1] and ITYPE = [1] (single real scalar),
     mu(Z) = |Re(Z[0,0])| if Z is purely real, else 0.
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     z = np.array([[3.5 + 0j]], order='F', dtype=np.complex128)
     nblock = np.array([1], dtype=np.int32)
@@ -67,7 +67,7 @@ def test_ab13md_single_real_block_imaginary():
 
     When Z has imaginary part, mu = 0 for real uncertainty.
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     z = np.array([[3.5 + 1.0j]], order='F', dtype=np.complex128)
     nblock = np.array([1], dtype=np.int32)
@@ -85,7 +85,7 @@ def test_ab13md_zero_matrix():
 
     mu(0) = 0 for any block structure (single block case).
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     n = 4
     z = np.zeros((n, n), order='F', dtype=np.complex128)
@@ -104,7 +104,7 @@ def test_ab13md_block_size_mismatch_error():
 
     Should return INFO = 2.
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     n = 6
     z = np.zeros((n, n), order='F', dtype=np.complex128)
@@ -121,7 +121,7 @@ def test_ab13md_real_block_size_error():
 
     Real blocks (ITYPE=1) must have size 1. Should return INFO = 3.
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     n = 4
     z = np.zeros((n, n), order='F', dtype=np.complex128)
@@ -138,7 +138,7 @@ def test_ab13md_invalid_block_type_error():
 
     Block type must be 1 or 2. Should return INFO = 4.
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     n = 4
     z = np.zeros((n, n), order='F', dtype=np.complex128)
@@ -155,7 +155,7 @@ def test_ab13md_zero_block_size_error():
 
     Block sizes must be positive. Should return INFO = 1.
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     n = 4
     z = np.zeros((n, n), order='F', dtype=np.complex128)
@@ -175,7 +175,7 @@ def test_ab13md_scaling_property_single_block():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     np.random.seed(999)
     n = 4
@@ -219,7 +219,7 @@ def test_ab13md_basic():
       with AB13MD.dat - matches documented AB13MD.res result)
     - INFO = 0 (success)
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     # Matrix from AB13MD.dat, correctly interpreted as Fortran list-directed
     # READ statement which reads row-by-row: ( ( Z(I,J), J=1,N ), I=1,N )
@@ -257,7 +257,7 @@ def test_ab13md_with_fact():
     Calling with similar matrices should work with FACT='F'.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     np.random.seed(123)
     n = 4
@@ -288,7 +288,7 @@ def test_ab13md_mixed_blocks():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     np.random.seed(456)
     n = 5
@@ -313,7 +313,7 @@ def test_ab13md_two_complex_blocks():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab13md
+    from ctrlsys import ab13md
 
     np.random.seed(789)
     n = 4

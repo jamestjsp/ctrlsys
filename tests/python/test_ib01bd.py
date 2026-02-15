@@ -15,7 +15,7 @@ Mathematical properties tested:
 import numpy as np
 import os
 import pytest
-from slicot import ib01ad, ib01bd
+from ctrlsys import ib01ad, ib01bd
 
 
 def load_html_example_data():

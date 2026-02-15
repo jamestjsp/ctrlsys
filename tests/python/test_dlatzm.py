@@ -28,7 +28,7 @@ def test_dlatzm_left_side():
     C_orig = np.vstack([c1_orig, c2_orig])
     C_expected = P @ C_orig
 
-    from slicot import dlatzm
+    from ctrlsys import dlatzm
 
     c1_out, c2_out = dlatzm('L', m, n, v, incv, tau, c1, c2)
 
@@ -62,7 +62,7 @@ def test_dlatzm_right_side():
     C_orig = np.hstack([c1_orig, c2_orig])
     C_expected = C_orig @ P
 
-    from slicot import dlatzm
+    from ctrlsys import dlatzm
 
     c1_out, c2_out = dlatzm('R', m, n, v, incv, tau, c1, c2)
 
@@ -90,7 +90,7 @@ def test_dlatzm_tau_zero():
     c1_orig = c1.copy()
     c2_orig = c2.copy()
 
-    from slicot import dlatzm
+    from ctrlsys import dlatzm
 
     c1_out, c2_out = dlatzm('L', m, n, v, incv, tau, c1, c2)
 
@@ -117,7 +117,7 @@ def test_dlatzm_orthogonal_property():
     c1 = np.eye(m)[:1, :].astype(float, order='F').copy()
     c2 = np.eye(m)[1:, :].astype(float, order='F').copy()
 
-    from slicot import dlatzm
+    from ctrlsys import dlatzm
 
     c1_out, c2_out = dlatzm('L', m, n, v, incv, tau, c1, c2)
     P = np.vstack([c1_out, c2_out])
@@ -147,7 +147,7 @@ def test_dlatzm_involution():
     c1_orig = c1.copy()
     c2_orig = c2.copy()
 
-    from slicot import dlatzm
+    from ctrlsys import dlatzm
 
     c1_out, c2_out = dlatzm('L', m, n, v, incv, tau, c1, c2)
     c1_out2, c2_out2 = dlatzm('L', m, n, v, incv, tau, c1_out, c2_out)
@@ -179,7 +179,7 @@ def test_dlatzm_incv_not_one():
     C_orig = np.vstack([c1.copy(), c2.copy()])
     C_expected = P @ C_orig
 
-    from slicot import dlatzm
+    from ctrlsys import dlatzm
 
     c1_out, c2_out = dlatzm('L', m, n, v_full, incv, tau, c1, c2)
 

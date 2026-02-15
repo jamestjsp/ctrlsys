@@ -15,7 +15,7 @@ def test_mb02td_basic():
     NORM = 'O' (1-norm)
     Expected RCOND = 0.1554D-01 (approximately 0.01554)
     """
-    from slicot import mb02sd, mb02td
+    from ctrlsys import mb02sd, mb02td
 
     n = 5
     h = np.array([
@@ -43,7 +43,7 @@ def test_mb02td_infinity_norm():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02sd, mb02td
+    from ctrlsys import mb02sd, mb02td
 
     np.random.seed(42)
     n = 4
@@ -71,7 +71,7 @@ def test_mb02td_well_conditioned():
 
     Uses identity-like Hessenberg matrix.
     """
-    from slicot import mb02sd, mb02td
+    from ctrlsys import mb02sd, mb02td
 
     n = 3
     h = np.array([
@@ -97,7 +97,7 @@ def test_mb02td_ill_conditioned():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02sd, mb02td
+    from ctrlsys import mb02sd, mb02td
 
     n = 4
     h = np.array([
@@ -120,7 +120,7 @@ def test_mb02td_ill_conditioned():
 
 def test_mb02td_n1():
     """Test MB02TD with 1x1 matrix."""
-    from slicot import mb02sd, mb02td
+    from ctrlsys import mb02sd, mb02td
 
     n = 1
     h = np.array([[5.0]], order='F', dtype=float)
@@ -137,7 +137,7 @@ def test_mb02td_n1():
 
 def test_mb02td_n0():
     """Test MB02TD with n=0 (quick return, RCOND=1)."""
-    from slicot import mb02td
+    from ctrlsys import mb02td
 
     n = 0
     h = np.zeros((1, 1), order='F', dtype=float)
@@ -151,7 +151,7 @@ def test_mb02td_n0():
 
 def test_mb02td_hnorm_zero():
     """Test MB02TD with HNORM=0 (quick return, RCOND=0)."""
-    from slicot import mb02sd, mb02td
+    from ctrlsys import mb02sd, mb02td
 
     n = 2
     h = np.array([
@@ -174,7 +174,7 @@ def test_mb02td_property_bounds():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb02sd, mb02td
+    from ctrlsys import mb02sd, mb02td
 
     np.random.seed(456)
 
@@ -201,7 +201,7 @@ def test_mb02td_property_bounds():
 
 def test_mb02td_invalid_norm():
     """Test MB02TD with invalid NORM parameter."""
-    from slicot import mb02td
+    from ctrlsys import mb02td
 
     n = 2
     h = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)
@@ -214,7 +214,7 @@ def test_mb02td_invalid_norm():
 
 def test_mb02td_invalid_n():
     """Test MB02TD with invalid N parameter."""
-    from slicot import mb02td
+    from ctrlsys import mb02td
 
     h = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)
     ipiv = np.array([1, 2], dtype=np.int32)
@@ -226,7 +226,7 @@ def test_mb02td_invalid_n():
 
 def test_mb02td_invalid_hnorm():
     """Test MB02TD with invalid HNORM parameter (negative)."""
-    from slicot import mb02td
+    from ctrlsys import mb02td
 
     n = 2
     h = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)

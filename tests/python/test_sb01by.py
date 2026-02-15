@@ -6,7 +6,7 @@ Eigenvalues specified by sum S and product P (for N=2).
 """
 import numpy as np
 import pytest
-from slicot import sb01by
+from ctrlsys import sb01by
 
 
 """Basic functionality tests."""

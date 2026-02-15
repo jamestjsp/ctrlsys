@@ -9,7 +9,7 @@ where R is symmetric, H and A are N-by-N upper Hessenberg matrices.
 
 import numpy as np
 import pytest
-from slicot import mb01oh
+from ctrlsys import mb01oh
 
 
 def make_upper_hessenberg(a):

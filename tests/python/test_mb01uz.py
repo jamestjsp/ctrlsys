@@ -11,7 +11,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import mb01uz
+from ctrlsys import mb01uz
 
 
 class TestMB01UZBasic:

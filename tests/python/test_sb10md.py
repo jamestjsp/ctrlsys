@@ -24,7 +24,7 @@ def test_sb10md_basic():
     This tests the core path through SB10MD with a simple SISO-like structure.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     np.random.seed(42)
 
@@ -67,7 +67,7 @@ def test_sb10md_mu_only():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     np.random.seed(123)
 
@@ -111,7 +111,7 @@ def test_sb10md_single_complex_block():
     For single complex full block, mu equals the largest singular value.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     np.random.seed(456)
 
@@ -156,7 +156,7 @@ def test_sb10md_with_f_parameter():
     F is the size of the I_f block added to the D-scaling output system.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     np.random.seed(789)
 
@@ -196,7 +196,7 @@ def test_sb10md_quick_return_mp_zero():
 
     Random seed: N/A (deterministic)
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     nc = 2
     mp = 0
@@ -229,7 +229,7 @@ def test_sb10md_quick_return_nc_zero():
 
     Random seed: N/A (deterministic)
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     nc = 0
     mp = 2
@@ -262,7 +262,7 @@ def test_sb10md_block_structure_error():
 
     Should return INFO = 3.
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     nc = 2
     mp = 4
@@ -296,7 +296,7 @@ def test_sb10md_mu_positive():
     The structured singular value is non-negative by definition.
     Random seed: 999 (for reproducibility)
     """
-    from slicot import sb10md
+    from ctrlsys import sb10md
 
     np.random.seed(999)
 

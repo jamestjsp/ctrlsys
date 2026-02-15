@@ -8,7 +8,7 @@ Computes for an N-by-N real nonsymmetric matrix A:
 """
 import numpy as np
 import pytest
-from slicot import mb05my
+from ctrlsys import mb05my
 
 
 """Basic functionality tests."""

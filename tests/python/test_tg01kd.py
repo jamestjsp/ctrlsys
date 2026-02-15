@@ -7,7 +7,7 @@ and Q'*E*Z remains upper triangular.
 """
 import numpy as np
 import pytest
-from slicot import tg01kd
+from ctrlsys import tg01kd
 
 
 def test_tg01kd_basic_upper_triangular_e():

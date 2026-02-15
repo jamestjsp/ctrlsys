@@ -9,7 +9,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import mb04su, mb04wd
+from ctrlsys import mb04su, mb04wd
 
 
 class TestMB04WDBasic:
@@ -311,7 +311,7 @@ class TestMB04WDMathematicalProperties:
         The blocked version should produce identical results to unblocked.
         Random seed: 5678 (for reproducibility)
         """
-        from slicot import mb04wu
+        from ctrlsys import mb04wu
 
         np.random.seed(5678)
         m, n = 5, 4

@@ -3,7 +3,7 @@ Tests for MB02WD - Conjugate gradient solver for SPD systems.
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 class TestMB02WDBasic:

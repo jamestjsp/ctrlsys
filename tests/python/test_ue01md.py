@@ -24,7 +24,7 @@ def test_ue01md_blocksize_mb04st():
     For routine names with C2='4S' and C3='B', the block size should be
     derived from ILAENV for DGEQRF.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "MB04SB"
@@ -43,7 +43,7 @@ def test_ue01md_blocksize_mb04tt():
 
     Block size derived from ILAENV for DGEHRD divided by 4.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "MB04TT"
@@ -62,7 +62,7 @@ def test_ue01md_blocksize_mb04pb():
 
     Block size derived from ILAENV for DGEHRD divided by 2.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "MB04PB"
@@ -81,7 +81,7 @@ def test_ue01md_blocksize_mb04wd():
 
     Block size derived from ILAENV for DORGQR divided by 2.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "MB04WD"
@@ -100,7 +100,7 @@ def test_ue01md_blocksize_mb04qb():
 
     Block size derived from ILAENV for DORMQR divided by 2.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "MB04QB"
@@ -119,7 +119,7 @@ def test_ue01md_blocksize_mb04rb():
 
     Block size derived from ILAENV for DGEHRD divided by 2.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "MB04RB"
@@ -138,7 +138,7 @@ def test_ue01md_minblocksize():
 
     For MB04SB, minimum block size derived from ILAENV for DGEQRF.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 2
     name = "MB04SB"
@@ -157,7 +157,7 @@ def test_ue01md_crossover():
 
     For MB04SB, crossover from ILAENV for DGEQRF.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 3
     name = "MB04SB"
@@ -176,7 +176,7 @@ def test_ue01md_num_shifts():
 
     Calls ILAENV with DHSEQR.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 4
     name = "MB03XP"
@@ -194,7 +194,7 @@ def test_ue01md_multishift_crossover():
 
     Calls ILAENV with DHSEQR.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 8
     name = "MB03XP"
@@ -210,7 +210,7 @@ def test_ue01md_invalid_ispec():
     """
     Test with invalid ISPEC returns -1.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 99
     name = "MB04SB"
@@ -226,7 +226,7 @@ def test_ue01md_lowercase_name():
     """
     Test that routine handles lowercase names (converts to uppercase).
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "mb04sb"
@@ -245,7 +245,7 @@ def test_ue01md_unknown_routine_returns_one():
 
     For unrecognized C2/C3 combinations, the routine returns the default value.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     name = "AB01MD"
@@ -261,7 +261,7 @@ def test_ue01md_consistency_lower_upper():
     """
     Test that lowercase and uppercase names produce same result.
     """
-    from slicot import ue01md
+    from ctrlsys import ue01md
 
     ispec = 1
     opts = ""

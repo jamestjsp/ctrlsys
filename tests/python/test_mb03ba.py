@@ -28,7 +28,7 @@ def test_mb03ba_positive_signature():
     - AMAP[I] = (H-1+I-1) mod K + 1 in Fortran indexing
     - QMAP identical to AMAP
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 4
     h = 2
@@ -55,7 +55,7 @@ def test_mb03ba_negative_signature():
     - SMULT = -1
     - AMAP and QMAP have different formulas involving reversal
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 4
     h = 2
@@ -85,7 +85,7 @@ def test_mb03ba_single_factor():
     """
     Validate K=1 (single factor case).
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 1
     h = 1
@@ -102,7 +102,7 @@ def test_mb03ba_single_factor_negative():
     """
     Validate K=1 with negative signature.
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 1
     h = 1
@@ -120,7 +120,7 @@ def test_mb03ba_h_at_k():
     """
     Validate when H = K (boundary case).
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 3
     h = 3
@@ -141,7 +141,7 @@ def test_mb03ba_h_equals_one():
     """
     Validate when H = 1.
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 4
     h = 1
@@ -164,7 +164,7 @@ def test_mb03ba_permutation_property():
 
     Mathematical property: AMAP must be a valid permutation.
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 5
     h = 3
@@ -182,7 +182,7 @@ def test_mb03ba_negative_signature_permutation():
     """
     Validate permutation property with negative signature.
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 5
     h = 3
@@ -201,7 +201,7 @@ def test_mb03ba_larger_k():
     """
     Validate with larger K value.
     """
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     k = 8
     h = 5
@@ -219,7 +219,7 @@ def test_mb03ba_larger_k():
 
 
 def test_mb03ba_bijection_property():
-    from slicot import mb03ba
+    from ctrlsys import mb03ba
 
     for k in range(2, 7):
         for h in range(1, k + 1):

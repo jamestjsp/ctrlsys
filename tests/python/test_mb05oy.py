@@ -17,7 +17,7 @@ def test_mb05oy_scaling_only():
     Balanced A_bal = D^{-1} * A_orig * D
     MB05OY should recover A_orig = D * A_bal * D^{-1}
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 4
     low = 1  # 1-based
@@ -51,7 +51,7 @@ def test_mb05oy_scaling_subset():
     Only rows/cols 2-3 (1-based) are scaled. Others have scale[i] = permutation index.
     For JOB='S', only scaling is applied (no permutation).
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 4
     low = 2  # 1-based
@@ -87,7 +87,7 @@ def test_mb05oy_permutation_only():
     Test with LOW=1, IGH=N-1, so only row N needs permutation.
     SCALE(N) = K means row N was swapped with row K by DGEBAL.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 4
     low = 1
@@ -124,7 +124,7 @@ def test_mb05oy_job_n():
 
     Matrix should be unchanged.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 3
     a_orig = np.array([
@@ -146,7 +146,7 @@ def test_mb05oy_empty_matrix():
     """
     Test N=0 edge case.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     a = np.array([], dtype=float).reshape(0, 0, order='F')
     scale = np.array([], dtype=float)
@@ -163,7 +163,7 @@ def test_mb05oy_involution_property():
     If A_bal = D^{-1} * A * D, and we apply MB05OY (which does D * A_bal * D^{-1}),
     we should get back A.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     np.random.seed(42)
     n = 5
@@ -191,7 +191,7 @@ def test_mb05oy_eigenvalue_preservation():
 
     Balancing is a similarity transformation, so eigenvalues must be preserved.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     np.random.seed(789)
     n = 4
@@ -229,7 +229,7 @@ def test_mb05oy_invalid_job():
     """
     Test invalid JOB parameter.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 3
     a = np.eye(n, order='F', dtype=float)
@@ -244,7 +244,7 @@ def test_mb05oy_invalid_n():
     """
     Test invalid N parameter (negative).
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     a = np.eye(3, order='F', dtype=float)
     scale = np.ones(3, dtype=float)
@@ -258,7 +258,7 @@ def test_mb05oy_invalid_low():
     """
     Test invalid LOW parameter.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 3
     a = np.eye(n, order='F', dtype=float)
@@ -275,7 +275,7 @@ def test_mb05oy_invalid_igh():
     """
     Test invalid IGH parameter.
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 3
     a = np.eye(n, order='F', dtype=float)
@@ -301,7 +301,7 @@ def test_mb05oy_combined_scale_permute():
     So if we have balanced = D^{-1} * P' * orig * P * D,
     then MB05OY(balanced) = P * D * D^{-1} * P' * orig * P * D * D^{-1} * P' = orig
     """
-    from slicot import mb05oy
+    from ctrlsys import mb05oy
 
     n = 4
     low = 1

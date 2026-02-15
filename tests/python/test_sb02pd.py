@@ -7,7 +7,7 @@ Solves: op(A)'*X + X*op(A) + Q - X*G*X = 0
 
 import numpy as np
 import pytest
-from slicot import sb02pd
+from ctrlsys import sb02pd
 
 
 class TestSB02PDBasic:

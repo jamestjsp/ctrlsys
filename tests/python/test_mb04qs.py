@@ -15,7 +15,7 @@ import pytest
 
 def test_mb04qs_quick_return_n_zero():
     """Test quick return when n=0."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 4, 0
     ilo = 1
@@ -33,7 +33,7 @@ def test_mb04qs_quick_return_n_zero():
 
 def test_mb04qs_quick_return_m_le_ilo():
     """Test quick return when m <= ilo (no active rows)."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 3, 4
     ilo = 4
@@ -56,7 +56,7 @@ def test_mb04qs_quick_return_m_le_ilo():
 
 def test_mb04qs_workspace_query():
     """Test workspace query mode (ldwork=-1)."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 6, 4
     ilo = 1
@@ -82,7 +82,7 @@ def test_mb04qs_identity_reflectors():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     np.random.seed(42)
     m, n = 5, 3
@@ -116,7 +116,7 @@ def test_mb04qs_with_transpose_tranc():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     np.random.seed(123)
     m, n = 4, 3
@@ -142,7 +142,7 @@ def test_mb04qs_with_transpose_tranc():
 
 def test_mb04qs_invalid_tranc():
     """Test error for invalid TRANC parameter."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 4, 3
     ilo = 1
@@ -160,7 +160,7 @@ def test_mb04qs_invalid_tranc():
 
 def test_mb04qs_invalid_trand():
     """Test error for invalid TRAND parameter."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 4, 3
     ilo = 1
@@ -178,7 +178,7 @@ def test_mb04qs_invalid_trand():
 
 def test_mb04qs_invalid_tranu():
     """Test error for invalid TRANU parameter."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 4, 3
     ilo = 1
@@ -196,7 +196,7 @@ def test_mb04qs_invalid_tranu():
 
 def test_mb04qs_negative_m():
     """Test error for negative M."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = -1, 3
     ilo = 1
@@ -214,7 +214,7 @@ def test_mb04qs_negative_m():
 
 def test_mb04qs_negative_n():
     """Test error for negative N."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 4, -1
     ilo = 1
@@ -232,7 +232,7 @@ def test_mb04qs_negative_n():
 
 def test_mb04qs_invalid_ilo_too_small():
     """Test error for ILO < 1."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 4, 3
     ilo = 0
@@ -250,7 +250,7 @@ def test_mb04qs_invalid_ilo_too_small():
 
 def test_mb04qs_invalid_ilo_too_large():
     """Test error for ILO > M+1."""
-    from slicot import mb04qs
+    from ctrlsys import mb04qs
 
     m, n = 4, 3
     ilo = 6

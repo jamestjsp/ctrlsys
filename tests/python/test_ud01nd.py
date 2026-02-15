@@ -31,7 +31,7 @@ def test_ud01nd_basic():
      1    0.1000000D+01  0.0000000D+00  0.0000000D+00
     ...
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 4, 3, 2, 5
 
@@ -78,7 +78,7 @@ def test_ud01nd_degree_zero():
     """
     Test edge case: degree 0 polynomial (single coefficient matrix).
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 2, 0, 5
 
@@ -103,7 +103,7 @@ def test_ud01nd_column_blocking():
 
     This tests the column blocking feature where NP > L.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 5, 1, 2
 
@@ -135,7 +135,7 @@ def test_ud01nd_single_element():
     """
     Test edge case: 1x1 coefficient matrices.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 1, 1, 2, 1
 
@@ -159,7 +159,7 @@ def test_ud01nd_empty_text():
     From Fortran: If TEXT = ' ', then coefficient matrices are
     separated by an empty line.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 2, 1, 2
 
@@ -180,7 +180,7 @@ def test_ud01nd_scientific_notation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     np.random.seed(42)
 
@@ -208,7 +208,7 @@ def test_ud01nd_error_mp_invalid():
     """
     Test error: MP < 1.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 0, 2, 1, 2
 
@@ -225,7 +225,7 @@ def test_ud01nd_error_np_invalid():
     """
     Test error: NP < 1.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 0, 1, 2
 
@@ -242,7 +242,7 @@ def test_ud01nd_error_dp_invalid():
     """
     Test error: DP < 0.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 2, -1, 2
 
@@ -259,7 +259,7 @@ def test_ud01nd_error_l_too_small():
     """
     Test error: L < 1.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 2, 1, 0
 
@@ -276,7 +276,7 @@ def test_ud01nd_error_l_too_large():
     """
     Test error: L > 5.
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 2, 1, 6
 
@@ -293,7 +293,7 @@ def test_ud01nd_long_text():
     """
     Test with long text title (truncated to 72 chars).
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     mp, np_dim, dp, l = 2, 2, 0, 2
 
@@ -318,7 +318,7 @@ def test_ud01nd_polynomial_evaluation_property():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ud01nd
+    from ctrlsys import ud01nd
 
     np.random.seed(123)
 

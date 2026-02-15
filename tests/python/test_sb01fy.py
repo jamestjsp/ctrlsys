@@ -26,7 +26,7 @@ def test_sb01fy_continuous_n1():
     For continuous-time: A must have positive real part (unstable).
     V should be identity for continuous-time.
     """
-    from slicot import sb01fy
+    from ctrlsys import sb01fy
 
     n = 1
     m = 2
@@ -58,7 +58,7 @@ def test_sb01fy_discrete_n1():
 
     For discrete-time: A must have modulus > 1 (unstable).
     """
-    from slicot import sb01fy
+    from ctrlsys import sb01fy
 
     n = 1
     m = 1
@@ -90,7 +90,7 @@ def test_sb01fy_continuous_n2():
 
     A must have eigenvalues with positive real parts.
     """
-    from slicot import sb01fy
+    from ctrlsys import sb01fy
 
     n = 2
     m = 2
@@ -128,7 +128,7 @@ def test_sb01fy_discrete_n2():
 
     A must have eigenvalues with modulus > 1.
     """
-    from slicot import sb01fy
+    from ctrlsys import sb01fy
 
     n = 2
     m = 2
@@ -168,7 +168,7 @@ def test_sb01fy_inner_property():
     For continuous-time: (A+BF)'P + P(A+BF) + F'F = 0 should have solution P > 0.
     System (A+BF, BV, F, V) is inner means V'V = I and specific Lyapunov equation.
     """
-    from slicot import sb01fy
+    from ctrlsys import sb01fy
 
     n = 1
     m = 2
@@ -190,7 +190,7 @@ def test_sb01fy_stable_system_error():
 
     A must be unstable, otherwise INFO=2.
     """
-    from slicot import sb01fy
+    from ctrlsys import sb01fy
 
     n = 1
     m = 1
@@ -210,7 +210,7 @@ def test_sb01fy_marginally_stable_error():
 
     A at stability limit (eigenvalue = 0 for continuous, |eig|=1 for discrete).
     """
-    from slicot import sb01fy
+    from ctrlsys import sb01fy
 
     n = 1
     m = 1

@@ -21,7 +21,7 @@ import numpy as np
 import pytest
 
 try:
-    import slicot
+    import ctrlsys
     HAS_SLICOT = True
 except ImportError:
     HAS_SLICOT = False

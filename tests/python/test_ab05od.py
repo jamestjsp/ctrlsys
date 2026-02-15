@@ -14,7 +14,7 @@ The interconnected system has:
 
 import numpy as np
 import pytest
-from slicot import ab05od
+from ctrlsys import ab05od
 
 
 """Basic functionality tests using SLICOT HTML doc example."""

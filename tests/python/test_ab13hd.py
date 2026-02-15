@@ -20,7 +20,7 @@ def test_ab13hd_continuous_standard_basic():
     N=6, M=1, P=1, DICO='C', JOBE='I', JOBD='D'
     Expected: L-infinity norm ~ 5e5, peak frequency ~ 1.414
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     n, m, p = 6, 1, 1
 
@@ -59,7 +59,7 @@ def test_ab13hd_continuous_no_d():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(42)
     n, m, p = 3, 1, 1
@@ -94,7 +94,7 @@ def test_ab13hd_discrete():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(123)
     n, m, p = 2, 1, 1
@@ -128,7 +128,7 @@ def test_ab13hd_descriptor():
     G(s) = C*(s*E-A)^(-1)*B with E near-identity, A stable diagonal.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(456)
     n, m, p = 2, 1, 1
@@ -161,7 +161,7 @@ def test_ab13hd_descriptor():
 
 def test_ab13hd_n0():
     """Test AB13HD with n=0 (quick return). G(s)=D, norm=sigma_max(D)."""
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     n, m, p = 0, 1, 1
 
@@ -185,7 +185,7 @@ def test_ab13hd_n0():
 
 def test_ab13hd_m0_p0():
     """Test AB13HD with m=0 (quick return)."""
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     n, m, p = 2, 0, 1
 
@@ -209,7 +209,7 @@ def test_ab13hd_m0_p0():
 
 def test_ab13hd_invalid_dico():
     """Test AB13HD with invalid DICO parameter."""
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     n, m, p = 2, 1, 1
 
@@ -236,7 +236,7 @@ def test_ab13hd_fullrd_option():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(789)
     n, m, p = 2, 1, 1
@@ -269,7 +269,7 @@ def test_ab13hd_equilibration():
 
     Random seed: 321 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(321)
     n, m, p = 3, 1, 1
@@ -303,7 +303,7 @@ def test_ab13hd_poles_partial():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(555)
     n, m, p = 3, 1, 1
@@ -337,7 +337,7 @@ def test_ab13hd_compressed_e():
 
     Random seed: 777 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(777)
     n, m, p = 3, 1, 1
@@ -376,7 +376,7 @@ def test_ab13hd_hinf_norm_mimo():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(999)
     n, m, p = 2, 2, 2
@@ -416,7 +416,7 @@ def test_ab13hd_continuous_frequency_validation():
 
     Random seed: 100 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(100)
     n, m, p = 3, 1, 1
@@ -453,7 +453,7 @@ def test_ab13hd_descriptor_vs_standard():
 
     Both should give the same H-inf norm for E=identity.
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     n, m, p = 3, 1, 1
     a = np.array([
@@ -496,7 +496,7 @@ def test_ab13hd_discrete_frequency_validation():
     For discrete-time: G(z) = C*(z*E - A)^(-1)*B + D, z = exp(j*theta).
     Random seed: 200 (for reproducibility)
     """
-    from slicot import ab13hd
+    from ctrlsys import ab13hd
 
     np.random.seed(200)
     n, m, p = 2, 1, 1

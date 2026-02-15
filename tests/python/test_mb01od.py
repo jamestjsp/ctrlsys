@@ -4,7 +4,7 @@ with R, X symmetric, H upper Hessenberg, and E upper triangular.
 """
 import numpy as np
 import pytest
-from slicot import mb01od
+from ctrlsys import mb01od
 
 
 def make_symmetric(a, uplo='U'):

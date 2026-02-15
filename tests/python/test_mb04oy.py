@@ -59,7 +59,7 @@ def test_mb04oy_basic_2x2():
 
     a_expected, b_expected = apply_householder_reference(a, b, v, tau)
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -86,7 +86,7 @@ def test_mb04oy_3x3():
 
     a_expected, b_expected = apply_householder_reference(a, b, v, tau)
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -113,7 +113,7 @@ def test_mb04oy_5x5():
 
     a_expected, b_expected = apply_householder_reference(a, b, v, tau)
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -140,7 +140,7 @@ def test_mb04oy_10x10():
 
     a_expected, b_expected = apply_householder_reference(a, b, v, tau)
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -167,7 +167,7 @@ def test_mb04oy_large_general():
 
     a_expected, b_expected = apply_householder_reference(a, b, v, tau)
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -195,7 +195,7 @@ def test_mb04oy_tau_zero():
     a_expected = a.copy()
     b_expected = b.copy()
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -242,7 +242,7 @@ def test_mb04oy_m_zero():
 
     a_expected = (1.0 - tau) * a
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -263,7 +263,7 @@ def test_mb04oy_n_zero():
     v = np.array([1.0, 2.0, 3.0], dtype=float, order='F')
     tau = 1.5
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -289,7 +289,7 @@ def test_mb04oy_single_column():
 
     a_expected, b_expected = apply_householder_reference(a, b, v, tau)
 
-    from slicot import mb04oy
+    from ctrlsys import mb04oy
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')

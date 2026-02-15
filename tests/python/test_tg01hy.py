@@ -6,7 +6,7 @@ Similar to TG01HX but uses block algorithms for better performance on large syst
 """
 import pytest
 import numpy as np
-from slicot import tg01hy
+from ctrlsys import tg01hy
 
 
 def test_tg01hy_basic():

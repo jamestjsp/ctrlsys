@@ -8,7 +8,7 @@ where op(A) = A or A' and Q, G are symmetric.
 
 import numpy as np
 import pytest
-from slicot import sb02sd
+from ctrlsys import sb02sd
 
 
 def test_sb02sd_rcond_only():
@@ -213,7 +213,7 @@ def test_sb02sd_with_actual_riccati_solution():
 
     Solves the discrete Riccati equation and verifies the residual.
     """
-    from slicot import sb02od
+    from ctrlsys import sb02od
     n = 3
     m = 2
 

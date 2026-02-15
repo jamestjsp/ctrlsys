@@ -25,7 +25,7 @@ def test_mc01nd_basic_html_example():
     Expected: P(x0) = -4.1337 + 1.7088j
     Tolerance based on HTML 4-decimal display precision.
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 4
     xr = -1.56
@@ -50,7 +50,7 @@ def test_mc01nd_real_evaluation():
 
     Expected: vr=17.0, vi=0.0
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 2
     xr = 2.0
@@ -75,7 +75,7 @@ def test_mc01nd_purely_imaginary_point():
 
     Expected: vr=0.0, vi=1.0
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 2
     xr = 0.0
@@ -100,7 +100,7 @@ def test_mc01nd_constant_polynomial():
 
     Expected: vr=7.5, vi=0.0
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 0
     xr = 3.0
@@ -125,7 +125,7 @@ def test_mc01nd_linear_polynomial():
 
     Expected: vr=5.0, vi=6.0
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 1
     xr = 1.0
@@ -151,7 +151,7 @@ def test_mc01nd_quadratic_complex():
 
     Expected: vr=3.0, vi=4.0
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 2
     xr = 1.0
@@ -172,7 +172,7 @@ def test_mc01nd_error_negative_dp():
     Python wrapper infers dp from array size.
     Empty array means dp = -1 which is invalid.
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     xr = 1.0
     xi = 0.0
@@ -192,7 +192,7 @@ def test_mc01nd_numpy_comparison():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 3
     xr = -0.5
@@ -229,7 +229,7 @@ def test_mc01nd_horner_property():
 
     Expected: P(2+j) = 22 + 58j
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 3
     xr = 2.0
@@ -249,7 +249,7 @@ def test_mc01nd_random_polynomial_numpy_cross_validation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     np.random.seed(42)
 
@@ -279,7 +279,7 @@ def test_mc01nd_roots_polynomial():
     P(j) = j^2 + 1 = -1 + 1 = 0
     P(-j) = (-j)^2 + 1 = -1 + 1 = 0
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     p = np.array([1.0, 0.0, 1.0], order='F', dtype=float)
 
@@ -302,7 +302,7 @@ def test_mc01nd_conjugate_symmetry():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     np.random.seed(123)
 
@@ -336,7 +336,7 @@ def test_mc01nd_high_degree_polynomial():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 6
     p = np.ones(dp + 1, dtype=float)
@@ -373,7 +373,7 @@ def test_mc01nd_negative_coefficients():
           = -1 - 2 + 2j - 6j + 8 + 8j
           = 5 + 4j
     """
-    from slicot import mc01nd
+    from ctrlsys import mc01nd
 
     dp = 3
     xr = 1.0

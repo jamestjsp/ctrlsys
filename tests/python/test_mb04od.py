@@ -53,7 +53,7 @@ def test_mb04od_html_example():
         [-2.7974, -3.1162]
     ], dtype=float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -84,7 +84,7 @@ def test_mb04od_upper_trapezoidal():
     b = np.random.randn(n, m).astype(float, order='F')
     c = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -113,7 +113,7 @@ def test_mb04od_full_matrix():
     b = np.random.randn(n, m).astype(float, order='F')
     c = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -149,7 +149,7 @@ def test_mb04od_orthogonality():
     block_col1 = np.vstack([r, a])
     norm_before = np.linalg.norm(block_col1, 'fro')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -182,7 +182,7 @@ def test_mb04od_zero_m():
     b = np.zeros((n, max(1, m)), dtype=float, order='F')
     c = np.zeros((p, max(1, m)), dtype=float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -212,7 +212,7 @@ def test_mb04od_zero_p():
     ], dtype=float, order='F')
     c = np.zeros((max(1, p), m), dtype=float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -232,7 +232,7 @@ def test_mb04od_zero_n():
     b = np.zeros((max(1, n), max(1, m)), dtype=float, order='F')
     c = np.zeros((max(1, p), max(1, m)), dtype=float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -258,7 +258,7 @@ def test_mb04od_r_upper_triangular():
     b = np.random.randn(n, m).astype(float, order='F')
     c = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 
@@ -287,7 +287,7 @@ def test_mb04od_uplo_u_with_p_gt_n():
     b = np.random.randn(n, m).astype(float, order='F')
     c = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04od
+    from ctrlsys import mb04od
 
     r_out, a_out, b_out, c_out, tau = mb04od(uplo, n, m, p, r, a, b, c)
 

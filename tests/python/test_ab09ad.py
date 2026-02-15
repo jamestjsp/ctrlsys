@@ -8,7 +8,7 @@ square-root Balance & Truncate model reduction method.
 
 import numpy as np
 import pytest
-from slicot import ab09ad
+from ctrlsys import ab09ad
 
 
 class TestAB09ADBasic:

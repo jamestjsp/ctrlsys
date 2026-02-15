@@ -7,7 +7,7 @@ where s = BASE**S and t = BASE**T.
 """
 
 import numpy as np
-from slicot import mc01sd
+from ctrlsys import mc01sd
 
 
 def test_mc01sd_html_example():

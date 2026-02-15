@@ -10,7 +10,7 @@ C11 translation of SLICOT (Subroutine Library In Control Theory) from Fortran77.
 
 ```bash
 # Setup (one-time)
-uv venv && uv pip install ".[test]"
+uv venv && uv pip install ".[test]"  # installs as 'ctrlsys' package
 meson setup build --buildtype=debug  # generates compile_commands.json for clangd
 
 # Development (build + install + test)

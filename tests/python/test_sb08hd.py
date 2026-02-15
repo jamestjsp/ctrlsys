@@ -32,7 +32,7 @@ def test_sb08hd_basic():
     Creates a known system G and its coprime factors Q, R, then verifies
     that sb08hd reconstructs G correctly.
     """
-    from slicot import sb08hd
+    from ctrlsys import sb08hd
 
     np.random.seed(42)
 
@@ -91,7 +91,7 @@ def test_sb08hd_identity_dr():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb08hd
+    from ctrlsys import sb08hd
 
     np.random.seed(123)
 
@@ -134,7 +134,7 @@ def test_sb08hd_singular_dr():
 
     When DR is exactly singular, info should be 1.
     """
-    from slicot import sb08hd
+    from ctrlsys import sb08hd
 
     n, m, p = 2, 2, 2
 
@@ -166,7 +166,7 @@ def test_sb08hd_nearly_singular_dr():
 
     When DR is numerically singular but not exactly singular, info should be 2.
     """
-    from slicot import sb08hd
+    from ctrlsys import sb08hd
 
     n, m, p = 2, 2, 2
 
@@ -199,7 +199,7 @@ def test_sb08hd_quick_return_m_zero():
 
     With M=0, the routine should return immediately with rcond=1.
     """
-    from slicot import sb08hd
+    from ctrlsys import sb08hd
 
     n, m, p = 3, 0, 2
 
@@ -235,7 +235,7 @@ def test_sb08hd_state_space_consistency():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb08hd
+    from ctrlsys import sb08hd
 
     np.random.seed(456)
 

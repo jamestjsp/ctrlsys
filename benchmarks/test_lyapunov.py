@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from slicot import sb03md
+from ctrlsys import sb03md
 
 
 @pytest.fixture(params=[10, 50, 100, 200], ids=lambda n: f"n={n}")

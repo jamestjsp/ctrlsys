@@ -9,7 +9,7 @@ where Q1 and Q2 are N-by-N matrices and op(X) = X or X^T.
 """
 import numpy as np
 import pytest
-from slicot import ma02jd
+from ctrlsys import ma02jd
 
 
 class TestMA02JDBasic:

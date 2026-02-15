@@ -26,7 +26,7 @@ def test_ab07nd_basic():
     Ci = [[0, 0.25, -0.25], [0, 0, 1]]
     Di = [[0.25, 0], [0, 1]]
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     a = np.array([[1.0, 2.0, 0.0],
                   [4.0, -1.0, 0.0],
@@ -67,7 +67,7 @@ def test_ab07nd_double_inverse():
     Applying inverse twice should return original system.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     np.random.seed(42)
     n, m = 3, 2
@@ -100,7 +100,7 @@ def test_ab07nd_transfer_function_inverse():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     np.random.seed(123)
     n, m = 2, 2
@@ -138,7 +138,7 @@ def test_ab07nd_di_equals_d_inverse():
     The feedthrough matrix of inverse is just matrix inverse.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     np.random.seed(456)
     n, m = 4, 3
@@ -168,7 +168,7 @@ def test_ab07nd_formulas():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     np.random.seed(789)
     n, m = 3, 2
@@ -207,7 +207,7 @@ def test_ab07nd_identity_d():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     np.random.seed(111)
     n, m = 3, 2
@@ -238,7 +238,7 @@ def test_ab07nd_siso():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     np.random.seed(222)
     n, m = 2, 1
@@ -263,7 +263,7 @@ def test_ab07nd_n_zero():
 
     With N=0, only D matters: Di = D^-1.
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     m = 2
     a = np.array([], order='F', dtype=float).reshape(0, 0)
@@ -288,7 +288,7 @@ def test_ab07nd_m_zero():
 
     With M=0, the system has no I/O, rcond should be 1.
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     n = 2
     a = np.array([[1.0, 0.0],
@@ -308,7 +308,7 @@ def test_ab07nd_singular_d():
 
     Should return info > 0 when D is singular.
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     n, m = 2, 2
     a = np.array([[1.0, 0.0],
@@ -331,7 +331,7 @@ def test_ab07nd_nearly_singular_d():
 
     Should return info = M+1 when D is ill-conditioned.
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     n, m = 2, 2
     a = np.array([[1.0, 0.0],
@@ -356,7 +356,7 @@ def test_ab07nd_rcond_accuracy():
     rcond should be approximately 1/cond(D).
     Random seed: 333 (for reproducibility)
     """
-    from slicot import ab07nd
+    from ctrlsys import ab07nd
 
     np.random.seed(333)
     n, m = 2, 3

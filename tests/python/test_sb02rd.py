@@ -27,7 +27,7 @@ def test_sb02rd_html_doc_example():
 
     This is the primary validation test from authoritative source.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     n = 2
 
@@ -70,7 +70,7 @@ def test_sb02rd_continuous_basic():
     Random seed: 42 (for reproducibility)
     Uses stable A matrix to ensure solution exists.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(42)
     n = 3
@@ -116,7 +116,7 @@ def test_sb02rd_discrete_basic():
     Uses stable A matrix (eigenvalues inside unit circle).
     Note: SORT='S' selects stable eigenvalues first (inside unit circle).
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(123)
     n = 3
@@ -164,7 +164,7 @@ def test_sb02rd_transpose_form():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(456)
     n = 2
@@ -204,7 +204,7 @@ def test_sb02rd_lower_triangle():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(789)
     n = 3
@@ -243,7 +243,7 @@ def test_sb02rd_scaling():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(111)
     n = 3
@@ -286,7 +286,7 @@ def test_sb02rd_n1_minimal():
     With A=-1, Q=1, G=1:
     1 - 2*X - X^2 = 0 => X = -1 + sqrt(2) ~ 0.414
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.array([[-1.0]], dtype=float, order='F')
     Q = np.array([[1.0]], dtype=float, order='F')
@@ -319,7 +319,7 @@ def test_sb02rd_eigenvalue_preservation():
     For continuous-time: eigenvalues of (A - G*X) have negative real parts.
     Random seed: 222 (for reproducibility)
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(222)
     n = 4
@@ -362,7 +362,7 @@ def test_sb02rd_positive_semidefinite_solution():
     For stabilizable/detectable systems, unique X >= 0 exists.
     Random seed: 333 (for reproducibility)
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(333)
     n = 3
@@ -400,7 +400,7 @@ def test_sb02rd_error_invalid_job():
     """
     Test SB02RD error handling: invalid JOB parameter.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.eye(2, dtype=float, order='F')
     Q = np.eye(2, dtype=float, order='F')
@@ -427,7 +427,7 @@ def test_sb02rd_error_invalid_dico():
     """
     Test SB02RD error handling: invalid DICO parameter.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.eye(2, dtype=float, order='F')
     Q = np.eye(2, dtype=float, order='F')
@@ -459,7 +459,7 @@ def test_sb02rd_discrete_hinv_inverse():
     Note: For HINV='I', we need SORT='U' (unstable eigenvalues first)
     to select eigenvalues outside the unit circle.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(444)
     n = 3
@@ -500,7 +500,7 @@ def test_sb02rd_job_all_continuous():
 
     Continuous-time case with LYAPUN='O' (original Lyapunov).
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.array([[0.0, 1.0],
                   [0.0, 0.0]], order='F', dtype=float)
@@ -543,7 +543,7 @@ def test_sb02rd_job_all_discrete():
 
     Computes solution plus conditioning and error bound.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(500)
     n = 3
@@ -588,7 +588,7 @@ def test_sb02rd_job_condition_continuous():
 
     Requires a pre-computed solution X as input.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.array([[0.0, 1.0],
                   [0.0, 0.0]], order='F', dtype=float)
@@ -633,7 +633,7 @@ def test_sb02rd_job_error_continuous():
 
     Requires a pre-computed solution X as input.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.array([[0.0, 1.0],
                   [0.0, 0.0]], order='F', dtype=float)
@@ -677,7 +677,7 @@ def test_sb02rd_job_all_lyapun_reduced():
     This exercises the code path where G, Q, X are transformed with V
     and then restored.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     n = 3
     np.random.seed(600)
@@ -720,7 +720,7 @@ def test_sb02rd_job_all_discrete_lyapun_reduced():
 
     Discrete-time with reduced Lyapunov equations.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     np.random.seed(700)
     n = 3
@@ -765,7 +765,7 @@ def test_sb02rd_job_condition_lyapun_reduced():
 
     Condition number estimation with Schur-based Lyapunov solver.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.array([[0.0, 1.0],
                   [0.0, 0.0]], order='F', dtype=float)
@@ -808,7 +808,7 @@ def test_sb02rd_job_error_lyapun_reduced():
 
     Error bound estimation with Schur-based Lyapunov solver.
     """
-    from slicot import sb02rd
+    from ctrlsys import sb02rd
 
     A = np.array([[0.0, 1.0],
                   [0.0, 0.0]], order='F', dtype=float)

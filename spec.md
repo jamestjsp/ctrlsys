@@ -7,7 +7,7 @@ Pure C11 implementation of SLICOT (Subroutine Library In Control Theory). No For
 | Attribute | Value |
 |-----------|-------|
 | **PyPI name** | `slicot` |
-| **Import** | `import slicot` |
+| **Import** | `import ctrlsys` |
 | **License** | BSD-3-Clause |
 | **Version** | 1.0.2 |
 | **Status** | Released |
@@ -139,7 +139,7 @@ No direct contributions accepted. Issues and PRs welcome for illustration but wo
 | Resource | URL |
 |----------|-----|
 | **Docs** | https://slicot.readthedocs.io/ |
-| **PyPI** | https://pypi.org/project/slicot/ |
+| **PyPI** | https://pypi.org/project/ctrlsys/ |
 | **GitHub** | https://github.com/jamestjsp/slicot |
 
 ### Content

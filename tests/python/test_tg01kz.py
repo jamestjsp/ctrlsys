@@ -10,7 +10,7 @@ while preserving the upper triangular form of E.
 """
 import pytest
 import numpy as np
-from slicot import tg01kz
+from ctrlsys import tg01kz
 
 
 def test_tg01kz_basic_identity_e():

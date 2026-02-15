@@ -4,7 +4,7 @@
 import numpy as np
 import pytest
 
-from slicot import mb4dlz
+from ctrlsys import mb4dlz
 
 
 class TestMb4dlz:

@@ -9,7 +9,7 @@ orthogonal factorization of the M-by-N matrix A, which may be rank-deficient.
 import numpy as np
 import pytest
 
-from slicot import mb02qd
+from ctrlsys import mb02qd
 
 
 class TestMB02QDBasic:

@@ -6,7 +6,7 @@ From PyPI (Recommended)
 
 .. code-block:: bash
 
-   pip install slicot
+   pip install ctrlsys
 
 Pre-built wheels are available for:
 

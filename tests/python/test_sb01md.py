@@ -41,7 +41,7 @@ def test_basic_html_doc_example():
 
     Expected output: G = [1.0000, 29.0000, 93.0000, -76.0000]
     """
-    from slicot import ab01md, sb01md
+    from ctrlsys import ab01md, sb01md
 
     n = 4
     tol = 0.0
@@ -87,7 +87,7 @@ def test_closed_loop_eigenvalue_placement():
     Mathematical property: eigenvalues of (A - B*G) should equal desired poles.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab01md, sb01md
+    from ctrlsys import ab01md, sb01md
 
     n = 4
     tol = 0.0
@@ -140,7 +140,7 @@ def test_z_orthogonality():
     Mathematical property: Z'*Z = Z*Z' = I
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab01md, sb01md
+    from ctrlsys import ab01md, sb01md
 
     n = 4
     tol = 0.0
@@ -184,7 +184,7 @@ def test_schur_form_reconstruction():
     Mathematical property: S (output A) is the Schur form of closed-loop matrix.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab01md, sb01md
+    from ctrlsys import ab01md, sb01md
 
     n = 4
     tol = 0.0
@@ -233,7 +233,7 @@ def test_complex_conjugate_poles():
 
     Complex poles must appear consecutively in WR/WI arrays.
     """
-    from slicot import ab01md, sb01md
+    from ctrlsys import ab01md, sb01md
 
     n = 2
     tol = 0.0
@@ -281,7 +281,7 @@ def test_ncont_less_than_n():
 
     When NCONT < N, only NCONT poles are assigned.
     """
-    from slicot import ab01md, sb01md
+    from ctrlsys import ab01md, sb01md
 
     n = 3
     tol = 0.0
@@ -317,7 +317,7 @@ def test_ncont_zero_quick_return():
     """
     Test quick return when NCONT=0 (no controllable part).
     """
-    from slicot import sb01md
+    from ctrlsys import sb01md
 
     ncont = 0
     n = 2
@@ -341,7 +341,7 @@ def test_n_equals_one():
     """
     Test 1x1 case (special handling in algorithm).
     """
-    from slicot import ab01md, sb01md
+    from ctrlsys import ab01md, sb01md
 
     n = 1
     tol = 0.0
@@ -374,7 +374,7 @@ def test_invalid_ncont_negative():
     """
     Test error handling for NCONT < 0.
     """
-    from slicot import sb01md
+    from ctrlsys import sb01md
 
     ncont = -1
     n = 2
@@ -396,7 +396,7 @@ def test_invalid_n_less_than_ncont():
     """
     Test error handling for N < NCONT.
     """
-    from slicot import sb01md
+    from ctrlsys import sb01md
 
     ncont = 3
     n = 2  # N < NCONT is invalid

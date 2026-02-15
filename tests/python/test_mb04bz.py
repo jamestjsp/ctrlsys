@@ -9,7 +9,7 @@ using an embedding to a real skew-Hamiltonian/skew-Hamiltonian pencil.
 import numpy as np
 import pytest
 
-from slicot import mb04bz
+from ctrlsys import mb04bz
 
 
 class TestMB04BZBasic:

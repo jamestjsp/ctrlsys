@@ -17,7 +17,7 @@ def test_mb04qf_basic():
     When W diagonal=0, tau=0, only Givens structure matters.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     np.random.seed(42)
     n, k = 4, 2
@@ -48,7 +48,7 @@ def test_mb04qf_with_givens_rotations():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     np.random.seed(123)
     n, k = 5, 3
@@ -80,7 +80,7 @@ def test_mb04qf_rowwise_storage():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     np.random.seed(456)
     n, k = 4, 2
@@ -111,7 +111,7 @@ def test_mb04qf_mixed_storage():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     np.random.seed(789)
     n, k = 4, 2
@@ -142,7 +142,7 @@ def test_mb04qf_k_equals_1():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     np.random.seed(111)
     n, k = 5, 1
@@ -164,7 +164,7 @@ def test_mb04qf_n_equals_zero():
     """
     Test MB04QF with N=0 (quick return).
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     n, k = 0, 1
 
@@ -185,7 +185,7 @@ def test_mb04qf_large_k():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     np.random.seed(333)
     n, k = 10, 5
@@ -217,7 +217,7 @@ def test_mb04qf_givens_cosine_sine_property():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb04qf
+    from ctrlsys import mb04qf
 
     np.random.seed(555)
     n, k = 4, 2

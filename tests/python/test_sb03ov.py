@@ -9,7 +9,7 @@ where d is always real and is overwritten on a.
 """
 import pytest
 import numpy as np
-from slicot import sb03ov
+from ctrlsys import sb03ov
 
 
 def test_sb03ov_basic():

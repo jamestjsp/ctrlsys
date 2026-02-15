@@ -28,7 +28,7 @@ Key test cases:
 """
 
 import numpy as np
-from slicot import sg03bz
+from ctrlsys import sg03bz
 
 
 def test_sg03bz_continuous_trans_n_fact_n():

@@ -20,7 +20,7 @@ class TestMB04XDBasic:
         6x4 matrix, RANK=-1 (compute rank), THETA=0.001
         Expected: rank=3, singular subspace basis computed
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         m, n = 6, 4
         rank_in = -1
@@ -72,7 +72,7 @@ class TestMB04XDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         np.random.seed(42)
         m, n = 5, 4
@@ -104,7 +104,7 @@ class TestMB04XDBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         np.random.seed(123)
         m, n = 4, 4
@@ -137,7 +137,7 @@ class TestMB04XDMathematical:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         np.random.seed(456)
         m, n = 6, 5
@@ -178,7 +178,7 @@ class TestMB04XDMathematical:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         np.random.seed(789)
         m, n = 5, 4
@@ -210,7 +210,7 @@ class TestMB04XDMathematical:
 
         Random seed: 555 (for reproducibility)
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         np.random.seed(555)
         m, n = 6, 5
@@ -244,7 +244,7 @@ class TestMB04XDEdgeCases:
 
         Random seed: 111 (for reproducibility)
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         np.random.seed(111)
         m, n = 4, 4
@@ -273,7 +273,7 @@ class TestMB04XDEdgeCases:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         np.random.seed(222)
         m, n = 3, 5
@@ -300,7 +300,7 @@ class TestMB04XDEdgeCases:
         """
         Test with zero matrix (all singular values are zero).
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         m, n = 4, 3
         p = min(m, n)
@@ -325,7 +325,7 @@ class TestMB04XDEdgeCases:
         """
         Test with 1x1 matrix.
         """
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         m, n = 1, 1
 
@@ -353,7 +353,7 @@ class TestMB04XDErrors:
 
     def test_invalid_jobu(self):
         """Test with invalid JOBU parameter."""
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         m, n = 3, 3
         a = np.random.randn(m, n).astype(float, order='F')
@@ -363,7 +363,7 @@ class TestMB04XDErrors:
 
     def test_invalid_jobv(self):
         """Test with invalid JOBV parameter."""
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         m, n = 3, 3
         a = np.random.randn(m, n).astype(float, order='F')
@@ -373,7 +373,7 @@ class TestMB04XDErrors:
 
     def test_rank_too_large(self):
         """Test with RANK > min(M, N)."""
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         m, n = 3, 4
         p = min(m, n)
@@ -384,7 +384,7 @@ class TestMB04XDErrors:
 
     def test_negative_rank_negative_theta(self):
         """Test with RANK < 0 and THETA < 0 (invalid combination)."""
-        from slicot import mb04xd
+        from ctrlsys import mb04xd
 
         m, n = 3, 4
         a = np.random.randn(m, n).astype(float, order='F')

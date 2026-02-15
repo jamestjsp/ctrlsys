@@ -27,7 +27,7 @@ def test_sb03mu_1x1_basic():
     Simple scalar equation: (SGN*tl*tr - 1)*x = scale*b
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([[2.0]], order='F', dtype=float)
     tr = np.array([[3.0]], order='F', dtype=float)
@@ -52,7 +52,7 @@ def test_sb03mu_1x1_negative_sign():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([[2.0]], order='F', dtype=float)
     tr = np.array([[3.0]], order='F', dtype=float)
@@ -74,7 +74,7 @@ def test_sb03mu_2x2_basic():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     np.random.seed(456)
 
@@ -109,7 +109,7 @@ def test_sb03mu_1x2_case():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([[2.5]], order='F', dtype=float)
 
@@ -136,7 +136,7 @@ def test_sb03mu_2x1_case():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([
         [2.0, 0.4],
@@ -163,7 +163,7 @@ def test_sb03mu_transpose_left():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([
         [2.0, 0.3],
@@ -195,7 +195,7 @@ def test_sb03mu_transpose_right():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([
         [2.0, 0.3],
@@ -227,7 +227,7 @@ def test_sb03mu_both_transpose():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([
         [2.0, 0.3],
@@ -257,7 +257,7 @@ def test_sb03mu_zero_dimensions():
     """
     Validate N1=0 or N2=0 returns immediately with xnorm=0.
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     # Empty TL (N1=0)
     tl = np.array([], order='F', dtype=float).reshape(0, 0)
@@ -278,7 +278,7 @@ def test_sb03mu_singular():
     When ISGN*TL*TR = 1, the coefficient tau1 = ISGN*TL*TR - 1 = 0,
     which is below SMLNUM threshold and triggers info=1.
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     # TL=1, TR=1 => TL*TR-1 = 0, exactly singular!
     tl = np.array([[1.0]], order='F', dtype=float)
@@ -298,7 +298,7 @@ def test_sb03mu_xnorm_2x2():
     xnorm is the infinity norm: max over rows of sum of absolute column values.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03mu
+    from ctrlsys import sb03mu
 
     tl = np.array([
         [3.0, 0.5],

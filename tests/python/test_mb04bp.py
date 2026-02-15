@@ -20,7 +20,7 @@ def test_mb04bp_basic():
     Tests JOB='T' (Schur form), COMPQ1='I', COMPQ2='I' for N=8.
     Skipped because MB04BD has numerical issues.
     """
-    from slicot import mb04bp
+    from ctrlsys import mb04bp
 
     a = np.array([
         [3.1472,  1.3236,  4.5751,  4.5717],
@@ -96,7 +96,7 @@ def test_mb04bp_eigenvalues_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04bp
+    from ctrlsys import mb04bp
 
     np.random.seed(42)
     m = 3
@@ -130,7 +130,7 @@ def test_mb04bp_orthogonality():
     Random seed: 123 (for reproducibility)
     Skipped because MB04BD has numerical issues.
     """
-    from slicot import mb04bp
+    from ctrlsys import mb04bp
 
     np.random.seed(123)
     m = 4
@@ -160,7 +160,7 @@ def test_mb04bp_orthogonality():
 
 def test_mb04bp_empty():
     """Test N=0 case returns successfully."""
-    from slicot import mb04bp
+    from ctrlsys import mb04bp
 
     a = np.zeros((0, 0), dtype=float, order='F')
     de = np.zeros((0, 1), dtype=float, order='F')
@@ -181,7 +181,7 @@ def test_mb04bp_matches_mb04bd():
     MB04BP calls MB04BD directly for N <= 250 when INFO=0 on entry.
     This test verifies the delegation is correct (same output from both).
     """
-    from slicot import mb04bd, mb04bp
+    from ctrlsys import mb04bd, mb04bp
 
     np.random.seed(456)
     m = 3
@@ -222,7 +222,7 @@ def test_mb04bp_upper_triangular_output():
     Random seed: 789 (for reproducibility)
     Skipped because MB04BD has numerical issues.
     """
-    from slicot import mb04bp
+    from ctrlsys import mb04bp
 
     np.random.seed(789)
     m = 4

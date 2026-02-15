@@ -152,7 +152,7 @@ uname -s  # Darwin = macOS, Linux = Linux
    **Step 3 - Hardcode extracted values in test** (`tests/python/test_[routine].py`):
    ```python
    import numpy as np
-   from slicot import [routine]
+   from ctrlsys import [routine]
 
    def test_[routine]_basic():
        # Input data (from generation script)

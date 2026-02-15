@@ -39,7 +39,7 @@ def test_mc03md_html_example():
         k=1: [[1,0], [1,1], [0,1]]
         k=2: [[-1,-1], [1,-1], [1,1]]
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     rp1, cp1, cp2 = 3, 2, 2
     dp1, dp2, dp3 = 2, 1, 1
@@ -104,7 +104,7 @@ def test_mc03md_zero_alpha():
 
     Use simple 2x2 identity-like matrices.
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     rp1, cp1, cp2 = 2, 2, 2
     dp1, dp2, dp3 = 0, 0, 0
@@ -136,7 +136,7 @@ def test_mc03md_zero_p1():
 
     P(x) = 0 * P2(x) + alpha * P3(x) = alpha * P3(x)
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     rp1, cp1, cp2 = 2, 2, 2
     dp1, dp2, dp3 = -1, 1, 1
@@ -171,7 +171,7 @@ def test_mc03md_zero_p2():
 
     P(x) = P1(x) * 0 + alpha * P3(x) = alpha * P3(x)
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     rp1, cp1, cp2 = 2, 2, 2
     dp1, dp2, dp3 = 1, -1, 1
@@ -206,7 +206,7 @@ def test_mc03md_zero_p3():
 
     P(x) = P1(x) * P2(x) + alpha * 0 = P1(x) * P2(x)
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     rp1, cp1, cp2 = 2, 2, 2
     dp1, dp2, dp3 = 0, 0, -1
@@ -248,7 +248,7 @@ def test_mc03md_polynomial_multiplication():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     rp1, cp1, cp2 = 1, 1, 1
     dp1, dp2, dp3 = 1, 1, -1
@@ -290,7 +290,7 @@ def test_mc03md_degree_reduction():
 
     P = P1*P2 + P3 should have degree 0 if leading term cancels.
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     rp1, cp1, cp2 = 1, 1, 1
     dp1, dp2, dp3 = 0, 1, 1
@@ -329,7 +329,7 @@ def test_mc03md_random_verification():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc03md
+    from ctrlsys import mc03md
 
     np.random.seed(42)
 

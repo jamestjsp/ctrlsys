@@ -18,7 +18,7 @@ Note: Array dimensions must be N-by-N (not N/2-by-N/2) since LDA/LDB >= N,
 import numpy as np
 import pytest
 
-from slicot import mb3lzp
+from ctrlsys import mb3lzp
 
 
 def make_test_pencil(m):

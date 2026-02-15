@@ -15,7 +15,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import ma01dd
+from ctrlsys import ma01dd
 
 
 def get_machine_constants():

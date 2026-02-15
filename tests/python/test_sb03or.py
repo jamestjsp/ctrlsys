@@ -10,7 +10,7 @@ A is M-by-M (M = 1 or 2), X and C are N-by-M.
 Solution X overwrites C.
 """
 import numpy as np
-import slicot
+import ctrlsys
 
 
 def test_sb03or_continuous_1x1():

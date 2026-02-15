@@ -8,7 +8,7 @@ pencil aS - bH, with S = J*Z^H*J^T*Z and H = [[B,F],[G,-B^H]].
 import numpy as np
 import pytest
 
-from slicot import mb04az
+from ctrlsys import mb04az
 
 
 class TestMB04AZBasic:

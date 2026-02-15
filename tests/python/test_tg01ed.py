@@ -18,7 +18,7 @@ Optionally (JOBA='R'), A22 can be further reduced to SVD form:
 
 import numpy as np
 import pytest
-from slicot import tg01ed
+from ctrlsys import tg01ed
 
 
 class TestTG01EDBasic:

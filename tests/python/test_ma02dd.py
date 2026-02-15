@@ -15,7 +15,7 @@ Property tests verify:
 """
 import numpy as np
 import pytest
-from slicot import ma02dd
+from ctrlsys import ma02dd
 
 
 def test_ma02dd_pack_upper():

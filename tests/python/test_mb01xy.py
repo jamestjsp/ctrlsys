@@ -12,7 +12,7 @@ This is a counterpart of LAPACK DLAUU2 which computes U*U' or L'*L.
 """
 import numpy as np
 import pytest
-from slicot import mb01xy
+from ctrlsys import mb01xy
 
 
 def test_mb01xy_upper_basic():

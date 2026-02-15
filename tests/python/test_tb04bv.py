@@ -12,7 +12,7 @@ The routine handles both increasing and decreasing polynomial orderings.
 
 import numpy as np
 import pytest
-from slicot import tb04bv
+from ctrlsys import tb04bv
 
 
 def test_tb04bv_basic_increasing_order():

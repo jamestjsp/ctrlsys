@@ -31,7 +31,7 @@ Random seeds: 42, 123, 456, 789, 111, 222, 333, 444 (for reproducibility)
 
 import numpy as np
 import pytest
-from slicot import ab09iy
+from ctrlsys import ab09iy
 
 
 class TestAB09IYBasic:

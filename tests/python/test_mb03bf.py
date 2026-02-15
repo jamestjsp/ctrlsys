@@ -40,7 +40,7 @@ def test_mb03bf_basic_k2():
     The algorithm should drive A(2,1,AMAP(K)) toward zero with given ULP.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(42)
 
@@ -79,7 +79,7 @@ def test_mb03bf_convergence():
     After QZ iterations, |A(2,1,AMAP(K))| should be small relative to other elements.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(123)
 
@@ -119,7 +119,7 @@ def test_mb03bf_k3_factors():
     Tests the loop iteration with multiple factors.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(456)
 
@@ -157,7 +157,7 @@ def test_mb03bf_mixed_signature():
     Tests S(AI) != SINV branch in the algorithm.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(789)
 
@@ -191,7 +191,7 @@ def test_mb03bf_already_triangular():
     If A(2,1,AMAP(K)) is already zero, algorithm should preserve this.
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(111)
 
@@ -224,7 +224,7 @@ def test_mb03bf_permuted_amap():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(222)
 
@@ -257,7 +257,7 @@ def test_mb03bf_sinv_negative():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(333)
 
@@ -290,7 +290,7 @@ def test_mb03bf_larger_ulp():
     A larger ULP threshold should cause earlier termination.
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03bf
+    from ctrlsys import mb03bf
 
     np.random.seed(444)
 

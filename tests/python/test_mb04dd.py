@@ -13,7 +13,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb04dd
+from ctrlsys import mb04dd
 
 
 def test_mb04dd_no_balancing():

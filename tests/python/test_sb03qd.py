@@ -41,7 +41,7 @@ def test_sb03qd_html_doc_example():
     RCOND = 0.3611 (reciprocal condition number)
     FERR = 0.0000 (forward error bound)
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     n = 3
 
@@ -94,7 +94,7 @@ def test_sb03qd_condition_number_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     n = 3
     np.random.seed(42)
@@ -134,7 +134,7 @@ def test_sb03qd_error_bound_only():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     n = 2
     a = np.array([
@@ -168,7 +168,7 @@ def test_sb03qd_transpose_form():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     n = 2
     a = np.array([
@@ -204,7 +204,7 @@ def test_sb03qd_reduced_lyapunov():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03qd, sb03my
+    from ctrlsys import sb03qd, sb03my
 
     n = 2
     # Upper triangular Schur form (already in Schur form)
@@ -247,7 +247,7 @@ def test_sb03qd_rcond_bounds():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     np.random.seed(42)
 
@@ -284,7 +284,7 @@ def test_sb03qd_scalar():
     With a = -2, c = 4: 2*a*x = scale*c, so x = scale*c/(2*a) = 4/(2*-2) = -1
 
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     n = 1
     a = np.array([[-2.0]], order='F', dtype=float)
@@ -313,7 +313,7 @@ def test_sb03qd_compute_schur():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     n = 3
     a = np.array([
@@ -353,7 +353,7 @@ def test_sb03qd_lower_triangular():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import sb03qd, sb03md
+    from ctrlsys import sb03qd, sb03md
 
     n = 2
     a = np.array([

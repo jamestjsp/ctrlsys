@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from slicot import sg03br
+from ctrlsys import sg03br
 
 
 def test_sg03br_basic():

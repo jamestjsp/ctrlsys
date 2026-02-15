@@ -42,7 +42,7 @@ Error codes:
 
 import numpy as np
 import pytest
-from slicot import ab09hy
+from ctrlsys import ab09hy
 
 
 class TestAB09HYBasic:

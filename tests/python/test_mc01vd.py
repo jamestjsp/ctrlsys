@@ -7,7 +7,7 @@ MC01VD computes roots of: a*x^2 + b*x + c = 0
 import numpy as np
 import pytest
 
-from slicot import mc01vd
+from ctrlsys import mc01vd
 
 
 class TestMC01VDBasic:

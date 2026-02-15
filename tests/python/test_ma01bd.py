@@ -16,7 +16,7 @@ import math
 import numpy as np
 import pytest
 
-from slicot import ma01bd
+from ctrlsys import ma01bd
 
 
 def test_ma01bd_simple_product():

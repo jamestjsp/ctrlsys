@@ -13,7 +13,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import tg01bd
+from ctrlsys import tg01bd
 
 
 def test_tg01bd_basic():

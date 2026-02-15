@@ -11,7 +11,7 @@ D, E are skew-Hermitian; V, W are Hermitian; ' = conjugate transpose.
 import numpy as np
 import pytest
 
-from slicot import mb4dpz
+from ctrlsys import mb4dpz
 
 
 class TestMB4DPZBasic:

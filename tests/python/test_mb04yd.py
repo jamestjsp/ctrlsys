@@ -10,7 +10,7 @@ singular values are either all larger than a given bound or all smaller than
 import numpy as np
 import pytest
 
-from slicot import mb04yd
+from ctrlsys import mb04yd
 
 
 class TestMB04YDBasic:

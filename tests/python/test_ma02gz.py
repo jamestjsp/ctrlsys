@@ -7,7 +7,7 @@ Complex version of MA02GD.
 """
 import numpy as np
 import pytest
-from slicot import ma02gz
+from ctrlsys import ma02gz
 
 
 """Basic functionality tests."""

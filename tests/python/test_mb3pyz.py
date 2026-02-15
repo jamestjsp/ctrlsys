@@ -7,7 +7,7 @@ estimating effective rank using incremental condition estimation.
 """
 import pytest
 import numpy as np
-from slicot import mb3pyz
+from ctrlsys import mb3pyz
 
 
 def test_mb3pyz_rank_deficient_complex():

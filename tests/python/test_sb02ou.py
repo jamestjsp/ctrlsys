@@ -19,7 +19,7 @@ def test_sb02ou_positive_real_positive_beta():
 
     lambda = ALPHAR/BETA > 0 -> unstable (should return True)
     """
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     result = sb02ou(1.0, 0.0, 2.0)
     assert result is True
@@ -31,7 +31,7 @@ def test_sb02ou_negative_real_negative_beta():
 
     lambda = ALPHAR/BETA = (-1)/(-2) = 0.5 > 0 -> unstable (should return True)
     """
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     result = sb02ou(-1.0, 0.0, -2.0)
     assert result is True
@@ -43,7 +43,7 @@ def test_sb02ou_positive_real_negative_beta():
 
     lambda = ALPHAR/BETA = 1/(-2) = -0.5 < 0 -> stable (should return False)
     """
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     result = sb02ou(1.0, 0.0, -2.0)
     assert result is False
@@ -55,7 +55,7 @@ def test_sb02ou_negative_real_positive_beta():
 
     lambda = ALPHAR/BETA = (-1)/2 = -0.5 < 0 -> stable (should return False)
     """
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     result = sb02ou(-1.0, 0.0, 2.0)
     assert result is False
@@ -68,7 +68,7 @@ def test_sb02ou_zero_real_part():
     lambda = 0/BETA = 0 -> on imaginary axis (should return False)
     Neither (ALPHAR < 0 AND BETA < 0) nor (ALPHAR > 0 AND BETA > 0) holds.
     """
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     result = sb02ou(0.0, 1.0, 2.0)
     assert result is False
@@ -83,7 +83,7 @@ def test_sb02ou_complex_eigenvalue():
 
     ALPHAR > 0, ALPHAI != 0, BETA > 0 -> Re(lambda) > 0 -> unstable
     """
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     result = sb02ou(1.5, 2.0, 1.0)
     assert result is True
@@ -95,7 +95,7 @@ def test_sb02ou_complex_stable():
 
     ALPHAR < 0, ALPHAI != 0, BETA > 0 -> Re(lambda) < 0 -> stable
     """
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     result = sb02ou(-1.5, 2.0, 1.0)
     assert result is False
@@ -113,7 +113,7 @@ def test_sb02ou_mathematical_property():
     Random seed: 42 (for reproducibility)
     """
     np.random.seed(42)
-    from slicot import sb02ou
+    from ctrlsys import sb02ou
 
     for _ in range(20):
         alphar = np.random.uniform(-10, 10)

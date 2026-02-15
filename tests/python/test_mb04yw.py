@@ -28,7 +28,7 @@ def test_mb04yw_qr_iteration_basic():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, False, False, m, n, l, k, 0.0,
@@ -69,7 +69,7 @@ def test_mb04yw_ql_iteration_basic():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         False, False, False, m, n, l, k, 0.0,
@@ -111,7 +111,7 @@ def test_mb04yw_with_u_update():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, True, False, m, n, l, k, 0.0,
@@ -154,7 +154,7 @@ def test_mb04yw_with_v_update():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, False, True, m, n, l, k, 0.0,
@@ -198,7 +198,7 @@ def test_mb04yw_with_both_u_and_v():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, True, True, m, n, l, k, 0.0,
@@ -243,7 +243,7 @@ def test_mb04yw_nonzero_shift_qr():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, False, False, m, n, l, k, shift,
@@ -283,7 +283,7 @@ def test_mb04yw_nonzero_shift_ql():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         False, False, False, m, n, l, k, shift,
@@ -321,7 +321,7 @@ def test_mb04yw_submatrix():
 
     l, k = 2, 4
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, False, False, m, n, l, k, 0.0,
@@ -359,7 +359,7 @@ def test_mb04yw_single_element():
 
     l, k = 2, 2
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, False, False, m, n, l, k, 0.0,
@@ -396,7 +396,7 @@ def test_mb04yw_transformation_property():
 
     l, k = 1, p
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, True, True, m, n, l, k, 0.0,
@@ -430,7 +430,7 @@ def test_mb04yw_p_equals_one():
     e = np.zeros(0, dtype=float, order='F')
     d_orig = d.copy()
 
-    from slicot import mb04yw
+    from ctrlsys import mb04yw
 
     d_res, e_res, u_out, v_out, info = mb04yw(
         True, False, False, m, n, 1, 1, 0.0,

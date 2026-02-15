@@ -16,7 +16,7 @@ COMPU modes:
 import numpy as np
 import pytest
 
-from slicot import tb01wx
+from ctrlsys import tb01wx
 
 
 class TestTB01WXBasic:

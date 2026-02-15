@@ -20,7 +20,7 @@ def test_ud01bd_basic():
     - MP=4, NP=3, DP=2 (4x3 matrices, degree 2 polynomial)
     - P(0), P(1), P(2) coefficient matrices
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     mp, np_dim, dp = 4, 3, 2
 
@@ -75,7 +75,7 @@ def test_ud01bd_degree_zero():
     """
     Test edge case: degree 0 polynomial (single constant matrix).
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     mp, np_dim, dp = 2, 2, 0
 
@@ -98,7 +98,7 @@ def test_ud01bd_single_element():
     """
     Test edge case: 1x1 polynomial matrices.
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     mp, np_dim, dp = 1, 1, 3
 
@@ -116,7 +116,7 @@ def test_ud01bd_error_mp_invalid():
     """
     Test error: MP < 1.
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     mp, np_dim, dp = 0, 3, 2
     data = np.array([1.0, 2.0, 3.0])
@@ -130,7 +130,7 @@ def test_ud01bd_error_np_invalid():
     """
     Test error: NP < 1.
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     mp, np_dim, dp = 2, 0, 2
     data = np.array([1.0, 2.0, 3.0])
@@ -144,7 +144,7 @@ def test_ud01bd_error_dp_invalid():
     """
     Test error: DP < 0.
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     mp, np_dim, dp = 2, 3, -1
     data = np.array([1.0, 2.0, 3.0])
@@ -160,7 +160,7 @@ def test_ud01bd_rectangular_matrices():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     np.random.seed(42)
 
@@ -190,7 +190,7 @@ def test_ud01bd_data_preservation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ud01bd
+    from ctrlsys import ud01bd
 
     np.random.seed(123)
 

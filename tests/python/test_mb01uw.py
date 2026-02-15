@@ -3,7 +3,7 @@ Tests for MB01UW: Hessenberg matrix-matrix product A := alpha*op(H)*A or A := al
 """
 import numpy as np
 import pytest
-from slicot import mb01uw
+from ctrlsys import mb01uw
 
 
 class TestMB01UWBasic:

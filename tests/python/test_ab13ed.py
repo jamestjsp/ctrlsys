@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from slicot import ab13ed
+from ctrlsys import ab13ed
 from numpy.testing import assert_allclose
 
 class TestAB13ED:

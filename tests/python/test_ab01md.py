@@ -8,7 +8,7 @@ form using orthogonal similarity transformations.
 
 import numpy as np
 import pytest
-from slicot import ab01md
+from ctrlsys import ab01md
 
 
 """Basic functionality tests from HTML documentation example."""

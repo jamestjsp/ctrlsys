@@ -7,7 +7,7 @@ eigenvalues are real. Uses LAPACK's DLAGV2.
 """
 import numpy as np
 import pytest
-from slicot import mb03qw
+from ctrlsys import mb03qw
 
 
 def test_mb03qw_complex_eigenvalues():

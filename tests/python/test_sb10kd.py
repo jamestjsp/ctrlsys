@@ -20,7 +20,7 @@ class TestSB10KD:
         Data from SB10KD.html Program Data section.
         READ statements show row-by-row reading for A, B, C.
         """
-        from slicot import sb10kd
+        from ctrlsys import sb10kd
 
         n, m, np_ = 6, 2, 2
         factor = 1.1
@@ -107,7 +107,7 @@ class TestSB10KD:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import sb10kd
+        from ctrlsys import sb10kd
 
         n, m, np_ = 6, 2, 2
         factor = 1.1
@@ -163,7 +163,7 @@ class TestSB10KD:
         """
         Test quick return for zero dimensions (N=0, M=0, or NP=0).
         """
-        from slicot import sb10kd
+        from ctrlsys import sb10kd
 
         # Test N=0
         a = np.array([[]], dtype=float, order='F').reshape(0, 0)
@@ -185,7 +185,7 @@ class TestSB10KD:
         Uses factor=1.1 for numerical robustness across BLAS implementations.
         Random seed: 123 (for reproducibility)
         """
-        from slicot import sb10kd
+        from ctrlsys import sb10kd
 
         np.random.seed(123)
 
@@ -229,7 +229,7 @@ class TestSB10KD:
         A larger FACTOR should give better conditioning.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import sb10kd
+        from ctrlsys import sb10kd
 
         n, m, np_ = 6, 2, 2
         factor_optimal = 1.0
@@ -282,7 +282,7 @@ class TestSB10KD:
         """
         Test error handling for invalid FACTOR < 1.
         """
-        from slicot import sb10kd
+        from ctrlsys import sb10kd
 
         n, m, np_ = 2, 1, 1
         a = np.eye(n, dtype=float, order='F') * 0.5

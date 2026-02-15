@@ -7,7 +7,7 @@ matrix pencil (S, T) where S is upper quasi-triangular and T is upper triangular
 
 import numpy as np
 import pytest
-from slicot import mb03qv
+from ctrlsys import mb03qv
 
 
 class TestMB03QVBasic:

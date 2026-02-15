@@ -33,7 +33,7 @@ def test_basic_continuous():
     Expected: NAP=2, NFP=2, NUP=0
     F matrix from HTML doc (4-decimal precision)
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     n, m, np_poles = 4, 2, 2
     alpha = -0.4
@@ -111,7 +111,7 @@ def test_schur_form_structure():
     Real Schur form: upper quasi-triangular with 1x1 or 2x2 diagonal blocks.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     np.random.seed(42)
     n, m, np_poles = 3, 2, 2
@@ -153,7 +153,7 @@ def test_similarity_transformation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     np.random.seed(123)
     n, m, np_poles = 3, 1, 3
@@ -199,7 +199,7 @@ def test_orthogonality_preservation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     np.random.seed(456)
     n, m, np_poles = 4, 2, 3
@@ -231,7 +231,7 @@ def test_discrete_basic():
     For DICO='D', eigenvalues with |lambda| < alpha are kept fixed.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     np.random.seed(789)
     n, m, np_poles = 2, 1, 2
@@ -275,7 +275,7 @@ def test_discrete_basic():
 
 def test_zero_dimension():
     """Test with n=0 (quick return)."""
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     n, m, np_poles = 0, 2, 0
     alpha = 0.0
@@ -303,7 +303,7 @@ def test_uncontrollable_mode():
 
     When B has rank < n, some modes may be uncontrollable.
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     n, m, np_poles = 2, 1, 2
     alpha = 0.0
@@ -339,7 +339,7 @@ def test_complex_conjugate_poles():
     Complex poles must be specified consecutively.
     Random seed: 321 (for reproducibility)
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     np.random.seed(321)
     n, m, np_poles = 2, 1, 2
@@ -387,7 +387,7 @@ def test_mimo_pole_assignment():
     MIMO pole assignment: 4-state, 3-input system.
     Verify closed-loop eigenvalues match desired poles and Z orthogonal.
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     n, m, np_poles = 4, 3, 4
     alpha = 10.0
@@ -437,7 +437,7 @@ def test_stability_warning():
 
     IWARN counts violations of NORM(F) <= 100*NORM(A)/NORM(B).
     """
-    from slicot import sb01bd
+    from ctrlsys import sb01bd
 
     n, m, np_poles = 2, 1, 2
     alpha = 0.0

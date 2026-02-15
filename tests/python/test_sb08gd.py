@@ -14,7 +14,7 @@ Formulas:
 import numpy as np
 import pytest
 
-from slicot import sb08gd
+from ctrlsys import sb08gd
 
 
 class TestSB08GDBasic:

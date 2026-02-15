@@ -13,7 +13,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb03ya
+from ctrlsys import mb03ya
 
 
 def test_mb03ya_basic():

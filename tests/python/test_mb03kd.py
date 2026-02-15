@@ -23,7 +23,7 @@ class TestMB03KDBasic:
 
         Expected output from HTML docs (4-decimal precision).
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         k = 3
         n = 3
@@ -87,7 +87,7 @@ class TestMB03KDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         np.random.seed(42)
         k = 2
@@ -137,7 +137,7 @@ class TestMB03KDBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         np.random.seed(123)
         k = 2
@@ -194,7 +194,7 @@ class TestMB03KDCompQ:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         np.random.seed(222)
         k = 2
@@ -241,7 +241,7 @@ class TestMB03KDCompQ:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         np.random.seed(333)
         k = 2
@@ -295,7 +295,7 @@ class TestMB03KDStrong:
 
         Random seed: 444 (for reproducibility)
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         np.random.seed(444)
         k = 2
@@ -346,7 +346,7 @@ class TestMB03KDMixedSignatures:
 
         Random seed: 555 (for reproducibility)
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         np.random.seed(555)
         k = 2
@@ -399,7 +399,7 @@ class TestMB03KDOrthogonality:
 
         Random seed: 666 (for reproducibility)
         """
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         np.random.seed(666)
         k = 2
@@ -451,7 +451,7 @@ class TestMB03KDEdgeCases:
 
     def test_no_selection(self):
         """Test when no eigenvalues are selected (all False)."""
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         k = 2
         nc = 3
@@ -495,7 +495,7 @@ class TestMB03KDEdgeCases:
 
     def test_all_selected(self):
         """Test when all eigenvalues are selected (all True)."""
-        from slicot import mb03kd
+        from ctrlsys import mb03kd
 
         k = 2
         nc = 3

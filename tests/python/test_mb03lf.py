@@ -7,7 +7,7 @@ aS - bH in factored form, with optional computation of deflating and companion s
 
 import numpy as np
 import pytest
-from slicot import mb03lf
+from ctrlsys import mb03lf
 
 
 class TestMB03LFBasic:

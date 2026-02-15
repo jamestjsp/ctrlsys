@@ -10,7 +10,7 @@ By subsequent calls, further rows/columns of the Cholesky factor can be added.
 
 import numpy as np
 import pytest
-from slicot import mb02fd
+from ctrlsys import mb02fd
 
 
 class TestMB02FDBasic:

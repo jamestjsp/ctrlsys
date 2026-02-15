@@ -11,7 +11,7 @@ where R and X are N-by-N symmetric matrices and H is N-by-N upper Hessenberg.
 
 import numpy as np
 import pytest
-from slicot import mb01oc
+from ctrlsys import mb01oc
 
 
 def make_symmetric(a, uplo='U'):

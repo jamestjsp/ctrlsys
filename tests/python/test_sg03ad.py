@@ -31,7 +31,7 @@ def test_continuous_basic():
     Continuous-time generalized Lyapunov equation.
     N=3, JOB='B', DICO='C', FACT='N', TRANS='N', UPLO='U'
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     n = 3
 
@@ -88,7 +88,7 @@ def test_continuous_identity_e():
     A' * X + X * A = scale * Y
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(42)
     n = 3
@@ -133,7 +133,7 @@ def test_continuous_transpose():
     A * X * E' + E * X * A' = scale * Y
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(123)
     n = 3
@@ -178,7 +178,7 @@ def test_discrete_identity_e():
     A' * X * A - X = scale * Y
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(456)
     n = 3
@@ -222,7 +222,7 @@ def test_discrete_transpose():
     A * X * A' - E * X * E' = scale * Y
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(789)
     n = 2
@@ -264,7 +264,7 @@ def test_solution_symmetry():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(111)
     n = 4
@@ -297,7 +297,7 @@ def test_schur_factorization_validity():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(222)
     n = 3
@@ -348,7 +348,7 @@ def test_eigenvalue_computation():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(333)
     n = 3
@@ -402,7 +402,7 @@ def test_separation_only():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(444)
     n = 3
@@ -435,7 +435,7 @@ def test_solution_and_separation():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(555)
     n = 3
@@ -481,7 +481,7 @@ def test_factored_input():
 
     Random seed: 666 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(666)
     n = 3
@@ -538,7 +538,7 @@ def test_factored_input():
 
 def test_zero_dimension():
     """Test with n=0 (quick return)."""
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     n = 0
 
@@ -560,7 +560,7 @@ def test_zero_dimension():
 
 def test_small_system():
     """Test with n=1 (smallest non-trivial case)."""
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     n = 1
 
@@ -589,7 +589,7 @@ def test_complex_eigenvalues():
 
     Random seed: 777 (for reproducibility)
     """
-    from slicot import sg03ad
+    from ctrlsys import sg03ad
 
     np.random.seed(777)
     n = 2

@@ -27,7 +27,7 @@ def test_sb04nx_upper_row_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     np.random.seed(42)
     m = 3
@@ -78,7 +78,7 @@ def test_sb04nx_upper_col_transforms():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     np.random.seed(123)
     m = 3
@@ -127,7 +127,7 @@ def test_sb04nx_lower_hessenberg():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     np.random.seed(456)
     m = 3
@@ -161,7 +161,7 @@ def test_sb04nx_diagonal_lambda():
     This corresponds to two independent real eigenvalues.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     np.random.seed(789)
     m = 4
@@ -211,7 +211,7 @@ def test_sb04nx_1x1():
     The system becomes 2x2:
     [[a + lambd1, lambd2], [lambd3, a + lambd4]] * x = d
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     a = np.array([[3.0]], dtype=float, order='F')
     lambd1 = 1.0
@@ -243,7 +243,7 @@ def test_sb04nx_2x2():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     np.random.seed(101)
     m = 2
@@ -291,7 +291,7 @@ def test_sb04nx_near_singular():
 
     When lambda values make the system ill-conditioned, info=1.
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     a = np.array([[1.0]], dtype=float, order='F')
     lambd1 = -1.0
@@ -314,7 +314,7 @@ def test_sb04nx_larger_system():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb04nx
+    from ctrlsys import sb04nx
 
     np.random.seed(202)
     m = 5

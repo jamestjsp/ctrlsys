@@ -14,7 +14,7 @@ Algorithm: Bottom-up row processing with right-to-left column elimination.
 
 import numpy as np
 import pytest
-from slicot import mb04tv
+from ctrlsys import mb04tv
 
 
 class TestMB04TVBasic:

@@ -18,7 +18,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import mb04dp
+from ctrlsys import mb04dp
 
 
 class TestMB04DPBasic:

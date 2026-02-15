@@ -11,7 +11,7 @@ decomposition properties (eigenvalue preservation, orthogonality).
 """
 import numpy as np
 import pytest
-from slicot import mb03xs
+from ctrlsys import mb03xs
 
 
 def build_skew_hamiltonian(a, q_lower, g_upper):

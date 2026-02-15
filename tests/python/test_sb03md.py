@@ -32,7 +32,7 @@ def test_discrete_basic():
 
     Discrete-time Lyapunov: A'*X*A - X = scale*C
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     n = 3
 
@@ -88,7 +88,7 @@ def test_continuous_diagonal():
     A'*X + X*A = scale*C has explicit solution for diagonal A.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(42)
     n = 3
@@ -131,7 +131,7 @@ def test_continuous_transpose():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(123)
     n = 3
@@ -174,7 +174,7 @@ def test_discrete_stable():
     A'*X*A - X = scale*C where all |lambda(A)| < 1.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(456)
     n = 3
@@ -213,7 +213,7 @@ def test_discrete_transpose():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(789)
     n = 2
@@ -253,7 +253,7 @@ def test_factored_input():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(111)
     n = 3
@@ -307,7 +307,7 @@ def test_separation_only():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(222)
     n = 3
@@ -335,7 +335,7 @@ def test_solution_and_separation():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(333)
     n = 3
@@ -377,7 +377,7 @@ def test_solution_symmetry():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(444)
     n = 4
@@ -407,7 +407,7 @@ def test_eigenvalue_computation():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(555)
     n = 3
@@ -450,7 +450,7 @@ def test_schur_factorization_validity():
 
     Random seed: 666 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(666)
     n = 3
@@ -488,7 +488,7 @@ def test_schur_factorization_validity():
 
 def test_zero_dimension():
     """Test with n=0 (quick return)."""
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     n = 0
 
@@ -509,7 +509,7 @@ def test_nearly_singular():
 
     When A and -A' have nearly common eigenvalues, INFO=N+1.
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     n = 2
 
@@ -541,7 +541,7 @@ def test_continuous_complex_eigenvalues():
 
     Random seed: 777 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(777)
     n = 2
@@ -580,7 +580,7 @@ def test_discrete_complex_eigenvalues():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import sb03md
+    from ctrlsys import sb03md
 
     np.random.seed(888)
     n = 2

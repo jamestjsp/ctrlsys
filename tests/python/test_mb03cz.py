@@ -20,7 +20,7 @@ def test_mb03cz_basic():
     2. Transformed matrices remain upper triangular
     3. Eigenvalues are exchanged
     """
-    from slicot import mb03cz
+    from ctrlsys import mb03cz
 
     np.random.seed(42)
 
@@ -81,7 +81,7 @@ def test_mb03cz_identity_matrices():
 
     Validates edge case where diagonal elements are equal.
     """
-    from slicot import mb03cz
+    from ctrlsys import mb03cz
 
     a = np.array([
         [1.0 + 0.0j, 0.5 + 0.5j],
@@ -126,7 +126,7 @@ def test_mb03cz_eigenvalue_exchange():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03cz
+    from ctrlsys import mb03cz
 
     np.random.seed(123)
 
@@ -185,7 +185,7 @@ def test_mb03cz_real_valued():
 
     Validates routine handles real-valued complex input correctly.
     """
-    from slicot import mb03cz
+    from ctrlsys import mb03cz
 
     a = np.array([
         [3.0 + 0.0j, 1.0 + 0.0j],

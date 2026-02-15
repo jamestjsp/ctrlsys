@@ -41,7 +41,7 @@ class TestSB10SDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         np.random.seed(42)
 
@@ -104,7 +104,7 @@ class TestSB10SDBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         np.random.seed(123)
 
@@ -183,7 +183,7 @@ class TestSB10SDRiccatiSolutions:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         np.random.seed(456)
 
@@ -227,7 +227,7 @@ class TestSB10SDRiccatiSolutions:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         np.random.seed(789)
 
@@ -271,7 +271,7 @@ class TestSB10SDQuickReturn:
 
     def test_n_zero(self):
         """Quick return when N=0."""
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         n = 0
         m = 2
@@ -296,7 +296,7 @@ class TestSB10SDQuickReturn:
 
     def test_m1_zero(self):
         """Quick return when M1=0 (M=NCON), which implies NP2=0 too."""
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         n = 2
         m = 2
@@ -318,7 +318,7 @@ class TestSB10SDQuickReturn:
 
     def test_np1_zero(self):
         """Quick return when NP1=0 (NP=NMEAS), which implies NCON=0 too."""
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         n = 2
         m = 4
@@ -344,7 +344,7 @@ class TestSB10SDParameterValidation:
 
     def test_invalid_n(self):
         """Test N < 0 returns error."""
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         with pytest.raises(ValueError):
             sb10sd(-1, 2, 2, 1, 1,
@@ -355,7 +355,7 @@ class TestSB10SDParameterValidation:
 
     def test_invalid_ncon(self):
         """Test NCON > M returns error."""
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         n = 2
         m = 2
@@ -373,7 +373,7 @@ class TestSB10SDParameterValidation:
 
     def test_ncon_larger_than_np1(self):
         """Test M2 > NP1 returns error (M2=NCON, NP1=NP-NMEAS)."""
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         n = 2
         m = 4
@@ -400,7 +400,7 @@ class TestSB10SDErrorHandling:
         Create a system where the X-Riccati has no stabilizing solution.
         This requires (A,B2) not stabilizable.
         """
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         n = 2
         m = 4
@@ -441,7 +441,7 @@ class TestSB10SDErrorHandling:
         Create a system where the Y-Riccati has no stabilizing solution.
         This requires (C2,A) not detectable.
         """
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         n = 2
         m = 4
@@ -487,7 +487,7 @@ class TestSB10SDControllerStability:
 
         Random seed: 888 (for reproducibility)
         """
-        from slicot import sb10sd
+        from ctrlsys import sb10sd
 
         np.random.seed(888)
 

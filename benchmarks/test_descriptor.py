@@ -1,5 +1,5 @@
 import pytest
-from slicot import ab01nd, ab01od
+from ctrlsys import ab01nd, ab01od
 
 from conftest import get_ctdsx_files, get_dtdsx_files, load_ctdsx_data, load_dtdsx_data
 

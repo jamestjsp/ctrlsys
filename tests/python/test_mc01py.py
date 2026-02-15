@@ -19,7 +19,7 @@ def test_mc01py_single_real_zero():
     P(x) = (x - 3) = x - 3
     Decreasing order: [1, -3] (x^1 coefficient first, then x^0)
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([3.0], order='F', dtype=float)
     imz = np.array([0.0], order='F', dtype=float)
@@ -39,7 +39,7 @@ def test_mc01py_two_real_zeros():
     P(x) = (x - 1)(x - 2) = x^2 - 3*x + 2
     Decreasing order: [1, -3, 2] (x^2, x^1, x^0)
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([1.0, 2.0], order='F', dtype=float)
     imz = np.array([0.0, 0.0], order='F', dtype=float)
@@ -59,7 +59,7 @@ def test_mc01py_complex_conjugate_pair():
     P(x) = (x - (1+2i))(x - (1-2i)) = x^2 - 2x + 5
     Decreasing order: [1, -2, 5]
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([1.0, 1.0], order='F', dtype=float)
     imz = np.array([2.0, -2.0], order='F', dtype=float)
@@ -78,7 +78,7 @@ def test_mc01py_zero_degree():
     No zeros, P(x) = 1
     Decreasing order: [1]
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([], order='F', dtype=float)
     imz = np.array([], order='F', dtype=float)
@@ -98,7 +98,7 @@ def test_mc01py_imaginary_zeros():
     P(x) = (x - i)(x + i) = x^2 + 1
     Decreasing order: [1, 0, 1]
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([0.0, 0.0], order='F', dtype=float)
     imz = np.array([1.0, -1.0], order='F', dtype=float)
@@ -117,7 +117,7 @@ def test_mc01py_error_unpaired_complex():
     If last zero is complex (IMZ != 0), it has no pair -> error.
     INFO = K (the last index).
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([1.0], order='F', dtype=float)
     imz = np.array([2.0], order='F', dtype=float)
@@ -134,7 +134,7 @@ def test_mc01py_error_wrong_conjugate():
     Zeros: (1, 2i), (2, -2i) - not conjugates (real parts differ)
     Should return INFO = 2.
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([1.0, 2.0], order='F', dtype=float)
     imz = np.array([2.0, -2.0], order='F', dtype=float)
@@ -154,7 +154,7 @@ def test_mc01py_mixed_real_complex():
     = x^3 - x^2 + 2
     Decreasing order: [1, -1, 0, 2]
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([-1.0, 1.0, 1.0], order='F', dtype=float)
     imz = np.array([0.0, 1.0, -1.0], order='F', dtype=float)
@@ -183,7 +183,7 @@ def test_mc01py_five_zeros():
 
     Decreasing order: [1, -4, 15, -24, 14, -20]
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([0.0, 0.0, 2.0, 1.0, 1.0], order='F', dtype=float)
     imz = np.array([1.0, -1.0, 0.0, 3.0, -3.0], order='F', dtype=float)
@@ -203,7 +203,7 @@ def test_mc01py_numpy_polyval_validation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     np.random.seed(42)
 
@@ -225,7 +225,7 @@ def test_mc01py_complex_zeros_polyval():
 
     Mathematical property: P(r_i) = 0 for all zeros r_i.
     """
-    from slicot import mc01py
+    from ctrlsys import mc01py
 
     rez = np.array([1.0, 1.0, -3.0], order='F', dtype=float)
     imz = np.array([2.0, -2.0, 0.0], order='F', dtype=float)

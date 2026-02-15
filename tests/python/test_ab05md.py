@@ -7,7 +7,7 @@ inter-connection of two systems G1 and G2, where output of G1 feeds input of G2.
 
 import numpy as np
 import pytest
-from slicot import ab05md
+from ctrlsys import ab05md
 
 
 """Basic functionality tests using SLICOT HTML doc example."""

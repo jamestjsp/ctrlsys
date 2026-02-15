@@ -46,7 +46,7 @@ def test_mb04fp_basic_panel():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04fp
+    from ctrlsys import mb04fp
 
     np.random.seed(42)
     n = 64
@@ -79,7 +79,7 @@ def test_mb04fp_matches_mb04fd():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04fd, mb04fp
+    from ctrlsys import mb04fd, mb04fp
 
     np.random.seed(123)
     n = 64
@@ -117,7 +117,7 @@ def test_mb04fp_small_delegates_to_mb04fd():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04fd, mb04fp
+    from ctrlsys import mb04fd, mb04fp
 
     np.random.seed(456)
     n = 8
@@ -172,7 +172,7 @@ def test_mb04fp_q_orthogonality():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04fp
+    from ctrlsys import mb04fp
 
     np.random.seed(789)
     n = 80
@@ -202,7 +202,7 @@ def test_mb04fp_eigenvalues_only():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb04fp
+    from ctrlsys import mb04fp
 
     np.random.seed(555)
     n = 64
@@ -227,7 +227,7 @@ def test_mb04fp_n_zero():
     """
     Edge case: N=0 should return immediately with info=0.
     """
-    from slicot import mb04fp
+    from ctrlsys import mb04fp
 
     n = 0
     a = np.array([], order='F', dtype=float).reshape(0, 0)
@@ -249,7 +249,7 @@ def test_mb04fp_invalid_n_odd():
     """
     Test error handling: N must be even. N=5 should return info=-3.
     """
-    from slicot import mb04fp
+    from ctrlsys import mb04fp
 
     np.random.seed(888)
     n = 5
@@ -272,7 +272,7 @@ def test_mb04fp_compq_update():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb04fp
+    from ctrlsys import mb04fp
 
     np.random.seed(999)
     n = 64
@@ -301,7 +301,7 @@ def test_mb04fp_eigenvalue_conjugate_pairs():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb04fp
+    from ctrlsys import mb04fp
 
     np.random.seed(111)
     n = 64

@@ -4,7 +4,7 @@ skew-Hamiltonian/Hamiltonian pencil to generalized Schur form.
 """
 import numpy as np
 import pytest
-from slicot import mb03ed
+from ctrlsys import mb03ed
 
 
 def test_mb03ed_n2_basic():

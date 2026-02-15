@@ -40,7 +40,7 @@ def test_mb03be_basic_k2():
     The algorithm should drive A(2,1,AMAP(1)) toward zero.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03be
+    from ctrlsys import mb03be
 
     np.random.seed(42)
 
@@ -78,7 +78,7 @@ def test_mb03be_convergence():
     After QZ iterations, |A(2,1)| should be small relative to other elements.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03be
+    from ctrlsys import mb03be
 
     np.random.seed(123)
 
@@ -118,7 +118,7 @@ def test_mb03be_k3_factors():
     Tests the loop iteration with multiple factors.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03be
+    from ctrlsys import mb03be
 
     np.random.seed(456)
 
@@ -155,7 +155,7 @@ def test_mb03be_mixed_signature():
     Tests S(AI) != SINV branch in the algorithm.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03be
+    from ctrlsys import mb03be
 
     np.random.seed(789)
 
@@ -188,7 +188,7 @@ def test_mb03be_already_triangular():
     If A(2,1) is already zero, algorithm should preserve this.
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03be
+    from ctrlsys import mb03be
 
     np.random.seed(111)
 
@@ -221,7 +221,7 @@ def test_mb03be_permuted_amap():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03be
+    from ctrlsys import mb03be
 
     np.random.seed(222)
 
@@ -253,7 +253,7 @@ def test_mb03be_sinv_negative():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03be
+    from ctrlsys import mb03be
 
     np.random.seed(333)
 

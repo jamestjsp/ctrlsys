@@ -10,7 +10,7 @@ provide a stable right coprime factorization G = Q * R^(-1).
 
 import numpy as np
 import pytest
-from slicot import sb08fd
+from ctrlsys import sb08fd
 
 
 class TestSB08FDBasic:

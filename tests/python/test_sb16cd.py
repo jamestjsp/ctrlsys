@@ -19,7 +19,7 @@ class TestSB16CDBasic:
         Continuous-time system with right coprime factorization,
         balancing-free B&T, fixed order NCR=2.
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 8, 1, 1
         ncr_in = 2
@@ -121,7 +121,7 @@ class TestSB16CDAutomaticOrder:
         Uses same system but lets algorithm choose order based on tolerance.
         Random seed: 42 (for reproducibility)
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 8, 1, 1
         ncr_in = 0  # Will be determined automatically
@@ -185,7 +185,7 @@ class TestSB16CDLeftCoprime:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 8, 1, 1
         ncr_in = 2
@@ -253,7 +253,7 @@ class TestSB16CDDiscreteTime:
         Creates a stable discrete-time system and verifies controller reduction.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         np.random.seed(456)
         n, m, p = 4, 2, 2
@@ -321,7 +321,7 @@ class TestSB16CDBalancingMethods:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 8, 1, 1
         ncr_in = 2
@@ -383,7 +383,7 @@ class TestSB16CDEdgeCases:
 
     def test_zero_dimension(self):
         """Test with N=0 (quick return)."""
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 0, 1, 1
         ncr_in = 0
@@ -406,7 +406,7 @@ class TestSB16CDEdgeCases:
 
     def test_ncr_zero_fixed(self):
         """Test with NCR=0 and ORDSEL='F' (quick return)."""
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 4, 1, 1
         ncr_in = 0  # Request zero order
@@ -433,7 +433,7 @@ class TestSB16CDErrorHandling:
 
     def test_invalid_dico(self):
         """Test with invalid DICO parameter."""
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 4, 1, 1
         a = np.eye(4, order='F', dtype=float) * (-0.5)
@@ -456,7 +456,7 @@ class TestSB16CDErrorHandling:
 
         Should return INFO=2.
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 4, 1, 1
         # Continuous: need A+G*C with negative real eigenvalues
@@ -489,7 +489,7 @@ class TestSB16CDMathematicalProperties:
 
         Random seed: 888 (for reproducibility)
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 8, 1, 1
         ncr_in = 3
@@ -553,7 +553,7 @@ class TestSB16CDMathematicalProperties:
 
         Random seed: 999 (for reproducibility)
         """
-        from slicot import sb16cd
+        from ctrlsys import sb16cd
 
         n, m, p = 8, 1, 1
         ncr_in = 4

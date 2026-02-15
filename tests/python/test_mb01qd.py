@@ -4,7 +4,7 @@ pytest tests for MB01QD - Matrix scaling with overflow/underflow prevention.
 """
 import pytest
 import numpy as np
-from slicot import mb01qd
+from ctrlsys import mb01qd
 
 
 def test_mb01qd_full_matrix():

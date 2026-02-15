@@ -6,7 +6,7 @@ Solves H*X=B, H'*X=B, or H^H*X=B using factorization from MB02SZ.
 
 import numpy as np
 import pytest
-from slicot import mb02sz, mb02rz
+from ctrlsys import mb02sz, mb02rz
 
 
 """Basic functionality tests."""

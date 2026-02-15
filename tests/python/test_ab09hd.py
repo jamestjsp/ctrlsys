@@ -24,7 +24,7 @@ def test_ab09hd_html_doc_example():
     (including one unstable eigenvalue). This may indicate a bug in ab09ix or ab09hy
     for this specific input configuration.
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     n, m, p = 7, 2, 3
 
@@ -135,7 +135,7 @@ def test_ab09hd_fixed_order():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     np.random.seed(42)
 
@@ -191,7 +191,7 @@ def test_ab09hd_discrete_time():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     np.random.seed(123)
 
@@ -239,7 +239,7 @@ def test_ab09hd_spa_method():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     np.random.seed(456)
 
@@ -291,7 +291,7 @@ def test_ab09hd_with_equilibration():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     np.random.seed(789)
 
@@ -342,7 +342,7 @@ def test_ab09hd_beta_zero():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     np.random.seed(999)
 
@@ -390,7 +390,7 @@ def test_ab09hd_zero_dimension():
     """
     Test quick return for zero dimensions.
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     n, m, p = 0, 2, 2
 
@@ -419,7 +419,7 @@ def test_ab09hd_invalid_dico():
     """
     Test error handling for invalid DICO parameter.
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     n, m, p = 2, 1, 1
 
@@ -436,7 +436,7 @@ def test_ab09hd_invalid_job():
     """
     Test error handling for invalid JOB parameter.
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     n, m, p = 2, 1, 1
 
@@ -455,7 +455,7 @@ def test_ab09hd_hsv_decreasing():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     np.random.seed(111)
 
@@ -510,7 +510,7 @@ def test_ab09hd_reduced_system_stable():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import ab09hd
+    from ctrlsys import ab09hd
 
     np.random.seed(222)
 

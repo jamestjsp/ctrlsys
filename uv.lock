@@ -108,6 +108,38 @@ wheels = [
 ]
 
 [[package]]
+name = "ctrlsys"
+version = "1.0.18"
+source = { editable = "." }
+dependencies = [
+    { name = "numpy" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "control" },
+    { name = "scipy" },
+    { name = "slycot" },
+]
+test = [
+    { name = "pytest" },
+    { name = "pytest-rerunfailures" },
+    { name = "pytest-xdist" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "control", marker = "extra == 'dev'", specifier = ">=0.10.2" },
+    { name = "numpy", specifier = ">=2.0" },
+    { name = "pytest", marker = "extra == 'test'", specifier = ">=7.0.0" },
+    { name = "pytest-rerunfailures", marker = "extra == 'test'", specifier = ">=14.0" },
+    { name = "pytest-xdist", marker = "extra == 'test'", specifier = ">=3.0.0" },
+    { name = "scipy", marker = "extra == 'dev'", specifier = ">=1.7.0" },
+    { name = "slycot", marker = "extra == 'dev'", specifier = ">=0.6.0" },
+]
+provides-extras = ["test", "dev"]
+
+[[package]]
 name = "cycler"
 version = "0.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -672,40 +704,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050, upload-time = "2024-12-04T17:35:26.475Z" },
 ]
-
-[[package]]
-name = "slicot"
-version = "1.0.15"
-source = { editable = "." }
-dependencies = [
-    { name = "numpy" },
-    { name = "pytest-xdist" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "control" },
-    { name = "scipy" },
-    { name = "slycot" },
-]
-test = [
-    { name = "pytest" },
-    { name = "pytest-rerunfailures" },
-    { name = "pytest-xdist" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "control", marker = "extra == 'dev'", specifier = ">=0.10.2" },
-    { name = "numpy", specifier = ">=2.0" },
-    { name = "pytest", marker = "extra == 'test'", specifier = ">=7.0.0" },
-    { name = "pytest-rerunfailures", marker = "extra == 'test'", specifier = ">=14.0" },
-    { name = "pytest-xdist", specifier = ">=3.8.0" },
-    { name = "pytest-xdist", marker = "extra == 'test'", specifier = ">=3.0.0" },
-    { name = "scipy", marker = "extra == 'dev'", specifier = ">=1.7.0" },
-    { name = "slycot", marker = "extra == 'dev'", specifier = ">=0.6.0" },
-]
-provides-extras = ["test", "dev"]
 
 [[package]]
 name = "slycot"

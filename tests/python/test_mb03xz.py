@@ -22,7 +22,7 @@ def test_mb03xz_basic_eigenvalues():
     Input data from SLICOT MB03XZ.html example:
     N=4, BALANC='N', JOB='G', JOBU='U'
     """
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     n = 4
     # A matrix from HTML doc (row-wise as displayed)
@@ -68,7 +68,7 @@ def test_mb03xz_eigenvalues_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     np.random.seed(42)
     n = 3
@@ -115,7 +115,7 @@ def test_mb03xz_hamiltonian_structure():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     np.random.seed(123)
     n = 4
@@ -157,7 +157,7 @@ def test_mb03xz_with_balancing():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     np.random.seed(456)
     n = 3
@@ -204,7 +204,7 @@ def test_mb03xz_schur_form():
     When JOB='S', the routine returns the complex Schur matrix Sc.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     np.random.seed(789)
     n = 2
@@ -248,7 +248,7 @@ def test_mb03xz_full_decomposition():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     np.random.seed(111)
     n = 2
@@ -291,7 +291,7 @@ def test_mb03xz_full_decomposition():
 
 def test_mb03xz_n_zero():
     """Test with N=0 (quick return)."""
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     n = 0
     a = np.zeros((0, 0), dtype=complex, order='F')
@@ -308,7 +308,7 @@ def test_mb03xz_n_zero():
 
 def test_mb03xz_invalid_balanc():
     """Test invalid BALANC parameter."""
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     n = 2
     a = np.zeros((n, n), dtype=complex, order='F')
@@ -320,7 +320,7 @@ def test_mb03xz_invalid_balanc():
 
 def test_mb03xz_invalid_job():
     """Test invalid JOB parameter."""
-    from slicot import mb03xz
+    from ctrlsys import mb03xz
 
     n = 2
     a = np.zeros((n, n), dtype=complex, order='F')

@@ -6,7 +6,7 @@ to controllability form, separating finite and/or infinite uncontrollable eigenv
 """
 import pytest
 import numpy as np
-from slicot import tg01hd
+from ctrlsys import tg01hd
 
 
 def test_tg01hd_html_example():

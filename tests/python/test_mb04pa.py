@@ -13,7 +13,7 @@ import numpy as np
 
 def test_mb04pa_quick_return():
     """Test quick return when n+k <= 0."""
-    from slicot import mb04pa
+    from ctrlsys import mb04pa
 
     n, k, nb = 0, 0, 0
     lda = 1
@@ -48,7 +48,7 @@ def test_mb04pa_hamiltonian_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04pa
+    from ctrlsys import mb04pa
 
     np.random.seed(42)
 
@@ -87,7 +87,7 @@ def test_mb04pa_skew_hamiltonian_basic():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04pa
+    from ctrlsys import mb04pa
 
     np.random.seed(123)
 
@@ -127,7 +127,7 @@ def test_mb04pa_cs_tau_outputs():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04pa
+    from ctrlsys import mb04pa
 
     np.random.seed(456)
 
@@ -163,7 +163,7 @@ def test_mb04pa_single_block():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04pa
+    from ctrlsys import mb04pa
 
     np.random.seed(789)
 
@@ -198,7 +198,7 @@ def test_mb04pa_larger_k():
 
     Random seed: 1234 (for reproducibility)
     """
-    from slicot import mb04pa
+    from ctrlsys import mb04pa
 
     np.random.seed(1234)
 
@@ -234,7 +234,7 @@ def test_mb04pa_output_dimensions():
 
     Random seed: 5678 (for reproducibility)
     """
-    from slicot import mb04pa
+    from ctrlsys import mb04pa
 
     np.random.seed(5678)
 

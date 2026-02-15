@@ -8,7 +8,7 @@ the same finite Smith zeros but with Dr full row rank (complex case).
 """
 import pytest
 import numpy as np
-from slicot import ag8byz
+from ctrlsys import ag8byz
 
 
 def test_ag8byz_basic_first_call():

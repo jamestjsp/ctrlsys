@@ -11,7 +11,7 @@ having the same transmission zeros but with D' of full row rank.
 """
 import numpy as np
 import pytest
-from slicot import ab08nx
+from ctrlsys import ab08nx
 
 
 """Basic functionality tests for ab08nx."""
@@ -634,7 +634,7 @@ def test_normal_rank_matches_ab08md():
     """
     Verify that the normal rank (mu) from AB08NX matches AB08MD.
     """
-    from slicot import ab08md
+    from ctrlsys import ab08md
 
     np.random.seed(800)
     n, m, p = 4, 2, 2

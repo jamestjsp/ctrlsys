@@ -22,7 +22,7 @@ def test_mb03id_basic_n4():
     Uses matrices where eigenvalue signs are known from diagonal structure.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(42)
 
@@ -83,7 +83,7 @@ def test_mb03id_n6_2x2_block():
     Tests the case where B has complex conjugate eigenvalue pairs.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(123)
 
@@ -149,7 +149,7 @@ def test_mb03id_compq_u():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(456)
 
@@ -191,7 +191,7 @@ def test_mb03id_compq_n_compu_n():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(789)
 
@@ -216,7 +216,7 @@ def test_mb03id_n0_quick_return():
     """
     Test MB03ID with N=0 - quick return case.
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     n = 0
     m = n // 2
@@ -239,7 +239,7 @@ def test_mb03id_error_n_odd():
     """
     Test MB03ID with odd N - should return error.
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     n = 3  # Odd - invalid
 
@@ -259,7 +259,7 @@ def test_mb03id_error_n_negative():
     """
     Test MB03ID with negative N - should return error.
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     n = -2
 
@@ -279,7 +279,7 @@ def test_mb03id_error_invalid_compq():
     """
     Test MB03ID with invalid COMPQ - should return error.
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     n = 4
     m = n // 2
@@ -300,7 +300,7 @@ def test_mb03id_error_invalid_compu():
     """
     Test MB03ID with invalid COMPU - should return error.
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     n = 4
     m = n // 2
@@ -323,7 +323,7 @@ def test_mb03id_property_b_quasi_triangular():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(111)
 
@@ -365,7 +365,7 @@ def test_mb03id_property_a_upper_triangular():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(222)
 
@@ -396,7 +396,7 @@ def test_mb03id_property_c_lower_triangular():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(333)
 
@@ -427,7 +427,7 @@ def test_mb03id_all_negative_eigenvalues():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(444)
 
@@ -460,7 +460,7 @@ def test_mb03id_all_positive_eigenvalues():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb03id
+    from ctrlsys import mb03id
 
     np.random.seed(555)
 

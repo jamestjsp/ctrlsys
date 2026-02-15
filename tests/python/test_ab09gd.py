@@ -17,7 +17,7 @@ Approximation error: HSV(NR) <= ||Ge-Ger||_inf <= 2*sum(HSV(NR+1:NQ))
 
 import numpy as np
 import pytest
-from slicot import ab09gd
+from ctrlsys import ab09gd
 
 
 class TestAB09GDHTMLExample:

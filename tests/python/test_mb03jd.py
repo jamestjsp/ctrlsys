@@ -27,7 +27,7 @@ def test_mb03jd_basic_n4():
     2. Output neig >= 0 and neig <= m
     3. Q is orthogonal when COMPQ='I'
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     np.random.seed(42)
 
@@ -70,7 +70,7 @@ def test_mb03jd_no_transform():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     np.random.seed(123)
 
@@ -107,7 +107,7 @@ def test_mb03jd_zero_dimension():
     """
     Test with N=0 (quick return case).
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     n = 0
 
@@ -126,7 +126,7 @@ def test_mb03jd_invalid_n_odd():
     """
     Test error handling for odd N (N must be even).
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     n = 3
 
@@ -147,7 +147,7 @@ def test_mb03jd_update_mode():
     Random seed: 456 (for reproducibility)
     Validates that existing Q matrix is updated correctly.
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     np.random.seed(456)
 
@@ -190,7 +190,7 @@ def test_mb03jd_orthogonality_preserved():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     np.random.seed(789)
 
@@ -227,7 +227,7 @@ def test_mb03jd_determinant_preserved():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     np.random.seed(999)
 
@@ -268,7 +268,7 @@ def test_mb03jd_n8_larger():
 
     Random seed: 1234 (for reproducibility)
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     np.random.seed(1234)
 
@@ -305,7 +305,7 @@ def test_mb03jd_invalid_compq():
     """
     Test error handling for invalid COMPQ parameter.
     """
-    from slicot import mb03jd
+    from ctrlsys import mb03jd
 
     n = 4
     m = n // 2

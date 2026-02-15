@@ -43,7 +43,7 @@ def test_sb02oy_discrete_jobb_B():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'N', 'U', 'Z', 'I',
@@ -81,7 +81,7 @@ def test_sb02oy_continuous_jobb_B():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'C', 'B', 'N', 'U', 'Z', 'I',
@@ -115,7 +115,7 @@ def test_sb02oy_discrete_jobb_G():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, info = sb02oy(
         'O', 'D', 'G', 'N', 'U', 'Z', 'I',
@@ -148,7 +148,7 @@ def test_sb02oy_continuous_jobb_G_identity_E():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, info = sb02oy(
         'O', 'C', 'G', 'N', 'U', 'Z', 'I',
@@ -187,7 +187,7 @@ def test_sb02oy_with_nonzero_L():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'N', 'U', 'N', 'I',
@@ -222,7 +222,7 @@ def test_sb02oy_with_general_E():
 
     E = np.eye(n, dtype=float, order='F') + 0.1 * np.random.randn(n, n).astype(float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'N', 'U', 'Z', 'N',
@@ -255,7 +255,7 @@ def test_sb02oy_factored_Q():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'C', 'U', 'Z', 'I',
@@ -287,7 +287,7 @@ def test_sb02oy_factored_R():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'D', 'U', 'Z', 'I',
@@ -317,7 +317,7 @@ def test_sb02oy_factored_both():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'B', 'U', 'Z', 'I',
@@ -353,7 +353,7 @@ def test_sb02oy_spectral_factorization():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'S', 'D', 'B', 'N', 'U', 'Z', 'I',
@@ -387,7 +387,7 @@ def test_sb02oy_lower_triangle():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'N', 'L', 'Z', 'I',
@@ -412,7 +412,7 @@ def test_sb02oy_zero_n():
     L = np.zeros((1, m), dtype=float, order='F')
     E = np.zeros((1, 1), dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     result = sb02oy(
         'O', 'D', 'B', 'N', 'U', 'Z', 'I',
@@ -450,7 +450,7 @@ def test_sb02oy_rcond_returned():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, rcond, info = sb02oy(
         'O', 'D', 'B', 'N', 'U', 'Z', 'I',
@@ -475,7 +475,7 @@ def test_sb02oy_error_invalid_type():
     L = np.zeros((n, m), dtype=float, order='F')
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     with pytest.raises(ValueError, match="TYPE"):
         sb02oy('X', 'D', 'B', 'N', 'U', 'Z', 'I',
@@ -486,7 +486,7 @@ def test_sb02oy_error_negative_n():
     """
     Test SB02OY error handling: negative N.
     """
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     A = np.eye(1, dtype=float, order='F')
     B = np.eye(1, dtype=float, order='F')
@@ -525,7 +525,7 @@ def test_sb02oy_hamiltonian_structure():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, info = sb02oy(
         'O', 'C', 'G', 'N', 'U', 'Z', 'I',
@@ -568,7 +568,7 @@ def test_sb02oy_symplectic_structure():
 
     E = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02oy
+    from ctrlsys import sb02oy
 
     AF, BF, info = sb02oy(
         'O', 'D', 'G', 'N', 'U', 'Z', 'I',

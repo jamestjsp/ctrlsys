@@ -13,7 +13,7 @@ def test_mb02rd_notrans():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02sd, mb02rd
+    from ctrlsys import mb02sd, mb02rd
 
     np.random.seed(42)
     n = 4
@@ -47,7 +47,7 @@ def test_mb02rd_trans():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02sd, mb02rd
+    from ctrlsys import mb02sd, mb02rd
 
     np.random.seed(123)
     n = 3
@@ -76,7 +76,7 @@ def test_mb02rd_trans():
 
 def test_mb02rd_n0():
     """Test MB02RD with n=0 (quick return)."""
-    from slicot import mb02sd, mb02rd
+    from ctrlsys import mb02sd, mb02rd
 
     n = 0
     nrhs = 1
@@ -92,7 +92,7 @@ def test_mb02rd_n0():
 
 def test_mb02rd_nrhs0():
     """Test MB02RD with nrhs=0 (quick return)."""
-    from slicot import mb02sd, mb02rd
+    from ctrlsys import mb02sd, mb02rd
 
     np.random.seed(456)
     n = 3
@@ -109,7 +109,7 @@ def test_mb02rd_nrhs0():
 
 def test_mb02rd_invalid_trans():
     """Test MB02RD with invalid TRANS parameter."""
-    from slicot import mb02rd
+    from ctrlsys import mb02rd
 
     n = 2
     nrhs = 1

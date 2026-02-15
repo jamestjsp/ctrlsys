@@ -31,7 +31,7 @@ def test_sb03qy_separation_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03qy
+    from ctrlsys import sb03qy
 
     n = 3
     # Diagonal Schur form with stable eigenvalues (Re < 0)
@@ -65,7 +65,7 @@ def test_sb03qy_both_sep_and_thnorm():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03qy, sb03my
+    from ctrlsys import sb03qy, sb03my
 
     n = 3
     # Upper triangular Schur form with stable eigenvalues
@@ -100,7 +100,7 @@ def test_sb03qy_transpose_form():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03qy, sb03my
+    from ctrlsys import sb03qy, sb03my
 
     n = 2
     # Simple diagonal matrix
@@ -134,7 +134,7 @@ def test_sb03qy_original_lyapunov():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03qy, sb03my
+    from ctrlsys import sb03qy, sb03my
 
     np.random.seed(789)
 
@@ -180,7 +180,7 @@ def test_sb03qy_separation_mathematical_bound():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03qy
+    from ctrlsys import sb03qy
 
     n = 2
     # Diagonal matrix with eigenvalues -1, -3
@@ -213,7 +213,7 @@ def test_sb03qy_scalar():
     - Theta norm depends on X
 
     """
-    from slicot import sb03qy
+    from ctrlsys import sb03qy
 
     n = 1
     t = np.array([[-2.0]], order='F', dtype=float)
@@ -234,7 +234,7 @@ def test_sb03qy_thnorm_only():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import sb03qy, sb03my
+    from ctrlsys import sb03qy, sb03my
 
     n = 2
     t = np.array([
@@ -266,7 +266,7 @@ def test_sb03qy_2x2_block():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import sb03qy, sb03my
+    from ctrlsys import sb03qy, sb03my
 
     n = 2
     # 2x2 block with eigenvalues -1 +/- 2i (Re = -1 < 0, stable)

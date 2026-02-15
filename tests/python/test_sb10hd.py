@@ -22,7 +22,7 @@ Test data from SLICOT HTML documentation example.
 
 import numpy as np
 import pytest
-from slicot import sb10hd
+from ctrlsys import sb10hd
 
 
 class TestSB10HDBasic:

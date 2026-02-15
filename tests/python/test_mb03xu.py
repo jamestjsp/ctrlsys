@@ -26,7 +26,7 @@ def test_mb03xu_basic_ltra_false_ltrb_false():
     Random seed: 42 (for reproducibility)
     Uses small matrices to validate basic functionality.
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(42)
     n = 5
@@ -75,7 +75,7 @@ def test_mb03xu_ltra_true_ltrb_true():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(123)
     n = 4
@@ -107,7 +107,7 @@ def test_mb03xu_ltra_true_ltrb_false():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(456)
     n = 4
@@ -139,7 +139,7 @@ def test_mb03xu_ltra_false_ltrb_true():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(789)
     n = 4
@@ -171,7 +171,7 @@ def test_mb03xu_nb_equals_1():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(111)
     n = 4
@@ -203,7 +203,7 @@ def test_mb03xu_k_equals_0():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(222)
     n = 5
@@ -236,7 +236,7 @@ def test_mb03xu_givens_rotation_property():
     Fundamental property of Givens rotations.
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(333)
     n = 6
@@ -278,7 +278,7 @@ def test_mb03xu_taul_reflector_property():
     For elementary reflectors H = I - tau * v * v', tau must be in [0, 2].
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03xu
+    from ctrlsys import mb03xu
 
     np.random.seed(444)
     n = 5

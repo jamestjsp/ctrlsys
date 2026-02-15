@@ -17,7 +17,7 @@ def test_mc01sx_basic():
     Mantissas: [1.0, 2.0, 3.0, 4.0] (all non-zero)
     Expected variation: 10 - 3 = 7
     """
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([5, 10, 3, 8], dtype=np.int32)
     mant = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float64)
@@ -35,7 +35,7 @@ def test_mc01sx_with_zero_mantissa():
     Mantissas: [1.0, 0.0, 3.0, 4.0]
     Expected variation: 8 - 3 = 5 (ignoring the 100 at index 1)
     """
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([5, 100, 3, 8], dtype=np.int32)
     mant = np.array([1.0, 0.0, 3.0, 4.0], dtype=np.float64)
@@ -51,7 +51,7 @@ def test_mc01sx_single_element():
 
     Variation should be 0.
     """
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([42], dtype=np.int32)
     mant = np.array([1.5], dtype=np.float64)
@@ -67,7 +67,7 @@ def test_mc01sx_all_same_exponent():
 
     Variation should be 0.
     """
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([5, 5, 5, 5], dtype=np.int32)
     mant = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float64)
@@ -85,7 +85,7 @@ def test_mc01sx_negative_exponents():
     Mantissas: [1.0, 1.0, 1.0, 1.0]
     Expected variation: -3 - (-15) = 12
     """
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([-10, -5, -15, -3], dtype=np.int32)
     mant = np.array([1.0, 1.0, 1.0, 1.0], dtype=np.float64)
@@ -103,7 +103,7 @@ def test_mc01sx_mixed_sign_exponents():
     Mantissas: [1.0, 1.0, 1.0, 1.0]
     Expected variation: 10 - (-10) = 20
     """
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([-5, 0, 10, -10], dtype=np.int32)
     mant = np.array([1.0, 1.0, 1.0, 1.0], dtype=np.float64)
@@ -119,7 +119,7 @@ def test_mc01sx_first_only_nonzero():
 
     Variation should be 0.
     """
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([5, 100, 200, -50], dtype=np.int32)
     mant = np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -130,7 +130,7 @@ def test_mc01sx_first_only_nonzero():
 
 
 def test_mc01sx_matches_numpy():
-    from slicot import mc01sx
+    from ctrlsys import mc01sx
 
     e = np.array([3, -7, 15, 0, -2, 8], dtype=np.int32)
     mant = np.array([1.5, 0.0, 2.3, 0.0, -0.5, 1.0], dtype=np.float64)

@@ -10,7 +10,7 @@ import numpy as np
 from numpy.testing import assert_allclose
 import pytest
 
-from slicot import ab09nd
+from ctrlsys import ab09nd
 
 
 class TestAB09NDBasic:

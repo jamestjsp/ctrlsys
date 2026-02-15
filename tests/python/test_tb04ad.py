@@ -9,7 +9,7 @@ T(s) = C * (sI - A)^(-1) * B + D
 
 import numpy as np
 import pytest
-from slicot import tb04ad
+from ctrlsys import tb04ad
 
 
 

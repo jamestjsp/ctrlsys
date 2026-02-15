@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from slicot import nf01ay
+from ctrlsys import nf01ay
 
 # We don't have nf01by exposed yet, so this test will fail importing it.
 # But I can prepare the test logic.
@@ -10,7 +10,7 @@ def test_nf01by_jacobian():
     Validate NF01BY Jacobian against finite differences or analytical formula.
     """
     try:
-        from slicot import nf01by
+        from ctrlsys import nf01by
     except ImportError:
         self.fail("Could not import nf01by")
 
@@ -115,7 +115,7 @@ def test_nf01by_cjte_n():
     Random seed: 888 (for reproducibility)
     """
     try:
-        from slicot import nf01by
+        from ctrlsys import nf01by
     except ImportError:
         self.fail("Could not import nf01by")
 
@@ -173,7 +173,7 @@ def test_nf01by_finite_difference():
     Random seed: 999 (for reproducibility)
     """
     try:
-        from slicot import nf01by, nf01ay
+        from ctrlsys import nf01by, nf01ay
     except ImportError:
         self.fail("Could not import nf01by or nf01ay")
 
@@ -223,7 +223,7 @@ def test_nf01by_error_l_not_one():
     NF01BY only supports single output (l=1).
     """
     try:
-        from slicot import nf01by
+        from ctrlsys import nf01by
     except ImportError:
         self.fail("Could not import nf01by")
 

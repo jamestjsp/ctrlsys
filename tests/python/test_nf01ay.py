@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from slicot import nf01ay
+from ctrlsys import nf01ay
 
 def test_nf01ay_basic():
     """

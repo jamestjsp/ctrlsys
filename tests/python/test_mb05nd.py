@@ -7,7 +7,7 @@ Computes:
 """
 import numpy as np
 import pytest
-from slicot import mb05nd
+from ctrlsys import mb05nd
 
 
 """Basic functionality tests using SLICOT HTML doc example."""

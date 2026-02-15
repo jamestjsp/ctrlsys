@@ -23,7 +23,7 @@ def test_tg01ly_basic():
     Creates a descriptor system with 4 states, 1 finite eigenvalue, 1 infinite.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tg01ly
+    from ctrlsys import tg01ly
 
     np.random.seed(42)
 
@@ -93,7 +93,7 @@ def test_tg01ly_ranke_equals_n():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tg01ly
+    from ctrlsys import tg01ly
 
     np.random.seed(123)
 
@@ -136,7 +136,7 @@ def test_tg01ly_workspace_query():
     """
     Test workspace query functionality (ldwork = -1).
     """
-    from slicot import tg01ly
+    from ctrlsys import tg01ly
 
     n = 5
     m = 2
@@ -163,7 +163,7 @@ def test_tg01ly_transformation_properties():
     Uses a well-conditioned regular pencil for reliable convergence.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tg01ly
+    from ctrlsys import tg01ly
 
     np.random.seed(456)
 
@@ -234,7 +234,7 @@ def test_tg01ly_block_structure():
     Uses well-conditioned regular pencil.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tg01ly
+    from ctrlsys import tg01ly
 
     np.random.seed(789)
 
@@ -301,7 +301,7 @@ def test_tg01ly_invalid_params():
     """
     Test error handling for invalid parameters.
     """
-    from slicot import tg01ly
+    from ctrlsys import tg01ly
 
     n = 3
     a = np.eye(n, order='F', dtype=float)
@@ -322,7 +322,7 @@ def test_tg01ly_no_accumulate():
 
     Random seed: 321 (for reproducibility)
     """
-    from slicot import tg01ly
+    from ctrlsys import tg01ly
 
     np.random.seed(321)
 

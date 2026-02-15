@@ -8,7 +8,7 @@ while keeping triangular form.
 import numpy as np
 import pytest
 
-from slicot import mb03jz
+from ctrlsys import mb03jz
 
 
 class TestMB03JZBasic:

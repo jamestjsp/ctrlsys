@@ -7,7 +7,7 @@ op(A)'*X + X*op(A) + Q - X*G*X = 0
 
 import numpy as np
 import pytest
-from slicot import sb02qd
+from ctrlsys import sb02qd
 
 
 class TestSB02QDBasic:

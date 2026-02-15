@@ -7,7 +7,7 @@ AB8NXZ extracts from the (N+P)-by-(M+N) system [ B  A ; D  C ] a reduced system
 """
 import pytest
 import numpy as np
-from slicot import ab8nxz
+from ctrlsys import ab8nxz
 
 
 def test_ab8nxz_basic_system():
@@ -299,7 +299,7 @@ def test_ab8nxz_larger_system():
 
 
 def test_ab8nxz_transmission_zeros_match_real():
-    from slicot import ab08nx
+    from ctrlsys import ab08nx
 
     np.random.seed(999)
     n, m, p = 4, 2, 2

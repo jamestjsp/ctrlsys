@@ -30,7 +30,7 @@ def test_ud01cd_basic():
     P(1) = [[1, 0, 0], [0, 0, 0], [0, 0, 3], [0, 0, 0]]
     P(2) = [[0, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, 0]]
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 4, 3, 2
 
@@ -74,7 +74,7 @@ def test_ud01cd_empty_sparse():
     """
     Test edge case: no nonzero elements (all zeros).
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 2, 2, 1
 
@@ -94,7 +94,7 @@ def test_ud01cd_single_element():
     """
     Test with a single nonzero polynomial element.
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 3, 3, 2
 
@@ -119,7 +119,7 @@ def test_ud01cd_degree_zero():
     """
     Test edge case: degree 0 polynomial (constant matrices only).
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 2, 2, 0
 
@@ -141,7 +141,7 @@ def test_ud01cd_error_mp_invalid():
     """
     Test error: MP < 1.
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 0, 3, 2
     rows = np.array([1], dtype=np.int32)
@@ -158,7 +158,7 @@ def test_ud01cd_error_np_invalid():
     """
     Test error: NP < 1.
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 2, 0, 2
     rows = np.array([1], dtype=np.int32)
@@ -175,7 +175,7 @@ def test_ud01cd_error_dp_invalid():
     """
     Test error: DP < 0.
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 2, 3, -1
     rows = np.array([1], dtype=np.int32)
@@ -194,7 +194,7 @@ def test_ud01cd_warning_invalid_index():
 
     Per Fortran spec, invalid indices cause warning but routine continues.
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 2, 2, 1
 
@@ -213,7 +213,7 @@ def test_ud01cd_warning_invalid_degree():
     """
     Test warning: degree > DP+1 causes INFO=1 warning.
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 2, 2, 1
 
@@ -234,7 +234,7 @@ def test_ud01cd_sparsity_preservation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     np.random.seed(42)
 
@@ -272,7 +272,7 @@ def test_ud01cd_multiple_same_position():
     """
     Test overwriting: if same (i,j) specified twice, later value wins.
     """
-    from slicot import ud01cd
+    from ctrlsys import ud01cd
 
     mp, np_dim, dp = 2, 2, 1
 

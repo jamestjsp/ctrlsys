@@ -28,7 +28,7 @@ def test_sb04nw_abschr_b_upper():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(42)
     n = 3
@@ -61,7 +61,7 @@ def test_sb04nw_abschr_a_upper():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(123)
     n = 4
@@ -92,7 +92,7 @@ def test_sb04nw_lower_hessenberg():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(456)
     n = 3
@@ -120,7 +120,7 @@ def test_sb04nw_abschr_a_lower():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(789)
     n = 4
@@ -149,7 +149,7 @@ def test_sb04nw_first_index():
     For ABSCHR='B', UL='U', indx=1 means no prior columns to subtract.
     Random seed: 101 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(101)
     n = 3
@@ -172,7 +172,7 @@ def test_sb04nw_last_index():
     For ABSCHR='B', UL='U', this tests the full accumulation.
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(202)
     n = 3
@@ -196,7 +196,7 @@ def test_sb04nw_1x1():
     """
     Test with 1x1 matrix.
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     c = np.array([[5.0]], dtype=float, order='F')
     ab = np.array([[3.0]], dtype=float, order='F')
@@ -213,7 +213,7 @@ def test_sb04nw_identity_ab():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(303)
     n = 3
@@ -235,7 +235,7 @@ def test_sb04nw_compare_different_indices():
 
     Random seed: 404 (for reproducibility)
     """
-    from slicot import sb04nw
+    from ctrlsys import sb04nw
 
     np.random.seed(404)
     n = 3

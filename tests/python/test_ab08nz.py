@@ -8,7 +8,7 @@ of infinite zeros and the right and left Kronecker indices.
 
 import numpy as np
 import pytest
-from slicot import ab08nz
+from ctrlsys import ab08nz
 
 
 """Basic functionality tests using HTML documentation example."""

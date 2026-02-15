@@ -26,7 +26,7 @@ def test_mb03qd_continuous_stable():
     Moves eigenvalues with Re(lambda) < alpha to leading block.
     Tests eigenvalue preservation under similarity transformation.
     """
-    from slicot import mb03qd
+    from ctrlsys import mb03qd
 
     # 4x4 quasi-triangular matrix with eigenvalues: -2, -1, 1, 2
     # We want to separate stable (Re < 0) from unstable (Re > 0)
@@ -70,7 +70,7 @@ def test_mb03qd_discrete_stable():
     Moves eigenvalues with |lambda| < alpha to leading block.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03qd
+    from ctrlsys import mb03qd
 
     # 3x3 diagonal matrix with eigenvalues: 0.5, 1.5, 2.0
     # Stable in discrete-time means |lambda| < 1
@@ -105,7 +105,7 @@ def test_mb03qd_update_mode():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03qd
+    from ctrlsys import mb03qd
 
     np.random.seed(123)
 
@@ -140,7 +140,7 @@ def test_mb03qd_complex_eigenvalues():
 
     A 2x2 block represents a complex conjugate pair.
     """
-    from slicot import mb03qd
+    from ctrlsys import mb03qd
 
     # 4x4 matrix with one 2x2 block (complex eigenvalues)
     # Block at (2,2)-(3,3) has eigenvalues 0.5 +/- 0.5i
@@ -177,7 +177,7 @@ def test_mb03qd_unstable_domain():
 
     Moves eigenvalues with Re(lambda) > alpha to leading block.
     """
-    from slicot import mb03qd
+    from ctrlsys import mb03qd
 
     a = np.array([
         [-1.0,  0.5,  0.2],

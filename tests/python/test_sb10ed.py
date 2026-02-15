@@ -41,7 +41,7 @@ class TestSB10EDHtmlDocExample:
         Data format: READ ( NIN, FMT = * ) ( ( A(I,J), J = 1,N ), I = 1,N )
         This reads row-by-row (J varies fastest inside I loop).
         """
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 6
         m = 5
@@ -152,7 +152,7 @@ class TestSB10EDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         np.random.seed(42)
 
@@ -209,7 +209,7 @@ class TestSB10EDControllerProperties:
 
     def test_controller_finite(self):
         """Verify controller matrices are all finite."""
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 6
         m = 5
@@ -267,7 +267,7 @@ class TestSB10EDControllerProperties:
 
         Uses HTML doc example system.
         """
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 6
         m = 5
@@ -323,7 +323,7 @@ class TestSB10EDControllerProperties:
 
     def test_mimo_simple(self):
         """Test MIMO discrete-time system with ncon=2, nmeas=2."""
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 4
         m = 5
@@ -382,7 +382,7 @@ class TestSB10EDQuickReturn:
 
     def test_n_zero_m2_zero_np2_zero(self):
         """Quick return when N=0 and M2=NP2=0."""
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 0
         m = 2
@@ -409,7 +409,7 @@ class TestSB10EDParameterValidation:
 
     def test_invalid_n(self):
         """Test N < 0 returns error."""
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         with pytest.raises(ValueError):
             sb10ed(-1, 2, 2, 1, 1,
@@ -420,7 +420,7 @@ class TestSB10EDParameterValidation:
 
     def test_invalid_ncon(self):
         """Test NCON > M returns error."""
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 2
         m = 2
@@ -438,7 +438,7 @@ class TestSB10EDParameterValidation:
 
     def test_ncon_larger_than_np1(self):
         """Test M2 > NP1 returns error (M2=NCON, NP1=NP-NMEAS)."""
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 2
         m = 4
@@ -456,7 +456,7 @@ class TestSB10EDParameterValidation:
 
     def test_invalid_nmeas(self):
         """Test NMEAS > NP returns error."""
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 2
         m = 4
@@ -485,7 +485,7 @@ class TestSB10EDErrorCodes:
         => M1=3, M2=1, NP1=3, NP2=1
         => Need NP2 <= M1 (1 <= 3) and M2 <= NP1 (1 <= 3) - OK
         """
-        from slicot import sb10ed
+        from ctrlsys import sb10ed
 
         n = 2
         m = 4

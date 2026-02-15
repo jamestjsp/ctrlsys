@@ -15,7 +15,7 @@ def test_mb03qg_basic_continuous_stable():
     Reorders pencil (A,E) to place eigenvalues with Re < 0 first.
     Uses DGGES to compute initial Schur form, then MB03QG to reorder.
     """
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     n = 4
     nlow = 1
@@ -68,7 +68,7 @@ def test_mb03qg_discrete_stable():
     Reorders pencil (A,E) to place eigenvalues with |lambda| < alpha first.
     Random seed: 42
     """
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     np.random.seed(42)
     n = 3
@@ -106,7 +106,7 @@ def test_mb03qg_discrete_unstable():
     Reorders pencil (A,E) to place eigenvalues with |lambda| > alpha first.
     Random seed: 123
     """
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     np.random.seed(123)
     n = 3
@@ -141,7 +141,7 @@ def test_mb03qg_update_transformation():
     Verifies that existing U, V matrices are updated correctly.
     Random seed: 456
     """
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     np.random.seed(456)
     n = 3
@@ -179,7 +179,7 @@ def test_mb03qg_eigenvalue_preservation():
     The eigenvalues of (A,E) should be preserved, only reordered.
     Random seed: 789
     """
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     np.random.seed(789)
     n = 4
@@ -219,7 +219,7 @@ def test_mb03qg_subpencil_reorder():
 
     Random seed: 999
     """
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     np.random.seed(999)
     n = 5
@@ -248,7 +248,7 @@ def test_mb03qg_quick_return():
     """
     Test quick return when NSUP=0.
     """
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     n = 3
     a = np.eye(n, order='F', dtype=float)
@@ -264,7 +264,7 @@ def test_mb03qg_quick_return():
 
 def test_mb03qg_invalid_dico():
     """Test error handling for invalid DICO parameter."""
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     n = 3
     a = np.eye(n, order='F', dtype=float)
@@ -276,7 +276,7 @@ def test_mb03qg_invalid_dico():
 
 def test_mb03qg_invalid_alpha_discrete():
     """Test error handling for negative alpha in discrete mode."""
-    from slicot import mb03qg
+    from ctrlsys import mb03qg
 
     n = 3
     a = np.eye(n, order='F', dtype=float)

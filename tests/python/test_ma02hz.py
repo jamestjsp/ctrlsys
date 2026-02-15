@@ -15,7 +15,7 @@ Property tests verify:
 """
 import numpy as np
 import pytest
-from slicot import ma02hz
+from ctrlsys import ma02hz
 
 
 def test_ma02hz_identity_basic():

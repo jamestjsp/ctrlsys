@@ -14,7 +14,7 @@ def test_sb04mw_basic_2x2():
 
     For m=2, D has length 2*(2+1)/2 + 2*2 = 3 + 4 = 7
     """
-    from slicot import sb04mw
+    from ctrlsys import sb04mw
 
     m = 2
     d_len = m * (m + 1) // 2 + 2 * m  # 3 + 4 = 7
@@ -49,7 +49,7 @@ def test_sb04mw_3x3():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04mw
+    from ctrlsys import sb04mw
 
     np.random.seed(42)
 
@@ -92,7 +92,7 @@ def test_sb04mw_singular():
     """
     Test detection of singular matrix.
     """
-    from slicot import sb04mw
+    from ctrlsys import sb04mw
 
     m = 2
     d_len = m * (m + 1) // 2 + 2 * m
@@ -109,7 +109,7 @@ def test_sb04mw_m0():
     """
     Test with m=0 (empty system).
     """
-    from slicot import sb04mw
+    from ctrlsys import sb04mw
 
     d = np.array([], dtype=float, order='F')
     d_out, ipr, info = sb04mw(0, d)

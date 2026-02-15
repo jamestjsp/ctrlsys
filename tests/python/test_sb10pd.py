@@ -40,7 +40,7 @@ class TestSB10PDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         np.random.seed(42)
 
@@ -99,7 +99,7 @@ class TestSB10PDBasic:
         Constraints: M2 <= NP1, NP2 <= M1
         m=4, np=5, ncon=2, nmeas=2 => m1=2, m2=2, np1=3, np2=2
         """
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 2
         m = 4      # m1=2, m2=2
@@ -157,7 +157,7 @@ class TestSB10PDRankConditions:
         Constraints: M2 <= NP1, NP2 <= M1
         m=4, np=5, ncon=2, nmeas=2 => m1=2, m2=2, np1=3, np2=2
         """
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 2
         m = 4
@@ -203,7 +203,7 @@ class TestSB10PDRankConditions:
         Constraints: M2 <= NP1, NP2 <= M1
         m=4, np=5, ncon=2, nmeas=2 => m1=2, m2=2, np1=3, np2=2
         """
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 2
         m = 4
@@ -248,7 +248,7 @@ class TestSB10PDTransformationProperties:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         np.random.seed(123)
 
@@ -300,7 +300,7 @@ class TestSB10PDTransformationProperties:
 
     def test_d12_normalization(self):
         """Verify transformed D12 has [0; I_m2] structure."""
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 3
         m = 4
@@ -350,7 +350,7 @@ class TestSB10PDTransformationProperties:
 
     def test_mimo_larger(self):
         """Test MIMO system with n=4, ncon=2, nmeas=2."""
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 4
         m = 5
@@ -413,7 +413,7 @@ class TestSB10PDEdgeCases:
 
     def test_n_zero(self):
         """Test N=0 quick return."""
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 0
         m = 2
@@ -438,7 +438,7 @@ class TestSB10PDEdgeCases:
 
     def test_m_zero(self):
         """Test M=0 quick return."""
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 2
         m = 0
@@ -461,7 +461,7 @@ class TestSB10PDEdgeCases:
 
     def test_np_zero(self):
         """Test NP=0 quick return."""
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 2
         m = 2
@@ -488,7 +488,7 @@ class TestSB10PDParameterValidation:
 
     def test_invalid_ncon(self):
         """Test NCON > M returns error."""
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 2
         m = 2
@@ -511,7 +511,7 @@ class TestSB10PDParameterValidation:
 
     def test_invalid_nmeas(self):
         """Test NP2 > M1 returns error (constraint NMEAS <= M - NCON)."""
-        from slicot import sb10pd
+        from ctrlsys import sb10pd
 
         n = 2
         m = 4

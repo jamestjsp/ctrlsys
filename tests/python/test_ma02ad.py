@@ -12,7 +12,7 @@ Property tests verify:
 """
 import numpy as np
 import pytest
-from slicot import ma02ad
+from ctrlsys import ma02ad
 
 
 def test_ma02ad_full_transpose():

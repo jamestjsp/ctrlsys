@@ -33,7 +33,7 @@ class TestMB04RV:
         (B,E) has eigenvalue B/E = (3+0.5j)/1 = 3+0.5j
         These are distinct, so system is not singular.
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         np.random.seed(42)
 
@@ -66,7 +66,7 @@ class TestMB04RV:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         np.random.seed(123)
 
@@ -105,7 +105,7 @@ class TestMB04RV:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         np.random.seed(456)
 
@@ -146,7 +146,7 @@ class TestMB04RV:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         np.random.seed(789)
 
@@ -188,7 +188,7 @@ class TestMB04RV:
         Use very small PMAX to trigger the threshold.
         Eigenvalues must be distinct (A/D != B/E) to avoid INFO=2.
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         np.random.seed(111)
 
@@ -211,7 +211,7 @@ class TestMB04RV:
         """
         Test quick return for zero dimensions.
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         m, n = 0, 0
         pmax = 1e6
@@ -232,7 +232,7 @@ class TestMB04RV:
         """
         Test M=0, N>0 case.
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         m, n = 0, 2
         pmax = 1e6
@@ -261,7 +261,7 @@ class TestMB04RV:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         np.random.seed(222)
 
@@ -302,7 +302,7 @@ class TestMB04RV:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import mb04rv
+        from ctrlsys import mb04rv
 
         np.random.seed(333)
 

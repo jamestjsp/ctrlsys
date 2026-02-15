@@ -8,7 +8,7 @@ MB01SS scales a symmetric N-by-N matrix A using diagonal scaling factors D:
 
 import numpy as np
 import pytest
-from slicot import mb01ss
+from ctrlsys import mb01ss
 
 
 class TestMB01SSBasic:

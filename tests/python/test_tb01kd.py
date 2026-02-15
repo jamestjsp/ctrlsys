@@ -30,7 +30,7 @@ def test_tb01kd_html_example():
     Continuous system, unstable domain (Re(lambda) > -1.0).
     Expected: NDIM=2, block-diagonal A with eigenvalues in domain in leading block.
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     n, m, p = 5, 2, 3
     alpha = -1.0
@@ -97,7 +97,7 @@ def test_tb01kd_continuous_stable():
     Move eigenvalues with Re(lambda) < 0 to leading block, make A block-diagonal.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     np.random.seed(42)
     n, m, p = 4, 2, 2
@@ -140,7 +140,7 @@ def test_tb01kd_discrete_stable():
 
     Move eigenvalues with |lambda| < 1 to leading block, make A block-diagonal.
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     n, m, p = 3, 1, 1
     alpha = 1.0  # Unit circle
@@ -172,7 +172,7 @@ def test_tb01kd_schur_input():
 
     When A is already in Schur form, only reordering and block-diagonalization needed.
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     n, m, p = 3, 1, 1
     alpha = 0.0
@@ -205,7 +205,7 @@ def test_tb01kd_block_diagonal():
     A12 block must be zero. Leading block has NDIM eigenvalues in domain.
     Uses matrix with well-separated eigenvalues to avoid Sylvester singularity.
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     n, m, p = 4, 2, 2
     alpha = 0.0
@@ -239,7 +239,7 @@ def test_tb01kd_eigenvalue_preservation():
 
     Uses matrix with well-separated eigenvalues to avoid Sylvester singularity.
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     n, m, p = 5, 2, 2
     alpha = 0.0
@@ -275,7 +275,7 @@ def test_tb01kd_transformation_validity():
     Note: U from TB01KD is not orthogonal in general (includes Sylvester solution).
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     np.random.seed(789)
     n, m, p = 4, 2, 2
@@ -304,7 +304,7 @@ def test_tb01kd_zero_dimension():
     """
     Validate quick return for n=0.
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     n, m, p = 0, 2, 2
     alpha = 0.0
@@ -330,7 +330,7 @@ def test_tb01kd_html_transformed_matrices():
     2. Block diagonal structure of A
     3. First NDIM rows of B_out and C_out correspond to domain eigenvalues
     """
-    from slicot import tb01kd
+    from ctrlsys import tb01kd
 
     n, m, p = 5, 2, 3
     alpha = -1.0

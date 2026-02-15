@@ -15,7 +15,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import ma01cd
+from ctrlsys import ma01cd
 
 
 def test_ma01cd_both_zero():

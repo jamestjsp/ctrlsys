@@ -6,7 +6,7 @@ transformations (Dl*A*Dr - lambda Dl*E*Dr, Dl*B, C*Dr).
 """
 import pytest
 import numpy as np
-from slicot import tg01az
+from ctrlsys import tg01az
 
 
 def test_tg01az_basic_example():

@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from slicot import sg03bx
+from ctrlsys import sg03bx
 
 
 def _check_lyapunov_residual(dico, trans, a, e, b, u, scale, m1, m2, atol=1e-8):

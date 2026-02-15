@@ -28,7 +28,7 @@ def test_sb04nv_abschr_b_upper():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04nv
+    from ctrlsys import sb04nv
 
     np.random.seed(42)
     n = 3
@@ -68,7 +68,7 @@ def test_sb04nv_abschr_a_upper():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04nv
+    from ctrlsys import sb04nv
 
     np.random.seed(123)
     n = 4
@@ -103,7 +103,7 @@ def test_sb04nv_lower_hessenberg():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04nv
+    from ctrlsys import sb04nv
 
     np.random.seed(456)
     n = 3
@@ -139,7 +139,7 @@ def test_sb04nv_first_index():
     For ABSCHR='B', UL='U', indx=1 means no prior columns to subtract.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04nv
+    from ctrlsys import sb04nv
 
     np.random.seed(789)
     n = 3
@@ -166,7 +166,7 @@ def test_sb04nv_last_index():
     For ABSCHR='B', UL='U', this tests the full accumulation.
     Random seed: 101 (for reproducibility)
     """
-    from slicot import sb04nv
+    from ctrlsys import sb04nv
 
     np.random.seed(101)
     n = 3
@@ -197,7 +197,7 @@ def test_sb04nv_1x1():
     """
     Test with 1x1 matrix.
     """
-    from slicot import sb04nv
+    from ctrlsys import sb04nv
 
     c = np.array([[5.0]], dtype=float, order='F')
     ab = np.array([[3.0]], dtype=float, order='F')
@@ -213,7 +213,7 @@ def test_sb04nv_identity_ab():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb04nv
+    from ctrlsys import sb04nv
 
     np.random.seed(202)
     n = 3

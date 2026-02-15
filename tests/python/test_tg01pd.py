@@ -20,7 +20,7 @@ def test_tg01pd_html_example():
     NLOW=1, NSUP=4, ALPHA=-1.E-7
     Expected: 1 eigenvalue in the domain of interest.
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     n, m, p = 4, 2, 2
     nlow, nsup = 1, 4
@@ -92,7 +92,7 @@ def test_tg01pd_orthogonality():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(42)
     n, m, p = 4, 2, 2
@@ -131,7 +131,7 @@ def test_tg01pd_equivalence_transformation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(123)
     n, m, p = 5, 2, 3
@@ -171,7 +171,7 @@ def test_tg01pd_eigenvalue_preservation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(456)
     n, m, p = 4, 2, 2
@@ -207,7 +207,7 @@ def test_tg01pd_discrete_time():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(789)
     n, m, p = 4, 2, 2
@@ -238,7 +238,7 @@ def test_tg01pd_unstable_domain():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(101)
     n, m, p = 4, 2, 2
@@ -264,7 +264,7 @@ def test_tg01pd_schur_form_input():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(202)
     n, m, p = 4, 2, 2
@@ -298,7 +298,7 @@ def test_tg01pd_compq_update():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(303)
     n, m, p = 3, 1, 1
@@ -331,7 +331,7 @@ def test_tg01pd_edge_n0():
     """
     Test edge case: n=0 (quick return).
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     n, m, p = 0, 2, 2
 
@@ -351,7 +351,7 @@ def test_tg01pd_error_invalid_dico():
     """
     Test error: invalid DICO parameter.
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     n, m, p = 3, 1, 1
     a = np.eye(n, order='F', dtype=float)
@@ -369,7 +369,7 @@ def test_tg01pd_error_invalid_stdom():
     """
     Test error: invalid STDOM parameter.
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     n, m, p = 3, 1, 1
     a = np.eye(n, order='F', dtype=float)
@@ -387,7 +387,7 @@ def test_tg01pd_error_invalid_jobae():
     """
     Test error: invalid JOBAE parameter.
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     n, m, p = 3, 1, 1
     a = np.eye(n, order='F', dtype=float)
@@ -405,7 +405,7 @@ def test_tg01pd_error_negative_alpha_discrete():
     """
     Test error: negative ALPHA for discrete-time system.
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     n, m, p = 3, 1, 1
     a = np.eye(n, order='F', dtype=float)
@@ -427,7 +427,7 @@ def test_tg01pd_transfer_function_preservation():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import tg01pd
+    from ctrlsys import tg01pd
 
     np.random.seed(555)
     n, m, p = 4, 2, 2

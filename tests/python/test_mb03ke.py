@@ -11,7 +11,7 @@ A(i) are M-by-M, B(i) are N-by-N, with 1 <= M, N <= 2.
 
 import numpy as np
 import pytest
-from slicot import mb03ke
+from ctrlsys import mb03ke
 
 
 def test_mb03ke_basic_k2_m1_n1():

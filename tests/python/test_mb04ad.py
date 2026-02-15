@@ -8,7 +8,7 @@ decomposition.
 
 import numpy as np
 import pytest
-from slicot import mb04ad
+from ctrlsys import mb04ad
 
 
 def test_mb04ad_html_example():

@@ -6,7 +6,7 @@ Input (A, B) must be in orthogonal canonical form (from ab01nd).
 """
 import numpy as np
 import pytest
-from slicot import ab01nd, sb01dd
+from ctrlsys import ab01nd, sb01dd
 
 
 class TestSB01DDBasic:

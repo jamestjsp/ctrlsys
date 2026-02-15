@@ -10,7 +10,7 @@ exp(A*delta) = V*Y where V is the eigenvector matrix.
 """
 import numpy as np
 import pytest
-from slicot import mb05md
+from ctrlsys import mb05md
 
 
 """Basic functionality tests using SLICOT HTML doc example."""

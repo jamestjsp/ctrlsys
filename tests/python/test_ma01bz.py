@@ -15,7 +15,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import ma01bz
+from ctrlsys import ma01bz
 
 
 def test_ma01bz_simple_product():

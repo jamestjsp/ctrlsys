@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import tf01pd
+from ctrlsys import tf01pd
 
 
 def test_html_doc_example():

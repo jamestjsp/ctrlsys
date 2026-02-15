@@ -33,7 +33,7 @@ def test_td03ay_basic_siso():
                       = (-5 + 2s + 6)/(s+3)
                       = (2s + 1)/(s+3)
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 1, 1
     n = 1
@@ -66,7 +66,7 @@ def test_td03ay_siso_second_order():
     Observable companion form:
     A = [0  -2; 1  -3], B computed from numerator, C = [0, 1], D = [0]
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 1, 1
     n = 2
@@ -99,7 +99,7 @@ def test_td03ay_transfer_function_equivalence():
 
     Uses simple SISO system for exact validation.
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 1, 1
     n = 2
@@ -130,7 +130,7 @@ def test_td03ay_mimo_2x2():
     Two outputs, two inputs, each with separate denominator polynomial.
     INDEX = [1, 1] -> N = 2
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 2, 2
     n = 2
@@ -166,7 +166,7 @@ def test_td03ay_zero_leading_coefficient_error():
 
     INFO = I when row I has leading coefficient too small.
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 1, 1
     n = 1
@@ -189,7 +189,7 @@ def test_td03ay_mixed_orders():
     Row 1: second-order denominator
     Row 2: first-order denominator
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 1, 2
     n = 3
@@ -220,7 +220,7 @@ def test_td03ay_zero_index():
     INDEX = [1, 0] -> N = 1
     Row 2 contributes only to D matrix.
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 1, 2
     n = 1
@@ -251,7 +251,7 @@ def test_td03ay_observable_companion_form():
     - Ones on subdiagonal (except at block boundaries)
     - Block structure determined by INDEX
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     mwork, pwork = 1, 1
     n = 3
@@ -284,7 +284,7 @@ def test_td03ay_state_space_equations():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import td03ay
+    from ctrlsys import td03ay
 
     np.random.seed(42)
 

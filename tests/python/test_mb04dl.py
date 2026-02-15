@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import mb04dl
+from ctrlsys import mb04dl
 
 
 class TestMB04DLBasic:

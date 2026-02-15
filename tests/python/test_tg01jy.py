@@ -22,7 +22,7 @@ def test_tg01jy_html_example():
     JOB='I', SYSTYP='R', EQUIL='N', CKSING='N', RESTOR='N'
     Expected: Reduced to 7th order, with 2 eigenvalues eliminated in Phase 2.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 9, 2, 2
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -117,7 +117,7 @@ def test_tg01jy_controllable_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     np.random.seed(42)
     n, m, p = 4, 2, 2
@@ -159,7 +159,7 @@ def test_tg01jy_observable_only():
 
     Uses a verifiably observable system with distinct eigenvalues.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 4, 2, 2
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -205,7 +205,7 @@ def test_tg01jy_with_scaling():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     np.random.seed(456)
     n, m, p = 3, 1, 1
@@ -242,7 +242,7 @@ def test_tg01jy_with_cksing():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     np.random.seed(789)
     n, m, p = 4, 2, 2
@@ -266,7 +266,7 @@ def test_tg01jy_with_restor():
 
     Random seed: 101112 (for reproducibility)
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     np.random.seed(101112)
     n, m, p = 4, 2, 2
@@ -290,7 +290,7 @@ def test_tg01jy_systyp_standard():
 
     Random seed: 1234 (for reproducibility)
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     np.random.seed(1234)
     n, m, p = 4, 2, 2
@@ -314,7 +314,7 @@ def test_tg01jy_systyp_polynomial():
 
     Random seed: 5678 (for reproducibility)
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     np.random.seed(5678)
     n, m, p = 4, 2, 2
@@ -336,7 +336,7 @@ def test_tg01jy_edge_zero_system():
     """
     Test TG01JY with n=0 (edge case - quick return).
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 0, 2, 2
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -357,7 +357,7 @@ def test_tg01jy_error_invalid_job():
     """
     Test TG01JY with invalid JOB parameter.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 3, 1, 1
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -376,7 +376,7 @@ def test_tg01jy_error_invalid_systyp():
     """
     Test TG01JY with invalid SYSTYP parameter.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 3, 1, 1
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -395,7 +395,7 @@ def test_tg01jy_error_invalid_equil():
     """
     Test TG01JY with invalid EQUIL parameter.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 3, 1, 1
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -414,7 +414,7 @@ def test_tg01jy_error_invalid_cksing():
     """
     Test TG01JY with invalid CKSING parameter.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 3, 1, 1
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -433,7 +433,7 @@ def test_tg01jy_error_invalid_restor():
     """
     Test TG01JY with invalid RESTOR parameter.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 3, 1, 1
     tol = np.array([0.0, 0.0, 0.0], dtype=float)
@@ -457,7 +457,7 @@ def test_tg01jy_transfer_function_preservation():
 
     Random seed: 2024 (for reproducibility)
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     np.random.seed(2024)
     n, m, p = 5, 2, 2
@@ -510,7 +510,7 @@ def test_tg01jy_singular_pencil_detection():
 
     Creates a deliberately singular pencil A - lambda*E.
     """
-    from slicot import tg01jy
+    from ctrlsys import tg01jy
 
     n, m, p = 3, 1, 1
     tol = np.array([0.0, 0.0, 0.0], dtype=float)

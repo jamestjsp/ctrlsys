@@ -31,7 +31,7 @@ def test_mb03ad_double_shift():
     For double shift, both (C1, S1) and (C2, S2) are nontrivial Givens rotations.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(42)
 
@@ -71,7 +71,7 @@ def test_mb03ad_single_shift():
     For single shift, C2 = 1 and S2 = 0.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(123)
 
@@ -108,7 +108,7 @@ def test_mb03ad_n_equals_2_single_shift():
     Minimum valid size for single shift is N=2.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(456)
 
@@ -143,7 +143,7 @@ def test_mb03ad_three_factors():
     Tests the loop iteration with multiple factors.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(789)
 
@@ -184,7 +184,7 @@ def test_mb03ad_negative_signature():
     Tests S(AI) != SINV branch in the algorithm.
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(111)
 
@@ -221,7 +221,7 @@ def test_mb03ad_mixed_signature():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(222)
 
@@ -265,7 +265,7 @@ def test_mb03ad_givens_rotation_property():
     This tests both shift types produce valid Givens rotations.
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(333)
 
@@ -310,7 +310,7 @@ def test_mb03ad_permuted_amap():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(444)
 
@@ -351,7 +351,7 @@ def test_mb03ad_sinv_negative():
     When SINV = -1, S(AI) == SINV only when S(AI) = -1.
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb03ad
+    from ctrlsys import mb03ad
 
     np.random.seed(555)
 

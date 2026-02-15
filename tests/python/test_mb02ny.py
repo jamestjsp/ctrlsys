@@ -7,7 +7,7 @@ superdiagonal elements using Givens rotations.
 
 import numpy as np
 import pytest
-from slicot import mb02ny
+from ctrlsys import mb02ny
 
 
 def test_mb02ny_basic_annihilate_e_i():

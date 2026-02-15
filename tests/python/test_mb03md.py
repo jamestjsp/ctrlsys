@@ -13,7 +13,7 @@ Test data from SLICOT HTML documentation:
 
 import numpy as np
 import pytest
-from slicot import mb03md
+from ctrlsys import mb03md
 
 
 def compute_pivmin_and_squares(q, e):

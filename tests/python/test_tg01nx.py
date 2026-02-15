@@ -13,7 +13,7 @@ where (A1,E1) and (A2,E2) have no common generalized eigenvalues.
 """
 import pytest
 import numpy as np
-from slicot import tg01nx
+from ctrlsys import tg01nx
 
 
 def test_tg01nx_basic_direct():

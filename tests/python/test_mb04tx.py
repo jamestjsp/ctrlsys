@@ -10,7 +10,7 @@ mathematical property validation.
 
 import numpy as np
 import pytest
-from slicot import mb04tx
+from ctrlsys import mb04tx
 
 
 def test_mb04tx_basic():

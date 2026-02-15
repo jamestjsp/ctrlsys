@@ -19,7 +19,7 @@ This is the complex version of MA02OD.
 
 import numpy as np
 import pytest
-from slicot import ma02oz
+from ctrlsys import ma02oz
 
 
 class TestMA02OZBasic:
@@ -282,7 +282,7 @@ class TestMA02OZMathematical:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import ma02od
+        from ctrlsys import ma02od
 
         np.random.seed(456)
         m = 3

@@ -25,7 +25,7 @@ def test_sb04ny_upper_row_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(42)
     m = 4
@@ -64,7 +64,7 @@ def test_sb04ny_upper_col_transforms():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(123)
     m = 4
@@ -101,7 +101,7 @@ def test_sb04ny_lower_row():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(456)
     m = 4
@@ -140,7 +140,7 @@ def test_sb04ny_lower_col():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(789)
     m = 4
@@ -177,7 +177,7 @@ def test_sb04ny_1x1():
 
     (a + lambda) * x = d => x = d / (a + lambda)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     a = np.array([[3.0]], dtype=float, order='F')
     lambda_val = 2.0
@@ -199,7 +199,7 @@ def test_sb04ny_2x2():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(101)
 
@@ -230,7 +230,7 @@ def test_sb04ny_triangular():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(202)
     m = 5
@@ -261,7 +261,7 @@ def test_sb04ny_near_singular():
 
     When lambda makes diagonal near-zero, should return info=1.
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     a = np.array([[1.0]], dtype=float, order='F')
     lambda_val = -1.0
@@ -281,7 +281,7 @@ def test_sb04ny_negative_lambda():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(303)
     m = 3
@@ -315,7 +315,7 @@ def test_sb04ny_larger_system():
 
     Random seed: 404 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(404)
     m = 8
@@ -354,7 +354,7 @@ def test_sb04ny_compare_row_col():
 
     Random seed: 505 (for reproducibility)
     """
-    from slicot import sb04ny
+    from ctrlsys import sb04ny
 
     np.random.seed(505)
     m = 4

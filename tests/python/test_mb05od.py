@@ -7,7 +7,7 @@ Returns minimal and 95%-confidence accurate digit counts.
 """
 import numpy as np
 import pytest
-from slicot import mb05od
+from ctrlsys import mb05od
 
 
 def test_html_doc_example():

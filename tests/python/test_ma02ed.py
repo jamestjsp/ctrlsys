@@ -32,7 +32,7 @@ def test_ma02ed_upper_basic():
     A_expected = A_full.copy(order='F')
 
     # Import and call
-    from slicot import ma02ed
+    from ctrlsys import ma02ed
     ma02ed('U', A)
 
     # Validate symmetry achieved
@@ -62,7 +62,7 @@ def test_ma02ed_lower_basic():
     A_expected = A_full.copy(order='F')
 
     # Import and call
-    from slicot import ma02ed
+    from ctrlsys import ma02ed
     ma02ed('L', A)
 
     # Validate symmetry achieved
@@ -85,7 +85,7 @@ def test_ma02ed_symmetry_property():
     A_upper = np.random.randn(n, n).astype(float, order='F')
     A_upper = np.triu(A_upper)
 
-    from slicot import ma02ed
+    from ctrlsys import ma02ed
     ma02ed('U', A_upper)
 
     # Validate perfect symmetry
@@ -113,7 +113,7 @@ def test_ma02ed_no_op():
     A = np.random.randn(n, n).astype(float, order='F')
     A_original = A.copy()
 
-    from slicot import ma02ed
+    from ctrlsys import ma02ed
     ma02ed('X', A)  # Invalid UPLO
 
     # Matrix should be unchanged
@@ -126,7 +126,7 @@ def test_ma02ed_n_zero():
     """
     A = np.array([], dtype=float, order='F').reshape(0, 0)
 
-    from slicot import ma02ed
+    from ctrlsys import ma02ed
     ma02ed('U', A)
 
     # Should handle gracefully
@@ -139,7 +139,7 @@ def test_ma02ed_n_one():
     """
     A = np.array([[5.0]], dtype=float, order='F')
 
-    from slicot import ma02ed
+    from ctrlsys import ma02ed
     ma02ed('U', A)
 
     # Single element is already symmetric
@@ -160,7 +160,7 @@ def test_ma02ed_diagonal_preservation():
     A_upper = np.diag(diag_vals).astype(float, order='F')
     A_lower = np.diag(diag_vals).astype(float, order='F')
 
-    from slicot import ma02ed
+    from ctrlsys import ma02ed
     ma02ed('U', A_upper)
     ma02ed('L', A_lower)
 

@@ -54,7 +54,7 @@ def test_ib03bd_html_example():
 
     Test validates numerical correctness of the optimization result.
     """
-    from slicot import ib03bd
+    from ctrlsys import ib03bd
 
     u, y, seed = load_test_data()
 
@@ -127,7 +127,7 @@ def test_ib03bd_expected_solution():
 
     Reference: SLICOT IB03BD.res shows residual = 0.2995840
     """
-    from slicot import ib03bd
+    from ctrlsys import ib03bd
 
     u, y, seed = load_test_data()
 
@@ -186,7 +186,7 @@ def test_ib03bd_init_l_linear_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ib03bd
+    from ctrlsys import ib03bd
 
     np.random.seed(42)
 
@@ -235,7 +235,7 @@ def test_ib03bd_init_n_no_init():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ib03bd
+    from ctrlsys import ib03bd
 
     np.random.seed(123)
 
@@ -284,7 +284,7 @@ def test_ib03bd_parameter_errors():
     - N out of range
     - NN < 0
     """
-    from slicot import ib03bd
+    from ctrlsys import ib03bd
 
     u, y, seed = load_test_data()
     u = u.reshape(-1, 1).astype(float, order='F')
@@ -312,7 +312,7 @@ def test_ib03bd_convergence_property():
 
     Random seed: Uses SLICOT seed for reproducibility.
     """
-    from slicot import ib03bd
+    from ctrlsys import ib03bd
 
     u, y, seed = load_test_data()
     u = u.reshape(-1, 1).astype(float, order='F')
@@ -357,7 +357,7 @@ def test_ib03bd_small_system():
     Uses fewer samples and neurons to verify basic functionality.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ib03bd
+    from ctrlsys import ib03bd
 
     np.random.seed(456)
 

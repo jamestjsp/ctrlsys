@@ -6,7 +6,7 @@ where TL is N1-by-N1, TR is N2-by-N2, B is N1-by-N2, and ISGN = 1 or -1.
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 def test_sb04px_1x1_basic():

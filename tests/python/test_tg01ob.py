@@ -15,7 +15,7 @@ while preserving the upper triangular form of E.
 """
 import pytest
 import numpy as np
-from slicot import tg01ob
+from ctrlsys import tg01ob
 
 
 def test_tg01ob_basic_identity_e():

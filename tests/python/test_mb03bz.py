@@ -25,7 +25,7 @@ def test_mb03bz_html_example():
     - COMPQ = 'I' (initialize Q to identity)
     - S = [1, -1, 1] signatures
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     k = 3
     n = 4
@@ -108,7 +108,7 @@ def test_mb03bz_eigenvalues_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     np.random.seed(42)
 
@@ -147,7 +147,7 @@ def test_mb03bz_n_equals_zero():
     """
     Test MB03BZ with N=0 (edge case - quick return).
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     k = 2
     n = 0
@@ -168,7 +168,7 @@ def test_mb03bz_single_factor():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     np.random.seed(123)
 
@@ -203,7 +203,7 @@ def test_mb03bz_compq_v():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     np.random.seed(456)
 
@@ -248,7 +248,7 @@ def test_mb03bz_invalid_job():
     """
     Test MB03BZ with invalid JOB parameter (error handling).
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     k = 2
     n = 3
@@ -267,7 +267,7 @@ def test_mb03bz_invalid_compq():
     """
     Test MB03BZ with invalid COMPQ parameter (error handling).
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     k = 2
     n = 3
@@ -286,7 +286,7 @@ def test_mb03bz_invalid_s():
     """
     Test MB03BZ with invalid S array (S(1) must be 1).
     """
-    from slicot import mb03bz
+    from ctrlsys import mb03bz
 
     k = 2
     n = 3

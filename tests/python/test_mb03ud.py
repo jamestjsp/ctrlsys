@@ -32,7 +32,7 @@ def test_mb03ud_basic_example():
         [-0.0670, 0.6401, -0.7402, 0.1945]
     ], order='F', dtype=float)
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     a_copy = a.copy()
     sv, p, q, info = mb03ud(n, a_copy, jobq='V', jobp='V')
@@ -67,7 +67,7 @@ def test_mb03ud_svd_decomposition():
     a = np.triu(np.random.randn(n, n)).astype(float, order='F')
     a_orig = a.copy()
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     sv, p_transpose, q, info = mb03ud(n, a, jobq='V', jobp='V')
 
@@ -93,7 +93,7 @@ def test_mb03ud_orthogonality():
 
     a = np.triu(np.random.randn(n, n)).astype(float, order='F')
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     sv, p, q, info = mb03ud(n, a, jobq='V', jobp='V')
 
@@ -119,7 +119,7 @@ def test_mb03ud_singular_value_ordering():
 
     a = np.triu(np.random.randn(n, n)).astype(float, order='F')
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     sv, p, q, info = mb03ud(n, a, jobq='V', jobp='V')
 
@@ -145,7 +145,7 @@ def test_mb03ud_no_vectors():
     a = np.triu(np.random.randn(n, n)).astype(float, order='F')
     a_copy = a.copy()
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     # Compute with vectors
     sv_with, p_with, q_with, info_with = mb03ud(n, a_copy, jobq='V', jobp='V')
@@ -170,7 +170,7 @@ def test_mb03ud_partial_vectors():
 
     a = np.triu(np.random.randn(n, n)).astype(float, order='F')
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     # Compute Q only
     sv_q, _, q_only, info_q = mb03ud(n, a.copy(), jobq='V', jobp='N')
@@ -201,7 +201,7 @@ def test_mb03ud_edge_case_1x1():
     n = 1
     a = np.array([[5.0]], order='F', dtype=float)
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     sv, p, q, info = mb03ud(n, a.copy(), jobq='V', jobp='V')
 
@@ -226,7 +226,7 @@ def test_mb03ud_edge_case_diagonal():
     diag_vals = np.random.randn(n)
     a = np.diag(diag_vals).astype(float, order='F')
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     sv, p, q, info = mb03ud(n, a, jobq='V', jobp='V')
 
@@ -244,7 +244,7 @@ def test_mb03ud_error_invalid_n():
     n = -1
     a = np.array([[1.0]], order='F', dtype=float)
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     with pytest.raises((ValueError, RuntimeError)):
         mb03ud(n, a, jobq='N', jobp='N')
@@ -257,7 +257,7 @@ def test_mb03ud_error_invalid_jobq():
     n = 2
     a = np.eye(n, dtype=float, order='F')
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     with pytest.raises((ValueError, RuntimeError)):
         mb03ud(n, a, jobq='X', jobp='N')
@@ -270,7 +270,7 @@ def test_mb03ud_workspace_query():
     n = 5
     a = np.triu(np.random.randn(n, n)).astype(float, order='F')
 
-    from slicot import mb03ud
+    from ctrlsys import mb03ud
 
     # Should succeed and return optimal workspace in info or similar
     sv, _, _, info = mb03ud(n, a, jobq='V', jobp='V')

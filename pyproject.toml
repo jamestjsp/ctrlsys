@@ -3,8 +3,8 @@ requires = ["meson-python>=0.16.0", "meson>=1.1.0", "numpy>=2.0"]
 build-backend = "mesonpy"
 
 [project]
-name = "slicot"
-version = "1.0.18"
+name = "ctrlsys"
+version = "1.0.19"
 description = "Python bindings for SLICOT C library (control theory)"
 readme = "README.md"
 license = "BSD-3-Clause"
@@ -25,9 +25,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/jamestjsp/slicot"
-Documentation = "https://slicot.readthedocs.io/en/latest/"
-Repository = "https://github.com/jamestjsp/slicot"
+Homepage = "https://github.com/jamestjsp/ctrlsys"
+Documentation = "https://ctrlsys.readthedocs.io/en/latest/"
+Repository = "https://github.com/jamestjsp/ctrlsys"
 
 [project.optional-dependencies]
 test = [

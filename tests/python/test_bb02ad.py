@@ -29,7 +29,7 @@ def test_bb02ad_example_2_3():
       R = 1.0
       X = [[1.0, 0.0], [0.0, 1.0152]]
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([2, 3], dtype=np.int32)
     dpar = np.array([0.1234, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -91,7 +91,7 @@ def test_bb02ad_example_1_1_default():
     Note: Example 1.1 has R=0 (singular), so we use BPAR[3]=False to get
     factored form (B, R) instead of trying to compute G = B*R^{-1}*B^T.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 1], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -122,7 +122,7 @@ def test_bb02ad_example_1_3():
     (A,B) controllable, no solution X <= 0.
     Expected X = [[1, 2], [2, 2+sqrt(5)]]
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 3], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -157,7 +157,7 @@ def test_bb02ad_example_2_1():
 
     Uses DPAR(1) as the scalar R matrix value.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([2, 1], dtype=np.int32)
     dpar = np.array([1e7, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -181,7 +181,7 @@ def test_bb02ad_example_4_1():
 
     Uses IPAR(1) to specify problem size.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([4, 1], dtype=np.int32)
     dpar = np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -209,7 +209,7 @@ def test_bb02ad_with_s_matrix():
     Note: R is not singular in this example, but we use BPAR[3]=False
     to get factored form (B, R) and access S.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 2], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -232,7 +232,7 @@ def test_bb02ad_factored_q():
 
     When BPAR(1)=False, the routine returns C and Q0 from Q = C^T Q0 C.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 3], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -252,7 +252,7 @@ def test_bb02ad_factored_g():
 
     When BPAR(4)=False, the routine returns B and R from G = B R^{-1} B^T.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 3], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -270,7 +270,7 @@ def test_bb02ad_invalid_nr_group():
     """
     Test error handling for invalid NR(1) parameter.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([5, 1], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -287,7 +287,7 @@ def test_bb02ad_invalid_example_number():
     """
     Test error handling for invalid example number in group.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 20], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -306,7 +306,7 @@ def test_bb02ad_division_by_zero():
 
     Example 2.2 with DPAR(1)=0 causes division by zero.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([2, 2], dtype=np.int32)
     dpar = np.array([0.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -328,7 +328,7 @@ def test_bb02ad_dare_residual():
 
     The solution X should satisfy this equation.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 3], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -365,7 +365,7 @@ def test_bb02ad_solution_symmetry():
 
     The solution to a DARE should be symmetric: X = X^T.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([2, 1], dtype=np.int32)
     dpar = np.array([1e6, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -388,7 +388,7 @@ def test_bb02ad_q_symmetry():
 
     Q is always symmetric in the DARE formulation.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 3], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)
@@ -410,7 +410,7 @@ def test_bb02ad_r_symmetry():
 
     R is always symmetric in the DARE formulation.
     """
-    from slicot import bb02ad
+    from ctrlsys import bb02ad
 
     nr = np.array([1, 2], dtype=np.int32)
     dpar = np.zeros(4, dtype=np.float64)

@@ -13,7 +13,7 @@ The algorithm:
 
 import numpy as np
 import pytest
-from slicot import sg02cx
+from ctrlsys import sg02cx
 
 
 class TestSG02CXBasic:

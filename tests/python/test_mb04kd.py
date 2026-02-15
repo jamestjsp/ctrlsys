@@ -45,7 +45,7 @@ def test_mb04kd_full_basic():
     ], order='F', dtype=float)
 
     # Import SLICOT routine
-    from slicot import mb04kd
+    from ctrlsys import mb04kd
 
     # Call MB04KD
     R_bar, A_out, D, C, tau = mb04kd('F', n, m, p, R.copy(), A.copy(), B.copy())
@@ -98,7 +98,7 @@ def test_mb04kd_upper_trapezoidal():
 
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04kd
+    from ctrlsys import mb04kd
 
     R_bar, A_out, D, C, tau = mb04kd('U', n, m, p, R.copy(), A.copy(), B.copy())
 
@@ -136,7 +136,7 @@ def test_mb04kd_norm_preservation():
     block_col2 = np.vstack([np.zeros((n, m)), B])
     original_norm = np.linalg.norm(np.hstack([block_col1, block_col2]), 'fro')
 
-    from slicot import mb04kd
+    from ctrlsys import mb04kd
 
     R_bar, A_out, D, C, tau = mb04kd('F', n, m, p, R.copy(), A.copy(), B.copy())
 
@@ -156,7 +156,7 @@ def test_mb04kd_zero_dimensions():
 
     Tests boundary conditions when n=0, m=0, or p=0.
     """
-    from slicot import mb04kd
+    from ctrlsys import mb04kd
 
     # Case 1: n=0 (degenerate - no transformation)
     n, m, p = 0, 2, 3
@@ -198,7 +198,7 @@ def test_mb04kd_single_column():
     A = np.array([[1.0], [2.0], [1.5]], order='F', dtype=float)
     B = np.array([[1.0, 2.0], [1.5, 1.0], [2.0, 1.5]], order='F', dtype=float)
 
-    from slicot import mb04kd
+    from ctrlsys import mb04kd
 
     R_bar, A_out, D, C, tau = mb04kd('F', n, m, p, R.copy(), A.copy(), B.copy())
 
@@ -231,7 +231,7 @@ def test_mb04kd_householder_structure():
     A = np.random.randn(p, n).astype(float, order='F')
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04kd
+    from ctrlsys import mb04kd
 
     R_bar, A_out, D, C, tau = mb04kd('F', n, m, p, R.copy(), A.copy(), B.copy())
 
@@ -261,7 +261,7 @@ def test_mb04kd_diagonal_r():
     A = np.random.randn(p, n).astype(float, order='F')
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04kd
+    from ctrlsys import mb04kd
 
     R_bar, A_out, D, C, tau = mb04kd('F', n, m, p, R.copy(), A.copy(), B.copy())
 

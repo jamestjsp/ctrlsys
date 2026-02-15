@@ -7,7 +7,7 @@ matrices is diagonalized.
 
 import numpy as np
 import pytest
-from slicot import mb03bc
+from ctrlsys import mb03bc
 
 
 def get_macpar():

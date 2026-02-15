@@ -13,7 +13,7 @@ Algorithm:
 import numpy as np
 import pytest
 
-from slicot import tb01vd, tb01vy
+from ctrlsys import tb01vd, tb01vy
 
 
 """Test basic functionality."""

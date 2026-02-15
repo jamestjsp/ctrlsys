@@ -10,7 +10,7 @@ where A, E, B are upper triangular complex matrices.
 
 import numpy as np
 import pytest
-from slicot import sg03bs
+from ctrlsys import sg03bs
 
 
 def test_sg03bs_basic_trans_n():

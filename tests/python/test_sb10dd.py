@@ -15,7 +15,7 @@ def test_sb10dd_html_doc_example():
             5 outputs (3 performance + 2 measurement)
     gamma = 111.294
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 6
     m = 5
@@ -126,7 +126,7 @@ def test_sb10dd_controller_symmetry():
     Uses HTML doc example data which is known to produce valid controller.
     The Riccati solutions X and Z should be symmetric.
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 6
     m = 5
@@ -192,7 +192,7 @@ def test_sb10dd_riccati_solutions():
     X should satisfy the X-Riccati equation for the state feedback problem.
     Z should satisfy the Z-Riccati equation for the output injection problem.
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 6
     m = 5
@@ -261,7 +261,7 @@ def test_sb10dd_edge_case_small_system():
     n=2, m=3, np=3, ncon=1, nmeas=1
     Constraints: np-nmeas=2 >= ncon=1, m-ncon=2 >= nmeas=1
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 2
     m = 3  # m1=2, m2=1
@@ -308,7 +308,7 @@ def test_sb10dd_error_rank_deficient_d12():
 
     Should return info=3.
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 2
     m = 3
@@ -343,7 +343,7 @@ def test_sb10dd_error_rank_deficient_d21():
 
     Should return info=4.
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 2
     m = 3
@@ -384,7 +384,7 @@ def test_sb10dd_error_small_gamma():
 
     Should return info=5 (or 6/7 for Riccati failure).
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 6
     m = 5
@@ -441,7 +441,7 @@ def test_sb10dd_output_dimensions():
     """
     Validate output array dimensions match specifications.
     """
-    from slicot import sb10dd
+    from ctrlsys import sb10dd
 
     n = 6
     m = 5

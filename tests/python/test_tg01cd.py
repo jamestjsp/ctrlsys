@@ -13,7 +13,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import tg01cd
+from ctrlsys import tg01cd
 
 
 def test_tg01cd_html_example():

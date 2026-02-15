@@ -26,7 +26,7 @@ def test_zgegs_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     np.random.seed(42)
 
@@ -80,7 +80,7 @@ def test_zgegs_eigenvalue_preservation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     np.random.seed(123)
 
@@ -119,7 +119,7 @@ def test_zgegs_no_schur_vectors():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     np.random.seed(456)
 
@@ -151,7 +151,7 @@ def test_zgegs_left_vectors_only():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     np.random.seed(789)
 
@@ -177,7 +177,7 @@ def test_zgegs_right_vectors_only():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     np.random.seed(888)
 
@@ -201,7 +201,7 @@ def test_zgegs_identity_matrices():
     """
     Test with identity matrices - eigenvalues should all be 1.
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     n = 3
     a = np.eye(n, dtype=np.complex128, order="F")
@@ -221,7 +221,7 @@ def test_zgegs_n_equals_1():
     """
     Edge case: n=1 (scalar case).
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     a = np.array([[2.0 + 1j]], dtype=np.complex128, order="F")
     b = np.array([[1.0 + 0j]], dtype=np.complex128, order="F")
@@ -241,7 +241,7 @@ def test_zgegs_invalid_jobvsl():
     """
     Error test: invalid JOBVSL parameter.
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     n = 2
     a = np.eye(n, dtype=np.complex128, order="F")
@@ -256,7 +256,7 @@ def test_zgegs_invalid_jobvsr():
     """
     Error test: invalid JOBVSR parameter.
     """
-    from slicot import zgegs
+    from ctrlsys import zgegs
 
     n = 2
     a = np.eye(n, dtype=np.complex128, order="F")

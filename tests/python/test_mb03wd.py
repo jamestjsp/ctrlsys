@@ -9,7 +9,7 @@ without evaluating the product.
 import numpy as np
 import pytest
 
-from slicot import mb03vd, mb03wd
+from ctrlsys import mb03vd, mb03wd
 
 
 """Basic functionality tests from SLICOT HTML documentation."""

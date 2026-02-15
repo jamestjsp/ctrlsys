@@ -11,7 +11,7 @@ The routine implements H-infinity loop shaping formulas from:
 """
 import numpy as np
 import pytest
-from slicot import sb10id
+from ctrlsys import sb10id
 
 
 def test_sb10id_html_doc_example():

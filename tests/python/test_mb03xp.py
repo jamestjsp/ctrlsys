@@ -63,7 +63,7 @@ def test_mb03xp_n4_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 4
     A, B = _make_hessenberg_triangular(n, 42)
@@ -85,7 +85,7 @@ def test_mb03xp_n10_transformation_residual():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 10
     A, B = _make_hessenberg_triangular(n, 123)
@@ -107,7 +107,7 @@ def test_mb03xp_eigenvalue_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 4
     A, B = _make_hessenberg_triangular(n, 42)
@@ -129,7 +129,7 @@ def test_mb03xp_large_multishift():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 60
     A, B = _make_hessenberg_triangular(n, 555)
@@ -151,7 +151,7 @@ def test_mb03xp_large_multishift_eigenvalue_only():
 
     Random seed: 666 (for reproducibility)
     """
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 60
     A, B = _make_hessenberg_triangular(n, 666)
@@ -172,7 +172,7 @@ def test_mb03xp_partial_ilo_ihi():
 
     Random seed: 777 (for reproducibility)
     """
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 8
     np.random.seed(777)
@@ -217,7 +217,7 @@ def test_mb03xp_n5_transformation():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 5
     A, B = _make_hessenberg_triangular(n, 888)
@@ -235,7 +235,7 @@ def test_mb03xp_n5_transformation():
 
 def test_mb03xp_quick_return_n_zero():
     """Test quick return when N=0."""
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 0
     A = np.zeros((1, 1), order="F")
@@ -250,7 +250,7 @@ def test_mb03xp_quick_return_n_zero():
 
 def test_mb03xp_quick_return_ilo_eq_ihi_plus_1():
     """Test quick return when ILO=IHI+1 (no active block)."""
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 4
     A = np.eye(n, order="F")
@@ -265,7 +265,7 @@ def test_mb03xp_quick_return_ilo_eq_ihi_plus_1():
 
 def test_mb03xp_negative_n():
     """Test error for negative N."""
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     A = np.zeros((1, 1), order="F")
     B = np.zeros((1, 1), order="F")
@@ -279,7 +279,7 @@ def test_mb03xp_negative_n():
 
 def test_mb03xp_invalid_job():
     """Test error for invalid JOB parameter."""
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 4
     A = np.eye(n, order="F")
@@ -294,7 +294,7 @@ def test_mb03xp_invalid_job():
 
 def test_mb03xp_invalid_ilo():
     """Test error for invalid ILO."""
-    from slicot import mb03xp
+    from ctrlsys import mb03xp
 
     n = 4
     A = np.eye(n, order="F")

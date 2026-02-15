@@ -17,7 +17,7 @@ def test_tg01wd_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(42)
     n, m, p = 4, 2, 2
@@ -53,7 +53,7 @@ def test_tg01wd_orthogonality():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(123)
     n, m, p = 5, 2, 3
@@ -93,7 +93,7 @@ def test_tg01wd_equivalence_transformation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(456)
     n, m, p = 4, 2, 2
@@ -136,7 +136,7 @@ def test_tg01wd_eigenvalue_preservation():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(789)
     n, m, p = 4, 2, 2
@@ -198,7 +198,7 @@ def test_tg01wd_transfer_function_preservation():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(101)
     n, m, p = 4, 2, 2
@@ -238,7 +238,7 @@ def test_tg01wd_edge_n0():
     """
     Test edge case: n=0 (quick return).
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     n, m, p = 0, 2, 2
 
@@ -264,7 +264,7 @@ def test_tg01wd_edge_m0():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(202)
     n, m, p = 3, 0, 2
@@ -288,7 +288,7 @@ def test_tg01wd_edge_p0():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(303)
     n, m, p = 3, 2, 0
@@ -312,7 +312,7 @@ def test_tg01wd_identity_e():
 
     Random seed: 404 (for reproducibility)
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     np.random.seed(404)
     n, m, p = 4, 2, 2
@@ -342,7 +342,7 @@ def test_tg01wd_error_negative_n():
     """
     Test error: negative N parameter.
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     n, m, p = -1, 2, 2
 
@@ -361,7 +361,7 @@ def test_tg01wd_error_negative_m():
     """
     Test error: negative M parameter.
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     n, m, p = 2, -1, 2
 
@@ -380,7 +380,7 @@ def test_tg01wd_error_negative_p():
     """
     Test error: negative P parameter.
     """
-    from slicot import tg01wd
+    from ctrlsys import tg01wd
 
     n, m, p = 2, 2, -1
 

@@ -76,7 +76,7 @@ def test_mb04nd_basic_full():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
@@ -113,7 +113,7 @@ def test_mb04nd_upper_triangular():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('U', n, m, p, r_work, a_work, b_work, c_work)
 
@@ -144,7 +144,7 @@ def test_mb04nd_orthogonality():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
@@ -187,7 +187,7 @@ def test_mb04nd_n_zero():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
@@ -216,7 +216,7 @@ def test_mb04nd_p_zero():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
@@ -246,7 +246,7 @@ def test_mb04nd_m_zero():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
@@ -276,7 +276,7 @@ def test_mb04nd_large_matrix():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('F', n, m, p, r_work, a_work, b_work, c_work)
 
@@ -311,7 +311,7 @@ def test_mb04nd_n_greater_p():
     c_work = c.copy(order='F')
     b_work = b.copy(order='F')
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     tau = _slicot.mb04nd('U', n, m, p, r_work, a_work, b_work, c_work)
 

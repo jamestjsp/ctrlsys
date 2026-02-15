@@ -26,7 +26,7 @@ def test_sb02od_html_example():
         X = [[1.7321, 1.0000],
              [1.0000, 1.7321]]
     """
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m, p = 2, 1, 3
 
@@ -79,7 +79,7 @@ def test_sb02od_continuous_jobb_B():
     Random seed: 42 (for reproducibility)
     """
     np.random.seed(42)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 3, 2
 
@@ -126,7 +126,7 @@ def test_sb02od_discrete_jobb_B():
     Random seed: 123 (for reproducibility)
     """
     np.random.seed(123)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 3, 2
 
@@ -171,7 +171,7 @@ def test_sb02od_continuous_jobb_G():
     Random seed: 456 (for reproducibility)
     """
     np.random.seed(456)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n = 3
 
@@ -211,7 +211,7 @@ def test_sb02od_discrete_jobb_G():
     Random seed: 789 (for reproducibility)
     """
     np.random.seed(789)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n = 3
 
@@ -248,7 +248,7 @@ def test_sb02od_closed_loop_stability():
     Random seed: 111 (for reproducibility)
     """
     np.random.seed(111)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 3, 2
 
@@ -284,7 +284,7 @@ def test_sb02od_unstable_eigenvalues():
     Random seed: 222 (for reproducibility)
     """
     np.random.seed(222)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 3, 2
 
@@ -317,7 +317,7 @@ def test_sb02od_with_nonzero_L():
     Random seed: 333 (for reproducibility)
     """
     np.random.seed(333)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 3, 2
 
@@ -352,7 +352,7 @@ def test_sb02od_factored_C():
     Random seed: 444 (for reproducibility)
     """
     np.random.seed(444)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m, p = 3, 2, 4
 
@@ -387,7 +387,7 @@ def test_sb02od_factored_D():
     Random seed: 555 (for reproducibility)
     """
     np.random.seed(555)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m, p = 3, 2, 4
 
@@ -422,7 +422,7 @@ def test_sb02od_factored_both():
     Random seed: 666 (for reproducibility)
     """
     np.random.seed(666)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m, p = 3, 2, 4
 
@@ -458,7 +458,7 @@ def test_sb02od_lower_triangle():
     Random seed: 777 (for reproducibility)
     """
     np.random.seed(777)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 3, 2
 
@@ -486,7 +486,7 @@ def test_sb02od_zero_n():
     """
     Test SB02OD with N=0 (quick return).
     """
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 0, 2
 
@@ -508,7 +508,7 @@ def test_sb02od_error_invalid_dico():
     """
     Test SB02OD error handling: invalid DICO parameter.
     """
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 3, 2
 
@@ -527,7 +527,7 @@ def test_sb02od_error_negative_n():
     """
     Test SB02OD error handling: negative N.
     """
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     A = np.eye(1, dtype=float, order='F')
     B = np.eye(1, dtype=float, order='F')
@@ -550,7 +550,7 @@ def test_sb02od_riccati_residual_property():
     Random seed: 888 (for reproducibility)
     """
     np.random.seed(888)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 4, 2
 
@@ -590,7 +590,7 @@ def test_sb02od_symmetry_property():
     Random seed: 999 (for reproducibility)
     """
     np.random.seed(999)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 4, 2
 
@@ -626,7 +626,7 @@ def test_sb02od_positive_semidefinite():
     Random seed: 1010 (for reproducibility)
     """
     np.random.seed(1010)
-    from slicot import sb02od
+    from ctrlsys import sb02od
 
     n, m = 4, 2
 

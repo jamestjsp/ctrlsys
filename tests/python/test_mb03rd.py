@@ -31,7 +31,7 @@ def test_mb03rd_html_doc_example():
 
     We test with a simpler case where eigenvalues are clearly separable.
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     n = 4
     pmax = 1.0e3
@@ -71,7 +71,7 @@ def test_mb03rd_eigenvalue_preservation():
     Similarity transformation must preserve eigenvalues.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     np.random.seed(42)
 
@@ -107,7 +107,7 @@ def test_mb03rd_transformation_matrix():
     Tests: X_out = X_in * T where T is the block-diagonalizing transformation.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     np.random.seed(123)
 
@@ -146,7 +146,7 @@ def test_mb03rd_complex_eigenvalues():
     A 2x2 block in real Schur form represents a complex conjugate pair.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     n = 4
     pmax = 1.0e3
@@ -180,7 +180,7 @@ def test_mb03rd_sort_options():
     - 'C': Closest-neighbor strategy
     - 'B': Both reordering and closest-neighbor
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     n = 4
     pmax = 1.0e3
@@ -212,7 +212,7 @@ def test_mb03rd_no_transform_accumulation():
 
     When JOBX='N', X array is not referenced and output X should be None or unchanged.
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     n = 3
     pmax = 1.0e3
@@ -236,7 +236,7 @@ def test_mb03rd_parameter_errors():
 
     INFO < 0 indicates parameter error.
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     n = 3
     pmax = 1.0e3
@@ -258,7 +258,7 @@ def test_mb03rd_empty_matrix():
 
     Should return immediately with NBLCKS=0.
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     a = np.array([], order='F', dtype=float).reshape(0, 0)
     pmax = 1.0e3
@@ -276,7 +276,7 @@ def test_mb03rd_transformation_correctness():
     This is the fundamental correctness property of similarity transformations.
     The transformation X should satisfy: X^(-1) @ A @ X = A_out
     """
-    from slicot import mb03rd
+    from ctrlsys import mb03rd
 
     n = 5
     aschur = np.array([

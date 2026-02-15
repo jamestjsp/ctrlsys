@@ -1,7 +1,7 @@
 """Tests for MB03OD - Incremental condition/rank estimation for QR"""
 import numpy as np
 import pytest
-from slicot import mb03od
+from ctrlsys import mb03od
 
 
 def test_mb03od_basic_example():

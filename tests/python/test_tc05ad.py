@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import tc05ad
+from ctrlsys import tc05ad
 
 
 class TestTC05ADBasic:

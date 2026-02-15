@@ -8,7 +8,7 @@ factorization.
 
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 def test_mb02xd_basic_full_upper():

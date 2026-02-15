@@ -10,7 +10,7 @@ Test data from SLICOT HTML documentation AG08BZ.html.
 
 import numpy as np
 import pytest
-from slicot import ag08bz
+from ctrlsys import ag08bz
 
 
 class TestAG08BZBasic:

@@ -27,7 +27,7 @@ def test_mb03dz_basic():
     2. Transformed pencil remains upper triangular
     3. Eigenvalues are exchanged
     """
-    from slicot import mb03dz
+    from ctrlsys import mb03dz
 
     np.random.seed(42)
 
@@ -73,7 +73,7 @@ def test_mb03dz_identity_matrices():
 
     Validates edge case where diagonal elements are equal.
     """
-    from slicot import mb03dz
+    from ctrlsys import mb03dz
 
     a = np.array([
         [1.0 + 0.0j, 0.5 + 0.5j],
@@ -111,7 +111,7 @@ def test_mb03dz_eigenvalue_exchange():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03dz
+    from ctrlsys import mb03dz
 
     np.random.seed(123)
 
@@ -157,7 +157,7 @@ def test_mb03dz_real_valued():
 
     Validates routine handles real-valued complex input correctly.
     """
-    from slicot import mb03dz
+    from ctrlsys import mb03dz
 
     a = np.array([
         [3.0 + 0.0j, 1.0 + 0.0j],
@@ -198,7 +198,7 @@ def test_mb03dz_diagonal_exchange():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03dz
+    from ctrlsys import mb03dz
 
     np.random.seed(456)
 

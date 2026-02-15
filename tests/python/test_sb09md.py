@@ -10,7 +10,7 @@ and evaluates their closeness through:
 
 import numpy as np
 import pytest
-from slicot import sb09md
+from ctrlsys import sb09md
 
 
 class TestSB09MDBasic:

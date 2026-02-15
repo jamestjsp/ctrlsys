@@ -25,7 +25,7 @@ def test_mb02cy_basic_row():
     cs = np.random.randn(lcs).astype(float, order='F')
     cs[0:2*k:2] = np.abs(cs[0:2*k:2]) + 1.0
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     a_orig = a.copy()
     b_orig = b.copy()
@@ -43,7 +43,7 @@ def test_mb02cy_basic_row():
 
 def test_mb02cy_jnorm_preservation():
     np.random.seed(99)
-    from slicot import mb02cx, mb02cy
+    from ctrlsys import mb02cx, mb02cy
 
     p = 4
     q = 2
@@ -95,7 +95,7 @@ def test_mb02cy_basic_column():
     cs = np.random.randn(lcs).astype(float, order='F')
     cs[0:2*k:2] = np.abs(cs[0:2*k:2]) + 1.0
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     a_out, b_out, info = mb02cy('C', 'N', p, q, n, k, a.copy(), b.copy(), h.copy(), cs.copy())
 
@@ -128,7 +128,7 @@ def test_mb02cy_triangular_structure():
     cs = np.random.randn(lcs).astype(float, order='F')
     cs[0:2*k:2] = np.abs(cs[0:2*k:2]) + 1.0
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     a_out, b_out, info = mb02cy('R', 'T', p, q, n, k, a.copy(), b.copy(), h.copy(), cs.copy())
 
@@ -156,7 +156,7 @@ def test_mb02cy_edge_case_q_zero():
     lcs = 2 * k
     cs = np.zeros(lcs, order='F', dtype=float)
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     a_out, b_out, info = mb02cy('R', 'N', p, q, n, k, a.copy(), b.copy(), h.copy(), cs.copy())
 
@@ -178,7 +178,7 @@ def test_mb02cy_edge_case_n_zero():
     lcs = 2 * k + min(k, q)
     cs = np.zeros(lcs, order='F', dtype=float)
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     a_out, b_out, info = mb02cy('R', 'N', p, q, n, k, a.copy(), b.copy(), h.copy(), cs.copy())
 
@@ -194,7 +194,7 @@ def test_mb02cy_error_invalid_typet():
     h = np.array([[1.0]], order='F', dtype=float)
     cs = np.array([1.0, 0.0, 1.0], order='F', dtype=float)
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02cy('X', 'N', 1, 1, 1, 1, a, b, h, cs)
@@ -209,7 +209,7 @@ def test_mb02cy_error_invalid_strucg():
     h = np.array([[1.0]], order='F', dtype=float)
     cs = np.array([1.0, 0.0, 1.0], order='F', dtype=float)
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02cy('R', 'X', 1, 1, 1, 1, a, b, h, cs)
@@ -229,7 +229,7 @@ def test_mb02cy_error_k_exceeds_p():
     h = np.random.randn(q, k).astype(float, order='F')
     cs = np.zeros(2 * k + min(k, q), order='F', dtype=float)
 
-    from slicot import mb02cy
+    from ctrlsys import mb02cy
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02cy('R', 'N', p, q, n, k, a, b, h, cs)

@@ -5,7 +5,7 @@ This library provides **578 functions** across 27 categories.
 
 .. code-block:: python
 
-   from slicot import ab01md, sb03md
+   from ctrlsys import ab01md, sb03md
 
 
 AB - Analysis - Controllability, Observability, Minimal Realization
@@ -734,6 +734,6 @@ Complete Function List
 
 .. code-block:: python
 
-   import slicot
+   import ctrlsys
    print([name for name in dir(slicot) if not name.startswith('_')])
 

@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from slicot import mb04jd
+from ctrlsys import mb04jd
 
 
 def _build_q_from_lq(a_out, tau, n, m):

@@ -8,7 +8,7 @@ matrix A: P*A = R*Q, where P is a permutation matrix, R is upper triangular
 
 import numpy as np
 import pytest
-from slicot import mb04gd
+from ctrlsys import mb04gd
 
 
 def test_mb04gd_html_example():

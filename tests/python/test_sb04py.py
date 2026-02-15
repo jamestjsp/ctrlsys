@@ -28,7 +28,7 @@ def test_sb04py_basic_no_transpose():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     # Upper triangular matrices (Schur form)
     a = np.array([[2.0, 0.0], [0.0, 3.0]], dtype=float, order='F')
@@ -51,7 +51,7 @@ def test_sb04py_transpose_a():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     # Upper triangular with non-zero (0,1) element
     a = np.array([[2.0, 0.5], [0.0, 3.0]], dtype=float, order='F')
@@ -75,7 +75,7 @@ def test_sb04py_transpose_b():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[2.0, 0.0], [0.0, 3.0]], dtype=float, order='F')
     b = np.array([[1.0, 0.3], [0.0, 2.0]], dtype=float, order='F')
@@ -98,7 +98,7 @@ def test_sb04py_both_transpose():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[2.0, 0.5], [0.0, 3.0]], dtype=float, order='F')
     b = np.array([[1.0, 0.3], [0.0, 2.0]], dtype=float, order='F')
@@ -121,7 +121,7 @@ def test_sb04py_isgn_minus_one():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[2.0, 0.0], [0.0, 3.0]], dtype=float, order='F')
     b = np.array([[1.0, 0.0], [0.0, 2.0]], dtype=float, order='F')
@@ -147,7 +147,7 @@ def test_sb04py_2x2_block():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     # Schur form with 2x2 block representing eigenvalues 1 +/- 0.5i
     a = np.array([[1.0, 0.5], [-0.5, 1.0]], dtype=float, order='F')
@@ -171,7 +171,7 @@ def test_sb04py_larger_system():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     # A: 2x2 block at (0:2,0:2), 1x1 block at (2,2)
     a = np.array([
@@ -210,7 +210,7 @@ def test_sb04py_rectangular_m_greater_n():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     # A is 3x3, B is 2x2 => C/X is 3x2
     a = np.array([
@@ -247,7 +247,7 @@ def test_sb04py_rectangular_n_greater_m():
 
     Random seed: N/A (deterministic test data)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     # A is 2x2, B is 3x3 => C/X is 2x3
     a = np.array([
@@ -283,7 +283,7 @@ def test_sb04py_empty_m():
 
     Should return immediately with scale=1.0.
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.zeros((0, 0), dtype=float, order='F')
     b = np.array([[1.0, 0.0], [0.0, 2.0]], dtype=float, order='F')
@@ -302,7 +302,7 @@ def test_sb04py_empty_n():
 
     Should return immediately with scale=1.0.
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[2.0, 0.0], [0.0, 3.0]], dtype=float, order='F')
     b = np.zeros((0, 0), dtype=float, order='F')
@@ -322,7 +322,7 @@ def test_sb04py_1x1():
     A*X*B + ISGN*X = C => a*x*b + x = c => x = c/(a*b + 1)
     a=2, b=3, c=14 => x = 14/(6+1) = 2
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[2.0]], dtype=float, order='F')
     b = np.array([[3.0]], dtype=float, order='F')
@@ -341,7 +341,7 @@ def test_sb04py_residual_property_random():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     np.random.seed(42)
     m, n = 4, 3
@@ -368,7 +368,7 @@ def test_sb04py_residual_property_transpose_a_random():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     np.random.seed(123)
     m, n = 3, 4
@@ -393,7 +393,7 @@ def test_sb04py_residual_property_both_transpose_random():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     np.random.seed(456)
     m, n = 4, 4
@@ -419,7 +419,7 @@ def test_sb04py_reciprocal_eigenvalues_warning():
     When A and -ISGN*B have almost reciprocal eigenvalues, info=1.
     For ISGN=1: eigenvalues of A times eigenvalues of B should be near -1.
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     # A has eigenvalue 0.5, B has eigenvalue -2 => 0.5 * (-2) = -1 (exact reciprocal)
     # Use nearly reciprocal to trigger warning
@@ -437,7 +437,7 @@ def test_sb04py_invalid_trana():
     """
     Test error handling for invalid TRANA parameter.
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[1.0]], dtype=float, order='F')
     b = np.array([[1.0]], dtype=float, order='F')
@@ -452,7 +452,7 @@ def test_sb04py_invalid_tranb():
     """
     Test error handling for invalid TRANB parameter.
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[1.0]], dtype=float, order='F')
     b = np.array([[1.0]], dtype=float, order='F')
@@ -467,7 +467,7 @@ def test_sb04py_invalid_isgn():
     """
     Test error handling for invalid ISGN parameter (must be 1 or -1).
     """
-    from slicot import sb04py
+    from ctrlsys import sb04py
 
     a = np.array([[1.0]], dtype=float, order='F')
     b = np.array([[1.0]], dtype=float, order='F')

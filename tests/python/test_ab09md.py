@@ -17,7 +17,7 @@ Error bound: HSV(NR+NS-N) <= ||G-Gr||_inf <= 2*sum(HSV(NR+NS-N+1:NS))
 
 import numpy as np
 import pytest
-from slicot import ab09md
+from ctrlsys import ab09md
 
 
 class TestAB09MDHTMLExample:

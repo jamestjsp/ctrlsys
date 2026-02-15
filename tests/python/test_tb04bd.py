@@ -6,7 +6,7 @@ Tests extracted from SLICOT-Reference/doc/TB04BD.html example.
 
 import numpy as np
 import pytest
-from slicot import tb04bd
+from ctrlsys import tb04bd
 
 
 class TestTB04BDBasic:

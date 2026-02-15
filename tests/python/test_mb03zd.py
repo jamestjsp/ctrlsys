@@ -19,7 +19,7 @@ class TestMB03ZD:
         Uses METH='L' (compute basis from 2*n vectors), STAB='B' (both subspaces).
         WHICH='A' selects all n eigenvalues, BALANC='N' (no balancing).
         """
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         n = 5
         ilo = 1
@@ -140,7 +140,7 @@ class TestMB03ZD:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         np.random.seed(42)
         n = 3
@@ -196,7 +196,7 @@ class TestMB03ZD:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         np.random.seed(123)
         n = 3
@@ -242,7 +242,7 @@ class TestMB03ZD:
 
     def test_quick_return_n_zero(self):
         """Test quick return when n=0."""
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         n = 0
         mm = 0
@@ -267,7 +267,7 @@ class TestMB03ZD:
 
     def test_invalid_which(self):
         """Test error handling for invalid WHICH parameter."""
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         n = 3
         ilo = 1
@@ -290,7 +290,7 @@ class TestMB03ZD:
 
     def test_invalid_meth(self):
         """Test error handling for invalid METH parameter."""
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         n = 3
         ilo = 1
@@ -313,7 +313,7 @@ class TestMB03ZD:
 
     def test_invalid_stab(self):
         """Test error handling for invalid STAB parameter."""
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         n = 3
         ilo = 1
@@ -340,7 +340,7 @@ class TestMB03ZD:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         np.random.seed(456)
         n = 4
@@ -380,7 +380,7 @@ class TestMB03ZD:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb03zd
+        from ctrlsys import mb03zd
 
         np.random.seed(789)
         n = 4

@@ -28,7 +28,7 @@ def test_tg01oz_basic_identity_e():
     Random seed: 42 (for reproducibility)
     Tests basic functionality - system reduction with identity E.
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(42)
     n = 4
@@ -60,7 +60,7 @@ def test_tg01oz_basic_general_e():
     Random seed: 123 (for reproducibility)
     Tests with general nonsingular E matrix.
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(123)
     n = 4
@@ -91,7 +91,7 @@ def test_tg01oz_d_already_large():
     When D is already large relative to the system norms, no reduction
     should occur (NZ = N).
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     n = 3
     n1 = n + 1
@@ -126,7 +126,7 @@ def test_tg01oz_n_zero():
 
     When N=0, G should equal D.
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     d = 5.0 + 3.0j
     dcba = np.array([[d]], dtype=np.complex128, order='F')
@@ -147,7 +147,7 @@ def test_tg01oz_gain_computation():
     For a system (A, E, B, C, D) reduced to (a, e, b, c, d),
     the gain G relates the original and reduced transfer functions.
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(456)
     n = 4
@@ -177,7 +177,7 @@ def test_tg01oz_reduced_system_size():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(789)
     n = 5
@@ -211,7 +211,7 @@ def test_tg01oz_reduced_system_size():
 
 def test_tg01oz_invalid_jobe():
     """Test TG01OZ with invalid JOBE parameter."""
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     n = 2
     n1 = n + 1
@@ -234,7 +234,7 @@ def test_tg01oz_transfer_function_preservation():
         G_reduced(s) = d + c * (s*e - a)^(-1) * b
         G_original(s) = G * G_reduced(s)
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(888)
     n = 3
@@ -287,7 +287,7 @@ def test_tg01oz_d_large_magnitude_after_reduction():
 
     The algorithm should reduce until |d| * (1 + max|a|) > tol * ||b|| * ||c||.
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(999)
     n = 4
@@ -317,7 +317,7 @@ def test_tg01oz_d_large_magnitude_after_reduction():
 
 def test_tg01oz_workspace_query():
     """Test TG01OZ workspace query (LZWORK = -1)."""
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     n = 5
     n1 = n + 1
@@ -334,7 +334,7 @@ def test_tg01oz_larger_system():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(555)
     n = 8
@@ -367,7 +367,7 @@ def test_tg01oz_e_triangularized_when_general():
     When JOBE='G', E is first triangularized via QR decomposition,
     and the reduced e should remain upper triangular.
     """
-    from slicot import tg01oz
+    from ctrlsys import tg01oz
 
     np.random.seed(666)
     n = 4

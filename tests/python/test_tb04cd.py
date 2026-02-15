@@ -7,7 +7,7 @@ pole-zeros method.
 """
 import numpy as np
 import pytest
-from slicot import tb04cd
+from ctrlsys import tb04cd
 
 
 class TestTB04CDBasic:

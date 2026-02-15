@@ -17,7 +17,7 @@ def test_mb03jp_basic_4x4():
     the leading subpencil while preserving the structured Schur form.
     Random seed: 42 (for reproducibility).
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     np.random.seed(42)
 
@@ -70,7 +70,7 @@ def test_mb03jp_eigenvalue_preservation_8x8():
     Verifies that eigenvalues are preserved under similarity transformation.
     Random seed: 123 (for reproducibility).
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     np.random.seed(123)
 
@@ -113,7 +113,7 @@ def test_mb03jp_no_q():
     Test with COMPQ='N' (no Q computation).
     Random seed: 456 (for reproducibility).
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     np.random.seed(456)
 
@@ -150,7 +150,7 @@ def test_mb03jp_update_q():
     Test with COMPQ='U' (update existing Q).
     Random seed: 789 (for reproducibility).
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     np.random.seed(789)
 
@@ -188,7 +188,7 @@ def test_mb03jp_quick_return_n0():
     """
     Test quick return for n=0.
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     n = 0
     a = np.array([], dtype=float).reshape(0, 0)
@@ -212,7 +212,7 @@ def test_mb03jp_invalid_compq():
     """
     Test error handling for invalid COMPQ parameter.
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     n = 4
     m = n // 2
@@ -232,7 +232,7 @@ def test_mb03jp_invalid_n_odd():
     """
     Test error handling for odd n (must be even).
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     n = 5
     m = 2
@@ -257,7 +257,7 @@ def test_mb03jp_negative_eigenvalues_ordering():
     positions.
     Random seed: 999 (for reproducibility).
     """
-    from slicot import mb03jp
+    from ctrlsys import mb03jp
 
     np.random.seed(999)
 

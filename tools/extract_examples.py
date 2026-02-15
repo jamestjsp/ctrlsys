@@ -142,9 +142,9 @@ def simplify_example(lines: list[str], routine_name: str) -> list[str]:
                 seen_import_numpy = True
             continue
 
-        if 'from slicot import' in line or 'import slicot' in line:
+        if 'from ctrlsys import' in line or 'import ctrlsys' in line:
             if not seen_import_slicot:
-                result.append(f"from slicot import {routine_name}")
+                result.append(f"from ctrlsys import {routine_name}")
                 seen_import_slicot = True
             continue
 
@@ -165,7 +165,7 @@ def simplify_example(lines: list[str], routine_name: str) -> list[str]:
         result.insert(0, "import numpy as np")
     if not seen_import_slicot:
         idx = 1 if seen_import_numpy else 0
-        result.insert(idx, f"from slicot import {routine_name}")
+        result.insert(idx, f"from ctrlsys import {routine_name}")
 
     if info_var:
         result.append(info_var)

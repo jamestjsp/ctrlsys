@@ -19,7 +19,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb04dy
+from ctrlsys import mb04dy
 
 
 def test_mb04dy_html_doc_example():

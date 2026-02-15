@@ -13,7 +13,7 @@ Test data from SLICOT HTML documentation example.
 import numpy as np
 import pytest
 
-from slicot import sb16ad
+from ctrlsys import sb16ad
 
 
 class TestSB16ADBasic:

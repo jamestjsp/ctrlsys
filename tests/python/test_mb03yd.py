@@ -13,7 +13,7 @@ class TestMB03YDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         np.random.seed(42)
         n = 2
@@ -51,7 +51,7 @@ class TestMB03YDBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         np.random.seed(123)
         n = 3
@@ -91,7 +91,7 @@ class TestMB03YDBasic:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         np.random.seed(456)
         n = 4
@@ -127,7 +127,7 @@ class TestMB03YDMathematicalProperties:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         np.random.seed(789)
         n = 4
@@ -160,7 +160,7 @@ class TestMB03YDMathematicalProperties:
 
         Random seed: 321 (for reproducibility)
         """
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         np.random.seed(321)
         n = 4
@@ -193,7 +193,7 @@ class TestMB03YDMathematicalProperties:
 
         Random seed: 654 (for reproducibility)
         """
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         np.random.seed(654)
         n = 5
@@ -229,7 +229,7 @@ class TestMB03YDEdgeCases:
 
     def test_n_equals_zero(self):
         """Test with n=0 (empty matrices)."""
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         n = 0
         a = np.array([], order='F', dtype=float).reshape(0, 0)
@@ -247,7 +247,7 @@ class TestMB03YDEdgeCases:
 
     def test_n_equals_one(self):
         """Test with 1x1 matrices."""
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         n = 1
         a = np.array([[3.0]], order='F', dtype=float)
@@ -272,7 +272,7 @@ class TestMB03YDEdgeCases:
 
         Random seed: 999 (for reproducibility)
         """
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         np.random.seed(999)
         n = 5
@@ -309,7 +309,7 @@ class TestMB03YDErrorHandling:
 
     def test_negative_n(self):
         """Test error for negative N."""
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         n = 2
         a = np.eye(n, order='F', dtype=float)
@@ -327,7 +327,7 @@ class TestMB03YDErrorHandling:
 
     def test_invalid_ilo(self):
         """Test error for invalid ILO."""
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         n = 3
         a = np.eye(n, order='F', dtype=float)
@@ -345,7 +345,7 @@ class TestMB03YDErrorHandling:
 
     def test_invalid_ihi(self):
         """Test error for invalid IHI."""
-        from slicot import mb03yd
+        from ctrlsys import mb03yd
 
         n = 3
         a = np.eye(n, order='F', dtype=float)

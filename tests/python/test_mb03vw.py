@@ -15,7 +15,7 @@ def test_mb03vw_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(42)
     n = 4
@@ -68,7 +68,7 @@ def test_mb03vw_single_matrix():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(123)
     n = 3
@@ -97,7 +97,7 @@ def test_mb03vw_no_q_accumulation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(456)
     n = 3
@@ -121,7 +121,7 @@ def test_mb03vw_compq_update():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(789)
     n = 3
@@ -154,7 +154,7 @@ def test_mb03vw_triu_all():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(111)
     n = 4
@@ -184,7 +184,7 @@ def test_mb03vw_partial_range():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(222)
     n = 5
@@ -213,7 +213,7 @@ def test_mb03vw_ilo_equals_ihi():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(333)
     n = 4
@@ -234,7 +234,7 @@ def test_mb03vw_zero_dimensions():
     """
     Test N=0 edge case (quick return).
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     # Test N=0
     n = 0
@@ -261,7 +261,7 @@ def test_mb03vw_similarity_preservation():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     np.random.seed(444)
     n = 3
@@ -309,7 +309,7 @@ def test_mb03vw_invalid_compq():
     """
     Test invalid COMPQ parameter.
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     n = 3
     k = 2
@@ -328,7 +328,7 @@ def test_mb03vw_invalid_triu():
     """
     Test invalid TRIU parameter.
     """
-    from slicot import mb03vw
+    from ctrlsys import mb03vw
 
     n = 3
     k = 2

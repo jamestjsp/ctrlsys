@@ -29,7 +29,7 @@ def test_sg03ax_basic():
 
     For diagonal A and E, the solution can be computed element-wise.
     """
-    from slicot import sg03ax
+    from ctrlsys import sg03ax
 
     # Diagonal A and E (generalized Schur form is trivial)
     # Eigenvalues of pencil: lambda = A(i,i)/E(i,i) must have |lambda| != 1
@@ -75,7 +75,7 @@ def test_sg03ax_transpose():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sg03ax
+    from ctrlsys import sg03ax
 
     # Upper triangular A and E
     a = np.array([
@@ -117,7 +117,7 @@ def test_sg03ax_2x2_block():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sg03ax
+    from ctrlsys import sg03ax
 
     # A has a 2x2 block (complex eigenvalues), E is upper triangular
     # Eigenvalues: 0.3 +/- 0.4i (magnitude ~0.5 < 1)
@@ -160,7 +160,7 @@ def test_sg03ax_mixed_blocks():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sg03ax
+    from ctrlsys import sg03ax
 
     # 4x4 A: 2x2 block + 2 1x1 blocks
     a = np.array([
@@ -206,7 +206,7 @@ def test_sg03ax_scalar():
 
     For scalar: a^2 * x - e^2 * x = y, so x = y / (a^2 - e^2).
     """
-    from slicot import sg03ax
+    from ctrlsys import sg03ax
 
     a = np.array([[0.5]], order='F', dtype=float)
     e = np.array([[1.0]], order='F', dtype=float)
@@ -228,7 +228,7 @@ def test_sg03ax_standard_lyapunov():
 
     Compares result with standard Lyapunov equation solution.
     """
-    from slicot import sg03ax
+    from ctrlsys import sg03ax
 
     # When E = I, equation becomes A' * X * A - X = Y
     a = np.array([

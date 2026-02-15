@@ -49,7 +49,7 @@ def test_mb02ed_column_html_doc_example():
         [0.1653, 0.3307],
     ], order='F', dtype=float)
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     x, t_out, info = mb02ed('C', k, n, nrhs, t.copy(), b.copy())
 
@@ -79,7 +79,7 @@ def test_mb02ed_row_mode():
     b = np.random.randn(nrhs, n * k).astype(float, order='F')
     b_orig = b.copy()
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     x, t_out, info = mb02ed('R', k, n, nrhs, t.copy(), b.copy())
 
@@ -109,7 +109,7 @@ def test_mb02ed_identity_toeplitz():
     ], order='F', dtype=float)
     b_expected = b.copy()
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     x, t_out, info = mb02ed('C', k, n, nrhs, t.copy(), b.copy())
 
@@ -152,7 +152,7 @@ def test_mb02ed_solution_satisfies_equation():
         [1.0, 2.0],
     ], order='F', dtype=float)
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     x, t_out, info = mb02ed('C', k, n, nrhs, t.copy(), b.copy())
 
@@ -179,7 +179,7 @@ def test_mb02ed_edge_case_n_one():
         [4.0],
     ], order='F', dtype=float)
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     x, t_out, info = mb02ed('C', k, n, nrhs, t.copy(), b.copy())
 
@@ -201,7 +201,7 @@ def test_mb02ed_edge_case_k_one():
 
     b = np.array([[1.0], [2.0], [3.0]], order='F', dtype=float)
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     x, t_out, info = mb02ed('C', k, n, nrhs, t.copy(), b.copy())
 
@@ -227,7 +227,7 @@ def test_mb02ed_error_not_positive_definite():
 
     b = np.ones((n * k, nrhs), order='F', dtype=float)
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     x, t_out, info = mb02ed('C', k, n, nrhs, t.copy(), b.copy())
 
@@ -241,7 +241,7 @@ def test_mb02ed_error_invalid_typet():
     t = np.array([[1.0]], order='F', dtype=float)
     b = np.array([[1.0]], order='F', dtype=float)
 
-    from slicot import mb02ed
+    from ctrlsys import mb02ed
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02ed('X', 1, 1, 1, t, b)

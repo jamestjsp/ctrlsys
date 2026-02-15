@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from slicot import nf01br
+from ctrlsys import nf01br
 
 def test_nf01br_full_rank():
     """

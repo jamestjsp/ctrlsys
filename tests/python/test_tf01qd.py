@@ -12,7 +12,7 @@ The (i,j)-th element of G(z) has the form:
 
 import numpy as np
 import pytest
-from slicot import tf01qd
+from ctrlsys import tf01qd
 
 
 def test_html_doc_example():

@@ -13,7 +13,7 @@ when matrix size exceeds block size, otherwise calls MB01XY directly.
 """
 import numpy as np
 import pytest
-from slicot import mb01xd
+from ctrlsys import mb01xd
 
 
 def test_mb01xd_upper_basic():
@@ -284,7 +284,7 @@ def test_mb01xd_matches_mb01xy():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb01xy
+    from ctrlsys import mb01xy
 
     np.random.seed(555)
     n = 5

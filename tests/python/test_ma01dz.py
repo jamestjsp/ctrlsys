@@ -26,7 +26,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import ma01dz
+from ctrlsys import ma01dz
 
 
 class TestMA01DZBasic:

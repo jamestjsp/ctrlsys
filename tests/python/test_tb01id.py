@@ -13,7 +13,7 @@ def test_tb01id_basic_html_example():
 
     N=5, M=2, P=5, JOB='A', MAXRED=0.0 (uses default 10.0)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     n, m, p = 5, 2, 5
 
@@ -98,7 +98,7 @@ def test_tb01id_similarity_transform_property():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(42)
     n, m, p = 4, 2, 3
@@ -138,7 +138,7 @@ def test_tb01id_eigenvalue_preservation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(123)
     n, m, p = 5, 2, 3
@@ -172,7 +172,7 @@ def test_tb01id_job_n_a_only():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(456)
     n, m, p = 4, 2, 3
@@ -200,7 +200,7 @@ def test_tb01id_job_b():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(789)
     n, m, p = 3, 2, 2
@@ -233,7 +233,7 @@ def test_tb01id_job_c():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(111)
     n, m, p = 3, 2, 2
@@ -265,7 +265,7 @@ def test_tb01id_mimo_balancing():
     MIMO system balancing: 5-state, 3-input, 4-output.
     Verify eigenvalue preservation and transformation properties.
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(700)
     n, m, p = 5, 3, 4
@@ -307,7 +307,7 @@ def test_tb01id_n_zero():
     """
     Test edge case: n=0 (empty system).
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     a = np.zeros((0, 0), order='F', dtype=float)
     b = np.zeros((0, 2), order='F', dtype=float)
@@ -325,7 +325,7 @@ def test_tb01id_m_zero():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(222)
     n, m, p = 3, 0, 2
@@ -346,7 +346,7 @@ def test_tb01id_p_zero():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(333)
     n, m, p = 3, 2, 0
@@ -365,7 +365,7 @@ def test_tb01id_zero_matrix():
     """
     Test edge case: All zero matrices - should return immediately.
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     n, m, p = 3, 2, 2
 
@@ -384,7 +384,7 @@ def test_tb01id_error_invalid_job():
     """
     Test error handling: Invalid JOB parameter.
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     n, m, p = 2, 1, 1
     a = np.zeros((n, n), order='F', dtype=float)
@@ -399,7 +399,7 @@ def test_tb01id_error_maxred():
     """
     Test error handling: MAXRED in (0, 1) range (invalid).
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     n, m, p = 2, 1, 1
     a = np.zeros((n, n), order='F', dtype=float)
@@ -417,7 +417,7 @@ def test_tb01id_maxred_custom():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(555)
     n, m, p = 3, 2, 2
@@ -440,7 +440,7 @@ def test_tb01id_norm_reduction():
 
     Random seed: 666 (for reproducibility)
     """
-    from slicot import tb01id
+    from ctrlsys import tb01id
 
     np.random.seed(666)
     n, m, p = 4, 2, 3

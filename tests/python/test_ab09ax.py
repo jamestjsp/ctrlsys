@@ -16,7 +16,7 @@ Key mathematical properties:
 
 import numpy as np
 import pytest
-from slicot import ab09ax
+from ctrlsys import ab09ax
 
 
 class TestAB09AXBasic:

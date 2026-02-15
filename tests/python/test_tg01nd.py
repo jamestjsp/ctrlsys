@@ -24,7 +24,7 @@ class TestTg01ndBasic:
         N=4, M=2, P=2, JOB='F', JOBT='D', TOL=0.0
         Expected: NF=3, ND=1, NIBLCK=1
         """
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         n, m, p = 4, 2, 2
 
@@ -125,7 +125,7 @@ class TestTg01ndBlockDiagonal:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         np.random.seed(42)
         n, m, p = 5, 2, 3
@@ -171,7 +171,7 @@ class TestTg01ndTransformationType:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         np.random.seed(123)
         n, m, p = 4, 2, 2
@@ -213,7 +213,7 @@ class TestTg01ndTransformationType:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         np.random.seed(456)
         n, m, p = 4, 2, 2
@@ -266,7 +266,7 @@ class TestTg01ndInfiniteFirst:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         np.random.seed(789)
         n, m, p = 4, 2, 2
@@ -305,7 +305,7 @@ class TestTg01ndEdgeCases:
 
     def test_zero_dimension(self):
         """Test with N=0 (quick return)."""
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         n, m, p = 0, 2, 2
 
@@ -325,7 +325,7 @@ class TestTg01ndEdgeCases:
 
     def test_invalid_job(self):
         """Test invalid JOB parameter returns error."""
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         n, m, p = 3, 1, 1
 
@@ -340,7 +340,7 @@ class TestTg01ndEdgeCases:
 
     def test_invalid_jobt(self):
         """Test invalid JOBT parameter returns error."""
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         n, m, p = 3, 1, 1
 
@@ -359,7 +359,7 @@ class TestTg01ndEdgeCases:
 
         Random seed: 1234 (for reproducibility)
         """
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         np.random.seed(1234)
         n, m, p = 4, 2, 2
@@ -389,7 +389,7 @@ class TestTg01ndEigenvaluePreservation:
 
         Random seed: 5678 (for reproducibility)
         """
-        from slicot import tg01nd
+        from ctrlsys import tg01nd
 
         np.random.seed(5678)
         n, m, p = 4, 2, 2

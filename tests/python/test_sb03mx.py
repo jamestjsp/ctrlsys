@@ -25,7 +25,7 @@ def test_sb03mx_diagonal():
     For diagonal A, the solution can be computed element-wise.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03mx
+    from ctrlsys import sb03mx
 
     # Diagonal Schur form matrix with stable eigenvalues (|lambda| < 1)
     a = np.array([
@@ -64,7 +64,7 @@ def test_sb03mx_transpose():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03mx
+    from ctrlsys import sb03mx
 
     np.random.seed(123)
 
@@ -102,7 +102,7 @@ def test_sb03mx_2x2_block():
     The 2x2 block must be in standard Schur form.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03mx
+    from ctrlsys import sb03mx
 
     # Schur form with 2x2 block (eigenvalues 0.5 +/- 0.3i, |lambda| = 0.583 < 1)
     a = np.array([
@@ -138,7 +138,7 @@ def test_sb03mx_mixed_blocks():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03mx
+    from ctrlsys import sb03mx
 
     # 4x4 Schur form: 1x1 block, 2x2 block, 1x1 block
     a = np.array([
@@ -175,7 +175,7 @@ def test_sb03mx_nearly_unstable():
 
     When eigenvalue products are close to 1, info=1 is returned.
     """
-    from slicot import sb03mx
+    from ctrlsys import sb03mx
 
     # Matrix with eigenvalue very close to 1 (nearly unstable)
     a = np.array([

@@ -16,7 +16,7 @@ def test_mb03xd_n5_from_html():
     Tests output shapes are correct. Due to periodic Schur convergence issues
     in the underlying MB03XP, we accept info >= 0 and check shapes.
     """
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     n = 5
 
@@ -60,7 +60,7 @@ def test_mb03xd_eigenvalues_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     np.random.seed(42)
     n = 4
@@ -93,7 +93,7 @@ def test_mb03xd_schur_form():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     np.random.seed(123)
     n = 3
@@ -131,7 +131,7 @@ def test_mb03xd_schur_form():
 
 def test_mb03xd_quick_return_n_zero():
     """Test quick return when N=0."""
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     n = 0
 
@@ -147,7 +147,7 @@ def test_mb03xd_quick_return_n_zero():
 
 def test_mb03xd_negative_n():
     """Test error for negative N."""
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     n = -1
 
@@ -163,7 +163,7 @@ def test_mb03xd_negative_n():
 
 def test_mb03xd_invalid_balanc():
     """Test error for invalid BALANC parameter."""
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     n = 4
 
@@ -179,7 +179,7 @@ def test_mb03xd_invalid_balanc():
 
 def test_mb03xd_invalid_job():
     """Test error for invalid JOB parameter."""
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     n = 4
 
@@ -199,7 +199,7 @@ def test_mb03xd_with_balancing():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03xd
+    from ctrlsys import mb03xd
 
     np.random.seed(456)
     n = 4

@@ -50,7 +50,7 @@ def test_mb04ud_html_example():
 
     istair_expected = np.array([1, 2, 3, 4], dtype=np.int32)
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('N', 'N', m, n, a, e)
 
@@ -79,7 +79,7 @@ def test_mb04ud_with_q_and_z():
     a_orig = a.copy()
     e_orig = e.copy()
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('I', 'I', m, n, a, e)
 
@@ -110,7 +110,7 @@ def test_mb04ud_column_echelon_form():
     a = np.random.randn(m, n).astype(float, order='F')
     e = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('N', 'N', m, n, a, e)
 
@@ -145,7 +145,7 @@ def test_mb04ud_rank_deficient():
         [3.0, 6.0]
     ], dtype=float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('I', 'I', m, n, a, e)
 
@@ -169,7 +169,7 @@ def test_mb04ud_update_q():
 
     q_init = np.eye(m, dtype=float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('U', 'N', m, n, a, e, q=q_init)
 
@@ -191,7 +191,7 @@ def test_mb04ud_update_z():
 
     z_init = np.eye(n, dtype=float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('N', 'U', m, n, a, e, z=z_init)
 
@@ -203,7 +203,7 @@ def test_mb04ud_zero_dimensions():
     """
     Test MB04UD with M=0 or N=0 (quick return).
     """
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a = np.zeros((1, 1), dtype=float, order='F')
     e = np.zeros((1, 1), dtype=float, order='F')
@@ -224,7 +224,7 @@ def test_mb04ud_wide_matrix():
     a = np.random.randn(m, n).astype(float, order='F')
     e = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('I', 'I', m, n, a, e)
 
@@ -247,7 +247,7 @@ def test_mb04ud_tall_matrix():
     a = np.random.randn(m, n).astype(float, order='F')
     e = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('I', 'I', m, n, a, e)
 
@@ -275,7 +275,7 @@ def test_mb04ud_istair_structure():
     a = np.random.randn(m, n).astype(float, order='F')
     e = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('N', 'N', m, n, a, e)
 
@@ -298,7 +298,7 @@ def test_mb04ud_tolerance():
     a = np.random.randn(m, n).astype(float, order='F')
     e = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('N', 'N', m, n, a, e, tol=1e-8)
 
@@ -323,7 +323,7 @@ def test_mb04ud_frobenius_norm_preservation():
     a_norm_before = np.linalg.norm(a, 'fro')
     e_norm_before = np.linalg.norm(e, 'fro')
 
-    from slicot import mb04ud
+    from ctrlsys import mb04ud
 
     a_out, e_out, q_out, z_out, ranke, istair, info = mb04ud('N', 'N', m, n, a, e)
 

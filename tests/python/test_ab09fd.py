@@ -9,7 +9,7 @@ coprime factorization.
 
 import numpy as np
 import pytest
-from slicot import ab09fd
+from ctrlsys import ab09fd
 
 
 class TestAB09FDBasic:

@@ -23,7 +23,7 @@ class TestMB03TDBasic:
         Data from SLICOT HTML documentation MB03TD example.
         N=5, TYP='S', COMPU='U'
         """
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         n = 5
 
@@ -99,7 +99,7 @@ class TestMB03TDNoUpdate:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         np.random.seed(42)
         n = 4
@@ -149,7 +149,7 @@ class TestMB03TDHamiltonian:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         np.random.seed(123)
         n = 3
@@ -204,7 +204,7 @@ class TestMB03TDComplexEigenvalues:
         A 2x2 block with eigenvalues a +- bi requires both SELECT entries true.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         np.random.seed(456)
         n = 4
@@ -252,7 +252,7 @@ class TestMB03TDEdgeCases:
 
     def test_zero_dimension(self):
         """Test with n=0 (quick return)."""
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         n = 0
         select = np.array([], dtype=bool)
@@ -271,7 +271,7 @@ class TestMB03TDEdgeCases:
 
     def test_single_element(self):
         """Test with n=1 (single eigenvalue)."""
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         n = 1
         select = np.array([True], dtype=bool)
@@ -292,7 +292,7 @@ class TestMB03TDEdgeCases:
 
     def test_no_selection(self):
         """Test with no eigenvalues selected."""
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         n = 3
         select = np.array([False, False, False], dtype=bool)
@@ -336,7 +336,7 @@ class TestMB03TDLowerFlag:
         LOWER controls which copy is reordered to leading position.
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         np.random.seed(789)
         n = 3
@@ -387,7 +387,7 @@ class TestMB03TDEigenvaluePreservation:
         The eigenvalues should be the same before and after, just reordered.
         Random seed: 999 (for reproducibility)
         """
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         np.random.seed(999)
         n = 4
@@ -435,7 +435,7 @@ class TestMB03TDErrorHandling:
 
     def test_invalid_typ(self):
         """Test with invalid TYP parameter."""
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         n = 2
         select = np.array([True, False], dtype=bool)
@@ -453,7 +453,7 @@ class TestMB03TDErrorHandling:
 
     def test_invalid_compu(self):
         """Test with invalid COMPU parameter."""
-        from slicot import mb03td
+        from ctrlsys import mb03td
 
         n = 2
         select = np.array([True, False], dtype=bool)

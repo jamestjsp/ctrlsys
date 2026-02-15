@@ -9,7 +9,7 @@ upper Hessenberg A and diagonal Q.
 import numpy as np
 import pytest
 
-from slicot import mb04pb, mb04wp
+from ctrlsys import mb04pb, mb04wp
 
 
 def build_hamiltonian(a, qg, n):

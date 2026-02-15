@@ -7,7 +7,7 @@ SISO system by reflecting unstable poles/zeros to their stable counterparts.
 
 import numpy as np
 import pytest
-from slicot import sb10zp
+from ctrlsys import sb10zp
 
 
 def test_sb10zp_continuous_unstable_pole():

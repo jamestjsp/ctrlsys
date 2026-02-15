@@ -11,7 +11,7 @@ This is a special similarity transformation of the dual system.
 """
 import numpy as np
 import pytest
-from slicot import tb01xd
+from ctrlsys import tb01xd
 
 
 def create_permutation_matrix(n):

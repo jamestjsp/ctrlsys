@@ -14,7 +14,7 @@ This is a specialization of DSYRK for banded matrices.
 """
 import numpy as np
 import pytest
-from slicot import mb01yd
+from ctrlsys import mb01yd
 
 
 def test_mb01yd_upper_notrans_basic():

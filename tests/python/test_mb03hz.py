@@ -30,7 +30,7 @@ def test_mb03hz_basic():
     2. Output SI is a complex scalar
     3. The unitary matrix Q satisfies Q @ Q.conj().T = I
     """
-    from slicot import mb03hz
+    from ctrlsys import mb03hz
 
     np.random.seed(42)
 
@@ -57,7 +57,7 @@ def test_mb03hz_identity_like():
 
     Validates edge case where diagonal elements are close to identity.
     """
-    from slicot import mb03hz
+    from ctrlsys import mb03hz
 
     s11 = 1.0 + 0.0j
     s12 = 0.1 + 0.05j
@@ -79,7 +79,7 @@ def test_mb03hz_real_valued():
 
     Validates routine handles real-valued complex input correctly.
     """
-    from slicot import mb03hz
+    from ctrlsys import mb03hz
 
     s11 = 2.0 + 0.0j
     s12 = 1.0 + 0.0j
@@ -105,7 +105,7 @@ def test_mb03hz_determinant_unity():
     Unitary matrices have |det| = 1.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03hz
+    from ctrlsys import mb03hz
 
     np.random.seed(456)
 
@@ -134,7 +134,7 @@ def test_mb03hz_orthogonality_constraint():
     we need CO^2 + |SI|^2 = 1 where CO is real.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03hz
+    from ctrlsys import mb03hz
 
     np.random.seed(789)
 

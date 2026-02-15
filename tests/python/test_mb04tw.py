@@ -15,7 +15,7 @@ Difference from MB04TV: MB04TV uses column rotations, MB04TW uses row rotations.
 
 import numpy as np
 import pytest
-from slicot import mb04tw
+from ctrlsys import mb04tw
 
 
 class TestMB04TWBasic:

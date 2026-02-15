@@ -59,7 +59,7 @@ class TestAB09IDDocExample:
         JOBC='S', JOBO='S' uses standard combination method.
         JOB='F' uses balancing-free square-root B&T method.
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         n, m, p = 3, 1, 1
         nv, pv = 6, 1
@@ -179,7 +179,7 @@ class TestAB09IDNoWeighting:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(42)
         n, m, p = 4, 1, 1
@@ -231,7 +231,7 @@ class TestAB09IDLeftWeighting:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(123)
         n, m, p = 3, 1, 1
@@ -283,7 +283,7 @@ class TestAB09IDRightWeighting:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(456)
         n, m, p = 3, 1, 1
@@ -335,7 +335,7 @@ class TestAB09IDJobModes:
 
         Random seed: 101 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(101)
         n, m, p = 3, 1, 1
@@ -368,7 +368,7 @@ class TestAB09IDJobModes:
 
         Random seed: 102 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(102)
         n, m, p = 3, 1, 1
@@ -401,7 +401,7 @@ class TestAB09IDJobModes:
 
         Random seed: 103 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(103)
         n, m, p = 3, 1, 1
@@ -438,7 +438,7 @@ class TestAB09IDDiscreteTime:
 
         Random seed: 201 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(201)
         n, m, p = 3, 1, 1
@@ -480,7 +480,7 @@ class TestAB09IDMathematicalProperties:
 
         Random seed: 301 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(301)
         n, m, p = 5, 1, 1
@@ -516,7 +516,7 @@ class TestAB09IDMathematicalProperties:
         Eigenvalues of reduced system should have negative real parts.
         Random seed: 302 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(302)
         n, m, p = 4, 1, 1
@@ -558,7 +558,7 @@ class TestAB09IDEdgeCases:
 
     def test_quick_return_min_nmp_zero(self):
         """Test quick return when MIN(N,M,P)=0."""
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         n, m, p = 0, 1, 1
 
@@ -591,7 +591,7 @@ class TestAB09IDEdgeCases:
 
         Random seed: 401 (for reproducibility)
         """
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         np.random.seed(401)
         n, m, p = 4, 1, 1
@@ -627,7 +627,7 @@ class TestAB09IDErrors:
 
     def test_invalid_dico(self):
         """Test error for invalid DICO parameter."""
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         a = np.diag([-1.0, -2.0]).astype(float, order='F')
         b = np.ones((2, 1), order='F', dtype=float)
@@ -651,7 +651,7 @@ class TestAB09IDErrors:
 
     def test_invalid_job(self):
         """Test error for invalid JOB parameter."""
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         a = np.diag([-1.0, -2.0]).astype(float, order='F')
         b = np.ones((2, 1), order='F', dtype=float)
@@ -675,7 +675,7 @@ class TestAB09IDErrors:
 
     def test_invalid_alphac(self):
         """Test error for |ALPHAC| > 1."""
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         a = np.diag([-1.0, -2.0]).astype(float, order='F')
         b = np.ones((2, 1), order='F', dtype=float)
@@ -699,7 +699,7 @@ class TestAB09IDErrors:
 
     def test_negative_n(self):
         """Test error for negative N."""
-        from slicot import ab09id
+        from ctrlsys import ab09id
 
         a = np.zeros((1, 1), order='F', dtype=float)
         b = np.zeros((1, 1), order='F', dtype=float)

@@ -5,7 +5,7 @@ Transforms controller matrices from normalized system to original system.
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 class TestSB10TDBasic:

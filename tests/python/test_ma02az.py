@@ -19,7 +19,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import ma02az
+from ctrlsys import ma02az
 
 
 class TestMA02AZBasic:

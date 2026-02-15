@@ -21,7 +21,7 @@ def test_mb02vd_basic():
     Tests numerical correctness by verifying the solution satisfies X * A = B.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02vd
+    from ctrlsys import mb02vd
 
     np.random.seed(42)
 
@@ -62,7 +62,7 @@ def test_mb02vd_transpose():
     Tests numerical correctness by verifying the solution satisfies X * A' = B.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02vd
+    from ctrlsys import mb02vd
 
     np.random.seed(123)
 
@@ -100,7 +100,7 @@ def test_mb02vd_singular_matrix():
 
     When A is singular, info > 0 indicates the index of the zero pivot.
     """
-    from slicot import mb02vd
+    from ctrlsys import mb02vd
 
     n = 3
     m = 2
@@ -131,7 +131,7 @@ def test_mb02vd_random_system():
     and verifies the solution.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb02vd
+    from ctrlsys import mb02vd
 
     np.random.seed(456)
 
@@ -161,7 +161,7 @@ def test_mb02vd_identity():
     """
     Validate with identity matrix: X * I = B implies X = B.
     """
-    from slicot import mb02vd
+    from ctrlsys import mb02vd
 
     n = 3
     m = 2

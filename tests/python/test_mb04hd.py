@@ -17,7 +17,7 @@ def test_mb04hd_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(42)
     n = 4
@@ -55,7 +55,7 @@ def test_mb04hd_orthogonality():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(123)
     n = 6
@@ -93,7 +93,7 @@ def test_mb04hd_upper_triangular_a():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(456)
     n = 4
@@ -122,7 +122,7 @@ def test_mb04hd_upper_triangular_a():
 
 def test_mb04hd_n_zero():
     """Test MB04HD with N=0 (quick return)."""
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     a = np.array([], dtype=float, order='F').reshape(0, 0)
     b = np.array([], dtype=float, order='F').reshape(0, 0)
@@ -141,7 +141,7 @@ def test_mb04hd_no_orthogonal_matrices():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(789)
     n = 4
@@ -173,7 +173,7 @@ def test_mb04hd_small_n2():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(111)
     n = 2
@@ -204,7 +204,7 @@ def test_mb04hd_update_mode():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(222)
     n = 4
@@ -241,7 +241,7 @@ def test_mb04hd_transformation_property():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(333)
     n = 4
@@ -280,7 +280,7 @@ def test_mb04hd_larger_n():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb04hd
+    from ctrlsys import mb04hd
 
     np.random.seed(444)
     n = 8

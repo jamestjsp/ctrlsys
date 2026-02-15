@@ -18,7 +18,7 @@ def test_ab13cd_html_example():
     System: Three coupled oscillators with different damping
     Expected: H-infinity norm ~ 5.0e5, peak frequency ~ 1.414
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 6, 1, 1
 
@@ -56,7 +56,7 @@ def test_ab13cd_siso_first_order():
 
     G(s) = 1/(s+1) has H-infinity norm = 1 (at omega = 0).
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 1, 1, 1
 
@@ -80,7 +80,7 @@ def test_ab13cd_mimo_2x2():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 2, 2, 2
 
@@ -122,7 +122,7 @@ def test_ab13cd_d_nonzero():
     At omega->inf: G(inf) = 1 (from D)
     Peak is at omega=0, norm = 1.5
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 1, 1, 1
 
@@ -145,7 +145,7 @@ def test_ab13cd_n0():
 
     G(s) = D, norm is just sigma_max(D).
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 0, 2, 2
 
@@ -167,7 +167,7 @@ def test_ab13cd_n0():
 
 def test_ab13cd_m0():
     """Test AB13CD with m=0 (quick return, norm=0)."""
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 2, 0, 1
 
@@ -186,7 +186,7 @@ def test_ab13cd_m0():
 
 def test_ab13cd_np0():
     """Test AB13CD with np=0 (quick return, norm=0)."""
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 2, 1, 0
 
@@ -209,7 +209,7 @@ def test_ab13cd_unstable_system():
 
     System with eigenvalue at +1 (unstable).
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = 1, 1, 1
 
@@ -237,7 +237,7 @@ def test_ab13cd_resonance():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     np.random.seed(123)
     n, m, np_ = 2, 1, 1
@@ -265,7 +265,7 @@ def test_ab13cd_resonance():
 
 def test_ab13cd_negative_n():
     """Test AB13CD returns error for negative n."""
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     n, m, np_ = -1, 1, 1
 
@@ -289,7 +289,7 @@ def test_ab13cd_eigenvalue_preservation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab13cd
+    from ctrlsys import ab13cd
 
     np.random.seed(456)
     n, m, np_ = 2, 1, 1

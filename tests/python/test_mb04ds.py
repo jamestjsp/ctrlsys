@@ -14,7 +14,7 @@ Balancing involves:
 import numpy as np
 import pytest
 
-from slicot import mb04ds
+from ctrlsys import mb04ds
 
 
 class TestMB04DSBasic:

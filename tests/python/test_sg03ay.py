@@ -18,7 +18,7 @@ def test_sg03ay_basic_notrans():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sg03ay
+    from ctrlsys import sg03ay
 
     np.random.seed(42)
 
@@ -58,7 +58,7 @@ def test_sg03ay_basic_trans():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sg03ay
+    from ctrlsys import sg03ay
 
     np.random.seed(123)
 
@@ -98,7 +98,7 @@ def test_sg03ay_2x2_block():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sg03ay
+    from ctrlsys import sg03ay
 
     np.random.seed(456)
 
@@ -139,7 +139,7 @@ def test_sg03ay_small_n1():
     """
     Test with n=1 (smallest non-trivial case).
     """
-    from slicot import sg03ay
+    from ctrlsys import sg03ay
 
     A = np.array([[2.0]], order='F', dtype=float)
     E = np.array([[1.0]], order='F', dtype=float)
@@ -159,7 +159,7 @@ def test_sg03ay_empty():
     """
     Test with n=0 (quick return).
     """
-    from slicot import sg03ay
+    from ctrlsys import sg03ay
 
     A = np.array([], order='F', dtype=float).reshape((0, 0))
     E = np.array([], order='F', dtype=float).reshape((0, 0))
@@ -177,7 +177,7 @@ def test_sg03ay_symmetry():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sg03ay
+    from ctrlsys import sg03ay
 
     np.random.seed(789)
 

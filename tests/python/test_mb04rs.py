@@ -11,7 +11,7 @@ D, E upper triangular).
 
 import numpy as np
 import pytest
-from slicot import mb04rs
+from ctrlsys import mb04rs
 
 
 def test_mb04rs_basic_1x1():

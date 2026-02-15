@@ -13,7 +13,7 @@ Note: MB02DD returns only the NEW portions of R and L:
 
 import numpy as np
 import pytest
-from slicot import mb02cd, mb02dd
+from ctrlsys import mb02cd, mb02dd
 
 
 class TestMB02DDBasic:

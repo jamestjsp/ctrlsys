@@ -11,7 +11,7 @@ import pytest
 
 def test_mb04iy_import():
     """Test that mb04iy can be imported."""
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
     assert mb04iy is not None
 
 
@@ -22,7 +22,7 @@ def test_mb04iy_left_transpose_basic():
     Validates orthogonal transformation preserves numerical properties.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(42)
 
@@ -78,7 +78,7 @@ def test_mb04iy_right_notrans_basic():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(123)
 
@@ -123,7 +123,7 @@ def test_mb04iy_orthogonality():
     Apply Q and Q' in sequence and verify we get back original matrix.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(456)
 
@@ -147,7 +147,7 @@ def test_mb04iy_zero_dimensions():
     """
     Test MB04IY with zero dimensions (quick return cases).
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     # Zero columns
     a = np.zeros((5, 2), order='F', dtype=float)
@@ -171,7 +171,7 @@ def test_mb04iy_zero_dimensions():
 
 def test_mb04iy_error_invalid_side():
     """Test error handling for invalid SIDE parameter."""
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     a = np.zeros((5, 2), order='F', dtype=float)
     tau = np.zeros(2, dtype=float)
@@ -183,7 +183,7 @@ def test_mb04iy_error_invalid_side():
 
 def test_mb04iy_error_invalid_trans():
     """Test error handling for invalid TRANS parameter."""
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     a = np.zeros((5, 2), order='F', dtype=float)
     tau = np.zeros(2, dtype=float)
@@ -195,7 +195,7 @@ def test_mb04iy_error_invalid_trans():
 
 def test_mb04iy_error_negative_dimensions():
     """Test error handling for negative dimensions."""
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     # This should fail in parameter validation
     a = np.zeros((5, 2), order='F', dtype=float)
@@ -212,7 +212,7 @@ def test_mb04iy_p_equals_zero():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(789)
 
@@ -238,7 +238,7 @@ def test_mb04iy_p_large():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(999)
 
@@ -260,7 +260,7 @@ def test_mb04iy_single_reflector():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(111)
 
@@ -285,7 +285,7 @@ def test_mb04iy_identity_left():
     When tau=0, H(i)=I, so Q=I and C should be unchanged.
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(222)
 
@@ -310,7 +310,7 @@ def test_mb04iy_identity_right():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb04iy
+    from ctrlsys import mb04iy
 
     np.random.seed(333)
 

@@ -7,7 +7,7 @@ QR factorization of concatenated block Hankel matrices.
 
 import numpy as np
 import pytest
-from slicot import ib01od
+from ctrlsys import ib01od
 
 
 def test_ib01od_tol_positive():

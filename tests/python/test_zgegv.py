@@ -20,7 +20,7 @@ def test_zgegv_basic_eigenvalues():
     Uses simple 2x2 complex matrices with known generalized eigenvalues.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     np.random.seed(42)
 
@@ -57,7 +57,7 @@ def test_zgegv_with_right_eigenvectors():
     Validates A*x = lambda*B*x for right eigenvectors.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     np.random.seed(123)
     n = 3
@@ -93,7 +93,7 @@ def test_zgegv_with_left_eigenvectors():
     Validates u^H*A = lambda*u^H*B for left eigenvectors.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     np.random.seed(456)
     n = 3
@@ -126,7 +126,7 @@ def test_zgegv_both_eigenvectors():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     np.random.seed(789)
     n = 4
@@ -166,7 +166,7 @@ def test_zgegv_identity():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     n = 5
     a = np.eye(n, dtype=np.complex128, order="F")
@@ -188,7 +188,7 @@ def test_zgegv_singular_b():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     n = 3
     a = np.diag([1.0 + 0j, 2.0 + 0j, 3.0 + 0j]).astype(np.complex128, order="F")
@@ -210,7 +210,7 @@ def test_zgegv_n_equals_1():
     """
     Edge case: n=1 (scalar case).
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     a = np.array([[2.0 + 1j]], dtype=np.complex128, order="F")
     b = np.array([[1.0 + 0j]], dtype=np.complex128, order="F")
@@ -228,7 +228,7 @@ def test_zgegv_error_invalid_jobvl():
     """
     Test ZGEGV error handling for invalid JOBVL parameter.
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     n = 2
     a = np.eye(n, dtype=np.complex128, order="F")
@@ -243,7 +243,7 @@ def test_zgegv_error_invalid_jobvr():
     """
     Test ZGEGV error handling for invalid JOBVR parameter.
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     n = 2
     a = np.eye(n, dtype=np.complex128, order="F")
@@ -263,7 +263,7 @@ def test_zgegv_eigenvalue_consistency():
 
     Random seed: 404 (for reproducibility)
     """
-    from slicot import zgegv
+    from ctrlsys import zgegv
 
     np.random.seed(404)
     n = 5

@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import de01od
+from ctrlsys import de01od
 
 
 """Basic functionality tests from SLICOT HTML documentation."""

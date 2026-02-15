@@ -28,7 +28,7 @@ def test_mb03ab_single_shift():
     For single shift, C2 = 1 and S2 = 0.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(42)
 
@@ -68,7 +68,7 @@ def test_mb03ab_complex_conjugate_shifts():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(123)
 
@@ -106,7 +106,7 @@ def test_mb03ab_real_identical_shifts():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(456)
 
@@ -143,7 +143,7 @@ def test_mb03ab_real_distinct_shifts():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(789)
 
@@ -181,7 +181,7 @@ def test_mb03ab_negative_signature():
     Tests S(AI) != SINV branch in the algorithm.
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(111)
 
@@ -219,7 +219,7 @@ def test_mb03ab_three_factors():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(222)
 
@@ -262,7 +262,7 @@ def test_mb03ab_givens_rotation_property():
     This tests all shift types produce valid Givens rotations.
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(333)
 
@@ -308,7 +308,7 @@ def test_mb03ab_mixed_signature():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03ab
+    from ctrlsys import mb03ab
 
     np.random.seed(444)
 

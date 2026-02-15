@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from slicot import md03by
+from ctrlsys import md03by
 
 
 def test_md03by_basic_gauss_newton():

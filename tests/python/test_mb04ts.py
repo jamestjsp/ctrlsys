@@ -20,7 +20,7 @@ def test_mb04ts_basic():
     Input: 5x5 matrices A, B, G, Q forming Hamiltonian structure.
     Validates decomposition H = U * R * V^T properties.
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     n = 5
 
@@ -82,7 +82,7 @@ def test_mb04ts_small_2x2():
     Random seed: 42 (for reproducibility)
     Validates basic decomposition structure.
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     np.random.seed(42)
     n = 2
@@ -112,7 +112,7 @@ def test_mb04ts_transpose_a():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     np.random.seed(123)
     n = 3
@@ -137,7 +137,7 @@ def test_mb04ts_transpose_b():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     np.random.seed(456)
     n = 3
@@ -162,7 +162,7 @@ def test_mb04ts_n_equals_1():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     np.random.seed(789)
     n = 1
@@ -190,7 +190,7 @@ def test_mb04ts_ilo_parameter():
     ILO indicates rows/cols 1:ILO-1 are already reduced.
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     np.random.seed(999)
     n = 4
@@ -219,7 +219,7 @@ def test_mb04ts_invalid_trana():
 
     Should return INFO = -1.
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     n = 2
     A = np.eye(n, order='F', dtype=float)
@@ -240,7 +240,7 @@ def test_mb04ts_invalid_ilo():
 
     Should return INFO = -4.
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     n = 3
     A = np.eye(n, order='F', dtype=float)
@@ -262,7 +262,7 @@ def test_mb04ts_givens_rotation_property():
     This is a fundamental property of Givens rotations.
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb04ts
+    from ctrlsys import mb04ts
 
     np.random.seed(555)
     n = 4

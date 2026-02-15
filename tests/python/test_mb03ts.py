@@ -6,7 +6,7 @@ quasi-triangular matrix A contained in a skew-Hamiltonian or Hamiltonian matrix.
 """
 import numpy as np
 import pytest
-from slicot import mb03ts
+from ctrlsys import mb03ts
 
 
 def test_mb03ts_swap_1x1_hamiltonian():

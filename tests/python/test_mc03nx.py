@@ -34,7 +34,7 @@ def test_mc03nx_basic_2x2_degree2():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc03nx
+    from ctrlsys import mc03nx
 
     mp, np_, dp = 2, 2, 2
 
@@ -72,7 +72,7 @@ def test_mc03nx_1x1_degree1():
     A dimensions: 1*1 x 0*1+1 = 1x1
     E dimensions: 1x1
     """
-    from slicot import mc03nx
+    from ctrlsys import mc03nx
 
     mp, np_, dp = 1, 1, 1
 
@@ -101,7 +101,7 @@ def test_mc03nx_2x3_degree2():
     A dimensions: 2*2 x 1*2+3 = 4x5
     E dimensions: 4x5
     """
-    from slicot import mc03nx
+    from ctrlsys import mc03nx
 
     mp, np_, dp = 2, 3, 2
 
@@ -126,7 +126,7 @@ def test_mc03nx_invalid_degree():
     """
     Test that degree 0 (size dp+1=1 for 3rd axis) is rejected.
     """
-    from slicot import mc03nx
+    from ctrlsys import mc03nx
 
     p = np.zeros((2, 2, 1), order='F', dtype=float)
 
@@ -141,7 +141,7 @@ def test_mc03nx_identity_structure():
     For a 3x3 polynomial of degree 3:
     A is 9x12 with identity blocks on the diagonal (upper-left 6x6).
     """
-    from slicot import mc03nx
+    from ctrlsys import mc03nx
 
     mp, np_, dp = 3, 3, 3
 
@@ -169,7 +169,7 @@ def test_mc03nx_e_matrix_structure():
     - Identity shift in middle
     - Negated polynomial coefficients on right
     """
-    from slicot import mc03nx
+    from ctrlsys import mc03nx
 
     mp, np_, dp = 2, 2, 2
 

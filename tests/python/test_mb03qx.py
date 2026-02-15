@@ -24,7 +24,7 @@ def test_mb03qx_diagonal():
 
     All eigenvalues are real, on the diagonal.
     """
-    from slicot import mb03qx
+    from ctrlsys import mb03qx
 
     n = 4
 
@@ -54,7 +54,7 @@ def test_mb03qx_complex_pair():
 
     A 2x2 block on diagonal represents complex conjugate eigenvalues.
     """
-    from slicot import mb03qx
+    from ctrlsys import mb03qx
 
     n = 2
 
@@ -84,7 +84,7 @@ def test_mb03qx_mixed():
 
     Matrix with 1x1 blocks and 2x2 blocks.
     """
-    from slicot import mb03qx
+    from ctrlsys import mb03qx
 
     n = 5
 
@@ -118,7 +118,7 @@ def test_mb03qx_single_element():
     """
     Validate single element matrix (n=1).
     """
-    from slicot import mb03qx
+    from ctrlsys import mb03qx
 
     t = np.array([[3.5]], order='F', dtype=float)
 
@@ -133,7 +133,7 @@ def test_mb03qx_negative_eigenvalues():
     """
     Validate with negative real eigenvalues.
     """
-    from slicot import mb03qx
+    from ctrlsys import mb03qx
 
     n = 3
 
@@ -161,7 +161,7 @@ def test_mb03qx_eigenvalue_consistency():
     Construct quasi-triangular matrix with known eigenvalues and verify
     mb03qx extracts them correctly.
     """
-    from slicot import mb03qx
+    from ctrlsys import mb03qx
 
     # Construct quasi-triangular matrix with:
     # - Real eigenvalue 2.0 at (0,0)
@@ -192,7 +192,7 @@ def test_mb03qx_multiple_complex_blocks():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03qx
+    from ctrlsys import mb03qx
 
     n = 4
 

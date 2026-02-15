@@ -32,7 +32,7 @@ def test_ma02rd_increasing_basic():
     d_orig = d.copy()
     e_orig = e.copy()
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -62,7 +62,7 @@ def test_ma02rd_decreasing_basic():
     d = np.random.randn(n).astype(float, order='F')
     e = np.random.randn(n).astype(float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('D', d, e)
 
     assert info == 0
@@ -89,7 +89,7 @@ def test_ma02rd_permutation_consistency():
     # Create E = 100 + D so we can verify permutation exactly
     e = (100.0 + d).astype(float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -110,7 +110,7 @@ def test_ma02rd_quick_sort_threshold():
     d = np.random.randn(n).astype(float, order='F')
     e = np.asarray(np.arange(n), dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -132,7 +132,7 @@ def test_ma02rd_insertion_sort_threshold():
     d = np.random.randn(n).astype(float, order='F')
     e = np.asarray(np.arange(n), dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('D', d, e)
 
     assert info == 0
@@ -150,7 +150,7 @@ def test_ma02rd_invalid_id():
     d = np.array([3.0, 1.0, 4.0, 1.0, 5.0], dtype=float, order='F')
     e = np.array([1.0, 2.0, 3.0, 4.0, 5.0], dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
 
     with pytest.raises(ValueError):
         ma02rd('X', d, e)
@@ -163,7 +163,7 @@ def test_ma02rd_n_zero():
     d = np.array([], dtype=float, order='F')
     e = np.array([], dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -178,7 +178,7 @@ def test_ma02rd_n_one():
     d = np.array([5.0], dtype=float, order='F')
     e = np.array([10.0], dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -193,7 +193,7 @@ def test_ma02rd_already_sorted():
     d = np.array([1.0, 2.0, 3.0, 4.0, 5.0], dtype=float, order='F')
     e = np.array([10.0, 20.0, 30.0, 40.0, 50.0], dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -208,7 +208,7 @@ def test_ma02rd_reverse_sorted():
     d = np.array([5.0, 4.0, 3.0, 2.0, 1.0], dtype=float, order='F')
     e = np.array([50.0, 40.0, 30.0, 20.0, 10.0], dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -228,7 +228,7 @@ def test_ma02rd_duplicate_values():
     d = np.array([3.0, 1.0, 3.0, 2.0, 1.0], dtype=float, order='F')
     e = np.array([30.0, 10.0, 31.0, 20.0, 11.0], dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0
@@ -254,7 +254,7 @@ def test_ma02rd_large_array():
     d = np.random.randn(n).astype(float, order='F')
     e = np.asarray(np.arange(n), dtype=float, order='F')
 
-    from slicot import ma02rd
+    from ctrlsys import ma02rd
     d_out, e_out, info = ma02rd('I', d, e)
 
     assert info == 0

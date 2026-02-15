@@ -15,7 +15,7 @@ number of inputs/outputs.
 
 import numpy as np
 import pytest
-from slicot import ag07bd
+from ctrlsys import ag07bd
 
 
 class TestAG07BDBasic:

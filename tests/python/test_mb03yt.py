@@ -12,7 +12,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb03yt
+from ctrlsys import mb03yt
 
 
 def test_mb03yt_real_eigenvalues():

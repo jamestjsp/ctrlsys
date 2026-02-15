@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import mc01rd
+from ctrlsys import mc01rd
 
 
 class TestMC01RDBasic:

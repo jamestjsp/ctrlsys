@@ -49,7 +49,7 @@ class TestAB09HXBasic:
         Uses a stable diagonal system in Schur form.
         Random seed: 42 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(42)
         n, m, p = 4, 2, 2
@@ -96,7 +96,7 @@ class TestAB09HXBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(123)
         n, m, p = 4, 2, 1
@@ -143,7 +143,7 @@ class TestAB09HXBasic:
         Discrete-time stable means |eigenvalues| < 1.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(456)
         n, m, p = 3, 2, 1
@@ -186,7 +186,7 @@ class TestAB09HXJobVariants:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(789)
         n, m, p = 3, 2, 1
@@ -220,7 +220,7 @@ class TestAB09HXJobVariants:
 
         Random seed: 111 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(111)
         n, m, p = 4, 2, 1
@@ -253,7 +253,7 @@ class TestAB09HXJobVariants:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(222)
         n, m, p = 3, 2, 2
@@ -296,7 +296,7 @@ class TestAB09HXMathematicalProperties:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(333)
         n, m, p = 5, 2, 2
@@ -337,7 +337,7 @@ class TestAB09HXMathematicalProperties:
 
         Random seed: 444 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(444)
         n, m, p = 4, 2, 2
@@ -376,7 +376,7 @@ class TestAB09HXMathematicalProperties:
 
         Random seed: 555 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(555)
         n, m, p = 4, 2, 2
@@ -419,7 +419,7 @@ class TestAB09HXMathematicalProperties:
 
         Random seed: 666 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(666)
         n, m, p = 3, 2, 1
@@ -454,7 +454,7 @@ class TestAB09HXMathematicalProperties:
 
         Random seed: 777 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(777)
         n, m, p = 3, 2, 1
@@ -494,7 +494,7 @@ class TestAB09HXEdgeCases:
 
         Random seed: 888 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(888)
         n, m, p = 2, 1, 1
@@ -522,7 +522,7 @@ class TestAB09HXEdgeCases:
 
         Random seed: 999 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(999)
         n, m, p = 1, 2, 1
@@ -546,7 +546,7 @@ class TestAB09HXEdgeCases:
 
         Random seed: 1111 (for reproducibility)
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         np.random.seed(1111)
         n, m, p = 3, 2, 2
@@ -582,7 +582,7 @@ class TestAB09HXEdgeCases:
         IWARN=1 occurs when ORDSEL='F' and NR > minimal realization order.
         Create a system with some near-zero Hankel singular values.
         """
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 3, 2, 1
 
@@ -610,7 +610,7 @@ class TestAB09HXQuickReturn:
 
     def test_n_zero(self):
         """Test quick return when N=0."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 0, 2, 1
 
@@ -629,7 +629,7 @@ class TestAB09HXQuickReturn:
 
     def test_m_zero(self):
         """Test quick return when M=0."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 0, 0
 
@@ -651,7 +651,7 @@ class TestAB09HXQuickReturn:
 
     def test_p_zero(self):
         """Test quick return when P=0."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 2, 0
 
@@ -680,7 +680,7 @@ class TestAB09HXErrorHandling:
 
     def test_unstable_continuous_system(self):
         """Test INFO=1 for unstable continuous-time system."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 2, 1
 
@@ -705,7 +705,7 @@ class TestAB09HXErrorHandling:
 
     def test_rank_deficient_d(self):
         """Test INFO=6 when D does not have full row rank."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 2, 2
 
@@ -737,7 +737,7 @@ class TestAB09HXErrorHandling:
 
     def test_invalid_dico(self):
         """Test error for invalid DICO parameter."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 1, 1
 
@@ -751,7 +751,7 @@ class TestAB09HXErrorHandling:
 
     def test_invalid_job(self):
         """Test error for invalid JOB parameter."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 1, 1
 
@@ -765,7 +765,7 @@ class TestAB09HXErrorHandling:
 
     def test_invalid_ordsel(self):
         """Test error for invalid ORDSEL parameter."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 1, 1
 
@@ -779,7 +779,7 @@ class TestAB09HXErrorHandling:
 
     def test_p_greater_than_m(self):
         """Test error when P > M (D cannot have full row rank)."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 1, 2
 
@@ -793,7 +793,7 @@ class TestAB09HXErrorHandling:
 
     def test_tol2_greater_than_tol1(self):
         """Test error when TOL2 > TOL1 with ORDSEL='A'."""
-        from slicot import ab09hx
+        from ctrlsys import ab09hx
 
         n, m, p = 2, 2, 1
 

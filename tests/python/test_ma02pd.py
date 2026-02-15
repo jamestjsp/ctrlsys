@@ -11,7 +11,7 @@ Property tests verify:
 """
 import numpy as np
 import pytest
-from slicot import ma02pd
+from ctrlsys import ma02pd
 
 
 def test_ma02pd_basic():

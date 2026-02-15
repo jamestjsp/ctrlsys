@@ -15,7 +15,7 @@ E12 = (I + alpha*D2*D1)^-1 = I - alpha*D2*E21*D1
 
 import numpy as np
 import pytest
-from slicot import ab05nd
+from ctrlsys import ab05nd
 
 
 """Basic functionality tests using SLICOT HTML doc example."""

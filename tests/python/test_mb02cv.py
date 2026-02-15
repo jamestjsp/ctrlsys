@@ -7,7 +7,7 @@ of the generator, contained in arrays F1, F2 and G.
 
 import numpy as np
 import pytest
-from slicot import mb02cv
+from ctrlsys import mb02cv
 
 
 class TestMB02CVBasic:

@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.19] - 2026-02-15
+
+### Changed
+
+- Package renamed from `slicot` to `ctrlsys` on PyPI
+- GitHub repo moved from `jamestjsp/slicot` to `jamestjsp/ctrlsys`
+- `pip install slicot` now installs a shim that depends on `ctrlsys` and emits a deprecation warning
+- All `import slicot` → `import ctrlsys` in user-facing code
+- C internals (headers, guards, extension module name) unchanged
+
 ## [1.0.18] - 2026-02-08
 
 ### Changed

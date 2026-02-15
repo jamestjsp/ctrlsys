@@ -8,7 +8,7 @@ Test data from SLICOT HTML documentation example (TB05AD.html).
 
 import numpy as np
 import pytest
-from slicot import tb05ad
+from ctrlsys import tb05ad
 
 
 """Basic functionality tests from HTML doc example."""

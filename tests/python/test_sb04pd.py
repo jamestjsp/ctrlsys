@@ -10,7 +10,7 @@ where op(M) = M or M**T, and ISGN = 1 or -1.
 
 import numpy as np
 import pytest
-from slicot import sb04pd
+from ctrlsys import sb04pd
 
 
 def test_sb04pd_discrete_basic():

@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import ab07md
+from ctrlsys import ab07md
 
 
 def prepare_arrays(n, m, p, a_in, b_in, c_in, d_in):

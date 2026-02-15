@@ -12,7 +12,7 @@ Note that for skew-Hermitian matrices:
 """
 import numpy as np
 import pytest
-from slicot import ma02mz
+from ctrlsys import ma02mz
 
 
 def test_ma02mz_max_norm_upper():

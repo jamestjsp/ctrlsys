@@ -9,7 +9,7 @@ where A is in Schur or Hessenberg form and B is in Schur or Hessenberg form
 
 import numpy as np
 import pytest
-from slicot import sb04rd
+from ctrlsys import sb04rd
 
 
 class TestSB04RDBasic:

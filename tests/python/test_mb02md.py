@@ -14,7 +14,7 @@ def test_mb02md_html_doc_example():
       Expected: RANK=3, X=[0.5003, 0.8003, 0.2995]
       Singular values: [3.2281, 0.8716, 0.3697, 0.0001]
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     m, n, l = 6, 3, 1
 
@@ -51,7 +51,7 @@ def test_mb02md_tls_residual_property():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(42)
 
@@ -86,7 +86,7 @@ def test_mb02md_singular_values_descending():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(123)
 
@@ -113,7 +113,7 @@ def test_mb02md_job_r():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(456)
 
@@ -134,7 +134,7 @@ def test_mb02md_job_t():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(789)
 
@@ -154,7 +154,7 @@ def test_mb02md_job_n():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(888)
 
@@ -174,7 +174,7 @@ def test_mb02md_underdetermined():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(456)
 
@@ -196,7 +196,7 @@ def test_mb02md_multiple_rhs():
 
     Random seed: 1111 (for reproducibility)
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(1111)
 
@@ -214,7 +214,7 @@ def test_mb02md_edge_case_l_zero():
     """
     Validate edge case: L=0 (no observation matrix B).
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     np.random.seed(2222)
 
@@ -231,7 +231,7 @@ def test_mb02md_error_invalid_m():
     """
     Validate error handling: invalid M (negative).
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     c = np.array([[1.0, 2.0]], order='F', dtype=float)
 
@@ -243,7 +243,7 @@ def test_mb02md_error_invalid_job():
     """
     Validate error handling: invalid JOB parameter.
     """
-    from slicot import mb02md
+    from ctrlsys import mb02md
 
     c = np.array([[1.0, 2.0]], order='F', dtype=float)
 

@@ -19,7 +19,7 @@ def test_dgegv_basic_eigenvalues():
     Uses simple 2x2 matrices with known generalized eigenvalues.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     a = np.array([
         [1.0, 2.0],
@@ -62,7 +62,7 @@ def test_dgegv_with_right_eigenvectors():
     Validates A*x = lambda*B*x for right eigenvectors.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     np.random.seed(123)
     n = 3
@@ -103,7 +103,7 @@ def test_dgegv_with_left_eigenvectors():
     Validates u^H*A = lambda*u^H*B for left eigenvectors.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     n = 3
     a = np.array([
@@ -137,7 +137,7 @@ def test_dgegv_both_eigenvectors():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     n = 4
     np.random.seed(789)
@@ -177,7 +177,7 @@ def test_dgegv_identity():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     n = 5
     a = np.eye(n, order='F', dtype=float)
@@ -199,7 +199,7 @@ def test_dgegv_singular_b():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     n = 3
     a = np.array([
@@ -232,7 +232,7 @@ def test_dgegv_complex_eigenvalues():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     a = np.array([
         [0.0, -1.0],
@@ -253,7 +253,7 @@ def test_dgegv_error_invalid_jobvl():
     """
     Test DGEGV error handling for invalid JOBVL parameter.
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     n = 2
     a = np.eye(n, order='F', dtype=float)
@@ -272,7 +272,7 @@ def test_dgegv_eigenvalue_consistency():
 
     Random seed: 404 (for reproducibility)
     """
-    from slicot import dgegv
+    from ctrlsys import dgegv
 
     np.random.seed(404)
     n = 5

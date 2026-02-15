@@ -15,7 +15,7 @@ def test_mc03nd_html_example():
     Input: 5x4 polynomial matrix P(s) of degree 2.
     Expected output: DK=1, kernel with 2 columns.
     """
-    from slicot import mc03nd
+    from ctrlsys import mc03nd
 
     mp, np_dim, dp = 5, 4, 2
 
@@ -95,7 +95,7 @@ def test_mc03nd_no_nullspace():
     A square, full rank polynomial matrix should have DK=-1.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc03nd
+    from ctrlsys import mc03nd
 
     np.random.seed(42)
 
@@ -123,7 +123,7 @@ def test_mc03nd_nullspace_verification():
     Tests the polynomial matrix equation residual at specific s values.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mc03nd
+    from ctrlsys import mc03nd
 
     mp, np_dim, dp = 5, 4, 2
 
@@ -190,7 +190,7 @@ def test_mc03nd_parameter_errors():
     """
     Test MC03ND parameter validation.
     """
-    from slicot import mc03nd
+    from ctrlsys import mc03nd
 
     mp, np_dim, dp = 5, 4, 2
     p = np.zeros((mp, np_dim, dp + 1), order='F', dtype=float)
@@ -210,7 +210,7 @@ def test_mc03nd_polynomial_coefficients():
 
     Uses HTML doc example data.
     """
-    from slicot import mc03nd
+    from ctrlsys import mc03nd
 
     mp, np_dim, dp = 5, 4, 2
 

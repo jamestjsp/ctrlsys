@@ -6,7 +6,7 @@ Column-oriented counterpart of LAPACK's DLASWP (row swaps).
 """
 import numpy as np
 import pytest
-from slicot import ma02gd
+from ctrlsys import ma02gd
 
 
 """Basic functionality tests."""

@@ -23,7 +23,7 @@ def test_tc04ad_left_matrix_fraction():
     RCOND = 0.25
     A (4x4), B (4x2), C (2x4), D (2x2) state-space matrices
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 2, 2
     index = np.array([2, 2], dtype=np.int32)
@@ -83,7 +83,7 @@ def test_tc04ad_right_matrix_fraction():
     For right PMR: T(s) = Q(s)*inv(P(s)), the routine converts via duality.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 2, 2
     index = np.array([1, 1], dtype=np.int32)
@@ -123,7 +123,7 @@ def test_tc04ad_transfer_function_equivalence():
 
     Uses data from HTML doc example.
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 2, 2
     index = np.array([2, 2], dtype=np.int32)
@@ -177,7 +177,7 @@ def test_tc04ad_single_input_output():
     For scalar case, polynomial division simplifies.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 1, 1
     index = np.array([2], dtype=np.int32)
@@ -215,7 +215,7 @@ def test_tc04ad_nonproper_error():
     P(s) is row proper if the leading coefficient matrix has full rank.
     If not, INFO=1 is returned.
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 2, 2
     index = np.array([1, 1], dtype=np.int32)
@@ -243,7 +243,7 @@ def test_tc04ad_zero_order():
 
     Should result in N=0 state-space realization (direct feedthrough only).
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 2, 2
     index = np.array([0, 0], dtype=np.int32)
@@ -277,7 +277,7 @@ def test_tc04ad_state_space_consistency():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 2, 2
     index = np.array([2, 2], dtype=np.int32)
@@ -307,7 +307,7 @@ def test_tc04ad_invalid_leri():
     """
     Test error handling for invalid LERI parameter.
     """
-    from slicot import tc04ad
+    from ctrlsys import tc04ad
 
     m, p = 1, 1
     index = np.array([1], dtype=np.int32)

@@ -12,7 +12,7 @@ MODE options:
 
 import numpy as np
 import pytest
-from slicot import mb04ud, mb04vd
+from ctrlsys import mb04ud, mb04vd
 
 
 class TestMB04VDBasic:

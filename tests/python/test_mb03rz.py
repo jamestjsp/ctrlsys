@@ -20,7 +20,7 @@ def test_mb03rz_basic_diagonal():
     A diagonal matrix should remain diagonal with each element forming
     its own 1x1 block, and eigenvalues should be the diagonal elements.
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     n = 3
     a = np.array([
@@ -52,7 +52,7 @@ def test_mb03rz_upper_triangular():
     The eigenvalues (diagonal elements) should be preserved.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(42)
     n = 4
@@ -86,7 +86,7 @@ def test_mb03rz_with_transformation():
     for the block-diagonalized result.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(123)
     n = 3
@@ -118,7 +118,7 @@ def test_mb03rz_clustered_eigenvalues():
     Eigenvalues in the same cluster should be grouped in the same block.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(456)
     n = 4
@@ -151,7 +151,7 @@ def test_mb03rz_closest_neighbor_strategy():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(789)
     n = 4
@@ -177,7 +177,7 @@ def test_mb03rz_sort_b():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(111)
     n = 4
@@ -203,7 +203,7 @@ def test_mb03rz_sort_b():
 
 def test_mb03rz_n_zero():
     """Test MB03RZ with N=0 (edge case - quick return)."""
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     a = np.zeros((0, 0), dtype=np.complex128, order='F')
     pmax = 1000.0
@@ -217,7 +217,7 @@ def test_mb03rz_n_zero():
 
 def test_mb03rz_n_one():
     """Test MB03RZ with N=1 (single element)."""
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     a = np.array([[3.0 + 4.0j]], dtype=np.complex128, order='F')
     pmax = 1000.0
@@ -233,7 +233,7 @@ def test_mb03rz_n_one():
 
 def test_mb03rz_invalid_jobx():
     """Test MB03RZ with invalid JOBX parameter."""
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     a = np.array([[1.0 + 0.0j]], dtype=np.complex128, order='F')
     pmax = 1000.0
@@ -246,7 +246,7 @@ def test_mb03rz_invalid_jobx():
 
 def test_mb03rz_invalid_sort():
     """Test MB03RZ with invalid SORT parameter."""
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     a = np.array([[1.0 + 0.0j]], dtype=np.complex128, order='F')
     pmax = 1000.0
@@ -259,7 +259,7 @@ def test_mb03rz_invalid_sort():
 
 def test_mb03rz_pmax_too_small():
     """Test MB03RZ with PMAX < 1."""
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     a = np.array([[1.0 + 0.0j]], dtype=np.complex128, order='F')
     pmax = 0.5
@@ -279,7 +279,7 @@ def test_mb03rz_eigenvalue_preservation():
     of an upper triangular matrix).
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(222)
     n = 5
@@ -313,7 +313,7 @@ def test_mb03rz_block_structure():
     After block-diagonalization, off-diagonal blocks should be zero.
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(333)
     n = 4
@@ -351,7 +351,7 @@ def test_mb03rz_transformation_accumulation():
     transformation. Verifies X columns have unit norm (scaled).
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(444)
     n = 3
@@ -382,7 +382,7 @@ def test_mb03rz_relative_tolerance():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb03rz
+    from ctrlsys import mb03rz
 
     np.random.seed(555)
     n = 4

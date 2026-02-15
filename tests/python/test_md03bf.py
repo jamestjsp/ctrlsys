@@ -15,7 +15,7 @@ import numpy as np
 import pytest
 
 try:
-    from slicot import md03bf
+    from ctrlsys import md03bf
     HAS_SLICOT = True
 except ImportError:
     HAS_SLICOT = False

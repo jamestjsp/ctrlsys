@@ -9,7 +9,7 @@ Also computes an accuracy norm for the computed coefficients.
 """
 import pytest
 import numpy as np
-from slicot import sb08my
+from ctrlsys import sb08my
 
 
 def test_sb08my_constant():

@@ -20,7 +20,7 @@ def test_ma02sd_basic():
     Matrix: [[1, 2, 3], [4, 5, 6]]
     Smallest nonzero absolute value = 1.0
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([[1.0, 2.0, 3.0],
                   [4.0, 5.0, 6.0]], order='F', dtype=float)
@@ -37,7 +37,7 @@ def test_ma02sd_with_zeros():
     Matrix: [[0, 0, 3], [0, 5, 0]]
     Smallest nonzero absolute value = 3.0
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([[0.0, 0.0, 3.0],
                   [0.0, 5.0, 0.0]], order='F', dtype=float)
@@ -54,7 +54,7 @@ def test_ma02sd_with_negative():
     Matrix: [[-0.5, 2], [3, -4]]
     Smallest nonzero absolute value = 0.5
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([[-0.5, 2.0],
                   [3.0, -4.0]], order='F', dtype=float)
@@ -75,7 +75,7 @@ def test_ma02sd_random():
 
     a = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
     result = ma02sd(a)
 
     expected = np.min(np.abs(a[a != 0]))
@@ -86,7 +86,7 @@ def test_ma02sd_single_element():
     """
     Test MA02SD with 1x1 matrix.
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([[7.5]], order='F', dtype=float)
 
@@ -101,7 +101,7 @@ def test_ma02sd_single_zero():
 
     Returns overflow value (very large) since no nonzero elements.
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([[0.0]], order='F', dtype=float)
 
@@ -116,7 +116,7 @@ def test_ma02sd_all_zeros():
 
     Returns overflow value (very large) since no nonzero elements.
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.zeros((3, 3), order='F', dtype=float)
 
@@ -131,7 +131,7 @@ def test_ma02sd_empty_m_zero():
 
     Returns 0.0 per Fortran spec.
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([], dtype=float, order='F').reshape(0, 3)
 
@@ -146,7 +146,7 @@ def test_ma02sd_empty_n_zero():
 
     Returns 0.0 per Fortran spec.
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([], dtype=float, order='F').reshape(3, 0)
 
@@ -166,7 +166,7 @@ def test_ma02sd_property_minimum():
 
     a = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
     result = ma02sd(a)
 
     nonzero_abs = np.abs(a[a != 0])
@@ -177,7 +177,7 @@ def test_ma02sd_column_vector():
     """
     Test MA02SD with column vector (N=1).
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([[1.0], [0.5], [2.0]], order='F', dtype=float)
 
@@ -190,7 +190,7 @@ def test_ma02sd_row_vector():
     """
     Test MA02SD with row vector (M=1).
     """
-    from slicot import ma02sd
+    from ctrlsys import ma02sd
 
     a = np.array([[1.0, 0.5, 2.0]], order='F', dtype=float)
 

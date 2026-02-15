@@ -19,7 +19,7 @@ def test_sb03pd_basic_solution():
     and validates the Lyapunov equation residual.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     np.random.seed(42)
     n = 3
@@ -58,7 +58,7 @@ def test_sb03pd_transpose_form():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     np.random.seed(123)
     n = 4
@@ -97,7 +97,7 @@ def test_sb03pd_with_separation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     np.random.seed(456)
     n = 3
@@ -125,7 +125,7 @@ def test_sb03pd_solution_and_separation():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     np.random.seed(789)
     n = 3
@@ -169,7 +169,7 @@ def test_sb03pd_with_factored_input():
 
     Uses upper triangular T (already in Schur form) with U=I.
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     n = 3
 
@@ -206,7 +206,7 @@ def test_sb03pd_zero_dimension():
     """
     Test quick return for N=0.
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     n = 0
     a = np.zeros((0, 0), order='F', dtype=float)
@@ -224,7 +224,7 @@ def test_sb03pd_eigenvalue_output():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     np.random.seed(202)
     n = 3
@@ -259,7 +259,7 @@ def test_sb03pd_complex_eigenvalue_matrix():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import sb03pd
+    from ctrlsys import sb03pd
 
     np.random.seed(303)
     n = 3

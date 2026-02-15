@@ -31,7 +31,7 @@ def test_tg01od_identity_e_basic():
 
     Creates a system with small D that requires reduction.
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(42)
     n = 3
@@ -66,7 +66,7 @@ def test_tg01od_general_e_basic():
     - Gain g relates original system to reduced system
     - Reduced system has sufficiently large feedthrough d
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(123)
     n = 3
@@ -99,7 +99,7 @@ def test_tg01od_no_reduction_needed():
 
     When |D| * (1 + max|A|) > tol * ||B|| * ||C||, no reduction occurs.
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(456)
     n = 3
@@ -127,7 +127,7 @@ def test_tg01od_no_reduction_needed():
 
 def test_tg01od_n_zero():
     """Test TG01OD with N=0 (quick return case)."""
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     n = 0
     d = 5.0
@@ -150,7 +150,7 @@ def test_tg01od_gain_computation():
     For a SISO system, g = d (original) when no reduction occurs.
     When reduction occurs, g = product of transformations * d (reduced).
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(789)
     n = 4
@@ -185,7 +185,7 @@ def test_tg01od_full_reduction():
 
     This happens when [D; B] = 0 or [D C] = 0.
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(101)
     n = 3
@@ -218,7 +218,7 @@ def test_tg01od_general_e_reduction():
     When JOBE='G', E is first triangularized via QR decomposition,
     and the algorithm reduces the system until d has large enough magnitude.
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(202)
     n = 4
@@ -248,7 +248,7 @@ def test_tg01od_general_e_reduction():
 
 def test_tg01od_invalid_jobe():
     """Test TG01OD with invalid JOBE parameter."""
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     n = 2
     dcba = np.zeros((n + 1, n + 1), dtype=float, order='F')
@@ -265,7 +265,7 @@ def test_tg01od_workspace_query():
     For JOBE='G': needs at least 2*N+1
     For JOBE='I': needs at least N+1
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(303)
     n = 5
@@ -292,7 +292,7 @@ def test_tg01od_custom_tolerance():
 
     A smaller tolerance should allow more reduction.
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(404)
     n = 3
@@ -325,7 +325,7 @@ def test_tg01od_output_dimensions():
     - Reduced DCBA: (NZ+1) x (NZ+1) in leading part
     - Reduced E: NZ x NZ in leading part (if JOBE='G')
     """
-    from slicot import tg01od
+    from ctrlsys import tg01od
 
     np.random.seed(505)
     n = 4

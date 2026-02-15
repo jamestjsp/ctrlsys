@@ -15,7 +15,7 @@ def test_mb01rd_basic_upper_notrans():
     R = alpha*R + beta*A*X*A'
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     np.random.seed(42)
     m, n = 3, 2
@@ -63,7 +63,7 @@ def test_mb01rd_basic_lower_notrans():
     R = alpha*R + beta*A*X*A'
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     np.random.seed(123)
     m, n = 3, 2
@@ -110,7 +110,7 @@ def test_mb01rd_transpose():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     np.random.seed(456)
     m, n = 2, 3
@@ -157,7 +157,7 @@ def test_mb01rd_alpha_zero():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     np.random.seed(789)
     m, n = 3, 2
@@ -195,7 +195,7 @@ def test_mb01rd_beta_zero():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     np.random.seed(999)
     m, n = 3, 2
@@ -230,7 +230,7 @@ def test_mb01rd_property_symmetry_preservation():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     np.random.seed(111)
     m, n = 4, 3
@@ -264,7 +264,7 @@ def test_mb01rd_property_identity_transform():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     np.random.seed(222)
     m = 3
@@ -306,7 +306,7 @@ def test_mb01rd_property_identity_transform():
 
 def test_mb01rd_error_invalid_uplo():
     """Test error handling: invalid UPLO parameter."""
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     m, n = 3, 2
     r = np.eye(m, order='F', dtype=float)
@@ -319,7 +319,7 @@ def test_mb01rd_error_invalid_uplo():
 
 def test_mb01rd_error_invalid_trans():
     """Test error handling: invalid TRANS parameter."""
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     m, n = 3, 2
     r = np.eye(m, order='F', dtype=float)
@@ -332,7 +332,7 @@ def test_mb01rd_error_invalid_trans():
 
 def test_mb01rd_error_m_negative():
     """Test error handling: M < 0."""
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     r = np.eye(1, order='F', dtype=float)
     a = np.eye(1, 2, order='F', dtype=float)
@@ -344,7 +344,7 @@ def test_mb01rd_error_m_negative():
 
 def test_mb01rd_error_n_negative():
     """Test error handling: N < 0."""
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     r = np.eye(3, order='F', dtype=float)
     a = np.eye(3, 1, order='F', dtype=float)
@@ -356,7 +356,7 @@ def test_mb01rd_error_n_negative():
 
 def test_mb01rd_edge_case_m_zero():
     """Test edge case: M=0."""
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     m, n = 0, 2
     r = np.zeros((1, 1), order='F', dtype=float)
@@ -369,7 +369,7 @@ def test_mb01rd_edge_case_m_zero():
 
 def test_mb01rd_edge_case_n_zero():
     """Test edge case: N=0 -> R = alpha*R."""
-    from slicot import mb01rd
+    from ctrlsys import mb01rd
 
     m, n = 3, 0
     alpha = 2.0

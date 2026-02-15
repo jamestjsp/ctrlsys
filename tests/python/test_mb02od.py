@@ -18,7 +18,7 @@ class TestMb02od:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         np.random.seed(42)
 
@@ -41,7 +41,7 @@ class TestMb02od:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         np.random.seed(123)
 
@@ -64,7 +64,7 @@ class TestMb02od:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         np.random.seed(456)
 
@@ -86,7 +86,7 @@ class TestMb02od:
         """
         Test that singular matrix returns info=1 due to poor condition number.
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         n = 3
         alpha = 1.0
@@ -107,7 +107,7 @@ class TestMb02od:
         """
         Test that alpha=0 returns zero solution without referencing A.
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         n = 2
         alpha = 0.0
@@ -127,7 +127,7 @@ class TestMb02od:
         For side='R', we use n=0 to get nrowa=0 and test quick return.
         We use a valid 1x1 dummy A matrix since lda >= max(1,nrowa) = 1.
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         m, n = 3, 0
         alpha = 1.0
@@ -146,7 +146,7 @@ class TestMb02od:
 
         With tight tolerance, a moderately-conditioned matrix should fail.
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         np.random.seed(789)
 
@@ -170,7 +170,7 @@ class TestMb02od:
 
         Random seed: 321 (for reproducibility)
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         np.random.seed(321)
 
@@ -194,7 +194,7 @@ class TestMb02od:
         This validates the equation is correctly solved, not just shapes.
         Random seed: 999 (for reproducibility)
         """
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         np.random.seed(999)
 
@@ -220,7 +220,7 @@ class TestMb02odParameterValidation:
 
     def test_invalid_side(self):
         """Test invalid SIDE parameter."""
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         a = np.eye(2, order='F', dtype=float)
         b = np.ones((2, 1), order='F', dtype=float)
@@ -230,7 +230,7 @@ class TestMb02odParameterValidation:
 
     def test_invalid_uplo(self):
         """Test invalid UPLO parameter."""
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         a = np.eye(2, order='F', dtype=float)
         b = np.ones((2, 1), order='F', dtype=float)
@@ -240,7 +240,7 @@ class TestMb02odParameterValidation:
 
     def test_invalid_trans(self):
         """Test invalid TRANS parameter."""
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         a = np.eye(2, order='F', dtype=float)
         b = np.ones((2, 1), order='F', dtype=float)
@@ -250,7 +250,7 @@ class TestMb02odParameterValidation:
 
     def test_invalid_diag(self):
         """Test invalid DIAG parameter."""
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         a = np.eye(2, order='F', dtype=float)
         b = np.ones((2, 1), order='F', dtype=float)
@@ -260,7 +260,7 @@ class TestMb02odParameterValidation:
 
     def test_invalid_norm(self):
         """Test invalid NORM parameter."""
-        from slicot import mb02od
+        from ctrlsys import mb02od
 
         a = np.eye(2, order='F', dtype=float)
         b = np.ones((2, 1), order='F', dtype=float)

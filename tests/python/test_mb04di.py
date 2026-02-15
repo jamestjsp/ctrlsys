@@ -12,7 +12,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb04di, mb04dd
+from ctrlsys import mb04di, mb04dd
 
 
 def test_mb04di_no_transform():

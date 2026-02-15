@@ -27,7 +27,7 @@ def test_tg01oa_identity_e():
     - Q'*B should have only first element nonzero
     - The transformation preserves eigenvalues of A
     """
-    from slicot import tg01oa
+    from ctrlsys import tg01oa
 
     np.random.seed(42)
     n = 3
@@ -79,7 +79,7 @@ def test_tg01oa_upper_triangular_e():
     - Q'*E*Z remains upper triangular
     - Generalized eigenvalues preserved
     """
-    from slicot import tg01oa
+    from ctrlsys import tg01oa
 
     np.random.seed(123)
     n = 4
@@ -119,7 +119,7 @@ def test_tg01oa_upper_triangular_e():
 
 def test_tg01oa_n_zero():
     """Test TG01OA with N=0 (quick return case)."""
-    from slicot import tg01oa
+    from ctrlsys import tg01oa
 
     n = 0
     dcba = np.array([[1.0]], dtype=float, order='F')
@@ -135,7 +135,7 @@ def test_tg01oa_n_one():
     """
     Test TG01OA with N=1 (quick return case, B already has only one element).
     """
-    from slicot import tg01oa
+    from ctrlsys import tg01oa
 
     n = 1
     dcba = np.array([
@@ -156,7 +156,7 @@ def test_tg01oa_n_one():
 
 def test_tg01oa_invalid_jobe():
     """Test TG01OA with invalid JOBE parameter."""
-    from slicot import tg01oa
+    from ctrlsys import tg01oa
 
     n = 2
     dcba = np.zeros((n + 1, n + 1), dtype=float, order='F')
@@ -174,7 +174,7 @@ def test_tg01oa_b_norm_preservation():
 
     Since Q is orthogonal: ||Q'*B|| = ||B||
     """
-    from slicot import tg01oa
+    from ctrlsys import tg01oa
 
     np.random.seed(456)
     n = 5
@@ -207,7 +207,7 @@ def test_tg01oa_zero_b():
 
     The routine should not modify anything since no rotations needed.
     """
-    from slicot import tg01oa
+    from ctrlsys import tg01oa
 
     np.random.seed(789)
     n = 3

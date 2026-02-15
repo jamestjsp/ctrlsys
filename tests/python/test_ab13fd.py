@@ -29,7 +29,7 @@ def test_ab13fd_html_example():
     - A is a 4x4 matrix (read row-wise in Fortran)
     - Expected: beta = 0.39196472317D-02, omega = 0.98966520430D+00
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     a = np.array([
         [246.500, 242.500, 202.500, -197.500],
@@ -58,7 +58,7 @@ def test_ab13fd_diagonal_stable():
     The minimum singular value of (A - jwI) is min_i sqrt(lambda_i^2 + w^2).
     This is minimized at w=0, giving min(|lambda_i|) = 1.0.
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')
 
@@ -74,7 +74,7 @@ def test_ab13fd_zero_dimension():
     """
     Validate AB13FD handles N=0 (quick return).
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     a = np.zeros((0, 0), order='F', dtype=float)
 
@@ -92,7 +92,7 @@ def test_ab13fd_single_eigenvalue():
 
     For A = [-2], beta(A) = 2.0 (distance to imaginary axis).
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     a = np.array([[-2.0]], order='F', dtype=float)
 
@@ -113,7 +113,7 @@ def test_ab13fd_stable_system_positive_beta():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     np.random.seed(42)
     n = 4
@@ -143,7 +143,7 @@ def test_ab13fd_beta_upper_bound():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     np.random.seed(123)
     n = 3
@@ -176,7 +176,7 @@ def test_ab13fd_svd_property():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     np.random.seed(42)
     n = 3
@@ -202,7 +202,7 @@ def test_ab13fd_near_marginal_stability():
 
     Matrix with eigenvalue close to imaginary axis should have small beta.
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     # A has eigenvalue at -0.001 (very close to imaginary axis)
     a = np.array([[-0.001]], order='F', dtype=float)
@@ -223,7 +223,7 @@ def test_ab13fd_complex_eigenvalues():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13fd
+    from ctrlsys import ab13fd
 
     # 2x2 rotation-type matrix with eigenvalues -1 +/- j
     a = np.array([

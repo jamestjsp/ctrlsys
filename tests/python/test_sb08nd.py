@@ -11,7 +11,7 @@ Tests derived from SLICOT HTML documentation example.
 import numpy as np
 import pytest
 
-from slicot import sb08nd
+from ctrlsys import sb08nd
 
 
 class TestSB08NDBasic:
@@ -82,7 +82,7 @@ class TestSB08NDMathematicalProperties:
         e, b, res, info = sb08nd('A', da, a)
         assert info == 0
 
-        from slicot import sb08ny
+        from ctrlsys import sb08ny
         b_from_e, _ = sb08ny(e)
         np.testing.assert_allclose(b_from_e, b, rtol=1e-10)
 

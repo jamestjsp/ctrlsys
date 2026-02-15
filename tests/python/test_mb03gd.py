@@ -21,7 +21,7 @@ def test_mb03gd_n2_basic():
     For N=2, Q and U are Givens rotations computed from B and D.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     n = 2
 
@@ -50,7 +50,7 @@ def test_mb03gd_n2_orthogonality():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     np.random.seed(123)
 
@@ -87,7 +87,7 @@ def test_mb03gd_n4_basic():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     n = 4
 
@@ -121,7 +121,7 @@ def test_mb03gd_n4_orthogonality():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     np.random.seed(789)
 
@@ -166,7 +166,7 @@ def test_mb03gd_n4_u_symplectic():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     np.random.seed(888)
 
@@ -208,7 +208,7 @@ def test_mb03gd_singular_b11():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     n = 4
 
@@ -237,7 +237,7 @@ def test_mb03gd_n2_determinant():
 
     Random seed: 1111 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     np.random.seed(1111)
 
@@ -268,7 +268,7 @@ def test_mb03gd_n4_determinant():
 
     Random seed: 2222 (for reproducibility)
     """
-    from slicot import mb03gd
+    from ctrlsys import mb03gd
 
     np.random.seed(2222)
 

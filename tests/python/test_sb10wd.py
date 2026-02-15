@@ -18,7 +18,7 @@ where:
 
 import numpy as np
 import pytest
-from slicot import sb10wd
+from ctrlsys import sb10wd
 
 
 class TestSB10WDBasic:

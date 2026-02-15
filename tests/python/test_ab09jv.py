@@ -22,7 +22,7 @@ For JOB='C', the stable projection of conj(V)*G is computed using:
 
 import numpy as np
 import pytest
-from slicot import ab09jv
+from ctrlsys import ab09jv
 
 
 class TestAB09JVBasic:

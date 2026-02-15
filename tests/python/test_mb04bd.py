@@ -11,7 +11,7 @@ def test_mb04bd_html_example():
     Computes eigenvalues of skew-Hamiltonian/Hamiltonian pencil aS - bH.
     JOB='T', COMPQ1='I', COMPQ2='I', N=8
     """
-    from slicot import mb04bd
+    from ctrlsys import mb04bd
 
     n = 8
     m = n // 2
@@ -96,7 +96,7 @@ def test_mb04bd_eigenvalues_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04bd
+    from ctrlsys import mb04bd
 
     np.random.seed(42)
     n = 4
@@ -121,7 +121,7 @@ def test_mb04bd_eigenvalues_only():
 
 def test_mb04bd_n_zero():
     """Test MB04BD with N=0 (quick return)."""
-    from slicot import mb04bd
+    from ctrlsys import mb04bd
 
     a = np.array([], dtype=float, order='F').reshape(0, 0)
     de = np.array([], dtype=float, order='F').reshape(0, 1)
@@ -140,7 +140,7 @@ def test_mb04bd_n_zero():
 
 def test_mb04bd_invalid_n():
     """Test MB04BD with invalid N (odd)."""
-    from slicot import mb04bd
+    from ctrlsys import mb04bd
 
     # N must be even - provide N=3 (odd) via incorrect array sizes
     a = np.array([[1.0]], dtype=float, order='F')  # Would correspond to N=2
@@ -166,7 +166,7 @@ def test_mb04bd_eigenvalue_structure():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04bd
+    from ctrlsys import mb04bd
 
     np.random.seed(123)
     n = 6
@@ -196,7 +196,7 @@ def test_mb04bd_orthogonality_q1_q2():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04bd
+    from ctrlsys import mb04bd
 
     np.random.seed(456)
     n = 8
@@ -226,7 +226,7 @@ def test_mb04bd_update_mode():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04bd
+    from ctrlsys import mb04bd
 
     np.random.seed(789)
     n = 4

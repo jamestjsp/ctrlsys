@@ -17,7 +17,7 @@ def test_sb03td_basic():
 
     N=3, JOB='A' (compute all), FACT='N', TRANA='N', UPLO='U', LYAPUN='O'
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     n = 3
     # A matrix (read row-wise from HTML)
@@ -59,7 +59,7 @@ def test_sb03td_solution_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(42)
     n = 4
@@ -94,7 +94,7 @@ def test_sb03td_transpose():
     Solves: A*X + X*A' = scale*C
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(123)
     n = 3
@@ -126,7 +126,7 @@ def test_sb03td_lower_triangle():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(456)
     n = 3
@@ -158,7 +158,7 @@ def test_sb03td_reduced_lyapunov():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(789)
     n = 3
@@ -195,7 +195,7 @@ def test_sb03td_condition_number():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(111)
     n = 3
@@ -229,7 +229,7 @@ def test_sb03td_separation_only():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(222)
     n = 3
@@ -256,7 +256,7 @@ def test_sb03td_error_bound():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(333)
     n = 3
@@ -290,7 +290,7 @@ def test_sb03td_symmetry_preservation():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     np.random.seed(444)
     n = 5
@@ -318,7 +318,7 @@ def test_sb03td_zero_dimension():
     """
     Test SB03TD with N=0 (quick return).
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     n = 0
     a = np.array([], dtype=float, order='F').reshape(0, 0)
@@ -338,7 +338,7 @@ def test_sb03td_invalid_job():
     """
     Test SB03TD with invalid JOB parameter.
     """
-    from slicot import sb03td
+    from ctrlsys import sb03td
 
     n = 3
     a = np.eye(n, dtype=float, order='F')

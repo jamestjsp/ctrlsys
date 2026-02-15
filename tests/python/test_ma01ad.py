@@ -12,7 +12,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import ma01ad
+from ctrlsys import ma01ad
 
 
 def test_ma01ad_positive_real():

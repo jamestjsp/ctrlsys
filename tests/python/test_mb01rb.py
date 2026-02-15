@@ -24,7 +24,7 @@ def test_mb01rb_side_left_upper():
     r_expected = alpha * r_original + beta * (a @ b)
     r_expected = np.triu(r_expected)
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('L', 'U', 'N', m, n, alpha, beta, r, a, b)
 
@@ -54,7 +54,7 @@ def test_mb01rb_side_left_lower():
     r_expected = alpha * r_original + beta * (a @ b)
     r_expected = np.tril(r_expected)
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('L', 'L', 'N', m, n, alpha, beta, r, a, b)
 
@@ -84,7 +84,7 @@ def test_mb01rb_side_right_upper():
     r_expected = alpha * r_original + beta * (b @ a)
     r_expected = np.triu(r_expected)
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('R', 'U', 'N', m, n, alpha, beta, r, a, b)
 
@@ -114,7 +114,7 @@ def test_mb01rb_transpose_left_upper():
     r_expected = alpha * r_original + beta * (a.T @ b)
     r_expected = np.triu(r_expected)
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('L', 'U', 'T', m, n, alpha, beta, r, a, b)
 
@@ -141,7 +141,7 @@ def test_mb01rb_alpha_zero():
     r_expected = beta * (a @ b)
     r_expected = np.triu(r_expected)
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('L', 'U', 'N', m, n, alpha, beta, r, a, b)
 
@@ -169,7 +169,7 @@ def test_mb01rb_beta_zero():
     r_expected = alpha * r
     r_expected = np.triu(r_expected)
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('L', 'U', 'N', m, n, alpha, beta, r, a, b)
 
@@ -188,7 +188,7 @@ def test_mb01rb_zero_dimensions():
     a = np.zeros((max(1, m), max(1, n)), dtype=float, order='F')
     b = np.zeros((max(1, n), max(1, m)), dtype=float, order='F')
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('L', 'U', 'N', m, n, alpha, beta, r, a, b)
 
@@ -216,7 +216,7 @@ def test_mb01rb_symmetric_property():
     r_expected = a @ b
     r_upper = np.triu(r_expected)
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     r_out, info = mb01rb('L', 'U', 'N', m, n, alpha, beta, r.copy(), a, b)
 
@@ -235,7 +235,7 @@ def test_mb01rb_error_invalid_side():
     a = np.zeros((m, n), dtype=float, order='F')
     b = np.zeros((n, m), dtype=float, order='F')
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     with pytest.raises(ValueError, match="Parameter 1"):
         mb01rb('X', 'U', 'N', m, n, alpha, beta, r, a, b)
@@ -252,7 +252,7 @@ def test_mb01rb_error_invalid_uplo():
     a = np.zeros((m, n), dtype=float, order='F')
     b = np.zeros((n, m), dtype=float, order='F')
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     with pytest.raises(ValueError, match="Parameter 2"):
         mb01rb('L', 'X', 'N', m, n, alpha, beta, r, a, b)
@@ -269,7 +269,7 @@ def test_mb01rb_error_negative_m():
     a = np.zeros((1, 1), dtype=float, order='F')
     b = np.zeros((1, 1), dtype=float, order='F')
 
-    from slicot import mb01rb
+    from ctrlsys import mb01rb
 
     with pytest.raises(ValueError, match="m"):
         mb01rb('L', 'U', 'N', m, n, alpha, beta, r, a, b)

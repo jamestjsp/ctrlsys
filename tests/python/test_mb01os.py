@@ -7,7 +7,7 @@ Test data generated using NumPy with deterministic seeds for reproducibility.
 
 import numpy as np
 import pytest
-from slicot import mb01os
+from ctrlsys import mb01os
 
 
 def make_symmetric(a):

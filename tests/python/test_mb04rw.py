@@ -25,7 +25,7 @@ class TestMB04RW:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         np.random.seed(42)
 
@@ -64,7 +64,7 @@ class TestMB04RW:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         np.random.seed(123)
 
@@ -114,7 +114,7 @@ class TestMB04RW:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         np.random.seed(456)
 
@@ -162,7 +162,7 @@ class TestMB04RW:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         np.random.seed(789)
 
@@ -208,7 +208,7 @@ class TestMB04RW:
         """
         Test quick return for zero dimensions.
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         m, n = 0, 0
         pmax = 1e6
@@ -229,7 +229,7 @@ class TestMB04RW:
         """
         Test M=0, N>0 case.
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         m, n = 0, 3
         pmax = 1e6
@@ -254,7 +254,7 @@ class TestMB04RW:
         """
         Test that INFO=1 is returned when solution exceeds PMAX.
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         m, n = 2, 2
         pmax = 0.001  # Very small threshold
@@ -283,7 +283,7 @@ class TestMB04RW:
 
         Random seed: 555 (for reproducibility)
         """
-        from slicot import mb04rw, mb04rv
+        from ctrlsys import mb04rw, mb04rv
 
         np.random.seed(555)
 
@@ -333,7 +333,7 @@ class TestMB04RW:
 
         Random seed: 666 (for reproducibility)
         """
-        from slicot import mb04rw
+        from ctrlsys import mb04rw
 
         np.random.seed(666)
 

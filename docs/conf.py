@@ -1,9 +1,9 @@
 from importlib.metadata import version as get_version
 
-project = 'slicot'
+project = 'ctrlsys'
 copyright = '2024, James Joseph'
 author = 'James Joseph'
-release = get_version('slicot')
+release = get_version('ctrlsys')
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -13,13 +13,13 @@ extensions = [
     'sphinx_llms_txt',
 ]
 
-html_baseurl = 'https://slicot.readthedocs.io/en/latest/'
+html_baseurl = 'https://ctrlsys.readthedocs.io/en/latest/'
 
-llms_txt_title = 'SLICOT - Control Theory Library for Python'
+llms_txt_title = 'ctrlsys - Control Theory Library for Python'
 llms_txt_summary = (
     'Python bindings for SLICOT (Subroutine Library in Control Theory). '
     'C11 translation of the classic Fortran77 library with 578 numerical '
-    'routines for systems and control. Install: pip install slicot. '
+    'routines for systems and control. Install: pip install ctrlsys. '
     'All arrays must use Fortran column-major order (order="F"). '
     'Functions return tuples; last element is info (0=success, <0=bad arg, >0=algorithm error).'
 )

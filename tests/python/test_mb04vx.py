@@ -7,7 +7,7 @@ This is similar to MB04TX but with NBLCKS as input-only and MNEI having 3 elemen
 
 import numpy as np
 import pytest
-from slicot import mb04vx
+from ctrlsys import mb04vx
 
 
 class TestMB04VXBasic:

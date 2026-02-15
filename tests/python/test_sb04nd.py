@@ -20,7 +20,7 @@ def test_sb04nd_html_doc_example():
     Problem: AX + XB = C with A in upper Hessenberg, B in upper Schur form.
     Data from SB04ND.html Program Data/Results.
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     n = 5
     m = 3
@@ -74,7 +74,7 @@ def test_sb04nd_residual_property():
     Uses random upper Schur matrices A, B and random C.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     np.random.seed(42)
     n = 4
@@ -110,7 +110,7 @@ def test_sb04nd_a_schur_b_hessenberg():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     np.random.seed(123)
     n = 3
@@ -147,7 +147,7 @@ def test_sb04nd_lower_triangular():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     np.random.seed(456)
     n = 3
@@ -180,7 +180,7 @@ def test_sb04nd_near_singular():
 
     Should return info=1 when matrices are nearly singular.
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     n = 2
     m = 2
@@ -206,7 +206,7 @@ def test_sb04nd_empty_dimensions():
     """
     Test with zero dimensions (quick return case).
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     # N=0 case
     a = np.zeros((0, 0), dtype=float, order='F')
@@ -224,7 +224,7 @@ def test_sb04nd_1x1():
 
     AX + XB = C => a*x + x*b = c => x = c / (a + b)
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     a = np.array([[3.0]], dtype=float, order='F')
     b = np.array([[2.0]], dtype=float, order='F')
@@ -243,7 +243,7 @@ def test_sb04nd_2x2_real_schur():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04nd
+    from ctrlsys import sb04nd
 
     np.random.seed(789)
 

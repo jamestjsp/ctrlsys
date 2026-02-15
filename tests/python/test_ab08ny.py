@@ -17,7 +17,7 @@ AB08NY differs from AB08NX in that:
 """
 import numpy as np
 import pytest
-from slicot import ab08ny
+from ctrlsys import ab08ny
 
 
 def test_simple_siso_first():
@@ -636,7 +636,7 @@ def test_pr_matches_normal_rank():
     """
     Verify PR (normal rank) from AB08NY matches AB08MD for the same system.
     """
-    from slicot import ab08md
+    from ctrlsys import ab08md
 
     np.random.seed(900)
     n, m, p = 4, 2, 3

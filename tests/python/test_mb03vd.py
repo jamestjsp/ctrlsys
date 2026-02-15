@@ -12,7 +12,7 @@ import numpy as np
 from numpy.testing import assert_allclose
 import pytest
 
-from slicot import mb03vd
+from ctrlsys import mb03vd
 
 
 """Basic functionality tests from HTML documentation example."""

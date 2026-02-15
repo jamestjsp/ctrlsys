@@ -11,7 +11,7 @@ The pencil A - lambda*E must be c-stable (eigenvalues with negative real parts).
 
 import numpy as np
 import pytest
-from slicot import sg03bt
+from ctrlsys import sg03bt
 
 
 def test_sg03bt_basic_trans_n():

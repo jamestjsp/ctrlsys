@@ -12,7 +12,7 @@ For these matrix types, the infinity norm equals the one norm.
 
 import numpy as np
 import pytest
-from slicot import ma02iz
+from ctrlsys import ma02iz
 
 
 def build_skew_hamiltonian(a, qg, n):

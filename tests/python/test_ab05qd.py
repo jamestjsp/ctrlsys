@@ -10,7 +10,7 @@ AB05QD constructs G = diag(G1, G2) where:
 
 import numpy as np
 import pytest
-from slicot import ab05qd
+from ctrlsys import ab05qd
 
 
 """Basic functionality tests using SLICOT HTML doc example."""

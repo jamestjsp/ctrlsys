@@ -7,7 +7,7 @@ Non-interactive version for library use.
 
 import numpy as np
 import pytest
-from slicot import ib01oy
+from ctrlsys import ib01oy
 
 
 def test_ib01oy_basic():

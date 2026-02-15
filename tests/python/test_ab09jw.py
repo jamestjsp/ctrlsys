@@ -22,7 +22,7 @@ For JOB='C', the stable projection of G*conj(W) is computed using:
 
 import numpy as np
 import pytest
-from slicot import ab09jw
+from ctrlsys import ab09jw
 
 
 class TestAB09JWBasic:

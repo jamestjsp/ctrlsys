@@ -13,7 +13,7 @@ where Ac1 contains unstable eigenvalues and Ac2 contains stable eigenvalues.
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 def test_no_weighting_continuous():

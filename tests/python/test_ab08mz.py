@@ -8,7 +8,7 @@ to one with the same invariant zeros and with D of full row rank.
 
 import numpy as np
 import pytest
-from slicot import ab08mz
+from ctrlsys import ab08mz
 
 
 """Basic functionality tests for AB08MZ."""

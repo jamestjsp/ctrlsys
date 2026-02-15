@@ -16,7 +16,7 @@ import numpy as np
 from numpy.testing import assert_allclose
 import pytest
 
-from slicot import mb03vd, mb03vy
+from ctrlsys import mb03vd, mb03vy
 
 
 """Basic functionality tests."""

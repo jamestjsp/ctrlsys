@@ -34,7 +34,7 @@ def test_mb03ai_single_shift():
     For single shift, C2 = 1 and S2 = 0.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(42)
 
@@ -72,7 +72,7 @@ def test_mb03ai_double_shift():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(123)
 
@@ -111,7 +111,7 @@ def test_mb03ai_negative_signature():
     Tests S(AI) != SINV branch in the algorithm (uses DTRSM instead of DTRMM).
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(789)
 
@@ -147,7 +147,7 @@ def test_mb03ai_three_factors():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(111)
 
@@ -191,7 +191,7 @@ def test_mb03ai_givens_rotation_property():
     This tests all shift types produce valid Givens rotations.
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(222)
 
@@ -236,7 +236,7 @@ def test_mb03ai_mixed_signature():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(333)
 
@@ -280,7 +280,7 @@ def test_mb03ai_negative_sinv():
     When SINV is negative, shifts correspond to reciprocals of eigenvalues.
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(444)
 
@@ -319,7 +319,7 @@ def test_mb03ai_eigenvalue_based_shift():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(555)
 
@@ -362,7 +362,7 @@ def test_mb03ai_small_k_n():
     This tests the edge case where the routine handles minimal dimensions.
     Random seed: 666 (for reproducibility)
     """
-    from slicot import mb03ai
+    from ctrlsys import mb03ai
 
     np.random.seed(666)
 

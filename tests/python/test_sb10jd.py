@@ -12,7 +12,7 @@ Uses SVD decomposition for descriptor elimination.
 """
 import numpy as np
 import pytest
-from slicot import sb10jd
+from ctrlsys import sb10jd
 
 
 """Basic functionality tests."""

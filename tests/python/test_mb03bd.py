@@ -31,7 +31,7 @@ def test_mb03bd_html_example():
     (0.3230 - 0.5694j)/1.0 * 2^0 = 0.3230 - 0.5694j
     (-0.8752)/1.0 * 2^(-1) = -0.4376
     """
-    from slicot import mb03bd
+    from ctrlsys import mb03bd
 
     k = 3
     n = 3
@@ -115,7 +115,7 @@ def test_mb03bd_single_factor():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03bd
+    from ctrlsys import mb03bd
 
     np.random.seed(42)
     n = 4
@@ -171,7 +171,7 @@ def test_mb03bd_eigenvalue_product_trace():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03bd
+    from ctrlsys import mb03bd
 
     np.random.seed(123)
     n = 3
@@ -223,7 +223,7 @@ def test_mb03bd_schur_form_output():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03bd
+    from ctrlsys import mb03bd
 
     np.random.seed(456)
     n = 4
@@ -263,7 +263,7 @@ def test_mb03bd_orthogonal_factors():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03bd
+    from ctrlsys import mb03bd
 
     np.random.seed(789)
     n = 3
@@ -298,7 +298,7 @@ def test_mb03bd_zero_dimension():
     """
     Validate N=0 edge case (quick return).
     """
-    from slicot import mb03bd
+    from ctrlsys import mb03bd
 
     k = 2
     n = 0
@@ -328,7 +328,7 @@ def test_mb03bd_negative_signature():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb03bd
+    from ctrlsys import mb03bd
 
     np.random.seed(999)
     n = 3

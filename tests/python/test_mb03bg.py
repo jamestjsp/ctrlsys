@@ -8,7 +8,7 @@ one factor is upper Hessenberg and the rest are upper triangular.
 
 import numpy as np
 import pytest
-from slicot import mb03bg
+from ctrlsys import mb03bg
 
 
 def test_mb03bg_basic_2x2_single_factor():

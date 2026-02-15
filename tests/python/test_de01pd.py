@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import de01pd
+from ctrlsys import de01pd
 
 
 def test_convolution_doc_example():

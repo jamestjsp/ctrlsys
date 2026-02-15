@@ -6,7 +6,7 @@ Estimates reciprocal condition number using LU factorization from MB02SZ.
 
 import numpy as np
 import pytest
-from slicot import mb02sz, mb02tz
+from ctrlsys import mb02sz, mb02tz
 
 
 """Basic functionality tests."""

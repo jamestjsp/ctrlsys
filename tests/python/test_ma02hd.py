@@ -15,7 +15,7 @@ Property tests verify:
 """
 import numpy as np
 import pytest
-from slicot import ma02hd
+from ctrlsys import ma02hd
 
 
 def test_ma02hd_identity_basic():

@@ -10,7 +10,7 @@ Q(s)*inv(P(s)) <-> inv(P(s))*Q(s)
 
 import numpy as np
 import pytest
-from slicot import tc01od
+from ctrlsys import tc01od
 
 
 """Basic functionality tests using HTML doc example."""

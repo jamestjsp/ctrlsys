@@ -53,7 +53,7 @@ def test_sb04ry_upper_row_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     np.random.seed(42)
     m = 4
@@ -84,7 +84,7 @@ def test_sb04ry_upper_col_basic():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     np.random.seed(123)
     m = 3
@@ -113,7 +113,7 @@ def test_sb04ry_lower_row_basic():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     np.random.seed(456)
     m = 4
@@ -144,7 +144,7 @@ def test_sb04ry_lower_col_basic():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     np.random.seed(789)
     m = 3
@@ -171,7 +171,7 @@ def test_sb04ry_m_zero():
     """
     Test edge case M=0 (quick return).
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     m = 0
     a = np.zeros((0, 0), dtype=float, order='F')
@@ -191,7 +191,7 @@ def test_sb04ry_m_one():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     np.random.seed(101)
     m = 1
@@ -219,7 +219,7 @@ def test_sb04ry_singular_system():
 
     Set lambda = -1/a so that I + lambda*A becomes singular.
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     m = 2
     a = np.eye(m, dtype=float, order='F')
@@ -242,7 +242,7 @@ def test_sb04ry_solution_property():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     np.random.seed(202)
     m = 5
@@ -274,7 +274,7 @@ def test_sb04ry_identity_case():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import sb04ry
+    from ctrlsys import sb04ry
 
     np.random.seed(303)
     m = 3

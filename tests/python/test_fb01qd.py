@@ -17,7 +17,7 @@ class TestFB01QDBasic:
 
         From SLICOT HTML documentation - program runs 3 iterations.
         """
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         n, m, p = 4, 2, 2
 
@@ -92,7 +92,7 @@ class TestFB01QDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         np.random.seed(42)
         n, m, p = 3, 2, 2
@@ -141,7 +141,7 @@ class TestFB01QDEdgeCases:
 
     def test_n_equals_zero(self):
         """Test quick return when n=0."""
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         n, m, p = 0, 2, 2
 
@@ -164,7 +164,7 @@ class TestFB01QDEdgeCases:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         np.random.seed(123)
         n, m, p = 3, 2, 2
@@ -197,7 +197,7 @@ class TestFB01QDMathematicalProperties:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         np.random.seed(456)
         n, m, p = 4, 2, 2
@@ -239,7 +239,7 @@ class TestFB01QDMathematicalProperties:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         np.random.seed(789)
         n, m, p = 3, 2, 2
@@ -281,7 +281,7 @@ class TestFB01QDErrorHandling:
 
     def test_invalid_jobk(self):
         """Test invalid JOBK parameter."""
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         n, m, p = 2, 2, 2
         s = np.eye(n, order='F', dtype=float)
@@ -296,7 +296,7 @@ class TestFB01QDErrorHandling:
 
     def test_invalid_multbq(self):
         """Test invalid MULTBQ parameter."""
-        from slicot import fb01qd
+        from ctrlsys import fb01qd
 
         n, m, p = 2, 2, 2
         s = np.eye(n, order='F', dtype=float)

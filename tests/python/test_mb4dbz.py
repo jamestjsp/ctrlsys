@@ -8,7 +8,7 @@ computed by MB4DPZ, to the complex matrix [[V1], [sgn*V2]].
 import numpy as np
 import pytest
 
-from slicot import mb4dbz
+from ctrlsys import mb4dbz
 
 
 class TestMB4DBZBasic:

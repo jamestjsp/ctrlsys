@@ -28,7 +28,7 @@ def test_mb03iz_basic():
     3. Q is unitary (Q @ Q.conj().T = I) when COMPQ='I'
     4. U is unitary symplectic when COMPU='I'
     """
-    from slicot import mb03iz
+    from ctrlsys import mb03iz
 
     np.random.seed(42)
 
@@ -89,7 +89,7 @@ def test_mb03iz_no_transform():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03iz
+    from ctrlsys import mb03iz
 
     np.random.seed(123)
 
@@ -135,7 +135,7 @@ def test_mb03iz_zero_dimension():
     """
     Test with N=0 (quick return case).
     """
-    from slicot import mb03iz
+    from ctrlsys import mb03iz
 
     n = 0
 
@@ -159,7 +159,7 @@ def test_mb03iz_invalid_n_odd():
     """
     Test error handling for odd N (N must be even).
     """
-    from slicot import mb03iz
+    from ctrlsys import mb03iz
 
     n = 3
 
@@ -185,7 +185,7 @@ def test_mb03iz_update_mode():
     Random seed: 456 (for reproducibility)
     Validates that existing Q and U matrices are updated correctly.
     """
-    from slicot import mb03iz
+    from ctrlsys import mb03iz
 
     np.random.seed(456)
 
@@ -243,7 +243,7 @@ def test_mb03iz_transformation_consistency():
     Random seed: 789 (for reproducibility)
     Validates: Zout = U' * Z * Q and Hout = J * Q' * J' * H * Q
     """
-    from slicot import mb03iz
+    from ctrlsys import mb03iz
 
     np.random.seed(789)
 
@@ -308,7 +308,7 @@ def test_mb03iz_determinant_preserved():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb03iz
+    from ctrlsys import mb03iz
 
     np.random.seed(999)
 

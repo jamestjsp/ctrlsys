@@ -12,7 +12,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb04db
+from ctrlsys import mb04db
 
 
 def test_mb04db_no_operation():

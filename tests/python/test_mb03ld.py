@@ -7,7 +7,7 @@ Test data from SLICOT HTML documentation example.
 
 import numpy as np
 import pytest
-from slicot import mb03ld
+from ctrlsys import mb03ld
 
 
 class TestMB03LDBasic:

@@ -29,7 +29,7 @@ def test_continuous_basic():
     Continuous-time Riccati equation with factored Q and R.
     N=2, M=1, P=3, DICO='C', JOBB='B', FACT='B', UPLO='U', JOBL='Z'
     """
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     n = 2
     m = 1
@@ -99,7 +99,7 @@ def test_continuous_identity_e():
     This reduces to standard continuous-time Riccati equation.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     np.random.seed(42)
     n = 3
@@ -158,7 +158,7 @@ def test_discrete_basic():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     np.random.seed(123)
     n = 2
@@ -217,7 +217,7 @@ def test_solution_symmetry():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     np.random.seed(456)
     n = 3
@@ -267,7 +267,7 @@ def test_closed_loop_stability_continuous():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     np.random.seed(789)
     n = 2
@@ -318,7 +318,7 @@ def test_closed_loop_stability_continuous():
 
 def test_zero_dimension():
     """Test with n=0 (quick return)."""
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     n = 0
     m = 0
@@ -349,7 +349,7 @@ def test_zero_dimension():
 
 def test_small_system():
     """Test with n=1, m=1 (smallest non-trivial case)."""
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     n = 1
     m = 1
@@ -386,7 +386,7 @@ def test_with_scaling():
     """
     Test with scaling enabled (SCAL='G').
     """
-    from slicot import sg02ad
+    from ctrlsys import sg02ad
 
     n = 2
     m = 1

@@ -6,7 +6,7 @@ overflow and perturbation of near-singular matrices.
 """
 import numpy as np
 import pytest
-from slicot import mb02uw
+from ctrlsys import mb02uw
 
 
 class TestMB02UWBasic:

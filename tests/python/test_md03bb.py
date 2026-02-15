@@ -13,7 +13,7 @@ Key output relationships:
 """
 import numpy as np
 import pytest
-from slicot import md03bb
+from ctrlsys import md03bb
 
 
 def test_md03bb_basic():

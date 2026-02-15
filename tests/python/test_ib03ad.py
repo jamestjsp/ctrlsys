@@ -13,7 +13,7 @@ import numpy as np
 import pytest
 
 try:
-    from slicot import ib03ad
+    from ctrlsys import ib03ad
     HAS_IB03AD = True
 except ImportError:
     HAS_IB03AD = False

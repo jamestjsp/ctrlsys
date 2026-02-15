@@ -10,7 +10,7 @@ ALPHA-stable part of the system.
 
 import numpy as np
 import pytest
-from slicot import ab09ed
+from ctrlsys import ab09ed
 
 
 class TestAB09EDBasic:

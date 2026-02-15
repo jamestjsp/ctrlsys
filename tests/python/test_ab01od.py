@@ -9,7 +9,7 @@ rank subdiagonal blocks.
 
 import numpy as np
 import pytest
-from slicot import ab01od
+from ctrlsys import ab01od
 
 
 """Basic functionality tests from HTML documentation example."""

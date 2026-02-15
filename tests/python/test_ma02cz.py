@@ -16,7 +16,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import ma02cz
+from ctrlsys import ma02cz
 
 
 def pertranspose_band_reference(a, kl, ku):

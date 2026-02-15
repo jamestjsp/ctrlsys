@@ -18,7 +18,7 @@ class TestMB03FDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(42)
 
@@ -49,7 +49,7 @@ class TestMB03FDBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(123)
 
@@ -80,7 +80,7 @@ class TestMB03FDBasic:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(456)
 
@@ -109,7 +109,7 @@ class TestMB03FDBasic:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(789)
 
@@ -138,7 +138,7 @@ class TestMB03FDBasic:
 
         Random seed: 111 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(111)
 
@@ -167,7 +167,7 @@ class TestMB03FDBasic:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(222)
 
@@ -198,7 +198,7 @@ class TestMB03FDBasic:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(333)
 
@@ -233,7 +233,7 @@ class TestMB03FDBasic:
 
         Random seed: 444 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(444)
 
@@ -270,7 +270,7 @@ class TestMB03FDMathematicalProperties:
 
         Random seed: 500 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(500)
 
@@ -300,7 +300,7 @@ class TestMB03FDMathematicalProperties:
 
         Random seed: 501 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(501)
 
@@ -330,7 +330,7 @@ class TestMB03FDMathematicalProperties:
 
         Random seed: 502 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(502)
 
@@ -364,7 +364,7 @@ class TestMB03FDMathematicalProperties:
 
         Random seed: 503 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(503)
 
@@ -401,7 +401,7 @@ class TestMB03FDMathematicalProperties:
 
         Random seed: 600 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(600)
 
@@ -439,7 +439,7 @@ class TestMB03FDMathematicalProperties:
 
         Random seed: 700 (for reproducibility)
         """
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         np.random.seed(700)
 
@@ -480,7 +480,7 @@ class TestMB03FDErrorHandling:
 
     def test_invalid_n(self):
         """Test error for N not in {2, 4}."""
-        from slicot import mb03fd
+        from ctrlsys import mb03fd
 
         n = 3
         prec = np.finfo(float).eps

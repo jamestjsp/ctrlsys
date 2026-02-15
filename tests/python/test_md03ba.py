@@ -1,13 +1,13 @@
 import unittest
 import numpy as np
 try:
-    from slicot import md03ba
+    from ctrlsys import md03ba
 except ImportError:
     pass
 
 def test_md03ba_basic():
     try:
-        from slicot import md03ba
+        from ctrlsys import md03ba
     except ImportError:
         self.fail("Could not import md03ba")
 
@@ -49,7 +49,7 @@ def test_md03ba_qr_validation():
     When m > n, only upper n x n block is extracted.
     """
     try:
-        from slicot import md03ba
+        from ctrlsys import md03ba
     except ImportError:
         self.fail("Could not import md03ba")
 
@@ -89,7 +89,7 @@ def test_md03ba_edge_case_square_matrix():
     full QR result (Householder vectors below diagonal).
     """
     try:
-        from slicot import md03ba
+        from ctrlsys import md03ba
     except ImportError:
         self.fail("Could not import md03ba")
 
@@ -127,7 +127,7 @@ def test_md03ba_jnorms_positive():
     We just verify jnorms are reasonable (positive, finite).
     """
     try:
-        from slicot import md03ba
+        from ctrlsys import md03ba
     except ImportError:
         self.fail("Could not import md03ba")
 

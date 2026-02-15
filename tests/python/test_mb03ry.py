@@ -1,7 +1,7 @@
 """Tests for MB03RY - Sylvester equation solver with norm bound"""
 import numpy as np
 import pytest
-from slicot import mb03ry
+from ctrlsys import mb03ry
 
 
 def test_mb03ry_basic_1x1():

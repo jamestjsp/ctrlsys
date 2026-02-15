@@ -10,7 +10,7 @@ where T is 2-by-2, B is symmetric 2-by-2, and op(T) = T or T'.
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose
-from slicot import sb03mw
+from ctrlsys import sb03mw
 
 def test_sb03mw_basic():
     """

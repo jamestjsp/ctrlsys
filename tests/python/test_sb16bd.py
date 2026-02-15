@@ -8,7 +8,7 @@ based model reduction methods (B&T or SPA).
 
 import numpy as np
 import pytest
-from slicot import sb16bd
+from ctrlsys import sb16bd
 
 
 class TestSB16BDBasic:

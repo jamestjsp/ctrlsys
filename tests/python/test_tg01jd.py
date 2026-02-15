@@ -19,7 +19,7 @@ def test_tg01jd_html_example():
     JOB='I', SYSTYP='R', EQUIL='N'
     Expected: Reduced to 7th order, with 2 eigenvalues eliminated in Phase 3.
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     n, m, p = 9, 2, 2
     tol = 0.0
@@ -123,7 +123,7 @@ def test_tg01jd_controllable_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     np.random.seed(42)
     n, m, p = 4, 2, 2
@@ -165,7 +165,7 @@ def test_tg01jd_observable_only():
     Uses a verifiably observable system with distinct eigenvalues.
     Observability matrix [C; CA; CA^2; ...] should have full rank.
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     n, m, p = 4, 2, 2
 
@@ -211,7 +211,7 @@ def test_tg01jd_with_scaling():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     np.random.seed(456)
     n, m, p = 3, 1, 1
@@ -247,7 +247,7 @@ def test_tg01jd_systyp_standard():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     np.random.seed(789)
     n, m, p = 4, 2, 2
@@ -270,7 +270,7 @@ def test_tg01jd_systyp_polynomial():
 
     Random seed: 101112 (for reproducibility)
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     np.random.seed(101112)
     n, m, p = 4, 2, 2
@@ -291,7 +291,7 @@ def test_tg01jd_edge_zero_system():
     """
     Test TG01JD with n=0 (edge case - quick return).
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     n, m, p = 0, 2, 2
 
@@ -311,7 +311,7 @@ def test_tg01jd_error_invalid_job():
     """
     Test TG01JD with invalid JOB parameter.
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     n, m, p = 3, 1, 1
     a = np.eye(n, order='F', dtype=float)
@@ -329,7 +329,7 @@ def test_tg01jd_error_invalid_systyp():
     """
     Test TG01JD with invalid SYSTYP parameter.
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     n, m, p = 3, 1, 1
     a = np.eye(n, order='F', dtype=float)
@@ -347,7 +347,7 @@ def test_tg01jd_error_invalid_equil():
     """
     Test TG01JD with invalid EQUIL parameter.
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     n, m, p = 3, 1, 1
     a = np.eye(n, order='F', dtype=float)
@@ -370,7 +370,7 @@ def test_tg01jd_transfer_function_preservation():
 
     Random seed: 2024 (for reproducibility)
     """
-    from slicot import tg01jd
+    from ctrlsys import tg01jd
 
     np.random.seed(2024)
     n, m, p = 5, 2, 2

@@ -4,7 +4,7 @@ Tests for AB09BD - Singular Perturbation Approximation model reduction.
 
 import numpy as np
 import pytest
-from slicot import ab09bd
+from ctrlsys import ab09bd
 
 
 class TestAB09BDBasic:

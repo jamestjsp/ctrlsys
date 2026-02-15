@@ -78,7 +78,7 @@ def test_left_1x1():
 
     c_expected = (1.0 - tau) * c
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -101,7 +101,7 @@ def test_left_2x2():
 
     c_expected = apply_householder_left(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -124,7 +124,7 @@ def test_left_3x3():
 
     c_expected = apply_householder_left(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -146,7 +146,7 @@ def test_left_5x5():
 
     c_expected = apply_householder_left(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -169,7 +169,7 @@ def test_left_10x10():
 
     c_expected = apply_householder_left(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -192,7 +192,7 @@ def test_left_general_blas():
 
     c_expected = apply_householder_left(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -219,7 +219,7 @@ def test_right_1x1():
 
     c_expected = c * (1.0 - tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -242,7 +242,7 @@ def test_right_2x2():
 
     c_expected = apply_householder_right(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -265,7 +265,7 @@ def test_right_3x3():
 
     c_expected = apply_householder_right(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -287,7 +287,7 @@ def test_right_5x5():
 
     c_expected = apply_householder_right(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -310,7 +310,7 @@ def test_right_10x10():
 
     c_expected = apply_householder_right(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -333,7 +333,7 @@ def test_right_general_blas():
 
     c_expected = apply_householder_right(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -358,7 +358,7 @@ def test_tau_zero_left():
 
     c_expected = c.copy()
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -380,7 +380,7 @@ def test_tau_zero_right():
 
     c_expected = c.copy()
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -402,7 +402,7 @@ def test_single_column_left():
 
     c_expected = apply_householder_left(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -424,7 +424,7 @@ def test_single_row_right():
 
     c_expected = apply_householder_right(c, v, tau)
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -448,7 +448,7 @@ def test_orthogonality_left():
     v = np.random.randn(m - 1).astype(float, order='F')
     tau = 2.0 / (1.0 + np.dot(v, v))
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)
@@ -470,7 +470,7 @@ def test_orthogonality_right():
     v = np.random.randn(n - 1).astype(float, order='F')
     tau = 2.0 / (1.0 + np.dot(v, v))
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('R', m, n, v, tau, c_out)
@@ -494,7 +494,7 @@ def test_reflection_property():
 
     c = u.copy().astype(float, order='F')
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     mb04py('L', m, 1, v, tau, c)
 
@@ -516,7 +516,7 @@ def test_frobenius_norm_preserved():
 
     norm_before = np.linalg.norm(c, 'fro')
 
-    from slicot import mb04py
+    from ctrlsys import mb04py
 
     c_out = c.copy(order='F')
     mb04py('L', m, n, v, tau, c_out)

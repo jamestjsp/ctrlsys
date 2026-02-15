@@ -29,7 +29,7 @@ def test_mb04ed_html_example():
     Note: Due to complex internal transformations, we verify structural properties
     rather than exact eigenvalue matches.
     """
-    from slicot import mb04ed
+    from ctrlsys import mb04ed
 
     n = 8
     m = n // 2  # m = 4
@@ -104,7 +104,7 @@ def test_mb04ed_q_orthogonality():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04ed
+    from ctrlsys import mb04ed
 
     np.random.seed(42)
     n = 8
@@ -148,7 +148,7 @@ def test_mb04ed_u_orthogonal_symplectic():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04ed
+    from ctrlsys import mb04ed
 
     np.random.seed(123)
     n = 8
@@ -193,7 +193,7 @@ def test_mb04ed_eigenvalues_only():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04ed
+    from ctrlsys import mb04ed
 
     np.random.seed(456)
     n = 6
@@ -225,7 +225,7 @@ def test_mb04ed_n_zero():
     """
     Edge case: N=0 should return immediately with info=0.
     """
-    from slicot import mb04ed
+    from ctrlsys import mb04ed
 
     n = 0
     z = np.array([], order='F', dtype=float).reshape(0, 0)
@@ -246,7 +246,7 @@ def test_mb04ed_invalid_n_odd():
     """
     Test error handling: N must be even. N=5 should return info=-4.
     """
-    from slicot import mb04ed
+    from ctrlsys import mb04ed
 
     n = 5
     m = n // 2
@@ -267,7 +267,7 @@ def test_mb04ed_compu_update():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04ed
+    from ctrlsys import mb04ed
 
     np.random.seed(789)
     n = 6

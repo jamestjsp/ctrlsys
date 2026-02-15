@@ -10,7 +10,7 @@ Optionally reorders diagonal blocks so clustered eigenvalues are grouped.
 
 import numpy as np
 import pytest
-from slicot import mb04rd
+from ctrlsys import mb04rd
 
 
 def test_mb04rd_basic_2x2_diagonal():

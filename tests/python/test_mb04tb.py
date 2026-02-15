@@ -7,7 +7,7 @@ Uses numpy only - no scipy.
 """
 
 import numpy as np
-from slicot import mb04tb, mb04wr
+from ctrlsys import mb04tb, mb04wr
 
 
 def test_mb04tb_n5_basic():
@@ -97,7 +97,7 @@ def test_mb04tb_n5_basic():
 
 def test_mb04tb_quick_return_n_zero():
     """Test quick return when N=0."""
-    from slicot import mb04tb
+    from ctrlsys import mb04tb
 
     n = 0
     ilo = 1
@@ -116,7 +116,7 @@ def test_mb04tb_quick_return_n_zero():
 
 def test_mb04tb_quick_return_nh_zero():
     """Test quick return when NH=0 (ilo=n+1)."""
-    from slicot import mb04tb
+    from ctrlsys import mb04tb
 
     n = 3
     ilo = n + 1
@@ -135,7 +135,7 @@ def test_mb04tb_quick_return_nh_zero():
 
 def test_mb04tb_workspace_query():
     """Test workspace query mode (ldwork=-1)."""
-    from slicot import mb04tb
+    from ctrlsys import mb04tb
 
     n = 5
     ilo = 1
@@ -154,7 +154,7 @@ def test_mb04tb_workspace_query():
 
 def test_mb04tb_invalid_trana():
     """Test error for invalid TRANA parameter."""
-    from slicot import mb04tb
+    from ctrlsys import mb04tb
 
     n = 3
     ilo = 1
@@ -173,7 +173,7 @@ def test_mb04tb_invalid_trana():
 
 def test_mb04tb_invalid_tranb():
     """Test error for invalid TRANB parameter."""
-    from slicot import mb04tb
+    from ctrlsys import mb04tb
 
     n = 3
     ilo = 1
@@ -192,7 +192,7 @@ def test_mb04tb_invalid_tranb():
 
 def test_mb04tb_negative_n():
     """Test error for negative N."""
-    from slicot import mb04tb
+    from ctrlsys import mb04tb
 
     n = -1
     ilo = 1
@@ -211,7 +211,7 @@ def test_mb04tb_negative_n():
 
 def test_mb04tb_invalid_ilo():
     """Test error for invalid ILO."""
-    from slicot import mb04tb
+    from ctrlsys import mb04tb
 
     n = 4
     ilo = 0

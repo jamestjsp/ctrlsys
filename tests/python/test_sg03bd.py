@@ -6,7 +6,7 @@ Test data extracted from SLICOT-Reference/doc/SG03BD.html
 
 import pytest
 import numpy as np
-from slicot import sg03bd
+from ctrlsys import sg03bd
 
 
 def test_sg03bd_continuous_basic():

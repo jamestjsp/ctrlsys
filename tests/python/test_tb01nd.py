@@ -13,7 +13,7 @@ def test_tb01nd_upper_hessenberg_html_example():
     Input A: 5x5, C: 3x5
     Validates mathematical properties since Householder signs can vary.
     """
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     # Input A: 5x5 from HTML doc - read column-wise: ((A(I,J), I=1,N), J=1,N)
     a = np.array([
@@ -69,7 +69,7 @@ def test_tb01nd_upper_with_u_matrix():
     Validates mathematical properties: U'AU similarity and CU transformation.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     np.random.seed(42)
     n, p = 5, 3
@@ -115,7 +115,7 @@ def test_tb01nd_lower_hessenberg():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     np.random.seed(123)
     n, p = 5, 3
@@ -156,7 +156,7 @@ def test_tb01nd_accumulate_u():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     np.random.seed(456)
     n, p = 5, 2
@@ -198,7 +198,7 @@ def test_tb01nd_eigenvalue_preservation():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     np.random.seed(789)
     n, p = 6, 3
@@ -230,7 +230,7 @@ def test_tb01nd_p_eq_n():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     np.random.seed(888)
     n, p = 4, 4  # p == n
@@ -254,7 +254,7 @@ def test_tb01nd_p_eq_n():
 
 def test_tb01nd_n_zero():
     """Test edge case with N=0 and P=0."""
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     a = np.empty((0, 0), order='F', dtype=float)
     c = np.empty((0, 0), order='F', dtype=float)  # P must be <= N, so P=0 when N=0
@@ -268,7 +268,7 @@ def test_tb01nd_n_zero():
 
 def test_tb01nd_p_zero():
     """Test edge case with P=0 - A should be unchanged."""
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     np.random.seed(111)
     n = 4
@@ -288,7 +288,7 @@ def test_tb01nd_p_zero():
 
 def test_tb01nd_invalid_jobu():
     """Test error handling for invalid JOBU parameter."""
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     a = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)
     c = np.array([[1.0, 2.0]], order='F', dtype=float)
@@ -299,7 +299,7 @@ def test_tb01nd_invalid_jobu():
 
 def test_tb01nd_invalid_uplo():
     """Test error handling for invalid UPLO parameter."""
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     a = np.array([[1.0, 2.0], [3.0, 4.0]], order='F', dtype=float)
     c = np.array([[1.0, 2.0]], order='F', dtype=float)
@@ -310,7 +310,7 @@ def test_tb01nd_invalid_uplo():
 
 def test_tb01nd_p_greater_than_n():
     """Test error handling when P > N (invalid)."""
-    from slicot import tb01nd
+    from ctrlsys import tb01nd
 
     # P cannot exceed N per Fortran docs: 0 <= P <= N
     # However, looking at HTML doc this seems valid (trapezoidal C)

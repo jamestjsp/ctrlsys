@@ -30,7 +30,7 @@ def test_sg02nd_discrete_basic():
     The example solves for the Riccati solution X and then computes the
     optimal feedback matrix K.
     """
-    from slicot import sg02nd
+    from ctrlsys import sg02nd
 
     n = 2
     m = 1
@@ -85,7 +85,7 @@ def test_sg02nd_continuous_identity_e():
     Continuous: K = R^{-1} B'X
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sg02nd
+    from ctrlsys import sg02nd
 
     np.random.seed(42)
     n = 3
@@ -127,7 +127,7 @@ def test_sg02nd_with_h_output():
     H = op(A)'*X*B + L (discrete) or op(E)'*X*B + L (continuous)
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sg02nd
+    from ctrlsys import sg02nd
 
     np.random.seed(123)
     n = 2
@@ -178,7 +178,7 @@ def test_sg02nd_cholesky_factored_r():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sg02nd
+    from ctrlsys import sg02nd
 
     np.random.seed(456)
     n = 2
@@ -220,7 +220,7 @@ def test_sg02nd_with_cross_term_l():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sg02nd
+    from ctrlsys import sg02nd
 
     np.random.seed(789)
     n = 2
@@ -267,7 +267,7 @@ def test_sg02nd_zero_dimensions():
     """
     Test edge case with n=0 (quick return).
     """
-    from slicot import sg02nd
+    from ctrlsys import sg02nd
 
     n = 0
     m = 1
@@ -296,7 +296,7 @@ def test_sg02nd_continuous_general_e():
 
     Random seed: 321 (for reproducibility)
     """
-    from slicot import sg02nd
+    from ctrlsys import sg02nd
 
     np.random.seed(321)
     n = 2

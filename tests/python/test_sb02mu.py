@@ -53,7 +53,7 @@ def test_sb02mu_continuous_time_hamiltonian():
     S_expected[n:, :n] = -Q
     S_expected[n:, n:] = -A.T
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('C', 'D', 'U', n, A_copy, G, Q)
@@ -87,7 +87,7 @@ def test_sb02mu_continuous_time_lower_triangle():
     S_expected[n:, :n] = -Q
     S_expected[n:, n:] = -A.T
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('C', 'D', 'L', n, A_copy, G, Q)
@@ -129,7 +129,7 @@ def test_sb02mu_discrete_time_symplectic_hinv_d():
     S_expected[n:, :n] = Q @ A_inv
     S_expected[n:, n:] = A.T + Q @ A_inv @ G
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('D', 'D', 'U', n, A_copy, G, Q)
@@ -175,7 +175,7 @@ def test_sb02mu_discrete_time_symplectic_hinv_i():
     S_expected[n:, :n] = -A_inv_T @ Q
     S_expected[n:, n:] = A_inv_T
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('D', 'I', 'U', n, A_copy, G, Q)
@@ -210,7 +210,7 @@ def test_sb02mu_hamiltonian_eigenvalue_pairing():
     Q_half = np.random.randn(n, n)
     Q = (Q_half.T @ Q_half + 0.5 * np.eye(n)).astype(float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('C', 'D', 'U', n, A_copy, G, Q)
@@ -247,7 +247,7 @@ def test_sb02mu_symplectic_determinant_unity():
     Q_half = np.random.randn(n, n)
     Q = (Q_half.T @ Q_half + np.eye(n)).astype(float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('D', 'D', 'U', n, A_copy, G, Q)
@@ -275,7 +275,7 @@ def test_sb02mu_singular_matrix_error():
     G = np.eye(n, dtype=float, order='F')
     Q = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('D', 'D', 'U', n, A_copy, G, Q)
@@ -300,7 +300,7 @@ def test_sb02mu_nearly_singular_matrix():
     G = np.eye(n, dtype=float, order='F')
     Q = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A_copy = A.copy()
     S, rcond, info = sb02mu('D', 'D', 'U', n, A_copy, G, Q)
@@ -318,7 +318,7 @@ def test_sb02mu_n_zero():
     G = np.zeros((1, 1), dtype=float, order='F')
     Q = np.zeros((1, 1), dtype=float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     S, rcond, info = sb02mu('C', 'D', 'U', n, A, G, Q)
 
@@ -336,7 +336,7 @@ def test_sb02mu_error_invalid_dico():
     G = np.eye(n, dtype=float, order='F')
     Q = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     with pytest.raises(ValueError, match="[Pp]arameter"):
         sb02mu('X', 'D', 'U', n, A, G, Q)
@@ -352,7 +352,7 @@ def test_sb02mu_error_invalid_hinv():
     G = np.eye(n, dtype=float, order='F')
     Q = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     with pytest.raises(ValueError, match="[Pp]arameter"):
         sb02mu('D', 'X', 'U', n, A, G, Q)
@@ -368,7 +368,7 @@ def test_sb02mu_error_invalid_uplo():
     G = np.eye(n, dtype=float, order='F')
     Q = np.eye(n, dtype=float, order='F')
 
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     with pytest.raises(ValueError, match="[Pp]arameter"):
         sb02mu('C', 'D', 'X', n, A, G, Q)
@@ -378,7 +378,7 @@ def test_sb02mu_error_negative_n():
     """
     Test SB02MU error handling: negative N.
     """
-    from slicot import sb02mu
+    from ctrlsys import sb02mu
 
     A = np.eye(1, dtype=float, order='F')
     G = np.eye(1, dtype=float, order='F')

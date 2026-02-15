@@ -12,7 +12,7 @@ import numpy as np
 
 def test_mb04qb_quick_return_n_zero():
     """Test quick return when n=0."""
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     m, n, k = 4, 0, 2
     v = np.eye(m, k, order='F')
@@ -32,7 +32,7 @@ def test_mb04qb_quick_return_n_zero():
 
 def test_mb04qb_quick_return_k_zero():
     """Test quick return when k=0."""
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     m, n, k = 4, 3, 0
     v = np.zeros((m, 1), order='F')
@@ -57,7 +57,7 @@ def test_mb04qb_quick_return_k_zero():
 
 def test_mb04qb_workspace_query():
     """Test workspace query mode (ldwork=-1)."""
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     m, n, k = 10, 8, 5
     v = np.eye(m, k, order='F')
@@ -84,7 +84,7 @@ def test_mb04qb_identity_reflectors():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     np.random.seed(42)
     m, n, k = 6, 4, 3
@@ -115,7 +115,7 @@ def test_mb04qb_identity_reflectors():
 
 def test_mb04qb_invalid_tranc():
     """Test error for invalid TRANC parameter."""
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     m, n, k = 4, 3, 2
     v = np.eye(m, k, order='F')
@@ -135,7 +135,7 @@ def test_mb04qb_invalid_tranc():
 
 def test_mb04qb_invalid_trand():
     """Test error for invalid TRAND parameter."""
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     m, n, k = 4, 3, 2
     v = np.eye(m, k, order='F')
@@ -155,7 +155,7 @@ def test_mb04qb_invalid_trand():
 
 def test_mb04qb_negative_m():
     """Test error for negative M."""
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     m, n, k = -1, 3, 0
     v = np.zeros((1, 1), order='F')
@@ -175,7 +175,7 @@ def test_mb04qb_negative_m():
 
 def test_mb04qb_k_greater_than_m():
     """Test error for K > M."""
-    from slicot import mb04qb
+    from ctrlsys import mb04qb
 
     m, n, k = 3, 4, 5
     v = np.eye(k, k, order='F')

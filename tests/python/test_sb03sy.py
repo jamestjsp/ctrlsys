@@ -10,7 +10,7 @@ for discrete-time Lyapunov equation op(A)'*X*op(A) - X = C.
 
 import numpy as np
 import pytest
-from slicot import sb03sy
+from ctrlsys import sb03sy
 
 
 def test_sb03sy_separation_only():

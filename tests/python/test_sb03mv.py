@@ -17,7 +17,7 @@ def test_sb03mv_basic_notrans_upper():
     Solves T'*X*T - X = SCALE*B (no transpose).
     Verifies equation residual.
     """
-    from slicot import sb03mv
+    from ctrlsys import sb03mv
 
     T = np.array([
         [0.5, 0.1],
@@ -49,7 +49,7 @@ def test_sb03mv_basic_trans_upper():
 
     Solves T*X*T' - X = SCALE*B (transpose).
     """
-    from slicot import sb03mv
+    from ctrlsys import sb03mv
 
     T = np.array([
         [0.4, 0.2],
@@ -80,7 +80,7 @@ def test_sb03mv_lower_triangle():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03mv
+    from ctrlsys import sb03mv
 
     np.random.seed(42)
 
@@ -114,7 +114,7 @@ def test_sb03mv_xnorm_property():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03mv
+    from ctrlsys import sb03mv
 
     np.random.seed(123)
 
@@ -146,7 +146,7 @@ def test_sb03mv_symmetry_preservation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03mv
+    from ctrlsys import sb03mv
 
     np.random.seed(456)
 
@@ -175,7 +175,7 @@ def test_sb03mv_diagonal_t():
 
     For diagonal T = diag(t1, t2), the equation simplifies.
     """
-    from slicot import sb03mv
+    from ctrlsys import sb03mv
 
     T = np.array([
         [0.5, 0.0],
@@ -209,7 +209,7 @@ def test_sb03mv_nearly_singular():
 
     When T has eigenvalues close to reciprocal, INFO = 1.
     """
-    from slicot import sb03mv
+    from ctrlsys import sb03mv
 
     # T with eigenvalue close to 1 (reciprocal eigenvalue issue)
     T = np.array([

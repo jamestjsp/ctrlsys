@@ -18,7 +18,7 @@ class TestMB03LZ:
         COMPQ = 'C', ORTH = 'P', N = 4
         Tests eigenvalue computation and deflating subspace.
         """
-        from slicot import mb03lz
+        from ctrlsys import mb03lz
 
         n = 4
         m = n // 2
@@ -81,7 +81,7 @@ class TestMB03LZ:
         """
         Test with COMPQ='N' - eigenvalues only, no deflating subspace.
         """
-        from slicot import mb03lz
+        from ctrlsys import mb03lz
 
         n = 4
         m = n // 2
@@ -128,7 +128,7 @@ class TestMB03LZ:
         """
         Test with ORTH='S' (SVD-based orthogonalization).
         """
-        from slicot import mb03lz
+        from ctrlsys import mb03lz
 
         n = 4
         m = n // 2
@@ -178,7 +178,7 @@ class TestMB03LZ:
         """
         Test with N=0 (quick return case).
         """
-        from slicot import mb03lz
+        from ctrlsys import mb03lz
 
         n = 0
         a = np.zeros((0, 0), dtype=np.complex128, order='F')
@@ -199,7 +199,7 @@ class TestMB03LZ:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb03lz
+        from ctrlsys import mb03lz
 
         np.random.seed(42)
         n = 8
@@ -260,7 +260,7 @@ class TestMB03LZ:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb03lz
+        from ctrlsys import mb03lz
 
         np.random.seed(123)
         n = 6
@@ -325,7 +325,7 @@ class TestMB03LZ:
         """
         Test that odd N is rejected.
         """
-        from slicot import mb03lz
+        from ctrlsys import mb03lz
 
         n = 3  # Invalid: must be even
         m = 1

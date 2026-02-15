@@ -66,4 +66,4 @@ __all__ = [
 ]
 
 from importlib.metadata import version
-__version__ = version("slicot")
+__version__ = version("ctrlsys")

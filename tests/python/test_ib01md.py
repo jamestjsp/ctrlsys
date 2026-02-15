@@ -13,7 +13,7 @@ where Up, Uf, U, Y are block Hankel matrices built from input-output data.
 
 import numpy as np
 import pytest
-from slicot import ib01md
+from ctrlsys import ib01md
 
 
 def generate_io_data(nsmp, m, l, seed=42):

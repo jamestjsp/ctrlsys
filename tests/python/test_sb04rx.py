@@ -83,7 +83,7 @@ def test_sb04rx_upper_row_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     np.random.seed(42)
     m = 4
@@ -119,7 +119,7 @@ def test_sb04rx_upper_col_basic():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     np.random.seed(123)
     m = 3
@@ -151,7 +151,7 @@ def test_sb04rx_lower_row_basic():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     np.random.seed(456)
     m = 4
@@ -185,7 +185,7 @@ def test_sb04rx_lower_col_basic():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     np.random.seed(789)
     m = 3
@@ -215,7 +215,7 @@ def test_sb04rx_m_zero():
     """
     Test edge case M=0 (quick return).
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     m = 0
     a = np.zeros((0, 0), dtype=float, order='F')
@@ -237,7 +237,7 @@ def test_sb04rx_m_one():
 
     Random seed: 101 (for reproducibility)
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     np.random.seed(101)
     m = 1
@@ -273,7 +273,7 @@ def test_sb04rx_singular_system():
     Set up a system that results in a singular or nearly singular
     quasi-Hessenberg matrix.
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     m = 2
     a = np.eye(m, dtype=float, order='F')
@@ -299,7 +299,7 @@ def test_sb04rx_solution_property():
 
     Random seed: 202 (for reproducibility)
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     np.random.seed(202)
     m = 5
@@ -335,7 +335,7 @@ def test_sb04rx_identity_lambda():
 
     Random seed: 303 (for reproducibility)
     """
-    from slicot import sb04rx
+    from ctrlsys import sb04rx
 
     np.random.seed(303)
     m = 3

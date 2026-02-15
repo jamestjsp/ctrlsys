@@ -28,7 +28,7 @@ def test_tb01ld_html_example():
     Continuous system, unstable domain (Re(lambda) > -1.0).
     Expected: NDIM=2, eigenvalues with Re > -1.0 in leading block.
     """
-    from slicot import tb01ld
+    from ctrlsys import tb01ld
 
     n, m, p = 5, 2, 3
     alpha = -1.0
@@ -86,7 +86,7 @@ def test_tb01ld_continuous_stable():
     Move eigenvalues with Re(lambda) < 0 to leading block.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tb01ld
+    from ctrlsys import tb01ld
 
     np.random.seed(42)
     n, m, p = 4, 2, 2
@@ -126,7 +126,7 @@ def test_tb01ld_discrete_stable():
 
     Move eigenvalues with |lambda| < 1 to leading block.
     """
-    from slicot import tb01ld
+    from ctrlsys import tb01ld
 
     n, m, p = 3, 1, 1
     alpha = 1.0  # Unit circle
@@ -155,7 +155,7 @@ def test_tb01ld_schur_input():
 
     When A is already in Schur form, only reordering is needed.
     """
-    from slicot import tb01ld
+    from ctrlsys import tb01ld
 
     n, m, p = 3, 1, 1
     alpha = 0.0
@@ -185,7 +185,7 @@ def test_tb01ld_orthogonality():
     U should satisfy U'*U = I.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tb01ld
+    from ctrlsys import tb01ld
 
     np.random.seed(123)
     n, m, p = 4, 2, 2
@@ -212,7 +212,7 @@ def test_tb01ld_similarity():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tb01ld
+    from ctrlsys import tb01ld
 
     np.random.seed(456)
     n, m, p = 4, 2, 2
@@ -254,7 +254,7 @@ def test_tb01ld_eigenvalue_preservation():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tb01ld
+    from ctrlsys import tb01ld
 
     np.random.seed(789)
     n, m, p = 5, 2, 2

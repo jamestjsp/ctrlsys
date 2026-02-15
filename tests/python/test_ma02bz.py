@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import ma02bz
+from ctrlsys import ma02bz
 
 
 class TestMA02BZLeft:

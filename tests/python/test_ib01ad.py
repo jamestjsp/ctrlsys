@@ -12,7 +12,7 @@ significant singular values from the SVD of the triangular factor R.
 import numpy as np
 import os
 import pytest
-from slicot import ib01ad
+from ctrlsys import ib01ad
 
 
 def load_html_example_data():

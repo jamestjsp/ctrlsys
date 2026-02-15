@@ -29,7 +29,7 @@ Error Codes:
 
 import numpy as np
 import pytest
-from slicot import ab09cd
+from ctrlsys import ab09cd
 
 
 class TestAB09CDBasic:

@@ -28,7 +28,7 @@ def test_mb03rx_basic_diagonal():
     Move eigenvalue at position 3 (value 3.0) to position 1.
     Expected result: eigenvalues reordered to [3, 1, 2].
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     n = 3
 
@@ -68,7 +68,7 @@ def test_mb03rx_2x2_block():
 
     Move eigenvalue at position 4 to position 1.
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     n = 4
 
@@ -105,7 +105,7 @@ def test_mb03rx_eigenvalue_preservation():
     Mathematical property: eigenvalues must be preserved exactly.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     np.random.seed(42)
     n = 5
@@ -135,7 +135,7 @@ def test_mb03rx_no_op():
 
     When KL equals KU, no transformation should occur.
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     n = 3
 
@@ -170,7 +170,7 @@ def test_mb03rx_no_accumulation():
     """
     Validate JOBV='N' does not modify X.
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     n = 3
 
@@ -201,7 +201,7 @@ def test_mb03rx_orthogonal_transformation():
     Orthogonality: X' * X = I
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     np.random.seed(123)
     n = 4
@@ -228,7 +228,7 @@ def test_mb03rx_similarity_transformation():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     np.random.seed(456)
     n = 4
@@ -262,7 +262,7 @@ def test_mb03rx_move_complex_block_to_front():
 
     Move the 2x2 block (at position 3) to position 1.
     """
-    from slicot import mb03rx
+    from ctrlsys import mb03rx
 
     n = 5
 

@@ -25,7 +25,7 @@ def test_ab05rd_html_doc_example():
               [ 0.5000, -0.1667]]
         RCOND = 0.2000
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     n, m, p, mv, pz = 3, 2, 2, 2, 2
     alpha = 1.0
@@ -120,7 +120,7 @@ def test_ab05rd_closed_loop_formulas():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(42)
     n, m, p, mv, pz = 3, 2, 2, 2, 2
@@ -205,7 +205,7 @@ def test_ab05rd_identity_feedback():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(123)
     n, m = 2, 2
@@ -281,7 +281,7 @@ def test_ab05rd_no_feedthrough():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(456)
     n, m, p, mv, pz = 4, 2, 3, 2, 3
@@ -364,7 +364,7 @@ def test_ab05rd_beta_zero():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(789)
     n, m, p, mv, pz = 3, 2, 2, 2, 2
@@ -448,7 +448,7 @@ def test_ab05rd_alpha_zero():
 
     Random seed: 321 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(321)
     n, m, p, mv, pz = 3, 2, 2, 2, 2
@@ -522,7 +522,7 @@ def test_ab05rd_singular_matrix_error():
 
     Random seed: 654 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(654)
     n, m, p, mv, pz = 2, 2, 2, 2, 2
@@ -553,7 +553,7 @@ def test_ab05rd_n_zero():
 
     Random seed: 987 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(987)
     n, m, p, mv, pz = 0, 2, 2, 2, 2
@@ -591,7 +591,7 @@ def test_ab05rd_eigenvalue_shift():
 
     Random seed: 135 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(135)
     n, m, p, mv, pz = 3, 2, 2, 2, 2
@@ -629,7 +629,7 @@ def test_ab05rd_state_space_property():
 
     Random seed: 246 (for reproducibility)
     """
-    from slicot import ab05rd
+    from ctrlsys import ab05rd
 
     np.random.seed(246)
     n, m, p, mv, pz = 3, 2, 2, 2, 2

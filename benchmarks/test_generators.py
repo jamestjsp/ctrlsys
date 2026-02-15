@@ -1,5 +1,5 @@
 import numpy as np
-from slicot import bb01ad, bb02ad, bb03ad, bb04ad
+from ctrlsys import bb01ad, bb02ad, bb03ad, bb04ad
 
 
 def test_bb01ad_carex(benchmark):

@@ -16,7 +16,7 @@ def test_ab13dd_html_example():
     N=6, M=1, P=1, DICO='C', JOBE='I', JOBD='D'
     Expected: L-infinity norm ~ 5e5, peak frequency ~ 1.414
     """
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     n, m, p = 6, 1, 1
 
@@ -55,7 +55,7 @@ def test_ab13dd_continuous_no_d():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     np.random.seed(42)
     n, m, p = 3, 1, 1
@@ -89,7 +89,7 @@ def test_ab13dd_discrete():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     np.random.seed(123)
     n, m, p = 2, 1, 1
@@ -121,7 +121,7 @@ def test_ab13dd_descriptor():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     np.random.seed(456)
     n, m, p = 2, 1, 1
@@ -153,7 +153,7 @@ def test_ab13dd_descriptor():
 
 def test_ab13dd_n0():
     """Test AB13DD with n=0 (quick return)."""
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     n, m, p = 0, 1, 1
 
@@ -176,7 +176,7 @@ def test_ab13dd_n0():
 
 def test_ab13dd_m0_p0():
     """Test AB13DD with m=0 or p=0 (quick return)."""
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     n, m, p = 2, 0, 1
 
@@ -199,7 +199,7 @@ def test_ab13dd_m0_p0():
 
 def test_ab13dd_invalid_dico():
     """Test AB13DD with invalid DICO parameter."""
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     n, m, p = 2, 1, 1
 
@@ -232,7 +232,7 @@ def test_ab13dd_mimo_matlab_reference():
         [ninf, fpeak] = hinfnorm(ss(A, B, C, D))
         ninf = 4.2768, fpeak = 1.1592
     """
-    from slicot import ab13dd
+    from ctrlsys import ab13dd
 
     n, m, p = 3, 2, 2
 

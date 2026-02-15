@@ -15,7 +15,7 @@ from numpy.testing import assert_equal
 
 def test_sb02ms_unstable_outside_unit_circle():
     """Eigenvalues outside unit circle are unstable (return True)."""
-    from slicot import sb02ms
+    from ctrlsys import sb02ms
 
     result = sb02ms(2.0, 0.0)
     assert_equal(result, True)
@@ -35,7 +35,7 @@ def test_sb02ms_unstable_on_unit_circle():
 
     Modulus = 1 is on the stability boundary, selected as unstable.
     """
-    from slicot import sb02ms
+    from ctrlsys import sb02ms
 
     result = sb02ms(1.0, 0.0)
     assert_equal(result, True)
@@ -58,7 +58,7 @@ def test_sb02ms_unstable_on_unit_circle():
 
 def test_sb02ms_stable_inside_unit_circle():
     """Eigenvalues inside unit circle are stable (return False)."""
-    from slicot import sb02ms
+    from ctrlsys import sb02ms
 
     result = sb02ms(0.0, 0.0)
     assert_equal(result, False)
@@ -84,7 +84,7 @@ def test_sb02ms_boundary_near_unit_circle():
 
     Ensures modulus >= 1 comparison works correctly.
     """
-    from slicot import sb02ms
+    from ctrlsys import sb02ms
 
     eps = np.finfo(float).eps
 
@@ -102,7 +102,7 @@ def test_sb02ms_imaginary_symmetry():
     sb02ms(reig, ieig) == sb02ms(reig, -ieig) for all values.
     Modulus |reig + i*ieig| = |reig - i*ieig|.
     """
-    from slicot import sb02ms
+    from ctrlsys import sb02ms
 
     test_cases = [
         (0.0, 1.0),
@@ -125,7 +125,7 @@ def test_sb02ms_modulus_property():
 
     All eigenvalues with same modulus should give same result.
     """
-    from slicot import sb02ms
+    from ctrlsys import sb02ms
 
     r = 0.7
     angles = [0, np.pi/4, np.pi/2, np.pi, 3*np.pi/2]
@@ -144,7 +144,7 @@ def test_sb02ms_modulus_property():
 
 
 def test_sb02ms_complement_sb02mw():
-    from slicot import sb02ms, sb02mw
+    from ctrlsys import sb02ms, sb02mw
 
     test_cases = [
         (0.0, 0.0),
@@ -165,7 +165,7 @@ def test_sb02ms_complement_sb02mw():
 
 
 def test_sb02ms_independent_criterion():
-    from slicot import sb02ms
+    from ctrlsys import sb02ms
 
     test_cases = [
         (0.0, 0.0),

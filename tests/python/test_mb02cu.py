@@ -22,7 +22,7 @@ def test_mb02cu_column_oriented_basic():
     a2 = np.random.randn(k, p - k).astype(float, order='F')
     b = 0.1 * np.random.randn(k, q).astype(float, order='F')
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('C', k, p, q, nb, a1.copy(), a2.copy(), b.copy())
 
@@ -55,7 +55,7 @@ def test_mb02cu_row_oriented_basic():
     a2 = np.random.randn(p - k, k).astype(float, order='F')
     b = 0.1 * np.random.randn(q, k).astype(float, order='F')
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('R', k, p, q, nb, a1.copy(), a2.copy(), b.copy())
 
@@ -89,7 +89,7 @@ def test_mb02cu_deficient_basic():
     a2 = np.random.randn(k, p - k).astype(float, order='F')
     b = 0.1 * np.random.randn(k, q).astype(float, order='F')
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('D', k, p, q, nb, a1.copy(), a2.copy(), b.copy(), tol=tol)
 
@@ -121,7 +121,7 @@ def test_mb02cu_cs_valid_rotation_params():
     a2 = np.random.randn(k, p - k).astype(float, order='F')
     b = 0.3 * np.random.randn(k, q).astype(float, order='F')
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('C', k, p, q, nb, a1.copy(), a2.copy(), b.copy())
 
@@ -146,7 +146,7 @@ def test_mb02cu_edge_k_zero():
     a2 = np.zeros((1, p), order='F', dtype=float)
     b = np.zeros((1, q), order='F', dtype=float)
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('C', k, p, q, nb, a1, a2, b)
 
@@ -172,7 +172,7 @@ def test_mb02cu_edge_q_zero_column():
     a2 = np.zeros((k, 1), order='F', dtype=float)
     b = np.zeros((k, 1), order='F', dtype=float)
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('C', k, p, q, nb, a1.copy(), a2, b)
 
@@ -196,7 +196,7 @@ def test_mb02cu_error_not_positive_definite():
     a2 = np.zeros((k, p - k), dtype=float, order='F')
     b = np.random.randn(k, q).astype(float, order='F') * 10.0
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('C', k, p, q, nb, a1.copy(), a2, b)
 
@@ -211,7 +211,7 @@ def test_mb02cu_error_invalid_typeg():
     a2 = np.array([[0.1]], order='F', dtype=float)
     b = np.array([[0.1]], order='F', dtype=float)
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02cu('X', 1, 2, 1, 1, a1, a2, b)
@@ -230,7 +230,7 @@ def test_mb02cu_error_p_less_than_k():
     a2 = np.random.randn(k, 1).astype(float, order='F')
     b = np.random.randn(k, q).astype(float, order='F')
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02cu('C', k, p, q, nb, a1, a2, b)
@@ -256,7 +256,7 @@ def test_mb02cu_deficient_rank_reduction():
     b = np.eye(k, dtype=float, order='F') * 1.5
     b[:, -1] = b[:, 0]
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('D', k, p, q, nb, a1.copy(), a2, b.copy(), tol=tol)
 
@@ -283,7 +283,7 @@ def test_mb02cu_column_unblocked():
     a2 = np.random.randn(k, p - k).astype(float, order='F')
     b = 0.2 * np.random.randn(k, q).astype(float, order='F')
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('C', k, p, q, nb, a1.copy(), a2.copy(), b.copy())
 
@@ -309,7 +309,7 @@ def test_mb02cu_row_unblocked():
     a2 = np.random.randn(p - k, k).astype(float, order='F')
     b = 0.2 * np.random.randn(q, k).astype(float, order='F')
 
-    from slicot import mb02cu
+    from ctrlsys import mb02cu
 
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('R', k, p, q, nb, a1.copy(), a2.copy(), b.copy())
 

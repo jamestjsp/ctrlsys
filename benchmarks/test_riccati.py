@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from slicot import sb02md, sb02od
+from ctrlsys import sb02md, sb02od
 
 from conftest import get_carex_files, get_darex_files, load_carex_data, load_darex_data
 

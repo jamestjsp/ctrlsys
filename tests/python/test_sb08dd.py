@@ -26,7 +26,7 @@ def test_sb08dd_continuous_html_example():
     System: 7x7 A, 7x2 B, 3x7 C, 3x2 D
     Expected: NQ=7, NR=2
     """
-    from slicot import sb08dd
+    from ctrlsys import sb08dd
 
     n, m, p = 7, 2, 3
 
@@ -85,7 +85,7 @@ def test_sb08dd_stable_system():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb08dd
+    from ctrlsys import sb08dd
 
     np.random.seed(42)
     n, m, p = 3, 2, 2
@@ -117,7 +117,7 @@ def test_sb08dd_discrete():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb08dd
+    from ctrlsys import sb08dd
 
     np.random.seed(123)
     n, m, p = 3, 2, 2
@@ -145,7 +145,7 @@ def test_sb08dd_dr_upper_triangular():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb08dd
+    from ctrlsys import sb08dd
 
     np.random.seed(456)
     n, m, p = 4, 3, 2
@@ -171,7 +171,7 @@ def test_sb08dd_zero_dimensions():
     """
     Validate quick return for zero dimensions.
     """
-    from slicot import sb08dd
+    from ctrlsys import sb08dd
 
     a = np.zeros((0, 0), order='F', dtype=float)
     b = np.zeros((0, 2), order='F', dtype=float)

@@ -16,7 +16,7 @@ where g = 0 for continuous-time (DICO='C') and g = 1 for discrete-time (DICO='D'
 
 import numpy as np
 import pytest
-from slicot import ab09dd
+from ctrlsys import ab09dd
 
 
 class TestAB09DDBasic:

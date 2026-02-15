@@ -30,7 +30,7 @@ Random seeds used for reproducibility:
 import numpy as np
 import pytest
 
-from slicot import ma02ez
+from ctrlsys import ma02ez
 
 
 class TestMA02EZHermitian:

@@ -18,7 +18,7 @@ where Aout is in upper Hessenberg form. This is the blocked version of MB04RU.
 
 import numpy as np
 import pytest
-from slicot import mb04rb
+from ctrlsys import mb04rb
 
 
 def build_skew_hamiltonian(a, q_lower, g_upper):

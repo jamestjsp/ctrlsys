@@ -17,7 +17,7 @@ def test_mb04qc_basic():
     When R, S, T are zero matrices, the reflector is identity.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     np.random.seed(42)
     m, n, k = 4, 3, 2
@@ -55,7 +55,7 @@ def test_mb04qc_transpose_q():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     np.random.seed(123)
     m, n, k = 4, 3, 2
@@ -86,7 +86,7 @@ def test_mb04qc_transpose_a():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     np.random.seed(456)
     m, n, k = 4, 3, 2
@@ -117,7 +117,7 @@ def test_mb04qc_strab_n():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     np.random.seed(789)
     m, n, k = 5, 4, 2
@@ -148,7 +148,7 @@ def test_mb04qc_rowwise_storage():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     np.random.seed(111)
     m, n, k = 4, 3, 2
@@ -179,7 +179,7 @@ def test_mb04qc_k_equals_1():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     np.random.seed(222)
     m, n, k = 5, 4, 1
@@ -209,7 +209,7 @@ def test_mb04qc_m_equals_k():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     np.random.seed(333)
     m, n, k = 3, 4, 3
@@ -235,7 +235,7 @@ def test_mb04qc_n_equals_zero():
     """
     Test MB04QC with N=0 (quick return).
     """
-    from slicot import mb04qc
+    from ctrlsys import mb04qc
 
     m, n, k = 4, 0, 2
 
@@ -262,7 +262,7 @@ def test_mb04qc_with_mb04qf():
     MB04QF computes the RS and T factors, MB04QC applies them.
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb04qf, mb04qc
+    from ctrlsys import mb04qf, mb04qc
 
     np.random.seed(444)
     m, n, k = 5, 4, 2

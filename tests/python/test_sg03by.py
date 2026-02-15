@@ -12,7 +12,7 @@ The routine avoids overflow using max-norm scaling.
 
 import numpy as np
 import pytest
-from slicot import sg03by
+from ctrlsys import sg03by
 
 
 def apply_givens_rotation(cr, ci, sr, si, xr, xi, yr, yi):

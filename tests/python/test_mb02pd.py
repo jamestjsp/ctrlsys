@@ -17,7 +17,7 @@ def test_mb02pd_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(42)
     n = 4
@@ -45,7 +45,7 @@ def test_mb02pd_transpose():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(123)
     n = 4
@@ -70,7 +70,7 @@ def test_mb02pd_identity():
 
     A = I, so X = B.
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     n = 3
     nrhs = 2
@@ -93,7 +93,7 @@ def test_mb02pd_single_rhs():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(456)
     n = 5
@@ -118,7 +118,7 @@ def test_mb02pd_residual_check():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(789)
     n = 6
@@ -149,7 +149,7 @@ def test_mb02pd_ill_conditioned():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(111)
     n = 4
@@ -173,7 +173,7 @@ def test_mb02pd_n_equals_1():
     """
     Test MB02PD edge case with n=1 (scalar equation).
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     A = np.array([[2.0]], order='F', dtype=float)
     B = np.array([[6.0]], order='F', dtype=float)
@@ -190,7 +190,7 @@ def test_mb02pd_multiple_rhs():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(222)
     n = 4
@@ -217,7 +217,7 @@ def test_mb02pd_diagonal_matrix():
     """
     Test MB02PD with diagonal matrix.
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     n = 4
     nrhs = 2
@@ -248,7 +248,7 @@ def test_mb02pd_ferr_berr_computed():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(333)
     n = 5
@@ -282,7 +282,7 @@ def test_mb02pd_equilibration():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(444)
     n = 4
@@ -311,7 +311,7 @@ def test_mb02pd_transpose_residual():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb02pd
+    from ctrlsys import mb02pd
 
     np.random.seed(555)
     n = 5

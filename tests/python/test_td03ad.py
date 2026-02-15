@@ -39,7 +39,7 @@ def test_td03ad_html_doc_example():
         INDEXP = [2, 1]
         PCOEFF, QCOEFF polynomial matrices
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 2, 2
     rowcol = 'R'
@@ -116,7 +116,7 @@ def test_td03ad_pcoeff_qcoeff_values():
         Q(2,1,:) = [5.6273, 5.6273, 0.0000]
         Q(2,2,:) = [-5.6273, -11.2546, 0.0000]
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 2, 2
     indexd = np.array([3, 3], dtype=np.int32)
@@ -166,7 +166,7 @@ def test_td03ad_siso_first_order():
 
     With left PMR: T(s) = inv(P(s)) * Q(s)
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([1], dtype=np.int32)
@@ -191,7 +191,7 @@ def test_td03ad_right_pmr():
 
     With LERI='R': T(s) = Q(s) * inv(P(s))
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 2, 2
     indexd = np.array([1, 1], dtype=np.int32)
@@ -219,7 +219,7 @@ def test_td03ad_column_form():
     """
     Test with ROWCOL='C' (columns over common denominators).
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 2, 2
     maxmp = max(m, p)
@@ -248,7 +248,7 @@ def test_td03ad_with_equil():
     """
     Test with EQUIL='S' (scaling enabled).
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 2, 2
     indexd = np.array([3, 3], dtype=np.int32)
@@ -280,7 +280,7 @@ def test_td03ad_transfer_function_equivalence():
     For T(s) = C(sI-A)^{-1}B + D, the frequency response must match
     the polynomial form T(s) = inv(D(s)) * U(s).
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([2], dtype=np.int32)
@@ -318,7 +318,7 @@ def test_td03ad_zero_leading_coefficient_error():
 
     INFO = I when row I has leading coefficient too small.
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([1], dtype=np.int32)
@@ -338,7 +338,7 @@ def test_td03ad_invalid_rowcol():
     """
     Test invalid ROWCOL parameter.
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([1], dtype=np.int32)
@@ -357,7 +357,7 @@ def test_td03ad_invalid_leri():
     """
     Test invalid LERI parameter.
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([1], dtype=np.int32)
@@ -376,7 +376,7 @@ def test_td03ad_invalid_equil():
     """
     Test invalid EQUIL parameter.
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([1], dtype=np.int32)
@@ -398,7 +398,7 @@ def test_td03ad_polynomial_matrix_identity():
     For left PMR: T(s) = inv(P(s)) * Q(s)
     Check at sample frequency that P(s)*T(s) = Q(s).
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([2], dtype=np.int32)
@@ -458,7 +458,7 @@ def test_td03ad_zero_order():
 
     When all denominators are degree 0, N=0 and only D matrix exists.
     """
-    from slicot import td03ad
+    from ctrlsys import td03ad
 
     m, p = 1, 1
     indexd = np.array([0], dtype=np.int32)

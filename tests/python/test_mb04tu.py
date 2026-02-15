@@ -13,7 +13,7 @@ This is NOT standard DROT which computes:
 
 import numpy as np
 import pytest
-from slicot import mb04tu
+from ctrlsys import mb04tu
 
 
 class TestMB04TUBasic:

@@ -8,7 +8,7 @@ by swapping pairs of adjacent diagonal blocks of sizes 1 and/or 2.
 
 import numpy as np
 import pytest
-from slicot import mb03kb
+from ctrlsys import mb03kb
 
 
 class TestMB03KBBasic:

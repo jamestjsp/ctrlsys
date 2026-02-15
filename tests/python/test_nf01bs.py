@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from slicot import nf01bs
+from ctrlsys import nf01bs
 
 def test_nf01bs_full_matrix():
     """

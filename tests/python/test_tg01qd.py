@@ -27,7 +27,7 @@ class TestTg01qdBasic:
         N=4, M=2, P=2, DICO='C', STDOM='S', JOBFI='F', ALPHA=-1e-7, TOL=0.0
         Expected: N1=1, N2=2, N3=1, ND=1, NIBLCK=1
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         n, m, p = 4, 2, 2
         dico = 'C'
@@ -113,7 +113,7 @@ class TestTg01qdOrthogonality:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(42)
         n, m, p = 5, 2, 3
@@ -145,7 +145,7 @@ class TestTg01qdTransformation:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(123)
         n, m, p = 4, 2, 2
@@ -187,7 +187,7 @@ class TestTg01qdModeParameters:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(456)
         n, m, p = 4, 2, 2
@@ -214,7 +214,7 @@ class TestTg01qdModeParameters:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(789)
         n, m, p = 4, 2, 2
@@ -242,7 +242,7 @@ class TestTg01qdModeParameters:
 
         Random seed: 111 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(111)
         n, m, p = 4, 2, 2
@@ -270,7 +270,7 @@ class TestTg01qdModeParameters:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(222)
         n, m, p = 4, 2, 2
@@ -294,7 +294,7 @@ class TestTg01qdEdgeCases:
 
     def test_zero_dimension(self):
         """Test with N=0 (quick return)."""
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         n, m, p = 0, 2, 2
 
@@ -316,7 +316,7 @@ class TestTg01qdEdgeCases:
 
     def test_invalid_dico(self):
         """Test invalid DICO parameter returns error."""
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         n, m, p = 3, 1, 1
 
@@ -331,7 +331,7 @@ class TestTg01qdEdgeCases:
 
     def test_invalid_stdom(self):
         """Test invalid STDOM parameter returns error."""
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         n, m, p = 3, 1, 1
 
@@ -346,7 +346,7 @@ class TestTg01qdEdgeCases:
 
     def test_invalid_jobfi(self):
         """Test invalid JOBFI parameter returns error."""
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         n, m, p = 3, 1, 1
 
@@ -361,7 +361,7 @@ class TestTg01qdEdgeCases:
 
     def test_invalid_alpha_discrete(self):
         """Test negative ALPHA for discrete-time returns error."""
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         n, m, p = 3, 1, 1
 
@@ -384,7 +384,7 @@ class TestTg01qdSchurStructure:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(333)
         n, m, p = 5, 2, 2
@@ -424,7 +424,7 @@ class TestTg01qdEigenvaluePreservation:
 
         Random seed: 444 (for reproducibility)
         """
-        from slicot import tg01qd
+        from ctrlsys import tg01qd
 
         np.random.seed(444)
         n, m, p = 4, 2, 2

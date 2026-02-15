@@ -6,7 +6,7 @@ TG01DD computes orthogonal transformation matrix Z such that E*Z is upper trapez
 
 import numpy as np
 import pytest
-from slicot import tg01dd
+from ctrlsys import tg01dd
 
 
 class TestTG01DDBasic:

@@ -3,7 +3,7 @@ Tests for MB01UX: Quasi-triangular matrix-matrix product A := alpha*op(T)*A or A
 """
 import numpy as np
 import pytest
-from slicot import mb01ux
+from ctrlsys import mb01ux
 
 
 class TestMB01UXBasic:

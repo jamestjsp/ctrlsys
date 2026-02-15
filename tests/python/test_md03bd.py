@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 pytest.importorskip("slicot")
-import slicot
+import ctrlsys
 
 
 """Test MD03BD - Levenberg-Marquardt nonlinear least squares optimizer"""

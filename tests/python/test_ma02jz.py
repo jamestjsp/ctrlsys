@@ -10,7 +10,7 @@ This is the complex version of MA02JD.
 """
 import numpy as np
 import pytest
-from slicot import ma02jz
+from ctrlsys import ma02jz
 
 
 class TestMA02JZBasic:
@@ -282,7 +282,7 @@ class TestMA02JZMathematicalProperty:
         q1_complex = q1_real.astype(complex, order='F')
         q2_complex = q2_real.astype(complex, order='F')
 
-        from slicot import ma02jd
+        from ctrlsys import ma02jd
         residual_real = ma02jd(False, False, q1_real, q2_real)
         residual_complex = ma02jz(False, False, q1_complex, q2_complex)
 

@@ -9,7 +9,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import mb04su, mb04wu
+from ctrlsys import mb04su, mb04wu
 
 
 class TestMB04WUBasic:

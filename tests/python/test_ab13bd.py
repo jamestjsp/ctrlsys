@@ -26,7 +26,7 @@ def test_ab13bd_continuous_l2_stable_system():
     For stable systems with D=0, L2 norm equals H2 norm.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13bd
+    from ctrlsys import ab13bd
 
     np.random.seed(42)
     n, m, p = 3, 2, 2
@@ -57,7 +57,7 @@ def test_ab13bd_continuous_h2_stable():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13bd
+    from ctrlsys import ab13bd
 
     np.random.seed(42)
     n, m, p = 3, 2, 2
@@ -88,7 +88,7 @@ def test_ab13bd_discrete_h2():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab13bd
+    from ctrlsys import ab13bd
 
     np.random.seed(123)
     n, m, p = 3, 2, 2
@@ -115,7 +115,7 @@ def test_ab13bd_continuous_d_nonzero_error():
     """
     Validate error for continuous-time with D != 0 (INFO=5).
     """
-    from slicot import ab13bd
+    from ctrlsys import ab13bd
 
     n, m, p = 2, 2, 2
 
@@ -140,7 +140,7 @@ def test_ab13bd_h2_unstable_error():
     """
     Validate error for H2 norm with unstable system (INFO=6).
     """
-    from slicot import ab13bd
+    from ctrlsys import ab13bd
 
     n, m, p = 2, 1, 1
 
@@ -168,7 +168,7 @@ def test_ab13bd_norm_positive():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab13bd
+    from ctrlsys import ab13bd
 
     np.random.seed(789)
     n, m, p = 4, 2, 3
@@ -193,7 +193,7 @@ def test_ab13bd_zero_norm_zero_b():
     """
     Validate zero norm when B=0 (no input coupling).
     """
-    from slicot import ab13bd
+    from ctrlsys import ab13bd
 
     n, m, p = 2, 2, 2
 

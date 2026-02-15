@@ -28,7 +28,7 @@ def test_mb02hd_basic():
         1.0  3.0
         2.0  1.0
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     k = 2
     l = 2
@@ -84,7 +84,7 @@ def test_mb02hd_triangular_mode():
     Uses the same data from HTML doc but with TRIU='T' option.
     The algorithm may return info=1 if rank conditions are not met.
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     k = 2
     l = 2
@@ -130,7 +130,7 @@ def test_mb02hd_incremental():
 
     Full computation in one call - verifies structural correctness.
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     # Use HTML documentation example data which is known to work
     k = 2
@@ -174,7 +174,7 @@ def test_mb02hd_workspace_query():
     """
     Test that MB02HD properly handles workspace sizing using HTML example data.
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     # Use HTML documentation example parameters
     k = 2
@@ -211,7 +211,7 @@ def test_mb02hd_quick_return():
     """
     Test quick return cases (K=0, L=0, or S=0).
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     # S=0: should return empty RB
     tc = np.array([[1.0, 2.0]], order='F', dtype=float)
@@ -230,7 +230,7 @@ def test_mb02hd_property_rtr_equals_ttt():
     algorithm produces meaningful output. The property check is only
     performed if info=0 (algorithm succeeded).
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     # HTML documentation example parameters
     k = 2
@@ -309,7 +309,7 @@ def test_mb02hd_error_invalid_triu():
     """
     Test error handling for invalid TRIU parameter.
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     tc = np.array([[1.0, 2.0], [1.0, 2.0]], order='F', dtype=float)
     tr = np.array([[1.0, 2.0]], order='F', dtype=float)
@@ -322,7 +322,7 @@ def test_mb02hd_error_negative_k():
     """
     Test error handling for negative K.
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     tc = np.array([[1.0, 2.0], [1.0, 2.0]], order='F', dtype=float)
     tr = np.array([[1.0, 2.0]], order='F', dtype=float)
@@ -338,7 +338,7 @@ def test_mb02hd_rank_deficient():
     When T does not have full rank, the algorithm may detect this (info=1)
     or may complete with numerical approximation (info=0). Both are valid.
     """
-    from slicot import mb02hd
+    from ctrlsys import mb02hd
 
     # Create TC that leads to near-rank deficiency
     tc = np.array([

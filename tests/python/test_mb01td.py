@@ -7,7 +7,7 @@ Result is returned in B.
 """
 import numpy as np
 import pytest
-from slicot import mb01td
+from ctrlsys import mb01td
 
 
 def test_mb01td_html_example():

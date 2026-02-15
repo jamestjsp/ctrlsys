@@ -29,7 +29,7 @@ def test_bd02ad_example_1_1():
       C = [[3, 2]]
       D = 0 (zeros)
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -79,7 +79,7 @@ def test_bd02ad_example_1_2():
       B = [[4.877, 4.877], [-1.1895, 3.569]]
       C = I (identity)
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 2], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -117,7 +117,7 @@ def test_bd02ad_example_1_3():
       B = [[1], [0]]
       C = [[0, 1]]
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 3], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -154,7 +154,7 @@ def test_bd02ad_example_1_4():
       A = [[0, 1], [0, -1]]
       B = [[1, 1], [2, 1]] (first column has 2 at row 2)
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 4], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -178,7 +178,7 @@ def test_bd02ad_example_1_5():
       N=2, M=1, P=2
       A = [[0, 1], [0, 0]]
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 5], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -208,7 +208,7 @@ def test_bd02ad_example_1_10():
     Expected:
       N=6, M=2, P=2
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 10], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -243,7 +243,7 @@ def test_bd02ad_example_2_1():
     Expected:
       N=4, M=1, P=1
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([2, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -267,7 +267,7 @@ def test_bd02ad_example_2_1_custom_param():
 
     Uses NR=(2,1), DEF='N'.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([2, 1], dtype=np.int32)
     tau = 1e6
@@ -296,7 +296,7 @@ def test_bd02ad_example_3_1():
 
     Uses NR=(3,1), DEF='D' with default n=100.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([3, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -325,7 +325,7 @@ def test_bd02ad_example_3_1_custom_size():
 
     Uses NR=(3,1), DEF='N', IPAR(1)=10.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([3, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -344,7 +344,7 @@ def test_bd02ad_invalid_example():
     """
     Test error handling for invalid example number.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 100], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -360,7 +360,7 @@ def test_bd02ad_invalid_group():
     """
     Test error handling for invalid group number.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([5, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -376,7 +376,7 @@ def test_bd02ad_invalid_def():
     """
     Test error handling for invalid DEF parameter in parameter-dependent examples.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([2, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -392,7 +392,7 @@ def test_bd02ad_example_2_1_zero_tau():
     """
     Test error handling when tau=0 (division by zero).
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([2, 1], dtype=np.int32)
     dpar = np.array([0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -410,7 +410,7 @@ def test_bd02ad_file_based_example_returns_error():
 
     These examples require external data files which we don't support.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     for ex in [6, 7, 8, 9, 11, 12]:
         nr = np.array([1, ex], dtype=np.int32)
@@ -429,7 +429,7 @@ def test_bd02ad_state_space_structure():
 
     For Ex.1.1, verify dimensions match E*x_{k+1} = A*x_k + B*u_k, y_k = C*x_k + D*u_k.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -462,7 +462,7 @@ def test_bd02ad_note_string():
     """
     Test that NOTE string contains meaningful description.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -487,7 +487,7 @@ def test_bd02ad_discrete_time_evolution():
     Verify single-step evolution.
     Random seed: Not applicable (deterministic problem).
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -524,7 +524,7 @@ def test_bd02ad_markov_parameters():
 
     Test with Example 1.1.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([1, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)
@@ -553,7 +553,7 @@ def test_bd02ad_example_3_1_ipar_validation():
     """
     Test error handling for invalid IPAR value (n < 2) in Example 3.1.
     """
-    from slicot import bd02ad
+    from ctrlsys import bd02ad
 
     nr = np.array([3, 1], dtype=np.int32)
     dpar = np.zeros(7, dtype=np.float64)

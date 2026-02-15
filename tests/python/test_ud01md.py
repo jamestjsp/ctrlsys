@@ -23,7 +23,7 @@ def test_ud01md_basic():
     - M=4, N=4, L=4 (4x4 matrix, 4 elements per line)
     - Matrix values 1-16
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 4, 4, 4
 
@@ -54,7 +54,7 @@ def test_ud01md_small_l():
 
     This tests the column blocking feature where N > L.
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 2, 4, 2
 
@@ -75,7 +75,7 @@ def test_ud01md_single_column():
     """
     Test edge case: single column matrix (N=1).
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 3, 1, 1
 
@@ -99,7 +99,7 @@ def test_ud01md_single_row():
     """
     Test edge case: single row matrix (M=1).
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 1, 4, 4
 
@@ -119,7 +119,7 @@ def test_ud01md_l_equals_5():
     """
     Test with maximum allowed L=5.
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 2, 5, 5
 
@@ -142,7 +142,7 @@ def test_ud01md_scientific_notation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     np.random.seed(42)
 
@@ -165,7 +165,7 @@ def test_ud01md_error_m_invalid():
     """
     Test error: M < 1.
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 0, 4, 4
 
@@ -182,7 +182,7 @@ def test_ud01md_error_n_invalid():
     """
     Test error: N < 1.
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 4, 0, 4
 
@@ -199,7 +199,7 @@ def test_ud01md_error_l_too_small():
     """
     Test error: L < 1.
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 4, 4, 0
 
@@ -221,7 +221,7 @@ def test_ud01md_error_l_too_large():
     """
     Test error: L > 5.
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 4, 4, 6
 
@@ -243,7 +243,7 @@ def test_ud01md_long_text():
     """
     Test with long text title (truncated to 72 chars).
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 2, 2, 2
 
@@ -263,7 +263,7 @@ def test_ud01md_empty_text():
     """
     Test with empty text title.
     """
-    from slicot import ud01md
+    from ctrlsys import ud01md
 
     m, n, l = 2, 2, 2
 

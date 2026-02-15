@@ -7,7 +7,7 @@ and D is a P-by-M real matrix.
 
 import numpy as np
 import pytest
-from slicot import tb04bw
+from ctrlsys import tb04bw
 
 
 class TestTB04BWBasic:

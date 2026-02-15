@@ -9,7 +9,7 @@ or the convergent discrete-time Lyapunov equation:
 where A is N-by-N complex, op(B) is M-by-N complex, U is upper triangular Cholesky factor.
 """
 import numpy as np
-import slicot
+import ctrlsys
 
 
 def make_stable_continuous_complex(n, seed=42):

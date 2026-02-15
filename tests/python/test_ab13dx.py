@@ -13,7 +13,7 @@ def test_ab13dx_continuous_identity():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13dx
+    from ctrlsys import ab13dx
 
     np.random.seed(42)
     n, m, p = 2, 1, 1
@@ -43,7 +43,7 @@ def test_ab13dx_continuous_omega_zero():
     For omega=0, G(0) = -C*inv(A)*B + D (assuming A stable).
     Uses special path via MB02SD/MB02RD for real linear solve.
     """
-    from slicot import ab13dx
+    from ctrlsys import ab13dx
 
     n, m, p = 2, 1, 1
 
@@ -71,7 +71,7 @@ def test_ab13dx_discrete():
 
     For discrete-time, lambda = exp(j*omega).
     """
-    from slicot import ab13dx
+    from ctrlsys import ab13dx
 
     n, m, p = 2, 1, 1
 
@@ -97,7 +97,7 @@ def test_ab13dx_with_d_matrix():
     """
     Test AB13DX with nonzero D matrix.
     """
-    from slicot import ab13dx
+    from ctrlsys import ab13dx
 
     n, m, p = 2, 1, 1
 
@@ -121,7 +121,7 @@ def test_ab13dx_with_d_matrix():
 
 def test_ab13dx_n0():
     """Test AB13DX with n=0 (static gain only)."""
-    from slicot import ab13dx
+    from ctrlsys import ab13dx
 
     n, m, p = 0, 1, 1
 
@@ -141,7 +141,7 @@ def test_ab13dx_n0():
 
 def test_ab13dx_m0_or_p0():
     """Test AB13DX with m=0 or p=0 (zero transfer function)."""
-    from slicot import ab13dx
+    from ctrlsys import ab13dx
 
     n, m, p = 2, 0, 1
 
@@ -161,7 +161,7 @@ def test_ab13dx_m0_or_p0():
 
 def test_ab13dx_invalid_dico():
     """Test AB13DX with invalid DICO parameter."""
-    from slicot import ab13dx
+    from ctrlsys import ab13dx
 
     n, m, p = 2, 1, 1
 

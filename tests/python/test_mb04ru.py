@@ -18,7 +18,7 @@ where Aout is in upper Hessenberg form.
 
 import numpy as np
 import pytest
-from slicot import mb04ru
+from ctrlsys import mb04ru
 
 
 def build_skew_hamiltonian(a, q_lower, g_upper):

@@ -20,7 +20,7 @@ For SPA approach: Same formulas for minimal realization, then SPA applied.
 
 import numpy as np
 import pytest
-from slicot import ab09ix
+from ctrlsys import ab09ix
 
 
 class TestAB09IXBasic:

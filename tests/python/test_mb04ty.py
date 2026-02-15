@@ -25,7 +25,7 @@ Error conditions:
 
 import numpy as np
 import pytest
-from slicot import mb04ty
+from ctrlsys import mb04ty
 
 
 class TestMB04TYBasic:

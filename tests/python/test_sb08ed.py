@@ -18,7 +18,7 @@ where:
 
 import numpy as np
 import pytest
-from slicot import sb08ed
+from ctrlsys import sb08ed
 
 
 class TestSB08EDBasic:

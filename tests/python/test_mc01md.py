@@ -27,7 +27,7 @@ def test_mc01md_basic_html_example():
     q[4] = 12
     q[5] = 1
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 5
     alpha = 2.0
@@ -52,7 +52,7 @@ def test_mc01md_partial_coefficients():
 
     Only q[0], q[1], q[2] should be meaningful.
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 5
     alpha = 2.0
@@ -76,7 +76,7 @@ def test_mc01md_zero_alpha():
 
     P(x) = 1 + 2x + 3x^2
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 2
     alpha = 0.0
@@ -96,7 +96,7 @@ def test_mc01md_constant_polynomial():
     P(x) = 5 (constant)
     Shifted: P(x) = 5 (still constant, q[0] = 5)
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 0
     alpha = 3.0
@@ -120,7 +120,7 @@ def test_mc01md_linear_polynomial():
     P(x) = P(1) + P'(1)*(x-1) = 5 + 3*(x-1)
     q[0] = 5, q[1] = 3
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 1
     alpha = 1.0
@@ -150,7 +150,7 @@ def test_mc01md_quadratic_taylor():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 2
     alpha = 2.0
@@ -174,7 +174,7 @@ def test_mc01md_single_coefficient():
 
     q[0] = P(-1) = 1 - 2 + 3 - 4 = -2
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 3
     alpha = -1.0
@@ -194,7 +194,7 @@ def test_mc01md_error_negative_dp():
     Note: Python wrapper infers dp from array size.
     Empty array means dp = -1 which is invalid.
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     alpha = 1.0
     k = 1
@@ -211,7 +211,7 @@ def test_mc01md_error_invalid_k_zero():
 
     K is the 3rd argument so error code is -3.
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     alpha = 1.0
     k = 0
@@ -229,7 +229,7 @@ def test_mc01md_error_k_too_large():
     dp = 2, so max k = 3. k = 4 is invalid.
     K is the 3rd argument so error code is -3.
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     alpha = 1.0
     k = 4
@@ -261,7 +261,7 @@ def test_mc01md_taylor_property():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     dp = 3
     alpha = 0.5
@@ -288,7 +288,7 @@ def test_mc01md_polynomial_evaluation_invariant():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     np.random.seed(42)
 
@@ -314,7 +314,7 @@ def test_mc01md_random_polynomial():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mc01md
+    from ctrlsys import mc01md
 
     np.random.seed(123)
 

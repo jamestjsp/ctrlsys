@@ -37,7 +37,7 @@ def test_tb01kx_basic_block_diagonal():
     Input: A in Schur form with distinct eigenvalues in each block.
     Expected: A12 block becomes zero, eigenvalues preserved.
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     n, m, p = 4, 2, 2
     ndim = 2
@@ -85,7 +85,7 @@ def test_tb01kx_eigenvalue_preservation():
     A similarity transformation preserves eigenvalues: lambda(A) = lambda(V*A*U)
     Random seed: 42 (for reproducibility)
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     np.random.seed(42)
     n, m, p = 5, 2, 3
@@ -119,7 +119,7 @@ def test_tb01kx_block_diagonal_structure():
       - A12 block (rows 0:NDIM, cols NDIM:N) must be zero
       - Elements below first subdiagonal must be zero (quasi-triangular)
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     n, m, p = 6, 2, 2
     ndim = 3
@@ -162,7 +162,7 @@ def test_tb01kx_transformation_validity():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     np.random.seed(123)
     n, m, p = 4, 2, 3
@@ -208,7 +208,7 @@ def test_tb01kx_ndim_zero():
 
     When NDIM=0, no Sylvester equation needed, just transpose U to get V.
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     n, m, p = 3, 1, 1
     ndim = 0
@@ -238,7 +238,7 @@ def test_tb01kx_ndim_equals_n():
 
     When NDIM=N, no Sylvester equation needed, just transpose U to get V.
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     n, m, p = 3, 1, 1
     ndim = n
@@ -266,7 +266,7 @@ def test_tb01kx_n_zero():
     """
     Edge case: n=0, quick return.
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     n, m, p = 0, 2, 2
     ndim = 0
@@ -290,7 +290,7 @@ def test_tb01kx_complex_eigenvalues():
     A Schur form with 2x2 block on diagonal represents complex eigenvalues.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     np.random.seed(456)
     n, m, p = 4, 2, 2
@@ -329,7 +329,7 @@ def test_tb01kx_nonidentity_u():
     U is accumulated transformation, not just initialized.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     np.random.seed(789)
     n, m, p = 4, 2, 2
@@ -369,7 +369,7 @@ def test_tb01kx_invalid_ndim():
 
     NDIM must satisfy: 0 <= NDIM <= N
     """
-    from slicot import tb01kx
+    from ctrlsys import tb01kx
 
     n, m, p = 3, 1, 1
 

@@ -11,7 +11,7 @@ This is the complex version of TB01XD. Note: A' means transpose, NOT conjugate t
 """
 import numpy as np
 import pytest
-from slicot import tb01xz
+from ctrlsys import tb01xz
 
 
 def create_permutation_matrix(n):

@@ -15,7 +15,7 @@ class TestMB03CDBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(42)
 
@@ -56,7 +56,7 @@ class TestMB03CDBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(123)
 
@@ -100,7 +100,7 @@ class TestMB03CDBasic:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(456)
 
@@ -149,7 +149,7 @@ class TestMB03CDBasic:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(789)
 
@@ -195,7 +195,7 @@ class TestMB03CDMathematicalProperties:
 
         Random seed: 100 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(100)
 
@@ -237,7 +237,7 @@ class TestMB03CDMathematicalProperties:
 
         Random seed: 101 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(101)
 
@@ -279,7 +279,7 @@ class TestMB03CDMathematicalProperties:
 
         Random seed: 102 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(102)
 
@@ -320,7 +320,7 @@ class TestMB03CDMathematicalProperties:
 
         Random seed: 200 (for reproducibility)
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         np.random.seed(200)
 
@@ -367,7 +367,7 @@ class TestMB03CDEdgeCases:
 
         If N1=0 and N2=2, the 'first block' is empty.
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         n1, n2 = 0, 2
         m = n1 + n2
@@ -401,7 +401,7 @@ class TestMB03CDEdgeCases:
 
         If N1=2 and N2=0, the 'second block' is empty.
         """
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         n1, n2 = 2, 0
         m = n1 + n2
@@ -435,7 +435,7 @@ class TestMB03CDErrorHandling:
 
     def test_invalid_uplo(self):
         """Test error for invalid UPLO parameter."""
-        from slicot import mb03cd
+        from ctrlsys import mb03cd
 
         n1, n2 = 1, 1
         m = n1 + n2

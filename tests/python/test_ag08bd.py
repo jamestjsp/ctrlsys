@@ -9,7 +9,7 @@ zeros and determines the singular and infinite Kronecker structure.
 
 import numpy as np
 import pytest
-from slicot import ag08bd
+from ctrlsys import ag08bd
 
 
 class TestAG08BDBasic:

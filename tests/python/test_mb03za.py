@@ -14,7 +14,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb03za
+from ctrlsys import mb03za
 
 
 def test_mb03za_select_all():

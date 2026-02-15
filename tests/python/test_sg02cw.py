@@ -27,7 +27,7 @@ class TestSG02CWBasic:
         Random seed: 42 (for reproducibility)
         Test data generated using control package CARE solver.
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 3
 
@@ -89,7 +89,7 @@ class TestSG02CWBasic:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -131,7 +131,7 @@ class TestSG02CWBasic:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -180,7 +180,7 @@ class TestSG02CWJobD:
 
         Random seed: 789 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
         m = 2
@@ -230,7 +230,7 @@ class TestSG02CWJobFH:
 
         Random seed: 321 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
         m = 2
@@ -284,7 +284,7 @@ class TestSG02CWJobFH:
 
         Random seed: 654 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
         m = 2
@@ -349,7 +349,7 @@ class TestSG02CWGeneralizedE:
 
         Random seed: 111 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -399,7 +399,7 @@ class TestSG02CWGeneralizedE:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -455,7 +455,7 @@ class TestSG02CWNorms:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -498,7 +498,7 @@ class TestSG02CWNorms:
 
         Random seed: 444 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -540,7 +540,7 @@ class TestSG02CWJobOptions:
 
         Random seed: 555 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -574,7 +574,7 @@ class TestSG02CWJobOptions:
 
         Random seed: 666 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -613,7 +613,7 @@ class TestSG02CWTranspose:
 
         Random seed: 777 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -652,7 +652,7 @@ class TestSG02CWLowerTriangle:
 
         Random seed: 888 (for reproducibility)
         """
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         n = 2
 
@@ -687,7 +687,7 @@ class TestSG02CWEdgeCases:
 
     def test_n_zero(self):
         """Test with n=0 (quick return)."""
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         r, c, norms, info = sg02cw(
             dico='C', job='N', jobe='I', flag='M', jobg='G',
@@ -711,7 +711,7 @@ class TestSG02CWParameterValidation:
 
     def test_invalid_dico(self):
         """Test invalid DICO parameter returns info < 0."""
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         r, c, norms, info = sg02cw(
             dico='X', job='A', jobe='I', flag='M', jobg='G',
@@ -728,7 +728,7 @@ class TestSG02CWParameterValidation:
 
     def test_invalid_job(self):
         """Test invalid JOB parameter returns info < 0."""
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         r, c, norms, info = sg02cw(
             dico='C', job='X', jobe='I', flag='M', jobg='G',
@@ -745,7 +745,7 @@ class TestSG02CWParameterValidation:
 
     def test_negative_n(self):
         """Test negative N parameter returns info < 0."""
-        from slicot import sg02cw
+        from ctrlsys import sg02cw
 
         r, c, norms, info = sg02cw(
             dico='C', job='A', jobe='I', flag='M', jobg='G',

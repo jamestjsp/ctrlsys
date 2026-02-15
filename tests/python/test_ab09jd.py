@@ -64,7 +64,7 @@ class TestAB09JDDocExample:
         ORDSEL='A' for automatic order selection based on TOL1=0.1.
         JOBV='V' means op(V) = V (antistable V required).
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         n, m, p = 6, 1, 1
         nv, nw = 2, 0
@@ -191,7 +191,7 @@ class TestAB09JDNoWeighting:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(42)
         n, m, p = 4, 1, 1
@@ -241,7 +241,7 @@ class TestAB09JDLeftWeighting:
         V must be antistable for JOBV='V'.
         Random seed: 123 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(123)
         n, m, p = 3, 1, 1
@@ -283,7 +283,7 @@ class TestAB09JDLeftWeighting:
         V must be stable for JOBV='C'.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(456)
         n, m, p = 3, 1, 1
@@ -325,7 +325,7 @@ class TestAB09JDLeftWeighting:
         V must have only antistable zeros for JOBV='I'.
         Random seed: 789 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(789)
         n, m, p = 3, 1, 1
@@ -371,7 +371,7 @@ class TestAB09JDRightWeighting:
         W must be antistable for JOBW='W'.
         Random seed: 111 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(111)
         n, m, p = 3, 1, 1
@@ -416,7 +416,7 @@ class TestAB09JDBothWeighting:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(222)
         n, m, p = 3, 1, 1
@@ -461,7 +461,7 @@ class TestAB09JDDiscreteTime:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(333)
         n, m, p = 3, 1, 1
@@ -506,7 +506,7 @@ class TestAB09JDJobinvModes:
 
         Random seed: 444 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(444)
         n, m, p = 3, 1, 1
@@ -546,7 +546,7 @@ class TestAB09JDJobinvModes:
 
         Random seed: 555 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(555)
         n, m, p = 3, 1, 1
@@ -590,7 +590,7 @@ class TestAB09JDMathematicalProperties:
 
         Random seed: 666 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(666)
         n, m, p = 5, 1, 1
@@ -633,7 +633,7 @@ class TestAB09JDMathematicalProperties:
         The eigenvalues of the reduced system should have negative real parts.
         Random seed: 777 (for reproducibility)
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         np.random.seed(777)
         n, m, p = 4, 1, 1
@@ -679,7 +679,7 @@ class TestAB09JDEdgeCases:
 
     def test_n_zero(self):
         """Test with N=0 (quick return)."""
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         n, m, p = 0, 1, 1
         nv, nw = 0, 0
@@ -716,7 +716,7 @@ class TestAB09JDEdgeCases:
 
     def test_m_zero(self):
         """Test with M=0 (quick return)."""
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         n, m, p = 2, 0, 1
         nv, nw = 0, 0
@@ -757,7 +757,7 @@ class TestAB09JDErrors:
 
     def test_invalid_jobv(self):
         """Test error for invalid JOBV parameter."""
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         n, m, p = 2, 1, 1
 
@@ -784,7 +784,7 @@ class TestAB09JDErrors:
 
     def test_invalid_dico(self):
         """Test error for invalid DICO parameter."""
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         n, m, p = 2, 1, 1
 
@@ -815,7 +815,7 @@ class TestAB09JDErrors:
 
         For JOBV='V', V must be antistable (all eigenvalues unstable).
         """
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         n, m, p = 2, 1, 1
         nv = 2
@@ -854,7 +854,7 @@ class TestAB09JDErrors:
 
     def test_info_20_v_not_invertible(self):
         """Test INFO=20: V is not invertible (DV singular and NV=0)."""
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         n, m, p = 2, 1, 1
         nv = 0
@@ -889,7 +889,7 @@ class TestAB09JDErrors:
 
     def test_negative_n(self):
         """Test error for negative N."""
-        from slicot import ab09jd
+        from ctrlsys import ab09jd
 
         a = np.zeros((1, 1), order='F', dtype=float)
         b = np.zeros((1, 1), order='F', dtype=float)

@@ -20,7 +20,7 @@ class TestSB10FD:
         System: N=6, M=5, NP=5, NCON=2, NMEAS=2
         Gamma=15.0, TOL=1e-8
         """
-        from slicot import sb10fd
+        from ctrlsys import sb10fd
 
         n = 6
         m = 5
@@ -118,7 +118,7 @@ class TestSB10FD:
         - CK: NCON x N
         - DK: NCON x NMEAS
         """
-        from slicot import sb10fd
+        from ctrlsys import sb10fd
 
         n = 6
         m = 5
@@ -178,7 +178,7 @@ class TestSB10FD:
 
         When gamma is too small, the Riccati equations fail or the controller is inadmissible.
         """
-        from slicot import sb10fd
+        from ctrlsys import sb10fd
 
         n = 6
         m = 5
@@ -234,7 +234,7 @@ class TestSB10FD:
         The H-infinity controller should stabilize the closed-loop system.
         Random seed: 42 (for reproducibility)
         """
-        from slicot import sb10fd
+        from ctrlsys import sb10fd
 
         n = 6
         m = 5
@@ -322,7 +322,7 @@ class TestSB10FD:
 
         All should be in (0, 1].
         """
-        from slicot import sb10fd
+        from ctrlsys import sb10fd
 
         n = 6
         m = 5

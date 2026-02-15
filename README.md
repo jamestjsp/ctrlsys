@@ -1,16 +1,18 @@
-# SLICOT
+# ctrlsys
 
-[![PyPI version](https://img.shields.io/pypi/v/slicot)](https://pypi.org/project/slicot/)
-[![Build Status](https://github.com/jamestjsp/slicot/actions/workflows/test.yml/badge.svg)](https://github.com/jamestjsp/slicot/actions)
-[![Documentation](https://readthedocs.org/projects/slicot/badge/?version=latest)](https://slicot.readthedocs.io/en/latest/)
+[![PyPI version](https://img.shields.io/pypi/v/ctrlsys)](https://pypi.org/project/ctrlsys/)
+[![Build Status](https://github.com/jamestjsp/ctrlsys/actions/workflows/test.yml/badge.svg)](https://github.com/jamestjsp/ctrlsys/actions)
+[![Documentation](https://readthedocs.org/projects/ctrlsys/badge/?version=latest)](https://ctrlsys.readthedocs.io/en/latest/)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE)
 
 Python bindings for **SLICOT** (Subroutine Library In COntrol Theory) - numerical routines for control systems analysis and design. This is a low-level API primarily targeting AI agents and higher-level libraries.
 
+> **Note:** This package was previously published as `slicot` on PyPI. Install with `pip install ctrlsys`.
+
 ## Installation
 
 ```bash
-pip install slicot
+pip install ctrlsys
 ```
 
 ## Features
@@ -31,13 +33,13 @@ For agent skills (Claude Code, Cursor, etc.), see [control-skills](https://githu
 
 ```python
 import numpy as np
-import slicot
+import ctrlsys
 
 # Controllability analysis
 A = np.array([[1, 2], [3, 4]], order='F')
 B = np.array([[1], [0]], order='F')
 
-a_out, b_out, ncont, z, tau, info = slicot.ab01md('I', A, B.flatten(), 0.0)
+a_out, b_out, ncont, z, tau, info = ctrlsys.ab01md('I', A, B.flatten(), 0.0)
 print(f"Controllable dimension: {ncont}")
 ```
 

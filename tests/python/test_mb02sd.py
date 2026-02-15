@@ -27,7 +27,7 @@ def test_mb02sd_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02sd
+    from ctrlsys import mb02sd
 
     np.random.seed(42)
     n = 4
@@ -54,7 +54,7 @@ def test_mb02sd_n3():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02sd
+    from ctrlsys import mb02sd
 
     np.random.seed(123)
     n = 3
@@ -79,7 +79,7 @@ def test_mb02sd_singular():
     """
     Test MB02SD with a singular matrix (should return info > 0).
     """
-    from slicot import mb02sd
+    from ctrlsys import mb02sd
 
     n = 3
     h = np.array([
@@ -95,7 +95,7 @@ def test_mb02sd_singular():
 
 def test_mb02sd_n1():
     """Test MB02SD with 1x1 matrix."""
-    from slicot import mb02sd
+    from ctrlsys import mb02sd
 
     n = 1
     h = np.array([[5.0]], order='F', dtype=float)
@@ -109,7 +109,7 @@ def test_mb02sd_n1():
 
 def test_mb02sd_n0():
     """Test MB02SD with n=0 (quick return)."""
-    from slicot import mb02sd
+    from ctrlsys import mb02sd
 
     n = 0
     h = np.zeros((1, 1), order='F', dtype=float)

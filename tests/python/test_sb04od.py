@@ -14,7 +14,7 @@ where (A,D) are M-by-M, (B,E) are N-by-N, and C, F, R, L are M-by-N.
 import numpy as np
 import pytest
 
-from slicot import sb04od
+from ctrlsys import sb04od
 
 
 class TestSB04ODBasic:

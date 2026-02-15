@@ -26,7 +26,7 @@ def test_tb04bx_simple_first_order():
     State-space: A = [-1], B = [1], C = [2], D = 0
     Poles: -1, Zeros: none
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 1
     iz = 0
@@ -63,7 +63,7 @@ def test_tb04bx_second_order_real_poles():
     Poles: -1, -2
     Zeros: none
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 2
     iz = 0
@@ -104,7 +104,7 @@ def test_tb04bx_with_zeros():
     Poles: -1, -3
     Zeros: -2
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 2
     iz = 1
@@ -143,7 +143,7 @@ def test_tb04bx_complex_conjugate_poles():
     C = [5, 0]
     D = 0
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 2
     iz = 0
@@ -184,7 +184,7 @@ def test_tb04bx_with_feedthrough():
     Zeros: -4
     Gain = 1
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 1
     iz = 1
@@ -211,7 +211,7 @@ def test_tb04bx_zero_poles():
 
     When IP = 0, the gain should be 0.0.
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 0
     iz = 0
@@ -251,7 +251,7 @@ def test_tb04bx_third_order_mixed():
     Note: Higher-order systems have inherent numerical sensitivity in the
     gain computation formula due to the inverse and products involved.
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 3
     iz = 1
@@ -295,7 +295,7 @@ def test_tb04bx_complex_conjugate_zeros():
 
     DC gain = 4/2 = 2
     """
-    from slicot import tb04bx
+    from ctrlsys import tb04bx
 
     ip = 2
     iz = 2

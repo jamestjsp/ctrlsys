@@ -22,7 +22,7 @@ def test_ud01dd_basic():
     - Diagonal elements at (1,1) to (5,5) = -1.1, -2.2, -3.3, -4.4, -5.5
     - Row 6 elements: 1.5, 2.5, 3.5, 4.5, 5.5
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     m, n = 6, 5
 
@@ -52,7 +52,7 @@ def test_ud01dd_empty_sparse():
     """
     Test edge case: no nonzero elements (all zeros).
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     m, n = 3, 4
 
@@ -72,7 +72,7 @@ def test_ud01dd_zero_dimensions():
     """
     Test edge case: M=0 or N=0 (quick return).
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     rows = np.array([], dtype=np.int32)
     cols = np.array([], dtype=np.int32)
@@ -95,7 +95,7 @@ def test_ud01dd_out_of_bounds_warning():
 
     From HTML doc: INFO=1 if i<1, i>M, j<1, or j>N.
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     m, n = 3, 3
 
@@ -119,7 +119,7 @@ def test_ud01dd_error_m_negative():
     """
     Test error: M < 0.
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     rows = np.array([1], dtype=np.int32)
     cols = np.array([1], dtype=np.int32)
@@ -134,7 +134,7 @@ def test_ud01dd_error_n_negative():
     """
     Test error: N < 0.
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     rows = np.array([1], dtype=np.int32)
     cols = np.array([1], dtype=np.int32)
@@ -149,7 +149,7 @@ def test_ud01dd_single_element():
     """
     Test edge case: single nonzero element.
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     m, n = 5, 4
 
@@ -173,7 +173,7 @@ def test_ud01dd_overwrite_same_position():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     m, n = 3, 3
 
@@ -194,7 +194,7 @@ def test_ud01dd_full_dense():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     np.random.seed(123)
 
@@ -227,7 +227,7 @@ def test_ud01dd_boundary_indices():
     """
     Test boundary indices (corners of matrix).
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     m, n = 5, 4
 
@@ -255,7 +255,7 @@ def test_ud01dd_column_major_storage():
 
     Verify memory layout is column-major by checking strides.
     """
-    from slicot import ud01dd
+    from ctrlsys import ud01dd
 
     m, n = 4, 3
 

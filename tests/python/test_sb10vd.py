@@ -3,7 +3,7 @@ Tests for SB10VD - State feedback and output injection for H2 controller.
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 class TestSB10VDBasic:

@@ -6,7 +6,7 @@ SB10YD fits frequency response data with a SISO state-space system (A, B, C, D).
 
 import unittest
 import numpy as np
-from slicot import sb10yd
+from ctrlsys import sb10yd
 
 
 class TestSB10YD(unittest.TestCase):

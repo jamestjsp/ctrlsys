@@ -15,7 +15,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb04dz
+from ctrlsys import mb04dz
 
 
 def test_mb04dz_html_doc_example():

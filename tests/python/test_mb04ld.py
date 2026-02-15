@@ -31,7 +31,7 @@ def test_mb04ld_full_basic():
     A = np.random.randn(n, m).astype(float, order='F')
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     L_bar, A_out, D, C, tau = mb04ld('F', n, m, p, L.copy(), A.copy(), B.copy())
 
@@ -77,7 +77,7 @@ def test_mb04ld_lower_trapezoidal():
 
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     L_bar, A_out, D, C, tau = mb04ld('L', n, m, p, L.copy(), A.copy(), B.copy())
 
@@ -112,7 +112,7 @@ def test_mb04ld_norm_preservation():
     block_row2 = np.hstack([np.zeros((p, n)), B])
     original_norm = np.linalg.norm(np.vstack([block_row1, block_row2]), 'fro')
 
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     L_bar, A_out, D, C, tau = mb04ld('F', n, m, p, L.copy(), A.copy(), B.copy())
 
@@ -130,7 +130,7 @@ def test_mb04ld_zero_m():
 
     When M=0, transformation is trivial - L unchanged, C and D empty.
     """
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     n, m, p = 3, 0, 2
 
@@ -162,7 +162,7 @@ def test_mb04ld_single_row():
     A = np.array([[1.0, 2.0, 1.5]], order='F', dtype=float)
     B = np.array([[1.0, 2.0, 1.5], [2.0, 1.0, 2.5]], order='F', dtype=float)
 
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     L_bar, A_out, D, C, tau = mb04ld('F', n, m, p, L.copy(), A.copy(), B.copy())
 
@@ -193,7 +193,7 @@ def test_mb04ld_householder_structure():
     A = np.random.randn(n, m).astype(float, order='F')
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     L_bar, A_out, D, C, tau = mb04ld('F', n, m, p, L.copy(), A.copy(), B.copy())
 
@@ -215,7 +215,7 @@ def test_mb04ld_diagonal_l():
     A = np.random.randn(n, m).astype(float, order='F')
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     L_bar, A_out, D, C, tau = mb04ld('F', n, m, p, L.copy(), A.copy(), B.copy())
 
@@ -245,7 +245,7 @@ def test_mb04ld_lower_trap_m_less_n():
 
     B = np.random.randn(p, m).astype(float, order='F')
 
-    from slicot import mb04ld
+    from ctrlsys import mb04ld
 
     L_bar, A_out, D, C, tau = mb04ld('L', n, m, p, L.copy(), A.copy(), B.copy())
 

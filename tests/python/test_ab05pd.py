@@ -14,7 +14,7 @@ def test_ab05pd_html_doc_example():
 
     G = G1 + alpha*G2 (parallel connection with same inputs)
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     n1, m, p, n2 = 3, 2, 2, 3
     alpha = 1.0
@@ -122,7 +122,7 @@ def test_ab05pd_alpha_scaling():
     Uses simple 2x2 systems with alpha = 0.5.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     np.random.seed(42)
     n1, m, p, n2 = 2, 1, 1, 2
@@ -175,7 +175,7 @@ def test_ab05pd_transfer_function_property():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     np.random.seed(123)
     n1, m, p, n2 = 2, 2, 2, 2
@@ -218,7 +218,7 @@ def test_ab05pd_eigenvalue_preservation():
     The combined A matrix eigenvalues should be union of A1 and A2 eigenvalues.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     np.random.seed(456)
     n1, m, p, n2 = 3, 1, 1, 2
@@ -269,7 +269,7 @@ def test_ab05pd_n2_zero():
 
     Result should be G1 + alpha*D2 for D matrix only.
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     n1, m, p, n2 = 2, 2, 2, 0
     alpha = 1.5
@@ -305,7 +305,7 @@ def test_ab05pd_n1_zero():
 
     Result should be D1 + alpha*G2.
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     n1, m, p, n2 = 0, 2, 2, 2
     alpha = 0.5
@@ -344,7 +344,7 @@ def test_ab05pd_alpha_zero():
 
     Result should be exactly G1.
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     n1, m, p, n2 = 2, 1, 1, 2
     alpha = 0.0
@@ -388,7 +388,7 @@ def test_ab05pd_negative_alpha():
 
     G = G1 - G2 when alpha = -1.0
     """
-    from slicot import ab05pd
+    from ctrlsys import ab05pd
 
     n1, m, p, n2 = 2, 1, 1, 2
     alpha = -1.0

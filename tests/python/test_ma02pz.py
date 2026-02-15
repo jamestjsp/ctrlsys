@@ -13,7 +13,7 @@ Property tests verify:
 """
 import numpy as np
 import pytest
-from slicot import ma02pz
+from ctrlsys import ma02pz
 
 
 def test_ma02pz_basic():

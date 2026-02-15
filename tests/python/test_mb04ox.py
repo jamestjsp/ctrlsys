@@ -25,7 +25,7 @@ def test_mb04ox_basic():
     Test with simple upper triangular matrix and unit vector.
     Verifies that output is still upper triangular.
     """
-    from slicot import mb04ox
+    from ctrlsys import mb04ox
 
     n = 3
 
@@ -66,7 +66,7 @@ def test_mb04ox_identity_update():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04ox
+    from ctrlsys import mb04ox
 
     np.random.seed(42)
     n = 4
@@ -101,7 +101,7 @@ def test_mb04ox_random_triangular():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04ox
+    from ctrlsys import mb04ox
 
     np.random.seed(123)
     n = 5
@@ -145,7 +145,7 @@ def test_mb04ox_zero_vector():
     """
     Validate with zero vector - R should equal U.
     """
-    from slicot import mb04ox
+    from ctrlsys import mb04ox
 
     n = 3
 
@@ -172,7 +172,7 @@ def test_mb04ox_stride():
     The Python wrapper uses INCX=1, but we verify the routine
     handles the standard case correctly.
     """
-    from slicot import mb04ox
+    from ctrlsys import mb04ox
 
     n = 3
 

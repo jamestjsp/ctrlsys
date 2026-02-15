@@ -7,7 +7,7 @@ Tests normalization of D12 and D21 matrices to unit diagonal form.
 import numpy as np
 import pytest
 
-import slicot
+import ctrlsys
 
 
 class TestSB10UDBasic:

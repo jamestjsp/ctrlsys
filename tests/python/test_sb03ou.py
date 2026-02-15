@@ -27,7 +27,7 @@ def test_sb03ou_continuous_basic():
     A is stable (negative eigenvalues), B is identity.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03ou
+    from ctrlsys import sb03ou
 
     n = 3
     m = 3
@@ -59,7 +59,7 @@ def test_sb03ou_discrete_basic():
 
     A has eigenvalues inside unit circle.
     """
-    from slicot import sb03ou
+    from ctrlsys import sb03ou
 
     n = 2
     m = 2
@@ -94,7 +94,7 @@ def test_sb03ou_transpose():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03ou
+    from ctrlsys import sb03ou
 
     np.random.seed(123)
     n = 3
@@ -125,7 +125,7 @@ def test_sb03ou_m_greater_n():
     """
     Validate with M > N (more rows in B than order of A).
     """
-    from slicot import sb03ou
+    from ctrlsys import sb03ou
 
     n = 2
     m = 4
@@ -153,7 +153,7 @@ def test_sb03ou_unstable_error():
     """
     Validate error for unstable A (INFO=2).
     """
-    from slicot import sb03ou
+    from ctrlsys import sb03ou
 
     n = 2
     m = 2
@@ -177,7 +177,7 @@ def test_sb03ou_positive_semidefinite():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03ou
+    from ctrlsys import sb03ou
 
     np.random.seed(456)
     n = 4

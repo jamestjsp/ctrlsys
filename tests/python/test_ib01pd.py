@@ -10,7 +10,7 @@ All random data uses documented seeds for reproducibility.
 
 import numpy as np
 import pytest
-from slicot import ib01pd
+from ctrlsys import ib01pd
 
 
 def test_ib01pd_moesp_all_matrices():

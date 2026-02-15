@@ -9,7 +9,7 @@ Operations:
 
 import numpy as np
 import pytest
-from slicot import mb01sd
+from ctrlsys import mb01sd
 
 
 """Test row scaling: A := diag(R) * A"""

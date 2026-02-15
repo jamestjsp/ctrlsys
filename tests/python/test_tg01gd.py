@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from slicot import tg01gd
+from ctrlsys import tg01gd
 
 
 def test_tg01gd_basic_example():

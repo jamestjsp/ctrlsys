@@ -13,7 +13,7 @@ Tests validate:
 
 import numpy as np
 import pytest
-from slicot import mb03ah
+from ctrlsys import mb03ah
 
 
 class TestMB03AHBasic:

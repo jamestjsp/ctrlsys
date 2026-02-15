@@ -27,7 +27,7 @@ Error Codes:
 
 import numpy as np
 import pytest
-from slicot import ab09cx
+from ctrlsys import ab09cx
 
 
 class TestAB09CXBasic:

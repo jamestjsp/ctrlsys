@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import tf01md
+from ctrlsys import tf01md
 
 
 """Basic functionality tests from SLICOT HTML documentation."""

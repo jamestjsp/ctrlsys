@@ -8,7 +8,7 @@ and Qout is diagonal.
 
 import numpy as np
 import pytest
-from slicot import mb04pu
+from ctrlsys import mb04pu
 
 
 class TestMB04PUBasic:

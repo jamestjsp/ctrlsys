@@ -7,7 +7,7 @@ factorization of concatenated block Hankel matrices to determine system order.
 
 import numpy as np
 import pytest
-from slicot import ib01nd
+from ctrlsys import ib01nd
 
 
 def create_test_r_matrix(nobr, m, l, rank, seed=42):

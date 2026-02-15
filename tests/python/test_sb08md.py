@@ -11,7 +11,7 @@ Tests derived from SLICOT HTML documentation example.
 import numpy as np
 import pytest
 
-from slicot import sb08md
+from ctrlsys import sb08md
 
 
 class TestSB08MDBasic:
@@ -83,7 +83,7 @@ class TestSB08MDMathematicalProperties:
         e, b, res, info = sb08md('A', da, a)
         assert info == 0
 
-        from slicot import sb08my
+        from ctrlsys import sb08my
         epsb = np.finfo(float).eps
         b_from_e, _ = sb08my(e, epsb)
         np.testing.assert_allclose(b_from_e, b, rtol=1e-10)

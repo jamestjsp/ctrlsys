@@ -7,7 +7,7 @@ Tests derived from SLICOT HTML documentation example.
 import numpy as np
 import pytest
 
-from slicot import sb08cd
+from ctrlsys import sb08cd
 
 
 class TestSB08CDBasic:

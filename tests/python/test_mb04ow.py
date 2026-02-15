@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from slicot import mb04ow
+from ctrlsys import mb04ow
 
 def test_mb04ow_basic():
     """

@@ -16,7 +16,7 @@ def test_ab13id_html_example_improper():
     System: 9x9 descriptor system with 2 inputs and 2 outputs.
     Result: improper transfer function, NR=7, RANKE=5.
     """
-    from slicot import ab13id
+    from ctrlsys import ab13id
 
     n, m, p = 9, 2, 2
 
@@ -95,7 +95,7 @@ def test_ab13id_proper_system():
     A simple proper system: standard state-space with E=I.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab13id
+    from ctrlsys import ab13id
 
     np.random.seed(42)
     n, m, p = 3, 1, 1
@@ -135,7 +135,7 @@ def test_ab13id_zero_dimensions():
     """
     Test with zero system dimensions (quick return).
     """
-    from slicot import ab13id
+    from ctrlsys import ab13id
 
     n, m, p = 0, 0, 0
 
@@ -162,7 +162,7 @@ def test_ab13id_invalid_parameter():
     """
     Test error handling for invalid parameters.
     """
-    from slicot import ab13id
+    from ctrlsys import ab13id
 
     n, m, p = 3, 1, 1
 
@@ -188,7 +188,7 @@ def test_ab13id_remove_all_eigenvalues():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab13id
+    from ctrlsys import ab13id
 
     np.random.seed(123)
     n, m, p = 4, 1, 1
@@ -218,7 +218,7 @@ def test_ab13id_with_scaling():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab13id
+    from ctrlsys import ab13id
 
     np.random.seed(456)
     n, m, p = 3, 2, 2

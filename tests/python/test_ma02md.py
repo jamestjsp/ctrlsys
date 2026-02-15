@@ -9,7 +9,7 @@ Note that for skew-symmetric matrices, the infinity norm equals the one norm.
 """
 import numpy as np
 import pytest
-from slicot import ma02md
+from ctrlsys import ma02md
 
 
 def test_ma02md_max_norm_upper():

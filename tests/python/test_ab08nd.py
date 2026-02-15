@@ -8,7 +8,7 @@ Also computes orders of infinite zeros and Kronecker indices.
 
 import numpy as np
 import pytest
-from slicot import ab08nd
+from ctrlsys import ab08nd
 
 
 """Basic functionality tests using HTML doc example."""

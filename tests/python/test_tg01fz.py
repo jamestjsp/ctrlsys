@@ -2,7 +2,7 @@
 import numpy as np
 from numpy.testing import assert_allclose
 import pytest
-from slicot import tg01fz
+from ctrlsys import tg01fz
 
 
 def test_tg01fz_basic_example():

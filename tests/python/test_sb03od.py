@@ -10,7 +10,7 @@ where A is N-by-N, op(B) is M-by-N, U is upper triangular (Cholesky factor).
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 """Test using the example from SLICOT HTML documentation."""

@@ -10,7 +10,7 @@ Use ``order='F'`` when creating NumPy arrays:
 .. code-block:: python
 
    import numpy as np
-   from slicot import ab01md
+   from ctrlsys import ab01md
 
    # Create arrays in Fortran order
    A = np.array([[1, 2], [3, 4]], dtype=float, order='F')
@@ -43,13 +43,13 @@ Import specific routines:
 
 .. code-block:: python
 
-   from slicot import ab01md, sb03md, mb03rd
+   from ctrlsys import ab01md, sb03md, mb03rd
 
 Or import everything:
 
 .. code-block:: python
 
-   from slicot import *
+   from ctrlsys import *
 
 Error Handling
 --------------

@@ -23,7 +23,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import sb16cy
+from ctrlsys import sb16cy
 
 
 def test_sb16cy_continuous_left():

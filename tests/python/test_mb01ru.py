@@ -8,7 +8,7 @@ where R and X are symmetric matrices and op(A) = A or A'.
 
 import numpy as np
 import pytest
-from slicot import mb01ru
+from ctrlsys import mb01ru
 
 
 def test_mb01ru_basic_no_trans():

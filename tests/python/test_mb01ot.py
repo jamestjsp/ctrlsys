@@ -9,7 +9,7 @@ where R is symmetric, E and T are upper triangular.
 
 import numpy as np
 import pytest
-from slicot import mb01ot
+from ctrlsys import mb01ot
 
 
 def make_upper_triangular(a):

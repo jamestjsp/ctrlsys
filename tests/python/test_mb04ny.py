@@ -74,7 +74,7 @@ def test_mb04ny_basic_2x2():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -102,7 +102,7 @@ def test_mb04ny_3x3():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -130,7 +130,7 @@ def test_mb04ny_5x5():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -158,7 +158,7 @@ def test_mb04ny_10x10():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -186,7 +186,7 @@ def test_mb04ny_large_general():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -215,7 +215,7 @@ def test_mb04ny_tau_zero():
     a_expected = a.copy()
     b_expected = b.copy()
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -258,7 +258,7 @@ def test_mb04ny_m_zero():
     incv = 1
     tau = 1.5
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -286,7 +286,7 @@ def test_mb04ny_n_zero():
 
     a_expected = (1.0 - tau) * a
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -315,7 +315,7 @@ def test_mb04ny_incv_positive():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -342,7 +342,7 @@ def test_mb04ny_incv_negative():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
@@ -369,7 +369,7 @@ def test_mb04ny_single_row():
 
     a_expected, b_expected = apply_householder_right_reference(a, b, v, incv, tau)
 
-    from slicot import _slicot
+    from ctrlsys import _slicot
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')

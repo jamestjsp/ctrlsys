@@ -14,7 +14,7 @@ Solution is aborted early if any element exceeds PMAX.
 
 import numpy as np
 import pytest
-from slicot import mb04rt
+from ctrlsys import mb04rt
 
 
 def test_mb04rt_basic_1x1():
@@ -332,7 +332,7 @@ def test_mb04rt_matches_mb04rs():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import mb04rs
+    from ctrlsys import mb04rs
 
     np.random.seed(888)
     m, n = 3, 2

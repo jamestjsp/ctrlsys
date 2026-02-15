@@ -27,7 +27,7 @@ def test_sb02ru_continuous_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     np.random.seed(42)
     n = 3
@@ -63,7 +63,7 @@ def test_sb02ru_continuous_transpose():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     np.random.seed(123)
     n = 3
@@ -101,7 +101,7 @@ def test_sb02ru_continuous_hamiltonian_eigenvalue_property():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     np.random.seed(456)
     n = 4
@@ -137,7 +137,7 @@ def test_sb02ru_discrete_basic():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     np.random.seed(789)
     n = 3
@@ -187,7 +187,7 @@ def test_sb02ru_discrete_hinv_inverse():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     np.random.seed(111)
     n = 3
@@ -229,7 +229,7 @@ def test_sb02ru_discrete_symplectic_property():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     np.random.seed(222)
     n = 3
@@ -258,7 +258,7 @@ def test_sb02ru_discrete_singular_a():
 
     Should return info > 0 when A is singular.
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     n = 3
 
@@ -278,7 +278,7 @@ def test_sb02ru_n_zero():
     """
     Test SB02RU edge case with n=0.
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     A = np.zeros((0, 0), order='F', dtype=float)
     G = np.zeros((0, 0), order='F', dtype=float)
@@ -298,7 +298,7 @@ def test_sb02ru_lower_triangular_storage():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import sb02ru
+    from ctrlsys import sb02ru
 
     np.random.seed(333)
     n = 3

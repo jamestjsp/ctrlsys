@@ -8,7 +8,7 @@ by moving a block from row index IFST to row index ILST.
 
 import numpy as np
 import pytest
-from slicot import mb03ka
+from ctrlsys import mb03ka
 
 
 class TestMB03KABasic:

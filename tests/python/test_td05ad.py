@@ -9,7 +9,7 @@ for a specified frequency value. It can output either:
 
 import numpy as np
 import pytest
-from slicot import td05ad
+from ctrlsys import td05ad
 
 
 class TestTD05ADBasic:

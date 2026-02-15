@@ -14,7 +14,7 @@ NOTE: TB03AY does not check inputs for errors (speed optimization).
 
 import numpy as np
 import pytest
-from slicot import tb03ay
+from ctrlsys import tb03ay
 
 
 def test_basic_single_block():

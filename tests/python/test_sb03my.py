@@ -26,7 +26,7 @@ def test_sb03my_diagonal():
     For diagonal A with eigenvalues lambda_i, X_ij = C_ij / (lambda_i + lambda_j).
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03my
+    from ctrlsys import sb03my
 
     # Diagonal Schur form matrix with stable eigenvalues (Re < 0)
     a = np.array([
@@ -65,7 +65,7 @@ def test_sb03my_transpose():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03my
+    from ctrlsys import sb03my
 
     np.random.seed(123)
 
@@ -103,7 +103,7 @@ def test_sb03my_2x2_block():
     The 2x2 block must be in standard Schur form with Re(eigenvalues) < 0.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03my
+    from ctrlsys import sb03my
 
     # Schur form with 2x2 block (eigenvalues -1 +/- 2i, Re = -1 < 0)
     a = np.array([
@@ -139,7 +139,7 @@ def test_sb03my_mixed_blocks():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03my
+    from ctrlsys import sb03my
 
     # 4x4 Schur form: 1x1 block, 2x2 block, 1x1 block
     # All eigenvalues have negative real parts
@@ -177,7 +177,7 @@ def test_sb03my_close_eigenvalues():
 
     When A has eigenvalues lambda and -lambda, info=1 is returned.
     """
-    from slicot import sb03my
+    from ctrlsys import sb03my
 
     # Matrix with eigenvalues very close to negatives of each other
     # lambda = -0.0001, -1.9999 (sum close to -2, but paired eigenvalues)
@@ -203,7 +203,7 @@ def test_sb03my_scalar():
 
     For scalar case: 2*a*x = c, so x = c/(2*a).
     """
-    from slicot import sb03my
+    from ctrlsys import sb03my
 
     a = np.array([[-2.0]], order='F', dtype=float)
     c = np.array([[8.0]], order='F', dtype=float)

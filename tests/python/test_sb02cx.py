@@ -19,7 +19,7 @@ def test_sb02cx_purely_imaginary():
     """
     Purely imaginary eigenvalue (reig=0) should return True.
     """
-    from slicot import sb02cx
+    from ctrlsys import sb02cx
 
     # Exactly zero real part
     result = sb02cx(0.0, 1.0)
@@ -38,7 +38,7 @@ def test_sb02cx_nearly_imaginary():
 
     Uses DLAMCH('Epsilon') = 2^-53 for tolerance calculation.
     """
-    from slicot import sb02cx
+    from ctrlsys import sb02cx
 
     # Just below tolerance
     result = sb02cx(TOL * 0.5, 2.0)
@@ -54,7 +54,7 @@ def test_sb02cx_not_imaginary():
 
     Uses DLAMCH('Epsilon') = 2^-53 for tolerance calculation.
     """
-    from slicot import sb02cx
+    from ctrlsys import sb02cx
 
     # At tolerance boundary (should be False since >= tol)
     result = sb02cx(TOL, 1.0)
@@ -79,7 +79,7 @@ def test_sb02cx_boundary():
     tol = 100 * DLAMCH('Epsilon') where DLAMCH('Epsilon') = 2^-53.
     |reig| < tol => True, |reig| >= tol => False
     """
-    from slicot import sb02cx
+    from ctrlsys import sb02cx
 
     eps = DLAMCH_EPS
 
@@ -104,7 +104,7 @@ def test_sb02cx_involution():
 
     sb02cx(reig, ieig) == sb02cx(reig, -ieig) for all values.
     """
-    from slicot import sb02cx
+    from ctrlsys import sb02cx
 
     np.random.seed(42)
 
@@ -125,7 +125,7 @@ def test_sb02cx_involution():
 
 
 def test_sb02cx_symmetry():
-    from slicot import sb02cx
+    from ctrlsys import sb02cx
 
     test_cases = [
         (0.001, 1.0),
@@ -141,7 +141,7 @@ def test_sb02cx_symmetry():
 
 
 def test_sb02cx_independent_criterion():
-    from slicot import sb02cx
+    from ctrlsys import sb02cx
 
     tol = 100.0 * DLAMCH_EPS
     test_cases = [

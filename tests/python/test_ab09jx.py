@@ -18,7 +18,7 @@ For EVTYPE='R' (reciprocal), conditions apply to 1/lambda.
 
 import numpy as np
 import pytest
-from slicot import ab09jx
+from ctrlsys import ab09jx
 
 
 class TestAB09JXBasic:

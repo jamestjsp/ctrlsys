@@ -8,7 +8,7 @@ block row or column.
 
 import numpy as np
 import pytest
-from slicot import mb02cd
+from ctrlsys import mb02cd
 
 
 class TestMB02CDBasic:

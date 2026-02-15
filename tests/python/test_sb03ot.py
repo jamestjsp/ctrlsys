@@ -11,7 +11,7 @@ The output U is upper triangular and overwrites R.
 """
 import numpy as np
 import pytest
-import slicot
+import ctrlsys
 
 
 def make_stable_continuous_schur(n, seed=42):

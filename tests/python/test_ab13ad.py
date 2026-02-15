@@ -42,7 +42,7 @@ class TestAB13ADBasic:
 
         From AB13AD.html example data.
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 7, 2, 3
         alpha = 0.0
@@ -90,7 +90,7 @@ class TestAB13ADBasic:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(42)
         n, m, p = 4, 2, 2
@@ -128,7 +128,7 @@ class TestAB13ADDiscreteTime:
         Discrete stable: |eigenvalues| < ALPHA (here ALPHA=1).
         Random seed: 123 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(123)
         n, m, p = 3, 2, 2
@@ -160,7 +160,7 @@ class TestAB13ADDiscreteTime:
         Only eigenvalues with |lambda| < 0.4 are considered stable.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(456)
         n, m, p = 4, 1, 1
@@ -187,7 +187,7 @@ class TestAB13ADMathematicalProperties:
 
         Random seed: 555 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(555)
         n, m, p = 5, 2, 2
@@ -223,7 +223,7 @@ class TestAB13ADMathematicalProperties:
 
         Random seed: 666 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(666)
         n, m, p = 4, 2, 3
@@ -257,7 +257,7 @@ class TestAB13ADMathematicalProperties:
 
         Random seed: 777 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(777)
         n, m, p = 3, 1, 1
@@ -283,7 +283,7 @@ class TestAB13ADMIMO:
         Larger MIMO: 8-state, 3-input, 4-output system.
         Verify HSV ordering and Hankel-norm = max HSV.
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 8, 3, 4
         alpha = 0.0
@@ -315,7 +315,7 @@ class TestAB13ADWithEquilibration:
 
         Random seed: 888 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(888)
         n, m, p = 3, 2, 2
@@ -345,7 +345,7 @@ class TestAB13ADWithEquilibration:
 
         Random seed: 999 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(999)
         n, m, p = 3, 2, 2
@@ -383,7 +383,7 @@ class TestAB13ADEdgeCases:
 
         Random seed: 111 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(111)
         n, m, p = 2, 1, 1
@@ -409,7 +409,7 @@ class TestAB13ADEdgeCases:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(222)
         n, m, p = 1, 2, 1
@@ -431,7 +431,7 @@ class TestAB13ADEdgeCases:
 
         Continuous: all eigenvalues > ALPHA means NS=0, Hankel-norm=0.
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 1, 1
         alpha = 0.0
@@ -456,7 +456,7 @@ class TestAB13ADQuickReturn:
 
     def test_n_zero(self):
         """Test quick return when N=0."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 0, 2, 1
         alpha = 0.0
@@ -473,7 +473,7 @@ class TestAB13ADQuickReturn:
 
     def test_m_zero(self):
         """Test quick return when M=0."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 0, 1
         alpha = 0.0
@@ -493,7 +493,7 @@ class TestAB13ADQuickReturn:
 
     def test_p_zero(self):
         """Test quick return when P=0."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 2, 0
         alpha = 0.0
@@ -520,7 +520,7 @@ class TestAB13ADErrorHandling:
 
     def test_invalid_dico(self):
         """Test error for invalid DICO parameter."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 1, 1
         alpha = 0.0
@@ -534,7 +534,7 @@ class TestAB13ADErrorHandling:
 
     def test_invalid_equil(self):
         """Test error for invalid EQUIL parameter."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 1, 1
         alpha = 0.0
@@ -548,7 +548,7 @@ class TestAB13ADErrorHandling:
 
     def test_invalid_alpha_continuous(self):
         """Test error for invalid ALPHA with continuous-time (ALPHA must be <= 0)."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 1, 1
         alpha = 0.5
@@ -562,7 +562,7 @@ class TestAB13ADErrorHandling:
 
     def test_invalid_alpha_discrete_negative(self):
         """Test error for invalid ALPHA with discrete-time (ALPHA must be >= 0)."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 1, 1
         alpha = -0.5
@@ -576,7 +576,7 @@ class TestAB13ADErrorHandling:
 
     def test_invalid_alpha_discrete_greater_than_one(self):
         """Test error for invalid ALPHA with discrete-time (ALPHA must be <= 1)."""
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 2, 1, 1
         alpha = 1.5
@@ -598,7 +598,7 @@ class TestAB13ADNumericalStability:
 
         Random seed: 333 (for reproducibility)
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         np.random.seed(333)
         n, m, p = 4, 2, 2
@@ -631,7 +631,7 @@ class TestAB13ADNumericalStability:
         Eigenvalues: -1.0, -0.5 (stable), +0.5, +1.0 (unstable)
         Only first 2 should be in stable projection.
         """
-        from slicot import ab13ad
+        from ctrlsys import ab13ad
 
         n, m, p = 4, 1, 1
         alpha = 0.0

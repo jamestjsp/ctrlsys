@@ -13,7 +13,7 @@ Test data sources:
 import numpy as np
 import pytest
 
-from slicot import mb03wa
+from ctrlsys import mb03wa
 
 
 def test_mb03wa_swap_1x1_blocks():

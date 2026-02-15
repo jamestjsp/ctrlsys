@@ -27,7 +27,7 @@ def test_ma02es_upper_basic():
 
     A_expected = A_upper - A_upper.T
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('U', A_upper)
 
     np.testing.assert_allclose(A_upper, A_expected, rtol=1e-14, atol=1e-15)
@@ -53,7 +53,7 @@ def test_ma02es_lower_basic():
 
     A_expected = A_lower - A_lower.T
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('L', A_lower)
 
     np.testing.assert_allclose(A_lower, A_expected, rtol=1e-14, atol=1e-15)
@@ -76,7 +76,7 @@ def test_ma02es_skew_symmetry_property():
     A_upper = np.random.randn(n, n).astype(float, order='F')
     A_upper = np.triu(A_upper, k=1)
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('U', A_upper)
 
     np.testing.assert_allclose(A_upper, -A_upper.T, rtol=1e-14, atol=1e-15)
@@ -101,7 +101,7 @@ def test_ma02es_no_op():
     A = np.random.randn(n, n).astype(float, order='F')
     A_original = A.copy()
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('X', A)
 
     np.testing.assert_allclose(A, A_original, rtol=1e-14, atol=1e-15)
@@ -113,7 +113,7 @@ def test_ma02es_n_zero():
     """
     A = np.array([], dtype=float, order='F').reshape(0, 0)
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('U', A)
 
     assert A.shape == (0, 0)
@@ -126,7 +126,7 @@ def test_ma02es_n_one():
     """
     A = np.array([[5.0]], dtype=float, order='F')
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('U', A)
 
     assert A[0, 0] == 0.0
@@ -145,7 +145,7 @@ def test_ma02es_diagonal_zeroed():
     A_upper = np.diag(diag_vals).astype(float, order='F')
     A_lower = np.diag(diag_vals).astype(float, order='F')
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('U', A_upper)
     ma02es('L', A_lower)
 
@@ -182,7 +182,7 @@ def test_ma02es_specific_values():
         [-3.0, -5.0,  0.0]
     ], dtype=float, order='F')
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('U', A)
 
     np.testing.assert_allclose(A, A_expected, rtol=1e-14, atol=1e-15)
@@ -214,7 +214,7 @@ def test_ma02es_specific_values_lower():
         [-3.0, -5.0,  0.0]
     ], dtype=float, order='F')
 
-    from slicot import ma02es
+    from ctrlsys import ma02es
     ma02es('L', A)
 
     np.testing.assert_allclose(A, A_expected, rtol=1e-14, atol=1e-15)

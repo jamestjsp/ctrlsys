@@ -59,12 +59,12 @@ py.extension_module('_slicot',
   include_directories: [inc, 'data'],
   dependencies: [py_dep, np_dep, slicot_dep],
   c_args: fc_defines,
-  subdir: 'slicot',
+  subdir: 'ctrlsys',
   install: true,
 )
 
 # Install Python package files
 py.install_sources(
   '_package_init/__init__.py',
-  subdir: 'slicot',
+  subdir: 'ctrlsys',
 )

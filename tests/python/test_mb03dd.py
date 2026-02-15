@@ -11,7 +11,7 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from slicot import mb03dd
+from ctrlsys import mb03dd
 
 
 class TestMB03DDBasic:

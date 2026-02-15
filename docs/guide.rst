@@ -6,7 +6,7 @@ All functions are available directly from the ``slicot`` module:
 
 .. code-block:: python
 
-   from slicot import sb02md, ab09ad
+   from ctrlsys import sb02md, ab09ad
 
 The guide is organized in two tiers. **Common workflows** covers the tasks that
 most control engineers encounter — LQR design, model reduction, system norms —

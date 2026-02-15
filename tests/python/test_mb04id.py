@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from slicot import mb04id
+from ctrlsys import mb04id
 
 
 def _build_q_from_qr(a_out, tau, n, m):

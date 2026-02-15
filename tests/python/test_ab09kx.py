@@ -45,7 +45,7 @@ class TestAB09KXLeftWeighting:
         Random seed: 42 (for reproducibility)
         System G stable (diagonal A), V unstable (positive eigenvalues).
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         np.random.seed(42)
         n, m, p = 2, 1, 2
@@ -115,7 +115,7 @@ class TestAB09KXLeftWeighting:
         Random seed: 123 (for reproducibility)
         Both G and V must be stable for JOB='C'.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         np.random.seed(123)
         n, m, p = 2, 1, 2
@@ -185,7 +185,7 @@ class TestAB09KXRightWeighting:
         Random seed: 456 (for reproducibility)
         System G stable (diagonal A), W unstable (positive eigenvalues).
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         np.random.seed(456)
         n, m, p = 2, 2, 1
@@ -253,7 +253,7 @@ class TestAB09KXBothWeighting:
         Random seed: 789 (for reproducibility)
         G stable, V and W unstable.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         np.random.seed(789)
         n, m, p = 2, 2, 2
@@ -307,7 +307,7 @@ class TestAB09KXNoWeighting:
 
         When WEIGHT='N', V=I and W=I, so no computation needed.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 1
 
@@ -348,7 +348,7 @@ class TestAB09KXDiscreteTime:
         Random seed: 111 (for reproducibility)
         G stable (|eigenvalues| < 1), V unstable (|eigenvalues| > 1).
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         np.random.seed(111)
         n, m, p = 2, 1, 2
@@ -414,7 +414,7 @@ class TestAB09KXDiscreteTime:
         Random seed: 222 (for reproducibility)
         Both G and V stable (|eigenvalues| < 1) for JOB='C'.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         np.random.seed(222)
         n, m, p = 2, 1, 2
@@ -483,7 +483,7 @@ class TestAB09KXMathematicalProperties:
 
         When no weighting is applied (V=I, W=I), the output should equal input.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 2
 
@@ -540,7 +540,7 @@ class TestAB09KXMathematicalProperties:
 
         When DV=I and NV=0, D is transformed only by DV multiplication.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 2
 
@@ -595,7 +595,7 @@ class TestAB09KXWarnings:
 
         For JOB='N', V should be completely unstable.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 2
         nv = 2
@@ -637,7 +637,7 @@ class TestAB09KXWarnings:
 
         For JOB='C', V should be stable.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 2
         nv = 2
@@ -679,7 +679,7 @@ class TestAB09KXEdgeCases:
 
     def test_n_zero(self):
         """Test with N=0 (zero-order G system)."""
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 0, 1, 1
 
@@ -707,7 +707,7 @@ class TestAB09KXEdgeCases:
 
     def test_m_or_p_zero(self):
         """Test with M=0 or P=0 (quick return)."""
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 0, 1
 
@@ -739,7 +739,7 @@ class TestAB09KXEdgeCases:
 
         When NV=0 and left weighting requested, V acts as identity.
         """
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 2
 
@@ -771,7 +771,7 @@ class TestAB09KXErrors:
 
     def test_invalid_job(self):
         """Test error for invalid JOB parameter."""
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 1
 
@@ -798,7 +798,7 @@ class TestAB09KXErrors:
 
     def test_invalid_dico(self):
         """Test error for invalid DICO parameter."""
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 1
 
@@ -825,7 +825,7 @@ class TestAB09KXErrors:
 
     def test_invalid_weight(self):
         """Test error for invalid WEIGHT parameter."""
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         n, m, p = 2, 1, 1
 
@@ -852,7 +852,7 @@ class TestAB09KXErrors:
 
     def test_negative_n(self):
         """Test error for negative N."""
-        from slicot import ab09kx
+        from ctrlsys import ab09kx
 
         a = np.zeros((1, 1), order='F', dtype=float)
         b = np.zeros((1, 1), order='F', dtype=float)

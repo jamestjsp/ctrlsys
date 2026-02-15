@@ -6,7 +6,7 @@ matrices (A, B, C), where M(k) = C * A^(k-1) * B.
 
 import numpy as np
 import pytest
-from slicot import tf01rd
+from ctrlsys import tf01rd
 
 
 """Basic functionality tests using HTML doc example."""

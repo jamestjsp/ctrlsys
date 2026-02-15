@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from slicot import mb01uy
+from ctrlsys import mb01uy
 
 
 def _make_tri(n, uplo, seed):

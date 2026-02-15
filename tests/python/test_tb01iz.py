@@ -9,7 +9,7 @@ Reference: SLICOT-Reference/doc/TB01IZ.html
 
 import numpy as np
 import pytest
-from slicot import tb01iz
+from ctrlsys import tb01iz
 
 
 """Basic functionality tests using HTML doc example."""

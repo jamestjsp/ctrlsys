@@ -6,7 +6,7 @@ Computes C = alpha*op(T)*B + beta*C where T is a block Toeplitz matrix.
 
 import numpy as np
 import pytest
-from slicot import mb02kd
+from ctrlsys import mb02kd
 
 
 class TestMB02KDBasic:

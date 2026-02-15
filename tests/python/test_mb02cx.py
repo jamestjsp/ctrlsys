@@ -20,7 +20,7 @@ def test_mb02cx_basic_row():
         a[i, i] = np.abs(a[i, i]) + 5.0
     b = 0.1 * np.random.randn(q, k).astype(float, order='F')
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     a_orig = a.copy()
     a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())
@@ -52,7 +52,7 @@ def test_mb02cx_basic_column():
         a[i, i] = np.abs(a[i, i]) + 5.0
     b = 0.1 * np.random.randn(k, q).astype(float, order='F')
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     a_out, b_out, cs, info = mb02cx('C', p, q, k, a.copy(), b.copy())
 
@@ -85,7 +85,7 @@ def test_mb02cx_cs_contains_valid_rotation_params():
         a[i, i] = np.abs(a[i, i]) + 2.0
     b = 0.5 * np.random.randn(q, k).astype(float, order='F')
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())
 
@@ -119,7 +119,7 @@ def test_mb02cx_positive_definite_matrix():
     b[0, 1] = 0.2
     b[1, 1] = 0.1
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())
 
@@ -143,7 +143,7 @@ def test_mb02cx_edge_case_q_zero():
         a[i, i] = np.abs(a[i, i]) + 1.0
     b = np.zeros((1, k), order='F', dtype=float)
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())
 
@@ -163,7 +163,7 @@ def test_mb02cx_edge_case_k_zero():
     a = np.zeros((p, 1), order='F', dtype=float)
     b = np.zeros((q, 1), order='F', dtype=float)
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())
 
@@ -189,7 +189,7 @@ def test_mb02cx_error_not_positive_definite():
 
     b = np.random.randn(q, k).astype(float, order='F') * 10.0
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     a_out, b_out, cs, info = mb02cx('R', p, q, k, a.copy(), b.copy())
 
@@ -203,7 +203,7 @@ def test_mb02cx_error_invalid_typet():
     a = np.array([[1.0]], order='F', dtype=float)
     b = np.array([[0.1]], order='F', dtype=float)
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02cx('X', 1, 1, 1, a, b)
@@ -220,7 +220,7 @@ def test_mb02cx_error_k_exceeds_p():
     a = np.random.randn(p, k).astype(float, order='F')
     b = np.random.randn(q, k).astype(float, order='F')
 
-    from slicot import mb02cx
+    from ctrlsys import mb02cx
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02cx('R', p, q, k, a, b)

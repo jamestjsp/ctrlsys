@@ -21,7 +21,7 @@ def test_mb02ud_basic_left_notrans():
     r[l-1, l-1] = 1e-16
     b = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 1.0
     rcond = 1e-10
@@ -54,7 +54,7 @@ def test_mb02ud_basic_right_notrans():
     r[l-1, l-1] = 1e-16
     b = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 2.0
     rcond = 1e-10
@@ -83,7 +83,7 @@ def test_mb02ud_transpose():
     r = np.triu(np.random.randn(l, l)).astype(float, order='F')
     b = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 1.5
     rcond = 1e-12
@@ -112,7 +112,7 @@ def test_mb02ud_pinv():
     r = r + 2.0 * np.eye(l, order='F')
     b = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 1.0
     rcond = 1e-12
@@ -152,7 +152,7 @@ def test_mb02ud_full_rank():
     b = np.random.randn(m, n).astype(float, order='F')
     b_orig = b.copy()
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 1.0
     rcond = 1e-14
@@ -186,7 +186,7 @@ def test_mb02ud_alpha_zero():
     r = np.triu(np.random.randn(l, l)).astype(float, order='F')
     b = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 0.0
     rcond = 1e-12
@@ -206,7 +206,7 @@ def test_mb02ud_edge_case_1x1():
     r = np.array([[2.0]], order='F', dtype=float)
     b = np.array([[4.0]], order='F', dtype=float)
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 1.0
     rcond = 1e-14
@@ -238,7 +238,7 @@ def test_mb02ud_svd_properties():
     r = np.triu(np.random.randn(l, l)).astype(float, order='F')
     b = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 1.0
     rcond = 1e-12
@@ -275,7 +275,7 @@ def test_mb02ud_factored_input():
     r_factored = r.copy()
     b = np.random.randn(m, n).astype(float, order='F')
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     alpha = 1.0
     rcond = 1e-12
@@ -301,7 +301,7 @@ def test_mb02ud_error_invalid_m():
     r = np.array([[1.0]], order='F', dtype=float)
     b = np.array([[1.0]], order='F', dtype=float)
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02ud('N', 'L', 'N', 'N', -1, 1, 1.0, 1e-12, r, b)
@@ -314,7 +314,7 @@ def test_mb02ud_error_invalid_fact():
     r = np.array([[1.0]], order='F', dtype=float)
     b = np.array([[1.0]], order='F', dtype=float)
 
-    from slicot import mb02ud
+    from ctrlsys import mb02ud
 
     with pytest.raises((ValueError, RuntimeError)):
         mb02ud('X', 'L', 'N', 'N', 1, 1, 1.0, 1e-12, r, b)

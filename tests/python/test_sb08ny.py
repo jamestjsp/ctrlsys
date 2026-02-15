@@ -7,7 +7,7 @@ where A(z) is a polynomial given in increasing powers of z.
 Also computes an accuracy norm for the computed coefficients.
 """
 import numpy as np
-from slicot import sb08ny
+from ctrlsys import sb08ny
 
 
 def test_sb08ny_constant():

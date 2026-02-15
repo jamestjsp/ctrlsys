@@ -9,7 +9,7 @@ subdiagonal blocks.
 
 import numpy as np
 import pytest
-from slicot import ab01nd
+from ctrlsys import ab01nd
 
 
 """Basic functionality tests from HTML documentation example."""

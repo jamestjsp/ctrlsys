@@ -9,7 +9,7 @@ Tests validate:
 
 import numpy as np
 import pytest
-from slicot import mb03kc
+from ctrlsys import mb03kc
 
 
 def apply_reflector_left(h, a_block):

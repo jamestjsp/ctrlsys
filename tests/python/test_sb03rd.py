@@ -19,7 +19,7 @@ def test_sb03rd_basic_solution():
     Test data: 3x3 stable matrix with verified solution.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 3
 
@@ -71,7 +71,7 @@ def test_sb03rd_transpose_form():
     Solves: A * X + X * A' = scale * C
     Random seed: 123 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 3
 
@@ -109,7 +109,7 @@ def test_sb03rd_separation_only():
     Separation estimates how well-conditioned the Lyapunov equation is.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 3
 
@@ -136,7 +136,7 @@ def test_sb03rd_both_solution_and_separation():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 3
 
@@ -173,7 +173,7 @@ def test_sb03rd_with_schur_factored():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 3
 
@@ -210,7 +210,7 @@ def test_sb03rd_n_equals_zero():
     """
     Test edge case: n=0 (quick return).
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     a = np.array([], dtype=float).reshape(0, 0)
     c = np.array([], dtype=float).reshape(0, 0)
@@ -227,7 +227,7 @@ def test_sb03rd_eigenvalue_output():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 3
 
@@ -259,7 +259,7 @@ def test_sb03rd_invalid_job():
     """
     Test error handling for invalid JOB parameter.
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 2
     a = np.array([[-1.0, 0.0], [0.0, -2.0]], order='F', dtype=float)
@@ -273,7 +273,7 @@ def test_sb03rd_invalid_fact():
     """
     Test error handling for invalid FACT parameter.
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 2
     a = np.array([[-1.0, 0.0], [0.0, -2.0]], order='F', dtype=float)
@@ -289,7 +289,7 @@ def test_sb03rd_singular_warning():
 
     This occurs when the eigenvalue separation is poor.
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     n = 2
 
@@ -318,7 +318,7 @@ def test_sb03rd_lyapunov_residual_property():
 
     Random seed: 222 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     np.random.seed(222)
     n = 4
@@ -358,7 +358,7 @@ def test_sb03rd_solution_symmetry():
 
     Random seed: 333 (for reproducibility)
     """
-    from slicot import sb03rd
+    from ctrlsys import sb03rd
 
     np.random.seed(333)
     n = 5

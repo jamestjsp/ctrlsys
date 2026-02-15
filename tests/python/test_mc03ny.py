@@ -11,7 +11,7 @@ stored in VEPS.
 
 import numpy as np
 import pytest
-from slicot import mc03ny
+from ctrlsys import mc03ny
 
 
 def test_mc03ny_single_block():

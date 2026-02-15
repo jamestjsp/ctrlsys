@@ -19,7 +19,7 @@ def test_mb04qu_basic():
     Result should match input.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     np.random.seed(42)
     m, n, k = 4, 3, 2
@@ -58,7 +58,7 @@ def test_mb04qu_givens_rotation():
     Validates that Givens rotation c^2 + s^2 = 1 is applied correctly.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     np.random.seed(123)
     m, n, k = 3, 4, 1
@@ -100,7 +100,7 @@ def test_mb04qu_transpose_q():
     When applying Q^T, the order of operations is reversed.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     np.random.seed(456)
     m, n, k = 3, 2, 1
@@ -131,7 +131,7 @@ def test_mb04qu_transpose_c():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     np.random.seed(789)
     m, n, k = 3, 4, 1
@@ -161,7 +161,7 @@ def test_mb04qu_rowwise_storage():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     np.random.seed(111)
     m, n, k = 4, 3, 2
@@ -196,7 +196,7 @@ def test_mb04qu_k_zero():
 
     Should return quickly without modifying C and D.
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     m, n = 3, 4
 
@@ -226,7 +226,7 @@ def test_mb04qu_invalid_tranc():
 
     Should return INFO = -1.
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     m, n, k = 2, 2, 1
     V = np.eye(m, k, order='F', dtype=float)
@@ -249,7 +249,7 @@ def test_mb04qu_invalid_storev():
 
     Should return INFO = -4.
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     m, n, k = 2, 2, 1
     V = np.eye(m, k, order='F', dtype=float)
@@ -274,7 +274,7 @@ def test_mb04qu_orthogonality_preservation():
     Use identity reflectors (tau=0, W diag=0) with orthogonal Givens rotations.
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb04qu
+    from ctrlsys import mb04qu
 
     np.random.seed(222)
     m, n, k = 4, 3, 2

@@ -8,7 +8,7 @@ permutation matrix with ones on the secondary diagonal.
 
 import numpy as np
 import pytest
-from slicot import ma02cd
+from ctrlsys import ma02cd
 
 
 def _pertranspose_band_reference(a, kl, ku):

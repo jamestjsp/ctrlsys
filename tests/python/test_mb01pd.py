@@ -15,7 +15,7 @@ def test_scale_full_matrix_no_change_needed():
     When ANRM is in [SMLNUM, BIGNUM], no scaling should occur.
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     np.random.seed(42)
     m, n = 4, 3
@@ -35,7 +35,7 @@ def test_scale_full_matrix_very_small_norm():
     When ANRM < SMLNUM, matrix is scaled by SMLNUM/ANRM.
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(123)
@@ -67,7 +67,7 @@ def test_scale_full_matrix_very_large_norm():
     Uses manual anrm value to avoid floating-point overflow in norm computation.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(456)
@@ -99,7 +99,7 @@ def test_undo_scaling():
     Mathematical property: (scale then undo) is identity.
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(789)
@@ -129,7 +129,7 @@ def test_lower_triangular():
     Only lower triangle is scaled; upper part should remain unchanged.
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(111)
@@ -158,7 +158,7 @@ def test_upper_triangular():
     Only upper triangle is scaled.
     Random seed: 222 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(222)
@@ -187,7 +187,7 @@ def test_upper_hessenberg():
     Upper Hessenberg = upper triangular + one subdiagonal.
     Random seed: 333 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(333)
@@ -215,7 +215,7 @@ def test_block_lower_triangular():
 
     Random seed: 444 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(444)
@@ -248,7 +248,7 @@ def test_block_upper_triangular():
 
     Random seed: 555 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(555)
@@ -278,7 +278,7 @@ def test_block_upper_triangular():
 
 def test_zero_dimensions():
     """Test with zero dimensions - quick return."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.array([[1.0]], dtype=float, order='F')
     a_out, info = mb01pd('S', 'G', 0, 0, 0, 0, 0.0, 0, None, a)
@@ -286,7 +286,7 @@ def test_zero_dimensions():
 
 def test_zero_norm():
     """Test with zero norm - quick return."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.zeros((3, 3), dtype=float, order='F')
     a_original = a.copy()
@@ -301,7 +301,7 @@ def test_m_not_equal_n_full():
 
     Random seed: 666 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(666)
@@ -326,7 +326,7 @@ def test_m_not_equal_n_full():
 
 def test_invalid_scun():
     """Test error for invalid SCUN parameter."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.zeros((3, 3), dtype=float, order='F')
     a_out, info = mb01pd('X', 'G', 3, 3, 0, 0, 1.0, 0, None, a)
@@ -334,7 +334,7 @@ def test_invalid_scun():
 
 def test_invalid_type():
     """Test error for invalid TYPE parameter."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.zeros((3, 3), dtype=float, order='F')
     a_out, info = mb01pd('S', 'X', 3, 3, 0, 0, 1.0, 0, None, a)
@@ -342,7 +342,7 @@ def test_invalid_type():
 
 def test_negative_m():
     """Test error for negative M."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.zeros((3, 3), dtype=float, order='F')
     a_out, info = mb01pd('S', 'G', -1, 3, 0, 0, 1.0, 0, None, a)
@@ -350,7 +350,7 @@ def test_negative_m():
 
 def test_negative_n():
     """Test error for negative N."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.zeros((3, 3), dtype=float, order='F')
     a_out, info = mb01pd('S', 'G', 3, -1, 0, 0, 1.0, 0, None, a)
@@ -358,7 +358,7 @@ def test_negative_n():
 
 def test_negative_anrm():
     """Test error for negative ANRM."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.zeros((3, 3), dtype=float, order='F')
     a_out, info = mb01pd('S', 'G', 3, 3, 0, 0, -1.0, 0, None, a)
@@ -366,7 +366,7 @@ def test_negative_anrm():
 
 def test_negative_nbl():
     """Test error for negative NBL."""
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     a = np.zeros((3, 3), dtype=float, order='F')
     a_out, info = mb01pd('S', 'G', 3, 3, 0, 0, 1.0, -1, None, a)
@@ -379,7 +379,7 @@ def test_scaling_preserves_relative_structure():
     Property: A_scaled / norm(A_scaled) should equal A / norm(A).
     Random seed: 888 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(888)
@@ -411,7 +411,7 @@ def test_scaling_is_linear():
     Property: A_scaled = c * A for some constant c > 0.
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
     import sys
 
     np.random.seed(999)
@@ -441,7 +441,7 @@ def test_idempotence_when_in_range():
     Property: If A is already in range, scaling is identity.
     Random seed: 1010 (for reproducibility)
     """
-    from slicot import mb01pd
+    from ctrlsys import mb01pd
 
     np.random.seed(1010)
     m, n = 4, 4

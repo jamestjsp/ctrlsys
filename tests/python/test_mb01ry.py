@@ -9,7 +9,7 @@ where H is an upper Hessenberg matrix and op(H) = H or H'.
 
 import numpy as np
 import pytest
-from slicot import mb01ry
+from ctrlsys import mb01ry
 
 
 def make_hessenberg(m):

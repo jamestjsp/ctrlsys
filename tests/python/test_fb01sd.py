@@ -9,7 +9,7 @@ Test data extracted from SLICOT HTML documentation example.
 
 import numpy as np
 import pytest
-from slicot import fb01sd
+from ctrlsys import fb01sd
 
 
 class TestFB01SDBasic:

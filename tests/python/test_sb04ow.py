@@ -11,7 +11,7 @@ D, E upper triangular).
 
 import numpy as np
 import pytest
-from slicot import sb04ow
+from ctrlsys import sb04ow
 
 
 def verify_periodic_sylvester(a, b, c_in, d, e, f_in, r_out, l_out, scale):

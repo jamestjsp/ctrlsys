@@ -26,7 +26,7 @@ def test_mb03gz_basic():
     1. Output unitary matrices satisfy Q @ Q.conj().T = I
     2. Output unitary symplectic matrices satisfy U @ U.conj().T = I
     """
-    from slicot import mb03gz
+    from ctrlsys import mb03gz
 
     np.random.seed(42)
 
@@ -62,7 +62,7 @@ def test_mb03gz_identity_like():
 
     Validates edge case where diagonal elements are close to identity.
     """
-    from slicot import mb03gz
+    from ctrlsys import mb03gz
 
     z11 = 1.0 + 0.0j
     z12 = 0.1 + 0.05j
@@ -89,7 +89,7 @@ def test_mb03gz_real_valued():
 
     Validates routine handles real-valued complex input correctly.
     """
-    from slicot import mb03gz
+    from ctrlsys import mb03gz
 
     z11 = 2.0 + 0.0j
     z12 = 1.0 + 0.0j
@@ -125,7 +125,7 @@ def test_mb03gz_transformation_structure():
     Validates:
     1. U' Z Q is upper triangular (lower-left element is zero)
     """
-    from slicot import mb03gz
+    from ctrlsys import mb03gz
 
     np.random.seed(123)
 
@@ -164,7 +164,7 @@ def test_mb03gz_determinant_unity():
     Unitary matrices have |det| = 1.
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03gz
+    from ctrlsys import mb03gz
 
     np.random.seed(456)
 

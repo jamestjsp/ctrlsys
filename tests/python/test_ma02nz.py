@@ -20,7 +20,7 @@ Random seeds used for reproducibility:
 import numpy as np
 import pytest
 
-from slicot import ma02nz
+from ctrlsys import ma02nz
 
 
 class TestMA02NZHermitianLower:

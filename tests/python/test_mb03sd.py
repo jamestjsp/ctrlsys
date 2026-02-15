@@ -10,7 +10,7 @@ The eigenvalues of H' are computed as square roots of eigenvalues of A'' = A'^2 
 
 import numpy as np
 import pytest
-from slicot import mb03sd
+from ctrlsys import mb03sd
 
 
 class TestMB03SDBasic:

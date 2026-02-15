@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from slicot import mb02jd
+from ctrlsys import mb02jd
 
 
 class TestMB02JDBasic:

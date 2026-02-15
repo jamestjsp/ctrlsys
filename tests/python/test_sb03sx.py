@@ -8,7 +8,7 @@ where op(A) = A or A' and C is symmetric.
 
 import numpy as np
 import pytest
-from slicot import sb03sx
+from ctrlsys import sb03sx
 
 
 def test_sb03sx_basic_notrans():

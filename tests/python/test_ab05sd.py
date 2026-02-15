@@ -20,7 +20,7 @@ def test_ab05sd_general_feedback_with_d():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(42)
     n, m, p = 3, 2, 2
@@ -83,7 +83,7 @@ def test_ab05sd_identity_feedback():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(123)
     n, m = 2, 2
@@ -147,7 +147,7 @@ def test_ab05sd_no_feedthrough():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(456)
     n, m, p = 4, 2, 3
@@ -207,7 +207,7 @@ def test_ab05sd_alpha_zero():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(789)
     n, m, p = 2, 1, 1
@@ -259,7 +259,7 @@ def test_ab05sd_eigenvalue_shift():
 
     Random seed: 321 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(321)
     n, m, p = 3, 2, 2
@@ -289,7 +289,7 @@ def test_ab05sd_singular_matrix_error():
 
     Random seed: 654 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(654)
     n, m, p = 2, 2, 2
@@ -315,7 +315,7 @@ def test_ab05sd_n_zero():
 
     Random seed: 987 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(987)
     n, m, p = 0, 2, 2
@@ -347,7 +347,7 @@ def test_ab05sd_m_or_p_zero():
 
     Random seed: 246 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(246)
     n, m, p = 2, 0, 1
@@ -380,7 +380,7 @@ def test_ab05sd_transfer_function_property():
 
     Random seed: 135 (for reproducibility)
     """
-    from slicot import ab05sd
+    from ctrlsys import ab05sd
 
     np.random.seed(135)
     n, m, p = 3, 2, 2

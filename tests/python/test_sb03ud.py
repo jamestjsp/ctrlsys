@@ -8,7 +8,7 @@ where op(A) = A or A', C and X are symmetric.
 
 import numpy as np
 import pytest
-from slicot import sb03ud
+from ctrlsys import sb03ud
 
 
 class TestSB03UDBasic:

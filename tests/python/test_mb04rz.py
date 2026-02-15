@@ -11,7 +11,7 @@ Optionally reorders diagonal elements so clustered eigenvalues are grouped.
 
 import numpy as np
 import pytest
-from slicot import mb04rz
+from ctrlsys import mb04rz
 
 
 def test_mb04rz_basic_2x2_diagonal():

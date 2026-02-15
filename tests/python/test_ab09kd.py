@@ -53,7 +53,7 @@ class TestAB09KDDocExample:
         6th order continuous system with 2nd order left weighting.
         ORDSEL='A' for automatic order selection based on TOL1=0.1.
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 6, 1, 1
         nv, nw = 2, 0
@@ -183,7 +183,7 @@ class TestAB09KDNoWeighting:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(42)
         n, m, p = 4, 1, 1
@@ -233,7 +233,7 @@ class TestAB09KDLeftWeighting:
         V is antistable for JOB='N'.
         Random seed: 123 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(123)
         n, m, p = 3, 1, 1
@@ -275,7 +275,7 @@ class TestAB09KDLeftWeighting:
         V is stable for JOB='C'.
         Random seed: 456 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(456)
         n, m, p = 3, 1, 1
@@ -321,7 +321,7 @@ class TestAB09KDRightWeighting:
         W is antistable for JOB='N'.
         Random seed: 789 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(789)
         n, m, p = 3, 1, 1
@@ -366,7 +366,7 @@ class TestAB09KDBothWeighting:
 
         Random seed: 111 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(111)
         n, m, p = 3, 1, 1
@@ -411,7 +411,7 @@ class TestAB09KDDiscreteTime:
 
         Random seed: 222 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(222)
         n, m, p = 3, 1, 1
@@ -453,7 +453,7 @@ class TestAB09KDDiscreteTime:
         V must be stable (|eigenvalues| < 1) for JOB='C'.
         Random seed: 333 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(333)
         n, m, p = 3, 1, 1
@@ -497,7 +497,7 @@ class TestAB09KDMathematicalProperties:
 
         Random seed: 444 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(444)
         n, m, p = 5, 1, 1
@@ -540,7 +540,7 @@ class TestAB09KDMathematicalProperties:
         The eigenvalues of the reduced system should have negative real parts.
         Random seed: 555 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(555)
         n, m, p = 4, 1, 1
@@ -590,7 +590,7 @@ class TestAB09KDEquilibration:
 
         Random seed: 666 (for reproducibility)
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         np.random.seed(666)
         n, m, p = 3, 1, 1
@@ -635,7 +635,7 @@ class TestAB09KDEdgeCases:
 
     def test_n_zero(self):
         """Test with N=0 (quick return)."""
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 0, 1, 1
         nv, nw = 0, 0
@@ -672,7 +672,7 @@ class TestAB09KDEdgeCases:
 
     def test_m_zero(self):
         """Test with M=0 (quick return)."""
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 2, 0, 1
         nv, nw = 0, 0
@@ -717,7 +717,7 @@ class TestAB09KDWarnings:
 
         NSMIN = NU + NMIN where NU is unstable order and NMIN is minimal realization order.
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 3, 1, 1
         nv, nw = 0, 0
@@ -757,7 +757,7 @@ class TestAB09KDErrors:
 
     def test_invalid_job(self):
         """Test error for invalid JOB parameter."""
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 2, 1, 1
 
@@ -784,7 +784,7 @@ class TestAB09KDErrors:
 
     def test_invalid_dico(self):
         """Test error for invalid DICO parameter."""
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 2, 1, 1
 
@@ -815,7 +815,7 @@ class TestAB09KDErrors:
 
         For JOB='N', V must be antistable (all eigenvalues unstable).
         """
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 2, 1, 1
         nv = 2
@@ -854,7 +854,7 @@ class TestAB09KDErrors:
 
     def test_info_10_dv_singular(self):
         """Test INFO=10: DV is singular."""
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         n, m, p = 2, 1, 1
         nv = 1
@@ -889,7 +889,7 @@ class TestAB09KDErrors:
 
     def test_negative_n(self):
         """Test error for negative N."""
-        from slicot import ab09kd
+        from ctrlsys import ab09kd
 
         a = np.zeros((1, 1), order='F', dtype=float)
         b = np.zeros((1, 1), order='F', dtype=float)

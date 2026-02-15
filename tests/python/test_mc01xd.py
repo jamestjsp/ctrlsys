@@ -17,7 +17,7 @@ def test_mc01xd_simple_cubic():
     Roots should be 1, 2, 3.
     Random seed: N/A (deterministic test data)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     # P(t) = -6 + 11*t - 6*t^2 + 1*t^3 = (t-1)(t-2)(t-3)
     alpha, beta, gamma, delta = -6.0, 11.0, -6.0, 1.0
@@ -49,7 +49,7 @@ def test_mc01xd_complex_roots():
     Roots: 1, i, -i
     Random seed: N/A (deterministic test data)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     # P(t) = -1 + 1*t - 1*t^2 + 1*t^3
     alpha, beta, gamma, delta = -1.0, 1.0, -1.0, 1.0
@@ -87,7 +87,7 @@ def test_mc01xd_triple_root():
     P(t) = (t - 2)^3 = t^3 - 6*t^2 + 12*t - 8
     Random seed: N/A (deterministic test data)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     # P(t) = -8 + 12*t - 6*t^2 + 1*t^3
     alpha, beta, gamma, delta = -8.0, 12.0, -6.0, 1.0
@@ -116,7 +116,7 @@ def test_mc01xd_quadratic_delta_zero():
     Roots: 1, 2, and one infinite root
     Random seed: N/A (deterministic test data)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     # P(t) = 2 - 3*t + 1*t^2 + 0*t^3
     alpha, beta, gamma, delta = 2.0, -3.0, 1.0, 0.0
@@ -147,7 +147,7 @@ def test_mc01xd_polynomial_evaluation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     np.random.seed(42)
     alpha = np.random.randn() * 10
@@ -177,7 +177,7 @@ def test_mc01xd_vieta_formulas():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     np.random.seed(123)
     # Ensure delta is not too small to avoid numerical issues
@@ -217,7 +217,7 @@ def test_mc01xd_evq_nonnegative():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     np.random.seed(456)
 
@@ -241,7 +241,7 @@ def test_mc01xd_large_coefficient_variation():
     This triggers the QR algorithm path when I = 0 or 3.
     Random seed: N/A (deterministic test data)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     # Large alpha, small others: triggers I = 0
     alpha, beta, gamma, delta = 1000.0, 1.0, 1.0, 0.001
@@ -266,7 +266,7 @@ def test_mc01xd_small_coefficient_variation():
     This triggers the QZ algorithm path.
     Random seed: N/A (deterministic test data)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     # Similar magnitude coefficients
     alpha, beta, gamma, delta = 1.0, 2.0, 3.0, 4.0
@@ -291,7 +291,7 @@ def test_mc01xd_linear_gamma_delta_zero():
     One finite root at -alpha/beta, two infinite roots.
     Random seed: N/A (deterministic test data)
     """
-    from slicot import mc01xd
+    from ctrlsys import mc01xd
 
     alpha, beta, gamma, delta = 6.0, 2.0, 0.0, 0.0
 

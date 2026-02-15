@@ -25,7 +25,7 @@ class TestTB01TD:
         Note: DGEBAL can produce different valid balancing results.
         We validate by checking eigenvalue and transfer function preservation.
         """
-        from slicot import tb01td
+        from ctrlsys import tb01td
 
         n, m, p = 5, 2, 2
 
@@ -107,7 +107,7 @@ class TestTB01TD:
 
         Random seed: 42 (for reproducibility)
         """
-        from slicot import tb01td
+        from ctrlsys import tb01td
 
         np.random.seed(42)
         n, m, p = 3, 2, 2
@@ -169,7 +169,7 @@ class TestTB01TD:
 
     def test_zero_dimension(self):
         """Test quick return when N=M=P=0."""
-        from slicot import tb01td
+        from ctrlsys import tb01td
 
         n, m, p = 0, 0, 0
         a = np.zeros((1, 1), dtype=float, order='F')
@@ -189,7 +189,7 @@ class TestTB01TD:
 
         Random seed: 123 (for reproducibility)
         """
-        from slicot import tb01td
+        from ctrlsys import tb01td
 
         np.random.seed(123)
         n, m, p = 2, 1, 1
@@ -232,7 +232,7 @@ class TestTB01TD:
 
         Random seed: 456 (for reproducibility)
         """
-        from slicot import tb01td
+        from ctrlsys import tb01td
 
         np.random.seed(456)
         n, m, p = 4, 2, 2
@@ -263,7 +263,7 @@ class TestTB01TD:
 
     def test_error_invalid_n(self):
         """Test error handling for invalid N < 0."""
-        from slicot import tb01td
+        from ctrlsys import tb01td
 
         n, m, p = -1, 1, 1
         a = np.zeros((1, 1), dtype=float, order='F')

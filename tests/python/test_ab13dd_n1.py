@@ -1,7 +1,7 @@
 """Test for ab13dd segfault with n=1 (single-state systems) - Issue #9"""
 import numpy as np
 import pytest
-from slicot import ab13dd
+from ctrlsys import ab13dd
 
 
 def test_ab13dd_n1_segfault():

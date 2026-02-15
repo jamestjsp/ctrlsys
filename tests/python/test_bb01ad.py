@@ -24,7 +24,7 @@ def test_bb01ad_example_2_3():
     Uses NR=(2,3), DEF='N', DPAR(1)=0.1234, BPAR=(T,T,T,F,F,T).
     Returns factored form for Q (BPAR(4)=False), full storage for G (BPAR(2)=True).
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [2, 3]
     dpar = np.array([0.1234, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -86,7 +86,7 @@ def test_bb01ad_example_1_1_default():
     Uses default parameters (DEF='D').
     This is a simple 2x2 example with known exact solution.
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [1, 1]
     dpar = np.zeros(7, dtype=np.float64)
@@ -121,7 +121,7 @@ def test_bb01ad_example_1_2():
 
     Uses default parameters.
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [1, 2]
     dpar = np.zeros(7, dtype=np.float64)
@@ -142,7 +142,7 @@ def test_bb01ad_example_2_1():
     (A,B) becomes unstabilizable as EPS -> 0.
     Uses DPAR(1) as epsilon parameter.
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [2, 1]
     dpar = np.array([1e-5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -162,7 +162,7 @@ def test_bb01ad_factored_form():
 
     When BPAR(1)=False, the routine returns B and R from G = B R^{-1} B^T.
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [1, 1]
     dpar = np.zeros(7, dtype=np.float64)
@@ -181,7 +181,7 @@ def test_bb01ad_packed_storage():
 
     When BPAR(2)=False, symmetric matrix is stored in packed mode.
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [2, 3]
     dpar = np.array([0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -198,7 +198,7 @@ def test_bb01ad_invalid_nr():
     """
     Test error handling for invalid NR parameter.
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [5, 1]
     dpar = np.zeros(7, dtype=np.float64)
@@ -214,7 +214,7 @@ def test_bb01ad_invalid_example_number():
     """
     Test error handling for invalid example number in group.
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [1, 10]
     dpar = np.zeros(7, dtype=np.float64)
@@ -235,7 +235,7 @@ def test_bb01ad_care_residual():
 
     Random seed: N/A (uses fixed example data)
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [1, 1]
     dpar = np.zeros(7, dtype=np.float64)
@@ -264,7 +264,7 @@ def test_bb01ad_solution_symmetry():
 
     Random seed: N/A (uses fixed example data)
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [1, 2]
     dpar = np.zeros(7, dtype=np.float64)
@@ -288,7 +288,7 @@ def test_bb01ad_g_symmetry():
 
     Random seed: N/A (uses fixed example data)
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [2, 3]
     dpar = np.array([0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)
@@ -311,7 +311,7 @@ def test_bb01ad_q_symmetry():
 
     Random seed: N/A (uses fixed example data)
     """
-    from slicot import bb01ad
+    from ctrlsys import bb01ad
 
     nr = [1, 1]
     dpar = np.zeros(7, dtype=np.float64)

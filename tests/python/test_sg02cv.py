@@ -10,7 +10,7 @@ SG02CV computes residual matrix R for continuous/discrete Lyapunov equations:
 
 import numpy as np
 import pytest
-from slicot import sg02cv
+from ctrlsys import sg02cv
 
 
 def make_schur_form(n, seed):

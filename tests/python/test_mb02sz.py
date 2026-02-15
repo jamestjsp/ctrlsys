@@ -9,7 +9,7 @@ Computes P*L*U factorization where:
 
 import numpy as np
 import pytest
-from slicot import mb02sz
+from ctrlsys import mb02sz
 
 
 """Basic functionality tests."""
@@ -118,7 +118,7 @@ def test_lu_factorization_solves_system():
     h_result, ipiv, info = mb02sz(h)
     assert info == 0
 
-    from slicot import mb02rz
+    from ctrlsys import mb02rz
     x, info_solve = mb02rz('N', h_result, ipiv, b)
     assert info_solve == 0
 

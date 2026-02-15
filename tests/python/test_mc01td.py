@@ -20,7 +20,7 @@ def test_mc01td_continuous_unstable():
     Polynomial: P(x) = 2 + 0*x + 1*x^2 - 1*x^3 + 1*x^4
     Expected: unstable, 2 zeros in right half-plane
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([2.0, 0.0, 1.0, -1.0, 1.0], order='F', dtype=float)
 
@@ -43,7 +43,7 @@ def test_mc01td_continuous_stable():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([1.0, 2.0, 1.0], order='F', dtype=float)
 
@@ -79,7 +79,7 @@ def test_mc01td_discrete_stable():
 
     P(x) = -0.5 + 1*x, coefficients: [-0.5, 1.0]
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([-0.5, 1.0], order='F', dtype=float)
 
@@ -101,7 +101,7 @@ def test_mc01td_discrete_unstable():
 
     Expected: 1 zero outside unit circle.
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([-2.0, 1.0], order='F', dtype=float)
 
@@ -122,7 +122,7 @@ def test_mc01td_degree_reduction():
     Should reduce to P(x) = 1 + 2*x with degree 1.
     Zero at x = -0.5 (left half-plane) = stable.
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([1.0, 2.0, 0.0, 0.0], order='F', dtype=float)
 
@@ -139,7 +139,7 @@ def test_mc01td_zero_polynomial():
     """
     Test error handling for zero polynomial (all zeros).
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([0.0, 0.0, 0.0], order='F', dtype=float)
 
@@ -154,7 +154,7 @@ def test_mc01td_constant_polynomial():
 
     P(x) = 5 (no zeros) = stable.
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([5.0], order='F', dtype=float)
 
@@ -176,7 +176,7 @@ def test_mc01td_higher_degree_continuous():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([6.0, 11.0, 6.0, 1.0], order='F', dtype=float)
 
@@ -196,7 +196,7 @@ def test_mc01td_higher_degree_unstable():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([-6.0, -1.0, 4.0, 1.0], order='F', dtype=float)
 
@@ -216,7 +216,7 @@ def test_mc01td_discrete_higher_degree():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([0.125, -0.75, 1.0], order='F', dtype=float)
 
@@ -237,7 +237,7 @@ def test_mc01td_discrete_mixed_stability():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([0.9, -3.3, 1.0], order='F', dtype=float)
 
@@ -258,7 +258,7 @@ def test_mc01td_complex_roots_continuous():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([5.0, 2.0, 1.0], order='F', dtype=float)
 
@@ -279,7 +279,7 @@ def test_mc01td_complex_roots_unstable():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([5.0, -2.0, 1.0], order='F', dtype=float)
 
@@ -298,7 +298,7 @@ def test_mc01td_numpy_roots_validation():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     np.random.seed(42)
 
@@ -319,7 +319,7 @@ def test_mc01td_numpy_unstable_validation():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     np.random.seed(123)
 
@@ -338,7 +338,7 @@ def test_mc01td_error_invalid_dico():
     """
     Test error handling for invalid DICO parameter.
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([1.0, 2.0, 1.0], order='F', dtype=float)
 
@@ -358,7 +358,7 @@ def test_mc01td_imaginary_axis_root():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([1.0, 0.0, 1.0], order='F', dtype=float)
 
@@ -378,7 +378,7 @@ def test_mc01td_unit_circle_root():
 
     Random seed: not used (deterministic test data)
     """
-    from slicot import mc01td
+    from ctrlsys import mc01td
 
     p = np.array([-1.0, 1.0], order='F', dtype=float)
 

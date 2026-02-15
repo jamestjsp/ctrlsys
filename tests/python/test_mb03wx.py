@@ -8,7 +8,7 @@ MB03WX computes eigenvalues of T = T_1*T_2*...*T_p where:
 
 import numpy as np
 import pytest
-from slicot import mb03wx
+from ctrlsys import mb03wx
 
 
 def test_mb03wx_single_matrix():

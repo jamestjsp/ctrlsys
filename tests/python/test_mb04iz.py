@@ -8,7 +8,7 @@ in the lower left corner, optionally applying transformations to matrix B.
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose
-from slicot import mb04iz
+from ctrlsys import mb04iz
 
 
 class TestMB04IZBasic:

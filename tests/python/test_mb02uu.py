@@ -14,7 +14,7 @@ def test_mb02uu_basic():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     np.random.seed(42)
     n = 4
@@ -45,7 +45,7 @@ def test_mb02uu_identity():
     """
     Validate solution with identity matrix: x = rhs.
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     n = 3
     a = np.eye(n, order='F', dtype=float)
@@ -65,7 +65,7 @@ def test_mb02uu_1x1():
     """
     Validate edge case: 1x1 system.
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     n = 1
     a = np.array([[2.0]], order='F', dtype=float)
@@ -84,7 +84,7 @@ def test_mb02uu_2x2():
     """
     Validate 2x2 system with known solution.
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     n = 2
     a = np.array([
@@ -111,7 +111,7 @@ def test_mb02uu_property_solution_correctness():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     np.random.seed(123)
     n = 5
@@ -138,7 +138,7 @@ def test_mb02uu_multiple_rhs():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     np.random.seed(456)
     n = 4
@@ -166,7 +166,7 @@ def test_mb02uu_well_conditioned():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     np.random.seed(789)
     n = 6
@@ -195,7 +195,7 @@ def test_mb02uu_scaling():
     Test with a matrix that could cause numerical issues.
     Random seed: 888 (for reproducibility)
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     np.random.seed(888)
     n = 4
@@ -225,7 +225,7 @@ def test_mb02uu_random_larger():
 
     Random seed: 999 (for reproducibility)
     """
-    from slicot import mb02uv, mb02uu
+    from ctrlsys import mb02uv, mb02uu
 
     np.random.seed(999)
     n = 10

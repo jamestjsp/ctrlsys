@@ -10,7 +10,7 @@ Matrix A is assumed to be in real Schur form.
 
 import numpy as np
 import pytest
-from slicot import ib01qd
+from ctrlsys import ib01qd
 
 
 def create_schur_system(n, m, l, seed=42):

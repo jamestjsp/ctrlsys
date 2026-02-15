@@ -6,7 +6,7 @@ form, separating controllable and uncontrollable parts of the descriptor system.
 """
 import pytest
 import numpy as np
-from slicot import tg01hx
+from ctrlsys import tg01hx
 
 
 def test_tg01hx_basic():

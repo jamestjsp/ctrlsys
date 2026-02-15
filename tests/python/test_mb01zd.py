@@ -20,7 +20,7 @@ Hessenberg-like pattern (m=7, n=6, l=2):
 """
 import numpy as np
 import pytest
-from slicot import mb01zd
+from ctrlsys import mb01zd
 
 
 def test_mb01zd_left_upper_notrans():

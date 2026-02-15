@@ -59,7 +59,7 @@ def test_mb04zd_html_example():
         [-0.6352, -0.1403,  1.2371]
     ], dtype=float, order='F')
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg)
 
@@ -101,7 +101,7 @@ def test_mb04zd_with_transform():
             if i != j:
                 qg[j, i+1] = qg[i, j+1]
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg)
 
@@ -142,7 +142,7 @@ def test_mb04zd_square_reduced_property():
         for j in range(i, n):
             qg[i, j+1] = g_sym[i, j]
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg)
 
@@ -188,7 +188,7 @@ def test_mb04zd_accumulate_transform():
     u_in = np.zeros((n, 2*n), dtype=float, order='F')
     u_in[:, :n] = np.eye(n)
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg, u_in)
 
@@ -246,7 +246,7 @@ def test_mb04zd_similarity_transformation():
     h2_orig = h_orig @ h_orig
     eig_orig = np.sort(np.linalg.eigvals(h2_orig).real)
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_copy = a.copy(order='F')
     qg_copy = qg.copy(order='F')
@@ -287,7 +287,7 @@ def test_mb04zd_n_zero():
     a = np.zeros((1, 1), dtype=float, order='F')
     qg = np.zeros((1, 2), dtype=float, order='F')
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg)
 
@@ -304,7 +304,7 @@ def test_mb04zd_invalid_compu():
     a = np.eye(n, dtype=float, order='F')
     qg = np.zeros((n, n+1), dtype=float, order='F')
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg)
 
@@ -321,7 +321,7 @@ def test_mb04zd_n_one():
     a = np.array([[2.0]], dtype=float, order='F')
     qg = np.array([[1.0, 3.0]], dtype=float, order='F')
 
-    from slicot import mb04zd
+    from ctrlsys import mb04zd
 
     a_out, qg_out, u_out, info = mb04zd(compu, n, a, qg)
 

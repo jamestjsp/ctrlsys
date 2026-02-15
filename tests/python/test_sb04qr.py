@@ -15,7 +15,7 @@ def test_sb04qr_basic_4x4():
 
     For m=4, D has length 4*4/2 + 4*4 = 8 + 16 = 24
     """
-    from slicot import sb04qr
+    from ctrlsys import sb04qr
 
     m = 4
     d_len = m * m // 2 + 4 * m  # 8 + 16 = 24
@@ -67,7 +67,7 @@ def test_sb04qr_2x2():
 
     For m=2, D has length 2*2/2 + 4*2 = 2 + 8 = 10
     """
-    from slicot import sb04qr
+    from ctrlsys import sb04qr
 
     m = 2
     d_len = m * m // 2 + 4 * m  # 2 + 8 = 10
@@ -98,7 +98,7 @@ def test_sb04qr_singular():
     """
     Test detection of singular matrix.
     """
-    from slicot import sb04qr
+    from ctrlsys import sb04qr
 
     m = 2
     d_len = m * m // 2 + 4 * m
@@ -115,7 +115,7 @@ def test_sb04qr_m0():
     """
     Test with m=0 (empty system).
     """
-    from slicot import sb04qr
+    from ctrlsys import sb04qr
 
     d = np.array([], dtype=float, order='F')
     d_out, ipr, info = sb04qr(0, d)

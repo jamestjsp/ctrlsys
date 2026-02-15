@@ -18,7 +18,7 @@ def test_sb02ox_stable_real_eigenvalue():
 
     ALPHAR = 1, ALPHAI = 0, BETA = 2 -> |lambda| = 1/2 = 0.5 < 1 -> stable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(1.0, 0.0, 2.0)
     assert result is True
@@ -30,7 +30,7 @@ def test_sb02ox_stable_real_negative_beta():
 
     ALPHAR = 1, ALPHAI = 0, BETA = -2 -> |lambda| = 1/2 = 0.5 < 1 -> stable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(1.0, 0.0, -2.0)
     assert result is True
@@ -42,7 +42,7 @@ def test_sb02ox_unstable_real_eigenvalue():
 
     ALPHAR = 2, ALPHAI = 0, BETA = 1 -> |lambda| = 2/1 = 2 > 1 -> unstable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(2.0, 0.0, 1.0)
     assert result is False
@@ -54,7 +54,7 @@ def test_sb02ox_marginal_eigenvalue():
 
     ALPHAR = 1, ALPHAI = 0, BETA = 1 -> |lambda| = 1/1 = 1 -> not strictly stable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(1.0, 0.0, 1.0)
     assert result is False
@@ -66,7 +66,7 @@ def test_sb02ox_stable_complex_eigenvalue():
 
     ALPHAR = 0.3, ALPHAI = 0.4, BETA = 1 -> |lambda| = 0.5 < 1 -> stable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(0.3, 0.4, 1.0)
     assert result is True
@@ -78,7 +78,7 @@ def test_sb02ox_unstable_complex_eigenvalue():
 
     ALPHAR = 3, ALPHAI = 4, BETA = 1 -> |lambda| = 5 > 1 -> unstable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(3.0, 4.0, 1.0)
     assert result is False
@@ -90,7 +90,7 @@ def test_sb02ox_zero_eigenvalue():
 
     ALPHAR = 0, ALPHAI = 0, BETA = 1 -> |lambda| = 0 < 1 -> stable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(0.0, 0.0, 1.0)
     assert result is True
@@ -102,7 +102,7 @@ def test_sb02ox_purely_imaginary_stable():
 
     ALPHAR = 0, ALPHAI = 0.5, BETA = 1 -> |lambda| = 0.5 < 1 -> stable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(0.0, 0.5, 1.0)
     assert result is True
@@ -114,7 +114,7 @@ def test_sb02ox_purely_imaginary_unstable():
 
     ALPHAR = 0, ALPHAI = 2, BETA = 1 -> |lambda| = 2 > 1 -> unstable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(0.0, 2.0, 1.0)
     assert result is False
@@ -127,7 +127,7 @@ def test_sb02ox_mathematical_property():
     Random seed: 42 (for reproducibility)
     """
     np.random.seed(42)
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     for _ in range(20):
         alphar = np.random.uniform(-10, 10)
@@ -162,7 +162,7 @@ def test_sb02ox_sb02ov_complement():
     Random seed: 123 (for reproducibility)
     """
     np.random.seed(123)
-    from slicot import sb02ox, sb02ov
+    from ctrlsys import sb02ox, sb02ov
 
     for _ in range(20):
         alphar = np.random.uniform(-10, 10)
@@ -190,7 +190,7 @@ def test_sb02ox_boundary_case_just_inside():
 
     |lambda| = 0.999 < 1 -> stable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(0.999, 0.0, 1.0)
     assert result is True
@@ -202,7 +202,7 @@ def test_sb02ox_boundary_case_just_outside():
 
     |lambda| = 1.001 > 1 -> unstable
     """
-    from slicot import sb02ox
+    from ctrlsys import sb02ox
 
     result = sb02ox(1.001, 0.0, 1.0)
     assert result is False

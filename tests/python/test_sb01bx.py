@@ -7,7 +7,7 @@ appear at the end.
 """
 import numpy as np
 import pytest
-from slicot import sb01bx
+from ctrlsys import sb01bx
 
 
 """Basic functionality tests."""

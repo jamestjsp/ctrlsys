@@ -10,7 +10,7 @@ Matrix A must be in real Schur form.
 
 import numpy as np
 import pytest
-from slicot import ib01rd
+from ctrlsys import ib01rd
 
 
 def _simulate_system(a, b, c, d, u, x0):

@@ -5,7 +5,7 @@ MC01SW finds M and E such that A = M * B^E where 1 <= |M| < B.
 """
 
 import numpy as np
-from slicot import mc01sw
+from ctrlsys import mc01sw
 
 
 def test_mc01sw_basic():

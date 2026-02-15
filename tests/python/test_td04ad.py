@@ -52,7 +52,7 @@ def test_td04ad_html_doc_example():
         1.0000   0.0000
         0.0000   1.0000
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 2, 2
     rowcol = 'R'
@@ -113,7 +113,7 @@ def test_td04ad_siso_first_order():
 
     Minimal realization should have order 1.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
     index = np.array([1], dtype=np.int32)
@@ -140,7 +140,7 @@ def test_td04ad_siso_second_order():
 
     The common factor (s+2) should be cancelled, giving NR=1.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
     index = np.array([2], dtype=np.int32)
@@ -161,7 +161,7 @@ def test_td04ad_column_form():
 
     The dual form T(s) = U(s) * inv(D(s)).
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 2, 2
     index = np.array([1, 1], dtype=np.int32)
@@ -190,7 +190,7 @@ def test_td04ad_transfer_function_equivalence():
     The state-space system should produce the same transfer function
     as the polynomial representation at all frequencies.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
     index = np.array([2], dtype=np.int32)
@@ -225,7 +225,7 @@ def test_td04ad_zero_leading_coefficient_error():
 
     INFO = I when row I has leading coefficient too small.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
     index = np.array([1], dtype=np.int32)
@@ -245,7 +245,7 @@ def test_td04ad_zero_order():
 
     When all denominators are degree 0 (constants), N=0 and only D matrix exists.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
     index = np.array([0], dtype=np.int32)
@@ -266,7 +266,7 @@ def test_td04ad_mixed_orders():
 
     INDEX = [2, 1] -> N = 3
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 2
     index = np.array([2, 1], dtype=np.int32)
@@ -296,7 +296,7 @@ def test_td04ad_markov_parameter_preservation():
 
     Check at several complex frequencies that responses match.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
     index = np.array([2], dtype=np.int32)
@@ -338,7 +338,7 @@ def test_td04ad_eigenvalue_preservation():
     This tests that minimal realization correctly identifies the common
     factor and reduces the order.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
 
@@ -365,7 +365,7 @@ def test_td04ad_invalid_rowcol():
     """
     Test invalid ROWCOL parameter.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 1, 1
     index = np.array([1], dtype=np.int32)
@@ -382,7 +382,7 @@ def test_td04ad_with_tolerance():
     """
     Test with explicit positive tolerance.
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     m, p = 2, 2
     index = np.array([3, 3], dtype=np.int32)
@@ -414,7 +414,7 @@ def test_td04ad_state_space_equations():
 
     Random seed: 888 (for reproducibility)
     """
-    from slicot import td04ad
+    from ctrlsys import td04ad
 
     np.random.seed(888)
 

@@ -28,7 +28,7 @@ def test_mb03lp_basic():
     Tests eigenvalue computation and deflating subspace for N=8 pencil.
     Data source: SLICOT MB03LD.html example (row-wise read).
     """
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     n = 8
     m = n // 2
@@ -85,7 +85,7 @@ def test_mb03lp_eigenvalues_only():
 
     Random seed: 42 (for reproducibility)
     """
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     np.random.seed(42)
     n = 6
@@ -114,7 +114,7 @@ def test_mb03lp_svd_orthogonalization():
 
     Random seed: 123 (for reproducibility)
     """
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     np.random.seed(123)
     n = 8
@@ -141,7 +141,7 @@ def test_mb03lp_svd_orthogonalization():
 
 def test_mb03lp_empty():
     """Test MB03LP with N=0 (quick return)."""
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     a = np.zeros((0, 0), dtype=float, order='F')
     de = np.zeros((0, 1), dtype=float, order='F')
@@ -166,7 +166,7 @@ def test_mb03lp_eigenvalue_symmetry():
 
     Random seed: 456 (for reproducibility)
     """
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     np.random.seed(456)
     n = 8
@@ -198,7 +198,7 @@ def test_mb03lp_upper_triangular_output():
 
     Random seed: 789 (for reproducibility)
     """
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     np.random.seed(789)
     n = 8
@@ -229,7 +229,7 @@ def test_mb03lp_deflating_subspace_orthogonality():
 
     Random seed: 111 (for reproducibility)
     """
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     np.random.seed(111)
     n = 8
@@ -257,7 +257,7 @@ def test_mb03lp_deflating_subspace_orthogonality():
 
 def test_mb03lp_interface_compq_n():
     """Test MB03LP interface with COMPQ='N' returns without crash."""
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     np.random.seed(42)
     n = 6
@@ -279,7 +279,7 @@ def test_mb03lp_interface_compq_n():
 
 def test_mb03lp_interface_compq_c():
     """Test MB03LP interface with COMPQ='C' returns without crash."""
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     np.random.seed(123)
     n = 6
@@ -301,7 +301,7 @@ def test_mb03lp_interface_compq_c():
 
 def test_mb03lp_error_invalid_compq():
     """Test MB03LP returns error for invalid COMPQ."""
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     n = 4
     m = n // 2
@@ -319,7 +319,7 @@ def test_mb03lp_error_invalid_compq():
 
 def test_mb03lp_error_invalid_orth():
     """Test MB03LP returns error for invalid ORTH when COMPQ='C'."""
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     n = 4
     m = n // 2
@@ -337,7 +337,7 @@ def test_mb03lp_error_invalid_orth():
 
 def test_mb03lp_n_zero():
     """Test MB03LP with N=0 returns without error."""
-    from slicot import mb03lp
+    from ctrlsys import mb03lp
 
     a = np.zeros((0, 0), dtype=float, order='F')
     de = np.zeros((0, 1), dtype=float, order='F')

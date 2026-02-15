@@ -10,7 +10,7 @@ Tests extracted from SLICOT HTML documentation example.
 import numpy as np
 import pytest
 
-from slicot import sb03sd
+from ctrlsys import sb03sd
 
 
 def solve_diagonal_discrete_lyapunov(a_diag, c):
@@ -62,7 +62,7 @@ class TestSB03SDBasic:
         t = a.copy()
         u = np.eye(n, order='F', dtype=float)
 
-        from slicot import sb03md
+        from ctrlsys import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
         md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
@@ -141,7 +141,7 @@ class TestSB03SDBasic:
             [0.0, 0.5, 1.5]
         ], order='F', dtype=float)
 
-        from slicot import sb03md
+        from ctrlsys import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
         md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
@@ -267,7 +267,7 @@ class TestSB03SDNoFact:
             [0.3, 0.6, 1.2]
         ], order='F', dtype=float)
 
-        from slicot import sb03md
+        from ctrlsys import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
         md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
@@ -353,7 +353,7 @@ class TestSB03SDLyapun:
             [0.2, 0.3, 2.0]
         ], order='F', dtype=float)
 
-        from slicot import sb03md
+        from ctrlsys import sb03md
         a_work = a.copy(order='F')
         c_work = c.copy(order='F')
         md_result = sb03md('D', 'X', 'N', 'N', n, a_work, c_work)
