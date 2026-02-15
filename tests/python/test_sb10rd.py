@@ -52,7 +52,7 @@ class TestSB10RDBasic:
         x = np.array([[0.1, 0.0], [0.0, 0.1]], dtype=np.float64, order='F')
         y = np.array([[0.1, 0.0], [0.0, 0.1]], dtype=np.float64, order='F')
 
-        ak, bk, ck, dk, info = slicot.sb10rd(
+        ak, bk, ck, dk, info = ctrlsys.sb10rd(
             n, m, np_, ncon, nmeas, gamma,
             a, b, c, d, f, h, tu, ty, x, y
         )
@@ -109,7 +109,7 @@ class TestSB10RDControllerVerification:
         x = np.array([[0.1, 0.0], [0.0, 0.1]], dtype=np.float64, order='F')
         y = np.array([[0.1, 0.0], [0.0, 0.1]], dtype=np.float64, order='F')
 
-        ak, bk, ck, dk, info = slicot.sb10rd(
+        ak, bk, ck, dk, info = ctrlsys.sb10rd(
             n, m, np_, ncon, nmeas, gamma,
             a, b, c, d, f, h, tu, ty, x, y
         )
@@ -156,7 +156,7 @@ class TestSB10RDEdgeCases:
         x = np.eye(n, dtype=np.float64, order='F') * 0.1
         y = np.eye(n, dtype=np.float64, order='F') * 0.1
 
-        ak, bk, ck, dk, info = slicot.sb10rd(
+        ak, bk, ck, dk, info = ctrlsys.sb10rd(
             n, m, np_, ncon, nmeas, gamma,
             a, b, c, d, f, h, tu, ty, x, y
         )
@@ -194,7 +194,7 @@ class TestSB10RDEdgeCases:
         x = np.eye(n, dtype=np.float64, order='F') * 0.1
         y = np.eye(n, dtype=np.float64, order='F') * 0.1
 
-        ak, bk, ck, dk, info = slicot.sb10rd(
+        ak, bk, ck, dk, info = ctrlsys.sb10rd(
             n, m, np_, ncon, nmeas, gamma,
             a, b, c, d, f, h, tu, ty, x, y
         )

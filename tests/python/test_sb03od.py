@@ -46,7 +46,7 @@ def test_continuous_nofact_notrans():
         [0.0, 0.0, 0.0, 1.0]
     ], order='F', dtype=np.float64)
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'N', 'N', a, b)
 
     assert info == 0
     assert scale == pytest.approx(1.0, abs=1e-4)
@@ -74,7 +74,7 @@ def test_continuous_residual_verification():
     b = np.asfortranarray(b)
     b_orig = b.copy()
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'N', 'N', a, b)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -103,7 +103,7 @@ def test_discrete_residual_verification():
     b = np.asfortranarray(b)
     b_orig = b.copy()
 
-    u, q, wr, wi, scale, info = slicot.sb03od('D', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('D', 'N', 'N', a, b)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -136,7 +136,7 @@ def test_continuous_transpose():
     b = np.asfortranarray(b)
     b_orig = b.copy()
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'N', 'T', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'N', 'T', a, b)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -166,7 +166,7 @@ def test_discrete_transpose():
     b = np.asfortranarray(b)
     b_orig = b.copy()
 
-    u, q, wr, wi, scale, info = slicot.sb03od('D', 'N', 'T', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('D', 'N', 'T', a, b)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -204,7 +204,7 @@ def test_continuous_schur_provided():
 
     a_orig = q_in @ s @ q_in.T
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'F', 'N', s, b, q_in)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'F', 'N', s, b, q_in)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -231,7 +231,7 @@ def test_zero_rhs():
 
     b = np.zeros((n, n), order='F', dtype=np.float64)
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'N', 'N', a, b)
 
     assert info == 0
     np.testing.assert_allclose(np.triu(u[:n, :n]), 0.0, atol=1e-14)
@@ -243,7 +243,7 @@ def test_n_zero():
     a = np.zeros((0, 0), order='F', dtype=np.float64)
     b = np.zeros((m, 0), order='F', dtype=np.float64)
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'N', 'N', a, b)
 
     assert info == 0
 
@@ -264,7 +264,7 @@ def test_unstable_continuous():
         [0.0, 1.0]
     ], order='F', dtype=np.float64)
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'N', 'N', a, b)
 
     assert info == 2
 
@@ -282,7 +282,7 @@ def test_non_convergent_discrete():
         [0.0, 1.0]
     ], order='F', dtype=np.float64)
 
-    u, q, wr, wi, scale, info = slicot.sb03od('D', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('D', 'N', 'N', a, b)
 
     assert info == 2
 
@@ -294,7 +294,7 @@ def test_invalid_dico():
     b = np.array([[1.0, 0.0], [0.0, 1.0]], order='F', dtype=np.float64)
 
     with pytest.raises(ValueError, match="sb03od parameter error"):
-        slicot.sb03od('X', 'N', 'N', a, b)
+        ctrlsys.sb03od('X', 'N', 'N', a, b)
 
 
 """Test larger systems for robustness."""
@@ -316,7 +316,7 @@ def test_6x6_continuous():
     b = np.asfortranarray(b)
     b_orig = b.copy()
 
-    u, q, wr, wi, scale, info = slicot.sb03od('C', 'N', 'N', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('C', 'N', 'N', a, b)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -347,7 +347,7 @@ def test_8x8_discrete_transpose():
     b = np.zeros((n, max(m, n)), order='F', dtype=np.float64)
     b[:n, :m] = b_orig
 
-    u, q, wr, wi, scale, info = slicot.sb03od('D', 'N', 'T', a, b)
+    u, q, wr, wi, scale, info = ctrlsys.sb03od('D', 'N', 'T', a, b)
 
     assert info == 0
     assert 0 < scale <= 1.0

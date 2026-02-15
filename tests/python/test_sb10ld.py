@@ -15,12 +15,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-@pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+@pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 class TestSB10LD:
 
     def test_basic(self):
@@ -63,7 +63,7 @@ class TestSB10LD:
 
         DK = np.array([[0.2]], dtype=float, order='F')
 
-        result = slicot.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
+        result = ctrlsys.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
         ac, bc, cc, dc, info = result
 
         assert info == 0, f"SB10LD failed with info={info}"
@@ -129,7 +129,7 @@ class TestSB10LD:
 
         DK = np.zeros((ncon, nmeas), dtype=float, order='F')
 
-        result = slicot.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
+        result = ctrlsys.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
         ac, bc, cc, dc, info = result
 
         assert info == 0
@@ -175,7 +175,7 @@ class TestSB10LD:
         CK = np.array([[1.0, 0.0]], dtype=float, order='F')
         DK = np.array([[1.0]], dtype=float, order='F')
 
-        result = slicot.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
+        result = ctrlsys.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
         info = result[-1]
 
         assert info == 1, f"Expected info=1 for singular I-D22*DK, got {info}"
@@ -199,7 +199,7 @@ class TestSB10LD:
         CK = np.zeros((1, 1), dtype=float, order='F')
         DK = np.zeros((1, 1), dtype=float, order='F')
 
-        result = slicot.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
+        result = ctrlsys.sb10ld(n, m, np_, ncon, nmeas, A, B, C, D, AK, BK, CK, DK)
         info = result[-1]
 
         assert info == 0

@@ -62,7 +62,7 @@ def test_continuous_nofact_notrans():
     b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.complex128)
     b_padded[:m, :n] = b
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b_padded)
 
     assert info == 0
@@ -93,7 +93,7 @@ def test_continuous_transpose():
 
     q = np.zeros((n, n), order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='C',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='C',
                                    a=a, q=q, b=b)
 
     assert info == 0
@@ -129,7 +129,7 @@ def test_discrete_nofact_notrans():
     b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.complex128)
     b_padded[:m, :n] = b
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='D', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='D', fact='N', trans='N',
                                    a=a, q=q, b=b_padded)
 
     assert info == 0
@@ -160,7 +160,7 @@ def test_discrete_transpose():
 
     q = np.zeros((n, n), order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='D', fact='N', trans='C',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='D', fact='N', trans='C',
                                    a=a, q=q, b=b)
 
     assert info == 0
@@ -200,7 +200,7 @@ def test_schur_provided():
     b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.complex128)
     b_padded[:m, :n] = b
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='F', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='F', trans='N',
                                    a=s, q=q, b=b_padded)
 
     assert info == 0
@@ -228,7 +228,7 @@ def test_zero_rhs():
 
     b = np.zeros((n, n), order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b)
 
     assert info == 0
@@ -243,7 +243,7 @@ def test_n_zero():
     q = np.zeros((1, 1), order='F', dtype=np.complex128)
     b = np.zeros((m, 1), order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b)
 
     assert info == 0
@@ -265,7 +265,7 @@ def test_unstable_continuous():
         [0.0 + 0j, 1.0 + 0j]
     ], order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b)
 
     assert info == 2
@@ -287,7 +287,7 @@ def test_non_convergent_discrete():
         [0.0 + 0j, 1.0 + 0j]
     ], order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='D', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='D', fact='N', trans='N',
                                    a=a, q=q, b=b)
 
     assert info == 2
@@ -301,7 +301,7 @@ def test_invalid_dico():
     q = np.zeros((n, n), order='F', dtype=np.complex128)
     b = np.array([[1.0 + 0j, 0.0 + 0j], [0.0 + 0j, 1.0 + 0j]], order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='X', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='X', fact='N', trans='N',
                                    a=a, q=q, b=b)
 
     assert info == -1
@@ -315,7 +315,7 @@ def test_invalid_fact():
     q = np.zeros((n, n), order='F', dtype=np.complex128)
     b = np.array([[1.0 + 0j, 0.0 + 0j], [0.0 + 0j, 1.0 + 0j]], order='F', dtype=np.complex128)
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='X', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='X', trans='N',
                                    a=a, q=q, b=b)
 
     assert info == -2
@@ -343,7 +343,7 @@ def test_5x5_continuous():
     b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.complex128)
     b_padded[:m, :n] = b
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b_padded)
 
     assert info == 0
@@ -377,7 +377,7 @@ def test_positive_semidefinite():
     b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.complex128)
     b_padded[:m, :n] = b
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b_padded)
 
     if info == 0:
@@ -407,7 +407,7 @@ def test_upper_triangular_output():
     b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.complex128)
     b_padded[:m, :n] = b
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b_padded)
 
     if info == 0:
@@ -440,7 +440,7 @@ def test_eigenvalue_check():
     b_padded = np.zeros((ldb, max(m, n)), order='F', dtype=np.complex128)
     b_padded[:m, :n] = b
 
-    a_out, q_out, b_out, scale, w, info = slicot.sb03oz(dico='C', fact='N', trans='N',
+    a_out, q_out, b_out, scale, w, info = ctrlsys.sb03oz(dico='C', fact='N', trans='N',
                                    a=a, q=q, b=b_padded)
 
     if info == 0:

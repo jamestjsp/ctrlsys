@@ -369,9 +369,9 @@ def test_mb03bd_negative_signature():
     eig_slicot = []
     for i in range(n):
         if beta[i] != 0:
-            eig_slicot.append((alphar[i] + 1j * alphai[i]) / beta[i] * (base ** scal[i]))
+            eig_ctrlsys.append((alphar[i] + 1j * alphai[i]) / beta[i] * (base ** scal[i]))
         else:
-            eig_slicot.append(np.inf)
+            eig_ctrlsys.append(np.inf)
     eig_slicot = np.array(eig_slicot)
 
     # Sort and compare

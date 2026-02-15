@@ -2,8 +2,8 @@
 """Debug script to trace MB03LF NEIG calculation."""
 import numpy as np
 import sys
-sys.path.insert(0, '/Users/josephj/Workspace/slicot.c')
-from python.slicot import mb03lf
+sys.path.insert(0, '/Users/josephj/Workspace/ctrlsys.c')
+from python.ctrlsys import mb03lf
 
 n = 8
 m = n // 2

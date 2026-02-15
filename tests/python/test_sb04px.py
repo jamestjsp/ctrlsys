@@ -22,7 +22,7 @@ def test_sb04px_1x1_basic():
     tr = np.array([[3.0]], order='F', dtype=np.float64)
     b = np.array([[12.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, 1, 1, 1, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, 1, 1, 1, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -44,7 +44,7 @@ def test_sb04px_1x1_with_transpose():
     tr = np.array([[2.0]], order='F', dtype=np.float64)
     b = np.array([[6.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(True, True, -1, 1, 1, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(True, True, -1, 1, 1, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -69,7 +69,7 @@ def test_sb04px_2x2_basic():
     tr = np.array([[1.0, 0.0], [0.0, 1.0]], order='F', dtype=np.float64)
     b = np.array([[4.0, 6.0], [9.0, 15.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, 1, 2, 2, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, 1, 2, 2, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -90,7 +90,7 @@ def test_sb04px_1x2_case():
     tr = np.array([[1.0, 0.5], [0.5, 1.0]], order='F', dtype=np.float64)
     b = np.array([[6.0, 5.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, 1, 1, 2, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, 1, 1, 2, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -113,7 +113,7 @@ def test_sb04px_2x1_case():
     tr = np.array([[3.0]], order='F', dtype=np.float64)
     b = np.array([[8.0], [14.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, 1, 2, 1, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, 1, 2, 1, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -134,7 +134,7 @@ def test_sb04px_n1_zero():
     tr = np.array([[1.0]], order='F', dtype=np.float64)
     b = np.array([[1.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, 1, 0, 1, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, 1, 0, 1, tl, tr, b)
 
     assert info == 0
     assert xnorm == 0.0
@@ -150,7 +150,7 @@ def test_sb04px_n2_zero():
     tr = np.array([[1.0]], order='F', dtype=np.float64)
     b = np.array([[1.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, 1, 1, 0, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, 1, 1, 0, tl, tr, b)
 
     assert info == 0
     assert xnorm == 0.0
@@ -166,7 +166,7 @@ def test_sb04px_2x2_transpose_left():
     tr = np.array([[1.5, 0.1], [0.1, 0.5]], order='F', dtype=np.float64)
     b = np.array([[5.0, 3.0], [8.0, 6.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(True, False, 1, 2, 2, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(True, False, 1, 2, 2, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -187,7 +187,7 @@ def test_sb04px_2x2_transpose_right():
     tr = np.array([[1.5, 0.1], [0.1, 0.5]], order='F', dtype=np.float64)
     b = np.array([[5.0, 3.0], [8.0, 6.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, True, 1, 2, 2, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, True, 1, 2, 2, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -208,7 +208,7 @@ def test_sb04px_2x2_both_transpose():
     tr = np.array([[1.5, 0.1], [0.1, 0.5]], order='F', dtype=np.float64)
     b = np.array([[5.0, 3.0], [8.0, 6.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(True, True, 1, 2, 2, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(True, True, 1, 2, 2, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -229,7 +229,7 @@ def test_sb04px_isgn_minus_one():
     tr = np.array([[1.0, 0.2], [0.2, 1.5]], order='F', dtype=np.float64)
     b = np.array([[4.0, 2.0], [6.0, 8.0]], order='F', dtype=np.float64)
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, -1, 2, 2, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, -1, 2, 2, tl, tr, b)
 
     assert info == 0
     assert scale == 1.0
@@ -250,7 +250,7 @@ def test_sb04px_residual_property():
     tr = np.random.randn(2, 2).astype(np.float64, order='F')
     b = np.random.randn(2, 2).astype(np.float64, order='F')
 
-    scale, x, xnorm, info = slicot.sb04px(False, False, 1, 2, 2, tl, tr, b)
+    scale, x, xnorm, info = ctrlsys.sb04px(False, False, 1, 2, 2, tl, tr, b)
 
     residual = tl @ x @ tr + x - scale * b
     np.testing.assert_allclose(residual, 0.0, atol=1e-13)

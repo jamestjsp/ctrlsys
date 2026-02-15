@@ -39,7 +39,7 @@ class TestSB10VDBasic:
             [-3.0,  1.0, -2.0,  7.0, -2.0]
         ], dtype=np.float64, order='F').T
 
-        f, h, x, y, xcond, ycond, info = slicot.sb10vd(ncon, nmeas, a, b, c)
+        f, h, x, y, xcond, ycond, info = ctrlsys.sb10vd(ncon, nmeas, a, b, c)
 
         assert info == 0, f"SB10VD returned info = {info}"
         assert f.shape == (ncon, n)
@@ -113,7 +113,7 @@ class TestSB10VDStability:
             [-3.0,  1.0, -2.0,  7.0, -2.0]
         ], dtype=np.float64, order='F').T
 
-        f, h, x, y, xcond, ycond, info = slicot.sb10vd(ncon, nmeas, a, b, c)
+        f, h, x, y, xcond, ycond, info = ctrlsys.sb10vd(ncon, nmeas, a, b, c)
 
         assert info == 0
 
@@ -153,7 +153,7 @@ class TestSB10VDStability:
             [-3.0,  1.0, -2.0,  7.0, -2.0]
         ], dtype=np.float64, order='F').T
 
-        f, h, x, y, xcond, ycond, info = slicot.sb10vd(ncon, nmeas, a, b, c)
+        f, h, x, y, xcond, ycond, info = ctrlsys.sb10vd(ncon, nmeas, a, b, c)
 
         assert info == 0
 
@@ -174,7 +174,7 @@ class TestSB10VDEdgeCases:
         b = np.array([[1.0, 0.0], [0.0, 1.0]], dtype=np.float64, order='F')
         c = np.array([[1.0, 0.0], [0.0, 1.0]], dtype=np.float64, order='F')
 
-        f, h, x, y, xcond, ycond, info = slicot.sb10vd(ncon, nmeas, a, b, c)
+        f, h, x, y, xcond, ycond, info = ctrlsys.sb10vd(ncon, nmeas, a, b, c)
 
         assert info == 0, f"SB10VD returned info = {info}"
         assert f.shape == (ncon, n)
@@ -226,7 +226,7 @@ class TestSB10VDEdgeCases:
                        [0, 0, 1, 0],
                        [0, 0, 0, 1]], dtype=np.float64, order='F')
 
-        f, h, x, y, xcond, ycond, info = slicot.sb10vd(ncon, nmeas, a, b, c)
+        f, h, x, y, xcond, ycond, info = ctrlsys.sb10vd(ncon, nmeas, a, b, c)
 
         assert info == 0
         assert f.shape == (ncon, n)

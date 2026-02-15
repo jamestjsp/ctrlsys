@@ -38,7 +38,7 @@ def test_mb02xd_basic_full_upper():
     AtA = A.T @ A
     X_expected = np.linalg.solve(AtA, B)
 
-    x, ata, info = slicot.mb02xd('F', 'U', m, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('F', 'U', m, n, nrhs, A, B)
 
     assert info == 0, f"MB02XD failed with info={info}"
     np.testing.assert_allclose(x, X_expected, rtol=1e-13, atol=1e-14)
@@ -62,7 +62,7 @@ def test_mb02xd_full_lower():
     AtA = A.T @ A
     X_expected = np.linalg.solve(AtA, B)
 
-    x, ata, info = slicot.mb02xd('F', 'L', m, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('F', 'L', m, n, nrhs, A, B)
 
     assert info == 0, f"MB02XD failed with info={info}"
     np.testing.assert_allclose(x, X_expected, rtol=1e-13, atol=1e-14)
@@ -86,7 +86,7 @@ def test_mb02xd_packed_upper():
     AtA = A.T @ A
     X_expected = np.linalg.solve(AtA, B)
 
-    x, ata, info = slicot.mb02xd('P', 'U', m, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('P', 'U', m, n, nrhs, A, B)
 
     assert info == 0, f"MB02XD failed with info={info}"
     np.testing.assert_allclose(x, X_expected, rtol=1e-13, atol=1e-14)
@@ -110,7 +110,7 @@ def test_mb02xd_packed_lower():
     AtA = A.T @ A
     X_expected = np.linalg.solve(AtA, B)
 
-    x, ata, info = slicot.mb02xd('P', 'L', m, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('P', 'L', m, n, nrhs, A, B)
 
     assert info == 0, f"MB02XD failed with info={info}"
     np.testing.assert_allclose(x, X_expected, rtol=1e-13, atol=1e-14)
@@ -133,7 +133,7 @@ def test_mb02xd_singular_matrix():
 
     B = np.array([[1.0], [2.0], [3.0]], order='F', dtype=np.float64)
 
-    x, ata, info = slicot.mb02xd('F', 'U', m, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('F', 'U', m, n, nrhs, A, B)
 
     assert info > 0, f"Expected info > 0 for singular matrix, got {info}"
 
@@ -146,12 +146,12 @@ def test_mb02xd_parameter_errors():
     A = np.ones((m, n), order='F', dtype=np.float64)
     B = np.ones((n, nrhs), order='F', dtype=np.float64)
 
-    x, ata, info = slicot.mb02xd('X', 'U', m, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('X', 'U', m, n, nrhs, A, B)
     assert info == -2, f"Expected info=-2 for invalid STOR, got {info}"
 
     A = np.ones((m, n), order='F', dtype=np.float64)
     B = np.ones((n, nrhs), order='F', dtype=np.float64)
-    x, ata, info = slicot.mb02xd('F', 'U', -1, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('F', 'U', -1, n, nrhs, A, B)
     assert info == -5, f"Expected info=-5 for M<0, got {info}"
 
 
@@ -172,7 +172,7 @@ def test_mb02xd_residual_property():
 
     AtA = A.T @ A
 
-    x, ata, info = slicot.mb02xd('F', 'U', m, n, nrhs, A, B)
+    x, ata, info = ctrlsys.mb02xd('F', 'U', m, n, nrhs, A, B)
 
     assert info == 0, f"MB02XD failed with info={info}"
 

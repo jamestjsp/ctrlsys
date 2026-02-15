@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-pytest.importorskip("slicot")
+pytest.importorskip("ctrlsys")
 import ctrlsys
 
 
@@ -57,7 +57,7 @@ def test_basic_kowalik_osborne():
     gtol = -1.0  # Use eps
 
     # Call MD03BD
-    x, nfev, njev, fnorm, iwarn, info = slicot.md03bd(
+    x, nfev, njev, fnorm, iwarn, info = ctrlsys.md03bd(
         m, n, x0, fcn, jac,
         itmax=100,
         ftol=ftol,
@@ -106,7 +106,7 @@ def test_zero_residual():
         j[:, 1] = -1.0
         return j
 
-    x, nfev, njev, fnorm, iwarn, info = slicot.md03bd(
+    x, nfev, njev, fnorm, iwarn, info = ctrlsys.md03bd(
         m, n, x0, fcn, jac,
         itmax=50,
         ftol=-1.0,
@@ -132,4 +132,4 @@ def test_error_invalid_dimensions():
         return np.zeros((m, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.md03bd(m, n, x0, fcn, jac, itmax=10)
+        ctrlsys.md03bd(m, n, x0, fcn, jac, itmax=10)

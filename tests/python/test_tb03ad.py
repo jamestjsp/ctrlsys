@@ -16,11 +16,11 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
-pytestmark = pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+pytestmark = pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 
 
 def test_html_example_right_fraction():
@@ -91,7 +91,7 @@ def test_html_example_right_fraction():
     expected_qcoeff_row2 = np.array([0.1768, 0.0000, -1.5910, 0.0000],
                                     dtype=np.float64)
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
 
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
@@ -146,7 +146,7 @@ def test_left_fraction_basic():
 
     d = np.zeros((p, m), dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('L', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('L', 'N', n, m, p, a, b, c, d, tol=0.0)
 
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
@@ -164,7 +164,7 @@ def test_quick_return_n_zero():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
     d = np.zeros((1, 1), dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -180,7 +180,7 @@ def test_quick_return_m_zero():
     c = np.zeros((1, n), dtype=np.float64, order='F')
     d = np.zeros((1, 1), dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -196,7 +196,7 @@ def test_quick_return_p_zero():
     c = np.zeros((1, n), dtype=np.float64, order='F')
     d = np.zeros((1, 1), dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('L', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('L', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -233,7 +233,7 @@ def test_with_balancing():
         [1.0]
     ], dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'S', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'S', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -255,7 +255,7 @@ def test_siso_system():
     c = np.array([[1.0]], dtype=np.float64, order='F')
     d = np.array([[0.0]], dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -294,7 +294,7 @@ def test_index_ordering():
 
     d = np.zeros((p, m), dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -319,7 +319,7 @@ def test_mimo_system():
     c = np.random.randn(p, n).astype(np.float64, order='F')
     d = np.random.randn(p, m).astype(np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -351,7 +351,7 @@ def test_d_nonzero():
 
     d = np.array([[2.0]], dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0
@@ -366,7 +366,7 @@ def test_invalid_leri():
     d = np.zeros((p, m), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb03ad('X', 'N', n, m, p, a, b, c, d, tol=0.0)
+        ctrlsys.tb03ad('X', 'N', n, m, p, a, b, c, d, tol=0.0)
 
 
 def test_invalid_equil():
@@ -378,7 +378,7 @@ def test_invalid_equil():
     d = np.zeros((p, m), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb03ad('R', 'X', n, m, p, a, b, c, d, tol=0.0)
+        ctrlsys.tb03ad('R', 'X', n, m, p, a, b, c, d, tol=0.0)
 
 
 def test_negative_n():
@@ -389,7 +389,7 @@ def test_negative_n():
     d = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb03ad('R', 'N', -1, 1, 1, a, b, c, d, tol=0.0)
+        ctrlsys.tb03ad('R', 'N', -1, 1, 1, a, b, c, d, tol=0.0)
 
 
 def test_negative_m():
@@ -400,7 +400,7 @@ def test_negative_m():
     d = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb03ad('R', 'N', 1, -1, 1, a, b, c, d, tol=0.0)
+        ctrlsys.tb03ad('R', 'N', 1, -1, 1, a, b, c, d, tol=0.0)
 
 
 def test_negative_p():
@@ -411,7 +411,7 @@ def test_negative_p():
     d = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb03ad('R', 'N', 1, 1, -1, a, b, c, d, tol=0.0)
+        ctrlsys.tb03ad('R', 'N', 1, 1, -1, a, b, c, d, tol=0.0)
 
 
 def test_polynomial_degree_property():
@@ -446,7 +446,7 @@ def test_polynomial_degree_property():
         [1.0]
     ], dtype=np.float64, order='F')
 
-    result = slicot.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
+    result = ctrlsys.tb03ad('R', 'N', n, m, p, a, b, c, d, tol=0.0)
     a_out, b_out, c_out, nr, index, pcoeff, qcoeff, vcoeff, iwork, info = result
 
     assert info == 0

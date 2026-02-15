@@ -9,7 +9,7 @@ This is critical for system identification and model parameter estimation.
 import numpy as np
 import pytest
 
-slicot = pytest.importorskip("slicot")
+ctrlsys = pytest.importorskip("ctrlsys")
 
 # Reference data generated using Python control package v0.10.2
 # No runtime dependency on control package - all reference outputs are hardcoded
@@ -43,7 +43,7 @@ def test_tb01vy_basic_apply_n():
         0.9, 1.0
     ], dtype=float, order='F')
 
-    a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='N')
+    a, b, c, d, x0, info = ctrlsys.tb01vy(n, m, l, theta, apply='N')
 
     assert info == 0
     assert a.shape == (n, n)
@@ -100,7 +100,7 @@ def test_tb01vy_basic_apply_a():
         0.9, 1.0
     ], dtype=float, order='F')
 
-    a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='A')
+    a, b, c, d, x0, info = ctrlsys.tb01vy(n, m, l, theta, apply='A')
 
     assert info == 0
     assert a.shape == (n, n)
@@ -125,7 +125,7 @@ def test_tb01vy_zero_dimensions():
     n, m, l = 0, 1, 1
     theta = np.array([0.5], dtype=float, order='F')  # D only
 
-    a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='N')
+    a, b, c, d, x0, info = ctrlsys.tb01vy(n, m, l, theta, apply='N')
 
     assert info == 0
     assert d.shape == (l, m)
@@ -135,7 +135,7 @@ def test_tb01vy_zero_dimensions():
     n, m, l = 2, 0, 1
     theta = np.array([0.1, 0.2, 0.3, 0.4], dtype=float, order='F')  # A,C params + x0
 
-    a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='N')
+    a, b, c, d, x0, info = ctrlsys.tb01vy(n, m, l, theta, apply='N')
 
     assert info == 0
     assert a.shape == (n, n)
@@ -145,7 +145,7 @@ def test_tb01vy_zero_dimensions():
     n, m, l = 2, 1, 0
     theta = np.array([0.5, 0.6, 0.9, 1.0], dtype=float, order='F')  # B + x0
 
-    a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='N')
+    a, b, c, d, x0, info = ctrlsys.tb01vy(n, m, l, theta, apply='N')
 
     assert info == 0
     np.testing.assert_allclose(x0, [0.9, 1.0], rtol=1e-14)
@@ -159,17 +159,17 @@ def test_tb01vy_error_handling():
     theta_short = np.array([0.1, 0.2], dtype=float, order='F')
 
     with pytest.raises(ValueError, match="ltheta"):
-        slicot.tb01vy(n, m, l, theta_short, apply='N')
+        ctrlsys.tb01vy(n, m, l, theta_short, apply='N')
 
     # Invalid APPLY
     theta = np.zeros(10, dtype=float, order='F')
 
     with pytest.raises(ValueError, match="apply"):
-        slicot.tb01vy(n, m, l, theta, apply='X')
+        ctrlsys.tb01vy(n, m, l, theta, apply='X')
 
     # Negative dimensions
     with pytest.raises(ValueError, match="n"):
-        slicot.tb01vy(-1, m, l, theta, apply='N')
+        ctrlsys.tb01vy(-1, m, l, theta, apply='N')
 
 
 def test_tb01vy_larger_system():
@@ -194,7 +194,7 @@ def test_tb01vy_larger_system():
     theta = np.random.randn(19)
     theta = theta.astype(float, order='F')
 
-    a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='A')
+    a, b, c, d, x0, info = ctrlsys.tb01vy(n, m, l, theta, apply='A')
 
     assert info == 0
     assert a.shape == (n, n)
@@ -251,8 +251,8 @@ def test_tb01vy_apply_comparison():
     ], dtype=float, order='F')
 
     # Get both transformations
-    a_n, b_n, c_n, d_n, x0_n, info_n = slicot.tb01vy(n, m, l, theta, apply='N')
-    a_a, b_a, c_a, d_a, x0_a, info_a = slicot.tb01vy(n, m, l, theta, apply='A')
+    a_n, b_n, c_n, d_n, x0_n, info_n = ctrlsys.tb01vy(n, m, l, theta, apply='N')
+    a_a, b_a, c_a, d_a, x0_a, info_a = ctrlsys.tb01vy(n, m, l, theta, apply='A')
 
     assert info_n == 0 and info_a == 0
 
@@ -320,7 +320,7 @@ def test_tb01vy_state_space_equations():
     theta = theta.astype(float, order='F')
 
     # Convert to state-space
-    a, b, c, d, x0, info = slicot.tb01vy(n, m, l, theta, apply='N')
+    a, b, c, d, x0, info = ctrlsys.tb01vy(n, m, l, theta, apply='N')
 
     assert info == 0
 

@@ -16,7 +16,7 @@ Key behaviors:
 import numpy as np
 import pytest
 
-slicot = pytest.importorskip("slicot")
+ctrlsys = pytest.importorskip("ctrlsys")
 
 
 def test_tb01ty_basic_column_balance():
@@ -42,7 +42,7 @@ def test_tb01ty_basic_column_balance():
         [0.003, 300.0]
     ], dtype=float, order='F')
 
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 
@@ -83,7 +83,7 @@ def test_tb01ty_basic_row_balance():
         [100.0, 200.0, 300.0]
     ], dtype=float, order='F')
 
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 
@@ -124,7 +124,7 @@ def test_tb01ty_zero_row_column():
         [3.0, 0.0]
     ], dtype=float, order='F')
 
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 
@@ -166,7 +166,7 @@ def test_tb01ty_offset_block():
     x[3, 3] = 888.0
 
     x_orig = x.copy()
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 
@@ -217,7 +217,7 @@ def test_tb01ty_negative_exponent_adjustment():
         [0.3, 0.15, 0.15]
     ], dtype=float, order='F')
 
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 
@@ -259,7 +259,7 @@ def test_tb01ty_size_parameter():
 
     # Test with SIZE = 10.0
     size = 10.0
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x.copy())
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x.copy())
 
     assert info == 0
 
@@ -270,7 +270,7 @@ def test_tb01ty_size_parameter():
 
     # Test with SIZE = 0.1
     size = 0.1
-    x_out2, bvect2, info2 = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x.copy())
+    x_out2, bvect2, info2 = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x.copy())
 
     assert info2 == 0
 
@@ -298,7 +298,7 @@ def test_tb01ty_negative_size():
         [0.02, 2.0]
     ], dtype=float, order='F')
 
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 
@@ -331,7 +331,7 @@ def test_tb01ty_scaling_preserves_ratios():
     x = np.random.rand(nrow, ncol).astype(float, order='F') * 10
     x_orig = x.copy()
 
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 
@@ -365,11 +365,11 @@ def test_tb01ty_zero_dimensions():
     x_orig = x.copy()
 
     # NROW = 0
-    x_out, bvect, info = slicot.tb01ty(1, ioff, joff, 0, 2, size, x.copy())
+    x_out, bvect, info = ctrlsys.tb01ty(1, ioff, joff, 0, 2, size, x.copy())
     assert info == 0
 
     # NCOL = 0
-    x_out, bvect, info = slicot.tb01ty(1, ioff, joff, 2, 0, size, x.copy())
+    x_out, bvect, info = ctrlsys.tb01ty(1, ioff, joff, 2, 0, size, x.copy())
     assert info == 0
 
 
@@ -398,7 +398,7 @@ def test_tb01ty_identity_scaling():
     ], dtype=float, order='F')
 
     # Column 0 has norm 0.6, column 1 has norm 0.7 - both in (0.5, 1.0]
-    x_out, bvect, info = slicot.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
+    x_out, bvect, info = ctrlsys.tb01ty(mode, ioff, joff, nrow, ncol, size, x)
 
     assert info == 0
 

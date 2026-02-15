@@ -38,7 +38,7 @@ class TestSB10UDBasic:
             [2.0, 0.7]
         ], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0, f"Expected info=0, got {info}"
         assert rcond[0] > 0.0, "RCOND(1) should be positive"
@@ -87,7 +87,7 @@ class TestSB10UDBasic:
             [1.5, 0.8, 0.4, 0.6]
         ], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0, f"Expected info=0, got {info}"
         assert rcond[0] > 0.0, "RCOND(1) should be positive"
@@ -116,7 +116,7 @@ class TestSB10UDQuickReturn:
         c = np.zeros((np_, 1), dtype=float, order='F')
         d = np.zeros((np_, m), dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         assert rcond[0] == 1.0
@@ -131,7 +131,7 @@ class TestSB10UDQuickReturn:
         c = np.zeros((np_, n), dtype=float, order='F')
         d = np.zeros((np_, m), dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         assert rcond[0] == 1.0
@@ -146,7 +146,7 @@ class TestSB10UDQuickReturn:
         c = np.zeros((np_, n), dtype=float, order='F')
         d = np.zeros((np_, m), dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         assert rcond[0] == 1.0
@@ -181,7 +181,7 @@ class TestSB10UDRankDeficient:
             [2.0, 0.8, 0.7]   # D21 at (2, 0:1), D22 at (2, 2)
         ], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 1, f"Expected info=1 for rank-deficient D12, got {info}"
         assert rcond[1] == 0.0, "RCOND(2) should be 0 when INFO=1"
@@ -211,7 +211,7 @@ class TestSB10UDRankDeficient:
             [0.0, 0.0, 0.7]   # D21 at (2, 0:1) is [0, 0] (rank deficient), D22 at (2,2)
         ], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 2, f"Expected info=2 for rank-deficient D21, got {info}"
 
@@ -225,7 +225,7 @@ class TestSB10UDInvalidParameters:
         c = np.zeros((2, 1), dtype=float, order='F')
         d = np.zeros((2, 2), dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=-1, m=2, np=2, ncon=1, nmeas=1, b=b, c=c, d=d)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=-1, m=2, np=2, ncon=1, nmeas=1, b=b, c=c, d=d)
         assert info == -1
 
     def test_ncon_too_large(self):
@@ -234,7 +234,7 @@ class TestSB10UDInvalidParameters:
         c = np.zeros((2, 2), dtype=float, order='F')
         d = np.zeros((2, 2), dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=2, m=2, np=2, ncon=3, nmeas=1, b=b, c=c, d=d)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=2, m=2, np=2, ncon=3, nmeas=1, b=b, c=c, d=d)
         assert info == -4
 
 
@@ -263,7 +263,7 @@ class TestSB10UDTransformationProperties:
             [1.5, 0.3, 0.6]
         ], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         det_tu = np.linalg.det(tu)
@@ -278,7 +278,7 @@ class TestSB10UDTransformationProperties:
         c = np.array([[0.6, 0.4], [0.2, 0.9]], dtype=float, order='F')
         d = np.array([[0.0, 1.5], [2.0, 0.7]], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         assert 0.0 < rcond[0] <= 1.0, "RCOND(1) should be in (0, 1]"
@@ -306,7 +306,7 @@ class TestSB10UDTransformationProperties:
             [1.5, 0.8, 0.7]
         ], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         d12 = d_out[:np1, m1:]
@@ -336,7 +336,7 @@ class TestSB10UDTransformationProperties:
             [0.2, 1.2, 0.0, 0.0]
         ], dtype=float, order='F')
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         assert np.abs(np.linalg.det(tu)) > 1e-10
@@ -356,7 +356,7 @@ class TestSB10UDTransformationProperties:
         d[:np1, m1:] = np.array([[2.0, 0.1], [0.3, 1.5], [0.1, 0.2]])
         d[np1:, :m1] = np.array([[1.2, 0.4, 0.1], [0.2, 1.5, 0.3]])
 
-        b_out, c_out, d_out, tu, ty, rcond, info = slicot.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
+        b_out, c_out, d_out, tu, ty, rcond, info = ctrlsys.sb10ud(n=n, m=m, np=np_, ncon=ncon, nmeas=nmeas, b=b, c=c, d=d, tol=0.0)
 
         assert info == 0
         assert rcond[0] > 0

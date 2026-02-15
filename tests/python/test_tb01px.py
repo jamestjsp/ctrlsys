@@ -22,12 +22,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-pytestmark = pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+pytestmark = pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 
 
 def test_html_example():
@@ -104,7 +104,7 @@ def test_html_example():
         [0.0,  0.0,  1.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0, f"tb01px failed with info={info}"
@@ -149,7 +149,7 @@ def test_minimal_realization_reduces_order():
         [1.0, 1.0, 0.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0, f"tb01px failed with info={info}"
@@ -184,7 +184,7 @@ def test_controllable_realization():
         [0.0, 0.0, 1.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'C', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -224,7 +224,7 @@ def test_observable_realization():
         [0.0, 1.0, 0.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'O', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -267,7 +267,7 @@ def test_eigenvalue_preservation_minimal():
 
     eig_orig = np.linalg.eigvals(a)
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -308,7 +308,7 @@ def test_equil_scaling():
         [0.0,  1.0, -1.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'S', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -321,7 +321,7 @@ def test_quick_return_n_zero():
     b = np.zeros((1, 2), dtype=np.float64, order='F')
     c = np.zeros((2, 1), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -335,7 +335,7 @@ def test_quick_return_job_o_p_zero():
     b = np.ones((n, m), dtype=np.float64, order='F')
     c = np.zeros((1, n), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'O', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -349,7 +349,7 @@ def test_quick_return_job_c_m_zero():
     b = np.zeros((n, 1), dtype=np.float64, order='F')
     c = np.ones((p, n), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'C', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -384,7 +384,7 @@ def test_infred_status_tracking():
         [1.0, 0.0, 0.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -421,7 +421,7 @@ def test_large_workspace_save_restore():
         [0.0,  0.0,  1.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -436,7 +436,7 @@ def test_invalid_job():
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01px('X', 'N', n, m, p, a, b, c, tol=0.0)
+        ctrlsys.tb01px('X', 'N', n, m, p, a, b, c, tol=0.0)
 
 
 def test_invalid_equil():
@@ -447,7 +447,7 @@ def test_invalid_equil():
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01px('M', 'X', n, m, p, a, b, c, tol=0.0)
+        ctrlsys.tb01px('M', 'X', n, m, p, a, b, c, tol=0.0)
 
 
 def test_invalid_n_negative():
@@ -457,7 +457,7 @@ def test_invalid_n_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01px('M', 'N', -1, 1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01px('M', 'N', -1, 1, 1, a, b, c, tol=0.0)
 
 
 def test_invalid_m_negative():
@@ -467,7 +467,7 @@ def test_invalid_m_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01px('M', 'N', 1, -1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01px('M', 'N', 1, -1, 1, a, b, c, tol=0.0)
 
 
 def test_invalid_p_negative():
@@ -477,7 +477,7 @@ def test_invalid_p_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01px('M', 'N', 1, 1, -1, a, b, c, tol=0.0)
+        ctrlsys.tb01px('M', 'N', 1, 1, -1, a, b, c, tol=0.0)
 
 
 def test_fully_controllable_observable():
@@ -507,7 +507,7 @@ def test_fully_controllable_observable():
 
     eig_orig = np.sort(np.linalg.eigvals(a).real)
 
-    a_out, b_out, c_out, nr, infred, iwork, info = slicot.tb01px(
+    a_out, b_out, c_out, nr, infred, iwork, info = ctrlsys.tb01px(
         'M', 'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0

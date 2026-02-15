@@ -19,12 +19,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-pytestmark = pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+pytestmark = pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 
 
 def test_html_example():
@@ -111,7 +111,7 @@ def test_html_example():
         [ 0.0000, -0.4472,  0.8944]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0, f"tb01uy failed with info={info}"
@@ -142,7 +142,7 @@ def test_orthogonality_property():
     b = np.random.randn(n, m1 + m2).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -166,7 +166,7 @@ def test_similarity_c_transformation():
     c_orig = np.random.randn(p, n).astype(np.float64, order='F')
     c = c_orig.copy(order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -190,7 +190,7 @@ def test_eigenvalue_preservation():
 
     eig_orig = np.linalg.eigvals(a)
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -228,7 +228,7 @@ def test_alternating_m1_m2_rank():
 
     c = np.eye(p, n, dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -247,7 +247,7 @@ def test_m1_only():
     b = np.random.randn(n, m1).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -265,7 +265,7 @@ def test_m2_only():
     b = np.random.randn(n, m2).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -292,7 +292,7 @@ def test_jobz_n_no_z():
         [1.0, 0.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'N', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -320,7 +320,7 @@ def test_jobz_f_factored_form():
         [1.0, 0.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'F', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -334,7 +334,7 @@ def test_quick_return_n_zero():
     b = np.zeros((1, 2), dtype=np.float64, order='F')
     c = np.zeros((2, 1), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -349,7 +349,7 @@ def test_quick_return_m_zero():
     b = np.zeros((n, 1), dtype=np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -364,7 +364,7 @@ def test_quick_return_b_zero():
     b = np.zeros((n, m1 + m2), dtype=np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -387,7 +387,7 @@ def test_nblk_alternating_structure():
     b = np.random.randn(n, m1 + m2).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01uy(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01uy(
         'I', n, m1, m2, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -402,7 +402,7 @@ def test_invalid_jobz():
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01uy('X', n, m1, m2, p, a, b, c, tol=0.0)
+        ctrlsys.tb01uy('X', n, m1, m2, p, a, b, c, tol=0.0)
 
 
 def test_invalid_n_negative():
@@ -412,7 +412,7 @@ def test_invalid_n_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01uy('I', -1, 1, 1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01uy('I', -1, 1, 1, 1, a, b, c, tol=0.0)
 
 
 def test_invalid_m1_negative():
@@ -422,7 +422,7 @@ def test_invalid_m1_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01uy('I', 1, -1, 1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01uy('I', 1, -1, 1, 1, a, b, c, tol=0.0)
 
 
 def test_invalid_m2_negative():
@@ -432,7 +432,7 @@ def test_invalid_m2_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01uy('I', 1, 1, -1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01uy('I', 1, 1, -1, 1, a, b, c, tol=0.0)
 
 
 def test_invalid_p_negative():
@@ -442,4 +442,4 @@ def test_invalid_p_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01uy('I', 1, 1, 1, -1, a, b, c, tol=0.0)
+        ctrlsys.tb01uy('I', 1, 1, 1, -1, a, b, c, tol=0.0)

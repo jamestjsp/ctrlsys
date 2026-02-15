@@ -78,7 +78,7 @@ def test_mb04ny_basic_2x2():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-14)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-14)
@@ -106,7 +106,7 @@ def test_mb04ny_3x3():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-14)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-14)
@@ -134,7 +134,7 @@ def test_mb04ny_5x5():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-13)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-13)
@@ -162,7 +162,7 @@ def test_mb04ny_10x10():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-12)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-12)
@@ -190,7 +190,7 @@ def test_mb04ny_large_general():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-13)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-13)
@@ -219,7 +219,7 @@ def test_mb04ny_tau_zero():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-14)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-14)
@@ -262,7 +262,7 @@ def test_mb04ny_m_zero():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     assert a_out.shape == (0, 1)
     assert b_out.shape == (0, n)
@@ -290,7 +290,7 @@ def test_mb04ny_n_zero():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-14)
     assert b_out.shape == (m, 0)
@@ -319,7 +319,7 @@ def test_mb04ny_incv_positive():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-14)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-14)
@@ -346,7 +346,7 @@ def test_mb04ny_incv_negative():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-14)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-14)
@@ -373,7 +373,7 @@ def test_mb04ny_single_row():
 
     a_out = a.copy(order='F')
     b_out = b.copy(order='F')
-    _slicot.mb04ny(m, n, v, incv, tau, a_out, b_out)
+    _ctrlsys.mb04ny(m, n, v, incv, tau, a_out, b_out)
 
     np.testing.assert_allclose(a_out, a_expected, rtol=1e-14)
     np.testing.assert_allclose(b_out, b_expected, rtol=1e-14)

@@ -34,7 +34,7 @@ class TestSB10TDBasic:
         ck_in = np.array([[0.1, 0.2]], dtype=np.float64, order='F')
         dk_in = np.array([[0.05]], dtype=np.float64, order='F')
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty, ak_in, bk_in, ck_in, dk_in
         )
@@ -74,7 +74,7 @@ class TestSB10TDBasic:
         ck_in = np.random.randn(ncon, n).astype(np.float64, order='F') * 0.1
         dk_in = np.random.randn(ncon, nmeas).astype(np.float64, order='F') * 0.1
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty,
             ak_in.copy(order='F'), bk_in.copy(order='F'),
@@ -115,7 +115,7 @@ class TestSB10TDNonTrivialTransform:
         ck_in = np.array([[0.1, 0.2]], dtype=np.float64, order='F')
         dk_in = np.array([[0.1]], dtype=np.float64, order='F')
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty,
             ak_in.copy(order='F'), bk_in.copy(order='F'),
@@ -156,7 +156,7 @@ class TestSB10TDNonTrivialTransform:
         ck_in = np.random.randn(ncon, n).astype(np.float64, order='F') * 0.2
         dk_in = np.random.randn(ncon, nmeas).astype(np.float64, order='F') * 0.2
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty,
             ak_in.copy(order='F'), bk_in.copy(order='F'),
@@ -205,7 +205,7 @@ class TestSB10TDEdgeCases:
         ck_in = np.zeros((ncon, 0), dtype=np.float64, order='F')
         dk_in = np.array([[0.1]], dtype=np.float64, order='F')
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty, ak_in, bk_in, ck_in, dk_in
         )
@@ -234,7 +234,7 @@ class TestSB10TDEdgeCases:
         ck_in = np.random.randn(ncon, n).astype(np.float64, order='F') * 0.1
         dk_in = np.random.randn(ncon, nmeas).astype(np.float64, order='F') * 0.1
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty,
             ak_in.copy(order='F'), bk_in.copy(order='F'),
@@ -270,7 +270,7 @@ class TestSB10TDMIMO:
         ck_in = np.random.randn(ncon, n).astype(np.float64, order='F') * 0.2
         dk_in = np.random.randn(ncon, nmeas).astype(np.float64, order='F') * 0.1
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty,
             ak_in.copy(order='F'), bk_in.copy(order='F'),
@@ -325,7 +325,7 @@ class TestSB10TDErrorHandling:
         ck_in = np.array([[0.1, 0.2]], dtype=np.float64, order='F')
         dk_in = np.array([[-1.0]], dtype=np.float64, order='F')
 
-        ak, bk, ck, dk, rcond, info = slicot.sb10td(
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10td(
             n, m, np_, ncon, nmeas,
             d, tu, ty,
             ak_in.copy(order='F'), bk_in.copy(order='F'),

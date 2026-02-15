@@ -20,12 +20,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-pytestmark = pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+pytestmark = pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 
 
 def test_html_example():
@@ -100,7 +100,7 @@ def test_html_example():
         [-0.4472,  0.0000,  0.8944]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0, f"tb01ud failed with info={info}"
@@ -130,7 +130,7 @@ def test_orthogonality_property():
     b = np.random.randn(n, m).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -158,7 +158,7 @@ def test_similarity_transformation():
     b = b_orig.copy(order='F')
     c = c_orig.copy(order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -181,7 +181,7 @@ def test_eigenvalue_preservation_controllable():
 
     eig_orig = np.linalg.eigvals(a)
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -215,7 +215,7 @@ def test_fully_controllable_system():
 
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -245,7 +245,7 @@ def test_uncontrollable_system():
 
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -272,7 +272,7 @@ def test_jobz_n_no_z():
         [1.0, 0.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -299,7 +299,7 @@ def test_jobz_f_factored_form():
         [1.0, 0.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'F', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -312,7 +312,7 @@ def test_quick_return_n_zero():
     b = np.zeros((1, 2), dtype=np.float64, order='F')
     c = np.zeros((2, 1), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -326,7 +326,7 @@ def test_quick_return_m_zero():
     b = np.zeros((n, 1), dtype=np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -340,7 +340,7 @@ def test_quick_return_b_zero():
     b = np.zeros((n, m), dtype=np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -359,7 +359,7 @@ def test_upper_block_hessenberg_structure():
     b = np.random.randn(n, m).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = slicot.tb01ud(
+    a_out, b_out, c_out, ncont, indcon, nblk, z, tau, info = ctrlsys.tb01ud(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -384,7 +384,7 @@ def test_invalid_jobz():
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01ud('X', n, m, p, a, b, c, tol=0.0)
+        ctrlsys.tb01ud('X', n, m, p, a, b, c, tol=0.0)
 
 def test_invalid_n_negative():
     """Test error handling for N < 0"""
@@ -393,7 +393,7 @@ def test_invalid_n_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01ud('I', -1, 1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01ud('I', -1, 1, 1, a, b, c, tol=0.0)
 
 def test_invalid_m_negative():
     """Test error handling for M < 0"""
@@ -402,7 +402,7 @@ def test_invalid_m_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01ud('I', 1, -1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01ud('I', 1, -1, 1, a, b, c, tol=0.0)
 
 def test_invalid_p_negative():
     """Test error handling for P < 0"""
@@ -411,4 +411,4 @@ def test_invalid_p_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01ud('I', 1, 1, -1, a, b, c, tol=0.0)
+        ctrlsys.tb01ud('I', 1, 1, -1, a, b, c, tol=0.0)

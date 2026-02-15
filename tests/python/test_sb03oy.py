@@ -47,7 +47,7 @@ def test_sb03oy_continuous_basic():
     r = np.array([[1.0, 0.5], [0.0, 1.0]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, False, 1, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -75,7 +75,7 @@ def test_sb03oy_continuous_transpose():
     r = np.array([[2.0, 1.0], [0.0, 1.5]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, True, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, True, 1, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -103,7 +103,7 @@ def test_sb03oy_discrete_basic():
     r = np.array([[1.0, 0.3], [0.0, 0.8]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(True, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(True, False, 1, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -131,7 +131,7 @@ def test_sb03oy_discrete_transpose():
     r = np.array([[1.5, 0.2], [0.0, 1.2]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(True, True, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(True, True, 1, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -158,7 +158,7 @@ def test_sb03oy_isgn_minus_one():
     r = np.array([[1.0, 0.4], [0.0, 0.9]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, False, -1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, False, -1, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -178,7 +178,7 @@ def test_sb03oy_output_a_upper_triangular():
     s = make_stable_continuous_2x2(-1.0, 1.5)
     r = np.array([[1.0, 0.5], [0.0, 1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, False, 1, s, r)
 
     assert info == 0
     np.testing.assert_allclose(a[1, 0], 0.0, atol=1e-14)
@@ -194,7 +194,7 @@ def test_sb03oy_continuous_unstable_returns_info2():
     s = make_stable_continuous_2x2(0.5, 1.0)
     r = np.array([[1.0, 0.0], [0.0, 1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, False, 1, s, r)
 
     assert info == 2
 
@@ -208,7 +208,7 @@ def test_sb03oy_real_eigenvalues_returns_info4():
     s = np.array([[1.0, 0.0], [0.0, 2.0]], order='F', dtype=np.float64)
     r = np.array([[1.0, 0.0], [0.0, 1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, False, 1, s, r)
 
     assert info == 4
 
@@ -222,7 +222,7 @@ def test_sb03oy_discrete_not_convergent_returns_info2():
     s = make_stable_discrete_2x2(1.2, np.pi/4)
     r = np.array([[1.0, 0.0], [0.0, 1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(True, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(True, False, 1, s, r)
 
     assert info == 2
 
@@ -237,7 +237,7 @@ def test_sb03oy_b_u_relation_no_transpose():
     s_orig = s.copy()
     r = np.array([[1.0, 0.5], [0.0, 1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, False, 1, s, r)
 
     assert info == 0
 
@@ -259,7 +259,7 @@ def test_sb03oy_a_u_relation_no_transpose():
     r = np.array([[1.0, 0.5], [0.0, 1.0]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, a, scale, info = slicot.sb03oy(False, False, 1, s, r)
+    s_out, r_out, a, scale, info = ctrlsys.sb03oy(False, False, 1, s, r)
 
     assert info == 0
 

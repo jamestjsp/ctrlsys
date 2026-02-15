@@ -16,15 +16,15 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 # Reference data generated using Python control package v0.10.2
 # No runtime dependency on control package - all reference outputs are hardcoded
 
 
-pytestmark = pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+pytestmark = pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 def test_example_from_html():
     """Test TB01WD with example from HTML documentation
 
@@ -99,7 +99,7 @@ def test_example_from_html():
     ], dtype=np.float64, order='F')
 
     # Call tb01wd
-    a_out, b_out, c_out, u, wr, wi, info = slicot.tb01wd(n, m, p, a, b, c)
+    a_out, b_out, c_out, u, wr, wi, info = ctrlsys.tb01wd(n, m, p, a, b, c)
 
     # Check success
     assert info == 0, f"tb01wd failed with info={info}"
@@ -127,7 +127,7 @@ def test_zero_dimension():
     b = np.zeros((1, 1), dtype=np.float64, order='F')
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, u, wr, wi, info = slicot.tb01wd(n, m, p, a, b, c)
+    a_out, b_out, c_out, u, wr, wi, info = ctrlsys.tb01wd(n, m, p, a, b, c)
 
     assert info == 0
 
@@ -135,17 +135,17 @@ def test_invalid_parameters():
     """Test error handling for invalid parameters"""
     # Invalid N < 0
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01wd(-1, 1, 1, np.zeros((1,1), order='F'),
+        ctrlsys.tb01wd(-1, 1, 1, np.zeros((1,1), order='F'),
                      np.zeros((1,1), order='F'), np.zeros((1,1), order='F'))
 
     # Invalid M < 0
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01wd(1, -1, 1, np.zeros((1,1), order='F'),
+        ctrlsys.tb01wd(1, -1, 1, np.zeros((1,1), order='F'),
                      np.zeros((1,1), order='F'), np.zeros((1,1), order='F'))
 
     # Invalid P < 0
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01wd(1, 1, -1, np.zeros((1,1), order='F'),
+        ctrlsys.tb01wd(1, 1, -1, np.zeros((1,1), order='F'),
                      np.zeros((1,1), order='F'), np.zeros((1,1), order='F'))
 
 def test_eigenvalue_preservation():
@@ -184,7 +184,7 @@ def test_eigenvalue_preservation():
     eig_orig = np.array([2.562947, -2.26135738, -0.64439546, 0.23388542])
 
     # Transform
-    a_new, b_new, c_new, u, wr, wi, info = slicot.tb01wd(n, m, p, a, b, c)
+    a_new, b_new, c_new, u, wr, wi, info = ctrlsys.tb01wd(n, m, p, a, b, c)
 
     assert info == 0
 

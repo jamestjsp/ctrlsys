@@ -22,7 +22,7 @@ class TestMB02WDBasic:
 
         x_expected = np.array([0.03614457831325301, 0.21686746987951808, 0.42168674698795183])
 
-        x_out, iterations, residual, iwarn, info = slicot.mb02wd('U', 100, a, b, x, 1e-12)
+        x_out, iterations, residual, iwarn, info = ctrlsys.mb02wd('U', 100, a, b, x, 1e-12)
 
         assert info == 0, f"MB02WD returned info = {info}"
         np.testing.assert_allclose(x_out, x_expected, rtol=1e-10)
@@ -40,7 +40,7 @@ class TestMB02WDBasic:
 
         x_expected = np.array([0.03614457831325301, 0.21686746987951808, 0.42168674698795183])
 
-        x_out, iterations, residual, iwarn, info = slicot.mb02wd('L', 100, a, b, x, 1e-12)
+        x_out, iterations, residual, iwarn, info = ctrlsys.mb02wd('L', 100, a, b, x, 1e-12)
 
         assert info == 0, f"MB02WD returned info = {info}"
         np.testing.assert_allclose(x_out, x_expected, rtol=1e-10)
@@ -52,7 +52,7 @@ class TestMB02WDBasic:
         b = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float64)
         x = np.zeros(n, dtype=np.float64)
 
-        x_out, iterations, residual, iwarn, info = slicot.mb02wd('U', 100, a, b, x, 1e-14)
+        x_out, iterations, residual, iwarn, info = ctrlsys.mb02wd('U', 100, a, b, x, 1e-14)
 
         assert info == 0, f"MB02WD returned info = {info}"
         np.testing.assert_allclose(x_out, b, rtol=1e-12)
@@ -72,7 +72,7 @@ class TestMB02WDEdgeCases:
         b = np.array([1.0, 2.0, 3.0], dtype=np.float64)
         x = np.zeros(3, dtype=np.float64)
 
-        x_out, iterations, residual, iwarn, info = slicot.mb02wd('U', 0, a, b, x, 1e-12)
+        x_out, iterations, residual, iwarn, info = ctrlsys.mb02wd('U', 0, a, b, x, 1e-12)
 
         assert info == 0
         assert iwarn == 2
@@ -87,7 +87,7 @@ class TestMB02WDEdgeCases:
         b = np.ones(n, dtype=np.float64)
         x = np.zeros(n, dtype=np.float64)
 
-        x_out, iterations, residual, iwarn, info = slicot.mb02wd('U', 200, a, b, x, 1e-12)
+        x_out, iterations, residual, iwarn, info = ctrlsys.mb02wd('U', 200, a, b, x, 1e-12)
 
         assert info == 0
         ax = np.dot(a + a.T - np.diag(np.diag(a)), x_out)

@@ -15,12 +15,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-@pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+@pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 class TestSB10ZD:
 
     def test_html_example(self):
@@ -73,7 +73,7 @@ class TestSB10ZD:
             [ 2.0, -4.0]
         ], dtype=float, order='F')
 
-        result = slicot.sb10zd(n, m, np_, A, B, C, D, factor, tol)
+        result = ctrlsys.sb10zd(n, m, np_, A, B, C, D, factor, tol)
         ak, bk, ck, dk, rcond, info = result
 
         assert info == 0, f"SB10ZD failed with info={info}"
@@ -170,7 +170,7 @@ class TestSB10ZD:
             [-0.5,  2.0]
         ], dtype=float, order='F')
 
-        result = slicot.sb10zd(n, m, np_, A, B, C, D, factor, tol)
+        result = ctrlsys.sb10zd(n, m, np_, A, B, C, D, factor, tol)
         ak, bk, ck, dk, rcond, info = result
 
         # Check success
@@ -230,7 +230,7 @@ class TestSB10ZD:
             [ 2.0, -4.0]
         ], dtype=float, order='F')
 
-        result = slicot.sb10zd(n, m, np_, A, B, C, D, factor, tol)
+        result = ctrlsys.sb10zd(n, m, np_, A, B, C, D, factor, tol)
         ak, bk, ck, dk, rcond, info = result
 
         # FACTOR=1 can fail if problem is ill-conditioned, but should succeed here
@@ -256,7 +256,7 @@ class TestSB10ZD:
         C = np.zeros((1, 1), dtype=float, order='F')
         D = np.array([[1.0]], dtype=float, order='F')
 
-        result = slicot.sb10zd(0, 1, 1, A, B, C, D, 1.1, 0.0)
+        result = ctrlsys.sb10zd(0, 1, 1, A, B, C, D, 1.1, 0.0)
         info = result[-1]
         rcond = result[-2]
 
@@ -299,7 +299,7 @@ class TestSB10ZD:
             [-0.3,  2.5,  0.1]
         ], dtype=float, order='F')
 
-        result = slicot.sb10zd(n, m, np_, A, B, C, D, factor, tol)
+        result = ctrlsys.sb10zd(n, m, np_, A, B, C, D, factor, tol)
         ak, bk, ck, dk, rcond, info = result
 
         assert info == 0, f"SB10ZD failed with info={info}"

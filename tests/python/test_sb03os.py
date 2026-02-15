@@ -88,7 +88,7 @@ def test_1x1_continuous_basic():
     r = np.array([[1.0 + 0j]], order='F', dtype=np.complex128)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -116,7 +116,7 @@ def test_2x2_continuous():
     ], order='F', dtype=np.complex128)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -140,7 +140,7 @@ def test_3x3_continuous():
     r = make_upper_triangular_complex(n, seed=101)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -165,7 +165,7 @@ def test_continuous_transpose():
     r = make_upper_triangular_complex(n, seed=201)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(False, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -189,7 +189,7 @@ def test_1x1_discrete():
     r = np.array([[1.0 + 0j]], order='F', dtype=np.complex128)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(True, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -217,7 +217,7 @@ def test_2x2_discrete():
     ], order='F', dtype=np.complex128)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(True, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -241,7 +241,7 @@ def test_3x3_discrete():
     r = make_upper_triangular_complex(n, seed=301)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(True, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -266,7 +266,7 @@ def test_discrete_transpose():
     r = make_upper_triangular_complex(n, seed=401)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(True, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(True, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -285,7 +285,7 @@ def test_n_zero():
     s = np.zeros((1, 1), order='F', dtype=np.complex128)
     r = np.zeros((1, 1), order='F', dtype=np.complex128)
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     assert info == 0
     assert scale == 1.0
@@ -299,7 +299,7 @@ def test_unstable_continuous_returns_info3():
     s = np.array([[1.0 + 0.2j]], order='F', dtype=np.complex128)
     r = np.array([[1.0 + 0j]], order='F', dtype=np.complex128)
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     assert info == 3
 
@@ -312,7 +312,7 @@ def test_non_convergent_discrete_returns_info3():
     s = np.array([[1.5 + 0.3j]], order='F', dtype=np.complex128)
     r = np.array([[1.0 + 0j]], order='F', dtype=np.complex128)
 
-    s_out, r_out, scale, info = slicot.sb03os(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(True, False, n, s, r)
 
     assert info == 3
 
@@ -328,7 +328,7 @@ def test_5x5_continuous():
     r = make_upper_triangular_complex(n, seed=501)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -352,7 +352,7 @@ def test_5x5_discrete_transpose():
     r = make_upper_triangular_complex(n, seed=601)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03os(True, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(True, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -375,7 +375,7 @@ def test_positive_semidefinite():
     s = make_stable_continuous_complex(n, seed=700)
     r = make_upper_triangular_complex(n, seed=701)
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     if info == 0:
         u = np.triu(r)
@@ -394,7 +394,7 @@ def test_upper_triangular_output():
     s = make_stable_continuous_complex(n, seed=800)
     r = make_upper_triangular_complex(n, seed=801)
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     if info == 0:
         u = r
@@ -411,6 +411,6 @@ def test_negative_n_returns_info_minus3():
     s = np.zeros((1, 1), order='F', dtype=np.complex128)
     r = np.zeros((1, 1), order='F', dtype=np.complex128)
 
-    s_out, r_out, scale, info = slicot.sb03os(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03os(False, False, n, s, r)
 
     assert info == -3

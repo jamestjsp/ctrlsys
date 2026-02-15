@@ -18,12 +18,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-pytestmark = pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+pytestmark = pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 
 
 def test_basic_controllable_system():
@@ -47,7 +47,7 @@ def test_basic_controllable_system():
         [0.0, 1.0, 0.0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0, f"tb01zd failed with info={info}"
@@ -66,7 +66,7 @@ def test_orthogonality_property():
     b = np.random.randn(n).astype(np.float64)
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -87,7 +87,7 @@ def test_upper_hessenberg_structure():
     b = np.random.randn(n).astype(np.float64)
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -111,7 +111,7 @@ def test_b_canonical_form():
     b = np.random.randn(n).astype(np.float64)
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -136,7 +136,7 @@ def test_similarity_c_transformation():
     b = b_orig.copy()
     c = c_orig.copy(order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -157,7 +157,7 @@ def test_zero_b_system():
     b = np.zeros(n, dtype=np.float64)
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -176,7 +176,7 @@ def test_jobz_n_no_z():
     b = np.random.randn(n).astype(np.float64)
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'N', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -194,7 +194,7 @@ def test_jobz_f_factored():
     b = np.random.randn(n).astype(np.float64)
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'F', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -207,7 +207,7 @@ def test_quick_return_n_zero():
     b = np.zeros(1, dtype=np.float64)
     c = np.zeros((p, 1), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -228,7 +228,7 @@ def test_eigenvalue_preservation():
 
     eig_orig = np.linalg.eigvals(a.copy())
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -253,7 +253,7 @@ def test_partially_controllable():
     b = np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float64)
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, ncont, z, tau, info = slicot.tb01zd(
+    a_out, b_out, c_out, ncont, z, tau, info = ctrlsys.tb01zd(
         'I', n, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -268,7 +268,7 @@ def test_invalid_jobz():
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01zd('X', n, p, a, b, c, tol=0.0)
+        ctrlsys.tb01zd('X', n, p, a, b, c, tol=0.0)
 
 
 def test_invalid_n_negative():
@@ -278,7 +278,7 @@ def test_invalid_n_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01zd('I', -1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01zd('I', -1, 1, a, b, c, tol=0.0)
 
 
 def test_invalid_p_negative():
@@ -288,4 +288,4 @@ def test_invalid_p_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01zd('I', 1, -1, a, b, c, tol=0.0)
+        ctrlsys.tb01zd('I', 1, -1, a, b, c, tol=0.0)

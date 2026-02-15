@@ -16,9 +16,9 @@ import pytest
 
 try:
     from ctrlsys import md03bf
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
 def compute_kowalik_osborne_error(x):
@@ -67,7 +67,7 @@ def compute_kowalik_osborne_jacobian(x):
     return j
 
 
-@pytest.mark.skipif(not HAS_SLICOT, reason="SLICOT not available")
+@pytest.mark.skipif(not HAS_CTRLSYS, reason="SLICOT not available")
 class TestMd03bf:
     """Tests for MD03BF Kowalik-Osborne FCN callback."""
 

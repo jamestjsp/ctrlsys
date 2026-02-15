@@ -45,7 +45,7 @@ def test_no_weighting_continuous():
     cc = np.array([[0.5, 0.3, 0.2]], order='F', dtype=np.float64)
     dc = np.array([[0.1]], order='F', dtype=np.float64)
 
-    scalec, scaleo, s, r, info = slicot.sb16ay(
+    scalec, scaleo, s, r, info = ctrlsys.sb16ay(
         dico='C', jobc='S', jobo='S', weight='N',
         n=n, m=m, p=p, nc=nc, ncs=ncs,
         a=a, b=b, c=c, d=d,
@@ -100,7 +100,7 @@ def test_no_weighting_discrete():
     cc = np.array([[0.5, 0.3, 0.2]], order='F', dtype=np.float64)
     dc = np.array([[0.1]], order='F', dtype=np.float64)
 
-    scalec, scaleo, s, r, info = slicot.sb16ay(
+    scalec, scaleo, s, r, info = ctrlsys.sb16ay(
         dico='D', jobc='S', jobo='S', weight='N',
         n=n, m=m, p=p, nc=nc, ncs=ncs,
         a=a, b=b, c=c, d=d,
@@ -143,7 +143,7 @@ def test_zero_ncs():
     cc = np.array([[1.0, 0.5]], order='F', dtype=np.float64)
     dc = np.array([[0.1]], order='F', dtype=np.float64)
 
-    scalec, scaleo, s, r, info = slicot.sb16ay(
+    scalec, scaleo, s, r, info = ctrlsys.sb16ay(
         dico='C', jobc='S', jobo='S', weight='N',
         n=n, m=m, p=p, nc=nc, ncs=ncs,
         a=a, b=b, c=c, d=d,
@@ -169,7 +169,7 @@ def test_invalid_dico():
     cc = np.array([[1.0, 0.5]], order='F', dtype=np.float64)
     dc = np.array([[0.1]], order='F', dtype=np.float64)
 
-    scalec, scaleo, s, r, info = slicot.sb16ay(
+    scalec, scaleo, s, r, info = ctrlsys.sb16ay(
         dico='X', jobc='S', jobo='S', weight='N',
         n=n, m=m, p=p, nc=nc, ncs=ncs,
         a=a, b=b, c=c, d=d,
@@ -193,7 +193,7 @@ def test_invalid_ncs():
     cc = np.array([[1.0, 0.5]], order='F', dtype=np.float64)
     dc = np.array([[0.1]], order='F', dtype=np.float64)
 
-    scalec, scaleo, s, r, info = slicot.sb16ay(
+    scalec, scaleo, s, r, info = ctrlsys.sb16ay(
         dico='C', jobc='S', jobo='S', weight='N',
         n=n, m=m, p=p, nc=nc, ncs=ncs,
         a=a, b=b, c=c, d=d,
@@ -220,7 +220,7 @@ def test_unstable_ac2_continuous():
     cc = np.array([[1.0, 0.5]], order='F', dtype=np.float64)
     dc = np.array([[0.1]], order='F', dtype=np.float64)
 
-    scalec, scaleo, s, r, info = slicot.sb16ay(
+    scalec, scaleo, s, r, info = ctrlsys.sb16ay(
         dico='C', jobc='S', jobo='S', weight='N',
         n=n, m=m, p=p, nc=nc, ncs=ncs,
         a=a, b=b, c=c, d=d,
@@ -257,7 +257,7 @@ def test_cholesky_symmetry_continuous():
     cc = np.array([[0.5, 0.4, 0.3, 0.2]], order='F', dtype=np.float64)
     dc = np.array([[0.05]], order='F', dtype=np.float64)
 
-    scalec, scaleo, s, r, info = slicot.sb16ay(
+    scalec, scaleo, s, r, info = ctrlsys.sb16ay(
         dico='C', jobc='S', jobo='S', weight='N',
         n=n, m=m, p=p, nc=nc, ncs=ncs,
         a=a, b=b, c=c, d=d,

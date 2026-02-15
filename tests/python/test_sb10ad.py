@@ -30,12 +30,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-@pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+@pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 class TestSB10AD:
 
     def test_job4_suboptimal(self):
@@ -73,7 +73,7 @@ class TestSB10AD:
         actol = 0.0
         job = 4
 
-        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
+        result = ctrlsys.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
         ak, bk, ck, dk, ac, bc, cc, dc, gamma_out, rcond, info = result
 
         assert info == 0, f"SB10AD failed with info={info}"
@@ -124,7 +124,7 @@ class TestSB10AD:
         actol = 0.0
         job = 4
 
-        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
+        result = ctrlsys.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
         ak, bk, ck, dk, ac, bc, cc, dc, gamma_out, rcond, info = result
 
         assert info == 0, f"SB10AD failed with info={info}"
@@ -154,7 +154,7 @@ class TestSB10AD:
         actol = 0.0
         job = 4
 
-        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
+        result = ctrlsys.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
         ak, bk, ck, dk, ac, bc, cc, dc, gamma_out, rcond, info = result
 
         assert info == 0, f"Quick return failed with info={info}"
@@ -192,7 +192,7 @@ class TestSB10AD:
         actol = 0.0
         job = 4
 
-        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
+        result = ctrlsys.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
         info = result[-1]
 
         assert info == 6, f"Expected info=6 for gamma too small, got {info}"
@@ -221,7 +221,7 @@ class TestSB10AD:
         actol = 0.0
         job = 0
 
-        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
+        result = ctrlsys.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma, gtol, actol)
         info = result[-1]
 
         assert info == -1, f"Expected info=-1 for invalid JOB, got {info}"
@@ -260,7 +260,7 @@ class TestSB10AD:
         actol = 0.0
         job = 1
 
-        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma_init, gtol, actol)
+        result = ctrlsys.sb10ad(job, n, m, np_, ncon, nmeas, A, B, C, D, gamma_init, gtol, actol)
         ak, bk, ck, dk, ac, bc, cc, dc, gamma_out, rcond, info = result
 
         assert info == 0, f"SB10AD JOB=1 failed with info={info}"
@@ -305,7 +305,7 @@ class TestSB10AD:
         actol = 0.0
         job = 4
 
-        result = slicot.sb10ad(job, n, m, np_, ncon, nmeas, a, b, c, d, gamma, gtol, actol)
+        result = ctrlsys.sb10ad(job, n, m, np_, ncon, nmeas, a, b, c, d, gamma, gtol, actol)
         ak, bk, ck, dk, ac, bc, cc, dc, gamma_out, rcond, info = result
 
         assert info == 0, f"SB10AD MIMO failed with info={info}"

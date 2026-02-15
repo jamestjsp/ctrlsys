@@ -102,7 +102,7 @@ def test_1x1_basic():
     r = np.array([[1.0]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -125,7 +125,7 @@ def test_2x2_single_blocks():
     r = np.array([[1.0, 0.3], [0.0, 0.8]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -148,7 +148,7 @@ def test_2x2_complex_block():
     r = np.array([[1.0, 0.5], [0.0, 1.0]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -180,7 +180,7 @@ def test_4x4_mixed_blocks():
     r = make_upper_triangular(n, seed=201)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -206,7 +206,7 @@ def test_2x2_transpose():
     r = np.array([[1.0, 0.3], [0.0, 0.8]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -229,7 +229,7 @@ def test_4x4_transpose():
     r = make_upper_triangular(n, seed=301)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -255,7 +255,7 @@ def test_1x1_discrete():
     r = np.array([[1.0]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(True, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -281,7 +281,7 @@ def test_2x2_discrete_complex_block():
     r = np.array([[1.0, 0.4], [0.0, 0.9]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(True, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -304,7 +304,7 @@ def test_4x4_discrete_mixed():
     r = make_upper_triangular(n, seed=401)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(True, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -330,7 +330,7 @@ def test_2x2_discrete_transpose():
     r = np.array([[1.0, 0.2], [0.0, 0.7]], order='F', dtype=np.float64)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(True, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(True, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -353,7 +353,7 @@ def test_4x4_discrete_transpose():
     r = make_upper_triangular(n, seed=501)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(True, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(True, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -374,7 +374,7 @@ def test_n_zero():
     s = np.zeros((1, 1), order='F', dtype=np.float64)
     r = np.zeros((1, 1), order='F', dtype=np.float64)
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 0
     assert scale == 1.0
@@ -387,7 +387,7 @@ def test_unstable_continuous_returns_info2():
     s = np.array([[1.0]], order='F', dtype=np.float64)
     r = np.array([[1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 2
 
@@ -399,7 +399,7 @@ def test_non_convergent_discrete_returns_info2():
     s = np.array([[1.5]], order='F', dtype=np.float64)
     r = np.array([[1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, scale, info = slicot.sb03ot(True, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(True, False, n, s, r)
 
     assert info == 2
 
@@ -415,7 +415,7 @@ def test_block_larger_than_2x2_returns_info3():
     ], order='F', dtype=np.float64)
     r = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 3
 
@@ -427,7 +427,7 @@ def test_2x2_block_real_eigenvalues_returns_info4():
     s = np.array([[1.0, 2.0], [0.5, 1.0]], order='F', dtype=np.float64)
     r = np.array([[1.0, 0.0], [0.0, 1.0]], order='F', dtype=np.float64)
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 4
 
@@ -445,7 +445,7 @@ def test_6x6_continuous():
     r = make_upper_triangular(n, seed=601)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -468,7 +468,7 @@ def test_8x8_discrete_transpose():
     r = make_upper_triangular(n, seed=801)
     r_orig = r.copy()
 
-    s_out, r_out, scale, info = slicot.sb03ot(True, True, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(True, True, n, s, r)
 
     assert info == 0
     assert 0 < scale <= 1.0
@@ -489,6 +489,6 @@ def test_negative_n_returns_info_minus3():
     s = np.zeros((1, 1), order='F', dtype=np.float64)
     r = np.zeros((1, 1), order='F', dtype=np.float64)
 
-    s_out, r_out, scale, info = slicot.sb03ot(False, False, n, s, r)
+    s_out, r_out, scale, info = ctrlsys.sb03ot(False, False, n, s, r)
 
     assert info == -3

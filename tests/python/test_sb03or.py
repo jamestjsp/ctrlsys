@@ -27,7 +27,7 @@ def test_sb03or_continuous_1x1():
     a = np.array([[3.0]], order='F', dtype=np.float64)
     c = np.array([[10.0]], order='F', dtype=np.float64)
 
-    c_result, scale, info = slicot.sb03or(False, False, 1, 1, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, 1, 1, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -49,7 +49,7 @@ def test_sb03or_discrete_1x1():
     a = np.array([[3.0]], order='F', dtype=np.float64)
     c = np.array([[10.0]], order='F', dtype=np.float64)
 
-    c_result, scale, info = slicot.sb03or(True, False, 1, 1, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(True, False, 1, 1, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -70,7 +70,7 @@ def test_sb03or_continuous_2x1():
     a = np.array([[1.0]], order='F', dtype=np.float64)
     c = np.array([[4.0], [6.0]], order='F', dtype=np.float64)
 
-    c_result, scale, info = slicot.sb03or(False, False, 2, 1, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, 2, 1, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -94,7 +94,7 @@ def test_sb03or_continuous_2x2():
     c = np.array([[5.0, 3.0], [8.0, 6.0]], order='F', dtype=np.float64)
     c_orig = c.copy()
 
-    c_result, scale, info = slicot.sb03or(False, False, 2, 2, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, 2, 2, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -118,7 +118,7 @@ def test_sb03or_discrete_2x2():
     c = np.array([[2.0, 1.0], [3.0, 2.0]], order='F', dtype=np.float64)
     c_orig = c.copy()
 
-    c_result, scale, info = slicot.sb03or(True, False, 2, 2, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(True, False, 2, 2, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -143,7 +143,7 @@ def test_sb03or_ltrans_continuous():
     c = np.array([[4.0, 2.0], [5.0, 4.0]], order='F', dtype=np.float64)
     c_orig = c.copy()
 
-    c_result, scale, info = slicot.sb03or(False, True, 2, 2, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, True, 2, 2, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -171,7 +171,7 @@ def test_sb03or_n_zero():
     a = np.array([[1.0]], order='F', dtype=np.float64)
     c = np.array([[1.0]], order='F', dtype=np.float64)
 
-    c_result, scale, info = slicot.sb03or(False, False, 0, 1, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, 0, 1, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -192,7 +192,7 @@ def test_sb03or_with_2x2_block():
     c = np.array([[3.0], [2.0]], order='F', dtype=np.float64)
     c_orig = c.copy()
 
-    c_result, scale, info = slicot.sb03or(False, False, 2, 1, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, 2, 1, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -219,7 +219,7 @@ def test_sb03or_3x1_with_mixed_blocks():
     c = np.array([[5.0], [4.0], [3.0]], order='F', dtype=np.float64)
     c_orig = c.copy()
 
-    c_result, scale, info = slicot.sb03or(False, False, 3, 1, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, 3, 1, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -253,7 +253,7 @@ def test_sb03or_4x2_mixed_blocks():
     ], order='F', dtype=np.float64)
     c_orig = c.copy()
 
-    c_result, scale, info = slicot.sb03or(False, False, 4, 2, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, 4, 2, s, a, c)
 
     assert info == 0
     assert scale == 1.0
@@ -284,7 +284,7 @@ def test_sb03or_residual_property_random():
     c = np.asfortranarray(np.random.randn(n, m))
     c_orig = c.copy()
 
-    c_result, scale, info = slicot.sb03or(False, False, n, m, s, a, c)
+    c_result, scale, info = ctrlsys.sb03or(False, False, n, m, s, a, c)
 
     assert info == 0
 

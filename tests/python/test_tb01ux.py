@@ -22,12 +22,12 @@ import pytest
 
 try:
     import ctrlsys
-    HAS_SLICOT = True
+    HAS_CTRLSYS = True
 except ImportError:
-    HAS_SLICOT = False
+    HAS_CTRLSYS = False
 
 
-pytestmark = pytest.mark.skipif(not HAS_SLICOT, reason="slicot module not available")
+pytestmark = pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 
 
 def test_basic_observable_system():
@@ -54,7 +54,7 @@ def test_basic_observable_system():
         [0, 1, 0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0, f"tb01ux failed with info={info}"
@@ -73,7 +73,7 @@ def test_orthogonality_property():
     b = np.random.randn(n, m).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -102,7 +102,7 @@ def test_similarity_transformation():
     b = b_orig.copy(order='F')
     c = c_orig.copy(order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -128,7 +128,7 @@ def test_eigenvalue_preservation():
 
     eig_orig = np.linalg.eigvals(a)
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -166,7 +166,7 @@ def test_unobservable_system():
         [0, 1, 0, 0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -202,7 +202,7 @@ def test_unobservable_structure():
         [0, 1, 0, 0]
     ], dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -227,7 +227,7 @@ def test_compz_n_no_z():
     b = np.random.randn(n, m).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'N', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -240,7 +240,7 @@ def test_quick_return_n_zero():
     b = np.zeros((1, 2), dtype=np.float64, order='F')
     c = np.zeros((2, 1), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -255,7 +255,7 @@ def test_quick_return_p_zero():
     b = np.random.randn(n, m).astype(np.float64, order='F')
     c = np.zeros((1, n), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -270,7 +270,7 @@ def test_quick_return_c_zero():
     b = np.random.randn(n, m).astype(np.float64, order='F')
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -290,7 +290,7 @@ def test_staircase_block_tracking():
     b = np.random.randn(n, m).astype(np.float64, order='F')
     c = np.random.randn(p, n).astype(np.float64, order='F')
 
-    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = slicot.tb01ux(
+    a_out, b_out, c_out, nobsv, nlblck, ctau, z, info = ctrlsys.tb01ux(
         'I', n, m, p, a, b, c, tol=0.0)
 
     assert info == 0
@@ -309,7 +309,7 @@ def test_invalid_compz():
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01ux('X', n, m, p, a, b, c, tol=0.0)
+        ctrlsys.tb01ux('X', n, m, p, a, b, c, tol=0.0)
 
 
 def test_invalid_n_negative():
@@ -319,7 +319,7 @@ def test_invalid_n_negative():
     c = np.zeros((1, 1), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01ux('I', -1, 1, 1, a, b, c, tol=0.0)
+        ctrlsys.tb01ux('I', -1, 1, 1, a, b, c, tol=0.0)
 
 
 def test_invalid_tol():
@@ -330,4 +330,4 @@ def test_invalid_tol():
     c = np.zeros((p, n), dtype=np.float64, order='F')
 
     with pytest.raises((ValueError, RuntimeError)):
-        slicot.tb01ux('I', n, m, p, a, b, c, tol=1.5)
+        ctrlsys.tb01ux('I', n, m, p, a, b, c, tol=1.5)
