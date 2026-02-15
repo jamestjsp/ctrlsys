@@ -1,7 +1,7 @@
 from importlib.metadata import version as get_version
 
 project = 'ctrlsys'
-copyright = '2024, James Joseph'
+copyright = '2024-2026, James Joseph'
 author = 'James Joseph'
 release = get_version('ctrlsys')
 
