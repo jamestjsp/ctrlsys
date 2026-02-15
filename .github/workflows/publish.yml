@@ -113,6 +113,7 @@ jobs:
   publish-fast:
     name: Publish fast wheels
     needs: [build-fast, build-sdist]
+    if: always() && needs.build-fast.result == 'success' && needs.build-sdist.result == 'success'
     runs-on: ubuntu-latest
     environment:
       name: pypi
