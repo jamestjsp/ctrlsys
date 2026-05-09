@@ -147,6 +147,37 @@ def test_ab13hd_discrete_mimo_row_sensitive_c():
     np.testing.assert_allclose(fpeak_out, [0.0, 1.0], rtol=0.0, atol=1e-14)
 
 
+def test_ab13hd_discrete_pencil_c_row_branch():
+    """Exercise the discrete pencil branch that walks one C row with stride ldc."""
+    from ctrlsys import ab13hd
+
+    n, m, p = 2, 1, 4
+    a = np.array([[0.5, 0.0], [0.0, 0.3]], order='F', dtype=float)
+    e = np.eye(n, order='F', dtype=float)
+    b = np.array([[1.0], [0.5]], order='F', dtype=float)
+    c = np.array([
+        [1.0, 2.0],
+        [10.0, -3.0],
+        [0.25, 0.75],
+        [-0.5, 1.25],
+    ], order='F', dtype=float)
+    d = np.zeros((p, m), order='F', dtype=float)
+
+    fpeak = np.array([0.0, 1.0], order='F', dtype=float)
+    tol = np.array([1e-9, -1.0], order='F', dtype=float)
+
+    gpeak, fpeak_out, nr, iwarn, info = ab13hd(
+        'D', 'I', 'N', 'Z', 'N', 'N', 'A',
+        n, m, p, 0, fpeak, a, e, b, c, d, tol
+    )
+
+    assert info == 0
+    assert iwarn == 0
+    assert nr == n
+    np.testing.assert_allclose(gpeak, [18.2130952, 1.0], rtol=1e-8, atol=1e-10)
+    np.testing.assert_allclose(fpeak_out, [0.0, 1.0], rtol=0.0, atol=1e-14)
+
+
 def test_ab13hd_descriptor():
     """
     Test AB13HD with general descriptor system (JOBE='G').
