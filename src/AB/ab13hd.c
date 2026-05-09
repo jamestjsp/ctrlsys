@@ -1737,7 +1737,7 @@ label_180:
                 }
             } else if (case2) {
                 if (qp > 0) {
-                    ma02ad("F", qp, n, &c[(-q) * ldc], ldc, &dwork[ih + n], nblk);
+                    ma02ad("F", qp, n, &c[-q], ldc, &dwork[ih + n], nblk);
                     SLC_DLACPY("F", &n, &qp, &dwork[ih + n], &nblk,
                                &dwork[ij + n], &nblk);
                     i1 = qp * nblk;
