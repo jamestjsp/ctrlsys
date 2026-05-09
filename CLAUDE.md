@@ -64,6 +64,25 @@ tests/python/test_*.py        # pytest tests
 - **BLAS/LAPACK:** Use `SLC_DGEMM()` etc. from `slicot_blas.h`, scalars by pointer
 - **Error codes:** `info = 0` success, `< 0` param error, `> 0` algorithm error
 
+## Translation Review Checks
+
+Green Python tests are not enough for complex translated branches; prove target
+branch coverage or compare behavior against the Fortran reference.
+
+```bash
+# Confirm selected C lines are exercised by persistent tests
+scripts/check_translation_coverage.py --report-only
+
+# Flag known high-risk translation smells
+scripts/check_translation_smells.py
+python3 -m py_compile scripts/check_translation_smells.py
+```
+
+For differential coverage, add a persistent pytest using
+`tests/python/fortran_reference.py`. It compiles a small Fortran driver with
+`gfortran` and links against `SLICOT-Reference/build` or
+`CTRLSYS_FORTRAN_REFERENCE_LIB`.
+
 ## Python Wrapper Memory Rules
 
 - **Input arrays:** `PyArray_FROM_OTF(obj, NPY_DOUBLE, NPY_ARRAY_FARRAY | NPY_ARRAY_WRITEBACKIFCOPY)`
