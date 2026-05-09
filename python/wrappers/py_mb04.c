@@ -124,6 +124,7 @@ PyObject* py_mb04od(PyObject* self, PyObject* args) {
 
 
 
+
 PyObject* py_mb04kd(PyObject* self, PyObject* args) {
     const char *uplo_str;
     i32 n, m, p;
@@ -4800,7 +4801,7 @@ PyObject* py_mb04hd(PyObject* self, PyObject* args, PyObject* kwargs) {
 
     i32 *iwork = (i32 *)calloc(liwork, sizeof(i32));
     f64 *dwork = (f64 *)calloc(ldwork, sizeof(f64));
-    i32 *bwork = (i32 *)calloc(m > 0 ? m : 1, sizeof(i32));
+    bool *bwork = (bool *)calloc(m > 0 ? m : 1, sizeof(bool));
 
     if ((iwork == NULL || dwork == NULL || bwork == NULL) && n > 0) {
         Py_DECREF(a_array);
@@ -9435,4 +9436,3 @@ PyObject *py_mb4dpz(PyObject *self, PyObject *args) {
 
     return result;
 }
-
