@@ -3006,7 +3006,7 @@ void sb10ed(
     i32* iwork,
     f64* dwork,
     const i32 ldwork,
-    bool* bwork,
+    i32* bwork,
     i32* info);
 
 /**
@@ -3816,7 +3816,7 @@ void sb10sd(
     i32* iwork,
     f64* dwork,
     const i32 ldwork,
-    bool* bwork,
+    i32* bwork,
     i32* info);
 
 /**
@@ -5298,7 +5298,7 @@ void sb10zd(
     i32* iwork,
     f64* dwork,
     const i32 ldwork,
-    bool* bwork,
+    i32* bwork,
     i32* info);
 
 /**

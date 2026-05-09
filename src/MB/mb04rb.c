@@ -63,7 +63,9 @@ void mb04rb(
         return;
     }
 
-    for (i = 0; i < ilo - 1; i++) {
+    i32 init_rotations = ilo - 1;
+    if (init_rotations > n - 1) init_rotations = n - 1;
+    for (i = 0; i < init_rotations; i++) {
         tau[i] = ZERO;
         cs[2 * i] = ONE;
         cs[2 * i + 1] = ZERO;

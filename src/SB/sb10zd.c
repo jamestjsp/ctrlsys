@@ -21,7 +21,7 @@ void sb10zd(i32 n, i32 m, i32 np, const f64* a, i32 lda,
             f64* ak, i32 ldak, f64* bk, i32 ldbk,
             f64* ck, i32 ldck, f64* dk, i32 lddk,
             f64* rcond, f64 tol, i32* iwork, f64* dwork, i32 ldwork,
-            bool* bwork, i32* info)
+            i32* bwork, i32* info)
 {
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
@@ -206,7 +206,7 @@ void sb10zd(i32 n, i32 m, i32 np, const f64* a, i32 lda,
               &ZERO, &dwork[i8], &n);
     SLC_DGEES("N", "N", select_none, &n, &dwork[i8], &n, &sdim,
               &dwork[i10], &dwork[i11], &dwork[iwrk], &n,
-              &dwork[iwrk], &ldwork, (i32*)bwork, &info2);
+              &dwork[iwrk], &ldwork, bwork, &info2);
     if (info2 != 0) {
         *info = 3;
         return;
@@ -573,7 +573,7 @@ void sb10zd(i32 n, i32 m, i32 np, const f64* a, i32 lda,
     ldw = ldwork - iwrk + 1;
     SLC_DGEES("N", "N", select_none, &n2, &dwork[i7], &n2, &sdim,
               &dwork[i8], &dwork[i9], &dwork[iwrk], &n2,
-              &dwork[iwrk], &ldw, (i32*)bwork, &info2);
+              &dwork[iwrk], &ldw, bwork, &info2);
     if (info2 != 0) {
         *info = 3;
         return;

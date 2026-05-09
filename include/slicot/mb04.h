@@ -1427,7 +1427,7 @@ void mb04hd(const char *compq1, const char *compq2,
             i32 n, f64 *a, i32 lda, f64 *b, i32 ldb,
             f64 *q1, i32 ldq1, f64 *q2, i32 ldq2,
             i32 *iwork, i32 liwork, f64 *dwork, i32 ldwork,
-            i32 *bwork, i32 *info);
+            bool *bwork, i32 *info);
 
 /**
  * @brief Balances a general real matrix to reduce its 1-norm.

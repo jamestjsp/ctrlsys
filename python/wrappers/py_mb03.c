@@ -7192,7 +7192,7 @@ PyObject* py_mb03ld(PyObject *self, PyObject *args, PyObject *kwargs) {
 
     i32 *iwork = (i32*)calloc(miniw, sizeof(i32));
     f64 *dwork = (f64*)calloc(mindw, sizeof(f64));
-    i32 *bwork = (i32*)calloc(m > 0 ? m : 1, sizeof(i32));
+    bool *bwork = (bool*)calloc(m > 0 ? m : 1, sizeof(bool));
  
     npy_intp q_dims[2] = {ldq, n2};
     PyObject *q_array = PyArray_New(&PyArray_Type, 2, q_dims, NPY_DOUBLE,
@@ -7407,7 +7407,7 @@ PyObject *py_mb03lp(PyObject *self, PyObject *args, PyObject *kwargs) {
     i32 lbwork = m > 0 ? m : 1;
     i32 *iwork = (i32 *)calloc(liwork > 1 ? liwork : 1, sizeof(i32));
     f64 *dwork = (f64 *)calloc(ldwork > 1 ? ldwork : 1, sizeof(f64));
-    i32 *bwork = (i32 *)calloc(lbwork, sizeof(i32));
+    bool *bwork = (bool *)calloc(lbwork, sizeof(bool));
 
     if (iwork == NULL || dwork == NULL || bwork == NULL) {
         free(iwork);

@@ -20,7 +20,7 @@ void mb04hd(const char *compq1, const char *compq2,
             i32 n, f64 *a, i32 lda, f64 *b, i32 ldb,
             f64 *q1, i32 ldq1, f64 *q2, i32 ldq2,
             i32 *iwork, i32 liwork, f64 *dwork, i32 ldwork,
-            i32 *bwork, i32 *info)
+            bool *bwork, i32 *info)
 {
     const f64 ZERO = 0.0;
     const f64 ONE = 1.0;
@@ -225,7 +225,7 @@ void mb04hd(const char *compq1, const char *compq2,
 
         i32 ldwork_mb03kd = ldwork - iwrk;
         mb03kd("I", &idum, "N", k, m, kschur,
-               iwork, &iwork[k], &iwork[2 * k], (bool *)bwork,
+               iwork, &iwork[k], &iwork[2 * k], bwork,
                dwork, iwork, &iwork[3 * k], &dwork[iv1],
                iwork, &iwork[3 * k], &m1, HUND2, &iwork[4 * k],
                &dwork[iwrk], ldwork_mb03kd, info);
