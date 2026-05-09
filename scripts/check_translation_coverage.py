@@ -18,11 +18,24 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TESTS = [
     "tests/python/test_ab13hd.py",
     "tests/python/test_mb04hd.py",
+    "tests/python/test_mb04cd.py",
 ]
 
 DEFAULT_TARGETS = [
     ("src/AB/ab13hd.c", 1842, "AB13HD C-row access branch"),
     ("src/MB/mb04hd.c", 228, "MB04HD reorder/BWORK call"),
+    ("src/MB/mb04cd.c", 758, "MB04CD first-stage A column save"),
+    ("src/MB/mb04cd.c", 760, "MB04CD first-stage A column update"),
+    ("src/MB/mb04cd.c", 788, "MB04CD first-stage B column save"),
+    ("src/MB/mb04cd.c", 790, "MB04CD first-stage B column update"),
+    ("src/MB/mb04cd.c", 817, "MB04CD first-stage D column save"),
+    ("src/MB/mb04cd.c", 819, "MB04CD first-stage D column update"),
+    ("src/MB/mb04cd.c", 844, "MB04CD first-stage Q1 column save"),
+    ("src/MB/mb04cd.c", 846, "MB04CD first-stage Q1 column update"),
+    ("src/MB/mb04cd.c", 1559, "MB04CD second-stage A column update"),
+    ("src/MB/mb04cd.c", 1592, "MB04CD second-stage B column update"),
+    ("src/MB/mb04cd.c", 1625, "MB04CD second-stage D column update"),
+    ("src/MB/mb04cd.c", 1659, "MB04CD second-stage Q1 column update"),
 ]
 
 
