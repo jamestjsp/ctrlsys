@@ -47,7 +47,7 @@ void sb10sd(
     i32* iwork,
     f64* dwork,
     const i32 ldwork,
-    bool* bwork,
+    i32* bwork,
     i32* info)
 {
     const f64 zero = 0.0;

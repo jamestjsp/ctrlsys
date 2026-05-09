@@ -46,3 +46,10 @@ def test_mb04hd_bwork_rule_detects_bool_cast_regression():
     rule = rule_by_id(module, "mb04hd-bwork-bool-cast")
 
     assert rule.pattern.search("mb03kd(..., (bool *)bwork, ...);")
+
+
+def test_sb10zd_bwork_rule_detects_i32_cast_regression():
+    module = load_translation_smells_module()
+    rule = rule_by_id(module, "sb10zd-bwork-i32-cast")
+
+    assert rule.pattern.search("SLC_DGEES(..., (i32*)bwork, &info2);")

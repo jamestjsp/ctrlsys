@@ -10817,7 +10817,7 @@ PyObject* py_sb10sd(PyObject* self, PyObject* args, PyObject* kwds) {
     f64 *rcond = (f64*)malloc(4 * sizeof(f64));
     i32 *iwork = (i32*)malloc(liwork * sizeof(i32));
     f64 *dwork = (f64*)malloc(ldwork * sizeof(f64));
-    bool *bwork = (bool*)malloc(2 * n_ * sizeof(bool));
+    i32 *bwork = (i32*)malloc(2 * n_ * sizeof(i32));
 
     if (!ak || !bk || !ck || !dk || !x || !y || !rcond || !iwork || !dwork || !bwork) {
         free(ak); free(bk); free(ck); free(dk); free(x); free(y);
@@ -11139,7 +11139,7 @@ PyObject* py_sb10zd(PyObject* self, PyObject* args) {
 
     f64* dwork = (f64*)malloc(ldwork * sizeof(f64));
     i32* iwork = (i32*)malloc(iwork_size * sizeof(i32));
-    bool* bwork = (bool*)malloc(bwork_size * sizeof(bool));
+    i32* bwork = (i32*)malloc(bwork_size * sizeof(i32));
 
     if (!dwork || !iwork || !bwork) {
         free(ak);
@@ -11862,7 +11862,7 @@ PyObject* py_sb10ed(PyObject* self, PyObject* args, PyObject* kwds) {
     f64 *rcond = (f64*)malloc(7 * sizeof(f64));
     i32 *iwork = (i32*)malloc(liwork * sizeof(i32));
     f64 *dwork = (f64*)malloc(ldwork * sizeof(f64));
-    bool *bwork = (bool*)malloc(2 * n_ * sizeof(bool));
+    i32 *bwork = (i32*)malloc(2 * n_ * sizeof(i32));
 
     if (!ak || !bk || !ck || !dk || !rcond || !iwork || !dwork || !bwork) {
         free(ak); free(bk); free(ck); free(dk);

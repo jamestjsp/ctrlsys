@@ -40,6 +40,13 @@ RULES = [
         message="MB04HD casts BWORK to bool*, which can misread an i32 logical workspace bytewise.",
         fix_hint="Make BWORK a bool workspace end-to-end, or pass a real bool selection buffer.",
     ),
+    Rule(
+        id="sb10zd-bwork-i32-cast",
+        path=Path("src/SB/sb10zd.c"),
+        pattern=re.compile(r"\(i32\*\)\s*bwork|\(i32 \*\)\s*bwork"),
+        message="SB10ZD casts BWORK to i32* at a LAPACK LOGICAL boundary.",
+        fix_hint="Make SB10ZD BWORK int-sized end-to-end before passing it to DGEES.",
+    ),
 ]
 
 
