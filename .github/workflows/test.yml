@@ -92,6 +92,7 @@ jobs:
             libblas-dev \
             liblapack-dev \
             gfortran \
+            meson \
             ninja-build \
             python3-dev
 
