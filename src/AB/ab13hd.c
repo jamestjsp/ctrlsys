@@ -1839,22 +1839,12 @@ label_180:
                 i32 i0_l = i1 + n;
                 for (i32 i = 0; i < nc_pen; i++) {
                     f64 neg_one = -ONE;
-                    SLC_DAXPY(&n, &neg_one, &c[i * ldc], &(i32){1},  // NOTE: row i of C, but C is col-major so &c[i] step ldc
+                    SLC_DAXPY(&n, &neg_one, &c[i], &ldc,
                               &dwork[ih12 + i1], &(i32){1});
-                    // This needs care: Fortran C(I,1) with step LDC means row I
-                    // Actually: DAXPY(N, -1, C(I,1), LDC, ...) copies row I of C
-                    // But our C array is column-major: c[i + j*ldc] = C(i+1,j+1)
-                    // So row I of C (0-based) is c[i], c[i+ldc], c[i+2*ldc], ...
-                    // DAXPY with incx=ldc: &c[i] with inc ldc
-                    // Already correct above if we use &c[i] with inc ldc
-                    // But we wrote &c[i * ldc] with inc 1 - that's WRONG!
-                    // Let me fix this in a moment
                     for (i32 row2 = 0; row2 < n; row2++)
                         dwork[ij12 + i1 + row2] = dwork[ih12 + i1 + row2];
                     i1 += nblk;
                 }
-                // Fix: the above DAXPY calls for C rows need correction
-                // I'll handle this in the actual pencil construction
 
                 i32 nq = -q;
                 for (i32 i = 0; i < nq; i++)
