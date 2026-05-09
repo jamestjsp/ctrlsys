@@ -27,7 +27,7 @@ RULES = [
         id="ab13hd-c-row-daxpy-contiguous",
         path=Path("src/AB/ab13hd.c"),
         pattern=re.compile(
-            r"SLC_DAXPY\([^;]*&c\[i \* ldc\]\s*,\s*&\(i32\)\{1\}",
+            r"SLC_DAXPY\(\s*&n\s*,[^;]*&c\[i \* ldc\]\s*,\s*&\(i32\)\{1\}",
             re.DOTALL,
         ),
         message="AB13HD row walk over C appears translated as a contiguous column walk.",
