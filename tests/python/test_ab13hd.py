@@ -121,6 +121,32 @@ def test_ab13hd_discrete():
     assert gpeak[0] > 0
 
 
+def test_ab13hd_discrete_mimo_row_sensitive_c():
+    """Regression case for translating Fortran C(I,1),LDC as a row walk."""
+    from ctrlsys import ab13hd
+
+    n, m, p = 2, 1, 2
+    a = np.array([[0.5, 0.0], [0.0, 0.3]], order='F', dtype=float)
+    e = np.eye(n, order='F', dtype=float)
+    b = np.array([[1.0], [0.5]], order='F', dtype=float)
+    c = np.array([[1.0, 2.0], [10.0, -3.0]], order='F', dtype=float)
+    d = np.array([[0.1], [-0.2]], order='F', dtype=float)
+
+    fpeak = np.array([0.0, 1.0], order='F', dtype=float)
+    tol = np.array([1e-9, -1.0], order='F', dtype=float)
+
+    gpeak, fpeak_out, nr, iwarn, info = ab13hd(
+        'D', 'I', 'N', 'D', 'N', 'N', 'A',
+        n, m, p, 0, fpeak, a, e, b, c, d, tol
+    )
+
+    assert info == 0
+    assert iwarn == 0
+    assert nr == n
+    np.testing.assert_allclose(gpeak, [18.00626308, 1.0], rtol=1e-8, atol=1e-10)
+    np.testing.assert_allclose(fpeak_out, [0.0, 1.0], rtol=0.0, atol=1e-14)
+
+
 def test_ab13hd_descriptor():
     """
     Test AB13HD with general descriptor system (JOBE='G').

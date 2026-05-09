@@ -307,3 +307,36 @@ def test_mb04hd_larger_n():
         np.testing.assert_allclose(q1 @ q1.T, np.eye(n), rtol=1e-11, atol=1e-11)
         np.testing.assert_allclose(q2 @ q2.T, np.eye(n), rtol=1e-11, atol=1e-11)
         np.testing.assert_allclose(np.tril(a_out, -1), 0, atol=1e-10)
+
+
+def test_mb04hd_larger_n_reorder_transformation_property():
+    """Exercise the M > 1 reorder path where later logical workspace entries matter."""
+    from ctrlsys import mb04hd
+
+    np.random.seed(0)
+    n = 8
+    m = n // 2
+
+    a11 = np.triu(np.random.randn(m, m))
+    a22 = np.triu(np.random.randn(m, m))
+    a_in = np.zeros((n, n), order='F', dtype=float)
+    a_in[:m, :m] = a11
+    a_in[m:, m:] = a22
+    a_copy = a_in.copy()
+
+    b12 = np.triu(np.random.randn(m, m))
+    b21 = np.triu(np.random.randn(m, m))
+    b_in = np.zeros((n, n), order='F', dtype=float)
+    b_in[:m, m:] = b12
+    b_in[m:, :m] = b21
+    b_copy = b_in.copy()
+
+    a_out, b_out, q1, q2, info = mb04hd('I', 'I', a_in, b_in)
+
+    assert info == 0
+    assert np.linalg.norm(q1 - np.eye(n)) > 1e-8
+    assert np.linalg.norm(q2 - np.eye(n)) > 1e-8
+    np.testing.assert_allclose(q1 @ q1.T, np.eye(n), rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(q2 @ q2.T, np.eye(n), rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(q2.T @ a_copy @ q1, a_out, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(q2.T @ b_copy @ q1, b_out, rtol=1e-10, atol=1e-10)
