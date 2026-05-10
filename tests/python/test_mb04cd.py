@@ -1,5 +1,7 @@
 """Tests for MB04CD - Reducing skew-Hamiltonian/Hamiltonian pencil to Schur form."""
 
+import ctypes
+
 import numpy as np
 import pytest
 
@@ -98,6 +100,76 @@ def _take_matrix(values, offset, n):
     return values[offset:end].reshape((n, n), order="F"), end
 
 
+def _mb04cd_raw_call(a, lda, b, ldb, d, ldd):
+    from ctrlsys import _slicot
+
+    n = 4
+    m = n // 2
+    liwork = 48
+    ldwork = 3 * n * n + 432
+
+    q1 = np.zeros((n, n), order="F", dtype=np.float64)
+    q2 = np.zeros((n, n), order="F", dtype=np.float64)
+    q3 = np.zeros((n, n), order="F", dtype=np.float64)
+    iwork = np.zeros(liwork, dtype=np.int32)
+    dwork = np.zeros(ldwork, dtype=np.float64)
+    bwork = np.zeros(m, dtype=np.bool_)
+    info = ctypes.c_int32(-999)
+
+    lib = ctypes.CDLL(_slicot.__file__)
+    lib.mb04cd.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int32,
+        ctypes.c_void_p,
+        ctypes.c_int32,
+        ctypes.c_void_p,
+        ctypes.c_int32,
+        ctypes.c_void_p,
+        ctypes.c_int32,
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="F_CONTIGUOUS"),
+        ctypes.c_int32,
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="F_CONTIGUOUS"),
+        ctypes.c_int32,
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="F_CONTIGUOUS"),
+        ctypes.c_int32,
+        np.ctypeslib.ndpointer(dtype=np.int32, flags="C_CONTIGUOUS"),
+        ctypes.c_int32,
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="C_CONTIGUOUS"),
+        ctypes.c_int32,
+        np.ctypeslib.ndpointer(dtype=np.bool_, flags="C_CONTIGUOUS"),
+        ctypes.POINTER(ctypes.c_int32),
+    ]
+    lib.mb04cd.restype = None
+
+    lib.mb04cd(
+        b"I",
+        b"I",
+        b"I",
+        n,
+        a.ctypes.data_as(ctypes.c_void_p),
+        lda,
+        b.ctypes.data_as(ctypes.c_void_p),
+        ldb,
+        d.ctypes.data_as(ctypes.c_void_p),
+        ldd,
+        q1,
+        n,
+        q2,
+        n,
+        q3,
+        n,
+        iwork,
+        liwork,
+        dwork,
+        ldwork,
+        bwork,
+        ctypes.byref(info),
+    )
+    return info.value, q1, q2, q3
+
+
 def test_mb04cd_transformations_match_fortran_reference(tmp_path):
     from ctrlsys import mb04cd
 
@@ -126,6 +198,36 @@ def test_mb04cd_transformations_match_fortran_reference(tmp_path):
     np.testing.assert_allclose(q1, q1_f, rtol=1e-10, atol=1e-10)
     np.testing.assert_allclose(q2, q2_f, rtol=1e-10, atol=1e-10)
     np.testing.assert_allclose(q3, q3_f, rtol=1e-10, atol=1e-10)
+
+
+def test_mb04cd_recompute_outputs_with_padded_leading_dimensions():
+    n = 4
+    lda = n + 3
+    ldb = n + 2
+    ldd = n + 4
+
+    a_ref, b_ref, d_ref = _mb04cd_reference_inputs()
+    compact_a = a_ref.copy(order="F")
+    compact_b = b_ref.copy(order="F")
+    compact_d = d_ref.copy(order="F")
+
+    padded_a = np.full((lda, n), 12345.0, order="F", dtype=np.float64)
+    padded_b = np.full((ldb, n), -23456.0, order="F", dtype=np.float64)
+    padded_d = np.full((ldd, n), 34567.0, order="F", dtype=np.float64)
+    padded_a[:n, :] = a_ref
+    padded_b[:n, :] = b_ref
+    padded_d[:n, :] = d_ref
+
+    info_c, q1_c, q2_c, q3_c = _mb04cd_raw_call(compact_a, n, compact_b, n, compact_d, n)
+    info_p, q1_p, q2_p, q3_p = _mb04cd_raw_call(padded_a, lda, padded_b, ldb, padded_d, ldd)
+
+    assert info_p == info_c == 0
+    np.testing.assert_allclose(padded_a[:n, :], compact_a, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(padded_b[:n, :], compact_b, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(padded_d[:n, :], compact_d, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(q1_p, q1_c, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(q2_p, q2_c, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(q3_p, q3_c, rtol=1e-12, atol=1e-12)
 
 
 def test_mb04cd_basic():

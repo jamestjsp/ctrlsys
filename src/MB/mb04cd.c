@@ -172,9 +172,9 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
             *info = -100;
             return;
         }
-        memcpy(orig, a, nn * sizeof(f64));
-        memcpy(orig + nn, b, nn * sizeof(f64));
-        memcpy(orig + 2 * nn, d, nn * sizeof(f64));
+        SLC_DLACPY("F", &n, &n, a, &lda, orig, &n);
+        SLC_DLACPY("F", &n, &n, b, &ldb, orig + nn, &n);
+        SLC_DLACPY("F", &n, &n, d, &ldd, orig + 2 * nn, &n);
         for (i32 j = 0; j < n; j++) {
             for (i32 i = 0; i < n; i++) {
                 bool diagonal_block = (i < m && j < m) || (i >= m && j >= m);
@@ -1778,13 +1778,13 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
         f64 *d0 = orig + 2 * nn;
         f64 *tmp = orig + 3 * nn;
 
-        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q3, &ldq3, a0, &lda, &ZERO, tmp, &n);
+        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q3, &ldq3, a0, &n, &ZERO, tmp, &n);
         SLC_DGEMM("N", "N", &n, &n, &n, &ONE, tmp, &n, q2, &ldq2, &ZERO, a, &lda);
 
-        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q2, &ldq2, b0, &ldb, &ZERO, tmp, &n);
+        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q2, &ldq2, b0, &n, &ZERO, tmp, &n);
         SLC_DGEMM("N", "N", &n, &n, &n, &ONE, tmp, &n, q1, &ldq1, &ZERO, b, &ldb);
 
-        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q3, &ldq3, d0, &ldd, &ZERO, tmp, &n);
+        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q3, &ldq3, d0, &n, &ZERO, tmp, &n);
         SLC_DGEMM("N", "N", &n, &n, &n, &ONE, tmp, &n, q1, &ldq1, &ZERO, d, &ldd);
     }
 
