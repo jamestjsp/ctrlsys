@@ -957,6 +957,9 @@ void SLC_FC_FUNC(dtgsen, DTGSEN)(const int* ijob, const int* wantq, const int* w
 void SLC_FC_FUNC(dgeqr2, DGEQR2)(const int* m, const int* n, f64* a,
                                   const int* lda, f64* tau, f64* work, int* info);
 
+void SLC_FC_FUNC(dgelq2, DGELQ2)(const int* m, const int* n, f64* a,
+                                  const int* lda, f64* tau, f64* work, int* info);
+
 void SLC_FC_FUNC(dorg2r, DORG2R)(const int* m, const int* n, const int* k,
                                   f64* a, const int* lda, const f64* tau,
                                   f64* work, int* info);
@@ -1068,6 +1071,7 @@ void SLC_FC_FUNC(dlasrt, DLASRT)(const char* id, const int* n, f64* d, int* info
 #define SLC_DSYTRS   SLC_FC_FUNC(dsytrs, DSYTRS)
 #define SLC_DLANSY   SLC_FC_FUNC(dlansy, DLANSY)
 #define SLC_DGEQRF   SLC_FC_FUNC(dgeqrf, DGEQRF)
+#define SLC_DGELQ2   SLC_FC_FUNC(dgelq2, DGELQ2)
 #define SLC_DGELQF   SLC_FC_FUNC(dgelqf, DGELQF)
 #define SLC_DGEQP3   SLC_FC_FUNC(dgeqp3, DGEQP3)
 #define SLC_DGERQF   SLC_FC_FUNC(dgerqf, DGERQF)

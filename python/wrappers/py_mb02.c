@@ -1337,15 +1337,15 @@ PyObject* py_mb02cu(PyObject* self, PyObject* args, PyObject* kwargs) {
         }
     } else if (lcol) {
         if (col2 > 0) {
-            lcs = 5 * k + (k < q ? k : q);
+            lcs = 6 * k;
         } else {
-            lcs = 2 * k + (k < q ? k : q);
+            lcs = 4 * k;
         }
     } else {
         if (col2 > 0) {
-            lcs = 5 * k + (k < q ? k : q);
+            lcs = 6 * k;
         } else {
-            lcs = 2 * k + (k < q ? k : q);
+            lcs = 4 * k;
         }
     }
     if (lcs < 1) lcs = 1;
