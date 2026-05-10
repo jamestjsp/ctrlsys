@@ -15,6 +15,160 @@ import numpy as np
 import pytest
 
 from ctrlsys import sb04od
+from fortran_reference import run_fortran_driver
+
+
+def _sb04od_data_file():
+    return "SLICOT-Reference/examples/data/SB04OD.dat"
+
+
+def _sb04od_tokens():
+    tokens = []
+    with open(_sb04od_data_file(), encoding="ascii") as data_file:
+        next(data_file)
+        for line in data_file:
+            tokens.extend(line.split())
+    return tokens
+
+
+def _read_sb04od_example_data():
+    tokens = _sb04od_tokens()
+    offset = 0
+    m = int(tokens[offset])
+    n = int(tokens[offset + 1])
+    reduce, trans, jobd = tokens[offset + 2:offset + 5]
+    offset += 5
+
+    def matrix(rows, cols):
+        nonlocal offset
+        data = np.array([float(x) for x in tokens[offset:offset + rows * cols]])
+        offset += rows * cols
+        return np.asfortranarray(data.reshape(rows, cols))
+
+    a = matrix(m, m)
+    b = matrix(n, n)
+    c = matrix(m, n)
+    d = matrix(m, m)
+    e = matrix(n, n)
+    f = matrix(m, n)
+    return reduce, trans, jobd, a, b, c, d, e, f
+
+
+def _sb04od_example_fortran_source():
+    data_path = _sb04od_data_file()
+    return f"""
+program sb04od_reference
+  implicit none
+  integer, parameter :: mmax = 10, nmax = 10
+  integer, parameter :: lda = mmax, ldb = nmax, ldc = mmax, ldd = mmax
+  integer, parameter :: lde = nmax, ldf = mmax, ldp = mmax, ldq = mmax
+  integer, parameter :: ldu = nmax, ldv = nmax
+  integer, parameter :: ldwork = max(11*max(mmax,nmax), 10*max(mmax,nmax)+23, 2*mmax*nmax)
+  integer, parameter :: liwork = mmax+nmax+6
+  character :: jobd, reduce, trans
+  integer :: i, info, j, m, n
+  integer :: iwork(liwork)
+  double precision :: dif, scale
+  double precision :: a(lda,mmax), b(ldb,nmax), c(ldc,nmax), d(ldd,mmax)
+  double precision :: dwork(ldwork), e(lde,nmax), f(ldf,nmax)
+  double precision :: p(ldp,mmax), q(ldq,mmax), u(ldu,nmax), v(ldv,nmax)
+
+  open(unit=5, file='{data_path}', status='old')
+  read(5, *)
+  read(5, *) m, n, reduce, trans, jobd
+  read(5, *) ((a(i,j), j = 1,m), i = 1,m)
+  read(5, *) ((b(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((c(i,j), j = 1,n), i = 1,m)
+  read(5, *) ((d(i,j), j = 1,m), i = 1,m)
+  read(5, *) ((e(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((f(i,j), j = 1,n), i = 1,m)
+  close(5)
+
+  call SB04OD(reduce, trans, jobd, m, n, a, lda, b, ldb, c, ldc, d, ldd, &
+       e, lde, f, ldf, scale, dif, p, ldp, q, ldq, u, ldu, v, ldv, &
+       iwork, dwork, ldwork, info)
+
+  write(*,'(I0,2(1X,ES24.16))') info, scale, dif
+  do i = 1, m
+     write(*,'(*(1X,ES24.16))') (a(i,j), j = 1,m)
+  end do
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (b(i,j), j = 1,n)
+  end do
+  do i = 1, m
+     write(*,'(*(1X,ES24.16))') (c(i,j), j = 1,n)
+  end do
+  do i = 1, m
+     write(*,'(*(1X,ES24.16))') (d(i,j), j = 1,m)
+  end do
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (e(i,j), j = 1,n)
+  end do
+  do i = 1, m
+     write(*,'(*(1X,ES24.16))') (f(i,j), j = 1,n)
+  end do
+  do i = 1, m
+     write(*,'(*(1X,ES24.16))') (p(i,j), j = 1,m)
+  end do
+  do i = 1, m
+     write(*,'(*(1X,ES24.16))') (q(i,j), j = 1,m)
+  end do
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (u(i,j), j = 1,n)
+  end do
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (v(i,j), j = 1,n)
+  end do
+end program
+"""
+
+
+def _parse_matrix(lines, offset, rows, cols):
+    values = [[float(x) for x in line.split()] for line in lines[offset:offset + rows]]
+    return np.asfortranarray(np.array(values)), offset + rows
+
+
+def test_sb04od_html_example_matches_fortran_reference(tmp_path):
+    reduce, trans, jobd, a, b, c, d, e, f = _read_sb04od_example_data()
+    m, n = c.shape
+
+    (a_out, b_out, c_out, d_out, e_out, f_out,
+     scale, dif, p, q, u, v, info) = sb04od(
+        reduce, trans, jobd,
+        a.copy(order="F"), b.copy(order="F"), c.copy(order="F"),
+        d.copy(order="F"), e.copy(order="F"), f.copy(order="F")
+    )
+    output = run_fortran_driver(_sb04od_example_fortran_source(), tmp_path)
+    lines = output.splitlines()
+    header = lines[0].split()
+    ref_info = int(header[0])
+    ref_scale = float(header[1])
+    ref_dif = float(header[2])
+    offset = 1
+    ref_a, offset = _parse_matrix(lines, offset, m, m)
+    ref_b, offset = _parse_matrix(lines, offset, n, n)
+    ref_c, offset = _parse_matrix(lines, offset, m, n)
+    ref_d, offset = _parse_matrix(lines, offset, m, m)
+    ref_e, offset = _parse_matrix(lines, offset, n, n)
+    ref_f, offset = _parse_matrix(lines, offset, m, n)
+    ref_p, offset = _parse_matrix(lines, offset, m, m)
+    ref_q, offset = _parse_matrix(lines, offset, m, m)
+    ref_u, offset = _parse_matrix(lines, offset, n, n)
+    ref_v, offset = _parse_matrix(lines, offset, n, n)
+
+    assert info == ref_info == 0
+    np.testing.assert_allclose(scale, ref_scale, rtol=1e-13, atol=1e-13)
+    np.testing.assert_allclose(dif, ref_dif, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(a_out, ref_a, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(b_out, ref_b, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(c_out, ref_c, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(d_out, ref_d, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(e_out, ref_e, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(f_out, ref_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(p, ref_p, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(q, ref_q, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(u, ref_u, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(v, ref_v, rtol=1e-11, atol=1e-11)
 
 
 class TestSB04ODBasic:

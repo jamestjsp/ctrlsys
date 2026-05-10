@@ -8,6 +8,93 @@ Uses numpy only - no scipy.
 """
 
 import numpy as np
+from numpy.testing import assert_allclose
+from fortran_reference import run_fortran_driver
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _nontrivial_reflector_case():
+    m, n, k = 5, 4, 2
+    i = np.arange(1, m + 1, dtype=float)[:, None]
+    j = np.arange(1, k + 1, dtype=float)[None, :]
+    v = 0.1 * (i + 2*j)
+    w = 0.2 * (2*i - j)
+
+    ii = np.arange(1, k + 1, dtype=float)[:, None]
+    jj_rs = np.arange(1, 6*k + 1, dtype=float)[None, :]
+    rs = 0.01 * (ii + jj_rs)
+    jj_t = np.arange(1, 9*k + 1, dtype=float)[None, :]
+    t = 0.005 * (2*ii - jj_t)
+
+    ia = np.arange(1, m + 1, dtype=float)[:, None]
+    ja = np.arange(1, n + 1, dtype=float)[None, :]
+    a = np.sin(ia + ja)
+    b = np.cos(ia - ja)
+    return (
+        m, n, k,
+        v.astype(float, order="F"),
+        w.astype(float, order="F"),
+        rs.astype(float, order="F"),
+        t.astype(float, order="F"),
+        a.astype(float, order="F"),
+        b.astype(float, order="F"),
+    )
+
+
+def _mb04qc_nontrivial_fortran_source():
+    m, n, k, v, w, rs, t, a, b = _nontrivial_reflector_case()
+    ldwork = 9 * n * k
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: m={m}, n={n}, k={k}, ldv=m, ldw=m
+  integer, parameter :: ldrs=k, ldt=k, lda=m, ldb=m, ldwork={ldwork}
+  double precision v(ldv,k), w(ldw,k), rs(ldrs,6*k), t(ldt,9*k)
+  double precision a(lda,n), b(ldb,n), dwork(ldwork)
+"""
+    source += _fortran_matrix_assignment("v", v)
+    source += _fortran_matrix_assignment("w", w)
+    source += _fortran_matrix_assignment("rs", rs)
+    source += _fortran_matrix_assignment("t", t)
+    source += _fortran_matrix_assignment("a", a)
+    source += _fortran_matrix_assignment("b", b)
+    source += """
+  call MB04QC('N','N','N','N','F','C','C',m,n,k,v,ldv,w,ldw,rs,ldrs,t,ldt,a,lda,b,ldb,dwork)
+  print '(*(ES24.16,1X))', a
+  print '(*(ES24.16,1X))', b
+end program main
+"""
+    return source
+
+
+def test_mb04qc_nontrivial_reflector_matches_fortran_reference(tmp_path):
+    from ctrlsys import mb04qc
+
+    m, n, k, v, w, rs, t, a, b = _nontrivial_reflector_case()
+    output = run_fortran_driver(_mb04qc_nontrivial_fortran_source(), tmp_path)
+    values = np.array(output.split(), dtype=float)
+    a_f = values[:m*n].reshape((m, n), order="F")
+    b_f = values[m*n:].reshape((m, n), order="F")
+
+    a_out, b_out = mb04qc(
+        "N", "N", "N", "N", "F", "C", "C",
+        m, n, k, v, w, rs, t, a.copy(order="F"), b.copy(order="F")
+    )
+
+    assert_allclose(a_out, a_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(b_out, b_f, rtol=1e-12, atol=1e-12)
 
 
 def test_mb04qc_basic():

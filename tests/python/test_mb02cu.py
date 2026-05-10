@@ -1,6 +1,8 @@
 import numpy as np
 import pytest
 
+from fortran_reference import run_fortran_driver
+
 
 def test_mb02cu_column_oriented_basic():
     """
@@ -314,3 +316,168 @@ def test_mb02cu_row_unblocked():
     a1_out, a2_out, b_out, rnk, ipvt, cs, info = mb02cu('R', k, p, q, nb, a1.copy(), a2.copy(), b.copy())
 
     assert info == 0
+
+
+def _fortran_assignments(name, array):
+    lines = []
+    for col in range(array.shape[1]):
+        for row in range(array.shape[0]):
+            value = f"{float(array[row, col]):.17e}".replace("e", "d")
+            lines.append(f"  {name}({row + 1},{col + 1}) = {value}")
+    return "\n".join(lines)
+
+
+def _parse_fortran_matrix(values, offset, shape):
+    size = shape[0] * shape[1]
+    data = np.array([float(v) for v in values[offset:offset + size]], dtype=float)
+    return data.reshape(shape, order="F"), offset + size
+
+
+def _mb02cu_fortran_source(typeg, k, p, q, nb, a1, a2, b):
+    col2 = p - k
+    lda2 = a2.shape[0]
+    ldb = b.shape[0]
+    if typeg == "D":
+        lcs = 5 * k if col2 > 0 else 3 * k
+    else:
+        lcs = 6 * k if col2 > 0 else 4 * k
+    ldwork = max(1, nb * k, k)
+
+    return f"""
+program main
+  implicit none
+  integer, parameter :: k = {k}, p = {p}, q = {q}, nb = {nb}
+  integer, parameter :: col2 = {col2}, lda1 = {k}, lda2 = {lda2}, ldb = {ldb}
+  integer, parameter :: lcs = {lcs}, ldwork = {ldwork}
+  integer i, j, info, rnk
+  integer ipvt(k)
+  double precision a1(lda1,k), a2(lda2,max(1,{a2.shape[1]})), b(ldb,max(1,{b.shape[1]}))
+  double precision cs(lcs), dwork(ldwork), tol
+
+  info = -99
+  rnk = -99
+  tol = 0.0d0
+  ipvt = 0
+  cs = 0.0d0
+  dwork = 0.0d0
+  a1 = 0.0d0
+  a2 = 0.0d0
+  b = 0.0d0
+{_fortran_assignments("a1", a1)}
+{_fortran_assignments("a2", a2)}
+{_fortran_assignments("b", b)}
+
+  call MB02CU('{typeg}', k, p, q, nb, a1, lda1, a2, lda2, b, ldb, &
+       rnk, ipvt, cs, tol, dwork, ldwork, info)
+
+  write(*,'(I0)') info
+  do j = 1, k
+     do i = 1, k
+        write(*,'(ES24.16)') a1(i,j)
+     end do
+  end do
+  do j = 1, max(1,{a2.shape[1]})
+     do i = 1, lda2
+        write(*,'(ES24.16)') a2(i,j)
+     end do
+  end do
+  do j = 1, max(1,{b.shape[1]})
+     do i = 1, ldb
+        write(*,'(ES24.16)') b(i,j)
+     end do
+  end do
+  do i = 1, lcs
+     write(*,'(ES24.16)') cs(i)
+  end do
+end program main
+"""
+
+
+@pytest.mark.parametrize("typeg", ["C", "R"])
+def test_mb02cu_blocked_a2_qr_lq_matches_fortran_reference(tmp_path, typeg):
+    rng = np.random.default_rng(20260510)
+    k = 4
+    p = 7
+    q = 0
+    nb = 2
+
+    if typeg == "C":
+        a1 = np.tril(rng.normal(size=(k, k))).astype(float, order="F")
+        a2 = rng.normal(size=(k, p - k)).astype(float, order="F")
+        b = np.zeros((k, 1), dtype=float, order="F")
+    else:
+        a1 = np.triu(rng.normal(size=(k, k))).astype(float, order="F")
+        a2 = rng.normal(size=(p - k, k)).astype(float, order="F")
+        b = np.zeros((1, k), dtype=float, order="F")
+
+    for i in range(k):
+        a1[i, i] = abs(a1[i, i]) + 6.0
+
+    from ctrlsys import mb02cu
+
+    output = run_fortran_driver(
+        _mb02cu_fortran_source(typeg, k, p, q, nb, a1, a2, b),
+        tmp_path,
+    )
+    values = output.split()
+    info_f = int(values[0])
+    offset = 1
+    a1_f, offset = _parse_fortran_matrix(values, offset, a1.shape)
+    a2_f, offset = _parse_fortran_matrix(values, offset, a2.shape)
+    b_f, offset = _parse_fortran_matrix(values, offset, b.shape)
+    cs_f = np.array([float(v) for v in values[offset:]], dtype=float)
+
+    a1_out, a2_out, b_out, _rnk, _ipvt, cs_out, info = mb02cu(
+        typeg, k, p, q, nb, a1.copy(), a2.copy(), b.copy()
+    )
+
+    assert info == info_f == 0
+    np.testing.assert_allclose(a1_out, a1_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(a2_out, a2_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(b_out, b_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(cs_out, cs_f, rtol=1e-10, atol=1e-10)
+
+
+@pytest.mark.parametrize("typeg", ["C", "R"])
+def test_mb02cu_blocked_b_qr_lq_matches_fortran_reference(tmp_path, typeg):
+    rng = np.random.default_rng(20260510)
+    k = 4
+    p = 7
+    q = 3
+    nb = 2
+
+    if typeg == "C":
+        a1 = np.tril(rng.normal(size=(k, k))).astype(float, order="F")
+        a2 = rng.normal(size=(k, p - k)).astype(float, order="F")
+        b = (0.1 * rng.normal(size=(k, q))).astype(float, order="F")
+    else:
+        a1 = np.triu(rng.normal(size=(k, k))).astype(float, order="F")
+        a2 = rng.normal(size=(p - k, k)).astype(float, order="F")
+        b = (0.1 * rng.normal(size=(q, k))).astype(float, order="F")
+
+    for i in range(k):
+        a1[i, i] = abs(a1[i, i]) + 6.0
+
+    from ctrlsys import mb02cu
+
+    output = run_fortran_driver(
+        _mb02cu_fortran_source(typeg, k, p, q, nb, a1, a2, b),
+        tmp_path,
+    )
+    values = output.split()
+    info_f = int(values[0])
+    offset = 1
+    a1_f, offset = _parse_fortran_matrix(values, offset, a1.shape)
+    a2_f, offset = _parse_fortran_matrix(values, offset, a2.shape)
+    b_f, offset = _parse_fortran_matrix(values, offset, b.shape)
+    cs_f = np.array([float(v) for v in values[offset:]], dtype=float)
+
+    a1_out, a2_out, b_out, _rnk, _ipvt, cs_out, info = mb02cu(
+        typeg, k, p, q, nb, a1.copy(), a2.copy(), b.copy()
+    )
+
+    assert info == info_f == 0
+    np.testing.assert_allclose(a1_out, a1_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(a2_out, a2_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(b_out, b_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(cs_out, cs_f, rtol=1e-10, atol=1e-10)

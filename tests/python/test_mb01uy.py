@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 from ctrlsys import mb01uy
+from fortran_reference import run_fortran_driver
 
 
 def _make_tri(n, uplo, seed):
@@ -20,6 +21,32 @@ def _ref_result(side, uplo, trans, m, n, alpha, t_tri, a):
         return alpha * t_op @ a
     else:
         return alpha * a @ t_op
+
+
+def _query_driver(side, uplo, trans, m, n, alpha):
+    k = m if side == "L" else n
+    ldt = max(1, m, n)
+    lda = max(1, m)
+    t_cols = max(1, k, n)
+    alpha_literal = f"{alpha:.17e}".replace("e", "d")
+    return f"""
+program main
+  implicit none
+  integer, parameter :: m = {m}, n = {n}, ldt = {ldt}, lda = {lda}
+  integer, parameter :: tcols = {t_cols}, ldwork = -1
+  integer info
+  double precision alpha, t(ldt,tcols), a(lda,max(1,n)), dwork(1)
+
+  alpha = {alpha_literal}
+  t = 0.0d0
+  a = 0.0d0
+  dwork = 0.0d0
+
+  call MB01UY('{side}', '{uplo}', '{trans}', m, n, alpha, t, ldt, a, lda, &
+       dwork, ldwork, info)
+  print '(I0,1X,ES24.16)', info, dwork(1)
+end program main
+"""
 
 
 @pytest.mark.parametrize("side,uplo,trans", [
@@ -160,3 +187,55 @@ def test_mb01uy_square_m_equals_n():
 
     assert info == 0
     np.testing.assert_allclose(result, expected, rtol=1e-12)
+
+
+@pytest.mark.parametrize("side,uplo,trans,m,n,alpha", [
+    ("L", "U", "N", 4, 3, 2.0),
+    ("R", "L", "T", 4, 3, -1.5),
+    ("L", "L", "N", 4, 3, 0.0),
+])
+def test_mb01uy_workspace_query_matches_fortran_reference(tmp_path, side, uplo, trans, m, n, alpha):
+    k = m if side == "L" else n
+    t = _make_tri(k, uplo, 1500 + k)
+    a = np.arange(1, m * n + 1, dtype=np.float64).reshape((m, n), order="F")
+
+    result, info, work = mb01uy(side, uplo, trans, m, n, alpha, t, a, -1)
+    output = run_fortran_driver(_query_driver(side, uplo, trans, m, n, alpha), tmp_path)
+    info_f, work_f = output.split()
+
+    assert result is None
+    assert info == int(info_f)
+    assert work == pytest.approx(float(work_f), rel=0, abs=0)
+
+
+@pytest.mark.parametrize("side,uplo,trans,ldwork", [
+    ("L", "U", "N", 5),
+    ("R", "L", "T", 4),
+])
+def test_mb01uy_limited_workspace_paths(side, uplo, trans, ldwork):
+    m, n = 5, 4
+    alpha = -0.75
+    k = m if side == "L" else n
+
+    t = _make_tri(k, uplo, 1777 + ldwork)
+    np.random.seed(1888 + ldwork)
+    a = np.random.randn(m, n).astype(np.float64, order="F")
+
+    expected = _ref_result(side, uplo, trans, m, n, alpha, t, a)
+    result, info, work = mb01uy(side, uplo, trans, m, n, alpha, t, a, ldwork)
+
+    assert info == 0
+    assert work >= m * n
+    np.testing.assert_allclose(result, expected, rtol=1e-12, atol=1e-12)
+
+
+def test_mb01uy_too_little_workspace_reports_minimum():
+    m, n = 5, 4
+    t = _make_tri(m, "U", 1999)
+    a = np.ones((m, n), dtype=np.float64, order="F")
+
+    result, info, work = mb01uy("L", "U", "N", m, n, 1.0, t, a, m - 1)
+
+    assert info == -12
+    assert work == float(m)
+    assert result.shape == (m, n)

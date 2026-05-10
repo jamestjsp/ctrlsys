@@ -66,6 +66,8 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
 
     i32 int1 = 1;
     i32 int0 = 0;
+    bool recompute_outputs = liniq1 && liniq2 && liniq3;
+    f64 *orig = NULL;
 
     *info = 0;
 
@@ -161,6 +163,29 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
     if (n == 0) {
         dwork[0] = ONE;
         return;
+    }
+
+    if (recompute_outputs) {
+        size_t nn = (size_t)n * (size_t)n;
+        orig = (f64 *)malloc(4 * nn * sizeof(f64));
+        if (orig == NULL) {
+            *info = -100;
+            return;
+        }
+        SLC_DLACPY("F", &n, &n, a, &lda, orig, &n);
+        SLC_DLACPY("F", &n, &n, b, &ldb, orig + nn, &n);
+        SLC_DLACPY("F", &n, &n, d, &ldd, orig + 2 * nn, &n);
+        for (i32 j = 0; j < n; j++) {
+            for (i32 i = 0; i < n; i++) {
+                bool diagonal_block = (i < m && j < m) || (i >= m && j >= m);
+                if (!diagonal_block) {
+                    orig[i + j * n] = ZERO;
+                    orig[nn + i + j * n] = ZERO;
+                } else {
+                    orig[2 * nn + i + j * n] = ZERO;
+                }
+            }
+        }
     }
 
     i32 ia11 = 0;
@@ -283,6 +308,7 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
                &m1, HUND2, &iwork[4 * k], &dwork[iwrk], ldwork_mb03kd, info);
 
         if (*info > 0) {
+            free(orig);
             return;
         }
 
@@ -567,6 +593,7 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
 
         if (*info > 0) {
             *info = 3;
+            free(orig);
             return;
         }
 
@@ -975,6 +1002,7 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
                 } else {
                     *info = 4;
                 }
+                free(orig);
                 return;
             }
 
@@ -1742,4 +1770,23 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
             }
         }
     }
+
+    if (recompute_outputs && *info == 0) {
+        size_t nn = (size_t)n * (size_t)n;
+        f64 *a0 = orig;
+        f64 *b0 = orig + nn;
+        f64 *d0 = orig + 2 * nn;
+        f64 *tmp = orig + 3 * nn;
+
+        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q3, &ldq3, a0, &n, &ZERO, tmp, &n);
+        SLC_DGEMM("N", "N", &n, &n, &n, &ONE, tmp, &n, q2, &ldq2, &ZERO, a, &lda);
+
+        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q2, &ldq2, b0, &n, &ZERO, tmp, &n);
+        SLC_DGEMM("N", "N", &n, &n, &n, &ONE, tmp, &n, q1, &ldq1, &ZERO, b, &ldb);
+
+        SLC_DGEMM("T", "N", &n, &n, &n, &ONE, q3, &ldq3, d0, &n, &ZERO, tmp, &n);
+        SLC_DGEMM("N", "N", &n, &n, &n, &ONE, tmp, &n, q1, &ldq1, &ZERO, d, &ldd);
+    }
+
+    free(orig);
 }

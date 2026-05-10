@@ -32,6 +32,81 @@ Random seeds: 42, 123, 456, 789, 111, 222, 333, 444 (for reproducibility)
 import numpy as np
 import pytest
 from ctrlsys import ab09iy
+from fortran_reference import run_fortran_driver
+
+
+AB09IY_ENHANCED_LEFT_WEIGHT_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n = 3, m = 2, p = 2, nv = 2, pv = 2, nw = 0, mw = 0
+  integer, parameter :: lda = 3, ldb = 3, ldc = 2
+  integer, parameter :: ldav = 2, ldbv = 2, ldcv = 2, lddv = 2
+  integer, parameter :: ldaw = 1, ldbw = 1, ldcw = 2, lddw = 2
+  integer, parameter :: lds = 3, ldr = 3, ldwork = 200
+  integer info
+  double precision alphac, alphao, scalec, scaleo
+  double precision a(lda,n), b(ldb,m), c(ldc,n)
+  double precision av(ldav,nv), bv(ldbv,p), cv(ldcv,nv), dv(lddv,p)
+  double precision aw(ldaw,1), bw(ldbw,1), cw(ldcw,1), dw(lddw,1)
+  double precision s(lds,n), r(ldr,n), dwork(ldwork)
+
+  alphac = 1.0d0
+  alphao = 0.5d0
+
+  a = 0.0d0
+  a(1,1) = -1.0d0
+  a(2,2) = -2.0d0
+  a(3,3) = -3.0d0
+
+  b(1,1) = 1.0d0
+  b(2,1) = 0.5d0
+  b(3,1) = 0.0d0
+  b(1,2) = 0.0d0
+  b(2,2) = 0.5d0
+  b(3,2) = 1.0d0
+
+  c(1,1) = 1.0d0
+  c(1,2) = 0.5d0
+  c(1,3) = 0.3d0
+  c(2,1) = 0.2d0
+  c(2,2) = 1.0d0
+  c(2,3) = 0.6d0
+
+  av = 0.0d0
+  av(1,1) = -0.5d0
+  av(2,2) = -1.5d0
+  bv = 0.0d0
+  bv(1,1) = 1.0d0
+  bv(2,2) = 1.0d0
+  cv = 0.0d0
+  cv(1,1) = 1.0d0
+  cv(2,2) = 1.0d0
+  dv = 0.0d0
+  dv(1,1) = 1.0d0
+  dv(2,2) = 1.0d0
+
+  aw = 0.0d0
+  bw = 0.0d0
+  cw = 0.0d0
+  dw = 0.0d0
+  s = 0.0d0
+  r = 0.0d0
+
+  call AB09IY('C', 'S', 'E', 'L', n, m, p, nv, pv, nw, mw, alphac, alphao, &
+       a, lda, b, ldb, c, ldc, av, ldav, bv, ldbv, cv, ldcv, dv, lddv, &
+       aw, ldaw, bw, ldbw, cw, ldcw, dw, lddw, scalec, scaleo, s, lds, &
+       r, ldr, dwork, ldwork, info)
+
+  print '(I0,1X,ES24.16,1X,ES24.16)', info, scalec, scaleo
+  print '(*(ES24.16,1X))', s
+  print '(*(ES24.16,1X))', r
+end program main
+"""
+
+
+def _take_matrix(values, offset, n):
+    end = offset + n * n
+    return values[offset:end].reshape((n, n), order="F"), end
 
 
 class TestAB09IYBasic:
@@ -610,6 +685,39 @@ class TestAB09IYQuickReturn:
 
 class TestAB09IYEnhancedStability:
     """Tests for JOBC='E' and JOBO='E' (stability-enhanced combination method)."""
+
+    def test_jobo_enhanced_left_weighting_matches_fortran_reference(self, tmp_path):
+        output = run_fortran_driver(AB09IY_ENHANCED_LEFT_WEIGHT_CASE, tmp_path)
+        values = np.fromstring(output, sep=" ")
+        info_f = int(values[0])
+        scalec_f = values[1]
+        scaleo_f = values[2]
+        s_f, offset = _take_matrix(values, 3, 3)
+        r_f, _ = _take_matrix(values, offset, 3)
+
+        n, m, p = 3, 2, 2
+        nv, pv, nw, mw = 2, 2, 0, 0
+        a = np.diag([-1.0, -2.0, -3.0]).astype(float, order='F')
+        b = np.array([[1, 0], [.5, .5], [0, 1]], order='F', dtype=float)
+        c = np.array([[1, .5, .3], [.2, 1, .6]], order='F', dtype=float)
+        av = np.diag([-0.5, -1.5]).astype(float, order='F')
+        bv = np.eye(2, order='F', dtype=float)
+        cv = np.eye(2, order='F', dtype=float)
+        dv = np.eye(2, order='F', dtype=float)
+        aw = np.zeros((0, 0), order='F', dtype=float)
+        bw = np.zeros((0, mw), order='F', dtype=float)
+        cw = np.zeros((p, 0), order='F', dtype=float)
+        dw = np.zeros((p, mw), order='F', dtype=float)
+
+        s, r, scalec, scaleo, info = ab09iy(
+            'C', 'S', 'E', 'L', n, m, p, nv, pv, nw, mw,
+            1.0, 0.5, a, b, c, av, bv, cv, dv, aw, bw, cw, dw)
+
+        assert info == info_f
+        np.testing.assert_allclose(scalec, scalec_f, rtol=1e-12, atol=1e-12)
+        np.testing.assert_allclose(scaleo, scaleo_f, rtol=1e-12, atol=1e-12)
+        np.testing.assert_allclose(np.triu(s), np.triu(s_f), rtol=1e-11, atol=1e-11)
+        np.testing.assert_allclose(np.triu(r), np.triu(r_f), rtol=1e-11, atol=1e-11)
 
     def test_jobo_enhanced_left_weighting_continuous(self):
         """

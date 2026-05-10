@@ -12,6 +12,145 @@ either Ar or Er upper triangular.
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose
+from pathlib import Path
+from fortran_reference import run_fortran_driver
+
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _example_inputs():
+    tokens = (ROOT / "SLICOT-Reference/examples/data/TG01JY.dat").read_text().split()
+    n, m, p = map(int, tokens[4:7])
+    tol = np.array(tokens[7:10], dtype=float)
+    job, systyp, equil, cksing, restor = tokens[10:15]
+    values = np.array(tokens[15:], dtype=float)
+    offset = 0
+    a = values[offset:offset + n*n].reshape((n, n)).astype(float, order="F")
+    offset += n*n
+    e = values[offset:offset + n*n].reshape((n, n)).astype(float, order="F")
+    offset += n*n
+    b = values[offset:offset + n*m].reshape((n, m)).astype(float, order="F")
+    offset += n*m
+    c = values[offset:offset + p*n].reshape((p, n)).astype(float, order="F")
+    return job, systyp, equil, cksing, restor, a, e, b, c, tol
+
+
+def _tg01jy_example_fortran_source():
+    job, systyp, equil, cksing, restor, a, e, b, c, tol = _example_inputs()
+    n = a.shape[0]
+    m = b.shape[1]
+    p = c.shape[0]
+    maxmp = max(m, p)
+    ldwork = 2*n*n + max(
+        2*(n*(n + m + p) + maxmp + n - 1),
+        10*n + max(n, 23),
+    )
+    liwork = 2*n + maxmp
+    tol_values = ", ".join(f"{value:.17e}".replace("e", "d") for value in tol)
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: n={n}, m={m}, p={p}, lda=n, lde=n, ldb=n, ldc=p
+  integer, parameter :: liwork={liwork}, ldwork={ldwork}
+  integer nr, info, infred(7), iwork(liwork)
+  double precision a(lda,n), e(lde,n), b(ldb,m), c(ldc,n)
+  double precision tol(3), dwork(ldwork)
+  tol = (/ {tol_values} /)
+"""
+    source += _fortran_matrix_assignment("a", a)
+    source += _fortran_matrix_assignment("e", e)
+    source += _fortran_matrix_assignment("b", b)
+    source += _fortran_matrix_assignment("c", c)
+    source += f"""
+  call TG01JY('{job}', '{systyp}', '{equil}', '{cksing}', '{restor}', &
+       n, m, p, a, lda, e, lde, b, ldb, c, ldc, nr, infred, tol, &
+       iwork, dwork, ldwork, info)
+  print '(I0,1X,I0)', info, nr
+  print '(*(I0,1X))', infred
+  print '(*(ES24.16,1X))', a(1:nr,1:nr)
+  print '(*(ES24.16,1X))', e(1:nr,1:nr)
+  print '(*(ES24.16,1X))', b(1:nr,1:m)
+  print '(*(ES24.16,1X))', c(1:p,1:nr)
+end program main
+"""
+    return source
+
+
+def _take_matrix(values, offset, rows, cols):
+    end = offset + rows * cols
+    return values[offset:end].reshape((rows, cols), order="F"), end
+
+
+def test_tg01jy_html_example_matches_fortran_reference(tmp_path):
+    from ctrlsys import tg01jy
+
+    job, systyp, equil, cksing, restor, a, e, b, c, tol = _example_inputs()
+    output = run_fortran_driver(_tg01jy_example_fortran_source(), tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    nr_f = int(tokens[1])
+    infred_f = np.array(tokens[2:9], dtype=np.int32)
+    values = np.array(tokens[9:], dtype=float)
+    offset = 0
+    a_f, offset = _take_matrix(values, offset, nr_f, nr_f)
+    e_f, offset = _take_matrix(values, offset, nr_f, nr_f)
+    b_f, offset = _take_matrix(values, offset, nr_f, b.shape[1])
+    c_f, _ = _take_matrix(values, offset, c.shape[0], nr_f)
+
+    a_r, e_r, b_r, c_r, nr, infred, iwork, info = tg01jy(
+        job, systyp, equil, cksing, restor, a, e, b, c, tol
+    )
+
+    assert info == info_f == 0
+    assert nr == nr_f == 7
+    np.testing.assert_array_equal(infred, infred_f)
+    assert_allclose(np.abs(a_r), np.abs(a_f), rtol=1e-10, atol=1e-10)
+    assert_allclose(np.abs(e_r), np.abs(e_f), rtol=1e-10, atol=1e-10)
+    assert_allclose(np.abs(b_r), np.abs(b_f), rtol=1e-10, atol=1e-10)
+    assert_allclose(c_r, c_f, rtol=1e-10, atol=1e-10)
+
+    for s in [1.0, 2.0 + 1j, -0.5 + 2j, 0.1j, 5.0]:
+        g_c = c_r @ np.linalg.solve(s * e_r - a_r, b_r)
+        g_f = c_f @ np.linalg.solve(s * e_f - a_f, b_f)
+        assert_allclose(g_c, g_f, rtol=1e-10, atol=1e-12)
+
+
+def test_tg01jy_singular_full_io_restoration_covers_qr_fallbacks():
+    from ctrlsys import tg01jy
+
+    n = 3
+    a = np.diag([0.0, 1.0, 2.0]).astype(float, order="F")
+    e = np.diag([0.0, 3.0, 4.0]).astype(float, order="F")
+    b = np.eye(n, dtype=float, order="F")
+    c = np.eye(n, dtype=float, order="F")
+    tol = np.array([0.0, 0.0, 0.0], dtype=float)
+
+    a_r, e_r, b_r, c_r, nr, infred, iwork, info = tg01jy(
+        "I", "R", "N", "N", "R", a, e, b, c, tol
+    )
+
+    assert info == 0
+    assert nr == n
+    np.testing.assert_array_equal(infred, np.array([0, 0, 0, 0, 2, 2, 1], dtype=np.int32))
+    np.testing.assert_array_equal(iwork, np.array([n], dtype=np.int32))
+    assert_allclose(a_r, np.triu(a_r), atol=1e-14)
+    assert_allclose(e_r, np.triu(e_r), atol=1e-14)
+    assert_allclose(b_r, np.eye(n), rtol=1e-12, atol=1e-12)
+    assert_allclose(c_r, np.eye(n), rtol=1e-12, atol=1e-12)
 
 
 def test_tg01jy_html_example():

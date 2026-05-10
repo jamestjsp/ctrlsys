@@ -16,6 +16,37 @@ Tests:
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose, assert_array_equal
+from fortran_reference import run_fortran_driver
+
+
+MB03BD_DLAS2_SINGULARITY_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: k = 1, n = 2, h = 1, ilo = 1, ihi = 2
+  integer, parameter :: lda1 = 2, lda2 = 2, ldq1 = 1, ldq2 = 1
+  integer, parameter :: liwork = 2*k+n, ldwork = k + max(2*n, 8*k)
+  integer qind(k), s(k), iwork(liwork), scal(n), iwarn, info
+  double precision a(lda1,lda2,k), q(ldq1,ldq2,1)
+  double precision alphar(n), alphai(n), beta(n), dwork(ldwork)
+
+  a = 0.0d0
+  a(1,2,1) = 1.0d-12
+  a(2,1,1) = -1.0d0
+  q = 0.0d0
+  qind = 0
+  s(1) = 1
+
+  call MB03BD('S', 'C', 'N', qind, k, n, h, ilo, ihi, s, a, lda1, lda2, &
+       q, ldq1, ldq2, alphar, alphai, beta, scal, iwork, liwork, dwork, &
+       ldwork, iwarn, info)
+
+  print '(I0,1X,I0)', iwarn, info
+  print '(*(ES24.16,1X))', alphar
+  print '(*(ES24.16,1X))', alphai
+  print '(*(ES24.16,1X))', beta
+  print '(*(I0,1X))', scal
+end program main
+"""
 
 
 def test_mb03bd_html_example():
@@ -383,3 +414,32 @@ def test_mb03bd_negative_signature():
         np.array(eig_np_sorted),
         rtol=1e-8
     )
+
+
+def test_mb03bd_dlas2_singularity_test_matches_fortran_reference(tmp_path):
+    from ctrlsys import mb03bd
+
+    output = run_fortran_driver(MB03BD_DLAS2_SINGULARITY_CASE, tmp_path)
+    values = output.split()
+    iwarn_f = int(values[0])
+    info_f = int(values[1])
+    alphar_f = np.array([float(values[2]), float(values[3])])
+    alphai_f = np.array([float(values[4]), float(values[5])])
+    beta_f = np.array([float(values[6]), float(values[7])])
+    scal_f = np.array([int(values[8]), int(values[9])], dtype=np.int32)
+
+    k, n, h, ilo, ihi = 1, 2, 1, 1, 2
+    s = np.array([1], dtype=np.int32)
+    a = np.zeros((n, n, k), order="F", dtype=float)
+    a[:, :, 0] = np.array([[0.0, 1e-12], [-1.0, 0.0]], order="F", dtype=float)
+
+    _, _, alphar, alphai, beta, scal, iwarn, info = mb03bd(
+        "S", "C", "N", k, n, h, ilo, ihi, s, a
+    )
+
+    assert iwarn == iwarn_f
+    assert info == info_f
+    assert_allclose(alphar, alphar_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(alphai, alphai_f, rtol=1e-4, atol=1e-12)
+    assert_allclose(beta, beta_f, rtol=0, atol=0)
+    assert_array_equal(scal, scal_f)

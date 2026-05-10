@@ -11,9 +11,109 @@ Mathematical property: R comes from QR factorization of:
 where Up, Uf, U, Y are block Hankel matrices built from input-output data.
 """
 
+import ctypes
+
 import numpy as np
 import pytest
-from ctrlsys import ib01md
+from ctrlsys import _slicot, ib01md
+from fortran_reference import run_fortran_driver
+
+
+def _ib01my_query(meth):
+    lib = ctypes.CDLL(_slicot.__file__)
+    routine = lib.ib01my
+    routine.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_int,
+        ctypes.c_int,
+        ctypes.c_int,
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="F_CONTIGUOUS"),
+        ctypes.c_int,
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="F_CONTIGUOUS"),
+        ctypes.c_int,
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="F_CONTIGUOUS"),
+        ctypes.c_int,
+        np.ctypeslib.ndpointer(dtype=np.int32, flags="C_CONTIGUOUS"),
+        np.ctypeslib.ndpointer(dtype=np.float64, flags="C_CONTIGUOUS"),
+        ctypes.c_int,
+        ctypes.POINTER(ctypes.c_int),
+        ctypes.POINTER(ctypes.c_int),
+    ]
+    routine.restype = None
+
+    nobr = 2
+    m = 1
+    l = 1
+    nsmp = 2 * (m + l + 1) * nobr
+    nr = 2 * (m + l) * nobr
+
+    u, y = generate_io_data(nsmp, m, l, seed=606)
+    r = np.zeros((nr, nr), dtype=np.float64, order="F")
+    iwork = np.full(max(3, m + l), -77, dtype=np.int32)
+    dwork = np.zeros(256, dtype=np.float64)
+    iwarn = ctypes.c_int(-99)
+    info = ctypes.c_int(-99)
+
+    routine(
+        meth.encode("ascii"),
+        b"O",
+        b"N",
+        nobr,
+        m,
+        l,
+        nsmp,
+        u,
+        u.shape[0],
+        y,
+        y.shape[0],
+        r,
+        r.shape[0],
+        iwork,
+        dwork,
+        -1,
+        ctypes.byref(iwarn),
+        ctypes.byref(info),
+    )
+
+    return dwork[0], iwork.copy(), iwarn.value, info.value
+
+
+def _fortran_ib01my_query(meth, tmp_path):
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: nobr = 2, m = 1, l = 1
+  integer, parameter :: nsmp = 2*(m+l+1)*nobr
+  integer, parameter :: nr = 2*(m+l)*nobr
+  integer, parameter :: liwork = max(3,m+l), ldwork = 256
+  integer :: i, info, iwarn
+  integer :: iwork(liwork)
+  double precision :: u(nsmp,m), y(nsmp,l), r(nr,nr), dwork(ldwork)
+
+  do i = 1, nsmp
+     u(i,1) = dble(i) / 10.0d0
+     y(i,1) = -dble(i) / 20.0d0
+  end do
+  r = 0.0d0
+  iwork = -77
+  dwork = 0.0d0
+  iwarn = -99
+  info = -99
+
+  call IB01MY('{meth}', 'O', 'N', nobr, m, l, nsmp, u, nsmp, y, nsmp, &
+       r, nr, iwork, dwork, -1, iwarn, info)
+
+  print '(ES24.16,1X,I0,1X,I0)', dwork(1), iwarn, info
+  print '(*(I0,1X))', iwork
+end program main
+"""
+    lines = run_fortran_driver(source, tmp_path).splitlines()
+    dwork0, iwarn, info = lines[0].split()
+    iwork = np.fromstring(lines[1], sep=" ", dtype=np.int32)
+    return float(dwork0), iwork, int(iwarn), int(info)
 
 
 def generate_io_data(nsmp, m, l, seed=42):
@@ -465,6 +565,17 @@ def test_ib01md_fast_qr_moesp():
     rtr_fast = r_upper.T @ r_upper
     rtr_std = r_std_upper.T @ r_std_upper
     np.testing.assert_allclose(rtr_fast, rtr_std, rtol=1e-10, atol=1e-12)
+
+
+@pytest.mark.parametrize("meth", ["N", "M"])
+def test_ib01my_fast_qr_workspace_query_matches_fortran_reference(meth, tmp_path):
+    c_dwork0, c_iwork, c_iwarn, c_info = _ib01my_query(meth)
+    f_dwork0, f_iwork, f_iwarn, f_info = _fortran_ib01my_query(meth, tmp_path)
+
+    assert c_info == f_info == 0
+    assert c_iwarn == f_iwarn == 0
+    np.testing.assert_allclose(c_dwork0, f_dwork0, rtol=0, atol=0)
+    np.testing.assert_array_equal(c_iwork, f_iwork)
 
 
 def test_ib01md_fast_qr_larger_system():

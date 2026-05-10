@@ -9,6 +9,126 @@ decomposition.
 import numpy as np
 import pytest
 from ctrlsys import mb04ad
+from pathlib import Path
+from numpy.testing import assert_allclose
+from fortran_reference import run_fortran_driver
+
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _example_inputs():
+    tokens = (ROOT / "SLICOT-Reference/examples/data/MB04AD.dat").read_text().split()
+    job, compq1, compq2, compu1, compu2 = tokens[4:9]
+    n = int(tokens[9])
+    values = np.array(tokens[10:], dtype=float)
+    z = values[:n*n].reshape((n, n)).astype(float, order="F")
+    h = values[n*n:2*n*n].reshape((n, n)).astype(float, order="F")
+    return job, compq1, compq2, compu1, compu2, z, h
+
+
+def _mb04ad_example_fortran_source():
+    job, compq1, compq2, compu1, compu2, z, h = _example_inputs()
+    n = z.shape[0]
+    m = n // 2
+    ldwork = 3*n*n + max(6*n, 54)
+    liwork = n + 18
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: n={n}, m={m}, ldz=n, ldh=n, ldq1=n, ldq2=n
+  integer, parameter :: ldu11=m, ldu12=m, ldu21=m, ldu22=m, ldt=n
+  integer, parameter :: liwork={liwork}, ldwork={ldwork}
+  integer info, iwork(liwork)
+  double precision z(ldz,n), h(ldh,n), q1(ldq1,n), q2(ldq2,n), t(ldt,n)
+  double precision u11(ldu11,m), u12(ldu12,m), u21(ldu21,m), u22(ldu22,m)
+  double precision alphar(m), alphai(m), beta(m), dwork(ldwork)
+"""
+    source += _fortran_matrix_assignment("z", z)
+    source += _fortran_matrix_assignment("h", h)
+    source += f"""
+  call MB04AD('{job}', '{compq1}', '{compq2}', '{compu1}', '{compu2}', &
+       n, z, ldz, h, ldh, q1, ldq1, q2, ldq2, u11, ldu11, u12, ldu12, &
+       u21, ldu21, u22, ldu22, t, ldt, alphar, alphai, beta, &
+       iwork, liwork, dwork, ldwork, info)
+  print '(I0)', info
+  print '(*(ES24.16,1X))', alphar
+  print '(*(ES24.16,1X))', alphai
+  print '(*(ES24.16,1X))', beta
+  print '(*(ES24.16,1X))', t
+  print '(*(ES24.16,1X))', z
+  print '(*(ES24.16,1X))', h
+  print '(*(ES24.16,1X))', q1
+  print '(*(ES24.16,1X))', q2
+  print '(*(ES24.16,1X))', u11
+  print '(*(ES24.16,1X))', u12
+  print '(*(ES24.16,1X))', u21
+  print '(*(ES24.16,1X))', u22
+end program main
+"""
+    return source
+
+
+def _take_matrix(values, offset, rows, cols):
+    end = offset + rows * cols
+    return values[offset:end].reshape((rows, cols), order="F"), end
+
+
+def test_mb04ad_html_example_matches_fortran_reference(tmp_path):
+    job, compq1, compq2, compu1, compu2, z, h = _example_inputs()
+    n = z.shape[0]
+    m = n // 2
+
+    output = run_fortran_driver(_mb04ad_example_fortran_source(), tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    values = np.array(tokens[1:], dtype=float)
+    offset = 0
+    alphar_f = values[offset:offset + m]
+    offset += m
+    alphai_f = values[offset:offset + m]
+    offset += m
+    beta_f = values[offset:offset + m]
+    offset += m
+    t_f, offset = _take_matrix(values, offset, n, n)
+    z_f, offset = _take_matrix(values, offset, n, n)
+    h_f, offset = _take_matrix(values, offset, n, n)
+    q1_f, offset = _take_matrix(values, offset, n, n)
+    q2_f, offset = _take_matrix(values, offset, n, n)
+    u11_f, offset = _take_matrix(values, offset, m, m)
+    u12_f, offset = _take_matrix(values, offset, m, m)
+    u21_f, offset = _take_matrix(values, offset, m, m)
+    u22_f, _ = _take_matrix(values, offset, m, m)
+
+    result = mb04ad(job, compq1, compq2, compu1, compu2, z.copy(order="F"), h.copy(order="F"))
+    t, z_out, h_out, q1, q2, u11, u12, u21, u22, alphar, alphai, beta, info = result
+
+    assert info == info_f == 0
+    assert_allclose(alphar, alphar_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(alphai, alphai_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(beta, beta_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(t, t_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(z_out, z_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(h_out, h_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(q1, q1_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(q2, q2_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(u11, u11_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(u12, u12_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(u21, u21_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(u22, u22_f, rtol=1e-10, atol=1e-10)
 
 
 def test_mb04ad_html_example():

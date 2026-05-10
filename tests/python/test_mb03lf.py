@@ -8,10 +8,99 @@ aS - bH in factored form, with optional computation of deflating and companion s
 import numpy as np
 import pytest
 from ctrlsys import mb03lf
+from fortran_reference import run_fortran_driver
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _html_doc_inputs():
+    z = np.array([
+        [3.1472, 4.5751, -0.7824, 1.7874, -2.2308, -0.6126, 2.0936, 4.5974],
+        [4.0579, 4.6489, 4.1574, 2.5774, -4.5383, -1.1844, 2.5469, -1.5961],
+        [-3.7301, -3.4239, 2.9221, 2.4313, -4.0287, 2.6552, -2.2397, 0.8527],
+        [4.1338, 4.7059, 4.5949, -1.0777, 3.2346, 2.9520, 1.7970, -2.7619],
+        [1.3236, 4.5717, 1.5574, 1.5548, 1.9483, -3.1313, 1.5510, 2.5127],
+        [-4.0246, -0.1462, -4.6429, -3.2881, -1.8290, -0.1024, -3.3739, -2.4490],
+        [-2.2150, 3.0028, 3.4913, 2.0605, 4.5022, -0.5441, -3.8100, 0.0596],
+        [0.4688, -3.5811, 4.3399, -4.6817, -4.6555, 1.4631, -0.0164, 1.9908]
+    ], order='F', dtype=float)
+
+    b = np.array([
+        [0.6882, -3.3782, -3.3435, 1.8921],
+        [-0.3061, 2.9428, 1.0198, 2.4815],
+        [-4.8810, -1.8878, -2.3703, -0.4946],
+        [-1.6288, 0.2853, 1.5408, -4.1618]
+    ], order='F', dtype=float)
+
+    fg = np.array([
+        [-2.4013, -2.7102, 0.3834, -3.9335, 3.1730],
+        [-3.1815, -2.3620, 4.9613, 4.6190, 3.6869],
+        [3.6929, 0.7970, 0.4986, -4.9537, -4.1556],
+        [3.5303, 1.2206, -1.4905, 0.1325, -1.0022]
+    ], order='F', dtype=float)
+
+    return z, b, fg
+
+
+def _mb03lf_doc_fortran_source():
+    z, b, fg = _html_doc_inputs()
+    source = """
+program main
+  implicit none
+  integer, parameter :: n=8, m=4, ldq=16, ldu=8, liwork=48, ldwork=11*n*n + 432
+  integer neig, iwarn, info, iwork(liwork)
+  logical bwork(m)
+  double precision z(n,n), b(m,m), fg(m,m+1), q(ldq,2*n), u(ldu,2*n)
+  double precision alphar(m), alphai(m), beta(m), dwork(ldwork)
+"""
+    source += _fortran_matrix_assignment("z", z)
+    source += _fortran_matrix_assignment("b", b)
+    source += _fortran_matrix_assignment("fg", fg)
+    source += """
+  call MB03LF('C', 'C', 'P', n, z, n, b, m, fg, m, neig, q, ldq, u, ldu, &
+       alphar, alphai, beta, iwork, liwork, dwork, ldwork, bwork, iwarn, info)
+  print '(3(I0,1X))', info, iwarn, neig
+  print '(*(ES24.16,1X))', alphar
+  print '(*(ES24.16,1X))', alphai
+  print '(*(ES24.16,1X))', beta
+end program main
+"""
+    return source
 
 
 class TestMB03LFBasic:
     """Test MB03LF basic functionality using SLICOT HTML doc example."""
+
+    def test_html_doc_example_matches_fortran_reference(self, tmp_path):
+        z, b, fg = _html_doc_inputs()
+        output = run_fortran_driver(_mb03lf_doc_fortran_source(), tmp_path)
+        lines = output.splitlines()
+        info_f, iwarn_f, neig_f = [int(value) for value in lines[0].split()]
+        alphar_f = np.fromstring(lines[1], sep=" ")
+        alphai_f = np.fromstring(lines[2], sep=" ")
+        beta_f = np.fromstring(lines[3], sep=" ")
+
+        _, neig, _, _, alphar, alphai, beta, iwarn, info = mb03lf(
+            'C', 'C', 'P', z, b, fg
+        )
+
+        assert info == info_f == 0
+        assert iwarn == iwarn_f == 0
+        assert neig == neig_f == 3
+        np.testing.assert_allclose(alphar, alphar_f, rtol=1e-12, atol=1e-12)
+        np.testing.assert_allclose(alphai, alphai_f, rtol=1e-12, atol=1e-12)
+        np.testing.assert_allclose(beta, beta_f, rtol=1e-12, atol=1e-12)
 
     def test_html_doc_example(self):
         """

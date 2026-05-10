@@ -8,6 +8,144 @@ matrix with no eigenvalues on the imaginary axis, using the output of MB03XD.
 import numpy as np
 import pytest
 
+from fortran_reference import run_fortran_driver
+
+
+def _mb03zd_data_file():
+    return "SLICOT-Reference/examples/data/MB03ZD.dat"
+
+
+def _read_mb03zd_example_data():
+    values = _numeric_tokens(_mb03zd_data_file())
+    offset = 0
+    n = int(values[offset])
+    ilo = int(values[offset + 1])
+    which, meth, stab, balanc, ortbal = values[offset + 2:offset + 7]
+    offset += 7
+
+    def matrix():
+        nonlocal offset
+        data = np.array([float(x) for x in values[offset:offset + n * n]])
+        offset += n * n
+        return np.asfortranarray(data.reshape(n, n))
+
+    s = matrix()
+    t = matrix()
+    g = matrix()
+    u1 = matrix()
+    u2 = matrix()
+    v1 = matrix()
+    v2 = matrix()
+    scale = np.zeros(n, dtype=float, order="F")
+    return which, meth, stab, balanc, ortbal, n, 2 * n, ilo, scale, s, t, g, u1, u2, v1, v2
+
+
+def _numeric_tokens(path):
+    tokens = []
+    with open(path, encoding="ascii") as data_file:
+        next(data_file)
+        for line in data_file:
+            tokens.extend(line.split())
+    return tokens
+
+
+def _mb03zd_example_fortran_source():
+    data_path = _mb03zd_data_file()
+    return f"""
+program mb03zd_reference
+  implicit none
+  integer, parameter :: nmax = 100
+  integer, parameter :: ldg = nmax, lds = nmax, ldt = nmax
+  integer, parameter :: ldu1 = nmax, ldu2 = nmax, ldus = 2*nmax
+  integer, parameter :: lduu = 2*nmax, ldv1 = nmax, ldv2 = nmax
+  integer, parameter :: ldwork = 3*nmax*nmax + 7*nmax
+  character :: which, meth, stab, balanc, ortbal
+  integer :: i, j, ilo, info, m, n
+  logical :: lwork(2*nmax), select(nmax)
+  integer :: iwork(2*nmax)
+  double precision :: dwork(ldwork), g(ldg,nmax), s(lds,nmax), scale(nmax)
+  double precision :: t(ldt,nmax), u1(ldu1,nmax), u2(ldu2,nmax)
+  double precision :: us(ldus,2*nmax), uu(lduu,2*nmax)
+  double precision :: v1(ldv1,nmax), v2(ldv2,nmax), wi(nmax), wr(nmax)
+
+  open(unit=5, file='{data_path}', status='old')
+  read(5, *)
+  read(5, *) n, ilo, which, meth, stab, balanc, ortbal
+  read(5, *) ((s(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((t(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((g(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((u1(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((u2(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((v1(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((v2(i,j), j = 1,n), i = 1,n)
+  close(5)
+
+  call MB03ZD(which, meth, stab, balanc, ortbal, select, n, 2*n, ilo, scale, &
+       s, lds, t, ldt, g, ldg, u1, ldu1, u2, ldu2, v1, ldv1, v2, ldv2, &
+       m, wr, wi, us, ldus, uu, lduu, lwork, iwork, dwork, ldwork, info)
+
+  write(*,'(I0,1X,I0)') info, m
+  do i = 1, n
+     write(*,'(2(1X,ES24.16))') wr(i), wi(i)
+  end do
+  do j = 1, m
+     do i = 1, 2*n
+        write(*,'(1X,ES24.16)', advance='no') us(i,j)
+     end do
+     write(*,*)
+  end do
+  do j = 1, m
+     do i = 1, 2*n
+        write(*,'(1X,ES24.16)', advance='no') uu(i,j)
+     end do
+     write(*,*)
+  end do
+end program
+"""
+
+
+def _parse_mb03zd_reference(output, n, m):
+    lines = output.splitlines()
+    info, ref_m = [int(value) for value in lines[0].split()]
+    eigenvalues = np.array([[float(x) for x in line.split()] for line in lines[1:1 + n]])
+    offset = 1 + n
+    us_cols = [
+        [float(x) for x in line.split()]
+        for line in lines[offset:offset + m]
+    ]
+    offset += m
+    uu_cols = [
+        [float(x) for x in line.split()]
+        for line in lines[offset:offset + m]
+    ]
+    us = np.asfortranarray(np.array(us_cols).T)
+    uu = np.asfortranarray(np.array(uu_cols).T)
+    return info, ref_m, eigenvalues[:, 0], eigenvalues[:, 1], us, uu
+
+
+def test_mb03zd_html_example_matches_fortran_reference(tmp_path):
+    from ctrlsys import mb03zd
+
+    args = _read_mb03zd_example_data()
+    which, meth, stab, balanc, ortbal, n, mm, ilo = args[:8]
+    scale, s, t, g, u1, u2, v1, v2 = args[8:]
+
+    m, wr, wi, us, uu, info = mb03zd(
+        which, meth, stab, balanc, ortbal, n, mm, ilo, scale,
+        s.copy(order="F"), t.copy(order="F"), g.copy(order="F"),
+        u1.copy(order="F"), u2.copy(order="F"),
+        v1.copy(order="F"), v2.copy(order="F")
+    )
+    output = run_fortran_driver(_mb03zd_example_fortran_source(), tmp_path)
+    ref_info, ref_m, ref_wr, ref_wi, ref_us, ref_uu = _parse_mb03zd_reference(output, n, m)
+
+    assert info == ref_info == 0
+    assert m == ref_m == n
+    np.testing.assert_allclose(wr, ref_wr, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(wi, ref_wi, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(us @ us.T, ref_us @ ref_us.T, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(uu @ uu.T, ref_uu @ ref_uu.T, rtol=1e-12, atol=1e-12)
+
 
 class TestMB03ZD:
     """Tests for mb03zd routine."""

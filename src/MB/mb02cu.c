@@ -355,7 +355,7 @@ void mb02cu(const char* typeg, i32 k, i32 p, i32 q, i32 nb,
             if (nbl > 0) {
                 for (i32 i = 0; i < k - nbl + 1; i += nbl) {
                     i32 ib = (k - i < nbl) ? (k - i) : nbl;
-                    SLC_DGELQF(&ib, &col2, &a2[i], &lda2, &cs[4 * k + i], dwork, &ldwork, &ierr);
+                    SLC_DGELQ2(&ib, &col2, &a2[i], &lda2, &cs[4 * k + i], dwork, &ierr);
                     if (i + ib < k) {
                         SLC_DLARFT("Forward", "Rowwise", &col2, &ib, &a2[i], &lda2,
                                    &cs[4 * k + i], dwork, &k);
@@ -435,7 +435,7 @@ void mb02cu(const char* typeg, i32 k, i32 p, i32 q, i32 nb,
         if (nbl > 0) {
             for (i32 i = 0; i < k - nbl + 1; i += nbl) {
                 i32 ib = (k - i < nbl) ? (k - i) : nbl;
-                SLC_DGELQF(&ib, &q, &b[i], &ldb, &cs[pst2 + i], dwork, &ldwork, &ierr);
+                SLC_DGELQ2(&ib, &q, &b[i], &ldb, &cs[pst2 + i], dwork, &ierr);
                 if (i + ib < k) {
                     SLC_DLARFT("Forward", "Rowwise", &q, &ib, &b[i], &ldb,
                                &cs[pst2 + i], dwork, &k);
@@ -535,7 +535,7 @@ void mb02cu(const char* typeg, i32 k, i32 p, i32 q, i32 nb,
             if (nbl > 0) {
                 for (i = 0; i < k - nbl + 1; i += nbl) {
                     i32 ib = (k - i < nbl) ? (k - i) : nbl;
-                    SLC_DGEQRF(&col2, &ib, &a2[i * lda2], &lda2, &cs[4 * k + i], dwork, &ldwork, &ierr);
+                    SLC_DGEQR2(&col2, &ib, &a2[i * lda2], &lda2, &cs[4 * k + i], dwork, &ierr);
                     if (i + ib < k) {
                         SLC_DLARFT("Forward", "Columnwise", &col2, &ib, &a2[i * lda2], &lda2,
                                    &cs[4 * k + i], dwork, &k);
@@ -614,7 +614,7 @@ void mb02cu(const char* typeg, i32 k, i32 p, i32 q, i32 nb,
         if (nbl > 0) {
             for (; i < k - nbl + 1; i += nbl) {
                 i32 ib = (k - i < nbl) ? (k - i) : nbl;
-                SLC_DGEQRF(&q, &ib, &b[i * ldb], &ldb, &cs[pst2 + i], dwork, &ldwork, &ierr);
+                SLC_DGEQR2(&q, &ib, &b[i * ldb], &ldb, &cs[pst2 + i], dwork, &ierr);
                 if (i + ib < k) {
                     SLC_DLARFT("Forward", "Columnwise", &q, &ib, &b[i * ldb], &ldb,
                                &cs[pst2 + i], dwork, &k);

@@ -308,8 +308,8 @@ void mb03id(const char *compq, const char *compu, i32 n, f64 *a, i32 lda,
 
                 /* Save and clear lower triangle of A */
                 f64 dum[12];  /* 3x4 */
-                SLC_DLACPY("Lower", &sdim_m1, &sdim_m1, &a[(ib1 + 1) + ib1 * lda], &lda, dum, &int1);
                 i32 three = 3;
+                SLC_DLACPY("Lower", &sdim_m1, &sdim_m1, &a[(ib1 + 1) + ib1 * lda], &lda, dum, &three);
                 SLC_DLASET("Lower", &sdim_m1, &sdim_m1, &ZERO, &ZERO, &a[(ib1 + 1) + ib1 * lda], &lda);
                 /* Save and clear upper triangle of C */
                 SLC_DLACPY("Upper", &sdim_m1, &sdim_m1, &c[ib1 + (ib1 + 1) * ldc], &ldc, &dum[3], &three);

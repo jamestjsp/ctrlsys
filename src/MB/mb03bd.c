@@ -504,6 +504,51 @@ void mb03bd(const char *job, const char *defl, const char *compq,
                         iwork[2 * k + j - 1] = -(j);
                         break;
                     }
+                } else {
+                    f64 a1 = a[(j - 1) + (j - 1) * lda1 + ai * ldas];
+                    f64 a3 = a[(j - 1) + j * lda1 + ai * ldas];
+                    f64 a4 = a[j + j * lda1 + ai * ldas];
+                    f64 nrm = SLC_DLAPY3(&a1, &a3, &a4);
+                    f64 a2 = ZERO;
+                    if (l + 1 == iwork[mapa]) {
+                        a2 = a[j + (j - 1) * lda1 + l * ldas];
+                        nrm = SLC_DLAPY2(&nrm, &a2);
+                    }
+                    f64 sdet = (fmax(fabs(a1), fabs(a4)) / nrm)
+                                * fmin(fabs(a1), fabs(a4))
+                                * (a1 >= ZERO ? ONE : -ONE)
+                                * (a4 >= ZERO ? ONE : -ONE);
+                    if (l + 1 == iwork[mapa]) {
+                        sdet -= (fmax(fabs(a2), fabs(a3)) / nrm)
+                                 * fmin(fabs(a2), fabs(a3))
+                                 * (a2 >= ZERO ? ONE : -ONE)
+                                 * (a3 >= ZERO ? ONE : -ONE);
+                    }
+                    if (fabs(sdet) < dwork[pnorm + l] * toll) {
+                        if (l + 1 == iwork[mapa]) {
+                            f64 cs, sn, temp;
+                            if (fabs(a1) >= fabs(a4)) {
+                                SLC_DLARTG(&a1, &a2, &cs, &sn, &temp);
+                                a1 = temp;
+                                temp = cs * a3 + sn * a4;
+                                a4 = cs * a4 - sn * a3;
+                                a3 = temp;
+                            } else {
+                                SLC_DLARTG(&a4, &a2, &cs, &sn, &temp);
+                                a4 = temp;
+                                temp = cs * a3 + sn * a1;
+                                a1 = cs * a1 - sn * a3;
+                                a3 = temp;
+                            }
+                        }
+                        f64 svmn, temp;
+                        SLC_DLAS2(&a1, &a3, &a4, &svmn, &temp);
+                        if (svmn < dwork[pnorm + l] * toll) {
+                            *iwarn = n + 1;
+                            iwork[2 * k + j - 1] = -(j);
+                            break;
+                        }
+                    }
                 }
             }
 
