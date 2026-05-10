@@ -52,12 +52,6 @@ several files it called stubs now contain substantial translated logic.
 | `sg03bd.c` | Uses modern `DGGES` instead of deprecated `DGEGS`. |
 | `tg01jy.c` | Uses the current helper path instead of the older Fortran helper name. |
 
-## Performance-only degradation
-
-| Routine | Current finding |
-| --- | --- |
-| `mb03xp.c` | Still delegates to the single-shift path instead of the Fortran multishift bulge-chasing optimization. Treat this as performance work unless a differential test proves a behavior gap. |
-
 ## Current gates
 
 - `scripts/check_translation_smells.py`
