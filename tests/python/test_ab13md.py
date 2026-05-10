@@ -12,6 +12,78 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
+from fortran_reference import run_fortran_driver
+
+
+AB13MD_MIXED_BLOCK_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n = 3, m = 2, ldz = n
+  integer, parameter :: ldwork = 3000, lzwork = 3000
+  integer info
+  integer nblock(m), itype(m), iwork(max(4*m-2,n))
+  double precision bound, x(2), d(n), g(n), dwork(ldwork)
+  complex*16 z(ldz,n), zwork(lzwork)
+
+  nblock(1) = 1
+  nblock(2) = 2
+  itype(1) = 1
+  itype(2) = 2
+  x = 0.0d0
+
+  z(1,1) = dcmplx( 0.20d0,  0.00d0)
+  z(2,1) = dcmplx(-0.40d0,  0.30d0)
+  z(3,1) = dcmplx( 0.10d0, -0.20d0)
+  z(1,2) = dcmplx( 0.70d0, -0.10d0)
+  z(2,2) = dcmplx(-0.30d0,  0.20d0)
+  z(3,2) = dcmplx( 0.50d0,  0.40d0)
+  z(1,3) = dcmplx(-0.60d0,  0.20d0)
+  z(2,3) = dcmplx( 0.80d0, -0.50d0)
+  z(3,3) = dcmplx( 0.90d0,  0.10d0)
+
+  call AB13MD('N', n, z, ldz, m, nblock, itype, x, bound, d, g, &
+       iwork, dwork, ldwork, zwork, lzwork, info)
+
+  print '(I0,1X,ES24.16)', info, bound
+  print '(*(ES24.16,1X))', d
+  print '(*(ES24.16,1X))', g
+  print '(*(ES24.16,1X))', x
+end program main
+"""
+
+
+def _ab13md_mixed_block_inputs():
+    z = np.array([
+        [0.20 + 0.00j, 0.70 - 0.10j, -0.60 + 0.20j],
+        [-0.40 + 0.30j, -0.30 + 0.20j, 0.80 - 0.50j],
+        [0.10 - 0.20j, 0.50 + 0.40j, 0.90 + 0.10j],
+    ], order="F", dtype=np.complex128)
+    nblock = np.array([1, 2], dtype=np.int32)
+    itype = np.array([1, 2], dtype=np.int32)
+    return z, nblock, itype
+
+
+def test_ab13md_mixed_blocks_match_fortran_reference(tmp_path):
+    from ctrlsys import ab13md
+
+    output = run_fortran_driver(AB13MD_MIXED_BLOCK_CASE, tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    bound_f = float(tokens[1])
+    values = np.array(tokens[2:], dtype=float)
+    d_f = values[:3]
+    g_f = values[3:6]
+    x_f = values[6:8]
+
+    z, nblock, itype = _ab13md_mixed_block_inputs()
+    bound, d, g, x, info = ab13md(z, nblock, itype)
+
+    assert info == info_f == 0
+    assert_allclose(bound, bound_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(d, d_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(g, g_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(x, x_f, rtol=1e-12, atol=1e-12)
+
 
 def test_ab13md_single_complex_block():
     """
