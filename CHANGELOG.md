@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1] - 2026-05-10
+
+### Fixed
+
+- Closed translation parity gaps across high-risk SLICOT routines with Fortran reference coverage.
+- Fixed MB04CD output recomputation for padded leading dimensions.
+- Ensured Ubuntu CI checks out the SLICOT reference submodule required by data-backed tests.
+
 ## [1.0.19] - 2026-02-15
 
 ### Changed
