@@ -12,6 +12,79 @@ A is M-by-M, B is N-by-N, C/X are M-by-N.
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose
+from fortran_reference import run_fortran_driver
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _mixed_schur_case():
+    a = np.array([
+        [1.0, 0.5, 0.2],
+        [-0.5, 1.0, 0.1],
+        [0.0, 0.0, 3.0]
+    ], dtype=float, order='F')
+
+    b = np.array([
+        [2.0, 0.3, 0.1],
+        [0.0, 1.5, 0.4],
+        [0.0, -0.4, 1.5]
+    ], dtype=float, order='F')
+
+    c = np.array([
+        [10.0, 8.0, 6.0],
+        [7.0, 12.0, 9.0],
+        [5.0, 4.0, 15.0]
+    ], dtype=float, order='F')
+    return a, b, c
+
+
+def _sb04py_mixed_fortran_source():
+    a, b, c = _mixed_schur_case()
+    source = """
+program main
+  implicit none
+  integer, parameter :: m=3, n=3, ldwork=2*m
+  integer info
+  double precision a(m,m), b(n,n), c(m,n), scale, dwork(ldwork)
+"""
+    source += _fortran_matrix_assignment("a", a)
+    source += _fortran_matrix_assignment("b", b)
+    source += _fortran_matrix_assignment("c", c)
+    source += """
+  call SB04PY('N', 'N', 1, m, n, a, m, b, n, c, m, scale, dwork, info)
+  print '(I0,1X,ES24.16)', info, scale
+  print '(*(ES24.16,1X))', c
+end program main
+"""
+    return source
+
+
+def test_sb04py_mixed_schur_matches_fortran_reference(tmp_path):
+    from ctrlsys import sb04py
+
+    output = run_fortran_driver(_sb04py_mixed_fortran_source(), tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    scale_f = float(tokens[1])
+    x_f = np.array(tokens[2:], dtype=float).reshape((3, 3), order="F")
+
+    a, b, c = _mixed_schur_case()
+    x, scale, info = sb04py('N', 'N', 1, a, b, c)
+
+    assert info == info_f == 0
+    assert scale == scale_f
+    assert_allclose(x, x_f, rtol=1e-12, atol=1e-12)
 
 
 def test_sb04py_basic_no_transpose():
