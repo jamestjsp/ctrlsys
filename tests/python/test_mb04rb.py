@@ -19,6 +19,73 @@ where Aout is in upper Hessenberg form. This is the blocked version of MB04RU.
 import numpy as np
 import pytest
 from ctrlsys import mb04rb
+from fortran_reference import run_fortran_driver
+
+
+MB04RB_BLOCKED_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n = 40, ilo = 1, lda = n, ldqg = n
+  integer, parameter :: ldwork = 30000
+  integer info, i, j
+  double precision a(lda,n), qg(ldqg,n+1)
+  double precision cs(2*n-2), tau(n-1), dwork(ldwork)
+
+  do j = 1, n
+     do i = 1, n
+        a(i,j) = 0.07d0*sin(dble(2*i + 3*j)) + 0.05d0*cos(dble(i - 4*j))
+     end do
+  end do
+
+  qg = 0.0d0
+  do j = 1, n
+     do i = j + 1, n
+        qg(i,j) = 0.04d0*sin(dble(i*j)) + 0.003d0*dble(i - j)
+     end do
+  end do
+  do j = 2, n + 1
+     do i = 1, j - 2
+        qg(i,j) = 0.03d0*cos(dble(i + 2*j)) + 0.002d0*dble(j - i)
+     end do
+  end do
+
+  call MB04RB(n, ilo, a, lda, qg, ldqg, cs, tau, dwork, ldwork, info)
+
+  print '(I0)', info
+  print '(*(ES24.16,1X))', a
+  print '(*(ES24.16,1X))', qg
+  print '(*(ES24.16,1X))', cs
+  print '(*(ES24.16,1X))', tau
+end program main
+"""
+
+
+def _mb04rb_blocked_inputs(n):
+    i = np.arange(1, n + 1, dtype=float)[:, None]
+    j = np.arange(1, n + 1, dtype=float)[None, :]
+    a = 0.07 * np.sin(2 * i + 3 * j) + 0.05 * np.cos(i - 4 * j)
+
+    qg = np.zeros((n, n + 1), order="F", dtype=float)
+    rows, cols = np.indices((n, n), sparse=False)
+    q_mask = rows > cols
+    qg[:, :n][q_mask] = (
+        0.04 * np.sin((rows[q_mask] + 1) * (cols[q_mask] + 1))
+        + 0.003 * (rows[q_mask] - cols[q_mask])
+    )
+    rows_g, cols_g = np.indices((n, n + 1), sparse=False)
+    g_mask = cols_g >= 2
+    g_mask &= rows_g < cols_g - 1
+    qg[g_mask] = (
+        0.03 * np.cos((rows_g[g_mask] + 1) + 2 * (cols_g[g_mask] + 1))
+        + 0.002 * ((cols_g[g_mask] + 1) - (rows_g[g_mask] + 1))
+    )
+    return a.astype(float, order="F"), qg
+
+
+def _take_matrix(values, offset, shape):
+    rows, cols = shape
+    end = offset + rows * cols
+    return values[offset:end].reshape(shape, order="F"), end
 
 
 def build_skew_hamiltonian(a, q_lower, g_upper):
@@ -316,6 +383,29 @@ def test_mb04rb_larger_system():
         s = cs[2 * i + 1]
         np.testing.assert_allclose(c * c + s * s, 1.0, rtol=1e-14,
                                    err_msg=f"Givens rotation {i} not normalized")
+
+
+def test_mb04rb_blocked_path_matches_fortran_reference(tmp_path):
+    n = 40
+    a, qg = _mb04rb_blocked_inputs(n)
+
+    output = run_fortran_driver(MB04RB_BLOCKED_CASE, tmp_path)
+    values = np.fromstring(output, sep=" ")
+    assert int(values[0]) == 0
+    offset = 1
+    a_f, offset = _take_matrix(values, offset, (n, n))
+    qg_f, offset = _take_matrix(values, offset, (n, n + 1))
+    cs_f = values[offset:offset + 2 * (n - 1)]
+    offset += 2 * (n - 1)
+    tau_f = values[offset:offset + n - 1]
+
+    a_out, qg_out, cs, tau, info = mb04rb(n, 1, a, qg)
+
+    assert info == 0
+    np.testing.assert_allclose(a_out, a_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(qg_out, qg_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(cs, cs_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(tau, tau_f, rtol=1e-11, atol=1e-11)
 
 
 def test_mb04rb_workspace_query():
