@@ -11,6 +11,130 @@ and focus on interface and structural tests.
 
 import numpy as np
 import pytest
+from fortran_reference import run_fortran_driver
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _mb04bp_doc_inputs():
+    a = np.array([
+        [3.1472,  1.3236,  4.5751,  4.5717],
+        [4.0579, -4.0246,  4.6489, -0.1462],
+        [-3.7301, -2.2150, -3.4239,  3.0028],
+        [4.1338,  0.4688,  4.7059, -3.5811]
+    ], dtype=float, order='F')
+
+    de = np.array([
+        [0.0000,  0.0000, -1.5510, -4.5974, -2.5127],
+        [3.5071,  0.0000,  0.0000,  1.5961,  2.4490],
+        [-3.1428,  2.5648,  0.0000,  0.0000, -0.0596],
+        [3.0340,  2.4892, -1.1604,  0.0000,  0.0000]
+    ], dtype=float, order='F')
+
+    c1 = np.array([
+        [0.6882, -3.3782, -3.3435,  1.8921],
+        [-0.3061,  2.9428,  1.0198,  2.4815],
+        [-4.8810, -1.8878, -2.3703, -0.4946],
+        [-1.6288,  0.2853,  1.5408, -4.1618]
+    ], dtype=float, order='F')
+
+    vw = np.array([
+        [-2.4013, -2.7102,  0.3834, -3.9335,  3.1730],
+        [-3.1815, -2.3620,  4.9613,  4.6190,  3.6869],
+        [3.6929,  0.7970,  0.4986, -4.9537, -4.1556],
+        [3.5303,  1.2206, -1.4905,  0.1325, -1.0022]
+    ], dtype=float, order='F')
+
+    return a, de, c1, vw
+
+
+def _mb04bp_doc_fortran_source():
+    a, de, c1, vw = _mb04bp_doc_inputs()
+    source = """
+program main
+  implicit none
+  integer, parameter :: n=8, m=4, liwork=n+12, ldwork=1000
+  integer info, iwork(liwork)
+  double precision a(m,m), de(m,m+1), c1(m,m), vw(m,m+1)
+  double precision q1(n,n), q2(n,n), b(m,m), f(m,m), c2(m,m)
+  double precision alphar(m), alphai(m), beta(m), dwork(ldwork)
+"""
+    source += _fortran_matrix_assignment("a", a)
+    source += _fortran_matrix_assignment("de", de)
+    source += _fortran_matrix_assignment("c1", c1)
+    source += _fortran_matrix_assignment("vw", vw)
+    source += """
+  info = 0
+  call MB04BP('T', 'I', 'I', n, a, m, de, m, c1, m, vw, m, q1, n, q2, n, &
+       b, m, f, m, c2, m, alphar, alphai, beta, iwork, liwork, dwork, ldwork, info)
+  print '(I0)', info
+  print '(*(ES26.16E3,1X))', a
+  print '(*(ES26.16E3,1X))', de
+  print '(*(ES26.16E3,1X))', c1
+  print '(*(ES26.16E3,1X))', vw
+  print '(*(ES26.16E3,1X))', b
+  print '(*(ES26.16E3,1X))', f
+  print '(*(ES26.16E3,1X))', c2
+  print '(*(ES26.16E3,1X))', alphar
+  print '(*(ES26.16E3,1X))', alphai
+  print '(*(ES26.16E3,1X))', beta
+end program main
+"""
+    return source
+
+
+def _take_matrix(values, offset, shape):
+    size = shape[0] * shape[1]
+    end = offset + size
+    return values[offset:end].reshape(shape, order="F"), end
+
+
+def test_mb04bp_doc_case_matches_fortran_reference(tmp_path):
+    from ctrlsys import mb04bp
+
+    output = run_fortran_driver(_mb04bp_doc_fortran_source(), tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    values = np.array(tokens[1:], dtype=float)
+
+    offset = 0
+    a_f, offset = _take_matrix(values, offset, (4, 4))
+    de_f, offset = _take_matrix(values, offset, (4, 5))
+    c1_f, offset = _take_matrix(values, offset, (4, 4))
+    vw_f, offset = _take_matrix(values, offset, (4, 5))
+    b_f, offset = _take_matrix(values, offset, (4, 4))
+    f_f, offset = _take_matrix(values, offset, (4, 4))
+    c2_f, offset = _take_matrix(values, offset, (4, 4))
+    alphar_f = values[offset:offset + 4]
+    alphai_f = values[offset + 4:offset + 8]
+    beta_f = values[offset + 8:offset + 12]
+
+    a, de, c1, vw = _mb04bp_doc_inputs()
+    result = mb04bp('T', 'I', 'I', a, de, c1, vw)
+    a_out, de_out, c1_out, vw_out, _, _, b, f, c2, alphar, alphai, beta, info = result
+
+    assert info == info_f == 0
+    np.testing.assert_allclose(a_out, a_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(de_out, de_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(c1_out, c1_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(vw_out, vw_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(b, b_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(np.triu(f), np.triu(f_f), rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(c2, c2_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(alphar, alphar_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(alphai, alphai_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(beta, beta_f, rtol=1e-12, atol=1e-12)
 
 
 def test_mb04bp_basic():
