@@ -8,6 +8,61 @@ Uses numpy only - no scipy.
 
 import numpy as np
 from ctrlsys import mb04tb, mb04wr
+from fortran_reference import run_fortran_driver
+
+
+MB04TB_BLOCKED_NN_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n = 40, ilo = 1, lda = n, ldb = n, ldg = n, ldq = n
+  integer, parameter :: ldwork = 30000
+  integer info, i, j
+  double precision a(lda,n), b(ldb,n), g(ldg,n), q(ldq,n)
+  double precision csl(2*n), csr(2*n-2), taul(n), taur(n-1), dwork(ldwork)
+
+  do j = 1, n
+     do i = 1, n
+        a(i,j) = 0.10d0*sin(dble(3*i + 5*j)) + 0.03d0*cos(dble(i - 2*j))
+        b(i,j) = -(0.10d0*sin(dble(3*j + 5*i)) + 0.03d0*cos(dble(j - 2*i)))
+        g(i,j) = 0.04d0*cos(dble(i + j)) + 0.002d0*dble(i + j)
+        q(i,j) = 0.03d0*sin(dble(i*j)) + 0.001d0*dble(i + j)
+     end do
+  end do
+
+  call MB04TB('N', 'N', n, ilo, a, lda, b, ldb, g, ldg, q, ldq, &
+       csl, csr, taul, taur, dwork, ldwork, info)
+
+  print '(I0)', info
+  print '(*(ES24.16,1X))', a
+  print '(*(ES24.16,1X))', b
+  print '(*(ES24.16,1X))', g
+  print '(*(ES24.16,1X))', q
+  print '(*(ES24.16,1X))', csl
+  print '(*(ES24.16,1X))', csr
+  print '(*(ES24.16,1X))', taul
+  print '(*(ES24.16,1X))', taur
+end program main
+"""
+
+
+def _mb04tb_blocked_inputs(n):
+    i = np.arange(1, n + 1, dtype=float)[:, None]
+    j = np.arange(1, n + 1, dtype=float)[None, :]
+    a = 0.10 * np.sin(3 * i + 5 * j) + 0.03 * np.cos(i - 2 * j)
+    b = -a.T
+    g = 0.04 * np.cos(i + j) + 0.002 * (i + j)
+    q = 0.03 * np.sin(i * j) + 0.001 * (i + j)
+    return (
+        a.astype(float, order="F"),
+        b.astype(float, order="F"),
+        g.astype(float, order="F"),
+        q.astype(float, order="F"),
+    )
+
+
+def _take_matrix(values, offset, n):
+    end = offset + n * n
+    return values[offset:end].reshape((n, n), order="F"), end
 
 
 def test_mb04tb_n5_basic():
@@ -283,6 +338,41 @@ def test_mb04tb_n20_blocked():
     residual = np.linalg.norm(H @ V - U @ R, 'fro')
     h_norm = np.linalg.norm(H, 'fro')
     assert residual / h_norm < 1e-10
+
+
+def test_mb04tb_blocked_path_matches_fortran_reference(tmp_path):
+    n = 40
+    a, b, g, q = _mb04tb_blocked_inputs(n)
+
+    output = run_fortran_driver(MB04TB_BLOCKED_NN_CASE, tmp_path)
+    values = np.fromstring(output, sep=" ")
+    assert int(values[0]) == 0
+    offset = 1
+    a_f, offset = _take_matrix(values, offset, n)
+    b_f, offset = _take_matrix(values, offset, n)
+    g_f, offset = _take_matrix(values, offset, n)
+    q_f, offset = _take_matrix(values, offset, n)
+    csl_f = values[offset:offset + 2 * n]
+    offset += 2 * n
+    csr_f = values[offset:offset + 2 * (n - 1)]
+    offset += 2 * (n - 1)
+    taul_f = values[offset:offset + n]
+    offset += n
+    taur_f = values[offset:offset + n - 1]
+
+    a_out, b_out, g_out, q_out, csl, csr, taul, taur, info = mb04tb(
+        "N", "N", n, 1, a, b, g, q, ldwork=30000
+    )
+
+    assert info == 0
+    np.testing.assert_allclose(a_out, a_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(b_out, b_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(g_out, g_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(q_out, q_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(csl, csl_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(csr, csr_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(taul, taul_f, rtol=1e-11, atol=1e-11)
+    np.testing.assert_allclose(taur, taur_f, rtol=1e-11, atol=1e-11)
 
 
 def test_mb04tb_hamiltonian_property():
