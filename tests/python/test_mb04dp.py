@@ -19,6 +19,122 @@ import pytest
 from numpy.testing import assert_allclose
 
 from ctrlsys import mb04dp
+from fortran_reference import run_fortran_driver
+
+
+def _mb04dp_data_file():
+    return "SLICOT-Reference/examples/data/MB04DP.dat"
+
+
+def _mb04dp_tokens():
+    tokens = []
+    with open(_mb04dp_data_file(), encoding="ascii") as data_file:
+        next(data_file)
+        for line in data_file:
+            tokens.extend(line.split())
+    return tokens
+
+
+def _read_mb04dp_example_data():
+    tokens = _mb04dp_tokens()
+    offset = 0
+    n = int(tokens[offset])
+    job = tokens[offset + 1]
+    thresh = float(tokens[offset + 2])
+    offset += 3
+
+    def matrix(cols):
+        nonlocal offset
+        data = np.array([float(x) for x in tokens[offset:offset + n * cols]])
+        offset += n * cols
+        return np.asfortranarray(data.reshape(n, cols))
+
+    a = matrix(n)
+    de = matrix(n + 1)
+    c = matrix(n)
+    vw = matrix(n + 1)
+    return job, n, thresh, a, de, c, vw
+
+
+def _mb04dp_example_fortran_source():
+    data_path = _mb04dp_data_file()
+    return f"""
+program mb04dp_reference
+  implicit none
+  integer, parameter :: nmax = 10
+  integer, parameter :: lda = nmax, ldc = nmax, ldde = nmax, ldvw = nmax
+  character :: job
+  integer :: i, ilo, info, iwarn, j, n
+  double precision :: thresh
+  double precision :: a(lda,nmax), c(ldc,nmax), de(ldde,nmax+1), dwork(8*nmax)
+  double precision :: lscale(nmax), rscale(nmax), vw(ldvw,nmax+1)
+
+  open(unit=5, file='{data_path}', status='old')
+  read(5, *)
+  read(5, *) n, job, thresh
+  read(5, *) ((a(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((de(i,j), j = 1,n+1), i = 1,n)
+  read(5, *) ((c(i,j), j = 1,n), i = 1,n)
+  read(5, *) ((vw(i,j), j = 1,n+1), i = 1,n)
+  close(5)
+
+  call MB04DP(job, n, thresh, a, lda, de, ldde, c, ldc, vw, ldvw, &
+       ilo, lscale, rscale, dwork, iwarn, info)
+
+  write(*,'(3(I0,1X))') info, iwarn, ilo
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (a(i,j), j = 1,n)
+  end do
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (de(i,j), j = 1,n+1)
+  end do
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (c(i,j), j = 1,n)
+  end do
+  do i = 1, n
+     write(*,'(*(1X,ES24.16))') (vw(i,j), j = 1,n+1)
+  end do
+  write(*,'(*(1X,ES24.16))') (lscale(i), i = 1,n)
+  write(*,'(*(1X,ES24.16))') (rscale(i), i = 1,n)
+  write(*,'(*(1X,ES24.16))') (dwork(i), i = 1,5)
+end program
+"""
+
+
+def _parse_matrix(lines, offset, rows, cols):
+    values = [[float(x) for x in line.split()] for line in lines[offset:offset + rows]]
+    return np.asfortranarray(np.array(values)), offset + rows
+
+
+def test_mb04dp_html_example_matches_fortran_reference(tmp_path):
+    job, n, thresh, a, de, c, vw = _read_mb04dp_example_data()
+
+    a_out, de_out, c_out, vw_out, ilo, lscale, rscale, dwork, iwarn, info = mb04dp(
+        job, n, thresh, a.copy(order="F"), de.copy(order="F"),
+        c.copy(order="F"), vw.copy(order="F")
+    )
+    output = run_fortran_driver(_mb04dp_example_fortran_source(), tmp_path)
+    lines = output.splitlines()
+    ref_info, ref_iwarn, ref_ilo = [int(value) for value in lines[0].split()]
+    offset = 1
+    ref_a, offset = _parse_matrix(lines, offset, n, n)
+    ref_de, offset = _parse_matrix(lines, offset, n, n + 1)
+    ref_c, offset = _parse_matrix(lines, offset, n, n)
+    ref_vw, offset = _parse_matrix(lines, offset, n, n + 1)
+    ref_lscale = np.array([float(x) for x in lines[offset].split()])
+    ref_rscale = np.array([float(x) for x in lines[offset + 1].split()])
+    ref_dwork = np.array([float(x) for x in lines[offset + 2].split()])
+
+    assert info == ref_info == 0
+    assert iwarn == ref_iwarn
+    assert ilo == ref_ilo
+    assert_allclose(a_out, ref_a, rtol=1e-13, atol=1e-13)
+    assert_allclose(de_out, ref_de, rtol=1e-13, atol=1e-13)
+    assert_allclose(c_out, ref_c, rtol=1e-13, atol=1e-13)
+    assert_allclose(vw_out, ref_vw, rtol=1e-13, atol=1e-13)
+    assert_allclose(lscale, ref_lscale, rtol=1e-13, atol=1e-13)
+    assert_allclose(rscale, ref_rscale, rtol=1e-13, atol=1e-13)
+    assert_allclose(dwork[:5], ref_dwork, rtol=1e-13, atol=1e-13)
 
 
 class TestMB04DPBasic:

@@ -12,6 +12,8 @@ Technical Report 00-6, Dept. of Engineering, Univ. of Leicester, UK, 2000.
 
 import numpy as np
 import pytest
+from numpy.testing import assert_allclose
+from fortran_reference import run_fortran_driver
 
 try:
     import ctrlsys
@@ -20,8 +22,130 @@ except ImportError:
     HAS_CTRLSYS = False
 
 
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _html_example_inputs():
+    n = 6
+    m = 2
+    np_ = 3
+    factor = 1.1
+    tol = 0.0
+
+    a = np.array([
+        [ 0.2,  0.0,  3.0,  0.0, -0.3, -0.1],
+        [-3.0,  0.2, -0.4, -0.3,  0.0,  0.0],
+        [-0.1,  0.1, -1.0,  0.0,  0.0, -3.0],
+        [ 1.0,  0.0,  0.0, -1.0, -1.0,  0.0],
+        [ 0.0,  0.3,  0.6,  2.0,  0.1, -0.4],
+        [ 0.2, -4.0,  0.0,  0.0,  0.2, -2.0]
+    ], dtype=float, order='F')
+
+    b = np.array([
+        [-1.0, -2.0],
+        [ 1.0,  3.0],
+        [-3.0, -4.0],
+        [ 1.0, -2.0],
+        [ 0.0,  1.0],
+        [ 1.0,  5.0]
+    ], dtype=float, order='F')
+
+    c = np.array([
+        [ 1.0, -1.0,  2.0, -2.0,  0.0, -3.0],
+        [-3.0,  0.0,  1.0, -1.0,  1.0, -1.0],
+        [ 2.0,  4.0, -3.0,  0.0,  5.0,  1.0]
+    ], dtype=float, order='F')
+
+    d = np.array([
+        [10.0, -6.0],
+        [-7.0,  8.0],
+        [ 2.0, -4.0]
+    ], dtype=float, order='F')
+
+    return n, m, np_, a, b, c, d, factor, tol
+
+
+def _sb10zd_html_fortran_source():
+    n, m, np_, a, b, c, d, factor, tol = _html_example_inputs()
+    factor_literal = f"{factor:.17e}".replace("e", "d")
+    tol_literal = f"{tol:.17e}".replace("e", "d")
+    ldwork = (
+        16*n*n + 5*m*m + 7*np_*np_ + 6*m*n + 7*m*np_ + 7*n*np_ +
+        6*n + 2*(m + np_) + max(14*n + 23, 16*n, 2*m - 1, 2*np_ - 1)
+    )
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: n={n}, m={m}, np={np_}, lda=n, ldb=n, ldc=np, ldd=np
+  integer, parameter :: ldak=n, ldbk=n, ldck=m, lddk=m
+  integer, parameter :: liwork=2*max(n, m+np), ldwork={ldwork}
+  integer info, iwork(liwork)
+  logical bwork(2*n)
+  double precision factor, tol
+  double precision a(lda,n), b(ldb,m), c(ldc,n), d(ldd,m)
+  double precision ak(ldak,n), bk(ldbk,np), ck(ldck,n), dk(lddk,np)
+  double precision rcond(6), dwork(ldwork)
+  factor = {factor_literal}
+  tol = {tol_literal}
+"""
+    source += _fortran_matrix_assignment("a", a)
+    source += _fortran_matrix_assignment("b", b)
+    source += _fortran_matrix_assignment("c", c)
+    source += _fortran_matrix_assignment("d", d)
+    source += """
+  call SB10ZD(n, m, np, a, lda, b, ldb, c, ldc, d, ldd, factor, &
+       ak, ldak, bk, ldbk, ck, ldck, dk, lddk, rcond, tol, &
+       iwork, dwork, ldwork, bwork, info)
+  print '(I0)', info
+  print '(*(ES24.16,1X))', rcond
+  print '(*(ES24.16,1X))', ak
+  print '(*(ES24.16,1X))', bk
+  print '(*(ES24.16,1X))', ck
+  print '(*(ES24.16,1X))', dk
+end program main
+"""
+    return source
+
+
 @pytest.mark.skipif(not HAS_CTRLSYS, reason="ctrlsys module not available")
 class TestSB10ZD:
+
+    def test_html_example_matches_fortran_reference(self, tmp_path):
+        n, m, np_, a, b, c, d, factor, tol = _html_example_inputs()
+
+        output = run_fortran_driver(_sb10zd_html_fortran_source(), tmp_path)
+        tokens = output.split()
+        info_f = int(tokens[0])
+        rcond_f = np.array(tokens[1:7], dtype=float)
+        offset = 7
+        ak_f = np.array(tokens[offset:offset + n*n], dtype=float).reshape((n, n), order="F")
+        offset += n*n
+        bk_f = np.array(tokens[offset:offset + n*np_], dtype=float).reshape((n, np_), order="F")
+        offset += n*np_
+        ck_f = np.array(tokens[offset:offset + m*n], dtype=float).reshape((m, n), order="F")
+        offset += m*n
+        dk_f = np.array(tokens[offset:offset + m*np_], dtype=float).reshape((m, np_), order="F")
+
+        ak, bk, ck, dk, rcond, info = ctrlsys.sb10zd(
+            n, m, np_, a, b, c, d, factor, tol
+        )
+
+        assert info == info_f == 0
+        assert_allclose(rcond, rcond_f, rtol=1e-10, atol=1e-12)
+        assert_allclose(ak, ak_f, rtol=1e-10, atol=1e-10)
+        assert_allclose(bk, bk_f, rtol=1e-10, atol=1e-10)
+        assert_allclose(ck, ck_f, rtol=1e-10, atol=1e-10)
+        assert_allclose(dk, dk_f, rtol=1e-10, atol=1e-10)
 
     def test_html_example(self):
         """

@@ -3,8 +3,131 @@ Tests for SB10DD: H-infinity (sub)optimal controller for discrete-time system.
 
 Tests numerical correctness against SLICOT HTML documentation example.
 """
+from pathlib import Path
+
 import numpy as np
 import pytest
+from numpy.testing import assert_allclose
+from fortran_reference import run_fortran_driver
+
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _example_inputs():
+    tokens = (ROOT / "SLICOT-Reference/examples/data/SB10DD.dat").read_text().split()
+    n, m, np_, ncon, nmeas = map(int, tokens[4:9])
+    values = np.array(tokens[9:], dtype=float)
+    offset = 0
+    a = values[offset:offset + n*n].reshape((n, n)).astype(float, order="F")
+    offset += n*n
+    b = values[offset:offset + n*m].reshape((n, m)).astype(float, order="F")
+    offset += n*m
+    c = values[offset:offset + np_*n].reshape((np_, n)).astype(float, order="F")
+    offset += np_*n
+    d = values[offset:offset + np_*m].reshape((np_, m)).astype(float, order="F")
+    offset += np_*m
+    gamma, tol = values[offset:offset + 2]
+    return n, m, np_, ncon, nmeas, gamma, a, b, c, d, tol
+
+
+def _sb10dd_example_fortran_source():
+    n, m, np_, ncon, nmeas, gamma, a, b, c, d, tol = _example_inputs()
+    mpmx = max(m, np_)
+    liwork = max(2 * max(m, n), m + np_, n*n)
+    ldwork = max(
+        (n + mpmx) * (n + mpmx + 6),
+        13*n*n + m*m + 2*mpmx*mpmx + n*(m + mpmx) +
+        max(m*(m + 7*n), 2*mpmx*(8*n + m + 2*mpmx)) +
+        6*n + max(14*n + 23, 16*n, 2*n + max(m, 2*mpmx), 3*max(m, 2*mpmx)),
+    )
+    gamma_literal = f"{gamma:.17e}".replace("e", "d")
+    tol_literal = f"{tol:.17e}".replace("e", "d")
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: n={n}, m={m}, np={np_}, ncon={ncon}, nmeas={nmeas}
+  integer, parameter :: lda=n, ldb=n, ldc=np, ldd=np, ldak=n, ldbk=n
+  integer, parameter :: ldck=ncon, lddk=ncon, ldx=n, ldz=n
+  integer, parameter :: liwork={liwork}, ldwork={ldwork}
+  integer info, iwork(liwork)
+  logical bwork(2*n)
+  double precision gamma, tol
+  double precision a(lda,n), b(ldb,m), c(ldc,n), d(ldd,m)
+  double precision ak(ldak,n), bk(ldbk,nmeas), ck(ldck,n), dk(lddk,nmeas)
+  double precision x(ldx,n), z(ldz,n), rcond(8), dwork(ldwork)
+  gamma = {gamma_literal}
+  tol = {tol_literal}
+"""
+    source += _fortran_matrix_assignment("a", a)
+    source += _fortran_matrix_assignment("b", b)
+    source += _fortran_matrix_assignment("c", c)
+    source += _fortran_matrix_assignment("d", d)
+    source += """
+  call SB10DD(n, m, np, ncon, nmeas, gamma, a, lda, b, ldb, c, ldc, &
+       d, ldd, ak, ldak, bk, ldbk, ck, ldck, dk, lddk, x, ldx, z, ldz, &
+       rcond, tol, iwork, dwork, ldwork, bwork, info)
+  print '(I0)', info
+  print '(*(ES24.16,1X))', rcond
+  print '(*(ES24.16,1X))', ak
+  print '(*(ES24.16,1X))', bk
+  print '(*(ES24.16,1X))', ck
+  print '(*(ES24.16,1X))', dk
+  print '(*(ES24.16,1X))', x
+  print '(*(ES24.16,1X))', z
+end program main
+"""
+    return source
+
+
+def _take_matrix(values, offset, rows, cols):
+    end = offset + rows * cols
+    return values[offset:end].reshape((rows, cols), order="F"), end
+
+
+def test_sb10dd_html_example_matches_fortran_reference(tmp_path):
+    from ctrlsys import sb10dd
+
+    n, m, np_, ncon, nmeas, gamma, a, b, c, d, tol = _example_inputs()
+    output = run_fortran_driver(_sb10dd_example_fortran_source(), tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    values = np.array(tokens[1:], dtype=float)
+    offset = 0
+    rcond_f = values[offset:offset + 8]
+    offset += 8
+    ak_f, offset = _take_matrix(values, offset, n, n)
+    bk_f, offset = _take_matrix(values, offset, n, nmeas)
+    ck_f, offset = _take_matrix(values, offset, ncon, n)
+    dk_f, offset = _take_matrix(values, offset, ncon, nmeas)
+    x_f, offset = _take_matrix(values, offset, n, n)
+    z_f, _ = _take_matrix(values, offset, n, n)
+
+    ak, bk, ck, dk, x, z, rcond, info = sb10dd(
+        n, m, np_, ncon, nmeas, gamma, a, b, c, d, tol
+    )
+
+    assert info == info_f == 0
+    assert_allclose(rcond, rcond_f, rtol=1e-10, atol=1e-12)
+    assert_allclose(ak, ak_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(bk, bk_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(ck, ck_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(dk, dk_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(x, x_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(z, z_f, rtol=1e-10, atol=1e-10)
 
 
 def test_sb10dd_html_doc_example():

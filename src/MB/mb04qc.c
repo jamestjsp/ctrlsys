@@ -6,6 +6,225 @@
 #include "slicot_blas.h"
 #include <stdlib.h>
 
+static void mb04qc_copy(i32 len, const f64 *src, f64 *dst)
+{
+    for (i32 i = 0; i < len; i++) {
+        dst[i] = src[i];
+    }
+}
+
+static void mb04qc_axpy(i32 len, f64 alpha, const f64 *x, f64 *y)
+{
+    for (i32 i = 0; i < len; i++) {
+        y[i] += alpha * x[i];
+    }
+}
+
+static void mb04qc_trmm_right_tri(f64 *x, i32 rows, i32 cols,
+                                  const f64 *tri, i32 ldtri,
+                                  bool upper, bool trans, bool unit)
+{
+    f64 *tmp = malloc((size_t)cols * sizeof(*tmp));
+    if (tmp == NULL) {
+        return;
+    }
+
+    for (i32 row = 0; row < rows; row++) {
+        for (i32 col = 0; col < cols; col++) {
+            f64 sum = 0.0;
+            for (i32 l = 0; l < cols; l++) {
+                bool nz;
+                f64 coeff;
+                if (upper) {
+                    nz = trans ? (l >= col) : (l <= col);
+                    coeff = trans ? tri[col + l * ldtri] : tri[l + col * ldtri];
+                } else {
+                    nz = trans ? (l <= col) : (l >= col);
+                    coeff = trans ? tri[col + l * ldtri] : tri[l + col * ldtri];
+                }
+                if (!nz) {
+                    continue;
+                }
+                if (unit && l == col) {
+                    coeff = 1.0;
+                }
+                sum += x[row + l * rows] * coeff;
+            }
+            tmp[col] = sum;
+        }
+        for (i32 col = 0; col < cols; col++) {
+            x[row + col * rows] = tmp[col];
+        }
+    }
+    free(tmp);
+}
+
+static void mb04qc_add_tail_product(i32 m, i32 n, i32 k,
+                                    const f64 *mat, i32 ldmat,
+                                    const f64 *vec, i32 ldvec,
+                                    f64 *dst)
+{
+    for (i32 col = 0; col < k; col++) {
+        for (i32 row = 0; row < n; row++) {
+            f64 sum = 0.0;
+            for (i32 l = k; l < m; l++) {
+                sum += mat[l + row * ldmat] * vec[l + col * ldvec];
+            }
+            dst[row + col * n] += sum;
+        }
+    }
+}
+
+static void mb04qc_update_tail(i32 m, i32 n, i32 k,
+                               const f64 *vec, i32 ldvec,
+                               const f64 *work, f64 *mat, i32 ldmat)
+{
+    for (i32 row = k; row < m; row++) {
+        for (i32 col = 0; col < n; col++) {
+            f64 sum = 0.0;
+            for (i32 l = 0; l < k; l++) {
+                sum += vec[row + l * ldvec] * work[col + l * n];
+            }
+            mat[row + col * ldmat] += sum;
+        }
+    }
+}
+
+static void mb04qc_update_head(i32 n, i32 k, const f64 *work, f64 *mat, i32 ldmat)
+{
+    for (i32 col = 0; col < n; col++) {
+        for (i32 row = 0; row < k; row++) {
+            mat[row + col * ldmat] += work[col + row * n];
+        }
+    }
+}
+
+static void mb04qc_apply_n_nn_cc(i32 m, i32 n, i32 k,
+                                 const f64 *v, i32 ldv, const f64 *w, i32 ldw,
+                                 const f64 *rs, i32 ldrs, const f64 *t, i32 ldt,
+                                 f64 *a, i32 lda, f64 *b, i32 ldb, f64 *dwork,
+                                 i32 pr1, i32 pr2, i32 pr3, i32 ps1, i32 ps2, i32 ps3,
+                                 i32 pt11, i32 pt12, i32 pt13, i32 pt21, i32 pt22,
+                                 i32 pt23, i32 pt31, i32 pt32, i32 pt33,
+                                 i32 pdw1, i32 pdw2, i32 pdw3, i32 pdw4, i32 pdw5,
+                                 i32 pdw6, i32 pdw7, i32 pdw8, i32 pdw9)
+{
+    i32 nk = n * k;
+    i32 km1 = k - 1;
+    i32 nmk = n * km1;
+
+    mb04qc_copy(nk, &dwork[pdw1], &dwork[pdw3]);
+    mb04qc_trmm_right_tri(&dwork[pdw3], n, k, &t[pt11 * ldt], ldt, true, true, false);
+    mb04qc_copy(nk, &dwork[pdw2], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw4], n, k, &t[pt13 * ldt], ldt, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw4], &dwork[pdw3]);
+    mb04qc_copy(nk, &dwork[pdw7], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, k, &t[pt12 * ldt], ldt, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw8], &dwork[pdw3]);
+
+    mb04qc_copy(nk, &dwork[pdw2], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw4], n, k, &t[pt23 * ldt], ldt, true, true, false);
+    mb04qc_copy(nmk, &dwork[pdw1 + n], &dwork[pdw5]);
+    mb04qc_trmm_right_tri(&dwork[pdw5], n, km1, &t[(pt21 + 1) * ldt], ldt, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw5], &dwork[pdw4]);
+    mb04qc_copy(nk, &dwork[pdw7], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, k, &t[pt22 * ldt], ldt, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw8], &dwork[pdw4]);
+
+    mb04qc_copy(nk, &dwork[pdw2], &dwork[pdw5]);
+    mb04qc_trmm_right_tri(&dwork[pdw5], n, k, &t[pt33 * ldt], ldt, true, true, false);
+    mb04qc_copy(nmk, &dwork[pdw1 + n], &dwork[pdw6]);
+    mb04qc_trmm_right_tri(&dwork[pdw6], n, km1, &t[(pt31 + 1) * ldt], ldt, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw6], &dwork[pdw5]);
+    mb04qc_copy(nmk, &dwork[pdw7 + n], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, km1, &t[(pt32 + 1) * ldt], ldt, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw8], &dwork[pdw5]);
+
+    mb04qc_trmm_right_tri(&dwork[pdw1 + n], n, km1, &rs[(ps1 + 1) * ldrs], ldrs, true, true, false);
+    mb04qc_trmm_right_tri(&dwork[pdw2], n, k, &rs[ps3 * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw1 + n], &dwork[pdw2]);
+    mb04qc_trmm_right_tri(&dwork[pdw7], n, k, &rs[ps2 * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw7], &dwork[pdw2]);
+
+    for (i32 col = 0; col < n; col++) {
+        for (i32 row = 0; row < k; row++) {
+            dwork[pdw9 + col + row * n] = b[row + col * ldb];
+        }
+    }
+    mb04qc_copy(nk, &dwork[pdw9], &dwork[pdw1]);
+    mb04qc_trmm_right_tri(&dwork[pdw1], n, k, w, ldw, false, false, true);
+    mb04qc_copy(nk, &dwork[pdw9], &dwork[pdw6]);
+    mb04qc_trmm_right_tri(&dwork[pdw6], n, k, v, ldv, false, false, true);
+    mb04qc_add_tail_product(m, n, k, b, ldb, w, ldw, &dwork[pdw1]);
+    mb04qc_add_tail_product(m, n, k, b, ldb, v, ldv, &dwork[pdw6]);
+
+    mb04qc_copy(nk, &dwork[pdw6], &dwork[pdw7]);
+    mb04qc_trmm_right_tri(&dwork[pdw7], n, k, &rs[ps3 * ldrs], ldrs, true, true, false);
+    mb04qc_copy(nmk, &dwork[pdw1 + n], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, km1, &rs[(ps1 + 1) * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw8], &dwork[pdw7]);
+    mb04qc_copy(nk, &dwork[pdw9], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, k, &rs[ps2 * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw8], &dwork[pdw7]);
+
+    mb04qc_copy(nk, &dwork[pdw7], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, k, &rs[pr1 * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw8], &dwork[pdw3]);
+    mb04qc_copy(nmk, &dwork[pdw7 + n], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, km1, &rs[(pr3 + 1) * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw8], &dwork[pdw5]);
+    mb04qc_trmm_right_tri(&dwork[pdw7], n, k, &rs[pr2 * ldrs], ldrs, true, true, true);
+
+    mb04qc_update_tail(m, n, k, w, ldw, &dwork[pdw3], a, lda);
+    mb04qc_update_tail(m, n, k, v, ldv, &dwork[pdw5], a, lda);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw7], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw3], n, k, w, ldw, false, true, true);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw3], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw5], n, k, v, ldv, false, true, true);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw5], &dwork[pdw4]);
+    mb04qc_update_head(n, k, &dwork[pdw4], a, lda);
+
+    mb04qc_copy(nk, &dwork[pdw1], &dwork[pdw3]);
+    mb04qc_trmm_right_tri(&dwork[pdw3], n, k, &t[pt11 * ldt], ldt, true, true, false);
+    mb04qc_copy(nk, &dwork[pdw6], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw4], n, k, &t[pt13 * ldt], ldt, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw4], &dwork[pdw3]);
+    mb04qc_copy(nk, &dwork[pdw9], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, k, &t[pt12 * ldt], ldt, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw8], &dwork[pdw3]);
+    mb04qc_copy(nk, &dwork[pdw2], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw4], n, k, &rs[pr1 * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nk, -1.0, &dwork[pdw4], &dwork[pdw3]);
+
+    mb04qc_copy(nk, &dwork[pdw6], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw4], n, k, &t[pt23 * ldt], ldt, true, true, false);
+    mb04qc_copy(nmk, &dwork[pdw1 + n], &dwork[pdw5]);
+    mb04qc_trmm_right_tri(&dwork[pdw5], n, km1, &t[(pt21 + 1) * ldt], ldt, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw5], &dwork[pdw4]);
+    mb04qc_copy(nk, &dwork[pdw9], &dwork[pdw8]);
+    mb04qc_trmm_right_tri(&dwork[pdw8], n, k, &t[pt22 * ldt], ldt, true, true, false);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw8], &dwork[pdw4]);
+    mb04qc_copy(nk, &dwork[pdw2], &dwork[pdw5]);
+    mb04qc_trmm_right_tri(&dwork[pdw5], n, k, &rs[pr2 * ldrs], ldrs, true, true, true);
+    mb04qc_axpy(nk, -1.0, &dwork[pdw5], &dwork[pdw4]);
+
+    mb04qc_trmm_right_tri(&dwork[pdw6], n, k, &t[pt33 * ldt], ldt, true, true, false);
+    mb04qc_trmm_right_tri(&dwork[pdw1 + n], n, km1, &t[(pt31 + 1) * ldt], ldt, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw1 + n], &dwork[pdw6]);
+    mb04qc_trmm_right_tri(&dwork[pdw9 + n], n, km1, &t[(pt32 + 1) * ldt], ldt, true, true, false);
+    mb04qc_axpy(nmk, 1.0, &dwork[pdw9 + n], &dwork[pdw6]);
+    mb04qc_trmm_right_tri(&dwork[pdw2 + n], n, km1, &rs[(pr3 + 1) * ldrs], ldrs, true, true, false);
+    mb04qc_axpy(nmk, -1.0, &dwork[pdw2 + n], &dwork[pdw6]);
+
+    mb04qc_update_tail(m, n, k, w, ldw, &dwork[pdw3], b, ldb);
+    mb04qc_update_tail(m, n, k, v, ldv, &dwork[pdw6], b, ldb);
+    mb04qc_trmm_right_tri(&dwork[pdw3], n, k, w, ldw, false, true, true);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw3], &dwork[pdw4]);
+    mb04qc_trmm_right_tri(&dwork[pdw6], n, k, v, ldv, false, true, true);
+    mb04qc_axpy(nk, 1.0, &dwork[pdw6], &dwork[pdw4]);
+    mb04qc_update_head(n, k, &dwork[pdw4], b, ldb);
+}
+
 void mb04qc(
     const char *strab, const char *trana, const char *tranb,
     const char *tranq, const char *direct, const char *storev,
@@ -428,6 +647,17 @@ void mb04qc(
             }
         }
     } else {
+        if (la1b1 && !ltra && !ltrb && lcolv && lcolw) {
+            mb04qc_apply_n_nn_cc(m, n, k, v, ldv, w, ldw, rs, ldrs, t, ldt,
+                                 a, lda, b, ldb, dwork,
+                                 pr1, pr2, pr3, ps1, ps2, ps3,
+                                 pt11, pt12, pt13, pt21, pt22, pt23,
+                                 pt31, pt32, pt33,
+                                 pdw1, pdw2, pdw3, pdw4, pdw5, pdw6,
+                                 pdw7, pdw8, pdw9);
+            return;
+        }
+
         /* TRANQ = 'N' - apply Q (not Q^T) */
         /* Similar structure but different order of operations */
         /* This is a very long section - implementing later */

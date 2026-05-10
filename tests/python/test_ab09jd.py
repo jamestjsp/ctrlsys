@@ -51,6 +51,329 @@ Error codes (INFO):
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose
+from pathlib import Path
+from fortran_reference import run_fortran_driver
+
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _example_inputs():
+    tokens = (ROOT / "SLICOT-Reference/examples/data/AB09JD.dat").read_text().split()
+    n, m, p, nv, nw, nr = map(int, tokens[6:12])
+    alpha, tol1, tol2 = map(float, tokens[12:15])
+    jobv, jobw, jobinv, dico, equil, ordsel = tokens[15:21]
+    values = np.array(tokens[21:], dtype=float)
+    offset = 0
+    a = values[offset:offset + n*n].reshape((n, n)).astype(float, order="F")
+    offset += n*n
+    b = values[offset:offset + n*m].reshape((n, m)).astype(float, order="F")
+    offset += n*m
+    c = values[offset:offset + p*n].reshape((p, n)).astype(float, order="F")
+    offset += p*n
+    d = values[offset:offset + p*m].reshape((p, m)).astype(float, order="F")
+    offset += p*m
+    av = values[offset:offset + nv*nv].reshape((nv, nv)).astype(float, order="F")
+    offset += nv*nv
+    bv = values[offset:offset + nv*p].reshape((nv, p)).astype(float, order="F")
+    offset += nv*p
+    cv = values[offset:offset + p*nv].reshape((p, nv)).astype(float, order="F")
+    offset += p*nv
+    dv = values[offset:offset + p*p].reshape((p, p)).astype(float, order="F")
+    aw = np.zeros((1, 1), dtype=float, order="F")
+    bw = np.zeros((1, m), dtype=float, order="F")
+    cw = np.zeros((m, 1), dtype=float, order="F")
+    dw = np.zeros((m, m), dtype=float, order="F")
+    return (jobv, jobw, jobinv, dico, equil, ordsel, n, nv, nw, m, p, nr,
+            alpha, a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2)
+
+
+def _ab09jd_example_fortran_source():
+    (jobv, jobw, jobinv, dico, equil, ordsel, n, nv, nw, m, p, nr,
+     alpha, a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2) = _example_inputs()
+    nvp = nv + p
+    nwm = nw + m
+    maxnmp = max(n, m, p)
+    minnm = min(n, m)
+    leftw = jobv != "N"
+    rightw = jobw != "N"
+    ldwork = 1
+    if leftw:
+        ldwork = max(ldwork, 2*nvp*(nvp + p) + p*p + max(
+            2*nvp*nvp + max(11*nvp + 16, p*nvp),
+            nvp*n + max(nvp*n + n*n, p*n, p*m),
+        ))
+    if rightw:
+        ldwork = max(ldwork, 2*nwm*(nwm + m) + m*m + max(
+            2*nwm*nwm + max(11*nwm + 16, m*nwm),
+            nwm*n + max(nwm*n + n*n, m*n, p*m),
+        ))
+    ldwork = max(
+        ldwork,
+        n * (2*n + maxnmp + 5) + (n * (n + 1)) // 2,
+        n * (m + p + 2) + 2*m*p + minnm + max(3*m + 1, minnm + p),
+    )
+    liwork = max(m, n)
+    if leftw:
+        liwork = max(liwork, 2*p + nvp + n + 6)
+    if rightw:
+        liwork = max(liwork, 2*m + nwm + n + 6)
+    alpha_literal = f"{alpha:.17e}".replace("e", "d")
+    tol1_literal = f"{tol1:.17e}".replace("e", "d")
+    tol2_literal = f"{tol2:.17e}".replace("e", "d")
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: n={n}, nv={nv}, nw={nw}, m={m}, p={p}
+  integer, parameter :: lda=n, ldb=n, ldc=p, ldd=p
+  integer, parameter :: ldav=max(1,nv), ldbv=max(1,nv), ldcv=p, lddv=p
+  integer, parameter :: ldaw=1, ldbw=1, ldcw=m, lddw=m
+  integer, parameter :: liwork={liwork}, ldwork={ldwork}
+  integer nr, ns, iwarn, info, iwork(liwork)
+  double precision alpha, tol1, tol2
+  double precision a(lda,n), b(ldb,m), c(ldc,n), d(ldd,m)
+  double precision av(ldav,max(1,nv)), bv(ldbv,p), cv(ldcv,max(1,nv)), dv(lddv,p)
+  double precision aw(ldaw,1), bw(ldbw,m), cw(ldcw,1), dw(lddw,m)
+  double precision hsv(n), dwork(ldwork)
+  nr = {nr}
+  alpha = {alpha_literal}
+  tol1 = {tol1_literal}
+  tol2 = {tol2_literal}
+"""
+    for name, matrix in (
+        ("a", a), ("b", b), ("c", c), ("d", d), ("av", av), ("bv", bv),
+        ("cv", cv), ("dv", dv), ("aw", aw), ("bw", bw), ("cw", cw), ("dw", dw),
+    ):
+        source += _fortran_matrix_assignment(name, matrix)
+    source += f"""
+  call AB09JD('{jobv}', '{jobw}', '{jobinv}', '{dico}', '{equil}', '{ordsel}', &
+       n, nv, nw, m, p, nr, alpha, a, lda, b, ldb, c, ldc, d, ldd, &
+       av, ldav, bv, ldbv, cv, ldcv, dv, lddv, aw, ldaw, bw, ldbw, &
+       cw, ldcw, dw, lddw, ns, hsv, tol1, tol2, iwork, dwork, ldwork, &
+       iwarn, info)
+  print '(I0,1X,I0,1X,I0,1X,I0)', info, iwarn, nr, ns
+  print '(*(ES24.16,1X))', hsv(1:ns)
+  print '(*(ES24.16,1X))', a(1:nr,1:nr)
+  print '(*(ES24.16,1X))', b(1:nr,1:m)
+  print '(*(ES24.16,1X))', c(1:p,1:nr)
+  print '(*(ES24.16,1X))', d(1:p,1:m)
+end program main
+"""
+    return source
+
+
+def _generalized_inverse_weight_inputs():
+    n = nv = nw = m = p = nr = 1
+    alpha = 0.0
+    tol1 = 0.0
+    tol2 = 0.0
+    a = np.array([[-2.0]], dtype=float, order="F")
+    b = np.array([[1.0]], dtype=float, order="F")
+    c = np.array([[1.0]], dtype=float, order="F")
+    d = np.array([[0.0]], dtype=float, order="F")
+    av = np.array([[-1.0]], dtype=float, order="F")
+    bv = np.array([[1.0]], dtype=float, order="F")
+    cv = np.array([[1.0]], dtype=float, order="F")
+    dv = np.array([[1.0]], dtype=float, order="F")
+    aw = np.array([[-1.5]], dtype=float, order="F")
+    bw = np.array([[1.0]], dtype=float, order="F")
+    cw = np.array([[1.0]], dtype=float, order="F")
+    dw = np.array([[1.0]], dtype=float, order="F")
+    return ("R", "R", "N", "C", "N", "F", n, nv, nw, m, p, nr, alpha,
+            a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2)
+
+
+def _right_generalized_projection_inputs():
+    n = nv = nw = m = p = nr = 1
+    alpha = 0.0
+    tol1 = 0.0
+    tol2 = 0.0
+    a = np.array([[-2.0]], dtype=float, order="F")
+    b = np.array([[1.0]], dtype=float, order="F")
+    c = np.array([[1.0]], dtype=float, order="F")
+    d = np.array([[0.0]], dtype=float, order="F")
+    av = np.zeros((1, 1), dtype=float, order="F")
+    bv = np.zeros((1, p), dtype=float, order="F")
+    cv = np.zeros((p, 1), dtype=float, order="F")
+    dv = np.zeros((p, p), dtype=float, order="F")
+    aw = np.array([[1.5]], dtype=float, order="F")
+    bw = np.array([[1.0]], dtype=float, order="F")
+    cw = np.array([[1.0]], dtype=float, order="F")
+    dw = np.array([[1.0]], dtype=float, order="F")
+    return ("N", "W", "N", "C", "N", "F", n, nv, nw, m, p, nr, alpha,
+            a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2)
+
+
+def _ab09jd_small_weight_fortran_source(args):
+    (jobv, jobw, jobinv, dico, equil, ordsel, n, nv, nw, m, p, nr,
+     alpha, a, b, c, d, av, bv, cv, dv, aw, bw, cw, dw, tol1, tol2) = args
+    nvp = nv + p
+    nwm = nw + m
+    maxnmp = max(n, m, p)
+    minnm = min(n, m)
+    ldwork = max(
+        2*nvp*(nvp + p) + p*p + max(
+            2*nvp*nvp + max(11*nvp + 16, p*nvp),
+            nvp*n + max(nvp*n + n*n, p*n, p*m),
+        ),
+        2*nwm*(nwm + m) + m*m + max(
+            2*nwm*nwm + max(11*nwm + 16, m*nwm),
+            nwm*n + max(nwm*n + n*n, m*n, p*m),
+        ),
+        n * (2*n + maxnmp + 5) + (n * (n + 1)) // 2,
+        n * (m + p + 2) + 2*m*p + minnm + max(3*m + 1, minnm + p),
+    )
+    liwork = max(m, n, 2*p + nvp + n + 6, 2*m + nwm + n + 6)
+    alpha_literal = f"{alpha:.17e}".replace("e", "d")
+    tol1_literal = f"{tol1:.17e}".replace("e", "d")
+    tol2_literal = f"{tol2:.17e}".replace("e", "d")
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: n={n}, nv={nv}, nw={nw}, m={m}, p={p}
+  integer, parameter :: lda=n, ldb=n, ldc=p, ldd=p
+  integer, parameter :: ldav=max(1,nv), ldbv=max(1,nv), ldcv=p, lddv=p
+  integer, parameter :: ldaw=max(1,nw), ldbw=max(1,nw), ldcw=m, lddw=m
+  integer, parameter :: liwork={liwork}, ldwork={ldwork}
+  integer nr, ns, iwarn, info, iwork(liwork)
+  double precision alpha, tol1, tol2
+  double precision a(lda,n), b(ldb,m), c(ldc,n), d(ldd,m)
+  double precision av(ldav,nv), bv(ldbv,p), cv(ldcv,nv), dv(lddv,p)
+  double precision aw(ldaw,nw), bw(ldbw,m), cw(ldcw,nw), dw(lddw,m)
+  double precision hsv(n), dwork(ldwork)
+  nr = {nr}
+  alpha = {alpha_literal}
+  tol1 = {tol1_literal}
+  tol2 = {tol2_literal}
+"""
+    for name, matrix in (
+        ("a", a), ("b", b), ("c", c), ("d", d), ("av", av), ("bv", bv),
+        ("cv", cv), ("dv", dv), ("aw", aw), ("bw", bw), ("cw", cw), ("dw", dw),
+    ):
+        source += _fortran_matrix_assignment(name, matrix)
+    source += f"""
+  call AB09JD('{jobv}', '{jobw}', '{jobinv}', '{dico}', '{equil}', '{ordsel}', &
+       n, nv, nw, m, p, nr, alpha, a, lda, b, ldb, c, ldc, d, ldd, &
+       av, ldav, bv, ldbv, cv, ldcv, dv, lddv, aw, ldaw, bw, ldbw, &
+       cw, ldcw, dw, lddw, ns, hsv, tol1, tol2, iwork, dwork, ldwork, &
+       iwarn, info)
+  print '(I0,1X,I0,1X,I0,1X,I0)', info, iwarn, nr, ns
+  print '(*(ES24.16,1X))', hsv(1:ns)
+  print '(*(ES24.16,1X))', a(1:nr,1:nr)
+  print '(*(ES24.16,1X))', b(1:nr,1:m)
+  print '(*(ES24.16,1X))', c(1:p,1:nr)
+  print '(*(ES24.16,1X))', d(1:p,1:m)
+end program main
+"""
+    return source
+
+
+def _take_matrix(values, offset, rows, cols):
+    end = offset + rows * cols
+    return values[offset:end].reshape((rows, cols), order="F"), end
+
+
+def test_ab09jd_doc_example_matches_fortran_reference(tmp_path):
+    from ctrlsys import ab09jd
+
+    args = _example_inputs()
+    output = run_fortran_driver(_ab09jd_example_fortran_source(), tmp_path)
+    tokens = output.split()
+    info_f, iwarn_f, nr_f, ns_f = map(int, tokens[:4])
+    values = np.array(tokens[4:], dtype=float)
+    offset = 0
+    hsv_f = values[offset:offset + ns_f]
+    offset += ns_f
+    ar_f, offset = _take_matrix(values, offset, nr_f, nr_f)
+    br_f, offset = _take_matrix(values, offset, nr_f, args[9])
+    cr_f, offset = _take_matrix(values, offset, args[10], nr_f)
+    dr_f, _ = _take_matrix(values, offset, args[10], args[9])
+
+    (a_out, b_out, c_out, d_out, av_out, bv_out, cv_out,
+     aw_out, bw_out, cw_out, nr, ns, hsv, iwarn, info) = ab09jd(*args)
+
+    assert info == info_f == 0
+    assert iwarn == iwarn_f == 0
+    assert nr == nr_f == 4
+    assert ns == ns_f == 6
+    assert_allclose(hsv[:ns], hsv_f, rtol=1e-10, atol=1e-10)
+    assert_allclose(np.abs(a_out[:nr, :nr]), np.abs(ar_f), rtol=1e-10, atol=1e-10)
+    assert_allclose(np.abs(b_out[:nr, :args[9]]), np.abs(br_f), rtol=1e-10, atol=1e-10)
+    assert_allclose(np.abs(c_out[:args[10], :nr]), np.abs(cr_f), rtol=1e-10, atol=1e-10)
+    assert_allclose(d_out[:args[10], :args[9]], dr_f, rtol=1e-10, atol=1e-10)
+
+
+def test_ab09jd_generalized_inverse_weights_match_fortran_reference(tmp_path):
+    from ctrlsys import ab09jd
+
+    args = _generalized_inverse_weight_inputs()
+    output = run_fortran_driver(_ab09jd_small_weight_fortran_source(args), tmp_path)
+    tokens = output.split()
+    info_f, iwarn_f, nr_f, ns_f = map(int, tokens[:4])
+    values = np.array(tokens[4:], dtype=float)
+    offset = 0
+    hsv_f = values[offset:offset + ns_f]
+    offset += ns_f
+    ar_f, offset = _take_matrix(values, offset, nr_f, nr_f)
+    br_f, offset = _take_matrix(values, offset, nr_f, args[9])
+    cr_f, offset = _take_matrix(values, offset, args[10], nr_f)
+    dr_f, _ = _take_matrix(values, offset, args[10], args[9])
+
+    (a_out, b_out, c_out, d_out, av_out, bv_out, cv_out,
+     aw_out, bw_out, cw_out, nr, ns, hsv, iwarn, info) = ab09jd(*args)
+
+    assert info == info_f == 0
+    assert iwarn == iwarn_f == 0
+    assert nr == nr_f == 1
+    assert ns == ns_f == 1
+    assert_allclose(hsv[:ns], hsv_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(a_out[:nr, :nr], ar_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(b_out[:nr, :args[9]], br_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(c_out[:args[10], :nr], cr_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(d_out[:args[10], :args[9]], dr_f, rtol=1e-12, atol=1e-12)
+
+
+def test_ab09jd_right_generalized_projection_matches_fortran_reference(tmp_path):
+    from ctrlsys import ab09jd
+
+    args = _right_generalized_projection_inputs()
+    output = run_fortran_driver(_ab09jd_small_weight_fortran_source(args), tmp_path)
+    tokens = output.split()
+    info_f, iwarn_f, nr_f, ns_f = map(int, tokens[:4])
+    values = np.array(tokens[4:], dtype=float)
+    offset = 0
+    hsv_f = values[offset:offset + ns_f]
+    offset += ns_f
+    ar_f, offset = _take_matrix(values, offset, nr_f, nr_f)
+    br_f, offset = _take_matrix(values, offset, nr_f, args[9])
+    cr_f, offset = _take_matrix(values, offset, args[10], nr_f)
+    dr_f, _ = _take_matrix(values, offset, args[10], args[9])
+
+    (a_out, b_out, c_out, d_out, av_out, bv_out, cv_out,
+     aw_out, bw_out, cw_out, nr, ns, hsv, iwarn, info) = ab09jd(*args)
+
+    assert info == info_f == 0
+    assert iwarn == iwarn_f == 0
+    assert nr == nr_f == 1
+    assert ns == ns_f == 1
+    assert_allclose(hsv[:ns], hsv_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(a_out[:nr, :nr], ar_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(b_out[:nr, :args[9]], br_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(c_out[:args[10], :nr], cr_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(d_out[:args[10], :args[9]], dr_f, rtol=1e-12, atol=1e-12)
 
 
 class TestAB09JDDocExample:

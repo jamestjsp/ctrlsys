@@ -13,6 +13,110 @@ where A is upper triangular, B is upper quasi-triangular, C is lower triangular.
 
 import numpy as np
 import pytest
+from numpy.testing import assert_allclose
+from fortran_reference import run_fortran_driver
+
+
+def _fortran_matrix_assignment(name, matrix):
+    values = np.asarray(matrix, order="F").ravel(order="F")
+    chunks = [
+        ", ".join(f"{value:.17e}".replace("e", "d") for value in values[i:i + 4])
+        for i in range(0, len(values), 4)
+    ]
+    return (
+        f"  {name} = reshape((/ &\n"
+        + ", &\n".join(f"       {chunk}" for chunk in chunks)
+        + f" &\n  /), shape({name}))\n"
+    )
+
+
+def _mb03id_reordering_case():
+    a = np.array([[2.0, 0.5], [0.0, 3.0]], dtype=float, order="F")
+    c = np.array([[1.0, 0.0], [0.3, 2.0]], dtype=float, order="F")
+    d = np.array([[0.1, 0.2], [0.3, 0.4]], dtype=float, order="F")
+    b = np.array([[-1.0, 0.2], [0.0, 1.0]], dtype=float, order="F")
+    f = np.array([[0.5, 0.1], [0.0, 0.6]], dtype=float, order="F")
+    return a, c, d, b, f
+
+
+def _mb03id_reordering_fortran_source():
+    a, c, d, b, f = _mb03id_reordering_case()
+    n = 4
+    m = n // 2
+    liwork = n + 1
+    ldwork = 200
+    source = f"""
+program main
+  implicit none
+  integer, parameter :: n={n}, m={m}, lda=m, ldc=m, ldd=m, ldb=m, ldf=m
+  integer, parameter :: ldq=n, ldu1=m, ldu2=m, liwork={liwork}, ldwork={ldwork}
+  integer info, neig, iwork(liwork)
+  double precision a(lda,m), c(ldc,m), d(ldd,m), b(ldb,m), f(ldf,m)
+  double precision q(ldq,n), u1(ldu1,m), u2(ldu2,m), dwork(ldwork)
+"""
+    source += _fortran_matrix_assignment("a", a)
+    source += _fortran_matrix_assignment("c", c)
+    source += _fortran_matrix_assignment("d", d)
+    source += _fortran_matrix_assignment("b", b)
+    source += _fortran_matrix_assignment("f", f)
+    source += """
+  call MB03ID('I','I',n,a,lda,c,ldc,d,ldd,b,ldb,f,ldf, &
+       q,ldq,u1,ldu1,u2,ldu2,neig,iwork,liwork,dwork,ldwork,info)
+  print '(I0,1X,I0)', info, neig
+  print '(*(ES24.16,1X))', a
+  print '(*(ES24.16,1X))', c
+  print '(*(ES24.16,1X))', d
+  print '(*(ES24.16,1X))', b
+  print '(*(ES24.16,1X))', f
+  print '(*(ES24.16,1X))', q
+  print '(*(ES24.16,1X))', u1
+  print '(*(ES24.16,1X))', u2
+end program main
+"""
+    return source
+
+
+def _take_matrix(values, offset, rows, cols):
+    end = offset + rows * cols
+    return values[offset:end].reshape((rows, cols), order="F"), end
+
+
+def test_mb03id_reordering_matches_fortran_reference(tmp_path):
+    from ctrlsys import mb03id
+
+    n = 4
+    m = n // 2
+    a, c, d, b, f = _mb03id_reordering_case()
+
+    output = run_fortran_driver(_mb03id_reordering_fortran_source(), tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    neig_f = int(tokens[1])
+    values = np.array(tokens[2:], dtype=float)
+    offset = 0
+    a_f, offset = _take_matrix(values, offset, m, m)
+    c_f, offset = _take_matrix(values, offset, m, m)
+    d_f, offset = _take_matrix(values, offset, m, m)
+    b_f, offset = _take_matrix(values, offset, m, m)
+    f_f, offset = _take_matrix(values, offset, m, m)
+    q_f, offset = _take_matrix(values, offset, n, n)
+    u1_f, offset = _take_matrix(values, offset, m, m)
+    u2_f, _ = _take_matrix(values, offset, m, m)
+
+    result = mb03id("I", "I", n, a.copy(order="F"), c.copy(order="F"),
+                    d.copy(order="F"), b.copy(order="F"), f.copy(order="F"))
+    a_out, c_out, d_out, b_out, f_out, q_out, u1_out, u2_out, neig, info = result
+
+    assert info == info_f == 0
+    assert neig == neig_f == 2
+    assert_allclose(np.triu(a_out), np.triu(a_f), rtol=1e-12, atol=1e-12)
+    assert_allclose(np.tril(c_out), np.tril(c_f), rtol=1e-12, atol=1e-12)
+    assert_allclose(d_out, d_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(np.triu(b_out, -1), np.triu(b_f, -1), rtol=1e-12, atol=1e-12)
+    assert_allclose(np.triu(f_out), np.triu(f_f), rtol=1e-12, atol=1e-12)
+    assert_allclose(q_out, q_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(u1_out, u1_f, rtol=1e-12, atol=1e-12)
+    assert_allclose(u2_out, u2_f, rtol=1e-12, atol=1e-12)
 
 
 def test_mb03id_basic_n4():
