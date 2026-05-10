@@ -137,3 +137,7 @@
 {"type":"state","ts":"2026-05-10T01:28:41.771003Z","data":{"id":"6RGJYO","state":"doing","ts":"2026-05-10T01:28:41.771003Z"}}
 {"type":"result","ts":"2026-05-10T01:30:38.110042Z","data":{"task_id":"6RGJYO","summary":"Forced NB\u003e=2 blocked path and matched A/B/G/Q/CSL/CSR/TAUL/TAUR to Fortran.","path":"tests/python/test_mb04tb.py","sha256_at_attach":"b201f36cbce31ddcb0c75184d1f02608299f9769536146f24740eabf29400701","mtime_at_attach":"2026-05-10T01:30:03.120106709Z","git_commit_at_attach":"4cc607a5f2f744db3bd9dd5fba206cd8878f0c42","ts":"2026-05-10T01:30:38.110042Z"}}
 {"type":"state","ts":"2026-05-10T01:30:38.111294Z","data":{"id":"6RGJYO","state":"done","ts":"2026-05-10T01:30:38.111294Z"}}
+{"type":"claim","ts":"2026-05-10T01:31:11.980313Z","data":{"id":"F3NXVK","agent_id":"codex","ts":"2026-05-10T01:31:11.980313Z"}}
+{"type":"state","ts":"2026-05-10T01:31:11.980313Z","data":{"id":"F3NXVK","state":"doing","ts":"2026-05-10T01:31:11.980313Z"}}
+{"type":"result","ts":"2026-05-10T01:32:38.703473Z","data":{"task_id":"F3NXVK","summary":"C includes MB04PA blocked updates; Fortran differential matches A/QG/CS/TAU.","path":"tests/python/test_mb04rb.py","sha256_at_attach":"b7151cfed53d6860741a322fe24388a93d3cc29144af48f0832aaec810b0a51c","mtime_at_attach":"2026-05-10T01:32:02.526362138Z","git_commit_at_attach":"66efe1ce373427354a669c9b95e03e158c8487b4","ts":"2026-05-10T01:32:38.703473Z"}}
+{"type":"state","ts":"2026-05-10T01:32:38.710388Z","data":{"id":"F3NXVK","state":"done","ts":"2026-05-10T01:32:38.710388Z"}}
