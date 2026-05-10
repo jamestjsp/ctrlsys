@@ -13,6 +13,104 @@ Test Strategy:
 import numpy as np
 import pytest
 
+from fortran_reference import run_fortran_driver
+
+
+SG02CW_GENERAL_E_TRANSPOSE_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n = 2, m = 0
+  integer, parameter :: lda = n, lde = n, ldg = n, ldx = n
+  integer, parameter :: ldf = n, ldk = 1, ldxe = n, ldr = n, ldc = n
+  integer, parameter :: ldwork = 20
+  integer info
+  double precision a(lda,n), e(lde,n), g(ldg,1), x(ldx,n)
+  double precision f(ldf,1), k(ldk,n), xe(ldxe,n), r(ldr,n), c(ldc,n)
+  double precision norms(2), dwork(ldwork)
+
+  a = 0.0d0
+  e = 0.0d0
+  g = 0.0d0
+  x = 0.0d0
+  f = 0.0d0
+  k = 0.0d0
+  xe = 0.0d0
+  r = 0.0d0
+  c = 0.0d0
+
+  a(1,1) = -1.0d0
+  a(1,2) =  0.25d0
+  a(2,1) =  0.10d0
+  a(2,2) = -2.0d0
+
+  e(1,1) = 2.0d0
+  e(1,2) = 0.20d0
+  e(2,2) = 1.5d0
+
+  x(1,1) = 0.50d0
+  x(1,2) = 0.10d0
+  x(2,1) = 0.10d0
+  x(2,2) = 0.30d0
+
+  r(1,1) = 1.0d0
+  r(2,1) = 0.20d0
+  r(1,2) = 0.20d0
+  r(2,2) = 0.70d0
+
+  call SG02CW('C', 'N', 'G', 'M', 'D', 'U', 'T', n, m, &
+       a, lda, e, lde, g, ldg, x, ldx, f, ldf, k, ldk, &
+       xe, ldxe, r, ldr, c, ldc, norms, dwork, ldwork, info)
+
+  print '(I0)', info
+  print '(*(ES24.16,1X))', r
+  print '(*(ES24.16,1X))', c
+  print '(*(ES24.16,1X))', norms
+end program main
+"""
+
+
+def _sg02cw_general_e_transpose_inputs():
+    a = np.array([[-1.0, 0.25], [0.10, -2.0]], order="F", dtype=float)
+    e = np.array([[2.0, 0.20], [0.0, 1.5]], order="F", dtype=float)
+    x = np.array([[0.50, 0.10], [0.10, 0.30]], order="F", dtype=float)
+    q = np.array([[1.0, 0.20], [0.20, 0.70]], order="F", dtype=float)
+    g = np.eye(2, order="F", dtype=float)
+    return a, e, g, x, q
+
+
+def _take_matrix(values, offset, n):
+    end = offset + n * n
+    return values[offset:end].reshape((n, n), order="F"), end
+
+
+def test_sg02cw_general_e_transpose_matches_fortran_reference(tmp_path):
+    from ctrlsys import sg02cw
+
+    output = run_fortran_driver(SG02CW_GENERAL_E_TRANSPOSE_CASE, tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    values = np.array(tokens[1:], dtype=float)
+
+    n = 2
+    offset = 0
+    r_f, offset = _take_matrix(values, offset, n)
+    c_f, offset = _take_matrix(values, offset, n)
+    norms_f = values[offset:offset + 2]
+
+    a, e, g, x, q = _sg02cw_general_e_transpose_inputs()
+    r, c, norms, info = sg02cw(
+        dico="C", job="N", jobe="G", flag="M", jobg="D",
+        uplo="U", trans="T",
+        n=n, m=0,
+        a=a.copy(), e=e.copy(), g=g.copy(), x=x.copy(),
+        f=None, k=None, xe=None, q=q.copy(),
+    )
+
+    assert info == info_f == 0
+    np.testing.assert_allclose(r, r_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(c, c_f, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(norms, norms_f, rtol=1e-12, atol=1e-12)
+
 
 class TestSG02CWBasic:
     """Basic functionality tests for SG02CW."""
