@@ -26,7 +26,7 @@ void mb01uy(
     const i32 inc1 = 1;
 
     bool lside, luplo, ltran;
-    i32 k, l, mn, wrkmin, nb;
+    i32 k, l, mn, wrkmin, wrkopt, nb;
 
     *info = 0;
     lside = (*side == 'L' || *side == 'l');
@@ -45,11 +45,6 @@ void mb01uy(
     wrkmin = 1;
     if (alpha != zero && mn > 0) {
         wrkmin = (wrkmin > k) ? wrkmin : k;
-    }
-
-    if (ldwork == -1) {
-        dwork[0] = (f64)(m * n);
-        return;
     }
 
     if ((!lside && *side != 'R' && *side != 'r')) {
@@ -80,6 +75,24 @@ void mb01uy(
         *info = -10;
         return;
     }
+
+    if (ldwork == -1) {
+        if (alpha != zero && mn > 0) {
+            i32 max_mn = (m > n) ? m : n;
+            i32 neg1 = -1;
+            i32 ierr = 0;
+            f64 qwork = 0.0;
+            SLC_DGEQRF(&m, &max_mn, (f64*)a, &lda, dwork, &qwork, &neg1, &ierr);
+            wrkopt = wrkmin;
+            if (wrkopt < 2 * l) wrkopt = 2 * l;
+            if (wrkopt < (i32)qwork) wrkopt = (i32)qwork;
+            dwork[0] = (f64)wrkopt;
+        } else {
+            dwork[0] = one;
+        }
+        return;
+    }
+
     if (ldwork < wrkmin) {
         dwork[0] = (f64)wrkmin;
         *info = -12;
@@ -93,6 +106,12 @@ void mb01uy(
     if (alpha == zero) {
         SLC_DLASET("F", &m, &n, &zero, &zero, t, &ldt);
         return;
+    }
+
+    wrkopt = wrkmin;
+    if (alpha != zero && mn > 0) {
+        if (wrkopt < 2 * l) wrkopt = 2 * l;
+        if (wrkopt < m * n) wrkopt = m * n;
     }
 
     nb = (l > 0) ? ldwork / l : 1;
@@ -288,5 +307,5 @@ void mb01uy(
         }
     }
 
-    dwork[0] = (f64)(m * n);
+    dwork[0] = (f64)wrkopt;
 }

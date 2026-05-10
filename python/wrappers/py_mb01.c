@@ -714,8 +714,10 @@ PyObject* py_mb01uy(PyObject* self, PyObject* args) {
     PyObject *t_obj, *a_obj;
     PyArrayObject *t_array, *a_array;
     i32 info;
+    i32 ldwork = 0;
+    Py_ssize_t nargs = PyTuple_Size(args);
 
-    if (!PyArg_ParseTuple(args, "sssiidOO", &side, &uplo, &trans, &m, &n, &alpha, &t_obj, &a_obj)) {
+    if (!PyArg_ParseTuple(args, "sssiidOO|i", &side, &uplo, &trans, &m, &n, &alpha, &t_obj, &a_obj, &ldwork)) {
         return NULL;
     }
 
@@ -753,8 +755,12 @@ PyObject* py_mb01uy(PyObject* self, PyObject* args) {
         }
     }
 
-    i32 ldwork = m * n;
-    f64 *dwork = (f64*)malloc(ldwork * sizeof(f64));
+    if (nargs <= 8) {
+        ldwork = m * n;
+    }
+    i32 dwork_len = (ldwork == -1) ? 1 : ldwork;
+    if (dwork_len < 1) dwork_len = 1;
+    f64 *dwork = (f64*)malloc((size_t)dwork_len * sizeof(f64));
     if (dwork == NULL) {
         Py_DECREF(t_array);
         Py_DECREF(a_array);
@@ -763,8 +769,17 @@ PyObject* py_mb01uy(PyObject* self, PyObject* args) {
     }
 
     mb01uy(side, uplo, trans, m, n, alpha, t_data, ldt, a_data, lda, dwork, ldwork, &info);
+    f64 work = dwork[0];
 
     free(dwork);
+
+    if (ldwork == -1) {
+        PyObject *result = Py_BuildValue("Oid", Py_None, info, work);
+        Py_DECREF(t_array);
+        Py_DECREF(a_array);
+        Py_DECREF(t_out);
+        return result;
+    }
 
     npy_intp result_dims[2] = {m, n};
     npy_intp result_strides[2] = {sizeof(f64), m * sizeof(f64)};
@@ -784,7 +799,12 @@ PyObject* py_mb01uy(PyObject* self, PyObject* args) {
         }
     }
 
-    PyObject *result = Py_BuildValue("Oi", result_array, info);
+    PyObject *result;
+    if (nargs <= 8) {
+        result = Py_BuildValue("Oi", result_array, info);
+    } else {
+        result = Py_BuildValue("Oid", result_array, info, work);
+    }
     Py_DECREF(t_array);
     Py_DECREF(a_array);
     Py_DECREF(t_out);
