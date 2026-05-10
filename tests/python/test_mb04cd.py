@@ -3,6 +3,134 @@
 import numpy as np
 import pytest
 
+from fortran_reference import run_fortran_driver
+
+
+MB04CD_I_TRANSFORM_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n = 4, lda = n, ldb = n, ldd = n
+  integer, parameter :: ldq1 = n, ldq2 = n, ldq3 = n
+  integer, parameter :: liwork = 48, ldwork = 3*n*n + 432
+  integer info
+  integer iwork(liwork)
+  logical bwork(n/2)
+  double precision a(lda,n), b(ldb,n), d(ldd,n)
+  double precision q1(ldq1,n), q2(ldq2,n), q3(ldq3,n), dwork(ldwork)
+
+  a = 0.0d0
+  b = 0.0d0
+  d = 0.0d0
+  q1 = 0.0d0
+  q2 = 0.0d0
+  q3 = 0.0d0
+
+  a(1,1) = 1.40d0
+  a(1,2) = -0.20d0
+  a(2,2) = 0.90d0
+  a(3,3) = -0.70d0
+  a(3,4) = 0.25d0
+  a(4,4) = 1.10d0
+
+  b(1,1) = 0.80d0
+  b(1,2) = 0.35d0
+  b(2,2) = 1.30d0
+  b(3,3) = 1.20d0
+  b(3,4) = -0.45d0
+  b(4,4) = 0.60d0
+
+  d(1,3) = 0.50d0
+  d(1,4) = -0.10d0
+  d(2,4) = 0.70d0
+  d(3,1) = -0.30d0
+  d(3,2) = 0.20d0
+  d(4,1) = 0.15d0
+  d(4,2) = 0.90d0
+
+  call MB04CD('I', 'I', 'I', n, a, lda, b, ldb, d, ldd, &
+       q1, ldq1, q2, ldq2, q3, ldq3, iwork, liwork, dwork, &
+       ldwork, bwork, info)
+
+  print '(I0)', info
+  print '(*(ES24.16,1X))', a
+  print '(*(ES24.16,1X))', b
+  print '(*(ES24.16,1X))', d
+  print '(*(ES24.16,1X))', q1
+  print '(*(ES24.16,1X))', q2
+  print '(*(ES24.16,1X))', q3
+end program main
+"""
+
+
+def _mb04cd_reference_inputs():
+    n = 4
+    a = np.zeros((n, n), order="F", dtype=float)
+    b = np.zeros((n, n), order="F", dtype=float)
+    d = np.zeros((n, n), order="F", dtype=float)
+
+    a[0, 0] = 1.40
+    a[0, 1] = -0.20
+    a[1, 1] = 0.90
+    a[2, 2] = -0.70
+    a[2, 3] = 0.25
+    a[3, 3] = 1.10
+
+    b[0, 0] = 0.80
+    b[0, 1] = 0.35
+    b[1, 1] = 1.30
+    b[2, 2] = 1.20
+    b[2, 3] = -0.45
+    b[3, 3] = 0.60
+
+    d[0, 2] = 0.50
+    d[0, 3] = -0.10
+    d[1, 3] = 0.70
+    d[2, 0] = -0.30
+    d[2, 1] = 0.20
+    d[3, 0] = 0.15
+    d[3, 1] = 0.90
+
+    return a, b, d
+
+
+def _take_matrix(values, offset, n):
+    end = offset + n * n
+    return values[offset:end].reshape((n, n), order="F"), end
+
+
+@pytest.mark.xfail(
+    reason="MB04CD currently diverges from the pinned Fortran reference for N=4 transformations",
+    strict=True,
+)
+def test_mb04cd_transformations_match_fortran_reference(tmp_path):
+    from ctrlsys import mb04cd
+
+    output = run_fortran_driver(MB04CD_I_TRANSFORM_CASE, tmp_path)
+    tokens = output.split()
+    info_f = int(tokens[0])
+    values = np.array(tokens[1:], dtype=float)
+
+    n = 4
+    offset = 0
+    a_f, offset = _take_matrix(values, offset, n)
+    b_f, offset = _take_matrix(values, offset, n)
+    d_f, offset = _take_matrix(values, offset, n)
+    q1_f, offset = _take_matrix(values, offset, n)
+    q2_f, offset = _take_matrix(values, offset, n)
+    q3_f, offset = _take_matrix(values, offset, n)
+
+    a, b, d = _mb04cd_reference_inputs()
+    a_out, b_out, d_out, q1, q2, q3, info = mb04cd("I", "I", "I", a, b, d)
+
+    assert info == info_f == 0
+    assert offset == len(values)
+    np.testing.assert_allclose(a_out, a_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(b_out, b_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(d_out, d_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(q1, q1_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(q2, q2_f, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(q3, q3_f, rtol=1e-10, atol=1e-10)
+
 
 def test_mb04cd_basic():
     """
