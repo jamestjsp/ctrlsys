@@ -145,3 +145,7 @@
 {"type":"state","ts":"2026-05-10T01:32:56.268495Z","data":{"id":"KJDQQC","state":"doing","ts":"2026-05-10T01:32:56.268495Z"}}
 {"type":"result","ts":"2026-05-10T01:37:20.447774Z","data":{"task_id":"KJDQQC","summary":"Restored complex 2x2 DLAS2 singular-value test and added Fortran differential coverage.","path":"tests/python/test_mb03bd.py","sha256_at_attach":"ca686d4e448269f8ed7587a78f8e1dbe6270e1272d21f77183b837365a4bf870","mtime_at_attach":"2026-05-10T01:36:58.240150626Z","git_commit_at_attach":"0a2ef1fc8178a3cb8616c2f90078df7d0555f2ee","ts":"2026-05-10T01:37:20.447774Z"}}
 {"type":"state","ts":"2026-05-10T01:37:20.449052Z","data":{"id":"KJDQQC","state":"done","ts":"2026-05-10T01:37:20.449052Z"}}
+{"type":"claim","ts":"2026-05-10T01:37:40.814769Z","data":{"id":"ZL7ZB5","agent_id":"codex","ts":"2026-05-10T01:37:40.814769Z"}}
+{"type":"state","ts":"2026-05-10T01:37:40.814769Z","data":{"id":"ZL7ZB5","state":"doing","ts":"2026-05-10T01:37:40.814769Z"}}
+{"type":"result","ts":"2026-05-10T01:39:43.888097Z","data":{"task_id":"ZL7ZB5","summary":"Added JOBO=E left-weighted alphao\u003c1 Fortran differential for S/R/scales/info.","path":"tests/python/test_ab09iy.py","sha256_at_attach":"304b81ca2c60665b1b62ca3167819c6f84db28a8db6b87ffa92ae15a12c66f14","mtime_at_attach":"2026-05-10T01:39:26.210491285Z","git_commit_at_attach":"ec151967ba35cd5ccd14554fe518cdfa7bd9cba0","ts":"2026-05-10T01:39:43.888097Z"}}
+{"type":"state","ts":"2026-05-10T01:39:43.88946Z","data":{"id":"ZL7ZB5","state":"done","ts":"2026-05-10T01:39:43.88946Z"}}
