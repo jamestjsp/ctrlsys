@@ -3,6 +3,100 @@
 import numpy as np
 import pytest
 
+from fortran_reference import run_fortran_driver
+
+
+MB04HD_I_TRANSFORM_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n=4, lda=n, ldb=n, ldq1=n, ldq2=n, liwork=32, ldwork=2*n*n+272
+  integer info
+  integer iwork(liwork)
+  logical bwork(n/2)
+  double precision a(lda,n), b(ldb,n), q1(ldq1,n), q2(ldq2,n), dwork(ldwork)
+
+  a=0.0d0
+  b=0.0d0
+  q1=0.0d0
+  q2=0.0d0
+
+  a(1,1)=1.40d0
+  a(1,2)=-0.20d0
+  a(2,2)=0.90d0
+  a(3,3)=-0.70d0
+  a(3,4)=0.25d0
+  a(4,4)=1.10d0
+
+  b(1,3)=0.50d0
+  b(1,4)=-0.10d0
+  b(2,4)=0.70d0
+  b(3,1)=-0.30d0
+  b(3,2)=0.20d0
+  b(4,1)=0.15d0
+  b(4,2)=0.90d0
+
+  call MB04HD('I','I',n,a,lda,b,ldb,q1,ldq1,q2,ldq2,iwork,liwork,dwork,ldwork,bwork,info)
+
+  print '(I0)', info
+  print '(*(ES24.16,1X))', a
+  print '(*(ES24.16,1X))', b
+  print '(*(ES24.16,1X))', q1
+  print '(*(ES24.16,1X))', q2
+end program main
+"""
+
+
+def _mb04hd_reference_inputs():
+    n = 4
+    a = np.zeros((n, n), order='F')
+    b = np.zeros((n, n), order='F')
+
+    a[0, 0] = 1.40
+    a[0, 1] = -0.20
+    a[1, 1] = 0.90
+    a[2, 2] = -0.70
+    a[2, 3] = 0.25
+    a[3, 3] = 1.10
+
+    b[0, 2] = 0.50
+    b[0, 3] = -0.10
+    b[1, 3] = 0.70
+    b[2, 0] = -0.30
+    b[2, 1] = 0.20
+    b[3, 0] = 0.15
+    b[3, 1] = 0.90
+    return a, b
+
+
+def _take_matrix(values, offset, shape):
+    count = shape[0] * shape[1]
+    matrix = np.array(values[offset:offset + count]).reshape(shape, order='F')
+    return matrix, offset + count
+
+
+def test_mb04hd_i_transform_matches_fortran_reference(tmp_path):
+    """Compare COMPQ1/COMPQ2='I' outputs with the original SLICOT MB04HD."""
+    from ctrlsys import mb04hd
+
+    a, b = _mb04hd_reference_inputs()
+    a_out, b_out, q1, q2, info = mb04hd('I', 'I', a, b)
+
+    output = run_fortran_driver(MB04HD_I_TRANSFORM_CASE, tmp_path)
+    tokens = output.split()
+    assert info == int(tokens[0])
+
+    values = np.array(tokens[1:], dtype=float)
+    expected_a, offset = _take_matrix(values, 0, (4, 4))
+    expected_b, offset = _take_matrix(values, offset, (4, 4))
+    expected_q1, offset = _take_matrix(values, offset, (4, 4))
+    expected_q2, offset = _take_matrix(values, offset, (4, 4))
+    assert offset == len(values)
+
+    np.testing.assert_allclose(a_out, expected_a, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(b_out, expected_b, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(q1, expected_q1, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(q2, expected_q2, rtol=1e-12, atol=1e-12)
+
 
 def test_mb04hd_basic():
     """
