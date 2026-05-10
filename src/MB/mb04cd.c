@@ -175,6 +175,17 @@ void mb04cd(const char *compq1, const char *compq2, const char *compq3,
         memcpy(orig, a, nn * sizeof(f64));
         memcpy(orig + nn, b, nn * sizeof(f64));
         memcpy(orig + 2 * nn, d, nn * sizeof(f64));
+        for (i32 j = 0; j < n; j++) {
+            for (i32 i = 0; i < n; i++) {
+                bool diagonal_block = (i < m && j < m) || (i >= m && j >= m);
+                if (!diagonal_block) {
+                    orig[i + j * n] = ZERO;
+                    orig[nn + i + j * n] = ZERO;
+                } else {
+                    orig[2 * nn + i + j * n] = ZERO;
+                }
+            }
+        }
     }
 
     i32 ia11 = 0;

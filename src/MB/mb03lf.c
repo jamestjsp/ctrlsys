@@ -358,10 +358,10 @@ void mb03lf(const char *compq, const char *compu, const char *orth,
               &dwork[ih12], &n, &ZERO, &dwork[iz12], &n);
 
     if (lcmpu) {
-        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &u[mp1 * ldu], &ldu,
+        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &u[m * ldu], &ldu,
                   &dwork[iq3 + m], &n, &ZERO, &z[mp1 - 1], &ldz);
     } else {
-        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &q[mp1 * ldq], &ldq,
+        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &q[m * ldq], &ldq,
                   &dwork[iq3 + m], &n, &ZERO, &z[mp1 - 1], &ldz);
     }
     SLC_DGEMM("T", "N", &m, &m, &m, &ONE, &dwork[iq3], &n,
@@ -378,10 +378,10 @@ void mb03lf(const char *compq, const char *compu, const char *orth,
               &dwork[iq3 + nm], &n, &ZERO, &dwork[ih12 + nm], &n);
 
     if (lcmpu) {
-        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &u[mp1 * ldu], &ldu,
+        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &u[m * ldu], &ldu,
                   &dwork[iq3 + nmm], &n, &ZERO, &z[mp1 - 1], &ldz);
     } else {
-        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &q[mp1 * ldq], &ldq,
+        SLC_DGEMM("N", "N", &m, &m, &m, &ONE, &q[m * ldq], &ldq,
                   &dwork[iq3 + nmm], &n, &ZERO, &z[mp1 - 1], &ldz);
     }
     SLC_DGEMM("T", "N", &m, &m, &m, &ONE, &dwork[iq3], &n,
