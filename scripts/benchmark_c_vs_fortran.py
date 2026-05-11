@@ -1146,7 +1146,7 @@ def generate_markdown_report(
             reverse=True,
         )
         if fortran_faster:
-            lines.append("| Routine | Dataset | N | C11 (μs) | F77 (μs) | F77/C11 Ratio | Delta (μs) |")
+            lines.append("| Routine | Dataset | N | C11 (μs) | F77 (μs) | F77 Advantage | Delta (μs) |")
             lines.append("|---------|---------|---|----------|----------|---------------|------------|")
             for c in fortran_faster:
                 ratio = c.c_mean_us / c.f_mean_us if c.f_mean_us > 0 else float("inf")

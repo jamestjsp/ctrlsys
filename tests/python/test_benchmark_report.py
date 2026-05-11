@@ -22,7 +22,7 @@ def test_report_lists_fortran_faster_rows_sorted_by_advantage():
     report = bench.generate_markdown_report([], [], comparisons, {})
 
     assert "## Fortran Faster Rows" in report
-    assert "| Routine | Dataset | N | C11 (μs) | F77 (μs) | F77/C11 Ratio | Delta (μs) |" in report
+    assert "| Routine | Dataset | N | C11 (μs) | F77 (μs) | F77 Advantage | Delta (μs) |" in report
     first = report.index("| BB04AD | ex4.1 | 50 | 40.00 | 20.00 | 2.00x | 20.00 |")
     second = report.index("| BB03AD | ex4.2 | 30 | 12.00 | 10.00 | 1.20x | 2.00 |")
     assert first < second
