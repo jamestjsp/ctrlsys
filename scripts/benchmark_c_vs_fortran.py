@@ -1136,6 +1136,31 @@ def generate_markdown_report(
         lines.append("*No comparison data available*")
     lines.append("")
 
+    # Fortran-faster rows
+    lines.append("## Fortran Faster Rows")
+    lines.append("")
+    if comparisons:
+        fortran_faster = sorted(
+            (c for c in comparisons if c.speedup < 1.0),
+            key=lambda c: c.c_mean_us / c.f_mean_us if c.f_mean_us > 0 else float("inf"),
+            reverse=True,
+        )
+        if fortran_faster:
+            lines.append("| Routine | Dataset | N | C11 (μs) | F77 (μs) | F77 Advantage | Delta (μs) |")
+            lines.append("|---------|---------|---|----------|----------|---------------|------------|")
+            for c in fortran_faster:
+                ratio = c.c_mean_us / c.f_mean_us if c.f_mean_us > 0 else float("inf")
+                delta = c.c_mean_us - c.f_mean_us
+                lines.append(
+                    f"| {c.routine.upper()} | {c.dataset} | {c.n} | {c.c_mean_us:.2f} | "
+                    f"{c.f_mean_us:.2f} | {ratio:.2f}x | {delta:.2f} |"
+                )
+        else:
+            lines.append("*No rows where Fortran is faster.*")
+    else:
+        lines.append("*No comparison data available.*")
+    lines.append("")
+
     # System Information
     lines.append("## System Configuration")
     lines.append("")
