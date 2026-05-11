@@ -97,10 +97,11 @@ void bb04ad(const char* def, const i32* nr, f64* dpar, i32* ipar,
             SLC_DLASET("A", m, n, &neg_twobyn, &b_diag, b, &ldb);
             SLC_DLASET("A", n, n, &dbl0, &dbl0, x, &ldx);
 
+            temp = ONE;
             for (i = 0; i < *n; i++) {
-                temp = pow(dpar[0], (f64)i);
                 a[i + i * lda] = (temp - ONE) / (temp + ONE);
                 dwork[i] = ONE;
+                temp *= dpar[0];
             }
 
             SLC_DGEMV("T", n, n, &dbl1, a, &lda, dwork, &int1, &dbl0, &dwork[*n], &int1);
@@ -109,12 +110,16 @@ void bb04ad(const char* def, const i32* nr, f64* dpar, i32* ipar,
             SLC_DGEMV("N", n, n, &dbl1, a, &lda, dwork, &int1, &dbl0, &dwork[*n], &int1);
             SLC_DGER(n, n, &neg_twobyn, &dwork[*n], &int1, dwork, &int1, a, &lda);
 
+            f64 col_scale = ONE;
             for (j = 0; j < *n; j++) {
-                b[0 + j * ldb] = b[0 + j * ldb] / pow(dpar[1], (f64)j);
+                b[0 + j * ldb] = b[0 + j * ldb] * col_scale;
+                f64 row_scale = col_scale;
                 for (i = 0; i < *n; i++) {
-                    a[i + j * lda] = a[i + j * lda] * pow(dpar[1], (f64)(i - j));
+                    a[i + j * lda] = a[i + j * lda] * row_scale;
+                    row_scale *= dpar[1];
                 }
                 dwork[j] = ONE - TWO * (j % 2);
+                col_scale /= dpar[1];
             }
 
             SLC_DGEMV("T", n, n, &dbl1, a, &lda, dwork, &int1, &dbl0, &dwork[*n], &int1);
@@ -174,12 +179,16 @@ void bb04ad(const char* def, const i32* nr, f64* dpar, i32* ipar,
             SLC_DGEMV("N", n, n, &dbl1, a, &lda, dwork, &int1, &dbl0, &dwork[*n], &int1);
             SLC_DGER(n, n, &neg_twobyn, &dwork[*n], &int1, dwork, &int1, a, &lda);
 
+            f64 col_scale = ONE;
             for (j = 0; j < *n; j++) {
-                b[0 + j * ldb] = b[0 + j * ldb] / pow(dpar[1], (f64)j);
+                b[0 + j * ldb] = b[0 + j * ldb] * col_scale;
+                f64 row_scale = col_scale;
                 for (i = 0; i < *n; i++) {
-                    a[i + j * lda] = a[i + j * lda] * pow(dpar[1], (f64)(i - j));
+                    a[i + j * lda] = a[i + j * lda] * row_scale;
+                    row_scale *= dpar[1];
                 }
                 dwork[j] = ONE - TWO * (j % 2);
+                col_scale /= dpar[1];
             }
 
             SLC_DGEMV("T", n, n, &dbl1, a, &lda, dwork, &int1, &dbl0, &dwork[*n], &int1);
