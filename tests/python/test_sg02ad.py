@@ -426,3 +426,50 @@ def test_with_scaling():
 
     assert info == 0
     assert_allclose(x, x.T, atol=1e-10)
+
+
+@pytest.mark.parametrize("fact", ["C", "D", "B"])
+def test_scaling_factored_scalar(fact):
+    """SLICOT-Reference issue #46: SCAL='G' with factored Q/R gave wrong X."""
+    from ctrlsys import sg02ad
+
+    one = lambda: np.ones((1, 1), order='F')
+    result = sg02ad('C', 'B', fact, 'U', 'Z', 'G', 'S', 'R', 1, 1, 1,
+                    one(), one(), one(), one(), one(),
+                    np.zeros((1, 1), order='F'), 0.0)
+    assert result[-1] == 0
+    assert_allclose(result[0][0, 0], 1.0 + np.sqrt(2.0), rtol=1e-12)
+
+
+@pytest.mark.parametrize("dico", ["C", "D"])
+@pytest.mark.parametrize("fact", ["C", "D", "B"])
+@pytest.mark.parametrize("jobl", ["Z", "N"])
+def test_scaling_factored_matches_unfactored(dico, fact, jobl):
+    """Factored Q=C'C / R=D'D with SCAL='G' must match FACT='N' (issue #46)."""
+    from ctrlsys import sg02ad
+
+    rng = np.random.default_rng(46)
+    n, m, p = 3, 2, 4
+    a = np.asfortranarray(rng.standard_normal((n, n)))
+    e = np.asfortranarray(np.eye(n) + 0.1 * rng.standard_normal((n, n)))
+    b = np.asfortranarray(rng.standard_normal((n, m)))
+    c = np.asfortranarray(3.0 * rng.standard_normal((p, n)))
+    d = np.asfortranarray(2.0 * rng.standard_normal((p, m)))
+    l = np.asfortranarray(0.1 * rng.standard_normal((n, m)) if jobl == "N"
+                          else np.zeros((n, m)))
+    qf = np.asfortranarray(c.T @ c)
+    rf = np.asfortranarray(d.T @ d)
+    qin = c if fact in "CB" else qf
+    rin = d if fact in "DB" else rf
+
+    def solve(fact_, scal, q, r):
+        res = sg02ad(dico, 'B', fact_, 'U', jobl, scal, 'S', 'R', n, m, p,
+                     a.copy(order='F'), e.copy(order='F'), b.copy(order='F'),
+                     q.copy(order='F'), r.copy(order='F'), l.copy(order='F'),
+                     0.0)
+        assert res[-1] == 0
+        return res[0]
+
+    x_ref = solve('N', 'N', qf, rf)
+    x = solve(fact, 'G', qin, rin)
+    assert_allclose(x, x_ref, rtol=1e-9, atol=1e-10)
