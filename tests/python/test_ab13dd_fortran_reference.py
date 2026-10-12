@@ -100,3 +100,62 @@ def test_ab13dd_continuous_sorted_frequency_candidates_match_fortran(tmp_path):
     assert info == int(info_f)
     np.testing.assert_allclose(gpeak, [float(g0_f), float(g1_f)], rtol=1e-10, atol=1e-10)
     np.testing.assert_allclose(fpeak_out, [float(f0_f), float(f1_f)], rtol=1e-10, atol=1e-10)
+
+
+AB13DD_CONTINUOUS_NEAR_IMAGINARY_AXIS_CASE = r"""
+program main
+  implicit none
+  integer, parameter :: n = 2, m = 2, p = 1
+  integer, parameter :: liwork = 10000, ldwork = 200000, lcwork = 200000
+  integer info
+  integer iwork(liwork)
+  double precision a(n,n), e(n,n), b(n,m), c(p,n), d(p,m)
+  double precision fpeak(2), gpeak(2), dwork(ldwork)
+  double complex cwork(lcwork)
+
+  a = reshape([-2.4889490633960674d0, 14.151204920213479d0, &
+               -0.45268517580448026d0, 2.488948687554308d0], [n, n])
+  e = reshape([1.0d0, 0.0d0, 0.0d0, 1.0d0], [n, n])
+  b = reshape([1.1285243589918157d0, 0.0015972608597712022d0, &
+               1.0892273509168606d0, -0.14292729726530798d0], [n, m])
+  c = reshape([0.08227461492974421d0, 0.7333852036333043d0], [p, n])
+  d = 0.0d0
+  fpeak = [0.0d0, 1.0d0]
+  info = -99
+
+  call AB13DD('C', 'I', 'N', 'Z', n, m, p, fpeak, a, n, e, n, b, n, c, p, &
+       d, p, gpeak, 1.0d-9, iwork, dwork, ldwork, cwork, lcwork, info)
+
+  print '(I0,4(1X,ES26.17E3))', info, gpeak(1), gpeak(2), fpeak(1), fpeak(2)
+end program main
+"""
+
+
+def test_ab13dd_continuous_near_imaginary_axis_matches_fortran(tmp_path):
+    """Pre-DLAPY2 C (hypot) gave a peak gain off by ~1e-9 relative."""
+    from ctrlsys import ab13dd
+
+    output = run_fortran_driver(AB13DD_CONTINUOUS_NEAR_IMAGINARY_AXIS_CASE, tmp_path)
+    info_f, g0_f, g1_f, f0_f, f1_f = output.split()
+
+    n, m, p = 2, 2, 1
+    a = np.array([
+        [-2.4889490633960674, -0.45268517580448026],
+        [14.151204920213479, 2.488948687554308],
+    ], order="F")
+    e = np.eye(n, order="F")
+    b = np.array([
+        [1.1285243589918157, 1.0892273509168606],
+        [0.0015972608597712022, -0.14292729726530798],
+    ], order="F")
+    c = np.array([[0.08227461492974421, 0.7333852036333043]], order="F")
+    d = np.zeros((p, m), order="F")
+    fpeak = np.array([0.0, 1.0], order="F")
+
+    gpeak, fpeak_out, info = ab13dd(
+        "C", "I", "N", "Z", n, m, p, fpeak, a, e, b, c, d, 1e-9
+    )
+
+    assert info == int(info_f) == 0
+    np.testing.assert_allclose(gpeak, [float(g0_f), float(g1_f)], rtol=1e-10, atol=0)
+    np.testing.assert_allclose(fpeak_out, [float(f0_f), float(f1_f)], rtol=1e-10, atol=0)

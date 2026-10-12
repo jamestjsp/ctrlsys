@@ -403,7 +403,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
     if (discr) {
         gammal = zero;
         for (i32 i = 0; i < n; i++) {
-            f64 tm = hypot(dwork[ir + i], dwork[ii_local + i]);
+            f64 tm = SLC_DLAPY2(&dwork[ir + i], &dwork[ii_local + i]);
             if (fulle) {
                 f64 bti = dwork[ibt + i];
                 if (bti >= one || (bti < one && tm < safmax * bti)) {
@@ -416,7 +416,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
                 dwork[ii_local + i] = atan2(dwork[ii_local + i], dwork[ir + i]);
                 dwork[ir + i] = log(tm);
             }
-            dwork[im + i] = hypot(dwork[ir + i], dwork[ii_local + i]);
+            dwork[im + i] = SLC_DLAPY2(&dwork[ir + i], &dwork[ii_local + i]);
             f64 dist = fabs(one - tm);
             if (dist < wrmin) {
                 imin = ii_local + i;
@@ -427,7 +427,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
     } else {
         for (i32 i = 0; i < n; i++) {
             f64 tm = fabs(dwork[ir + i]);
-            dwork[im + i] = hypot(dwork[ir + i], dwork[ii_local + i]);
+            dwork[im + i] = SLC_DLAPY2(&dwork[ir + i], &dwork[ii_local + i]);
             if (fulle) {
                 f64 bti = dwork[ibt + i];
                 if (bti >= one || (bti < one && dwork[im + i] < safmax * bti)) {
@@ -802,7 +802,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
 
             wmax = zero;
             for (i32 i = 0; i < n2; i++) {
-                f64 tm = hypot(dwork[ir + i], dwork[ii_local + i]);
+                f64 tm = SLC_DLAPY2(&dwork[ir + i], &dwork[ii_local + i]);
                 f64 bt_i = dwork[ibt + i];
                 if (bt_i >= one || (bt_i < one && tm < safmax * bt_i)) {
                     tm = tm / bt_i;
@@ -970,7 +970,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
 
             wmax = zero;
             for (i32 i = 0; i < n; i++) {
-                f64 tm = hypot(wr[i], wi[i]);
+                f64 tm = SLC_DLAPY2(&wr[i], &wi[i]);
                 wmax = max_f64(wmax, tm);
             }
 
@@ -1136,7 +1136,7 @@ void ab13dd(const char *dico, const char *jobe, const char *equil,
 
             wmax = zero;
             for (i32 i = 0; i < n; i++) {
-                f64 tm = hypot(wr[i], wi[i]);
+                f64 tm = SLC_DLAPY2(&wr[i], &wi[i]);
                 wmax = max_f64(wmax, tm);
             }
 
