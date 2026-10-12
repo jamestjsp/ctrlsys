@@ -141,10 +141,6 @@ f64 ab13cd(i32 n, i32 m, i32 np, const f64 *a, i32 lda, const f64 *b, i32 ldb,
     }
     lwamax = max_i32((i32)dwork[iwrk] + iwrk, lwamax);
 
-    SLC_DLACPY("Full", &n, &n, a, &lda, &dwork[iw3], &n);
-    SLC_DGEES("N", "S", select_stable, &n, &dwork[iw3], &n, &sdim, dwork,
-              &dwork[iw2], dwork, &n, &dwork[iwrk], &(i32){ldwork - iwrk}, bwork, &info2);
-
     bool complx = false;
     for (i32 i = 0; i < n; i++) {
         if (dwork[iw2 + i] != zero) {
@@ -164,7 +160,7 @@ f64 ab13cd(i32 n, i32 m, i32 np, const f64 *a, i32 lda, const f64 *b, i32 ldb,
         f64 ratmax = zero;
         f64 wimax = zero;
         for (i32 i = 0; i < n; i++) {
-            f64 den = hypot(dwork[i], dwork[iw2 + i]);
+            f64 den = SLC_DLAPY2(&dwork[i], &dwork[iw2 + i]);
             f64 rat = fabs((dwork[iw2 + i] / dwork[i]) / den);
             if (ratmax < rat) {
                 ratmax = rat;
@@ -246,8 +242,12 @@ f64 ab13cd(i32 n, i32 m, i32 np, const f64 *a, i32 lda, const f64 *b, i32 ldb,
     f64 gamma = zero;
     f64 gammau = zero;
 
-    while (iter < MAXIT) {
+    for (;;) {
         iter++;
+        if (iter > MAXIT) {
+            *info = 2;
+            return zero;
+        }
         gamma = (one + two * tol) * gammal;
 
         for (i32 j = 0; j < m; j++) {
@@ -382,11 +382,6 @@ f64 ab13cd(i32 n, i32 m, i32 np, const f64 *a, i32 lda, const f64 *b, i32 ldb,
                 lcwamx = max_i32((i32)creal(cwork[icwrk]) + icwrk, lcwamx);
             }
         }
-    }
-
-    if (iter > MAXIT) {
-        *info = 2;
-        return zero;
     }
 
     f64 hnorm = (gammal + gammau) / two;

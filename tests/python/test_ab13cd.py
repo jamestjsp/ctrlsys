@@ -235,6 +235,12 @@ def test_ab13cd_resonance():
     For zeta=0.01, omega_n=1:
     Peak gain at resonance ~ 1/(2*zeta) = 50 at omega ~ 1
 
+    Rounding-sensitive: the first gamma lies just below the true peak, so
+    convergence hinges on SB02CX's |Re(lambda)| < 100*eps test for on-axis
+    Hamiltonian eigenvalues (~3e-14 here). Before the DLAPY2 fix, C's
+    hypot-based omega gave ~1e-14 real parts, stalled, and returned
+    gammal/2 = 25 on netlib LAPACK.
+
     Random seed: 123 (for reproducibility)
     """
     from ctrlsys import ab13cd
