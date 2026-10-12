@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 
-from fortran_reference import run_fortran_driver
+from fortran_reference import fortran_matrix, run_fortran_driver
 
 
 AB13DD_CONTINUOUS_SORTED_FREQUENCY_CASE = r"""
@@ -102,10 +104,14 @@ def test_ab13dd_continuous_sorted_frequency_candidates_match_fortran(tmp_path):
     np.testing.assert_allclose(fpeak_out, [float(f0_f), float(f1_f)], rtol=1e-10, atol=1e-10)
 
 
-AB13DD_CONTINUOUS_NEAR_IMAGINARY_AXIS_CASE = r"""
+
+def _ab13dd_near_imaginary_axis_driver(a, b, c) -> str:
+    n, m = b.shape
+    p = c.shape[0]
+    return f"""
 program main
   implicit none
-  integer, parameter :: n = 2, m = 2, p = 1
+  integer, parameter :: n = {n}, m = {m}, p = {p}
   integer, parameter :: liwork = 10000, ldwork = 200000, lcwork = 200000
   integer info
   integer iwork(liwork)
@@ -113,12 +119,10 @@ program main
   double precision fpeak(2), gpeak(2), dwork(ldwork)
   double complex cwork(lcwork)
 
-  a = reshape([-2.4889490633960674d0, 14.151204920213479d0, &
-               -0.45268517580448026d0, 2.488948687554308d0], [n, n])
-  e = reshape([1.0d0, 0.0d0, 0.0d0, 1.0d0], [n, n])
-  b = reshape([1.1285243589918157d0, 0.0015972608597712022d0, &
-               1.0892273509168606d0, -0.14292729726530798d0], [n, m])
-  c = reshape([0.08227461492974421d0, 0.7333852036333043d0], [p, n])
+{fortran_matrix("a", a)}{fortran_matrix("b", b)}{fortran_matrix("c", c)}
+  e = 0.0d0
+  e(1,1) = 1.0d0
+  e(2,2) = 1.0d0
   d = 0.0d0
   fpeak = [0.0d0, 1.0d0]
   info = -99
@@ -135,25 +139,18 @@ def test_ab13dd_continuous_near_imaginary_axis_matches_fortran(tmp_path):
     """Pre-DLAPY2 C (hypot) gave a peak gain off by ~1e-9 relative."""
     from ctrlsys import ab13dd
 
-    output = run_fortran_driver(AB13DD_CONTINUOUS_NEAR_IMAGINARY_AXIS_CASE, tmp_path)
+    with np.load(Path(__file__).parent / "data" / "ab13dd_near_imaginary_axis.npz") as data:
+        a, b, c = data["a"], data["b"], data["c"]
+    n, m = b.shape
+    p = c.shape[0]
+
+    output = run_fortran_driver(_ab13dd_near_imaginary_axis_driver(a, b, c), tmp_path)
     info_f, g0_f, g1_f, f0_f, f1_f = output.split()
 
-    n, m, p = 2, 2, 1
-    a = np.array([
-        [-2.4889490633960674, -0.45268517580448026],
-        [14.151204920213479, 2.488948687554308],
-    ], order="F")
-    e = np.eye(n, order="F")
-    b = np.array([
-        [1.1285243589918157, 1.0892273509168606],
-        [0.0015972608597712022, -0.14292729726530798],
-    ], order="F")
-    c = np.array([[0.08227461492974421, 0.7333852036333043]], order="F")
-    d = np.zeros((p, m), order="F")
-    fpeak = np.array([0.0, 1.0], order="F")
-
     gpeak, fpeak_out, info = ab13dd(
-        "C", "I", "N", "Z", n, m, p, fpeak, a, e, b, c, d, 1e-9
+        "C", "I", "N", "Z", n, m, p, np.array([0.0, 1.0], order="F"),
+        np.asfortranarray(a), np.eye(n, order="F"), np.asfortranarray(b),
+        np.asfortranarray(c), np.zeros((p, m), order="F"), 1e-9,
     )
 
     assert info == int(info_f) == 0
