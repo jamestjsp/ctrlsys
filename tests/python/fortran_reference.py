@@ -93,3 +93,12 @@ def reference_cdll():
     if lib.suffix == ".a":
         pytest.skip("SLICOT Fortran reference is a static library; ctypes needs a shared one")
     return ctypes.CDLL(str(lib))
+
+
+def fortran_matrix(name: str, x) -> str:
+    """Fortran assignment of a 2-D array with exact double literals."""
+    values = ", &\n       ".join(
+        repr(float(v)).replace("e", "d") + ("" if "e" in repr(float(v)) else "d0")
+        for v in x.ravel(order="F")
+    )
+    return f"  {name} = reshape([ &\n       {values}], [{x.shape[0]}, {x.shape[1]}])\n"
