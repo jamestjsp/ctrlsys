@@ -83,3 +83,12 @@ def run_fortran_driver(source: str, tmp_path: Path) -> str:
             + completed.stderr
         )
     return completed.stdout
+
+
+def fortran_matrix(name: str, x) -> str:
+    """Fortran assignment of a 2-D array with exact double literals."""
+    values = ", &\n       ".join(
+        repr(float(v)).replace("e", "d") + ("" if "e" in repr(float(v)) else "d0")
+        for v in x.ravel(order="F")
+    )
+    return f"  {name} = reshape([ &\n       {values}], [{x.shape[0]}, {x.shape[1]}])\n"

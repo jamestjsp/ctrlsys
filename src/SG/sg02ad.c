@@ -216,7 +216,7 @@ void sg02ad(
     f64 scale = ONE, rcondl = ZERO;
     i32 np = 0, mp = 0;
     char qtype = 'G', rtype = 'G';
-    f64 rnorm = ZERO;
+    f64 rnorm = ZERO, qscal = ONE, rscal = ONE;
 
     if (lscal) {
         if (lfacn || lfacr) {
@@ -247,10 +247,14 @@ void sg02ad(
             scale = ONE;
         }
 
+        // Factors C, D enter as C'C, D'D, so they are scaled by sqrt(scale).
+        qscal = (lfacn || lfacr) ? scale : sqrt(scale);
+        rscal = (lfacn || lfacq) ? scale : sqrt(scale);
+
         char qtype_str[2] = {qtype, '\0'};
         char rtype_str[2] = {rtype, '\0'};
-        SLC_DLASCL(qtype_str, &int0, &int0, &scale, &ONE, &np, &n, q, &ldq, &info1);
-        SLC_DLASCL(rtype_str, &int0, &int0, &scale, &ONE, &mp, &m, r, &ldr, &info1);
+        SLC_DLASCL(qtype_str, &int0, &int0, &qscal, &ONE, &np, &n, q, &ldq, &info1);
+        SLC_DLASCL(rtype_str, &int0, &int0, &rscal, &ONE, &mp, &m, r, &ldr, &info1);
         if (ljobln) {
             SLC_DLASCL("G", &int0, &int0, &scale, &ONE, &n, &m, l, &ldl, &info1);
         }
@@ -265,8 +269,8 @@ void sg02ad(
     if (lscal) {
         char qtype_str[2] = {qtype, '\0'};
         char rtype_str[2] = {rtype, '\0'};
-        SLC_DLASCL(qtype_str, &int0, &int0, &ONE, &scale, &np, &n, q, &ldq, &info1);
-        SLC_DLASCL(rtype_str, &int0, &int0, &ONE, &scale, &mp, &m, r, &ldr, &info1);
+        SLC_DLASCL(qtype_str, &int0, &int0, &ONE, &qscal, &np, &n, q, &ldq, &info1);
+        SLC_DLASCL(rtype_str, &int0, &int0, &ONE, &rscal, &mp, &m, r, &ldr, &info1);
         if (ljobln) {
             SLC_DLASCL("G", &int0, &int0, &ONE, &scale, &n, &m, l, &ldl, &info1);
         }
