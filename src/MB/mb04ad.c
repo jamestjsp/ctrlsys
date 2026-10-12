@@ -742,7 +742,7 @@ void mb04ad(const char *job, const char *compq1, const char *compq2,
             p = 0;
             for (i = 0; i < m; i++) {
                 if (beta[i] > ZERO) {
-                    temp = hypot(alphar[i], alphai[i]);
+                    temp = SLC_DLAPY2(&alphar[i], &alphai[i]);
                     if (temp > tmp1 && tmp2 >= beta[i]) {
                         tmp1 = temp;
                         tmp2 = beta[i];

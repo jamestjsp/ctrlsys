@@ -90,7 +90,7 @@ void mb03rd(
                     emax = fmax(emax, fabs(wr[l]));
                     l = l + 1;
                 } else {
-                    emax = fmax(emax, hypot(wr[l], wi[l]));
+                    emax = fmax(emax, SLC_DLAPY2(&wr[l], &wi[l]));
                     l = l + 2;
                 }
             }
@@ -113,7 +113,7 @@ void mb03rd(
             i32 l22 = l11 + da11;
             i32 k = l22;
             while (k < n) {
-                f64 edif = hypot(wr[l11] - wr[k], wi[l11] - wi[k]);
+                f64 edif = SLC_DLAPY2(&(f64){wr[l11] - wr[k]}, &(f64){wi[l11] - wi[k]});
                 if (edif <= thresh) {
                     i32 ku = k + 1;
                     mb03rx(jobv, n, l22 + 1, &ku, a, lda, x, ldx, wr, wi, dwork);
@@ -174,7 +174,7 @@ void mb03rd(
                 rav = rav / da11;
                 cav = cav / da11;
 
-                d = hypot(rav - wr[l22], cav - wi[l22]);
+                d = SLC_DLAPY2(&(f64){rav - wr[l22]}, &(f64){cav - wi[l22]});
                 kpos = l22;
 
                 i32 lpos;
@@ -185,7 +185,7 @@ void mb03rd(
                 }
 
                 while (lpos < n) {
-                    f64 c = hypot(rav - wr[lpos], cav - wi[lpos]);
+                    f64 c = SLC_DLAPY2(&(f64){rav - wr[lpos]}, &(f64){cav - wi[lpos]});
                     if (c < d) {
                         d = c;
                         kpos = lpos;
@@ -204,7 +204,7 @@ void mb03rd(
                 while (lpos < n) {
                     i32 ipos = l11;
                     while (ipos <= l22m1) {
-                        f64 c = hypot(wr[ipos] - wr[lpos], wi[ipos] - wi[lpos]);
+                        f64 c = SLC_DLAPY2(&(f64){wr[ipos] - wr[lpos]}, &(f64){wi[ipos] - wi[lpos]});
                         if (c < d) {
                             d = c;
                             kpos = lpos;
