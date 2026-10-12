@@ -2,26 +2,15 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 import pytest
 
 from fortran_reference import run_fortran_driver
 
 
-HTML_Z = np.array([
-    [0.0328 + 0.9611j, 0.6428 + 0.2585j, 0.7033 + 0.4254j, 0.2552 + 0.7053j],
-    [0.0501 + 0.2510j, 0.2827 + 0.8865j, 0.4719 + 0.5387j, 0.0389 + 0.5676j],
-    [0.5551 + 0.4242j, 0.0643 + 0.2716j, 0.1165 + 0.7875j, 0.9144 + 0.3891j],
-    [0.0539 + 0.7931j, 0.0408 + 0.2654j, 0.9912 + 0.0989j, 0.0991 + 0.6585j],
-])
-HTML_B = np.array([
-    [0.0547 + 0.8726j, 0.4008 + 0.8722j],
-    [0.7423 + 0.6166j, 0.2631 + 0.5872j],
-])
-HTML_FG = np.array([
-    [0.8740 + 0.0j, 0.3697 + 0.0j, 0.9178 + 0.6418j],
-    [0.7748 + 0.5358j, 0.1652 + 0.0j, 0.2441 + 0.0j],
-])
+HTML_EXAMPLE = Path(__file__).parent / "data" / "mb03fz_html_example.npz"
 
 
 def _random_case(seed, n):
@@ -108,7 +97,8 @@ def test_mb03fz_subspaces_match_fortran(tmp_path, case, orth):
     from ctrlsys import mb03fz
 
     if case == "html":
-        z, b, fg = HTML_Z, HTML_B, HTML_FG
+        with np.load(HTML_EXAMPLE) as data:
+            z, b, fg = data["z"], data["b"], data["fg"]
     elif case == "random8":
         z, b, fg = _random_case(2026, 8)
     elif case == "random12":
