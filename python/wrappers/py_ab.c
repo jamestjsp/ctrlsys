@@ -8227,7 +8227,7 @@ PyObject* py_ab13cd(PyObject* self, PyObject* args) {
     f64 *c_data = (f64*)PyArray_DATA(c_array);
     f64 *d_data = (f64*)PyArray_DATA(d_array);
 
-    f64 fpeak;
+    f64 fpeak = 0.0;
     i32 info;
 
     f64 hnorm = ab13cd(n, m, np, a_data, lda, b_data, ldb, c_data, ldc, d_data, ldd,
