@@ -13,10 +13,15 @@ Returns update matrices XA, XB, XG, XQ, YA, YB, YG, YQ such that:
     UU' * H * VV = [op(Aout)+U*YA'+XA*V'     G+U*YG'+XG*V'    ]
                    [  Qout+U*YQ'+XQ*V'   op(Bout)+U*YB'+XB*V' ]
 
-Uses numpy only - no scipy.
+Uses numpy; Fortran-reference checks call the SLICOT library via ctypes.
 """
 
+import ctypes
+
 import numpy as np
+import pytest
+
+from fortran_reference import reference_cdll
 
 
 def test_mb03xu_basic_ltra_false_ltrb_false():
@@ -305,3 +310,42 @@ def test_mb03xu_taul_reflector_property():
 
     for i in range(nb - 1):
         assert 0.0 <= TAUR[i] <= 2.0 + 1e-10, f"TAUR[{i}] = {TAUR[i]} out of range"
+
+
+@pytest.mark.parametrize("ltra,ltrb", [(False, False), (True, True), (True, False), (False, True)])
+@pytest.mark.parametrize("n,k,nb", [(4, 0, 1), (8, 3, 3), (24, 16, 16)])
+def test_mb03xu_matches_fortran_reference(ltra, ltrb, n, k, nb):
+    from ctrlsys import mb03xu
+
+    lib = reference_cdll()
+    rng = np.random.default_rng(100 + n + k + nb)
+    kn = k + n
+    a = np.asfortranarray(rng.standard_normal((n, kn) if ltra else (kn, n)))
+    b = np.asfortranarray(rng.standard_normal((kn, n) if ltrb else (n, kn)))
+    g = np.asfortranarray(rng.standard_normal((kn, kn)))
+    q = np.asfortranarray(rng.standard_normal((n, n)))
+
+    ref = [x.copy(order="F") for x in (a, b, g, q)]
+    lds = [n, kn, kn, n, kn, n, kn, n]
+    work = [np.zeros((ld, 2 * nb), order="F") for ld in lds]
+    vecs = [np.zeros(2 * nb), np.zeros(2 * nb), np.zeros(nb), np.zeros(nb)]
+
+    def i(v):
+        return ctypes.byref(ctypes.c_int(v))
+
+    def p(x):
+        return x.ctypes.data_as(ctypes.c_void_p)
+
+    args = [i(int(ltra)), i(int(ltrb)), i(n), i(k), i(nb)]
+    for x in ref:
+        args += [p(x), i(x.shape[0])]
+    for x, ld in zip(work, lds):
+        args += [p(x), i(ld)]
+    args += [p(x) for x in vecs] + [p(np.zeros(5 * nb))]
+    lib.mb03xu_(*args)
+
+    out = mb03xu(ltra, ltrb, n, k, nb, a.copy(order="F"), b.copy(order="F"),
+                 g.copy(order="F"), q.copy(order="F"))
+    for got, want in zip(out[:16], ref + work + vecs):
+        np.testing.assert_allclose(got, want, rtol=1e-12, atol=1e-12)
+
