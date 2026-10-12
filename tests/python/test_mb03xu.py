@@ -336,16 +336,64 @@ def test_mb03xu_matches_fortran_reference(ltra, ltrb, n, k, nb):
     def p(x):
         return x.ctypes.data_as(ctypes.c_void_p)
 
+    # MB03XU.f strides some B panels with LDQ; padding Q to LDB keeps the
+    # reference correct when LDB > N.
+    q_ref = np.zeros((b.shape[0], n), order="F")
+    q_ref[:n] = ref[3]
     args = [i(int(ltra)), i(int(ltrb)), i(n), i(k), i(nb)]
-    for x in ref:
+    for x in ref[:3] + [q_ref]:
         args += [p(x), i(x.shape[0])]
     for x, ld in zip(work, lds):
         args += [p(x), i(ld)]
     args += [p(x) for x in vecs] + [p(np.zeros(5 * nb))]
     lib.mb03xu_(*args)
+    ref[3] = q_ref[:n]
 
     out = mb03xu(ltra, ltrb, n, k, nb, a.copy(order="F"), b.copy(order="F"),
                  g.copy(order="F"), q.copy(order="F"))
     for got, want in zip(out[:16], ref + work + vecs):
         np.testing.assert_allclose(got, want, rtol=1e-12, atol=1e-12)
 
+
+
+@pytest.mark.parametrize("ltra,ltrb", [(False, False), (True, True), (True, False), (False, True)])
+def test_mb03xu_independent_of_padded_ldb(ltra, ltrb):
+    """B panels must use LDB (reference MB03XU.f wrongly passes LDQ)."""
+    from ctrlsys import _slicot, mb03xu
+
+    n, k, nb, pad = 10, 3, 4, 7
+    kn = k + n
+    rng = np.random.default_rng(31)
+    a = np.asfortranarray(rng.standard_normal((n, kn) if ltra else (kn, n)))
+    b = np.asfortranarray(rng.standard_normal((kn, n) if ltrb else (n, kn)))
+    g = np.asfortranarray(rng.standard_normal((kn, kn)))
+    q = np.asfortranarray(rng.standard_normal((n, n)))
+
+    want = mb03xu(ltra, ltrb, n, k, nb, a.copy(order="F"), b.copy(order="F"),
+                  g.copy(order="F"), q.copy(order="F"))
+
+    ldb = b.shape[0] + pad
+    b_pad = np.zeros((ldb, b.shape[1]), order="F")
+    b_pad[:b.shape[0]] = b
+    a_c, g_c, q_c = (x.copy(order="F") for x in (a, g, q))
+    lds = [n, kn, kn, n, kn, n, kn, n]
+    work = [np.zeros((ld, 2 * nb), order="F") for ld in lds]
+    vecs = [np.zeros(2 * nb), np.zeros(2 * nb), np.zeros(nb), np.zeros(nb)]
+
+    def p(x):
+        return x.ctypes.data_as(ctypes.c_void_p)
+
+    lib = ctypes.CDLL(_slicot.__file__)
+    args = [ctypes.c_bool(ltra), ctypes.c_bool(ltrb), ctypes.c_int32(n),
+            ctypes.c_int32(k), ctypes.c_int32(nb)]
+    for x, ld in ((a_c, a.shape[0]), (b_pad, ldb), (g_c, kn), (q_c, n)):
+        args += [p(x), ctypes.c_int32(ld)]
+    for x, ld in zip(work, lds):
+        args += [p(x), ctypes.c_int32(ld)]
+    args += [p(x) for x in vecs] + [p(np.zeros(5 * nb))]
+    lib.mb03xu.restype = None
+    lib.mb03xu(*args)
+
+    got = [a_c, b_pad[:b.shape[0]], g_c, q_c] + work + vecs
+    for x, y in zip(got, want[:16]):
+        np.testing.assert_allclose(x, y, rtol=1e-13, atol=1e-13)

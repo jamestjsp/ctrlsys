@@ -214,7 +214,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &i, &(i32){n - i}, &ONE, &A_(1, k + i + 1), &lda, &YB_(1, i + nb), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DGEMV("N", &i, &(i32){n - i - 1}, &ONE, &Q_(1, i + 2), &ldq, &B_(k + i + 2, i), &int1, &ZERO, &DW(nb2 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &i, &ONE, &YB_(i + 1, 1), &ldyb, &DW(nb2 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
-            SLC_DGEMV("T", &(i32){n - i - 1}, &(i32){i - 1}, &ONE, &B_(k + i + 2, 1), &ldq, &B_(k + i + 2, i), &int1, &ZERO, &DW(nb3 + 1), &int1);
+            SLC_DGEMV("T", &(i32){n - i - 1}, &(i32){i - 1}, &ONE, &B_(k + i + 2, 1), &ldb, &B_(k + i + 2, i), &int1, &ZERO, &DW(nb3 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &(i32){i - 1}, &ONE, &YB_(i + 1, nb1), &ldyb, &DW(nb3 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DSCAL(&(i32){n - i}, &(f64){-TAUR_(i)}, &YB_(i + 1, i + nb), &int1);
             SLC_DAXPY(&(i32){n - i}, &ONE, &YB_(i + 1, i + nb), &int1, &B_(k + i + 1, i + 1), &ldb);
@@ -450,7 +450,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("T", &i, &(i32){n - i}, &ONE, &A_(1, k + i + 1), &lda, &YB_(1, i + nb), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DGEMV("N", &i, &(i32){n - i - 1}, &ONE, &Q_(1, i + 2), &ldq, &B_(i, k + i + 2), &ldb, &ZERO, &DW(nb2 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &i, &ONE, &YB_(i + 1, 1), &ldyb, &DW(nb2 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
-            SLC_DGEMV("N", &(i32){i - 1}, &(i32){n - i - 1}, &ONE, &B_(1, k + i + 2), &ldq, &B_(i, k + i + 2), &ldb, &ZERO, &DW(nb3 + 1), &int1);
+            SLC_DGEMV("N", &(i32){i - 1}, &(i32){n - i - 1}, &ONE, &B_(1, k + i + 2), &ldb, &B_(i, k + i + 2), &ldb, &ZERO, &DW(nb3 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &(i32){i - 1}, &ONE, &YB_(i + 1, nb1), &ldyb, &DW(nb3 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DSCAL(&(i32){n - i}, &(f64){-TAUR_(i)}, &YB_(i + 1, i + nb), &int1);
             SLC_DAXPY(&(i32){n - i}, &ONE, &YB_(i + 1, i + nb), &int1, &B_(i + 1, k + i + 1), &int1);
@@ -686,7 +686,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &(i32){n - i}, &i, &ONE, &A_(k + i + 1, 1), &lda, &YB_(1, i + nb), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DGEMV("N", &i, &(i32){n - i - 1}, &ONE, &Q_(1, i + 2), &ldq, &B_(k + i + 2, i), &int1, &ZERO, &DW(nb2 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &i, &ONE, &YB_(i + 1, 1), &ldyb, &DW(nb2 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
-            SLC_DGEMV("T", &(i32){n - i - 1}, &(i32){i - 1}, &ONE, &B_(k + i + 2, 1), &ldq, &B_(k + i + 2, i), &int1, &ZERO, &DW(nb3 + 1), &int1);
+            SLC_DGEMV("T", &(i32){n - i - 1}, &(i32){i - 1}, &ONE, &B_(k + i + 2, 1), &ldb, &B_(k + i + 2, i), &int1, &ZERO, &DW(nb3 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &(i32){i - 1}, &ONE, &YB_(i + 1, nb1), &ldyb, &DW(nb3 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DSCAL(&(i32){n - i}, &(f64){-TAUR_(i)}, &YB_(i + 1, i + nb), &int1);
             SLC_DAXPY(&(i32){n - i}, &ONE, &YB_(i + 1, i + nb), &int1, &B_(k + i + 1, i + 1), &ldb);
@@ -922,7 +922,7 @@ void mb03xu(bool ltra, bool ltrb, i32 n, i32 k, i32 nb,
             SLC_DGEMV("N", &(i32){n - i}, &i, &ONE, &A_(k + i + 1, 1), &lda, &YB_(1, i + nb), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DGEMV("N", &i, &(i32){n - i - 1}, &ONE, &Q_(1, i + 2), &ldq, &B_(i, k + i + 2), &ldb, &ZERO, &DW(nb2 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &i, &ONE, &YB_(i + 1, 1), &ldyb, &DW(nb2 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
-            SLC_DGEMV("N", &(i32){i - 1}, &(i32){n - i - 1}, &ONE, &B_(1, k + i + 2), &ldq, &B_(i, k + i + 2), &ldb, &ZERO, &DW(nb3 + 1), &int1);
+            SLC_DGEMV("N", &(i32){i - 1}, &(i32){n - i - 1}, &ONE, &B_(1, k + i + 2), &ldb, &B_(i, k + i + 2), &ldb, &ZERO, &DW(nb3 + 1), &int1);
             SLC_DGEMV("N", &(i32){n - i}, &(i32){i - 1}, &ONE, &YB_(i + 1, nb1), &ldyb, &DW(nb3 + 1), &int1, &ONE, &YB_(i + 1, i + nb), &int1);
             SLC_DSCAL(&(i32){n - i}, &(f64){-TAUR_(i)}, &YB_(i + 1, i + nb), &int1);
             SLC_DAXPY(&(i32){n - i}, &ONE, &YB_(i + 1, i + nb), &int1, &B_(i + 1, k + i + 1), &int1);
