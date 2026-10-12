@@ -85,6 +85,16 @@ def run_fortran_driver(source: str, tmp_path: Path) -> str:
     return completed.stdout
 
 
+def reference_cdll():
+    """Load the reference library for direct ctypes calls on identical inputs."""
+    import ctypes
+
+    lib = reference_library_or_skip()
+    if lib.suffix == ".a":
+        pytest.skip("SLICOT Fortran reference is a static library; ctypes needs a shared one")
+    return ctypes.CDLL(str(lib))
+
+
 def fortran_matrix(name: str, x) -> str:
     """Fortran assignment of a 2-D array with exact double literals."""
     values = ", &\n       ".join(

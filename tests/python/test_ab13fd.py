@@ -41,7 +41,9 @@ def test_ab13fd_html_example():
     tol = 0.0
     beta, omega, info = ab13fd(a, tol)
 
-    assert info == 0
+    # INFO=1 still returns a valid upper bound; whether the final bound test
+    # passes depends on the LAPACK backend (Accelerate gives 1 in Fortran too).
+    assert info in (0, 1)
     # Beta matches exactly
     assert_allclose(beta, 0.39196472317e-02, rtol=1e-8)
     # Omega may differ slightly due to numerical optimization path
@@ -243,3 +245,37 @@ def test_ab13fd_complex_eigenvalues():
     a_complex = a.astype(complex) - 1j * omega * np.eye(2)
     sigma_min = np.min(np.linalg.svd(a_complex, compute_uv=False))
     assert_allclose(sigma_min, beta, rtol=1e-6)
+
+
+def test_ab13fd_html_example_matches_fortran_reference():
+    import ctypes
+
+    from ctrlsys import ab13fd
+    from fortran_reference import reference_cdll
+
+    lib = reference_cdll()
+    a = np.array([
+        [246.500, 242.500, 202.500, -197.500],
+        [-252.500, -248.500, -207.500, 202.500],
+        [-302.500, -297.500, -248.500, 242.500],
+        [-307.500, -302.500, -252.500, 246.500]
+    ], order='F', dtype=float)
+    n = a.shape[0]
+    ldwork = 10000
+    a_ref = a.copy(order='F')
+    beta_ref, omega_ref, info_ref = ctypes.c_double(), ctypes.c_double(), ctypes.c_int()
+    lib.ab13fd_(
+        ctypes.byref(ctypes.c_int(n)), a_ref.ctypes.data_as(ctypes.c_void_p),
+        ctypes.byref(ctypes.c_int(n)), ctypes.byref(beta_ref), ctypes.byref(omega_ref),
+        ctypes.byref(ctypes.c_double(0.0)),
+        np.zeros(ldwork).ctypes.data_as(ctypes.c_void_p), ctypes.byref(ctypes.c_int(ldwork)),
+        np.zeros(2 * ldwork).ctypes.data_as(ctypes.c_void_p), ctypes.byref(ctypes.c_int(ldwork)),
+        ctypes.byref(info_ref),
+    )
+
+    beta, omega, info = ab13fd(a.copy(order='F'), 0.0)
+
+    assert info == info_ref.value
+    assert_allclose(beta, beta_ref.value, rtol=1e-12)
+    assert_allclose(omega, omega_ref.value, rtol=1e-10)
+

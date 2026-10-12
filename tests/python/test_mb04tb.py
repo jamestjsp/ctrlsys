@@ -3,66 +3,40 @@ Tests for MB04TB: Symplectic URV decomposition (blocked version).
 
 MB04TB computes H = U * R * V^T where H is a 2N-by-2N Hamiltonian matrix.
 
-Uses numpy only - no scipy.
+Uses numpy; Fortran-reference checks call the SLICOT library via ctypes.
 """
+
+import ctypes
 
 import numpy as np
-from ctrlsys import mb04tb, mb04wr
-from fortran_reference import run_fortran_driver
+import pytest
+from ctrlsys import mb04tb, mb04ts, mb04wr
+from fortran_reference import reference_cdll
 
 
-MB04TB_BLOCKED_NN_CASE = r"""
-program main
-  implicit none
-  integer, parameter :: n = 40, ilo = 1, lda = n, ldb = n, ldg = n, ldq = n
-  integer, parameter :: ldwork = 30000
-  integer info, i, j
-  double precision a(lda,n), b(ldb,n), g(ldg,n), q(ldq,n)
-  double precision csl(2*n), csr(2*n-2), taul(n), taur(n-1), dwork(ldwork)
+def _fortran_mb04tb(trana, tranb, n, ilo, a, b, g, q, ldwork):
+    lib = reference_cdll()
+    a, b, g, q = (np.array(x, dtype=float, order="F") for x in (a, b, g, q))
+    csl = np.zeros(2 * n)
+    csr = np.zeros(2 * n)
+    taul = np.zeros(n)
+    taur = np.zeros(n)
+    dwork = np.zeros(ldwork)
+    info = ctypes.c_int(0)
 
-  do j = 1, n
-     do i = 1, n
-        a(i,j) = 0.10d0*sin(dble(3*i + 5*j)) + 0.03d0*cos(dble(i - 2*j))
-        b(i,j) = -(0.10d0*sin(dble(3*j + 5*i)) + 0.03d0*cos(dble(j - 2*i)))
-        g(i,j) = 0.04d0*cos(dble(i + j)) + 0.002d0*dble(i + j)
-        q(i,j) = 0.03d0*sin(dble(i*j)) + 0.001d0*dble(i + j)
-     end do
-  end do
+    def i(v):
+        return ctypes.byref(ctypes.c_int(v))
 
-  call MB04TB('N', 'N', n, ilo, a, lda, b, ldb, g, ldg, q, ldq, &
-       csl, csr, taul, taur, dwork, ldwork, info)
+    def p(x):
+        return x.ctypes.data_as(ctypes.c_void_p)
 
-  print '(I0)', info
-  print '(*(ES24.16,1X))', a
-  print '(*(ES24.16,1X))', b
-  print '(*(ES24.16,1X))', g
-  print '(*(ES24.16,1X))', q
-  print '(*(ES24.16,1X))', csl
-  print '(*(ES24.16,1X))', csr
-  print '(*(ES24.16,1X))', taul
-  print '(*(ES24.16,1X))', taur
-end program main
-"""
-
-
-def _mb04tb_blocked_inputs(n):
-    i = np.arange(1, n + 1, dtype=float)[:, None]
-    j = np.arange(1, n + 1, dtype=float)[None, :]
-    a = 0.10 * np.sin(3 * i + 5 * j) + 0.03 * np.cos(i - 2 * j)
-    b = -a.T
-    g = 0.04 * np.cos(i + j) + 0.002 * (i + j)
-    q = 0.03 * np.sin(i * j) + 0.001 * (i + j)
-    return (
-        a.astype(float, order="F"),
-        b.astype(float, order="F"),
-        g.astype(float, order="F"),
-        q.astype(float, order="F"),
+    lib.mb04tb_(
+        trana.encode(), tranb.encode(), i(n), i(ilo),
+        p(a), i(n), p(b), i(n), p(g), i(n), p(q), i(n),
+        p(csl), p(csr), p(taul), p(taur), p(dwork), i(ldwork),
+        ctypes.byref(info), ctypes.c_size_t(1), ctypes.c_size_t(1),
     )
-
-
-def _take_matrix(values, offset, n):
-    end = offset + n * n
-    return values[offset:end].reshape((n, n), order="F"), end
+    return a, b, g, q, csl, csr[:2 * n - 2], taul, taur[:n - 1], info.value
 
 
 def test_mb04tb_n5_basic():
@@ -340,39 +314,48 @@ def test_mb04tb_n20_blocked():
     assert residual / h_norm < 1e-10
 
 
-def test_mb04tb_blocked_path_matches_fortran_reference(tmp_path):
-    n = 40
-    a, b, g, q = _mb04tb_blocked_inputs(n)
+@pytest.mark.parametrize("trana,tranb", [("N", "N"), ("N", "T"), ("T", "N"), ("T", "T")])
+def test_mb04tb_blocked_path_matches_unblocked_mb04ts(trana, tranb):
+    """Blocked MB03XU panels must reproduce the unblocked MB04TS reduction."""
+    n, ilo, ldwork = 200, 2, 30000
+    rng = np.random.default_rng(7)
+    a, b, g, q = (np.asfortranarray(rng.standard_normal((n, n))) for _ in range(4))
 
-    output = run_fortran_driver(MB04TB_BLOCKED_NN_CASE, tmp_path)
-    values = np.fromstring(output, sep=" ")
-    assert int(values[0]) == 0
-    offset = 1
-    a_f, offset = _take_matrix(values, offset, n)
-    b_f, offset = _take_matrix(values, offset, n)
-    g_f, offset = _take_matrix(values, offset, n)
-    q_f, offset = _take_matrix(values, offset, n)
-    csl_f = values[offset:offset + 2 * n]
-    offset += 2 * n
-    csr_f = values[offset:offset + 2 * (n - 1)]
-    offset += 2 * (n - 1)
-    taul_f = values[offset:offset + n]
-    offset += n
-    taur_f = values[offset:offset + n - 1]
+    blk = mb04tb(trana, tranb, n, ilo, a.copy(order="F"), b.copy(order="F"),
+                 g.copy(order="F"), q.copy(order="F"), ldwork=ldwork)
+    unb = mb04ts(trana, tranb, n, ilo, a.copy(order="F"), b.copy(order="F"),
+                 g.copy(order="F"), q.copy(order="F"))
 
-    a_out, b_out, g_out, q_out, csl, csr, taul, taur, info = mb04tb(
-        "N", "N", n, 1, a, b, g, q, ldwork=30000
-    )
+    assert blk[-1] == 0
+    assert unb[-1] == 0
+    for got, want in zip(blk[:4], unb[:4]):
+        np.testing.assert_allclose(got, want, rtol=0, atol=1e-10)
+    np.testing.assert_allclose(blk[6][ilo - 1:], unb[6][ilo - 1:], rtol=0, atol=1e-10)
+    np.testing.assert_allclose(blk[7][ilo - 1:n - 1], unb[7][ilo - 1:n - 1], rtol=0, atol=1e-10)
 
-    assert info == 0
-    np.testing.assert_allclose(a_out, a_f, rtol=1e-11, atol=1e-11)
-    np.testing.assert_allclose(b_out, b_f, rtol=1e-11, atol=1e-11)
-    np.testing.assert_allclose(g_out, g_f, rtol=1e-11, atol=1e-11)
-    np.testing.assert_allclose(q_out, q_f, rtol=1e-11, atol=1e-11)
-    np.testing.assert_allclose(csl, csl_f, rtol=1e-11, atol=1e-11)
-    np.testing.assert_allclose(csr, csr_f, rtol=1e-11, atol=1e-11)
-    np.testing.assert_allclose(taul, taul_f, rtol=1e-11, atol=1e-11)
-    np.testing.assert_allclose(taur, taur_f, rtol=1e-11, atol=1e-11)
+
+@pytest.mark.parametrize("trana,tranb", [("N", "N"), ("N", "T"), ("T", "N"), ("T", "T")])
+def test_mb04tb_blocked_path_matches_fortran_reference(trana, tranb):
+    """
+    n=200, ilo=2, ldwork=30000 forces NB = ldwork/(16n+5) = 9 < NX, so the
+    MB03XU panel loop runs. Inputs are passed bit-identical to the reference.
+    """
+    n, ilo, ldwork = 200, 2, 30000
+    rng = np.random.default_rng(7)
+    a, b, g, q = (np.asfortranarray(rng.standard_normal((n, n))) for _ in range(4))
+
+    ref = _fortran_mb04tb(trana, tranb, n, ilo, a, b, g, q, ldwork)
+    out = mb04tb(trana, tranb, n, ilo, a.copy(order="F"), b.copy(order="F"),
+                 g.copy(order="F"), q.copy(order="F"), ldwork=ldwork)
+
+    assert ref[-1] == 0
+    assert out[-1] == 0
+    for got, want in zip(out[:4], ref[:4]):
+        np.testing.assert_allclose(got, want, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(out[4], ref[4], rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(out[5][:2 * n - 2], ref[5], rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(out[6], ref[6], rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(out[7][:n - 1], ref[7], rtol=1e-10, atol=1e-10)
 
 
 def test_mb04tb_hamiltonian_property():
