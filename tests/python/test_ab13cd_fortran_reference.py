@@ -34,6 +34,20 @@ end program main
 """
 
 
+def _run(a, b, c, d, tmp_path):
+    from ctrlsys import ab13cd
+
+    info_f, hnorm_f, fpeak_f = run_fortran_driver(
+        _ab13cd_driver(a, b, c, d), tmp_path
+    ).split()
+    n, m = b.shape
+    p = c.shape[0]
+    hnorm, fpeak, info = ab13cd(
+        n, m, p, *(np.asfortranarray(x, dtype=float) for x in (a, b, c, d)), 1e-9
+    )
+    return (int(info_f), float(hnorm_f), float(fpeak_f)), (info, hnorm, fpeak)
+
+
 DATA = Path(__file__).parent / "data" / "ab13cd_fortran_reference.npz"
 
 # half_norm_stall, lightly_damped_mode: hypot (vs DLAPY2) changed the initial
@@ -51,20 +65,44 @@ CASES = [
 
 @pytest.mark.parametrize("name", CASES)
 def test_ab13cd_hnorm_matches_fortran(name, tmp_path):
-    from ctrlsys import ab13cd
-
     with np.load(DATA) as data:
         a, b, c, d = (data[f"{name}_{k}"] for k in "abcd")
-    info_f, hnorm_f, fpeak_f = run_fortran_driver(_ab13cd_driver(a, b, c, d), tmp_path).split()
+    (info_f, hnorm_f, fpeak_f), (info, hnorm, fpeak) = _run(a, b, c, d, tmp_path)
 
-    n, m = b.shape
-    p = c.shape[0]
-    hnorm, fpeak, info = ab13cd(
-        n, m, p, np.asfortranarray(a), np.asfortranarray(b),
-        np.asfortranarray(c), np.asfortranarray(d), 1e-9,
-    )
-
-    assert info == int(info_f)
+    assert info == info_f
     if info == 0:
-        np.testing.assert_allclose(hnorm, float(hnorm_f), rtol=1e-10, atol=0)
-        np.testing.assert_allclose(fpeak, float(fpeak_f), rtol=1e-10, atol=0)
+        np.testing.assert_allclose(hnorm, hnorm_f, rtol=1e-10, atol=0)
+        np.testing.assert_allclose(fpeak, fpeak_f, rtol=1e-10, atol=0)
+
+
+def _oscillator(zeta):
+    a = np.array([[0.0, 1.0], [-1.0, -2.0 * zeta]])
+    b = np.array([[0.0], [1.0]])
+    c = np.array([[1.0, 0.0]])
+    d = np.array([[0.0]])
+    return a, b, c, d
+
+
+def _mimo(seed):
+    rng = np.random.default_rng(seed)
+    n, m, p = 5, 2, 3
+    a = rng.standard_normal((n, n))
+    a -= (np.max(np.linalg.eigvals(a).real) + 0.5) * np.eye(n)
+    return a, rng.standard_normal((n, m)), rng.standard_normal((p, n)), rng.standard_normal((p, m))
+
+
+# AB13CD stops when no Hamiltonian eigenvalue satisfies SB02CX's absolute
+# |Re| < 100*eps test, so cases whose on-axis eigenvalues carry ~1e-14 rounding
+# noise can legitimately flip between compilers/BLAS (e.g. clang FMA
+# contraction). These cases keep that noise well below the threshold.
+@pytest.mark.parametrize(
+    "system",
+    [_oscillator(0.1), _oscillator(0.3), _mimo(5)],
+    ids=["oscillator-0.1", "oscillator-0.3", "mimo-5"],
+)
+def test_ab13cd_matches_fortran(tmp_path, system):
+    (info_f, hnorm_f, fpeak_f), (info, hnorm, fpeak) = _run(*system, tmp_path)
+
+    assert info == info_f
+    np.testing.assert_allclose(hnorm, hnorm_f, rtol=1e-10)
+    np.testing.assert_allclose(fpeak, fpeak_f, rtol=1e-8)

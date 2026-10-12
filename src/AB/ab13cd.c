@@ -141,10 +141,6 @@ f64 ab13cd(i32 n, i32 m, i32 np, const f64 *a, i32 lda, const f64 *b, i32 ldb,
     }
     lwamax = max_i32((i32)dwork[iwrk] + iwrk, lwamax);
 
-    SLC_DLACPY("Full", &n, &n, a, &lda, &dwork[iw3], &n);
-    SLC_DGEES("N", "S", select_stable, &n, &dwork[iw3], &n, &sdim, dwork,
-              &dwork[iw2], dwork, &n, &dwork[iwrk], &(i32){ldwork - iwrk}, bwork, &info2);
-
     bool complx = false;
     for (i32 i = 0; i < n; i++) {
         if (dwork[iw2 + i] != zero) {

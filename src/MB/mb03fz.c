@@ -527,8 +527,8 @@ void mb03fz(const char *compq, const char *compu, const char *orth, i32 n,
 
             c128 tmp = fg[(j_idx + 1) + j_idx * ldfg];
             fg[(j_idx + 1) + j_idx * ldfg] = -fg[j_idx + (j_idx + 1) * ldfg];
-            i32 len_jp1 = j_idx + 1;
-            i32 ldj1 = j_idx + 1;
+            i32 len_jp1 = j_idx + 2;
+            i32 ldj1 = j_idx + 2;
             SLC_ZGEMM("N", "N", &len_jp1, &int2, &int2, &cone, &fg[0 + j_idx * ldfg],
                       &ldfg, &zwork[iq2], &int2, &czero, &zwork[iwrk_bl], &ldj1);
             SLC_ZLACPY("F", &len_jp1, &int2, &zwork[iwrk_bl], &ldj1, &fg[0 + j_idx * ldfg], &ldfg);
@@ -570,7 +570,7 @@ void mb03fz(const char *compq, const char *compu, const char *orth, i32 n,
             j_idx++;
         }
 
-        if (j_idx >= j2 && j_idx <= n) {
+        if (j_idx + 1 >= j2 && j_idx < n) {
             iqb_bl = iev_bl + 4;
             iub_bl = iqb_bl + 4 * m;
 

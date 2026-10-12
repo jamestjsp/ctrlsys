@@ -110,13 +110,13 @@ void mb03iz(const char *compq, const char *compu, i32 n, c128 *a, i32 lda,
         if (test_val <= -eps * nrma) {
             for (i32 j = k - 1; j >= mm; j--) {
                 hlp[0] = conj(c[j + j * ldc]);
-                hlp[1] = conj(c[(j + 1) + j * ldc]);
+                hlp[2] = conj(c[(j + 1) + j * ldc]);
                 hlp[3] = conj(c[(j + 1) + (j + 1) * ldc]);
 
                 mb03cz(hlp, hlp_ld, &a[j + j * lda], lda, &b[j + j * ldb], ldb,
                        &co1, &si1, &co2, &si2, &co3, &si3);
 
-                i32 len_j = j;
+                i32 len_j = j + 1;
                 SLC_ZROT(&len_j, &a[0 + (j + 1) * lda], &int1, &a[0 + j * lda],
                          &int1, &co1, &si1);
                 a[j + j * lda] = co2 * a[j + j * lda] +
@@ -161,8 +161,8 @@ void mb03iz(const char *compq, const char *compu, i32 n, c128 *a, i32 lda,
                          &f[(j + 1) + (j + 1) * ldf], &ldf, &co3, &neg_si3);
 
                 if (lcmpq) {
-                    SLC_ZROT(&upds, &q[iupd + (j + 1) * ldq], &int1,
-                             &q[iupd + j * ldq], &int1, &co1, &si1);
+                    SLC_ZROT(&upds, &q[0 + (j + 1) * ldq], &int1,
+                             &q[0 + j * ldq], &int1, &co1, &si1);
                     SLC_ZROT(&upds, &q[iupd + (m + j + 1) * ldq], &int1,
                              &q[iupd + (m + j) * ldq], &int1, &co3, &si3);
                 }
@@ -190,13 +190,13 @@ void mb03iz(const char *compq, const char *compu, i32 n, c128 *a, i32 lda,
         if (test_val >= eps * nrma) {
             for (i32 j = k; j < mp - 2; j++) {
                 hlp[0] = conj(c[j + j * ldc]);
-                hlp[1] = conj(c[(j + 1) + j * ldc]);
+                hlp[2] = conj(c[(j + 1) + j * ldc]);
                 hlp[3] = conj(c[(j + 1) + (j + 1) * ldc]);
 
                 mb03cz(hlp, hlp_ld, &a[j + j * lda], lda, &b[j + j * ldb], ldb,
                        &co1, &si1, &co2, &si2, &co3, &si3);
 
-                i32 len_j = j;
+                i32 len_j = j + 1;
                 SLC_ZROT(&len_j, &a[0 + (j + 1) * lda], &int1, &a[0 + j * lda],
                          &int1, &co1, &si1);
                 a[j + j * lda] = co2 * a[j + j * lda] +
@@ -241,8 +241,8 @@ void mb03iz(const char *compq, const char *compu, i32 n, c128 *a, i32 lda,
                          &f[(j + 1) + (j + 1) * ldf], &ldf, &co3, &neg_si3);
 
                 if (lcmpq) {
-                    SLC_ZROT(&upds, &q[iupd + (j + 1) * ldq], &int1,
-                             &q[iupd + j * ldq], &int1, &co1, &si1);
+                    SLC_ZROT(&upds, &q[0 + (j + 1) * ldq], &int1,
+                             &q[0 + j * ldq], &int1, &co1, &si1);
                     SLC_ZROT(&upds, &q[iupd + (m + j + 1) * ldq], &int1,
                              &q[iupd + (m + j) * ldq], &int1, &co3, &si3);
                 }
@@ -298,13 +298,13 @@ void mb03iz(const char *compq, const char *compu, i32 n, c128 *a, i32 lda,
         mm++;
         for (i32 j = m - 2; j >= mm - 1; j--) {
             hlp[0] = conj(c[j + j * ldc]);
-            hlp[1] = conj(c[(j + 1) + j * ldc]);
+            hlp[2] = conj(c[(j + 1) + j * ldc]);
             hlp[3] = conj(c[(j + 1) + (j + 1) * ldc]);
 
             mb03cz(hlp, hlp_ld, &a[j + j * lda], lda, &b[j + j * ldb], ldb,
                    &co1, &si1, &co2, &si2, &co3, &si3);
 
-            i32 len_j = j;
+            i32 len_j = j + 1;
             SLC_ZROT(&len_j, &a[0 + (j + 1) * lda], &int1, &a[0 + j * lda],
                      &int1, &co1, &si1);
             a[j + j * lda] = co2 * a[j + j * lda] +

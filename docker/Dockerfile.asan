@@ -20,6 +20,6 @@ ENV PATH="/root/.local/bin:$PATH"
 RUN uv venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 ENV VIRTUAL_ENV="/opt/venv"
-RUN uv pip install numpy pytest scipy setuptools meson-python meson ninja
+RUN uv pip install numpy pytest pytest-xdist scipy setuptools meson-python meson ninja
 
 WORKDIR /workspace
