@@ -249,12 +249,14 @@ f64 ab13cd(i32 n, i32 m, i32 np, const f64 *a, i32 lda, const f64 *b, i32 ldb,
             return zero;
         }
         gamma = (one + two * tol) * gammal;
+        // Separate statement blocks FMA contraction; gfortran -O3 reference hoists GAMMA**2 and rounds it.
+        f64 gamma2 = gamma * gamma;
 
         for (i32 j = 0; j < m; j++) {
             for (i32 i = 0; i <= j; i++) {
                 dwork[iw4_ + i + j * m] = -dwork[iw2 + i + j * m];
             }
-            dwork[iw4_ + j + j * m] = gamma * gamma - dwork[iw2 + j + j * m];
+            dwork[iw4_ + j + j * m] = gamma2 - dwork[iw2 + j + j * m];
         }
 
         SLC_DLACPY("Full", &m, &n, dwork, &m, &dwork[iw5_], &m);
@@ -276,7 +278,7 @@ f64 ab13cd(i32 n, i32 m, i32 np, const f64 *a, i32 lda, const f64 *b, i32 ldb,
             for (i32 i = 0; i <= j; i++) {
                 dwork[iw7 + i + j * np] = -dwork[iw3_ + i + j * np];
             }
-            dwork[iw7 + j + j * np] = gamma * gamma - dwork[iw3_ + j + j * np];
+            dwork[iw7 + j + j * np] = gamma2 - dwork[iw3_ + j + j * np];
         }
 
         SLC_DLACPY("Full", &np, &n, c, &ldc, &dwork[iw8], &np);
